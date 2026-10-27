@@ -1,0 +1,246 @@
+.notion-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  color: #e0e0e0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* HEADER */
+.notion-page__header {
+  margin-bottom: 30px;
+}
+
+.notion-page__icon {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.notion-page__title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.notion-page__sub-header {
+  margin-bottom: 24px;
+}
+
+.notion-btn-text {
+  color: #9b9b9b;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.notion-btn-text:hover {
+  color: #fff;
+}
+
+.notion-comments {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.notion-comments__label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9b9b9b;
+}
+
+.notion-comments__input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+}
+
+.notion-avatar {
+  font-size: 20px;
+  background: #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.notion-placeholder {
+  color: #6b6b6b;
+  font-size: 14px;
+}
+
+.notion-divider {
+  border: 0;
+  border-top: 1px solid #2e2e2e;
+  margin: 30px 0;
+}
+
+/* DATABASE TABLE */
+.notion-database__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.notion-database__title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.notion-database__filters {
+  display: flex;
+  gap: 8px;
+}
+
+.notion-chip {
+  background: transparent;
+  border: 1px solid #2e2e2e;
+  color: #9b9b9b;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.notion-chip:hover,
+.notion-chip.is-active {
+  background: #2e2e2e;
+  color: #fff;
+}
+
+.notion-database__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #9b9b9b;
+}
+
+.notion-icon-btn {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+}
+.notion-icon-btn:hover {
+  background: #2e2e2e;
+}
+
+.notion-btn-new {
+  background: #2383e2; /* Azul Notion */
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.notion-btn-new:hover {
+  background: #1b6bba;
+}
+
+/* TABLE STYLES */
+.notion-table-container {
+  border-top: 1px solid #2e2e2e;
+  border-left: 1px solid #2e2e2e;
+  border-right: 1px solid #2e2e2e;
+  border-radius: 4px;
+  background: #191919;
+}
+
+.notion-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.notion-table th {
+  border-bottom: 1px solid #2e2e2e;
+  border-right: 1px solid #2e2e2e;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #9b9b9b;
+}
+
+.notion-col-title {
+  width: 40%;
+}
+.notion-col-add {
+  color: #6b6b6b !important;
+}
+
+.notion-table td {
+  border-bottom: 1px solid #2e2e2e;
+  border-right: 1px solid #2e2e2e;
+  padding: 8px 12px;
+  height: 40px;
+}
+
+.notion-row-add td {
+  border-bottom: 1px solid #2e2e2e;
+  padding: 8px 12px;
+  color: #6b6b6b;
+  font-size: 14px;
+  cursor: pointer;
+}
+.notion-row-add:hover {
+  background: #202020;
+}
+
+.notion-cell-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.notion-table tbody tr:hover {
+  background: #202020;
+}
+
+.notion-cell-icon {
+  font-size: 16px;
+}
+.notion-cell-name {
+  color: #e0e0e0;
+  font-size: 14px;
+}
+
+/* Botón Abrir al hacer hover */
+.notion-open-btn {
+  margin-left: auto;
+  background: #2e2e2e;
+  border: 1px solid #3d3d3d;
+  color: #9b9b9b;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.notion-open-btn:hover {
+  background: #3d3d3d;
+  color: #fff;
+}
+.notion-open-icon {
+  font-size: 12px;
+}

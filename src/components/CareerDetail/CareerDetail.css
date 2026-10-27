@@ -1,0 +1,79 @@
+.detail-page {
+  padding-top: 20px;
+}
+
+.notion-back-btn {
+  background: none;
+  border: none;
+  color: #9b9b9b;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+.notion-back-btn:hover {
+  background: #2e2e2e;
+  color: #fff;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-icon {
+  font-size: 40px;
+}
+
+.detail-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.detail-sub-header {
+  display: grid;
+  grid-template-columns: 35% 1fr;
+  padding: 8px 12px;
+  border-bottom: 1px solid #2e2e2e;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9b9b9b;
+}
+
+.notion-table tbody tr:hover {
+  background: #202020;
+}
+
+.notion-cell-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+}
+
+.notion-open-btn {
+  background: #2e2e2e;
+  border: 1px solid #3d3d3d;
+  color: #9b9b9b;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+  white-space: nowrap;
+}
+
+.notion-open-btn:hover {
+  background: #3d3d3d;
+  color: #fff;
+}
