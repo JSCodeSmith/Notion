@@ -6,9 +6,15 @@ import './MetodoFindDoc.css' // reutiliza los mismos estilos (.doc-card, .quiz-b
 import SimuladorMutador from '../SimuladorMutador/SimuladorMutador'
 import SimuladorUtilidad from '../SimuladorUtilidad/SimuladorUtilidad'
 import SimuladorString from '../SimuladorString/SimuladorString'
+import SimuladorNumero from '../SimuladorNumero/SimuladorNumero'
+import SimuladorFecha from '../SimuladorFecha/SimuladorFecha'
 
-/* Elige el simulador según el campo `simulador` del método */
-function Simulador({ metodo }) {
+/* Elige el simulador según el campo `simulador` del método.
+   `simuladores` permite inyectar simuladores propios desde otras secciones. */
+function Simulador({ metodo, simuladores = {} }) {
+  const Propio = simuladores[metodo.simulador]
+  if (Propio) return <Propio key={metodo.id} metodoId={metodo.id} />
+
   switch (metodo.simulador) {
     case 'mutador':
       return <SimuladorMutador key={metodo.id} metodoId={metodo.id} />
@@ -16,6 +22,10 @@ function Simulador({ metodo }) {
       return <SimuladorUtilidad key={metodo.id} metodoId={metodo.id} />
     case 'string':
       return <SimuladorString key={metodo.id} metodoId={metodo.id} />
+    case 'numero':
+      return <SimuladorNumero key={metodo.id} metodoId={metodo.id} />
+    case 'fecha':
+      return <SimuladorFecha key={metodo.id} metodoId={metodo.id} />
     default:
       return <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
   }
@@ -108,7 +118,7 @@ function Quiz({ preguntas }) {
   )
 }
 
-export default function MetodoDoc({ metodo, onBack }) {
+export default function MetodoDoc({ metodo, onBack, simuladores }) {
   return (
     <article className="notion-page detail-page">
       <button type="button" className="notion-back-btn" onClick={onBack}>
@@ -151,7 +161,7 @@ export default function MetodoDoc({ metodo, onBack }) {
 
         {metodo.simulador && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-            <Simulador metodo={metodo} />
+            <Simulador metodo={metodo} simuladores={simuladores} />
           </div>
         )}
 

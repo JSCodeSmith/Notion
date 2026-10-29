@@ -4,6 +4,7 @@ import { METODOS_UTILIDADES } from "./metodosUtilidades";
 import { METODOS_ITERATIVOS } from "./metodosIterativos";
 
 import { METODOS_STRINGS_DOCS } from "./metodosStrings";
+import { METODOS_NUMEROS_DOCS } from "./metodosNumeros";
 const METODOS_BUSQUEDA = {
   findindex: {
     id: "findindex",
@@ -783,4 +784,5 @@ export const METODOS_DOCS = {
   ...METODOS_TRANSFORMACION,
   ...METODOS_ITERATIVOS,
   ...METODOS_STRINGS_DOCS,
+  ...METODOS_NUMEROS_DOCS,
 };

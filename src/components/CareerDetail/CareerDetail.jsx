@@ -2,16 +2,30 @@ import { Fragment, useEffect, useState } from 'react'
 import { METODOS_ARRAYS } from '../../data/carreras'
 import { METODOS_DOCS } from '../../data/metodosDocs'
 import { METODOS_STRINGS } from '../../data/metodosStrings'
+import { METODOS_NUMEROS } from '../../data/metodosNumeros'
+import { METODOS_FECHAS, METODOS_FECHAS_DOCS } from '../../data/metodosFechas'
+import APIs from '../../APIs/APIs'
+import { API_GRUPOS } from '../../APIs/registry'
 import MetodoFindDoc from './MetodoFindDoc'
 import MetodoDoc from './MetodoDoc'
 import './CareerDetail.css'
 import './LenguajeTabs.css'
 
 const STRING_IDS = new Set(METODOS_STRINGS.flatMap((g) => g.metodos.map((m) => m.id)))
+const NUMERO_IDS = new Set(METODOS_NUMEROS.flatMap((g) => g.metodos.map((m) => m.id)))
+const FECHA_IDS = new Set(METODOS_FECHAS.flatMap((g) => g.metodos.map((m) => m.id)))
+const API_IDS = new Set(
+  API_GRUPOS.flatMap((g) => g.conceptos.map((c) => c.id))
+)
+const apiGrupoDe = (id) =>
+  API_GRUPOS.find((g) => g.conceptos.some((c) => c.id === id)) ?? null
 
 const SUBTABS = [
   { id: 'arrays', label: 'Arrays', icon: '📚', grupos: METODOS_ARRAYS },
   { id: 'strings', label: 'Strings', icon: '🔤', grupos: METODOS_STRINGS },
+  { id: 'numeros', label: 'Números', icon: '🔢', grupos: METODOS_NUMEROS },
+  { id: 'fechas', label: 'Fechas', icon: '🗓️', grupos: METODOS_FECHAS },
+  { id: 'apis', label: 'APIs', icon: '🔌', grupos: [] },
 ]
 
 function Breadcrumb({ items }) {
@@ -44,14 +58,38 @@ export default function CareerDetail({
   breadcrumb,
 }) {
   const isLenguajes = carrera.id === 'lenguajes'
-  const [subtab, setSubtab] = useState('arrays')
+  const [subtab, setSubtab] = useState(() => {
+    if (metodoActivo && API_IDS.has(metodoActivo)) return 'apis'
+    if (metodoActivo && FECHA_IDS.has(metodoActivo)) return 'fechas'
+    if (metodoActivo && NUMERO_IDS.has(metodoActivo)) return 'numeros'
+    return metodoActivo && STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays'
+  })
+  const [apiGrupoId, setApiGrupoId] = useState(() =>
+    metodoActivo && API_IDS.has(metodoActivo)
+      ? (apiGrupoDe(metodoActivo)?.id ?? null)
+      : null
+  )
 
   useEffect(() => {
     if (!metodoActivo) return
+    if (API_IDS.has(metodoActivo)) {
+      setSubtab('apis')
+      const grupo = apiGrupoDe(metodoActivo)
+      if (grupo) setApiGrupoId(grupo.id)
+      return
+    }
+    if (FECHA_IDS.has(metodoActivo)) {
+      setSubtab('fechas')
+      return
+    }
+    if (NUMERO_IDS.has(metodoActivo)) {
+      setSubtab('numeros')
+      return
+    }
     setSubtab(STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays')
   }, [metodoActivo])
-
-  const tieneDoc = (id) => id === 'find' || Boolean(METODOS_DOCS[id])
+  const tieneDoc = (id) =>
+    id === 'find' || Boolean(METODOS_DOCS[id]) || Boolean(METODOS_FECHAS_DOCS[id])
 
   const volverALista = () => onMetodoChange(null)
 
@@ -59,12 +97,32 @@ export default function CareerDetail({
     return <MetodoFindDoc onBack={volverALista} />
   }
 
-  if (metodoActivo && METODOS_DOCS[metodoActivo]) {
-    return <MetodoDoc metodo={METODOS_DOCS[metodoActivo]} onBack={volverALista} />
+  const docActivo = metodoActivo
+    ? METODOS_DOCS[metodoActivo] ?? METODOS_FECHAS_DOCS[metodoActivo]
+    : null
+
+  if (docActivo) {
+    return <MetodoDoc metodo={docActivo} onBack={volverALista} />
   }
 
   const crumbs = breadcrumb ?? [{ label: '← Volver', onClick: onBack }]
   const subActual = SUBTABS.find((t) => t.id === subtab) ?? SUBTABS[0]
+
+  const mostrarApiCompleta =
+    subActual.id === 'apis' &&
+    Boolean(apiGrupoId || (metodoActivo && API_IDS.has(metodoActivo)))
+
+  if (mostrarApiCompleta) {
+    return (
+      <APIs
+        grupoId={apiGrupoId}
+        onGrupoChange={setApiGrupoId}
+        metodoActivo={metodoActivo}
+        onMetodoChange={onMetodoChange}
+        breadcrumb={[...crumbs, { icon: '🔌', label: 'APIs' }]}
+      />
+    )
+  }
 
   return (
     <article className="notion-page detail-page">
@@ -103,7 +161,10 @@ export default function CareerDetail({
                 role="tab"
                 aria-selected={subActual.id === t.id}
                 className={`lang-subtab ${subActual.id === t.id ? 'is-active' : ''}`}
-                onClick={() => setSubtab(t.id)}
+                onClick={() => {
+                  setSubtab(t.id)
+                  setApiGrupoId(null)
+                }}
               >
                 <span className="lang-subtab__icon">{t.icon}</span>
                 <span>{t.label}</span>
@@ -111,7 +172,16 @@ export default function CareerDetail({
             ))}
           </div>
 
-          {subActual.grupos.map((grupo) => (
+          {subActual.id === 'apis' ? (
+            <APIs
+              embedded
+              grupoId={apiGrupoId}
+              onGrupoChange={setApiGrupoId}
+              metodoActivo={metodoActivo}
+              onMetodoChange={onMetodoChange}
+            />
+          ) : (
+            subActual.grupos.map((grupo) => (
             <section key={grupo.seccion} className="notion-section">
               <h2 className="notion-section-title">{grupo.seccion}</h2>
 
@@ -159,7 +229,8 @@ export default function CareerDetail({
                 </table>
               </div>
             </section>
-          ))}
+          ))
+          )}
         </div>
       ) : (
         <div className="notion-database">

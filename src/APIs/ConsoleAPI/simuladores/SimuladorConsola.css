@@ -1,0 +1,614 @@
+.csim-sim {
+  margin: 0;
+}
+
+.csim-sim .sim-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.csim-sim .sim-header h3 code {
+  color: #ff8a8a;
+  font-family: var(--font-mono);
+}
+
+.csim-intro {
+  margin: 0;
+  color: #8f8f98;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.csim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.csim-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8f8f98;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.csim-input {
+  min-width: 140px;
+  height: 32px;
+}
+
+.csim-input--short {
+  width: 82px;
+  min-width: 82px;
+}
+
+select.csim-input {
+  cursor: pointer;
+}
+
+.csim-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #3d3d3d;
+  border-radius: 4px;
+  background: #202020;
+  color: #cfcfd6;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.csim-check input {
+  accent-color: #2383e2;
+  cursor: pointer;
+}
+
+.csim-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.csim-code {
+  margin-bottom: 16px;
+}
+
+/* ---------- Terminal ---------- */
+.csim-terminal {
+  background: #0a0a0b;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.csim-term-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #2e2e2e;
+  color: #9b9ba4;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.csim-term-tag {
+  padding: 1px 8px;
+  border: 1px solid #34343a;
+  border-radius: 999px;
+  background: #232327;
+  color: #8f8f98;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.csim-term-body {
+  min-height: 74px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  color: #e0e0e0;
+  overflow-wrap: anywhere;
+}
+
+.csim-empty {
+  color: #6c6c76;
+  font-family: var(--font-sans);
+}
+
+.csim-line {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 2px 0;
+  white-space: pre-wrap;
+}
+
+.csim-line__icon {
+  flex-shrink: 0;
+}
+
+.csim-line--log {
+  color: #e0e0e0;
+}
+
+.csim-line--error {
+  color: #ff7b72;
+}
+
+.csim-line--warn {
+  color: #e3b341;
+}
+
+.csim-line--info {
+  color: #79c0ff;
+}
+
+.csim-line--debug {
+  color: #9b9ba4;
+}
+
+.csim-line--success {
+  color: #56d364;
+}
+
+.csim-line--system {
+  color: #9b9ba4;
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.csim-line--muted {
+  color: #6c6c76;
+  font-style: italic;
+}
+
+.csim-stack {
+  margin: 6px 0 2px 22px;
+  padding-left: 10px;
+  border-left: 1px solid #34343a;
+  color: #8f8f98;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.csim-frame {
+  display: block;
+  color: #8f8f98;
+}
+
+.csim-frame strong {
+  color: #cfcfd6;
+  font-weight: 500;
+}
+
+.csim-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #2e2e2e;
+  border-left: 3px solid #2383e2;
+  border-radius: 5px;
+  background: #151517;
+  color: #9b9ba4;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.csim-note--warn {
+  border-left-color: #eab308;
+  background: #241d0d;
+  color: #e3c56d;
+}
+
+.csim-note--error {
+  border-left-color: #ef4444;
+  background: #231313;
+  color: #ffb4ae;
+}
+
+.csim-code-inline {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #2e2e2e;
+  color: #e0e0e0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+/* ---------- Tabla de console.table ---------- */
+.csim-table-wrap {
+  margin-top: 8px;
+  overflow-x: auto;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+}
+
+.csim-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: left;
+}
+
+.csim-table th {
+  padding: 7px 12px;
+  border-bottom: 1px solid #34343a;
+  background: #1b1b1e;
+  color: #9b9ba4;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.csim-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid #26262b;
+  color: #d5d5dc;
+  white-space: nowrap;
+}
+
+.csim-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.csim-table tbody tr:hover {
+  background: #17171a;
+}
+
+.csim-table .csim-index {
+  color: #6c6c76;
+  width: 70px;
+}
+
+/* ---------- Árbol de dirxml / grupos ---------- */
+.csim-tree {
+  padding: 2px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.csim-tree-line {
+  white-space: pre-wrap;
+  color: #d5d5dc;
+}
+
+.csim-tree-tag {
+  color: #79c0ff;
+}
+
+.csim-tree-attr {
+  color: #e3b341;
+}
+
+.csim-tree-value {
+  color: #a5d6ff;
+}
+
+.csim-tree-text {
+  color: #e0e0e0;
+}
+
+.csim-group-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 0;
+  color: #e0e0e0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.csim-group-row__arrow {
+  color: #9b9ba4;
+  font-size: 11px;
+}
+
+.csim-group-row__count {
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #232327;
+  color: #6c6c76;
+  font-size: 10px;
+}
+
+.csim-indent {
+  border-left: 1px dashed #34343a;
+  margin-left: 8px;
+  padding-left: 14px;
+}
+
+.csim-group-end {
+  color: #4d4d57;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  padding: 1px 0;
+}
+
+/* ---------- Timeline de tiempos ---------- */
+.csim-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.csim-time-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 1px solid #26262b;
+  border-radius: 5px;
+  background: #111113;
+}
+
+.csim-time-badge {
+  flex-shrink: 0;
+  min-width: 74px;
+  padding: 2px 8px;
+  border: 1px solid #34343a;
+  border-radius: 999px;
+  background: #1b1b1e;
+  color: #79c0ff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-align: center;
+}
+
+.csim-time-label {
+  color: #cfcfd6;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.csim-time-row--end .csim-time-badge {
+  color: #56d364;
+  border-color: #2b5a33;
+  background: #122117;
+}
+
+.csim-time-row--log .csim-time-badge {
+  color: #e3b341;
+  border-color: #5a4a12;
+  background: #241d0d;
+}
+
+.csim-time-row--error .csim-time-badge {
+  color: #ff7b72;
+  border-color: #5a2222;
+  background: #231313;
+}
+
+.csim-trace-header {
+  margin-bottom: 8px;
+  color: #e0e0e0;
+}
+
+.csim-trace-frame {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.csim-trace-frame__index {
+  color: #6c6c76;
+  width: 18px;
+  text-align: right;
+}
+
+.csim-trace-frame__fn {
+  color: #d2a8ff;
+}
+
+.csim-trace-frame__file {
+  color: #79c0ff;
+}
+
+.csim-trace-frame__line {
+  color: #6c6c76;
+}
+
+/* ---------- Contadores de console.count ---------- */
+.csim-counter-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #34343a;
+  border-radius: 4px;
+  background: #202020;
+  color: #cfcfd6;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.csim-counter-badge strong {
+  color: #79c0ff;
+  font-size: 14px;
+}
+
+.csim-counter-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.csim-counter-chip {
+  padding: 4px 10px;
+  border: 1px solid #2e2e2e;
+  border-radius: 999px;
+  background: #17171a;
+  color: #9b9ba4;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.csim-counter-chip strong {
+  color: #d5d5dc;
+}
+
+.csim-counter-chip.is-active {
+  border-color: #2f5f95;
+  background: #122033;
+  color: #a5d6ff;
+}
+
+.csim-counter-chip.is-active strong {
+  color: #79c0ff;
+}
+
+/* ---------- Panel de Performance de console.timeStamp ---------- */
+.csim-rec {
+  padding: 1px 8px;
+  border: 1px solid #34343a;
+  border-radius: 999px;
+  background: #232327;
+  color: #8f8f98;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.csim-rec.is-on {
+  border-color: #5a2222;
+  background: #231313;
+  color: #ff7b72;
+}
+
+.csim-perf {
+  padding: 18px 14px 12px;
+  border: 1px solid #26262b;
+  border-radius: 6px;
+  background: #111113;
+}
+
+.csim-perf-track {
+  position: relative;
+  padding-top: 26px;
+}
+
+.csim-perf-bars {
+  display: flex;
+  height: 52px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #1b1b1e;
+}
+
+.csim-perf-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  border-right: 1px solid #0a0a0b;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: #0d1117;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.csim-perf-bar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 6px;
+}
+
+.csim-perf-bar--script {
+  background: #d2a8ff;
+}
+
+.csim-perf-bar--render {
+  background: #79c0ff;
+}
+
+.csim-perf-bar--paint {
+  background: #56d364;
+}
+
+.csim-perf-bar--wait {
+  background: #6c6c76;
+  color: #e0e0e0;
+}
+
+.csim-perf-mark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+
+.csim-perf-flag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border: 1px solid #5a4a12;
+  border-radius: 4px;
+  background: #241d0d;
+  color: #e3c56d;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.csim-perf-line {
+  position: absolute;
+  top: 24px;
+  bottom: 0;
+  left: 0;
+  border-left: 2px dashed #e3b341;
+}
+
+.csim-perf-ruler {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #6c6c76;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
+  .csim-controls {
+    align-items: stretch;
+  }
+
+  .csim-field,
+  .csim-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .csim-check {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .csim-perf-flag {
+    transform: translateX(-30%);
+  }
+}

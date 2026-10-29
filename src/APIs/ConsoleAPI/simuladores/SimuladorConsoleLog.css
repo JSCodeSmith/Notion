@@ -1,0 +1,257 @@
+.clog-sim .sim-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clog-sim .sim-header h3 code {
+  color: #ff8a8a;
+  font-family: var(--font-mono);
+}
+
+.clog-subtitle {
+  margin: 0;
+  color: #8f8f98;
+  font-size: 13px;
+}
+
+.clog-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.clog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8f8f98;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.clog-input {
+  min-width: 130px;
+  height: 32px;
+}
+
+.clog-input--short {
+  width: 80px;
+  min-width: 80px;
+}
+
+select.clog-input {
+  cursor: pointer;
+}
+
+.clog-check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  align-self: flex-end;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #3d3d3d;
+  border-radius: 4px;
+  background: #202020;
+  color: #cfcfd6;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.clog-check input {
+  accent-color: #2383e2;
+  cursor: pointer;
+}
+
+.clog-code {
+  margin-bottom: 16px;
+}
+
+.clog-actions {
+  flex-wrap: wrap;
+}
+
+/* ---------- Pipeline ---------- */
+.clog-pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #2e2e2e;
+  background: #141416;
+}
+
+.clog-node {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 8px;
+  border: 1px dashed #34343a;
+  border-radius: 8px;
+  background: #191919;
+  color: #6c6c76;
+  text-align: center;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    color 0.25s,
+    transform 0.25s;
+}
+
+.clog-node__icon {
+  font-size: 20px;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition:
+    filter 0.25s,
+    opacity 0.25s;
+}
+
+.clog-node__label {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.clog-node small {
+  font-size: 10px;
+  opacity: 0.75;
+}
+
+.clog-node.is-active {
+  border-color: #eab308;
+  background: rgba(234, 179, 8, 0.08);
+  color: #f3d36a;
+  transform: translateY(-2px);
+}
+
+.clog-node.is-active .clog-node__icon {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.clog-node.is-done {
+  border-style: solid;
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  color: #9ae6b4;
+}
+
+.clog-node.is-done .clog-node__icon {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.clog-arrow {
+  align-self: center;
+  color: #4d4d57;
+  font-size: 18px;
+}
+
+/* ---------- Terminal ---------- */
+.clog-terminal {
+  background: #0a0a0b;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+.clog-terminal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #2e2e2e;
+  color: #9b9ba4;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.clog-terminal__tag {
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: #232327;
+  border: 1px solid #34343a;
+  color: #8f8f98;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.clog-terminal__body {
+  min-height: 64px;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  color: #e0e0e0;
+  overflow-wrap: anywhere;
+}
+
+.clog-empty {
+  color: #6c6c76;
+  font-family: var(--font-sans);
+}
+
+.clog-log-line {
+  color: #e9e9ec;
+  white-space: pre-wrap;
+}
+
+.clog-log-line::before {
+  content: "›";
+  margin-right: 8px;
+  color: #2383e2;
+}
+
+.clog-warning {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #5a2f12;
+  border-left: 3px solid #f97316;
+  border-radius: 5px;
+  background: #2a1a0f;
+  color: #ffd8a8;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.clog-warning code {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #3b1a0a;
+  color: #ffb786;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .clog-pipeline {
+    flex-direction: column;
+  }
+
+  .clog-arrow {
+    transform: rotate(90deg);
+  }
+
+  .clog-field,
+  .clog-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .clog-check {
+    width: 100%;
+    justify-content: center;
+  }
+}

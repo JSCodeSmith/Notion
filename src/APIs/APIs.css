@@ -1,0 +1,149 @@
+/* ---------- Migas de pan ---------- */
+.notion-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.notion-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #9b9ba4;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.notion-breadcrumb__item:hover:not(:disabled) {
+  background: #2e2e2e;
+  color: #fff;
+}
+
+.notion-breadcrumb__item:disabled {
+  color: #e0e0e0;
+  cursor: default;
+}
+
+.notion-breadcrumb__sep {
+  color: #4d4d57;
+}
+
+.notion-breadcrumb__icon {
+  font-size: 13px;
+}
+
+/* ---------- Página de APIs ---------- */
+.apis-intro,
+.console-api-intro {
+  margin: -4px 0 24px;
+  max-width: 720px;
+  color: #9b9ba4;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.api-grid {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.api-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  background: #202020;
+  text-align: left;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
+}
+
+.api-card:hover {
+  border-color: #3d3d3d;
+  background: #262626;
+  transform: translateY(-1px);
+}
+
+.api-card__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #34343a;
+  border-radius: 10px;
+  background: #191919;
+  font-size: 24px;
+}
+
+.api-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.api-card__name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.api-card__desc {
+  color: #9b9ba4;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.api-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.api-card__count {
+  padding: 2px 8px;
+  border: 1px solid #34343a;
+  border-radius: 999px;
+  background: #191919;
+  color: #9b9ba4;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.api-card__open {
+  color: #2383e2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 640px) {
+  .api-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .api-card__meta {
+    align-items: flex-start;
+    flex-direction: row;
+    width: 100%;
+    padding-left: 60px;
+  }
+}

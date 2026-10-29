@@ -23,9 +23,10 @@
   border-bottom-color: #fff;
 }
 
-/* Subpestañas: Arrays | Strings */
+/* Subpestañas: Arrays | Strings | Números | Fechas | APIs */
 .lang-subtabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 20px;
 }
