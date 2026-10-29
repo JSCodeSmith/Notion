@@ -77,3 +77,28 @@
   background: #3d3d3d;
   color: #fff;
 }
+/* ---------- Badge de estado (Obsoleto / Alias / etc.) ---------- */
+.notion-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+  line-height: 1.6;
+}
+
+.notion-badge--warn {
+  background: #3b1a1a;
+  color: #ff7b72;
+  border: 1px solid #5a2222;
+}
+
+.notion-badge--info {
+  background: #1a2233;
+  color: #79c0ff;
+  border: 1px solid #223355;
+}

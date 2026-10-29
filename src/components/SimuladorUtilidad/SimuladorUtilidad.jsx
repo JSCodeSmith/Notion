@@ -882,6 +882,178 @@ function buildIter(v, tipo) {
   }
 }
 
+/* ================= forEach ================= */
+const FOREACH_FNS = {
+  log: {
+    code: 'n => console.log(n)',
+    tabla: (st) => [['consola', st.consola.join('  ·  ') || '—']],
+    run: (n, i, st) => { st.consola.push(String(n)); return `imprime ${fmt(n)} en la consola` },
+  },
+  indice: {
+    code: '(n, i) => console.log((i + 1) + ". " + n)',
+    tabla: (st) => [['consola', st.consola.join('  ·  ') || '—']],
+    run: (n, i, st) => { const t = `${i + 1}. ${n}`; st.consola.push(t); return `imprime ${JSON.stringify(t)}` },
+  },
+  suma: {
+    code: 'n => { total += n }',
+    tabla: (st) => [['total (variable externa)', String(st.total)]],
+    run: (n, i, st) => { st.total += Number(n); return `total += ${fmt(n)} → total = ${st.total}` },
+  },
+  externo: {
+    label: 'n => resultado.push(n * 2)   (¡mejor usa map!)',
+    code: 'n => resultado.push(n * 2)',
+    tabla: (st) => [['resultado (array externo)', fmtArr(st.resultado)]],
+    run: (n, i, st) => { st.resultado.push(Number(n) * 2); return `resultado.push(${Number(n) * 2})` },
+  },
+  retorno: {
+    label: 'n => n * 2   (el return se ignora)',
+    code: 'n => n * 2',
+    tabla: (st) => [['último valor devuelto por el callback', st.ultimo === undefined ? '—' : `${st.ultimo}  → se descarta`]],
+    run: (n, i, st) => { st.ultimo = Number(n) * 2; return `devuelve ${st.ultimo}, pero forEach lo ignora` },
+  },
+}
+
+function buildForEach(v) {
+  const arr = parseLista(v.arr)
+  if (arr.length > MAX) return { error: errorMax }
+  const f = FOREACH_FNS[v.fn]
+  const st = { consola: [], total: 0, resultado: [], ultimo: undefined }
+  const fila = (cells) => [{ label: '📦 arr  (verde = ya procesado)', cells }]
+
+  const steps = [{ rows: fila(base(arr)), tabla: f.tabla(st), tipo: 'system', msg: `Estado inicial: arr = ${fmtArr(arr)}` }]
+  arr.forEach((el, i) => {
+    const desc = f.run(el, i, st)
+    const c = base(arr)
+    for (let k = 0; k < i; k++) c[k].st = 'added'
+    c[i].st = 'current'
+    steps.push({ rows: fila(c), tabla: f.tabla(st), tipo: 'iteration', msg: `callback(${fmt(el)}, ${i}) → ${desc}` })
+  })
+  cierre(steps, fila(base(arr, 'added')), 'undefined', 'forEach siempre devuelve undefined y no se puede detener con break ni continue', f.tabla(st))
+  return {
+    steps,
+    retStr: 'undefined',
+    llamada: `arr.forEach(${f.code})`,
+    codigo: `const arr = ${fmtArr(arr)};\nconst retorno = arr.forEach(${f.code});`,
+  }
+}
+
+/* ================= reduce / reduceRight ================= */
+const REDUCERS = {
+  suma: { code: '(acc, n) => acc + n', fn: (a, n) => a + n },
+  resta: { label: '(acc, n) => acc - n   (no conmutativa)', code: '(acc, n) => acc - n', fn: (a, n) => a - n },
+  producto: { code: '(acc, n) => acc * n', fn: (a, n) => a * n },
+  max: { code: '(acc, n) => Math.max(acc, n)', fn: (a, n) => Math.max(a, n) },
+  concat: { code: '(acc, n) => acc + "-" + n', fn: (a, n) => a + '-' + n },
+  sinReturn: { label: '(acc, n) => { acc + n }   (olvida el return)', code: '(acc, n) => { acc + n }', fn: () => undefined },
+}
+
+function buildReduce(v, right) {
+  const arr = parseLista(v.arr)
+  if (arr.length > MAX) return { error: errorMax }
+  const f = REDUCERS[v.fn]
+  const hasInit = v.init.trim() !== ''
+  const init = hasInit ? parseValor(v.init) : undefined
+  const m = right ? 'reduceRight' : 'reduce'
+  const args = hasInit ? `${f.code}, ${fmt(init)}` : f.code
+  const llamada = `arr.${m}(${args})`
+  const codigo = `const arr = ${fmtArr(arr)};\nconst resultado = arr.${m}(${args});`
+  const fila = (cells) => [{ label: right ? '📦 arr  (recorre de derecha a izquierda ←)' : '📦 arr  (recorre de izquierda a derecha →)', cells }]
+  const orden = arr.map((_, i) => i)
+  if (right) orden.reverse()
+
+  const steps = [{ rows: fila(base(arr)), tabla: [['acumulador', '—']], tipo: 'system', msg: `Estado inicial: arr = ${fmtArr(arr)} · recorre ${right ? 'de derecha a izquierda' : 'de izquierda a derecha'}` }]
+
+  if (!arr.length && !hasInit) {
+    steps.push({
+      rows: fila([]),
+      tipo: 'error',
+      msg: '✖ TypeError: Reduce of empty array with no initial value',
+      extra: [{ tipo: 'result', msg: '⏹ Lanza TypeError (array vacío sin valorInicial)' }],
+    })
+    return { steps, retStr: 'TypeError', llamada, codigo }
+  }
+
+  const hechos = new Set()
+  const pend = [...orden]
+  let acc
+  if (hasInit) {
+    acc = init
+    steps.push({ rows: fila(base(arr)), tabla: [['acumulador', fmt(acc)]], tipo: 'iteration', msg: `valorInicial = ${fmt(acc)} → es el acumulador inicial; el callback se ejecuta desde el índice ${pend[0] ?? '—'}` })
+  } else {
+    const primero = pend.shift()
+    acc = arr[primero]
+    hechos.add(primero)
+    const c = base(arr)
+    c[primero].st = 'compared'
+    steps.push({
+      rows: fila(c),
+      tabla: [['acumulador', fmt(acc)]],
+      tipo: 'iteration',
+      msg: `Sin valorInicial: toma arr[${primero}] = ${fmt(acc)} como acumulador y empieza desde el índice ${pend[0] ?? '—'}`,
+    })
+  }
+
+  pend.forEach((i) => {
+    const prev = acc
+    acc = f.fn(acc, arr[i], i)
+    const c = base(arr)
+    hechos.forEach((k) => { c[k].st = 'added' })
+    c[i].st = 'current'
+    hechos.add(i)
+    steps.push({
+      rows: fila(c),
+      tabla: [['acumulador', fmt(acc)]],
+      tipo: acc === undefined ? 'error' : 'success',
+      msg: `callback(acc = ${fmt(prev)}, ${fmt(arr[i])}, ${i}) → ${fmt(acc)}${acc === undefined ? '  (¡sin return! el acumulador se pierde)' : ''}`,
+    })
+  })
+  if (!pend.length && !hasInit) steps.push({ rows: fila(base(arr, 'added')), tabla: [['acumulador', fmt(acc)]], tipo: 'iteration', msg: 'Un solo elemento y sin valorInicial: devuelve ese elemento sin ejecutar el callback' })
+
+  const real = hasInit ? arr[m](f.fn, init) : arr[m](f.fn)
+  cierre(steps, fila(base(arr, 'added')), fmt(real), `arr original intacto: ${fmtArr(arr)} · el resultado es UN solo valor`, [['acumulador final', fmt(real)]])
+  return { steps, retStr: fmt(real), llamada, codigo }
+}
+
+/* ================= every ================= */
+const EVERY_FNS = {
+  pos: { code: 'n => n > 0', fn: (n) => n > 0 },
+  par: { code: 'n => n % 2 === 0', fn: (n) => n % 2 === 0 },
+  menor100: { code: 'n => n < 100', fn: (n) => n < 100 },
+  indice: { code: '(n, i) => i < n', fn: (n, i) => i < n },
+  sinReturn: { label: 'n => { n > 0 }   (olvida el return)', code: 'n => { n > 0 }', fn: () => undefined },
+}
+
+function buildEvery(v) {
+  const arr = parseLista(v.arr)
+  if (arr.length > MAX) return { error: errorMax }
+  const f = EVERY_FNS[v.fn]
+  const res = arr.every(f.fn)
+  const fila = (cells) => [{ label: '📦 arr  (verde = cumple · rojo = falla)', cells }]
+
+  const steps = [{ rows: fila(base(arr)), tipo: 'system', msg: `Estado inicial: arr = ${fmtArr(arr)}` }]
+  if (!arr.length) steps.push({ rows: fila([]), tipo: 'success', msg: 'Array vacío: ningún elemento contradice la condición → true' })
+  const estados = []
+  for (let i = 0; i < arr.length; i++) {
+    const ok = Boolean(f.fn(arr[i], i, arr))
+    estados.push(ok ? 'added' : 'removing')
+    const c = base(arr)
+    estados.forEach((st, k) => { c[k].st = st })
+    steps.push({
+      rows: fila(c),
+      tipo: ok ? 'success' : 'error',
+      msg: `callback(${fmt(arr[i])}, ${i}) → ${ok}${ok ? ' → cumple, continúa ✅' : ' → ❌ falla: cortocircuito, no revisa el resto'}`,
+    })
+    if (!ok) break
+  }
+  cierre(steps, fila(base(arr, res ? 'done' : 'normal')), String(res), res ? 'Todos cumplen la condición' : 'Basta un elemento que falle para devolver false', [['¿todos cumplen?', String(res)]])
+  return {
+    steps,
+    retStr: String(res),
+    llamada: `arr.every(${f.code})`,
+    codigo: `const arr = ${fmtArr(arr)};\nconst resultado = arr.every(${f.code});`,
+  }
+}
+
 /* ================= configuración por método ================= */
 const CONFIGS = {
   of: {
@@ -1125,6 +1297,58 @@ const CONFIGS = {
     labArr: '["🍎", "🍌", "🍊"]',
     ejemplo: '[...arr.values()]',
     build: (v) => buildIter(v, 'values'),
+  },
+
+  /* ---------- iterativos ---------- */
+  foreach: {
+    titulo: 'arr.forEach()',
+    tag: 'Método de EFECTOS SECUNDARIOS · ejecuta el callback por elemento y no devuelve nada',
+    ret: 'undefined',
+    campos: [
+      { key: 'arr', label: 'arr (separa con comas)', def: '[10, 20, 30]', wide: true },
+      { key: 'fn', label: 'callback', tipo: 'select', def: 'log', wide: true, opciones: opts(FOREACH_FNS) },
+    ],
+    labArr: '[10, 20, 30]',
+    ejemplo: 'arr.forEach(n => console.log(n))',
+    build: buildForEach,
+  },
+  reduce: {
+    titulo: 'arr.reduce()',
+    tag: 'Método INMUTABLE · condensa el array en UN solo valor (recorre →)',
+    ret: 'un único valor acumulado',
+    campos: [
+      { key: 'arr', label: 'arr (separa con comas)', def: '[10, 20, 30, 40]', wide: true },
+      { key: 'fn', label: 'callback reductor', tipo: 'select', def: 'suma', wide: true, opciones: opts(REDUCERS) },
+      { key: 'init', label: 'valorInicial (vacío = no se pasa)', def: '0', placeholder: 'sin valorInicial' },
+    ],
+    labArr: '[10, 20, 30, 40]',
+    ejemplo: 'arr.reduce((a, n) => a + n, 0)',
+    build: (v) => buildReduce(v, false),
+  },
+  reduceright: {
+    titulo: 'arr.reduceRight()',
+    tag: 'Método INMUTABLE · como reduce() pero recorre de derecha a izquierda ←',
+    ret: 'un único valor acumulado',
+    campos: [
+      { key: 'arr', label: 'arr (separa con comas)', def: '[1, 2, 3, 4]', wide: true },
+      { key: 'fn', label: 'callback reductor', tipo: 'select', def: 'resta', wide: true, opciones: opts(REDUCERS) },
+      { key: 'init', label: 'valorInicial (vacío = no se pasa)', def: '', placeholder: 'sin valorInicial' },
+    ],
+    labArr: '[1, 2, 3, 4]',
+    ejemplo: 'arr.reduceRight((a, n) => a - n)',
+    build: (v) => buildReduce(v, true),
+  },
+  every: {
+    titulo: 'arr.every()',
+    tag: 'Método INMUTABLE · ¿todos cumplen la condición?',
+    ret: 'booleano',
+    campos: [
+      { key: 'arr', label: 'arr (separa con comas)', def: '[5, 10, -2, 20]', wide: true },
+      { key: 'fn', label: 'callback', tipo: 'select', def: 'pos', wide: true, opciones: opts(EVERY_FNS) },
+    ],
+    labArr: '[5, 10, -2, 20]',
+    ejemplo: 'arr.every(n => n > 0)',
+    build: buildEvery,
   },
 }
 

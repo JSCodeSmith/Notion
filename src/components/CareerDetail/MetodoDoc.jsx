@@ -4,9 +4,22 @@ import SimuladorBusqueda from '../SimuladorBusqueda/SimuladorBusqueda'
 import './MetodoFindDoc.css' // reutiliza los mismos estilos (.doc-card, .quiz-btn, etc.)
 
 import SimuladorMutador from '../SimuladorMutador/SimuladorMutador'
-
 import SimuladorUtilidad from '../SimuladorUtilidad/SimuladorUtilidad'
+import SimuladorString from '../SimuladorString/SimuladorString'
 
+/* Elige el simulador según el campo `simulador` del método */
+function Simulador({ metodo }) {
+  switch (metodo.simulador) {
+    case 'mutador':
+      return <SimuladorMutador key={metodo.id} metodoId={metodo.id} />
+    case 'utilidad':
+      return <SimuladorUtilidad key={metodo.id} metodoId={metodo.id} />
+    case 'string':
+      return <SimuladorString key={metodo.id} metodoId={metodo.id} />
+    default:
+      return <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
+  }
+}
 
 /* ---------- Texto con **negrita**, *cursiva* y `código` ---------- */
 function Inline({ text }) {
@@ -42,7 +55,6 @@ function Contenido({ data }) {
   return Array.isArray(data) ? <Lista items={data} /> : <p><Inline text={data} /></p>
 }
 
-/* ---------- Quiz ---------- */
 function Quiz({ preguntas }) {
   const [actual, setActual] = useState(0)
   const [respuestas, setRespuestas] = useState([])
@@ -53,19 +65,16 @@ function Quiz({ preguntas }) {
     if (actual < preguntas.length - 1) setActual(actual + 1)
     else setTerminado(true)
   }
-
   const reiniciar = () => {
     setActual(0)
     setRespuestas([])
     setTerminado(false)
   }
-
   const puntos = respuestas.reduce((acc, r, i) => (r === preguntas[i].correcta ? acc + 1 : acc), 0)
 
   return (
     <div className="doc-card doc-card--full doc-card--quiz" style={{ marginTop: '24px' }}>
       <h3>🧪 Quiz ({preguntas.length} preguntas)</h3>
-
       {!terminado ? (
         <>
           <div className="quiz-progress">Pregunta {actual + 1} de {preguntas.length}</div>
@@ -99,7 +108,6 @@ function Quiz({ preguntas }) {
   )
 }
 
-/* ---------- Página del método ---------- */
 export default function MetodoDoc({ metodo, onBack }) {
   return (
     <article className="notion-page detail-page">
@@ -107,26 +115,20 @@ export default function MetodoDoc({ metodo, onBack }) {
         ← Volver a los Métodos
       </button>
 
+      {metodo.obsoleto && (
+        <div className="doc-warning">
+          ⚠️ Este método está <strong>obsoleto (deprecated)</strong> y no forma parte del estándar ECMAScript actual. Evita usarlo en código nuevo: usa <code>slice()</code> o <code>substring()</code> en su lugar.
+        </div>
+      )}
+
       <div className="doc-header">
         <h1 className="doc-title" style={{ color: '#ff5a5f' }}>{metodo.titulo}</h1>
       </div>
 
       <div className="doc-grid">
-        <div className="doc-card">
-          <h3>📝 Definición</h3>
-          <Contenido data={metodo.definicion} />
-        </div>
-
-        <div className="doc-card">
-          <h3>🧠 ¿Qué es?</h3>
-          <Contenido data={metodo.queEs} />
-        </div>
-
-        <div className="doc-card">
-          <h3>🎯 ¿Para qué sirve?</h3>
-          <Contenido data={metodo.paraQueSirve} />
-        </div>
-
+        <div className="doc-card"><h3>📝 Definición</h3><Contenido data={metodo.definicion} /></div>
+        <div className="doc-card"><h3>🧠 ¿Qué es?</h3><Contenido data={metodo.queEs} /></div>
+        <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
         <div className="doc-card">
           <h3>⚙️ ¿Cómo funciona?</h3>
           <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
@@ -147,15 +149,11 @@ export default function MetodoDoc({ metodo, onBack }) {
           )}
         </div>
 
-     {metodo.simulador && (
-      <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-     {metodo.simulador === 'mutador'
-  ? <SimuladorMutador key={metodo.id} metodoId={metodo.id} />
-  : metodo.simulador === 'utilidad'
-    ? <SimuladorUtilidad key={metodo.id} metodoId={metodo.id} />
-    : <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />}
-      </div>
-    )}
+        {metodo.simulador && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <Simulador metodo={metodo} />
+          </div>
+        )}
 
         <div className="doc-card doc-card--full">
           <h3>💡 Ejemplos</h3>
@@ -164,33 +162,16 @@ export default function MetodoDoc({ metodo, onBack }) {
               <p className="example-title" style={{ marginTop: i > 0 ? '16px' : 0 }}>
                 <strong>{ej.titulo}</strong>
               </p>
-              {ej.descripcion && (
-                <p style={{ margin: '0 0 8px 0' }}><Inline text={ej.descripcion} /></p>
-              )}
+              {ej.descripcion && <p style={{ margin: '0 0 8px 0' }}><Inline text={ej.descripcion} /></p>}
               <CodeBlock code={ej.code} />
             </div>
           ))}
         </div>
 
-        <div className="doc-card">
-          <h3>⚠️ Errores comunes</h3>
-          <Lista items={metodo.errores} />
-        </div>
-
-        <div className="doc-card">
-          <h3>💼 Casos de uso</h3>
-          <Lista items={metodo.casos} />
-        </div>
-
-        <div className="doc-card">
-          <h3>🧩 Relación con otros conceptos</h3>
-          <Lista items={metodo.relacion} />
-        </div>
-
-        <div className="doc-card">
-          <h3>🧠 Analogía</h3>
-          <p><Inline text={metodo.analogia} /></p>
-        </div>
+        <div className="doc-card"><h3>⚠️ Errores comunes</h3><Lista items={metodo.errores} /></div>
+        <div className="doc-card"><h3>💼 Casos de uso</h3><Lista items={metodo.casos} /></div>
+        <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
+        <div className="doc-card"><h3>🧠 Analogía</h3><p><Inline text={metodo.analogia} /></p></div>
 
         <Quiz key={metodo.id} preguntas={metodo.quiz} />
 

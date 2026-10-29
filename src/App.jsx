@@ -6,6 +6,7 @@ import CareerDetail from './components/CareerDetail/CareerDetail'
 import { CARRERAS, METODOS_ARRAYS } from './data/carreras'
 import { METODOS_DOCS } from './data/metodosDocs'
 import './App.css'
+import { METODOS_STRINGS } from './data/metodosStrings'
 
 // Fuera del componente: se crea una sola vez.
 // 'find' tiene componente propio (MetodoFindDoc), el resto vive en METODOS_DOCS.
@@ -16,6 +17,12 @@ export default function App() {
   const [activeCourseId, setActiveCourseId] = useState(null)
   const [activeMethodId, setActiveMethodId] = useState(null)
 
+  const METODOS_BUSCADOR = [
+  ...METODOS_ARRAYS,
+  ...METODOS_STRINGS.map((g) => ({ ...g, seccion: `Strings · ${g.seccion}` })),
+]
+
+
   const activeCareer = activeCareerId
     ? CARRERAS.find((c) => c.id === activeCareerId) ?? null
     : null
@@ -24,6 +31,7 @@ export default function App() {
     activeCareer && activeCourseId
       ? activeCareer.cursos.find((c) => c.id === activeCourseId) ?? null
       : null
+
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
@@ -79,32 +87,39 @@ export default function App() {
       <Header onGoHome={goHome}>
         <CommandBar
           carreras={CARRERAS}
-          metodos={METODOS_ARRAYS}
+          metodos={METODOS_BUSCADOR}
           docIds={DOC_IDS}
           onSelect={handleSelect}
         />
       </Header>
 
       <main className="app__main">
-        {activeCareer && activeCourse ? (
-          <CareerDetail
-            carrera={{ ...activeCourse, emoji: activeCourse.icon }}
-            onBack={() => {
-              setActiveCourseId(null)
-              setActiveMethodId(null)
-            }}
-            metodoActivo={activeMethodId}
-            onMetodoChange={setActiveMethodId}
-          />
-        ) : activeCareer ? (
-          <CareerDetail
-            carrera={activeCareer}
-            onBack={goHome}
-            onSelectCourse={goToCourse}
-          />
-        ) : (
-          <CareerGrid carreras={CARRERAS} onSelectCareer={goToCareer} />
-        )}
+      {activeCareer && activeCourse ? (
+  <CareerDetail
+    carrera={{ ...activeCourse, emoji: activeCourse.icon }}
+    onBack={() => { setActiveCourseId(null); setActiveMethodId(null) }}
+    metodoActivo={activeMethodId}
+    onMetodoChange={setActiveMethodId}
+    breadcrumb={[
+      { icon: '📚', label: 'Biblioteca', onClick: goHome },
+      { icon: activeCareer.emoji, label: activeCareer.nombre,
+        onClick: () => { setActiveCourseId(null); setActiveMethodId(null) } },
+      { icon: activeCourse.icon, label: activeCourse.nombre },
+    ]}
+  />
+) : activeCareer ? (
+  <CareerDetail
+    carrera={activeCareer}
+    onBack={goHome}
+    onSelectCourse={goToCourse}
+    breadcrumb={[
+      { icon: '📚', label: 'Biblioteca', onClick: goHome },
+      { icon: activeCareer.emoji, label: activeCareer.nombre },
+    ]}
+  />
+) : (
+  <CareerGrid carreras={CARRERAS} onSelectCareer={goToCareer} />
+)}
       </main>
 
       <footer className="app__footer">

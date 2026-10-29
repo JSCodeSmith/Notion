@@ -156,3 +156,21 @@
 .doc-card p {
   overflow-wrap: anywhere;
 }
+/* ---------- Aviso de método obsoleto ---------- */
+.doc-warning {
+  margin: 16px 0 8px 0;
+  padding: 14px 18px;
+  background: #2a1a0f;
+  border: 1px solid #5a2f12;
+  border-left: 4px solid #f97316;
+  border-radius: 6px;
+  color: #ffd8a8;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.doc-warning code {
+  background: #3b1a0a;
+  padding: 1px 6px;
+  border-radius: 3px;
+  color: #ffb786;
+}

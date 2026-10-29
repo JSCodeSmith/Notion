@@ -1,25 +1,59 @@
-import { useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { METODOS_ARRAYS } from '../../data/carreras'
 import { METODOS_DOCS } from '../../data/metodosDocs'
+import { METODOS_STRINGS } from '../../data/metodosStrings'
 import MetodoFindDoc from './MetodoFindDoc'
 import MetodoDoc from './MetodoDoc'
 import './CareerDetail.css'
+import './LenguajeTabs.css'
 
-export default function CareerDetail({  carrera,
+const STRING_IDS = new Set(METODOS_STRINGS.flatMap((g) => g.metodos.map((m) => m.id)))
+
+const SUBTABS = [
+  { id: 'arrays', label: 'Arrays', icon: '📚', grupos: METODOS_ARRAYS },
+  { id: 'strings', label: 'Strings', icon: '🔤', grupos: METODOS_STRINGS },
+]
+
+function Breadcrumb({ items }) {
+  return (
+    <nav className="notion-breadcrumb" aria-label="Ruta">
+      {items.map((c, i) => (
+        <Fragment key={i}>
+          {i > 0 && <span className="notion-breadcrumb__sep">/</span>}
+          <button
+            type="button"
+            className="notion-breadcrumb__item"
+            onClick={c.onClick}
+            disabled={!c.onClick}
+          >
+            {c.icon && <span className="notion-breadcrumb__icon">{c.icon}</span>}
+            <span>{c.label}</span>
+          </button>
+        </Fragment>
+      ))}
+    </nav>
+  )
+}
+
+export default function CareerDetail({
+  carrera,
   onBack,
   onSelectCourse,
   metodoActivo = null,
-  onMetodoChange = () => {} 
+  onMetodoChange = () => {},
+  breadcrumb,
 }) {
-  const [hoveredRow, setHoveredRow] = useState(null)
-  const [metodoSeleccionado, setMetodoSeleccionado] = useState(null)
-
   const isLenguajes = carrera.id === 'lenguajes'
+  const [subtab, setSubtab] = useState('arrays')
 
-  // Un método tiene apunte si es "find" (componente propio) o si está en METODOS_DOCS
+  useEffect(() => {
+    if (!metodoActivo) return
+    setSubtab(STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays')
+  }, [metodoActivo])
+
   const tieneDoc = (id) => id === 'find' || Boolean(METODOS_DOCS[id])
 
- const volverALista = () => onMetodoChange(null)
+  const volverALista = () => onMetodoChange(null)
 
   if (metodoActivo === 'find') {
     return <MetodoFindDoc onBack={volverALista} />
@@ -29,18 +63,23 @@ export default function CareerDetail({  carrera,
     return <MetodoDoc metodo={METODOS_DOCS[metodoActivo]} onBack={volverALista} />
   }
 
+  const crumbs = breadcrumb ?? [{ label: '← Volver', onClick: onBack }]
+  const subActual = SUBTABS.find((t) => t.id === subtab) ?? SUBTABS[0]
+
   return (
     <article className="notion-page detail-page">
-      <button type="button" className="notion-back-btn" onClick={onBack}>
-        ← Volver
-      </button>
+      <Breadcrumb items={crumbs} />
 
       <div className="detail-header">
         <div className="detail-icon">{carrera.icon || carrera.emoji}</div>
         <h1 className="detail-title">{carrera.nombre}</h1>
       </div>
 
-      <div className="notion-comments" style={{ marginTop: '20px', marginBottom: '40px' }}>
+      <div className="detail-sub-header">
+        <span>+ Agregar propiedad</span>
+      </div>
+
+      <div className="notion-comments">
         <span className="notion-comments__label">Comentarios</span>
         <div className="notion-comments__input">
           <span className="notion-avatar">👤</span>
@@ -52,80 +91,115 @@ export default function CareerDetail({  carrera,
 
       {isLenguajes ? (
         <div className="notion-database">
-          {METODOS_ARRAYS.map((grupo) => (
-            <div key={grupo.seccion} style={{ marginBottom: '40px' }}>
-              <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#fff', marginBottom: '16px', marginTop: '32px' }}>
-                {grupo.seccion}
-              </h1>
+          <div className="notion-viewbar">
+            <span className="notion-viewtab is-active">🟨 JavaScript</span>
+          </div>
+
+          <div className="lang-subtabs" role="tablist" aria-label="Temas de JavaScript">
+            {SUBTABS.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={subActual.id === t.id}
+                className={`lang-subtab ${subActual.id === t.id ? 'is-active' : ''}`}
+                onClick={() => setSubtab(t.id)}
+              >
+                <span className="lang-subtab__icon">{t.icon}</span>
+                <span>{t.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {subActual.grupos.map((grupo) => (
+            <section key={grupo.seccion} className="notion-section">
+              <h2 className="notion-section-title">{grupo.seccion}</h2>
 
               <div className="notion-table-container">
-                <table className="notion-table" style={{ tableLayout: 'fixed', width: '100%' }}>
+                <table className="notion-table">
+                  <thead>
+                    <tr>
+                      <th className="notion-col-title">Aa Nombre</th>
+                      <th>Firma</th>
+                    </tr>
+                  </thead>
                   <tbody>
-                    {grupo.metodos.map((metodo) => (
-                      <tr
-                        key={metodo.id}
-                        onMouseEnter={() => setHoveredRow(metodo.id)}
-                        onMouseLeave={() => setHoveredRow(null)}
-                        onClick={() => {
-                           if (tieneDoc(metodo.id)) onMetodoChange(metodo.id)
-                        }}
-                        style={{ cursor: tieneDoc(metodo.id) ? 'pointer' : 'default' }}
-                      >
-                        <td className="notion-cell-title" style={{ width: '35%' }}>
-                          <span className="notion-cell-icon">{metodo.icon}</span>
-                          <span className="notion-cell-name">{metodo.nombre}</span>
-                          {hoveredRow === metodo.id && tieneDoc(metodo.id) && (
-                            <button className="notion-open-btn" style={{ marginLeft: 'auto' }}>
-                              ⎘ ABRIR
-                            </button>
-                          )}
-                        </td>
-                        <td style={{ width: '65%', color: '#9b9b9b', fontSize: '12px', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                          {metodo.firma}
-                        </td>
-                      </tr>
-                    ))}
+                    {grupo.metodos.map((metodo) => {
+                      const abre = tieneDoc(metodo.id)
+                      return (
+                        <tr
+                          key={metodo.id}
+                          className={abre ? 'is-clickable' : 'no-doc'}
+                          onClick={() => {
+                            if (abre) onMetodoChange(metodo.id)
+                          }}
+                          style={{ cursor: abre ? 'pointer' : 'default' }}
+                        >
+                          <td className="notion-cell-title">
+                            <span className="notion-cell-icon">{metodo.icon}</span>
+                            <span className="notion-cell-name">
+                              {metodo.nombre}
+                              {metodo.badge && (
+                                <span className={`notion-badge notion-badge--${metodo.badge.tipo}`}>
+                                  {metodo.badge.texto}
+                                </span>
+                              )}
+                            </span>
+                            {abre && (
+                              <button type="button" className="notion-open-btn">
+                                ABRIR
+                              </button>
+                            )}
+                          </td>
+                          <td className="notion-cell-sig">{metodo.firma}</td>
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
-            </div>
+            </section>
           ))}
         </div>
       ) : (
-        <>
-          <div className="detail-sub-header">
-            <span>Aa Nombre</span>
-            <span>+ Agregar propiedad</span>
+        <div className="notion-database">
+          <div className="notion-viewbar">
+            <span className="notion-viewtab">▦ Tabla</span>
           </div>
+
           <div className="notion-table-container">
             <table className="notion-table">
+              <thead>
+                <tr>
+                  <th className="notion-col-title">Aa Nombre</th>
+                  <th className="notion-col-add">+ Agregar propiedad</th>
+                </tr>
+              </thead>
               <tbody>
                 {carrera.cursos?.map((curso) => (
                   <tr
                     key={curso.id}
-                    onMouseEnter={() => setHoveredRow(curso.id)}
-                    onMouseLeave={() => setHoveredRow(null)}
+                    className="is-clickable"
                     onClick={() => onSelectCourse && onSelectCourse(curso.id)}
                     style={{ cursor: 'pointer' }}
                   >
                     <td className="notion-cell-title">
                       <span className="notion-cell-icon">{curso.icon || '📄'}</span>
                       <span className="notion-cell-name">{curso.nombre}</span>
-                      {hoveredRow === curso.id && (
-                        <button className="notion-open-btn" style={{ marginLeft: 'auto' }}>
-                          ⎘ ABRIR
-                        </button>
-                      )}
+                      <button type="button" className="notion-open-btn">ABRIR</button>
                     </td>
+                    <td className="notion-cell-empty" />
                   </tr>
                 ))}
                 <tr className="notion-row-add">
-                  <td><span className="notion-add-text">+ Nueva página</span></td>
+                  <td colSpan={2}>
+                    <span className="notion-add-text">+ Nueva página</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </>
+        </div>
       )}
     </article>
   )
