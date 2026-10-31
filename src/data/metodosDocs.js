@@ -1,7 +1,7 @@
-import { METODOS_TRANSFORMACION } from "./metodostransformacion";
+import { METODOS_TRANSFORMACION } from "./Metodostransformacion";
 import { METODOS_MUTADORES } from "./metodosMutadores";
 import { METODOS_UTILIDADES } from "./metodosUtilidades";
-import { METODOS_ITERATIVOS } from "./metodosIterativos";
+import { METODOS_ITERATIVOS } from "./Metodositerativos";
 
 import { METODOS_STRINGS_DOCS } from "./metodosStrings";
 import { METODOS_NUMEROS_DOCS } from "./metodosNumeros";

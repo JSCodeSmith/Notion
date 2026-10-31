@@ -1,0 +1,245 @@
+/* ---------- Simuladores JavaScript: piezas visuales específicas ---------- */
+
+/* ---------- CSSOM: vista previa y scroll ---------- */
+.ex-preview-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 128px;
+  padding: 18px;
+  border: 1px dashed #3d3d3d;
+  border-radius: 6px;
+  background:
+    linear-gradient(45deg, #232323 25%, transparent 25%, transparent 75%, #232323 75%),
+    linear-gradient(45deg, #232323 25%, #1e1e1e 25%, #1e1e1e 75%, #232323 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 9px 9px;
+}
+
+.ex-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  background-color: #61afef;
+  color: #0f0f10;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  transition: all 0.22s ease;
+}
+
+.ex-scroll {
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  background: #1b1b1c;
+  outline: none;
+  scroll-behavior: smooth;
+}
+
+.ex-scroll:focus-visible {
+  border-color: #61afef;
+}
+
+.ex-scroll__content {
+  padding: 14px 16px;
+  color: #cfcfd6;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ex-scroll__content h4 {
+  margin: 4px 0 8px;
+  color: #fff;
+  font-size: 13px;
+}
+
+.ex-scroll__content p {
+  margin: 0 0 8px;
+}
+
+/* ---------- Voz: micrófono y cursor de dictado ---------- */
+.ex-mic {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin: 8px auto 4px;
+  border: 1px solid #3d3d3d;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #2b2b2d, #1d1d1f);
+}
+
+.ex-mic__ring {
+  position: absolute;
+  inset: -6px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ex-mic__icon {
+  font-size: 34px;
+  line-height: 1;
+  filter: grayscale(0.35);
+}
+
+.ex-mic.is-listening {
+  border-color: #e06c75;
+  background: radial-gradient(circle at 50% 45%, #3a2426, #221618);
+}
+
+.ex-mic.is-listening .ex-mic__icon {
+  filter: none;
+}
+
+.ex-mic.is-listening .ex-mic__ring {
+  border-color: rgba(224, 108, 117, 0.65);
+  animation: ex-pulse 1.5s ease-out infinite;
+}
+
+@keyframes ex-pulse {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+}
+
+.ex-caret {
+  display: inline-block;
+  margin-left: 2px;
+  color: #61afef;
+  animation: ex-blink 1s steps(2, start) infinite;
+}
+
+@keyframes ex-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------- Medios: vista de cámara y grabación ---------- */
+.ex-video-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  background: #0e0e10;
+}
+
+.ex-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* efecto espejo, como en una videollamada */
+}
+
+.ex-video__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #6f6f78;
+  font-size: 12px;
+  text-align: center;
+}
+
+.ex-video__empty span {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.ex-video__empty p {
+  margin: 0;
+}
+
+.ex-rec {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  background: rgba(224, 108, 117, 0.92);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  animation: ex-blink 1.2s steps(2, start) infinite;
+}
+
+/* ---------- Red: banner de conexión y barra de petición ---------- */
+.ex-banner {
+  padding: 11px 14px;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ex-banner.is-online {
+  border-color: rgba(152, 195, 121, 0.45);
+  background: rgba(152, 195, 121, 0.1);
+  color: #a9d38a;
+}
+
+.ex-banner.is-offline {
+  border-color: rgba(224, 108, 117, 0.45);
+  background: rgba(224, 108, 117, 0.1);
+  color: #e28d94;
+}
+
+.ex-request {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid #3d3d3d;
+  border-radius: 6px;
+  background: #1b1b1c;
+}
+
+.ex-request__bar {
+  height: 4px;
+  width: 100%;
+  background: #3d3d3d;
+}
+
+.ex-request__bar.is-loading {
+  background: linear-gradient(90deg, #61afef 0%, #98c379 50%, #61afef 100%);
+  background-size: 200% 100%;
+  animation: ex-loading 1.2s linear infinite;
+}
+
+@keyframes ex-loading {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.ex-request__text {
+  padding: 10px 12px;
+  color: #cfcfd6;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+}

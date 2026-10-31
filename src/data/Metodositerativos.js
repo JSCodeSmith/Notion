@@ -1,6 +1,7 @@
 // Formato inline permitido en los textos: **negrita**, *cursiva* y `código`
 // Los items de las listas pueden ser string o { texto, code, nota }
-// Todos usan simulador: "utilidad" -> SimuladorUtilidad (ids: foreach, reduce, reduceright, every)
+// foreach, reduceright y every usan "utilidad" -> SimuladorUtilidad.
+// reduce usa "reduce-lab" -> ReduceLab (juego REDUCE LAB).
 
 export const METODOS_ITERATIVOS = {
   /* ============================ forEach() ============================ */
@@ -215,7 +216,7 @@ votos.forEach(voto => {
   reduce: {
     id: "reduce",
     titulo: "Array.prototype.reduce()",
-    simulador: "utilidad",
+    simulador: "reduce-lab",
     definicion: [
       "Es un método iterativo de `Array` que ejecuta una función **reductora** sobre cada elemento y devuelve **un único valor** acumulado.",
     ],

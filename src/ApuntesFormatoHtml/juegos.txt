@@ -1,0 +1,125 @@
+
+# PROYECTO: REDUCE LAB — Advanced Interactive Programming Game
+
+Desarrolla un videojuego educativo avanzado e interactivo para enseñar y dominar `Array.prototype.reduce()` de JavaScript.
+
+## 1. Concepto
+
+Crear un laboratorio futurista de programación donde el jugador resuelva desafíos utilizando la lógica de reducción de arrays.
+
+El videojuego debe sentirse como una combinación de:
+- Videojuego de estrategia.
+- Laboratorio de experimentación.
+- Simulador de programación.
+- Sistema de misiones y progresión.
+
+No debe parecer una página educativa tradicional.
+
+## 2. Diseño visual
+
+Crear una interfaz premium con:
+- Tema oscuro.
+- Estética futurista y tecnológica.
+- Paneles de cristal y transparencias.
+- Iluminación neón.
+- Animaciones fluidas.
+- Gráficos y visualizaciones de datos.
+- Iconografía profesional.
+- Efectos visuales al completar operaciones.
+- Diseño responsive.
+
+## 3. Modos de juego
+
+### Modo 1: Energy Collector
+Recolectar elementos de energía y acumular sus valores utilizando reduce().
+
+### Modo 2: Alchemy Laboratory
+Combinar ingredientes para producir pociones. Cada elemento modifica el acumulador.
+
+### Modo 3: Kingdom Economy
+Administrar recursos de un reino, calcular balances y agrupar inventarios.
+
+### Modo 4: Space Fleet
+Combinar estadísticas de naves espaciales para obtener el poder total de una flota.
+
+### Modo 5: Detective Database
+Procesar evidencias, agrupar sospechosos y construir un objeto con información acumulada.
+
+## 4. Simulador visual de reduce()
+
+Construir una simulación donde se visualice:
+
+- Array original.
+- Valor inicial del acumulador.
+- Elemento actual.
+- Índice actual.
+- Acumulador anterior.
+- Operación realizada.
+- Nuevo acumulador.
+- Resultado final.
+
+Ejemplo:
+
+const numeros = [10, 20, 30, 40];
+
+const resultado = numeros.reduce((acumulador, actual) => {
+    return acumulador + actual;
+}, 0);
+
+Mostrar visualmente cada iteración, permitiendo avanzar, retroceder, pausar y reiniciar.
+
+## 5. Sistema de desafíos
+
+Cada misión debe incluir:
+- Objetivo.
+- Historia breve.
+- Problema que resolver.
+- Array de datos.
+- Editor de código.
+- Resultado esperado.
+- Validación automática.
+- Pistas progresivas.
+- Explicación de la solución.
+
+## 6. Mecánicas avanzadas
+
+Incluir desafíos con:
+- Suma y multiplicación.
+- Máximo y mínimo.
+- Agrupación de objetos.
+- Conteo de frecuencias.
+- Construcción de objetos.
+- Arrays de objetos.
+- Cálculos financieros.
+- Transformación de estructuras de datos.
+- Acumuladores complejos.
+
+## 7. Progresión
+
+Implementar:
+- Experiencia (XP).
+- Puntuación.
+- Medallas.
+- Rangos.
+- Misiones desbloqueables.
+- Sistema de dificultad.
+- Récords personales.
+
+## 8. Requisitos técnicos
+
+Utilizar:
+- HTML.
+- CSS.
+- JavaScript moderno.
+- DOM.
+- Array.prototype.reduce() como protagonista.
+
+Organizar el código mediante funciones reutilizables y una arquitectura modular.
+
+## 9. Objetivo pedagógico
+
+El jugador no debe memorizar ejemplos.
+
+Debe comprender cómo funciona el acumulador, cómo evoluciona en cada iteración y cómo transformar estructuras de datos mediante reduce().
+
+IMPORTANTE: entregar un videojuego funcional, no solamente un diseño visual o una maqueta. Todas las mecánicas, controles, misiones y simulaciones deben funcionar.

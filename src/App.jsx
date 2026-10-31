@@ -10,6 +10,7 @@ import './App.css'
 import { METODOS_STRINGS } from './data/metodosStrings'
 import { METODOS_NUMEROS } from './data/metodosNumeros'
 import { METODOS_FECHAS, METODOS_FECHAS_DOCS } from './data/metodosFechas'
+import { JS_CATEGORIAS, JS_APUNTES } from './data/jsApuntes'
 
 // Fuera del componente: se crea una sola vez.
 // 'find' tiene componente propio (MetodoFindDoc), el resto vive en METODOS_DOCS.
@@ -17,6 +18,7 @@ const DOC_IDS = new Set([
   'find',
   ...Object.keys(METODOS_DOCS),
   ...Object.keys(METODOS_FECHAS_DOCS),
+  ...Object.keys(JS_APUNTES),
   ...Object.keys(CONSOLE_API_DOCS),
 ])
 
@@ -39,6 +41,15 @@ export default function App() {
       ...g,
       seccion: `Fechas · ${g.seccion}`,
     })),
+    ...JS_CATEGORIAS.flatMap((categoria) =>
+      categoria.grupos.map((g) => ({
+        ...g,
+        seccion: `${categoria.label} · ${g.seccion}`,
+        subtitulo: categoria.titulo,
+        careerId: 'programacion',
+        courseId: 'lenguajes',
+      }))
+    ),
     {
       seccion: 'Console API',
       subtitulo: 'APIs',

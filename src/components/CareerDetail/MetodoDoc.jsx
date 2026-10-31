@@ -8,6 +8,28 @@ import SimuladorUtilidad from '../SimuladorUtilidad/SimuladorUtilidad'
 import SimuladorString from '../SimuladorString/SimuladorString'
 import SimuladorNumero from '../SimuladorNumero/SimuladorNumero'
 import SimuladorFecha from '../SimuladorFecha/SimuladorFecha'
+import SimuladorJSON from '../SimuladoresJS/SimuladorJSON'
+import SimuladorTemporizador from '../SimuladoresJS/SimuladorTemporizador'
+import SimuladorPromesa from '../SimuladoresJS/SimuladorPromesa'
+import SimuladorWebAPI from '../SimuladoresJS/SimuladorWebAPI'
+import SimuladorHistorial from '../SimuladoresJS/SimuladorHistorial'
+import SimuladorPerformance from '../SimuladoresJS/SimuladorPerformance'
+import SimuladorNotificaciones from '../SimuladoresJS/SimuladorNotificaciones'
+import SimuladorFileReader from '../SimuladoresJS/SimuladorFileReader'
+import SimuladorFullscreen from '../SimuladoresJS/SimuladorFullscreen'
+import SimuladorNavegador from '../SimuladoresJS/SimuladorNavegador'
+import SimuladorDOM from '../SimuladoresDOM/SimuladorDOM'
+import SimuladorEventos from '../SimuladoresDOM/SimuladorEventos'
+import SimuladorDialogos from '../SimuladoresDOM/SimuladorDialogos'
+import SimuladorMedia from '../SimuladoresDOM/SimuladorMedia'
+import SimuladorGeo from '../SimuladoresDOM/SimuladorGeo'
+import SimuladorMath from '../SimuladoresJS/SimuladorMath'
+import SimuladorStorage from '../SimuladoresJS/SimuladorStorage'
+import SimuladorEstilos from '../SimuladoresJS/SimuladorEstilos'
+import SimuladorVoz from '../SimuladoresJS/SimuladorVoz'
+import SimuladorMedios from '../SimuladoresJS/SimuladorMedios'
+import SimuladorRed from '../SimuladoresJS/SimuladorRed'
+import ReduceLab from '../ReduceLab/ReduceLab'
 
 /* Elige el simulador según el campo `simulador` del método.
    `simuladores` permite inyectar simuladores propios desde otras secciones. */
@@ -26,6 +48,53 @@ function Simulador({ metodo, simuladores = {} }) {
       return <SimuladorNumero key={metodo.id} metodoId={metodo.id} />
     case 'fecha':
       return <SimuladorFecha key={metodo.id} metodoId={metodo.id} />
+    case 'json':
+      return <SimuladorJSON key={metodo.id} metodoId={metodo.id} />
+    case 'temporizador':
+      return <SimuladorTemporizador key={metodo.id} metodoId={metodo.id} />
+    case 'promesa':
+      return <SimuladorPromesa key={metodo.id} metodoId={metodo.id} />
+    case 'webapi':
+      return <SimuladorWebAPI key={metodo.id} metodoId={metodo.id} />
+    case 'history':
+      return <SimuladorHistorial key={metodo.id} metodoId={metodo.id} />
+    case 'performance':
+      return <SimuladorPerformance key={metodo.id} metodoId={metodo.id} />
+    case 'notification':
+    case 'push':
+      return <SimuladorNotificaciones key={metodo.id} metodoId={metodo.id} />
+    case 'filereader':
+      return <SimuladorFileReader key={metodo.id} metodoId={metodo.id} />
+    case 'fullscreen':
+      return <SimuladorFullscreen key={metodo.id} metodoId={metodo.id} />
+    case 'share':
+    case 'clipboard':
+    case 'cookie':
+      return <SimuladorNavegador key={metodo.id} metodoId={metodo.id} />
+    case 'dom':
+      return <SimuladorDOM key={metodo.id} metodoId={metodo.id} />
+    case 'eventos':
+      return <SimuladorEventos key={metodo.id} metodoId={metodo.id} />
+    case 'dialogos':
+      return <SimuladorDialogos key={metodo.id} metodoId={metodo.id} />
+    case 'media':
+      return <SimuladorMedia key={metodo.id} metodoId={metodo.id} />
+    case 'geo':
+      return <SimuladorGeo key={metodo.id} metodoId={metodo.id} />
+    case 'math':
+      return <SimuladorMath key={metodo.id} metodoId={metodo.id} />
+    case 'storage':
+      return <SimuladorStorage key={metodo.id} metodoId={metodo.id} />
+    case 'estilos':
+      return <SimuladorEstilos key={metodo.id} metodoId={metodo.id} />
+    case 'voz':
+      return <SimuladorVoz key={metodo.id} metodoId={metodo.id} />
+    case 'medios':
+      return <SimuladorMedios key={metodo.id} metodoId={metodo.id} />
+    case 'red':
+      return <SimuladorRed key={metodo.id} metodoId={metodo.id} />
+    case 'reduce-lab':
+      return <ReduceLab key={metodo.id} />
     default:
       return <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
   }

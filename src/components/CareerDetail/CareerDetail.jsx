@@ -4,6 +4,11 @@ import { METODOS_DOCS } from '../../data/metodosDocs'
 import { METODOS_STRINGS } from '../../data/metodosStrings'
 import { METODOS_NUMEROS } from '../../data/metodosNumeros'
 import { METODOS_FECHAS, METODOS_FECHAS_DOCS } from '../../data/metodosFechas'
+import {
+  JS_CATEGORIAS,
+  JS_APUNTES,
+  JS_APUNTE_CATEGORIA,
+} from '../../data/jsApuntes'
 import APIs from '../../APIs/APIs'
 import { API_GRUPOS } from '../../APIs/registry'
 import MetodoFindDoc from './MetodoFindDoc'
@@ -25,6 +30,12 @@ const SUBTABS = [
   { id: 'strings', label: 'Strings', icon: '🔤', grupos: METODOS_STRINGS },
   { id: 'numeros', label: 'Números', icon: '🔢', grupos: METODOS_NUMEROS },
   { id: 'fechas', label: 'Fechas', icon: '🗓️', grupos: METODOS_FECHAS },
+  ...JS_CATEGORIAS.map((categoria) => ({
+    id: categoria.id,
+    label: categoria.label,
+    icon: categoria.icon,
+    grupos: categoria.grupos,
+  })),
   { id: 'apis', label: 'APIs', icon: '🔌', grupos: [] },
 ]
 
@@ -59,6 +70,9 @@ export default function CareerDetail({
 }) {
   const isLenguajes = carrera.id === 'lenguajes'
   const [subtab, setSubtab] = useState(() => {
+    if (metodoActivo && JS_APUNTE_CATEGORIA[metodoActivo]) {
+      return JS_APUNTE_CATEGORIA[metodoActivo]
+    }
     if (metodoActivo && API_IDS.has(metodoActivo)) return 'apis'
     if (metodoActivo && FECHA_IDS.has(metodoActivo)) return 'fechas'
     if (metodoActivo && NUMERO_IDS.has(metodoActivo)) return 'numeros'
@@ -72,6 +86,10 @@ export default function CareerDetail({
 
   useEffect(() => {
     if (!metodoActivo) return
+    if (JS_APUNTE_CATEGORIA[metodoActivo]) {
+      setSubtab(JS_APUNTE_CATEGORIA[metodoActivo])
+      return
+    }
     if (API_IDS.has(metodoActivo)) {
       setSubtab('apis')
       const grupo = apiGrupoDe(metodoActivo)
@@ -89,7 +107,10 @@ export default function CareerDetail({
     setSubtab(STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays')
   }, [metodoActivo])
   const tieneDoc = (id) =>
-    id === 'find' || Boolean(METODOS_DOCS[id]) || Boolean(METODOS_FECHAS_DOCS[id])
+    id === 'find' ||
+    Boolean(METODOS_DOCS[id]) ||
+    Boolean(METODOS_FECHAS_DOCS[id]) ||
+    Boolean(JS_APUNTES[id])
 
   const volverALista = () => onMetodoChange(null)
 
@@ -98,7 +119,9 @@ export default function CareerDetail({
   }
 
   const docActivo = metodoActivo
-    ? METODOS_DOCS[metodoActivo] ?? METODOS_FECHAS_DOCS[metodoActivo]
+    ? METODOS_DOCS[metodoActivo] ??
+      METODOS_FECHAS_DOCS[metodoActivo] ??
+      JS_APUNTES[metodoActivo]
     : null
 
   if (docActivo) {
