@@ -30,6 +30,7 @@ import SimuladorVoz from '../SimuladoresJS/SimuladorVoz'
 import SimuladorMedios from '../SimuladoresJS/SimuladorMedios'
 import SimuladorRed from '../SimuladoresJS/SimuladorRed'
 import ReduceLab from '../ReduceLab/ReduceLab'
+import ReduceExtras from '../ReduceExtras/ReduceExtras'
 
 /* Elige el simulador según el campo `simulador` del método.
    `simuladores` permite inyectar simuladores propios desde otras secciones. */
@@ -246,6 +247,8 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
             </div>
           ))}
         </div>
+
+        {metodo.id === 'reduce' && <ReduceExtras />}
 
         <div className="doc-card"><h3>⚠️ Errores comunes</h3><Lista items={metodo.errores} /></div>
         <div className="doc-card"><h3>💼 Casos de uso</h3><Lista items={metodo.casos} /></div>

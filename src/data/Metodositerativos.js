@@ -1,7 +1,7 @@
 // Formato inline permitido en los textos: **negrita**, *cursiva* y `código`
 // Los items de las listas pueden ser string o { texto, code, nota }
 // foreach, reduceright y every usan "utilidad" -> SimuladorUtilidad.
-// reduce usa "reduce-lab" -> ReduceLab (juego REDUCE LAB).
+// reduce conserva su laboratorio propio "reduce-lab" -> ReduceLab (REDUCE LAB).
 
 export const METODOS_ITERATIVOS = {
   /* ============================ forEach() ============================ */
