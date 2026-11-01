@@ -1,0 +1,799 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Teoría Sociotécnica</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-80b6-a849-cd72db97da20" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Teoría Sociotécnica</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c8648ad-99fc-8095-b8c9-ed40512ee6e0" class="" dir="auto">
+</p><p id="3c8648ad-99fc-80cd-93ec-d821059328bd" class="" dir="auto">
+</p><h1 id="3c8648ad-99fc-8008-afc9-dafca97b82bc" class="" dir="auto"><strong>📄 Teoría Sociotécnica</strong></h1><hr id="3c8648ad-99fc-80f3-8650-d0c70c116d7c" dir="auto"/><h2 id="3c8648ad-99fc-8068-9923-e1e7935b025d" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c8648ad-99fc-801a-bbcd-cea9918a7cad" class="" dir="auto">La Teoría Sociotécnica es un enfoque de gestión y diseño organizacional que reconoce la <strong>interdependencia e interacción</strong> entre los <strong>sistemas sociales</strong> (personas, cultura, estructuras) y los <strong>sistemas técnicos</strong> (tecnología, procesos, herramientas) dentro de una organización. </p><p id="3c8648ad-99fc-80c9-a7d9-e4250c79a2f9" class="" dir="auto">Sostiene que para lograr un rendimiento óptimo, ambos sistemas deben ser <strong>diseñados y gestionados de manera conjunta</strong>, en lugar de forma aislada. </p><p id="3c8648ad-99fc-8099-aaf9-d853ff532516" class="" dir="auto">El objetivo es optimizar el ajuste entre las necesidades humanas y la tecnología para lograr tanto la eficiencia operativa como el bienestar de los empleados.</p><hr id="3c8648ad-99fc-8064-8d38-dbd4cb8c6aee" dir="auto"/><h2 id="3c8648ad-99fc-804d-a5c8-f0c4071d3b25" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c8648ad-99fc-80e5-b537-e34fa2169af0" class="" dir="auto">La teoría sociotécnica fue desarrollada en la <strong>década de 1950</strong> por los psicólogos y sociólogos del <strong>Instituto Tavistock de Relaciones Humanas</strong> en Londres, incluyendo a <strong>Eric Trist</strong>, <strong>Ken Bamforth</strong> y <strong>Fred Emery</strong>. </p><p id="3c8648ad-99fc-8039-8959-c2333ec63f02" class="" dir="auto">Surgió del estudio de equipos de trabajo en la industria minera del carbón en el Reino Unido, donde se observó que la introducción de nueva tecnología (sistemas técnicos) no mejoraba la productividad si no se consideraban los aspectos sociales (sistemas sociales) de los trabajadores, como la autonomía, las relaciones y la motivación.</p><p id="3c8648ad-99fc-80ea-9cff-dbd7efb312d7" class="" dir="auto">La teoría propone que una organización no es solo un conjunto de máquinas y procesos, sino un <strong>sistema abierto</strong> compuesto por dos subsistemas que están en <strong>constante interacción</strong>:</p><ul id="3c8648ad-99fc-8096-8184-caee34938e6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistema Técnico</strong>: Incluye la tecnología, las herramientas, los equipos, la infraestructura, los procesos, los métodos de trabajo, y el conocimiento técnico necesario para producir bienes o servicios.</li></ul><ul id="3c8648ad-99fc-8052-960c-d663d601ee24" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistema Social</strong>: Incluye a las personas, sus habilidades, sus actitudes, sus relaciones, la cultura organizacional, los valores, las normas, la estructura jerárquica, los sistemas de recompensa, y los patrones de comunicación.</li></ul><p id="3c8648ad-99fc-808a-a987-ff12d53fcdba" class="" dir="auto"><strong>El principio fundamental es que el &quot;ajuste&quot; entre estos dos sistemas es lo que determina el éxito de la organización.</strong> </p><p id="3c8648ad-99fc-80e6-9f9c-f34a09098c1c" class="" dir="auto">Un desajuste (ej: tecnología avanzada con procesos rígidos y personal desmotivado) conduce a la ineficiencia, la baja productividad, el conflicto y la insatisfacción.</p><hr id="3c8648ad-99fc-8034-84a7-c90ad4182bff" dir="auto"/><h2 id="3c8648ad-99fc-80c4-8998-da8413aa3e32" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c8648ad-99fc-80e4-ad69-db4a392b7a73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la productividad y la eficiencia</strong>: Al diseñar procesos que consideran tanto la tecnología como las capacidades humanas.</li></ul><ul id="3c8648ad-99fc-80f5-a7e5-e6e0733e7486" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la satisfacción y el compromiso de los empleados</strong>: Crear entornos de trabajo que sean técnicamente eficientes y socialmente gratificantes.</li></ul><ul id="3c8648ad-99fc-80b7-80c7-c9b73e49df70" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar la adopción de nuevas tecnologías</strong>: Asegurar que la implementación tecnológica considere el factor humano, reduciendo la resistencia al cambio.</li></ul><ul id="3c8648ad-99fc-808d-ad03-ee0cf3fe27fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la innovación</strong>: Crear un entorno donde la tecnología y las personas colaboren para generar nuevas ideas y soluciones.</li></ul><ul id="3c8648ad-99fc-8007-b003-c92d1b7cef5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la adaptabilidad</strong>: Desarrollar organizaciones que puedan adaptarse mejor a los cambios tecnológicos y de mercado.</li></ul><ul id="3c8648ad-99fc-809c-950a-c54158c91bf8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diseñar organizaciones más resilientes</strong>: Al reconocer la interdependencia entre los sistemas, se crean estructuras más robustas y capaces de enfrentar crisis.</li></ul><hr id="3c8648ad-99fc-80e7-b57c-ce46a3bbefe7" dir="auto"/><h2 id="3c8648ad-99fc-807e-a977-ccc22a5acae4" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los Principios de la Teoría Sociotécnica</strong></h2><p id="3c8648ad-99fc-8045-8825-fd8190b9f5fd" class="" dir="auto">La implementación de un enfoque sociotécnico se basa en varios principios clave:</p><ol type="1" id="3c8648ad-99fc-8095-8694-d7ecdbe23978" class="numbered-list" start="1" dir="auto"><li><strong>Interdependencia</strong>: Los sistemas social y técnico son inseparables. Un cambio en uno afecta inevitablemente al otro.</li></ol><ol type="1" id="3c8648ad-99fc-80f6-af47-ef9840ee0183" class="numbered-list" start="2" dir="auto"><li><strong>Búsqueda conjunta de objetivos</strong>: Los objetivos del sistema social (ej: satisfacción, desarrollo) y del sistema técnico (ej: eficiencia, productividad) deben ser compatibles y buscarse de manera simultánea.</li></ol><ol type="1" id="3c8648ad-99fc-80d3-a334-d5df6977f8ac" class="numbered-list" start="3" dir="auto"><li><strong>Diseño participativo</strong>: Los trabajadores deben participar en el diseño de su propio trabajo y de las herramientas que utilizan. Son ellos quienes mejor conocen el proceso y cómo mejorarlo.</li></ol><ol type="1" id="3c8648ad-99fc-8043-85e9-ce9c54ed13d5" class="numbered-list" start="4" dir="auto"><li><strong>Autonomía y control</strong>: Los equipos de trabajo deben tener un grado significativo de autonomía para gestionar su propio trabajo y tomar decisiones sobre cómo realizarlo. Esto se asocia a menudo con los <strong>equipos autogestionados</strong>.</li></ol><ol type="1" id="3c8648ad-99fc-8079-876b-d0396e3c88b9" class="numbered-list" start="5" dir="auto"><li><strong>Tareas completas y significativas</strong>: Los trabajos deben diseñarse para que los empleados tengan una tarea completa y significativa, no una tarea fragmentada y repetitiva. Esto aumenta el sentido de propósito y responsabilidad.</li></ol><ol type="1" id="3c8648ad-99fc-8029-99a8-f8310588a42e" class="numbered-list" start="6" dir="auto"><li><strong>Minimización de la incertidumbre</strong>: Los sistemas deben diseñarse para minimizar la incertidumbre en el trabajo, proporcionando a los empleados la información y los recursos que necesitan para hacer su trabajo de manera efectiva.</li></ol><ol type="1" id="3c8648ad-99fc-8017-8271-f7a868d6f81a" class="numbered-list" start="7" dir="auto"><li><strong>Apoyo social y comunicación</strong>: Se deben fomentar relaciones de apoyo y una comunicación abierta y efectiva dentro de los equipos y entre los equipos.</li></ol><hr id="3c8648ad-99fc-8040-b3d5-c8d8c086bd2a" dir="auto"/><h2 id="3c8648ad-99fc-80df-8ef0-cec69cf219f9" class="" dir="auto"><strong>📝 Tipos de Ajuste Sociotécnico</strong></h2><p id="3c8648ad-99fc-8057-8bd2-c6b76c4ad86e" class="" dir="auto">El objetivo de la teoría es lograr un <strong>ajuste (fit)</strong> entre los sistemas social y técnico. </p><p id="3c8648ad-99fc-80bb-bcde-d003b55fb4db" class="" dir="auto">Se pueden distinguir diferentes tipos de ajuste:</p><table id="3c8648ad-99fc-80cc-816e-c0e0b408cd85" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-804b-b65e-d95ac73a615d" dir="ltr"><th id="}XxC" class="simple-table-header-color simple-table-header"><strong>Tipo de Ajuste</strong></th><th id="QCRH" class="simple-table-header-color simple-table-header" style="width:491px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8060-88ae-cfbcd306a797" dir="ltr"><td id="}XxC" class=""><strong>Ajuste Técnico</strong></td><td id="QCRH" class="" style="width:491px">La tecnología se adapta a las necesidades y capacidades de los empleados.</td></tr><tr id="3c8648ad-99fc-8057-b8fb-cdd52c8efe42" dir="ltr"><td id="}XxC" class=""><strong>Ajuste Social</strong></td><td id="QCRH" class="" style="width:491px">La estructura social (equipos, liderazgo, comunicación) se adapta para aprovechar al máximo la tecnología y las habilidades de los empleados.</td></tr><tr id="3c8648ad-99fc-8003-9b43-c9cf92e78c17" dir="ltr"><td id="}XxC" class=""><strong>Ajuste Integral</strong></td><td id="QCRH" class="" style="width:491px">Se optimizan ambos sistemas de manera conjunta para lograr el mejor rendimiento y la mayor satisfacción.</td></tr></tbody></table><hr id="3c8648ad-99fc-80e7-9c4d-fba165e4176e" dir="auto"/><h2 id="3c8648ad-99fc-80a4-95f7-c3b7a0fbdac5" class="" dir="auto"><strong>💡 Ejemplos de Aplicación de la Teoría Sociotécnica</strong></h2><h3 id="3c8648ad-99fc-80fa-b7c5-e5b686fb2f74" class="" dir="auto"><strong>Ejemplo 1: Implementación de un nuevo sistema ERP</strong></h3><ul id="3c8648ad-99fc-801b-b97f-cc2f9801658a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque tradicional</strong>: El equipo de TI instala el sistema, capacita a los empleados de forma rápida y espera que lo usen. </li></ul><ul id="3c8648ad-99fc-8031-ab72-de076295abe6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los empleados encuentran el sistema complejo y rígido, y se resisten a usarlo. La productividad cae.</li></ul><ul id="3c8648ad-99fc-80f2-9194-f4a4f613328d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque sociotécnico</strong>: Se involucra a los empleados en el proceso de selección y diseño del sistema. </li></ul><ul id="3c8648ad-99fc-8017-92c4-f13d5a7cdc44" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se realizan pruebas piloto y se recoge feedback. </li></ul><ul id="3c8648ad-99fc-8077-ac64-e1601ad41e33" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se rediseñan los procesos de trabajo para que se adapten al nuevo sistema y se adapta el sistema (configuración, personalización) a la forma de trabajar de los empleados. Se ofrece una formación continua y un soporte cercano. </li></ul><ul id="3c8648ad-99fc-80ca-b821-d05d81d53a9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El resultado es una mayor adopción, una menor resistencia al cambio y una mejora de la productividad.</li></ul><h3 id="3c8648ad-99fc-801c-933f-ee9fb93c2311" class="" dir="auto"><strong>Ejemplo 2: Diseño de una planta de producción</strong></h3><ul id="3c8648ad-99fc-80e0-aa02-deab311a5936" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque tradicional</strong>: Los ingenieros diseñan la línea de producción para maximizar la eficiencia técnica, dividiendo el trabajo en tareas simples y repetitivas. </li></ul><ul id="3c8648ad-99fc-8046-a5a9-da9314ae4fdf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los trabajadores son vistos como parte de la maquinaria, y la automatización reemplaza gran parte del trabajo humano.</li></ul><ul id="3c8648ad-99fc-8044-a85b-c5a12f9cb1b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque sociotécnico</strong>: Se diseña la planta con equipos de trabajo autónomos que son responsables de una sección completa del proceso productivo. </li></ul><ul id="3c8648ad-99fc-80ae-9f91-e533de8a164f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se les da autoridad para tomar decisiones sobre el ritmo de trabajo, la distribución de tareas y la resolución de problemas. </li></ul><ul id="3c8648ad-99fc-8003-b211-eff52834cf16" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se utiliza la tecnología para apoyar a los equipos, no para reemplazarlos. </li></ul><ul id="3c8648ad-99fc-8076-8e5b-c3f5a37a8043" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El resultado es una mayor satisfacción de los trabajadores, una mayor calidad y una mayor flexibilidad para adaptarse a cambios.</li></ul><h3 id="3c8648ad-99fc-807a-b2a0-e0287073c29a" class="" dir="auto"><strong>Ejemplo 3: Una empresa de desarrollo de software</strong></h3><ul id="3c8648ad-99fc-80a7-b985-f1ccd849690e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque tradicional</strong>: Los gerentes de proyecto asignan tareas a los desarrolladores y controlan el progreso. </li></ul><ul id="3c8648ad-99fc-804b-acef-e7d1175a5ef4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los desarrolladores trabajan en silos, con poca colaboración.</li></ul><ul id="3c8648ad-99fc-80a2-bf4e-fb332ed1bdcf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque sociotécnico</strong>: Se forman equipos ágiles y autónomos (ej: squads). </li></ul><ul id="3c8648ad-99fc-80f4-ae17-c727159c55d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los desarrolladores tienen la autonomía para decidir cómo implementar las funcionalidades, y se fomenta la colaboración entre equipos. </li></ul><ul id="3c8648ad-99fc-8097-8d32-cdfc2988f2b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se utilizan herramientas de colaboración (ej: Slack, Jira, Confluence) que facilitan la comunicación y la transparencia. </li></ul><ul id="3c8648ad-99fc-8098-9725-d71a6e08dcd7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El resultado es una mayor velocidad de desarrollo, una mayor innovación y una mayor satisfacción de los desarrolladores.</li></ul><hr id="3c8648ad-99fc-80b4-a81f-d9667529dac6" dir="auto"/><h2 id="3c8648ad-99fc-8067-9334-c825ec0e5338" class="" dir="auto"><strong>⚠️ Errores Comunes al Aplicar la Teoría Sociotécnica</strong></h2><table id="3c8648ad-99fc-8050-95bb-e23fa00f7e56" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-807a-9e45-f7680f55c637" dir="ltr"><th id="vE:A" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="ReD\" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="|T];" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8010-8918-f5024754313a" dir="ltr"><td id="vE:A" class=""><strong>Priorizar lo técnico sobre lo social</strong></td><td id="ReD\" class="">Invertir grandes sumas en tecnología sin considerar el impacto en las personas.</td><td id="|T];" class="">Baja adopción, resistencia al cambio, desmotivación.</td></tr><tr id="3c8648ad-99fc-80e7-a19c-d186171272de" dir="ltr"><td id="vE:A" class=""><strong>Ignorar el conocimiento de los empleados</strong></td><td id="ReD\" class="">No involucrar a los empleados en el diseño de su trabajo o en la selección de herramientas.</td><td id="|T];" class="">Soluciones que no se adaptan a la realidad del trabajo.</td></tr><tr id="3c8648ad-99fc-80cc-a601-f83fcab1567f" dir="ltr"><td id="vE:A" class=""><strong>No rediseñar los procesos junto con la tecnología</strong></td><td id="ReD\" class="">Implementar una nueva tecnología sobre un proceso antiguo.</td><td id="|T];" class="">La tecnología no puede ser aprovechada al máximo.</td></tr><tr id="3c8648ad-99fc-8041-a126-f8e68a7101aa" dir="ltr"><td id="vE:A" class=""><strong>Falta de capacitación y apoyo</strong></td><td id="ReD\" class="">No proporcionar la formación y el soporte necesario para que los empleados utilicen la nueva tecnología de manera efectiva.</td><td id="|T];" class="">Frustración, baja productividad.</td></tr><tr id="3c8648ad-99fc-8069-8f52-f1b7ec463aab" dir="ltr"><td id="vE:A" class=""><strong>No fomentar la comunicación</strong></td><td id="ReD\" class="">No establecer canales de comunicación y colaboración adecuados.</td><td id="|T];" class="">Conflicto, falta de alineación.</td></tr><tr id="3c8648ad-99fc-808e-83fd-f52171f1b1e0" dir="ltr"><td id="vE:A" class=""><strong>Pensar que es un proyecto de &quot;una sola vez&quot;</strong></td><td id="ReD\" class="">Tratar la implementación sociotécnica como un proyecto, en lugar de como un proceso continuo.</td><td id="|T];" class="">El desajuste entre los sistemas vuelve a aparecer con el tiempo.</td></tr></tbody></table><hr id="3c8648ad-99fc-8080-85a6-d0ee41c152f3" dir="auto"/><h2 id="3c8648ad-99fc-8078-be40-e2b7d1646867" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c8648ad-99fc-8045-b490-f21270a59b44" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8090-837e-f054959dce0c" dir="ltr"><th id="RE{:" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="m&gt;To" class="simple-table-header-color simple-table-header" style="width:464px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-80d5-aac7-c6b485c0141e" dir="ltr"><td id="RE{:" class=""><strong>Transformación digital</strong></td><td id="m&gt;To" class="" style="width:464px">Asegurar que la adopción de nuevas tecnologías se acompañe de un cambio cultural y organizativo.</td></tr><tr id="3c8648ad-99fc-8080-9b21-de58fe410438" dir="ltr"><td id="RE{:" class=""><strong>Implementación de un nuevo sistema de gestión (ERP)</strong></td><td id="m&gt;To" class="" style="width:464px">Involucrar a los empleados en el diseño y adaptación del sistema.</td></tr><tr id="3c8648ad-99fc-80e2-951f-c6d9bbc13f72" dir="ltr"><td id="RE{:" class=""><strong>Rediseño de procesos de trabajo</strong></td><td id="m&gt;To" class="" style="width:464px">Optimizar la interacción entre personas y tecnología.</td></tr><tr id="3c8648ad-99fc-801a-bd40-da44a66d8bb8" dir="ltr"><td id="RE{:" class=""><strong>Desarrollo de equipos ágiles</strong></td><td id="m&gt;To" class="" style="width:464px">Crear equipos autónomos con las herramientas y el apoyo necesarios.</td></tr><tr id="3c8648ad-99fc-8024-af7a-f650131bad48" dir="ltr"><td id="RE{:" class=""><strong>Gestión del cambio organizacional</strong></td><td id="m&gt;To" class="" style="width:464px">Asegurar que los cambios tecnológicos se acompañen de cambios sociales.</td></tr><tr id="3c8648ad-99fc-806a-be98-c1c72b104c0c" dir="ltr"><td id="RE{:" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id="m&gt;To" class="" style="width:464px">Diseñar equipos y procesos que integren desarrollo, operaciones y negocio.</td></tr></tbody></table><hr id="3c8648ad-99fc-8040-be4e-db1da43d8319" dir="auto"/><h2 id="3c8648ad-99fc-80c5-9758-c0b8ea3b682a" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c8648ad-99fc-8084-8adb-c18389460905" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8056-b468-c9ae9888a533" dir="ltr"><th id="xZP;" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="WbB&gt;" class="simple-table-header-color simple-table-header" style="width:366px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-80b4-8569-ef5a8614dba6" dir="ltr"><td id="xZP;" class=""><strong>Teoría de Sistemas</strong></td><td id="WbB&gt;" class="" style="width:366px">La teoría sociotécnica es una aplicación de la teoría de sistemas a las organizaciones.</td></tr><tr id="3c8648ad-99fc-8046-aeed-e84fad8dd24b" dir="ltr"><td id="xZP;" class=""><strong>Diseño Organizacional</strong></td><td id="WbB&gt;" class="" style="width:366px">La teoría sociotécnica proporciona principios para el diseño de estructuras y procesos organizacionales.</td></tr><tr id="3c8648ad-99fc-800a-aa2a-e2e113fdf342" dir="ltr"><td id="xZP;" class=""><strong>Gestión del Cambio</strong></td><td id="WbB&gt;" class="" style="width:366px">La teoría sociotécnica es un marco para gestionar el cambio organizacional de manera integral.</td></tr><tr id="3c8648ad-99fc-80be-af43-ce1b31cec2ab" dir="ltr"><td id="xZP;" class=""><strong>Equipos Autogestionados</strong></td><td id="WbB&gt;" class="" style="width:366px">Los equipos autogestionados son una manifestación práctica de los principios sociotécnicos.</td></tr><tr id="3c8648ad-99fc-80a9-96ab-dc7c22c025b3" dir="ltr"><td id="xZP;" class=""><strong>Agile y DevOps</strong></td><td id="WbB&gt;" class="" style="width:366px">Las metodologías ágiles y DevOps son ejemplos de enfoques que buscan optimizar la interacción entre personas (social) y tecnología (técnica).</td></tr><tr id="3c8648ad-99fc-8089-94f0-d28a22bb7a03" dir="ltr"><td id="xZP;" class=""><strong>Cultura Organizacional</strong></td><td id="WbB&gt;" class="" style="width:366px">La teoría reconoce que la cultura (social) es tan importante como la tecnología (técnica).</td></tr><tr id="3c8648ad-99fc-80a8-a49a-ed5108de5904" dir="ltr"><td id="xZP;" class=""><strong>ETPS (Estrategia, Tecnología, Personas, Sistemas)</strong></td><td id="WbB&gt;" class="" style="width:366px">La teoría sociotécnica se relaciona directamente con el pilar &quot;Personas&quot; y &quot;Tecnología&quot; del modelo ETPS.</td></tr></tbody></table><hr id="3c8648ad-99fc-80d7-acf4-d383623e35eb" dir="auto"/><h2 id="3c8648ad-99fc-802a-98f0-e34b33f42630" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c8648ad-99fc-80d1-8683-e76f69ba896f" class="" dir="auto">La Teoría Sociotécnica es como <strong>el diseño de una orquesta</strong>. La música (el resultado) no depende solo de los instrumentos (sistema técnico) ni solo de los músicos (sistema social). Para que la orquesta suene bien, los instrumentos deben estar afinados y ser de calidad, pero también los músicos deben estar bien entrenados, coordinados, motivados y tener una partitura común (procesos). El director (líder) debe asegurar que ambos sistemas (instrumentos y músicos) trabajen en armonía. Si los instrumentos son excelentes pero los músicos están desmotivados, la música sonará mal. Si los músicos son excelentes pero los instrumentos están desafinados, también sonará mal. El éxito está en la interacción y el ajuste de ambos sistemas.</p><hr id="3c8648ad-99fc-8009-bb7f-f6450af431fd" dir="auto"/><h2 id="3c8648ad-99fc-8001-a646-c576b2c646ef" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c8648ad-99fc-80f4-84c9-ebe0a5df5bae" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Trist, E., &amp; Bamforth, K. (1951). <em>Some Social and Psychological Consequences of the Longwall Method of Coal-Getting</em>. Human Relations.</li></ul><ul id="3c8648ad-99fc-8006-8a5f-f013606c8eba" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Emery, F. E., &amp; Trist, E. L. (1960). <em>Socio-Technical Systems</em>. In C. W. Churchman &amp; M. Verhulst (Eds.), <em>Management Science, Models and Techniques</em>.</li></ul><ul id="3c8648ad-99fc-80bd-85ac-cf304a138715" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pasmore, W. (1995). <em>Social Science Transformed: The Socio-Technical Perspective</em>. Human Relations.</li></ul><ul id="3c8648ad-99fc-8045-a641-c2dcaa448cb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Appelbaum, S. H. (1997). <em>Socio-Technical Systems Theory: An Intervention Strategy for Organizational Change</em>. Management Decision.</li></ul><ul id="3c8648ad-99fc-803d-b55f-fcd8a790d803" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cherns, A. (1976). <em>The Principles of Socio-Technical Design</em>. Human Relations.</li></ul><ul id="3c8648ad-99fc-8026-b9cd-db7f59194d48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2022). <em>The Socio-Technical Approach to Digital Transformation</em>.</li></ul><hr id="3c8648ad-99fc-8086-bce3-ffd886d3bfee" dir="auto"/><h2 id="3c8648ad-99fc-80a5-ab55-d1d8a8102723" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c8648ad-99fc-808a-8cc3-fb4d1c7b1e6c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La teoría sociotécnica es más relevante que nunca en la era de la transformación digital</strong>: La tecnología avanza a un ritmo acelerado, pero las personas y las organizaciones a menudo se quedan atrás. El enfoque sociotécnico nos recuerda que no se puede implementar tecnología sin considerar el impacto en las personas y la cultura.</li></ul><ul id="3c8648ad-99fc-8074-b4ec-f4e82f5b48a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La resistencia al cambio no es un problema técnico, es un problema sociotécnico</strong>: Cuando los empleados se resisten a una nueva tecnología, a menudo no es porque la tecnología sea mala, sino porque no se han considerado sus necesidades, preocupaciones y la forma en que el cambio afecta su trabajo y su estatus.</li></ul><ul id="3c8648ad-99fc-80c0-a90e-c01389322da2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar la teoría sociotécnica</strong>:<ol type="1" id="3c8648ad-99fc-8080-a077-e7de95ff0e45" class="numbered-list" start="1" dir="auto"><li><strong>Involucra a los empleados desde el principio</strong>: No impongas cambios; involucra a los empleados en el diseño y la implementación de nuevas tecnologías y procesos.</li></ol><ol type="1" id="3c8648ad-99fc-80f6-ad1a-c45b36541613" class="numbered-list" start="2" dir="auto"><li><strong>No te centres solo en la tecnología</strong>: La tecnología es importante, pero el éxito de un proyecto depende también de la cultura, la estructura y las personas.</li></ol><ol type="1" id="3c8648ad-99fc-80ec-a3db-e777a65bce39" class="numbered-list" start="3" dir="auto"><li><strong>Diseña el trabajo, no solo las tareas</strong>: Piensa en cómo los empleados experimentan su trabajo. ¿Tienen autonomía? ¿Tienen una tarea completa y significativa? ¿Tienen apoyo social?</li></ol><ol type="1" id="3c8648ad-99fc-8072-9d5d-c1e35b93073b" class="numbered-list" start="4" dir="auto"><li><strong>Fomenta la colaboración y la comunicación</strong>: Crea espacios y herramientas para que los empleados compartan información y colaboren.</li></ol><ol type="1" id="3c8648ad-99fc-809b-9cda-f40c5c2438dd" class="numbered-list" start="5" dir="auto"><li><strong>Capacita y apoya</strong>: No basta con instalar un software; hay que capacitar a los empleados en su uso y ofrecer soporte continuo.</li></ol><ol type="1" id="3c8648ad-99fc-80bb-b2c3-ea6f218dd02b" class="numbered-list" start="6" dir="auto"><li><strong>Mide el impacto</strong>: Evalúa tanto los resultados técnicos (ej: productividad) como los sociales (ej: satisfacción, compromiso).</li></ol><ol type="1" id="3c8648ad-99fc-80d6-9b2a-d32f531483df" class="numbered-list" start="7" dir="auto"><li><strong>La adaptación continua es clave</strong>: El ajuste entre los sistemas social y técnico no es un estado fijo; es un proceso continuo de adaptación y mejora.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

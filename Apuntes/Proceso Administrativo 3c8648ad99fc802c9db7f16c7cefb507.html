@@ -1,0 +1,819 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Proceso Administrativo</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-802c-9db7-f16c7cefb507" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Proceso Administrativo</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c8648ad-99fc-8073-bad4-fbbdb79709b8" class="" dir="auto">
+</p><h1 id="3c8648ad-99fc-802f-a172-de589a1eb76c" class="" dir="auto"><strong>📄 Proceso Administrativo</strong></h1><hr id="3c8648ad-99fc-801b-9c15-dccf12d06116" dir="auto"/><h2 id="3c8648ad-99fc-800f-be63-dce558ec3580" class="" dir="auto"><strong>📝 Definición</strong></h2><ul id="3c8648ad-99fc-8058-b683-ef8ff39e12a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El proceso administrativo es un <strong>conjunto de etapas o fases interrelacionadas</strong> que conforman el ciclo de la administración. </li></ul><ul id="3c8648ad-99fc-8011-9cdc-ce7e11f67efe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Consiste en la planificación, organización, dirección y control de los recursos de una organización para alcanzar sus objetivos de manera eficiente y eficaz.</li></ul><hr id="3c8648ad-99fc-802e-b15b-cd3501bf6c77" dir="auto"/><h2 id="3c8648ad-99fc-8008-b3f4-f13e3a796e0d" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c8648ad-99fc-80b7-9a10-f2366a8588e8" class="" dir="auto">Es el <strong>marco conceptual</strong> que describe lo que hacen los administradores y cómo lo hacen. </p><p id="3c8648ad-99fc-8053-abad-cbd7abc540ce" class="" dir="auto">Representa el flujo de trabajo administrativo, desde la definición de objetivos hasta la verificación de su cumplimiento. </p><p id="3c8648ad-99fc-808f-bb54-dcc65c56d215" class="" dir="auto">Fue formalizado por <strong>Henri Fayol</strong> a principios del siglo XX y sigue siendo la base de la teoría administrativa moderna.</p><p id="3c8648ad-99fc-8094-9abd-eb3921dc9288" class="" dir="auto">El proceso es <strong>cíclico y dinámico</strong>: las etapas no ocurren de manera aislada, sino que se retroalimentan y se superponen en la práctica diaria.</p><hr id="3c8648ad-99fc-80b9-8eb5-d854700defa2" dir="auto"/><h2 id="3c8648ad-99fc-80f1-b77d-fed7570b155a" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c8648ad-99fc-8043-930c-e956c781629d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructurar el trabajo</strong>: Proporciona un método sistemático para gestionar organizaciones.</li></ul><ul id="3c8648ad-99fc-80d7-b6e6-ee9a8fec6015" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alcanzar objetivos</strong>: Convierte metas abstractas en acciones concretas.</li></ul><ul id="3c8648ad-99fc-80d2-89fc-da3737ea2dae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar recursos</strong>: Ayuda a usar de manera eficiente el tiempo, dinero y talento.</li></ul><ul id="3c8648ad-99fc-806e-8f8e-f834520b7729" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tomar decisiones</strong>: Proporciona información para decidir con fundamento.</li></ul><ul id="3c8648ad-99fc-80b2-ba41-e677a88fc4ad" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Medir el desempeño</strong>: Permite evaluar si se está avanzando hacia los objetivos.</li></ul><ul id="3c8648ad-99fc-809d-9c65-fdddb35bd842" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptarse al cambio</strong>: Facilita la respuesta a cambios en el entorno.</li></ul><hr id="3c8648ad-99fc-80f2-ae94-e82850bf6937" dir="auto"/><h2 id="3c8648ad-99fc-806f-8789-fb3ca215f316" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3c8648ad-99fc-80cc-8042-d08295d1a8a7" class="" dir="auto">El proceso administrativo se divide en <strong>4 etapas principales</strong>, que a su vez se subdividen en <strong>funciones</strong>:</p><ol type="1" id="3c8648ad-99fc-80a5-941f-d1a4a2e37565" class="numbered-list" start="1" dir="auto"><li><strong>Planeación</strong> (Planificación)</li></ol><ol type="1" id="3c8648ad-99fc-80db-9c01-cae20d68a497" class="numbered-list" start="2" dir="auto"><li><strong>Organización</strong></li></ol><ol type="1" id="3c8648ad-99fc-8098-a843-f711dc3ef2d5" class="numbered-list" start="3" dir="auto"><li><strong>Dirección</strong> (Ejecución)</li></ol><ol type="1" id="3c8648ad-99fc-80bd-be74-fcbca4cf0c94" class="numbered-list" start="4" dir="auto"><li><strong>Control</strong></li></ol><p id="3c8648ad-99fc-80e7-a6e6-c802262545f6" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3c8648ad-99fc-80b3-b951-c0f9cccd902d" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────┐
+│                                                                  │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐          │
+│  │  PLANEACIÓN  │───▶│ ORGANIZACIÓN│───▶│  DIRECCIÓN  │          │
+│  │  ¿Qué? ¿Cómo?│    │  ¿Quién?    │    │  ¿Cómo se   │          │
+│  │  ¿Cuándo?    │    │  ¿Dónde?    │    │  ejecuta?   │          │
+│  └─────────────┘    └─────────────┘    └─────────────┘          │
+│         │                  │                  │                  │
+│         └──────────────────┴──────────────────┘                  │
+│                            │                                     │
+│                            ▼                                     │
+│                   ┌─────────────────┐                            │
+│                   │     CONTROL     │                            │
+│                   │  ¿Se cumplió?   │                            │
+│                   │  ¿Cómo mejorar? │                            │
+│                   └─────────────────┘                            │
+│                                                                  │
+│  ◄─────────────── RETROALIMENTACIÓN CONTINUA ──────────────────► │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘</code></pre><hr id="3c8648ad-99fc-80b8-808f-d975caa604ee" dir="auto"/><h2 id="3c8648ad-99fc-80db-af28-e0fcc8a822f8" class="" dir="auto"><strong>📝 Las 4 Etapas en Detalle</strong></h2><hr id="3c8648ad-99fc-8078-9e64-d78efe02cdb9" dir="auto"/><h3 id="3c8648ad-99fc-802e-a678-ee2f1a345bd4" class="" dir="auto"><strong>1️⃣ Planeación (Planificación)</strong></h3><p id="3c8648ad-99fc-8004-940a-e509a5079d8b" class="" dir="auto"><strong>Definición</strong>: Es la fase donde se <strong>definen los objetivos</strong> y se <strong>establecen las estrategias</strong> para alcanzarlos. </p><p id="3c8648ad-99fc-80e5-b4f8-fd2c8d9e72c6" class="" dir="auto">Responde a las preguntas: ¿Qué queremos lograr? ¿Cómo lo vamos a lograr? ¿Cuándo?</p><p id="3c8648ad-99fc-80b9-b346-f356abc0ad7f" class="" dir="auto"><strong>Elementos Clave</strong>:</p><ul id="3c8648ad-99fc-80da-8543-c64b4f1894c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Misión y Visión</strong>: Propósito y aspiración de la organización.</li></ul><ul id="3c8648ad-99fc-80a1-8d37-e2b50df0c27b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetivos</strong>: Metas específicas, medibles, alcanzables, relevantes y con tiempo definido (SMART).</li></ul><ul id="3c8648ad-99fc-800a-ab1e-f4e7e22cbdd2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategias</strong>: Cursos de acción para alcanzar los objetivos.</li></ul><ul id="3c8648ad-99fc-80bc-88bf-c8b314d399ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Políticas</strong>: Guías generales para la toma de decisiones.</li></ul><ul id="3c8648ad-99fc-805b-9d8b-d8378cc35636" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Procedimientos</strong>: Pasos específicos para realizar tareas.</li></ul><ul id="3c8648ad-99fc-8054-8eeb-f4db82c0c1ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Presupuestos</strong>: Asignación de recursos financieros.</li></ul><p id="3c8648ad-99fc-8047-b9e9-efeb75fcbffd" class="" dir="auto"><strong>Tipos de Planeación</strong>:</p><table id="3c8648ad-99fc-80cf-9ce1-d0645d64301e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80d0-97c0-d71240a92878" dir="ltr"><th id="qM{m" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="kq:{" class="simple-table-header-color simple-table-header"><strong>Horizonte Temporal</strong></th><th id="MiCP" class="simple-table-header-color simple-table-header"><strong>Nivel</strong></th><th id="bNot" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8023-8b42-fd634e9a521c" dir="ltr"><td id="qM{m" class=""><strong>Estratégica</strong></td><td id="kq:{" class="">Largo plazo (3-5 años)</td><td id="MiCP" class="">Alta dirección</td><td id="bNot" class="">Entrar a nuevos mercados</td></tr><tr id="3c8648ad-99fc-80eb-a0d1-da85445ff5b9" dir="ltr"><td id="qM{m" class=""><strong>Táctica</strong></td><td id="kq:{" class="">Mediano plazo (1-2 años)</td><td id="MiCP" class="">Gerencias</td><td id="bNot" class="">Lanzar una nueva línea de productos</td></tr><tr id="3c8648ad-99fc-80f9-9958-ce03c129ad45" dir="ltr"><td id="qM{m" class=""><strong>Operativa</strong></td><td id="kq:{" class="">Corto plazo (días/meses)</td><td id="MiCP" class="">Jefaturas</td><td id="bNot" class="">Plan de producción semanal</td></tr></tbody></table><hr id="3c8648ad-99fc-8066-bc49-e66ddbf50937" dir="auto"/><h3 id="3c8648ad-99fc-807e-8501-c7b2f43876f2" class="" dir="auto"><strong>2️⃣ Organización</strong></h3><p id="3c8648ad-99fc-80ae-9265-ed5696b0711e" class="" dir="auto"><strong>Definición</strong>: Es la fase donde se <strong>diseña la estructura</strong> de la organización y se <strong>asignan recursos y responsabilidades</strong> para ejecutar los planes. </p><p id="3c8648ad-99fc-80b4-a450-e00d20e36618" class="" dir="auto">Responde a: ¿Quién hace qué? ¿Cómo se coordinan?</p><p id="3c8648ad-99fc-8099-b0a7-d0b9b9a05d6b" class="" dir="auto"><strong>Elementos Clave</strong>:</p><ul id="3c8648ad-99fc-8055-9dc0-f50feb8f7e29" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura Organizacional</strong>: Jerarquía, departamentos y niveles de autoridad.</li></ul><ul id="3c8648ad-99fc-80e3-a347-dddb8909cd91" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>División del Trabajo</strong>: Especialización de tareas.</li></ul><ul id="3c8648ad-99fc-8092-9eee-e3ddc86d0a78" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Delegación de Autoridad</strong>: Asignar poder para tomar decisiones.</li></ul><ul id="3c8648ad-99fc-80a2-93ce-c92c7f6e9a06" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Coordinación</strong>: Mecanismos para alinear esfuerzos.</li></ul><ul id="3c8648ad-99fc-8024-923f-eb89f9d124a7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asignación de Recursos</strong>: Distribución de personal, presupuesto y equipos.</li></ul><p id="3c8648ad-99fc-8074-a448-e92782871c48" class="" dir="auto"><strong>Tipos de Estructura</strong>:</p><table id="3c8648ad-99fc-803d-a0e7-c2a4a9ab6386" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80d6-854a-cfe8cb56346b" dir="ltr"><th id="~v]=" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id=";VVJ" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="PlV\" class="simple-table-header-color simple-table-header"><strong>Cuándo Usar</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8036-a2ec-c22ed45e080b" dir="ltr"><td id="~v]=" class=""><strong>Funcional</strong></td><td id=";VVJ" class="">Agrupación por especialidad (marketing, finanzas).</td><td id="PlV\" class="">Empresas estables y especializadas.</td></tr><tr id="3c8648ad-99fc-80db-b4d1-f34cf25cabd6" dir="ltr"><td id="~v]=" class=""><strong>Divisional</strong></td><td id=";VVJ" class="">Agrupación por producto, región o cliente.</td><td id="PlV\" class="">Empresas diversificadas o geográficamente dispersas.</td></tr><tr id="3c8648ad-99fc-80c2-b956-dd71de4e8804" dir="ltr"><td id="~v]=" class=""><strong>Matricial</strong></td><td id=";VVJ" class="">Combinación de funcional y divisional (doble jefe).</td><td id="PlV\" class="">Proyectos complejos que requieren especialización.</td></tr><tr id="3c8648ad-99fc-80ed-ba9e-d056fecc763f" dir="ltr"><td id="~v]=" class=""><strong>Horizontal (Plana)</strong></td><td id=";VVJ" class="">Pocos niveles jerárquicos, equipos autónomos.</td><td id="PlV\" class="">Startups y entornos ágiles.</td></tr></tbody></table><hr id="3c8648ad-99fc-80c8-8e9c-fdaaf30458ba" dir="auto"/><h3 id="3c8648ad-99fc-80a5-8bd1-fbc02e9fa1b2" class="" dir="auto"><strong>3️⃣ Dirección (Ejecución)</strong></h3><p id="3c8648ad-99fc-8087-9ad7-d01ba7663bd7" class="" dir="auto"><strong>Definición</strong>: Es la fase donde se <strong>lidera, motiva y comunica</strong> para que los empleados ejecuten los planes.</p><p id="3c8648ad-99fc-807c-8352-d23882d34ce8" class="" dir="auto">Es la etapa más &quot;humana&quot; del proceso administrativo. </p><p id="3c8648ad-99fc-80af-9d0c-f45571cf2036" class="" dir="auto">Responde a: ¿Cómo logramos que la gente haga lo que se necesita?</p><p id="3c8648ad-99fc-8079-a9fc-e6c77ea31961" class="" dir="auto"><strong>Elementos Clave</strong>:</p><ul id="3c8648ad-99fc-802f-9f9b-f4930b2acc35" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Liderazgo</strong>: Inspirar y guiar a los equipos.</li></ul><ul id="3c8648ad-99fc-809c-ae4f-cb4f903d5f40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Motivación</strong>: Generar compromiso y energía en los empleados.</li></ul><ul id="3c8648ad-99fc-804b-9d9c-c59b7496a5d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunicación</strong>: Transmitir información clara y efectiva.</li></ul><ul id="3c8648ad-99fc-80a4-82a1-c0605a9a1f4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Delegación</strong>: Asignar tareas con autoridad suficiente.</li></ul><ul id="3c8648ad-99fc-80cd-bb21-f97b41a5ee32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Toma de Decisiones</strong>: Elegir entre alternativas en tiempo real.</li></ul><ul id="3c8648ad-99fc-8022-af8f-fca7811cb179" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Conflictos</strong>: Resolver desacuerdos de manera constructiva.</li></ul><p id="3c8648ad-99fc-80f8-a144-fb63f26c3bdf" class="" dir="auto"><strong>Estilos de Dirección</strong>:</p><table id="3c8648ad-99fc-808d-ba3c-e74c37645e26" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8044-baa4-c89c8681e227" dir="ltr"><th id="LssY" class="simple-table-header-color simple-table-header"><strong>Estilo</strong></th><th id="a{lY" class="simple-table-header-color simple-table-header"><strong>Características</strong></th><th id="{zR]" class="simple-table-header-color simple-table-header"><strong>Cuándo Usar</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-805c-9de2-e2dd7738be7b" dir="ltr"><td id="LssY" class=""><strong>Autocrático</strong></td><td id="a{lY" class="">Decisiones centralizadas, control estricto.</td><td id="{zR]" class="">Crisis, equipos no capacitados.</td></tr><tr id="3c8648ad-99fc-80a6-b022-d291bbcaf99d" dir="ltr"><td id="LssY" class=""><strong>Democrático</strong></td><td id="a{lY" class="">Participación del equipo en decisiones.</td><td id="{zR]" class="">Equipos capacitados, entornos creativos.</td></tr><tr id="3c8648ad-99fc-8064-b8a4-f38398584beb" dir="ltr"><td id="LssY" class=""><strong>Laissez-Faire</strong></td><td id="a{lY" class="">Máxima autonomía, mínima supervisión.</td><td id="{zR]" class="">Equipos altamente autónomos y expertos.</td></tr><tr id="3c8648ad-99fc-8013-b54d-c140c1f0de51" dir="ltr"><td id="LssY" class=""><strong>Situacional</strong></td><td id="a{lY" class="">Adapta el estilo según la situación.</td><td id="{zR]" class="">Siempre (enfoque moderno).</td></tr></tbody></table><hr id="3c8648ad-99fc-80cd-bcb2-ff2fbc4858a7" dir="auto"/><h3 id="3c8648ad-99fc-8070-a8e0-f91b37906c2d" class="" dir="auto"><strong>4️⃣ Control</strong></h3><p id="3c8648ad-99fc-80f7-9c3a-c95e6b1d9819" class="" dir="auto"><strong>Definición</strong>: Es la fase donde se <strong>mide y evalúa</strong> el desempeño para verificar si se están alcanzando los objetivos, y se <strong>corrigen desviaciones</strong> si es necesario. </p><p id="3c8648ad-99fc-8053-bc1e-fa214f0580c3" class="" dir="auto">Responde a: ¿Estamos logrando lo que planeamos? ¿Qué debemos ajustar?</p><p id="3c8648ad-99fc-80c9-b52a-e55eca41c01d" class="" dir="auto"><strong>Elementos Clave</strong>:</p><ul id="3c8648ad-99fc-8024-b3da-c90b7db522db" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Establecer Estándares</strong>: Definir criterios de desempeño.</li></ul><ul id="3c8648ad-99fc-80e5-b000-f95816bb6eeb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Medir Resultados</strong>: Recolectar datos sobre el desempeño real.</li></ul><ul id="3c8648ad-99fc-80fb-8f65-cac2df8a48ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comparar</strong>: Confrontar resultados con estándares.</li></ul><ul id="3c8648ad-99fc-803e-8cdc-c42f1af9eac7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Corregir</strong>: Tomar acciones para ajustar desviaciones.</li></ul><ul id="3c8648ad-99fc-805c-8d5c-d8c50da7f147" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Retroalimentación</strong>: Usar la información para mejorar la planeación.</li></ul><p id="3c8648ad-99fc-80c9-b4e3-cc6bfbd76329" class="" dir="auto"><strong>Tipos de Control</strong>:</p><table id="3c8648ad-99fc-80bb-b740-c265e3f726ea" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80a8-b709-ff79d28443d3" dir="ltr"><th id="AKnG" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="owiQ" class="simple-table-header-color simple-table-header"><strong>Momento</strong></th><th id="inFX" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-80dd-b4ff-ef72b4fc3f15" dir="ltr"><td id="AKnG" class=""><strong>Preliminar</strong> (Antes)</td><td id="owiQ" class="">Antes de la ejecución.</td><td id="inFX" class="">Revisar presupuesto antes de gastar.</td></tr><tr id="3c8648ad-99fc-8042-a75f-ce5b655f9ebf" dir="ltr"><td id="AKnG" class=""><strong>Concurrente</strong> (Durante)</td><td id="owiQ" class="">Durante la ejecución.</td><td id="inFX" class="">Supervisar producción en tiempo real.</td></tr><tr id="3c8648ad-99fc-80d1-a8b7-e18b14e8ecaf" dir="ltr"><td id="AKnG" class=""><strong>Posterior</strong> (Después)</td><td id="owiQ" class="">Después de la ejecución.</td><td id="inFX" class="">Evaluar resultados financieros trimestrales.</td></tr></tbody></table><hr id="3c8648ad-99fc-808b-81bd-caa35c09aa38" dir="auto"/><h2 id="3c8648ad-99fc-804d-b7e5-e354c2d220b7" class="" dir="auto"><strong>💡 Ejemplos Prácticos</strong></h2><h3 id="3c8648ad-99fc-80a6-9306-cc39b0046954" class="" dir="auto"><strong>Ejemplo 1: Una Startup Tecnológica</strong></h3><table id="3c8648ad-99fc-80c5-bdc2-c2c973ae0df6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-802d-9167-e923681b06c6" dir="ltr"><th id="Cmr|" class="simple-table-header-color simple-table-header"><strong>Etapa</strong></th><th id="WzCA" class="simple-table-header-color simple-table-header" style="width:543px"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8065-a733-d670b385f1ce" dir="ltr"><td id="Cmr|" class=""><strong>Planeación</strong></td><td id="WzCA" class="" style="width:543px">Definir objetivo: lanzar una app de finanzas en 6 meses. Crear hoja de ruta y presupuesto.</td></tr><tr id="3c8648ad-99fc-8013-97e7-d2f145250cbf" dir="ltr"><td id="Cmr|" class=""><strong>Organización</strong></td><td id="WzCA" class="" style="width:543px">Crear equipos: desarrollo, diseño, marketing y finanzas. Definir responsables.</td></tr><tr id="3c8648ad-99fc-80f9-83b4-e99e2dba4b56" dir="ltr"><td id="Cmr|" class=""><strong>Dirección</strong></td><td id="WzCA" class="" style="width:543px">Liderar con visión, motivar al equipo con hitos claros. Comunicación diaria.</td></tr><tr id="3c8648ad-99fc-80a7-b422-d673eec6d978" dir="ltr"><td id="Cmr|" class=""><strong>Control</strong></td><td id="WzCA" class="" style="width:543px">Revisar avances semanales (sprints), evaluar si se cumple el cronograma, ajustar si es necesario.</td></tr></tbody></table><h3 id="3c8648ad-99fc-8079-84d7-d33124b5bb7b" class="" dir="auto"><strong>Ejemplo 2: Una Empresa de Manufactura</strong></h3><table id="3c8648ad-99fc-80ee-b0cf-dec2bf1ff794" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80d8-afaa-d6a38ef54b6a" dir="ltr"><th id="I}=N" class="simple-table-header-color simple-table-header"><strong>Etapa</strong></th><th id="~WY[" class="simple-table-header-color simple-table-header" style="width:570px"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8052-bcd4-ebac065b370f" dir="ltr"><td id="I}=N" class=""><strong>Planeación</strong></td><td id="~WY[" class="" style="width:570px">Decir: producir 10,000 unidades este trimestre. Definir cómo y con qué recursos.</td></tr><tr id="3c8648ad-99fc-8038-95c1-fd6fc512cb37" dir="ltr"><td id="I}=N" class=""><strong>Organización</strong></td><td id="~WY[" class="" style="width:570px">Asignar personal a cada línea de producción, definir turnos y responsable de calidad.</td></tr><tr id="3c8648ad-99fc-805b-8613-d7aa5e13c919" dir="ltr"><td id="I}=N" class=""><strong>Dirección</strong></td><td id="~WY[" class="" style="width:570px">Supervisar la producción, motivar a los operarios, resolver problemas en tiempo real.</td></tr><tr id="3c8648ad-99fc-8019-8d5e-de54babb3508" dir="ltr"><td id="I}=N" class=""><strong>Control</strong></td><td id="~WY[" class="" style="width:570px">Medir unidades producidas, verificar calidad, comparar con el objetivo y corregir desviaciones.</td></tr></tbody></table><hr id="3c8648ad-99fc-8026-84bc-d64cfbb5bc8b" dir="auto"/><h2 id="3c8648ad-99fc-80e8-80c6-c47b792f628c" class="" dir="auto"><strong>⚠️ Errores Comunes en el Proceso Administrativo</strong></h2><ol type="1" id="3c8648ad-99fc-8017-9113-e5ba07cb7d21" class="numbered-list" start="1" dir="auto"><li><strong>Planear sin ejecutar</strong>: Planes perfectos que nunca se implementan por falta de acción.</li></ol><ol type="1" id="3c8648ad-99fc-800a-a911-d9d71b895ba9" class="numbered-list" start="2" dir="auto"><li><strong>Ejecutar sin planear</strong>: Actuar sin rumbo, desperdiciando recursos.</li></ol><ol type="1" id="3c8648ad-99fc-8075-b377-c08cffc68a5e" class="numbered-list" start="3" dir="auto"><li><strong>Organizar sin dirección</strong>: Tener estructura pero sin liderazgo que la active.</li></ol><ol type="1" id="3c8648ad-99fc-801c-9237-edeb53ef8bb9" class="numbered-list" start="4" dir="auto"><li><strong>Controlar sin retroalimentación</strong>: Medir sin usar los datos para mejorar.</li></ol><ol type="1" id="3c8648ad-99fc-80c7-af29-c91e70a1615a" class="numbered-list" start="5" dir="auto"><li><strong>Ignorar el entorno</strong>: Planificar sin considerar cambios en el mercado o tecnología.</li></ol><ol type="1" id="3c8648ad-99fc-80e6-ba75-ef2b483e991f" class="numbered-list" start="6" dir="auto"><li><strong>Subestimar el factor humano</strong>: Olvidar que las personas son el centro del proceso.</li></ol><ol type="1" id="3c8648ad-99fc-8003-b516-f1fe711f3d4d" class="numbered-list" start="7" dir="auto"><li><strong>Silos organizacionales</strong>: Departamentos que no se comunican entre sí.</li></ol><hr id="3c8648ad-99fc-80b6-8623-e9be612ea237" dir="auto"/><h2 id="3c8648ad-99fc-80a5-97ae-d73ea47a4962" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c8648ad-99fc-80f6-9047-ca65eefd36f5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8038-9383-e80eaed65cd2" dir="ltr"><th id="cphq" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="IRr?" class="simple-table-header-color simple-table-header" style="width:409px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-807a-84d7-ed408692b5b4" dir="ltr"><td id="cphq" class=""><strong>Lanzamiento de producto</strong></td><td id="IRr?" class="" style="width:409px">Planear el lanzamiento, organizar equipos, dirigir la ejecución y controlar resultados.</td></tr><tr id="3c8648ad-99fc-80a9-81dc-e5d87d706878" dir="ltr"><td id="cphq" class=""><strong>Reestructuración</strong></td><td id="IRr?" class="" style="width:409px">Planear la nueva estructura, organizar equipos, dirigir la transición y controlar la adaptación.</td></tr><tr id="3c8648ad-99fc-8009-992a-eecc65527d56" dir="ltr"><td id="cphq" class=""><strong>Crisis empresarial</strong></td><td id="IRr?" class="" style="width:409px">Planear plan de contingencia, organizar equipo de crisis, dirigir respuesta y controlar avances.</td></tr><tr id="3c8648ad-99fc-8063-aa29-ef52c7fe2d73" dir="ltr"><td id="cphq" class=""><strong>Expansión internacional</strong></td><td id="IRr?" class="" style="width:409px">Planear entrada a nuevo país, organizar subsidiaria, dirigir operaciones y controlar desempeño.</td></tr><tr id="3c8648ad-99fc-8069-887f-e5ea3afeed0a" dir="ltr"><td id="cphq" class=""><strong>Gestión de proyectos</strong></td><td id="IRr?" class="" style="width:409px">Aplicar el proceso en cada fase del proyecto (inicio, planificación, ejecución, monitoreo, cierre).</td></tr></tbody></table><hr id="3c8648ad-99fc-8008-b6a3-cb45e9f10ab7" dir="auto"/><h2 id="3c8648ad-99fc-8016-a026-eea8af211584" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c8648ad-99fc-8008-bd13-c0545c2fcb13" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80eb-aa2d-f27b937129bf" dir="ltr"><th id="feoK" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="KCVD" class="simple-table-header-color simple-table-header" style="width:387px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8057-873e-cc6b02c9f5a0" dir="ltr"><td id="feoK" class=""><strong>Teoría General de la Administración</strong></td><td id="KCVD" class="" style="width:387px">El proceso administrativo es el núcleo de esta teoría.</td></tr><tr id="3c8648ad-99fc-800e-bc6c-ce56c9259ff0" dir="ltr"><td id="feoK" class=""><strong>Ciclo PDCA (Plan-Do-Check-Act)</strong></td><td id="KCVD" class="" style="width:387px">Versión japonesa del proceso administrativo (Deming).</td></tr><tr id="3c8648ad-99fc-8049-bea6-f22f49865848" dir="ltr"><td id="feoK" class=""><strong>Administración por Objetivos (APO)</strong></td><td id="KCVD" class="" style="width:387px">Enfoque que integra planeación y control a través de objetivos.</td></tr><tr id="3c8648ad-99fc-8045-9857-e72d368b0336" dir="ltr"><td id="feoK" class=""><strong>Gerencia de Proyectos</strong></td><td id="KCVD" class="" style="width:387px">Aplica el proceso administrativo a proyectos específicos.</td></tr><tr id="3c8648ad-99fc-8039-b897-d71d18d12138" dir="ltr"><td id="feoK" class=""><strong>Gestión por Competencias</strong></td><td id="KCVD" class="" style="width:387px">Complementa la dirección enfocándose en habilidades del equipo.</td></tr><tr id="3c8648ad-99fc-805b-b702-d3c0e202a66b" dir="ltr"><td id="feoK" class=""><strong>Lean Management</strong></td><td id="KCVD" class="" style="width:387px">Optimiza la ejecución eliminando desperdicios.</td></tr></tbody></table><hr id="3c8648ad-99fc-802d-8882-f76d68911a24" dir="auto"/><h2 id="3c8648ad-99fc-804a-8c8d-c570da0df8c6" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c8648ad-99fc-8029-892d-e6b87a9560eb" class="" dir="auto">El proceso administrativo es como <strong>construir una casa</strong>:</p><ul id="3c8648ad-99fc-80af-9a68-f44d283d89e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Planeación</strong>: Diseñar los planos, decidir materiales y presupuesto.</li></ul><ul id="3c8648ad-99fc-8014-9c51-d19fb998a8e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Organización</strong>: Asignar albañiles, electricistas y fontaneros, comprar materiales.</li></ul><ul id="3c8648ad-99fc-8071-97b0-e6aef53a3198" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Dirección</strong>: Supervisar la construcción, motivar al equipo, resolver problemas diarios.</li></ul><ul id="3c8648ad-99fc-8021-b500-e7abee39128e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Control</strong>: Inspeccionar que la casa se construya según los planos, corregir errores.</li></ul><p id="3c8648ad-99fc-80a0-aa2f-d612ce72f6c1" class="" dir="auto">Sin planos, la casa no tendría sentido. Sin organización, no habría quién construya. Sin dirección, la construcción sería caótica. Sin control, la casa podría derrumbarse. Todas las etapas son necesarias y se retroalimentan.</p><hr id="3c8648ad-99fc-8091-aec8-c427a802ce53" dir="auto"/><h2 id="3c8648ad-99fc-80b0-b029-d8f69393613b" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c8648ad-99fc-801d-8865-d0d3a8ef026b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fayol, H. (1916). <em>Administration Industrielle et Générale</em>.</li></ul><ul id="3c8648ad-99fc-8011-bdeb-f7d3cea42cb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Koontz, H. &amp; Weihrich, H. (2010). <em>Administración: Una Perspectiva Global</em>. McGraw-Hill.</li></ul><ul id="3c8648ad-99fc-80e9-baf7-eb69270ee7d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robbins, S. P. &amp; Coulter, M. (2018). <em>Administración</em>. Pearson.</li></ul><ul id="3c8648ad-99fc-8080-991f-cd9eea6330f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mintzberg, H. (1973). <em>The Nature of Managerial Work</em>. Harper &amp; Row.</li></ul><ul id="3c8648ad-99fc-801f-a6c1-d0cfdd18777d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Drucker, P. F. (1954). <em>The Practice of Management</em>. Harper &amp; Brothers.</li></ul><ul id="3c8648ad-99fc-8072-a9a4-d63b498f41f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Deming, W. E. (1986). <em>Out of the Crisis</em>. MIT Press.</li></ul><hr id="3c8648ad-99fc-80b2-a129-d0ea14de72e0" dir="auto"/><h2 id="3c8648ad-99fc-8004-aa84-ff77829dcad6" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c8648ad-99fc-80db-a7a4-dfcda25c32fd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El proceso es cíclico, no lineal</strong>: En la práctica, las etapas se superponen. Un buen administrador está planeando, organizando, dirigiendo y controlando simultáneamente.</li></ul><ul id="3c8648ad-99fc-806e-a466-c078485ad3ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La importancia del contexto</strong>: No hay una &quot;receta única&quot;. El proceso administrativo debe adaptarse al tamaño de la empresa, sector, cultura organizacional y entorno.</li></ul><ul id="3c8648ad-99fc-80bd-a202-cfe79c314df4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El rol de la tecnología</strong>: Hoy, el proceso administrativo se apoya en herramientas digitales: ERPs, software de gestión de proyectos, dashboards en tiempo real, etc.</li></ul><ul id="3c8648ad-99fc-8055-99c4-f9106ea45099" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Habilidades del administrador</strong>:<ul id="3c8648ad-99fc-80fe-9728-e33b6c468b4c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Técnicas</strong>: Conocimiento del área (finanzas, marketing, producción).</li></ul><ul id="3c8648ad-99fc-8036-9e62-e09fe5b00492" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Humanas</strong>: Liderazgo, comunicación, trabajo en equipo.</li></ul><ul id="3c8648ad-99fc-80a0-9788-f7c060784d74" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Conceptuales</strong>: Visión estratégica, pensamiento sistémico.</li></ul></li></ul><ul id="3c8648ad-99fc-80ac-af6f-db04da596e50" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar el proceso administrativo</strong>:<ol type="1" id="3c8648ad-99fc-8019-89eb-d3866942cc7d" class="numbered-list" start="1" dir="auto"><li><strong>Comienza con el &quot;por qué&quot;</strong>: Define un propósito claro antes de planear.</li></ol><ol type="1" id="3c8648ad-99fc-8087-af8a-fef353c38bb8" class="numbered-list" start="2" dir="auto"><li><strong>Involucra a tu equipo</strong>: La gente apoya lo que ayuda a construir.</li></ol><ol type="1" id="3c8648ad-99fc-8041-be30-e45cf146c806" class="numbered-list" start="3" dir="auto"><li><strong>Sé flexible</strong>: Los planes cambian; adapta la organización y dirección.</li></ol><ol type="1" id="3c8648ad-99fc-8040-9c64-c65643ab11f8" class="numbered-list" start="4" dir="auto"><li><strong>Mide lo que importa</strong>: No todo se puede medir, pero lo que importa debe medirse.</li></ol><ol type="1" id="3c8648ad-99fc-80da-8a98-c8bca03244aa" class="numbered-list" start="5" dir="auto"><li><strong>Aprende de los errores</strong>: El control no es para castigar, sino para mejorar.</li></ol></li></ul><ul id="3c8648ad-99fc-8058-bf6d-cbc477911b6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nuevas tendencias</strong>: Se habla de un <strong>proceso administrativo ágil</strong>, donde las etapas se comprimen en ciclos cortos (sprints), respondiendo a entornos VUCA (Volátil, Incierto, Complejo, Ambiguo).</li></ul><ul id="3c8648ad-99fc-804d-9e98-e9eab25d6d18" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El factor ético</strong>: La ética debe estar presente en todas las etapas del proceso. Planear de manera ética, organizar con justicia, dirigir con integridad y controlar con transparencia.</li></ul><p id="3c8648ad-99fc-80c5-997e-fe0616ecdf6d" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

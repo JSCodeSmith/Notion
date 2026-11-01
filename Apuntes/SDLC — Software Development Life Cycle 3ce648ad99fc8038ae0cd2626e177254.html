@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>SDLC — Software Development Life Cycle</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-8038-ae0c-d2626e177254" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">SDLC — Software Development Life Cycle</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3ce648ad-99fc-8044-9c64-cce6cdd9424c" class="" dir="auto"><strong>📄 SDLC (Software Development Life Cycle)</strong></h1><hr id="3ce648ad-99fc-80e6-bb09-e82baa1e68a5" dir="auto"/><h2 id="3ce648ad-99fc-80f3-8f9a-e85bee1d6ef4" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-80f8-856f-ec290cc968da" class="" dir="auto">El SDLC (Ciclo de Vida del Desarrollo de Software) es un <strong>marco de trabajo estructurado</strong> que describe las <strong>fases y etapas</strong> por las que pasa un proyecto de software, desde su concepción hasta su retiro. </p><p id="3ce648ad-99fc-8083-9903-efa1a0dcd9d1" class="" dir="auto">Proporciona un plan sistemático para desarrollar, mantener y mejorar software de alta calidad, garantizando que se cumplan los requisitos del cliente y los estándares de la organización.</p><hr id="3ce648ad-99fc-8051-8ac5-daf7feabaeb3" dir="auto"/><h2 id="3ce648ad-99fc-80dd-a5f0-c3c71cc447ae" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-80db-82da-d9a0f46cca42" class="" dir="auto">El SDLC no es una metodología en sí misma (como Agile o Scrum), sino un <strong>concepto general</strong> que define las etapas que todo proyecto de software debe atravesar. </p><p id="3ce648ad-99fc-807a-93dd-c575f3e63d13" class="" dir="auto">Cada metodología (Waterfall, Agile, DevOps, etc.) implementa el SDLC de una manera particular, adaptando las fases a su enfoque.</p><p id="3ce648ad-99fc-8056-8093-d04a82b0c227" class="" dir="auto">El objetivo del SDLC es <strong>estandarizar</strong> el proceso de desarrollo de software, reduciendo riesgos, costos y tiempos, y asegurando que el producto final cumpla con las expectativas de los usuarios.</p><p id="3ce648ad-99fc-80ac-95da-c7b6113d6204" class="" dir="auto"><strong>En resumen</strong>: El SDLC es el <strong>&quot;qué&quot;</strong> (las fases que hay que hacer), mientras que las metodologías son el <strong>&quot;cómo&quot;</strong> (la forma de hacerlas).</p><hr id="3ce648ad-99fc-8023-b012-d1a0db7f32eb" dir="auto"/><h2 id="3ce648ad-99fc-804f-b226-e228427f33b2" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-803d-9b11-f7e2c36c92ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructurar el desarrollo</strong>: Proporciona un camino claro y predecible para el equipo.</li></ul><ul id="3ce648ad-99fc-805f-8de4-d90aed521f19" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir riesgos</strong>: Permite identificar problemas en etapas tempranas.</li></ul><ul id="3ce648ad-99fc-800a-929f-d84a81a02c51" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Controlar costos y tiempos</strong>: Al planificar, se evitan desviaciones presupuestarias.</li></ul><ul id="3ce648ad-99fc-8074-8538-dfb3e36c7cae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Garantizar la calidad</strong>: Incluye pruebas y revisiones en todas las fases.</li></ul><ul id="3ce648ad-99fc-80f6-9802-fee8b4059537" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la comunicación</strong>: Establece hitos y entregables claros para todos los stakeholders.</li></ul><ul id="3ce648ad-99fc-807a-b9ee-ffba05473e4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar el mantenimiento</strong>: Documenta el software, lo que facilita futuras modificaciones.</li></ul><hr id="3ce648ad-99fc-80bf-bd8d-fb29e7a0551a" dir="auto"/><h2 id="3ce648ad-99fc-8044-a274-edd7d82cb9e1" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Las 7 Fases del SDLC</strong></h2><p id="3ce648ad-99fc-80ca-9250-c35d8c528288" class="" dir="auto">Aunque el número de fases puede variar según la fuente, el SDLC clásico consta de <strong>7 etapas</strong>:</p><hr id="3ce648ad-99fc-80f6-8a4f-d8ae0bd4c917" dir="auto"/><h3 id="3ce648ad-99fc-8054-b3e7-e7f0d1647a97" class="" dir="auto"><strong>1️⃣ Planificación (Planning)</strong></h3><ul id="3ce648ad-99fc-8088-b6fa-c01086a3b22d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Se define el alcance del proyecto, los objetivos, los recursos necesarios y el presupuesto. Se evalúa la viabilidad del proyecto.</li></ul><ul id="3ce648ad-99fc-80cc-8124-ed5d654abc9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Documento de viabilidad, plan de proyecto, cronograma preliminar.</li></ul><ul id="3ce648ad-99fc-80d3-a08e-cef52ac7aecb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿Vale la pena hacer este proyecto? ¿Es viable técnica y económicamente? ¿Cuánto costará y cuánto tiempo tomará?</li></ul><hr id="3ce648ad-99fc-80b6-a4ae-d9dba318c216" dir="auto"/><h3 id="3ce648ad-99fc-8066-9f0b-f3ba97b7fce6" class="" dir="auto"><strong>2️⃣ Análisis de Requisitos (Requirements Analysis)</strong></h3><ul id="3ce648ad-99fc-8023-b051-f1f907c98462" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Se recopilan y documentan las necesidades y expectativas de los usuarios y stakeholders. Se define qué debe hacer el software, no cómo lo hará.</li></ul><ul id="3ce648ad-99fc-8008-a66d-c9117633f36a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Especificación de Requisitos de Software (SRS - Software Requirements Specification), casos de uso, historias de usuario.</li></ul><ul id="3ce648ad-99fc-807e-8d0d-d2511b4d5879" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿Qué necesita el cliente? ¿Qué funcionalidades debe tener el sistema? ¿Cuáles son las restricciones?</li></ul><hr id="3ce648ad-99fc-80df-bbe7-d40d65159b25" dir="auto"/><h3 id="3ce648ad-99fc-8055-baf1-d083b4358d3f" class="" dir="auto"><strong>3️⃣ Diseño (Design)</strong></h3><ul id="3ce648ad-99fc-804e-a893-e25772af7f0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Se define la arquitectura del software, los componentes, la interfaz de usuario, la base de datos, y cómo interactuarán entre sí. Se pasa del &quot;qué&quot; al &quot;cómo&quot;.</li></ul><ul id="3ce648ad-99fc-80ee-8d50-f948e36a7f32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Documento de Diseño del Sistema (SDD - System Design Document), wireframes (diseño de pantallas), diagramas UML, esquema de base de datos.</li></ul><ul id="3ce648ad-99fc-80b1-a469-c6924df59c20" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tipos de diseño</strong>:<ul id="3ce648ad-99fc-8086-8574-ffedddc436f2" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Diseño de Alto Nivel (Arquitectura)</strong>: Módulos, servidores, plataformas.</li></ul><ul id="3ce648ad-99fc-8029-9f5a-f21bd9eb8e18" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Diseño de Bajo Nivel (Detallado)</strong>: Estructura de datos, algoritmos, interfaces.</li></ul></li></ul><ul id="3ce648ad-99fc-80a3-a985-fc9aa5c6beac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿Cómo vamos a construir esto? ¿Qué tecnología usaremos? ¿Cómo se verá la interfaz?</li></ul><hr id="3ce648ad-99fc-80d8-bc26-ea7b36ef7c19" dir="auto"/><h3 id="3ce648ad-99fc-80ff-8acd-fdabbd8f0816" class="" dir="auto"><strong>4️⃣ Implementación (Implementation / Development)</strong></h3><ul id="3ce648ad-99fc-80b9-9f86-ee9bc3584021" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: La fase de codificación. Los desarrolladores escriben el código fuente según los requisitos y el diseño establecidos.</li></ul><ul id="3ce648ad-99fc-8076-8a8c-d0dc77543231" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Código fuente, builds ejecutables, documentación técnica.</li></ul><ul id="3ce648ad-99fc-80de-a87e-c57e660bedaa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿El código sigue los estándares? ¿Se está desarrollando según lo planeado? ¿Estamos en el cronograma?</li></ul><hr id="3ce648ad-99fc-80a7-b1f7-c069ebbe1df0" dir="auto"/><h3 id="3ce648ad-99fc-80da-b888-eb8bebad14b6" class="" dir="auto"><strong>5️⃣ Pruebas (Testing)</strong></h3><ul id="3ce648ad-99fc-8026-bc4b-c09061e653d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Se verifica que el software funciona correctamente, cumple con los requisitos y no tiene errores (bugs). Se realizan diferentes niveles de prueba.</li></ul><ul id="3ce648ad-99fc-801b-9eaa-dc8bba219a9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Plan de pruebas, casos de prueba, informes de errores (issue tracking).</li></ul><ul id="3ce648ad-99fc-8060-9352-eefb0d6e64a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tipos de pruebas</strong>:<ul id="3ce648ad-99fc-80f1-a28d-d43d1955a18b" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas Unitarias</strong>: Prueban componentes individuales.</li></ul><ul id="3ce648ad-99fc-801d-9309-dc40a247632a" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas de Integración</strong>: Prueban la interacción entre componentes.</li></ul><ul id="3ce648ad-99fc-8004-866f-fd3326ddd1d1" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas de Sistema</strong>: Prueban el sistema completo.</li></ul><ul id="3ce648ad-99fc-8027-bb4c-e0f54cc4c9ae" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas de Aceptación de Usuario (UAT)</strong>: Prueban los usuarios finales en un entorno realista.</li></ul><ul id="3ce648ad-99fc-8097-acbf-e08ea7d60045" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas de Rendimiento</strong>: Evalúan la velocidad y estabilidad bajo carga.</li></ul><ul id="3ce648ad-99fc-8049-b7d8-fd30012375f7" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pruebas de Seguridad</strong>: Buscan vulnerabilidades.</li></ul></li></ul><ul id="3ce648ad-99fc-8078-8607-dba9052c508c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿El software hace lo que tiene que hacer? ¿Se rompe bajo ciertas condiciones? ¿Es seguro?</li></ul><hr id="3ce648ad-99fc-8022-a049-f37e2a9dc96e" dir="auto"/><h3 id="3ce648ad-99fc-8011-8792-c43f1d8f3d07" class="" dir="auto"><strong>6️⃣ Implementación / Despliegue (Deployment)</strong></h3><ul id="3ce648ad-99fc-80a4-8960-ce982f639eb2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Se entrega el software al usuario final. Puede ser una implementación gradual (piloto) o completa (big bang).</li></ul><ul id="3ce648ad-99fc-80bf-a56d-f43ab85a7b5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Versión final del software, documentación del usuario, guías de instalación y despliegue.</li></ul><ul id="3ce648ad-99fc-8005-80a7-e131032c5599" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Actividades clave</strong>: Migración de datos, configuración de servidores, capacitación de usuarios.</li></ul><ul id="3ce648ad-99fc-80c2-b114-ee7ec92b64f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿El software se instala correctamente? ¿Los usuarios saben cómo usarlo?</li></ul><hr id="3ce648ad-99fc-80b6-9c89-f00ab30cb68e" dir="auto"/><h3 id="3ce648ad-99fc-8023-888d-dd1c1327e237" class="" dir="auto"><strong>7️⃣ Mantenimiento (Maintenance)</strong></h3><ul id="3ce648ad-99fc-8092-82b0-e4658c695f26" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Qué es</strong>: Una vez en producción, el software requiere soporte continuo para corregir errores, agregar nuevas funcionalidades y adaptarse a cambios en el entorno (nuevas versiones de sistemas operativos, cambios en la legislación, etc.).</li></ul><ul id="3ce648ad-99fc-804c-a9fe-c2bbc253d844" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Entregables</strong>: Parches (patches), nuevas versiones, informes de incidentes.</li></ul><ul id="3ce648ad-99fc-80de-b170-cc343a70402b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tipos de mantenimiento</strong>:<ul id="3ce648ad-99fc-8038-a255-eedf21493b3d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Correctivo</strong>: Corregir errores detectados.</li></ul><ul id="3ce648ad-99fc-8050-a90d-c3e005635efe" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Adaptativo</strong>: Adaptarse a cambios del entorno.</li></ul><ul id="3ce648ad-99fc-8037-a4c2-d6b336c86a70" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Perfectivo</strong>: Mejorar el rendimiento o añadir nuevas funcionalidades.</li></ul><ul id="3ce648ad-99fc-80b2-a9e3-e84f123b8b01" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Preventivo</strong>: Prevenir problemas futuros.</li></ul></li></ul><ul id="3ce648ad-99fc-8010-b2f9-d8fb8b73f9ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preguntas clave</strong>: ¿El software sigue funcionando bien? ¿Necesita actualizaciones? ¿Los usuarios están satisfechos?</li></ul><hr id="3ce648ad-99fc-80b9-af24-e05a13ea73e7" dir="auto"/><h2 id="3ce648ad-99fc-8030-9483-e13e17720d0f" class="" dir="auto"><strong>📝 Modelos de SDLC (Metodologías)</strong></h2><p id="3ce648ad-99fc-805c-9d6b-e0beca6edb24" class="" dir="auto">El SDLC se puede implementar a través de varios modelos o metodologías, cada uno con su propio enfoque y filosofía:</p><table id="3ce648ad-99fc-80a4-ad70-ca15241ba32d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8030-855a-fd460dac0b0a" dir="ltr"><th id="d}nP" class="simple-table-header-color simple-table-header"><strong>Modelo</strong></th><th id="c_=R" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="udZ&lt;" class="simple-table-header-color simple-table-header"><strong>Cuándo Usarlo</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8066-99ed-c0f88ef973ac" dir="ltr"><td id="d}nP" class=""><strong>Waterfall (Cascada)</strong></td><td id="c_=R" class="">Modelo secuencial donde cada fase debe completarse antes de pasar a la siguiente. No se vuelve atrás.</td><td id="udZ&lt;" class="">Proyectos pequeños, requisitos estables y bien comprendidos.</td></tr><tr id="3ce648ad-99fc-80ff-8f95-f1d9f0d20460" dir="ltr"><td id="d}nP" class=""><strong>Modelo en V (V-Model)</strong></td><td id="c_=R" class="">Versión del Waterfall con énfasis en las pruebas, donde cada fase de desarrollo tiene una fase de prueba correspondiente.</td><td id="udZ&lt;" class="">Proyectos donde la calidad y las pruebas son críticas y los requisitos están claros.</td></tr><tr id="3ce648ad-99fc-8007-84d0-f9a16704e753" dir="ltr"><td id="d}nP" class=""><strong>Iterativo e Incremental</strong></td><td id="c_=R" class="">El software se construye en incrementos o iteraciones, cada una añadiendo más funcionalidad.</td><td id="udZ&lt;" class="">Proyectos grandes donde se puede entregar valor en partes (early delivery).</td></tr><tr id="3ce648ad-99fc-80d2-88d1-e98556b5ec80" dir="ltr"><td id="d}nP" class=""><strong>Espiral (Spiral)</strong></td><td id="c_=R" class="">Combina desarrollo iterativo con análisis de riesgos. Cada ciclo incluye planificación, análisis de riesgos, desarrollo y evaluación.</td><td id="udZ&lt;" class="">Proyectos de alto riesgo, grandes y complejos (ej: sistemas de defensa, aeroespacial).</td></tr><tr id="3ce648ad-99fc-80fa-a3a8-eb0ef715aa2b" dir="ltr"><td id="d}nP" class=""><strong>Ágil (Agile)</strong></td><td id="c_=R" class="">Desarrollo iterativo, incremental y flexible. Se centra en la entrega rápida de valor, la colaboración con el cliente y la adaptación al cambio. Frameworks: Scrum, Kanban, XP.</td><td id="udZ&lt;" class="">La mayoría de los proyectos modernos, especialmente en entornos cambiantes y startups.</td></tr><tr id="3ce648ad-99fc-80db-b34e-dbe0fba28275" dir="ltr"><td id="d}nP" class=""><strong>DevOps</strong></td><td id="c_=R" class="">Extiende Agile integrando desarrollo (Dev) y operaciones (Ops). Enfoque en la automatización, la entrega continua (CI/CD) y la colaboración entre equipos.</td><td id="udZ&lt;" class="">Proyectos que requieren despliegues frecuentes y alta disponibilidad.</td></tr><tr id="3ce648ad-99fc-8054-a9d9-f1276fe4ffe7" dir="ltr"><td id="d}nP" class=""><strong>Lean</strong></td><td id="c_=R" class="">Se centra en eliminar desperdicios y maximizar el valor para el cliente.</td><td id="udZ&lt;" class="">Proyectos donde la eficiencia y la reducción de costos son críticas.</td></tr></tbody></table><hr id="3ce648ad-99fc-8016-bd27-e2cbc4c32787" dir="auto"/><h2 id="3ce648ad-99fc-804f-bb94-fcbc3db00af5" class="" dir="auto"><strong>⚠️ Errores Comunes en el SDLC</strong></h2><table id="3ce648ad-99fc-80b8-a0e0-de837205aa25" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80f4-8cf2-df58bed14562" dir="ltr"><th id="L}=_" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id=";gS?" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="viwP" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8093-a358-dbd91690b9aa" dir="ltr"><td id="L}=_" class=""><strong>Saltarse la fase de análisis</strong></td><td id=";gS?" class="">Empezar a codificar sin comprender bien los requisitos.</td><td id="viwP" class="">Se construye lo incorrecto, se desperdicia tiempo y dinero.</td></tr><tr id="3ce648ad-99fc-80da-904a-dc9ba3888f64" dir="ltr"><td id="L}=_" class=""><strong>Documentación insuficiente</strong></td><td id=";gS?" class="">No documentar el diseño, las decisiones y el código.</td><td id="viwP" class="">El mantenimiento es difícil y costoso, el conocimiento se pierde.</td></tr><tr id="3ce648ad-99fc-8074-a06f-e02f3ee8a3e2" dir="ltr"><td id="L}=_" class=""><strong>Ignorar las pruebas</strong></td><td id=";gS?" class="">Realizar pruebas insuficientes o en las etapas finales.</td><td id="viwP" class="">Errores en producción, mala experiencia del usuario.</td></tr><tr id="3ce648ad-99fc-8029-b43a-e3135f3d8239" dir="ltr"><td id="L}=_" class=""><strong>No involucrar al usuario</strong></td><td id=";gS?" class="">Desarrollar sin la participación activa del cliente/usuario.</td><td id="viwP" class="">El producto final no satisface las necesidades reales.</td></tr><tr id="3ce648ad-99fc-80d8-bd70-ca80df2e22af" dir="ltr"><td id="L}=_" class=""><strong>No gestionar los riesgos</strong></td><td id=";gS?" class="">No identificar y mitigar los riesgos potenciales.</td><td id="viwP" class="">El proyecto se desvía, se retrasa o incluso se cancela.</td></tr><tr id="3ce648ad-99fc-8076-a8b0-ea25f6cd45af" dir="ltr"><td id="L}=_" class=""><strong>Tecnología inadecuada</strong></td><td id=";gS?" class="">Elegir una tecnología que no se adapta al problema o al equipo.</td><td id="viwP" class="">Dificultades técnicas, bajo rendimiento, alta rotación del equipo.</td></tr><tr id="3ce648ad-99fc-8093-8e83-e72f585a9388" dir="ltr"><td id="L}=_" class=""><strong>Metodología equivocada</strong></td><td id=";gS?" class="">Usar Waterfall para un proyecto con requisitos cambiantes.</td><td id="viwP" class="">Rigidez, incapacidad de adaptarse, producto obsoleto al lanzarlo.</td></tr></tbody></table><hr id="3ce648ad-99fc-806b-b489-d40a21a81efb" dir="auto"/><h2 id="3ce648ad-99fc-80b5-a145-ccf8425b11a1" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-80d8-a22d-fa0189c0691b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8044-822b-ea9dce06d7a1" dir="ltr"><th id="vrmy" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="oNAE" class="simple-table-header-color simple-table-header" style="width:381px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80b9-8c85-c347effd42cd" dir="ltr"><td id="vrmy" class=""><strong>Desarrollo de un nuevo producto</strong></td><td id="oNAE" class="" style="width:381px">Usar Agile (Scrum) para iterar rápidamente y recibir feedback del mercado.</td></tr><tr id="3ce648ad-99fc-80fb-9f8d-d7dca1d8b378" dir="ltr"><td id="vrmy" class=""><strong>Sistema crítico (banca, salud)</strong></td><td id="oNAE" class="" style="width:381px">Usar V-Model o Espiral, con énfasis en pruebas y validación rigurosa.</td></tr><tr id="3ce648ad-99fc-8032-8d87-c414db9ea2de" dir="ltr"><td id="vrmy" class=""><strong>Migración a la nube</strong></td><td id="oNAE" class="" style="width:381px">Usar DevOps (CI/CD) para automatizar la entrega y garantizar la disponibilidad.</td></tr><tr id="3ce648ad-99fc-8009-9d9b-dfd16661dc53" dir="ltr"><td id="vrmy" class=""><strong>Proyecto con requisitos fijos (ej: normativa)</strong></td><td id="oNAE" class="" style="width:381px">Usar Waterfall, donde los requisitos son estables y bien conocidos.</td></tr></tbody></table><hr id="3ce648ad-99fc-80a2-8b7e-d013901d18cd" dir="auto"/><h2 id="3ce648ad-99fc-8092-8ea0-ce1e5a30402b" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8042-9e86-f8eeeb02ba15" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8000-8f66-c32c1d3a5a56" dir="ltr"><th id="]Irb" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="LI;?" class="simple-table-header-color simple-table-header" style="width:360px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80c7-9f36-dcd54165e2bd" dir="ltr"><td id="]Irb" class=""><strong>Metodología Ágil</strong></td><td id="LI;?" class="" style="width:360px">Es una forma de implementar el SDLC (ciclos cortos, iterativos).</td></tr><tr id="3ce648ad-99fc-8000-9414-e2640f3f5f14" dir="ltr"><td id="]Irb" class=""><strong>DevOps</strong></td><td id="LI;?" class="" style="width:360px">Extiende Agile integrando las operaciones (despliegue, monitoreo).</td></tr><tr id="3ce648ad-99fc-805a-bfe2-c5219f126668" dir="ltr"><td id="]Irb" class=""><strong>CI/CD (Integración Continua/Entrega Continua)</strong></td><td id="LI;?" class="" style="width:360px">Prácticas que automatizan el ciclo de despliegue, apoyando las fases de implementación y mantenimiento.</td></tr><tr id="3ce648ad-99fc-80d4-bb2c-f201d13718b9" dir="ltr"><td id="]Irb" class=""><strong>CMMI (Capability Maturity Model Integration)</strong></td><td id="LI;?" class="" style="width:360px">Modelo de madurez que evalúa la calidad del proceso SDLC de una organización.</td></tr><tr id="3ce648ad-99fc-80c2-b89d-e2ead08dd7c1" dir="ltr"><td id="]Irb" class=""><strong>Gestión de Proyectos</strong></td><td id="LI;?" class="" style="width:360px">Disciplina que planifica y controla el SDLC.</td></tr><tr id="3ce648ad-99fc-805a-b57f-eb6cce68a415" dir="ltr"><td id="]Irb" class=""><strong>Quality Assurance (QA)</strong></td><td id="LI;?" class="" style="width:360px">Se centra en la fase de pruebas para garantizar la calidad del software.</td></tr><tr id="3ce648ad-99fc-80fa-98b9-e75020c9fcf2" dir="ltr"><td id="]Irb" class=""><strong>ITIL</strong></td><td id="LI;?" class="" style="width:360px">Marco para la gestión de servicios de TI, aplicado en la fase de mantenimiento y soporte.</td></tr></tbody></table><hr id="3ce648ad-99fc-8074-8354-e553c7be8c48" dir="auto"/><h2 id="3ce648ad-99fc-8051-a986-f136094db5f7" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-8086-9cac-de5a6ee804e1" class="" dir="auto">El SDLC es como <strong>construir una casa</strong>:</p><ul id="3ce648ad-99fc-8016-aba9-cb22414080b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Planificación</strong>: Decides construir una casa, defines el presupuesto y el terreno.</li></ul><ul id="3ce648ad-99fc-80f6-8570-fa0fe4cd6331" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Análisis de Requisitos</strong>: Hablas con tu familia para saber cuántos baños, habitaciones y qué estilo quieren.</li></ul><ul id="3ce648ad-99fc-803f-b0a9-f21745c8ba87" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diseño</strong>: El arquitecto dibuja los planos.</li></ul><ul id="3ce648ad-99fc-8078-a291-de1252c8d664" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Implementación</strong>: Los albañiles construyen la casa siguiendo los planos.</li></ul><ul id="3ce648ad-99fc-80f0-bc88-f3df985a960d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pruebas</strong>: Inspeccionas que las tuberías no goteen, que las luces funcionen y que todo esté bien construido.</li></ul><ul id="3ce648ad-99fc-8068-870a-e5f1849d83a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Despliegue</strong>: Te mudas a la casa.</li></ul><ul id="3ce648ad-99fc-80bf-a876-da8793d0807e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mantenimiento</strong>: Reparas una gotera, pintas una habitación o remodelas la cocina con el tiempo.</li></ul><p id="3ce648ad-99fc-8031-9a1c-d2cefc166dac" class="" dir="auto">Así como construir una casa sin planos o sin inspecciones sería un desastre, desarrollar software sin un SDLC estructurado llevaría a resultados impredecibles y de baja calidad.</p><hr id="3ce648ad-99fc-8041-aa77-e78b6ced4bba" dir="auto"/><h2 id="3ce648ad-99fc-80c2-9dda-ffb22f614473" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-800d-b62a-d31a683bb3c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pressman, R. S. (2014). <em>Software Engineering: A Practitioner&#x27;s Approach</em>. McGraw-Hill.</li></ul><ul id="3ce648ad-99fc-80c7-b746-dbdf1c21fe84" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Sommerville, I. (2016). <em>Software Engineering</em>. Pearson.</li></ul><ul id="3ce648ad-99fc-8058-ae8d-da563db04c7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Schwaber, K., &amp; Sutherland, J. (2020). <em>The Scrum Guide</em>.</li></ul><ul id="3ce648ad-99fc-80fa-960a-fbb1d0e3842c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Beck, K. (2004). <em>Extreme Programming Explained</em>. Addison-Wesley.</li></ul><ul id="3ce648ad-99fc-80de-81c3-f3b06108d59c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, G., Humble, J., Debois, P., &amp; Willis, J. (2016). <em>The DevOps Handbook</em>. IT Revolution Press.</li></ul><ul id="3ce648ad-99fc-8046-9248-c826623e5556" class="bulleted-list" dir="auto"><li style="list-style-type:disc">IEEE Standard 1074-2006, <em>Standard for Developing Software Life Cycle Processes</em>.</li></ul><hr id="3ce648ad-99fc-80e7-917e-dbefede36d05" dir="auto"/><h2 id="3ce648ad-99fc-80aa-99a3-cccce4f5de8a" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-8078-8724-f4b55f3439bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No existe el &quot;mejor&quot; modelo de SDLC</strong>: Depende del proyecto. Para una startup con un producto nuevo, Agile es ideal. Para un sistema de control de tráfico aéreo, un modelo como Espiral (con mucho análisis de riesgos) es más apropiado.</li></ul><ul id="3ce648ad-99fc-8088-b88b-dcbc3ac2189b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El SDLC no es rígido</strong>: Puedes combinar elementos de diferentes modelos. Por ejemplo, usar Agile para el desarrollo pero incorporar fases de análisis de riesgos de Espiral para ciertos módulos críticos.</li></ul><ul id="3ce648ad-99fc-807f-b3dc-c8f6d8d44a23" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La documentación es clave</strong>: A menudo se subestima, pero una buena documentación (de requisitos, de diseño, de usuario) es lo que permite mantener y evolucionar el software a largo plazo.</li></ul><ul id="3ce648ad-99fc-808a-a2cb-f292f8e5c9c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La participación del usuario es crítica</strong>: El mayor fracaso en el desarrollo de software no es técnico, sino de entendimiento del cliente. Involucrar al usuario desde la fase de análisis y en las pruebas de aceptación es la mejor inversión para asegurar el éxito.</li></ul><ul id="3ce648ad-99fc-8073-974c-cf544f53b915" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El mantenimiento es la fase más larga</strong>: El 80% del costo total de un software ocurre durante la fase de mantenimiento, no durante el desarrollo inicial. Por eso es tan importante la calidad del código y la documentación.</li></ul><ul id="3ce648ad-99fc-8003-a26b-cd670ec6d636" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>DevOps como estándar</strong>: En la era de la transformación digital, DevOps se está convirtiendo en el estándar de facto para el SDLC, ya que permite desplegar nuevas versiones de software de manera rápida, segura y continua (CI/CD).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

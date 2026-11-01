@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Pitch</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c9648ad-99fc-8091-b2b6-dae48818bfd4" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Pitch</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-8039-922b-d399d8839aff" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-801c-9d34-fb9d72a21d97" class="" dir="auto"><strong>📄 ¿Qué es un Pitch?</strong></h1><hr id="3c9648ad-99fc-808e-8411-fa493499e221" dir="auto"/><h2 id="3c9648ad-99fc-8024-afbc-f1d9d363ef00" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-80ac-af39-c70c0dd585d8" class="" dir="auto">Un pitch es una <strong>presentación breve, clara y persuasiva</strong> diseñada para captar la atención de la audiencia y lograr un objetivo específico, generalmente vender una idea, un producto, un proyecto o la propia empresa. </p><p id="3c9648ad-99fc-80d9-9a17-f997a5e963c6" class="" dir="auto">Es una herramienta de comunicación clave en el mundo de los negocios, el emprendimiento y las ventas.</p><hr id="3c9648ad-99fc-80d6-b629-deb8a6b7f6fe" dir="auto"/><h2 id="3c9648ad-99fc-80ef-97f5-d4cfb4551332" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80f5-ba93-c7ec46dcc66b" class="" dir="auto">El pitch es el arte de <strong>sintetizar una propuesta de valor compleja en un mensaje conciso y convincente</strong>. </p><p id="3c9648ad-99fc-8027-bdaa-d676183c3d69" class="" dir="auto">No se trata de contar todo lo que sabes, sino de <strong>transmitir lo esencial de manera que genere interés, curiosidad y acción</strong>.</p><p id="3c9648ad-99fc-80dd-8161-fc56a072e450" class="" dir="auto">Un pitch puede durar desde <strong>30 segundos</strong> (elevator pitch) hasta <strong>15-20 minutos</strong> (pitch de inversión), y puede ser verbal, escrito o audiovisual. </p><p id="3c9648ad-99fc-8055-93fa-e2fdc2cbcd9f" class="" dir="auto">Se utiliza en diferentes contextos: reuniones con inversores, presentaciones a clientes, concursos de startups, entrevistas de trabajo o incluso en redes sociales.</p><hr id="3c9648ad-99fc-8020-97ec-f84b0ee4797e" dir="auto"/><h2 id="3c9648ad-99fc-80ce-889c-d9515bce4f12" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-8073-b8a7-de7a84b22af5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Captar la atención</strong>: Destacar entre la multitud en un mundo de sobrecarga informativa.</li></ul><ul id="3c9648ad-99fc-8038-9e8d-f82906e7b716" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunicar valor de forma efectiva</strong>: Explicar qué haces y por qué importa en el menor tiempo posible.</li></ul><ul id="3c9648ad-99fc-808a-9499-e602c51b7fb0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar interés</strong>: Despertar la curiosidad para que la audiencia quiera saber más.</li></ul><ul id="3c9648ad-99fc-803a-89a8-e6b55e925578" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conseguir una acción</strong>: Ya sea una inversión, una venta, una alianza o una oportunidad de entrevista.</li></ul><ul id="3c9648ad-99fc-8088-ba48-e35bccf7a645" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Probar la claridad de tu idea</strong>: Si no puedes explicarlo en 30 segundos, quizás no lo entiendes lo suficientemente bien.</li></ul><hr id="3c9648ad-99fc-8047-bd5d-ed2578ebeda0" dir="auto"/><h2 id="3c9648ad-99fc-8025-9f5d-feeb587f9b79" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? La Estructura de un Pitch Efectivo</strong></h2><p id="3c9648ad-99fc-80c6-b312-dea8f767699b" class="" dir="auto">Un buen pitch sigue una estructura lógica y emocional que guía a la audiencia desde el problema hasta la solución y la oportunidad:</p><ol type="1" id="3c9648ad-99fc-80c1-9b75-dabeb4602c03" class="numbered-list" start="1" dir="auto"><li><strong>Hook (Gancho)</strong>: Una apertura impactante que capta la atención de inmediato (una pregunta, una estadística, una historia).</li></ol><ol type="1" id="3c9648ad-99fc-80fc-b15d-d74b95e2dca6" class="numbered-list" start="2" dir="auto"><li><strong>Problema</strong>: Definir el problema que estás resolviendo de manera clara y relatable.</li></ol><ol type="1" id="3c9648ad-99fc-807b-bfea-c42aad19222f" class="numbered-list" start="3" dir="auto"><li><strong>Solución</strong>: Presentar tu producto o servicio como la respuesta única y efectiva a ese problema.</li></ol><ol type="1" id="3c9648ad-99fc-80d5-80b4-c18645ad2c7b" class="numbered-list" start="4" dir="auto"><li><strong>Propuesta de Valor</strong>: Explicar el beneficio único que ofreces y por qué los clientes te elegirían a ti.</li></ol><ol type="1" id="3c9648ad-99fc-803b-9075-d3fc19076994" class="numbered-list" start="5" dir="auto"><li><strong>Mercado y Oportunidad</strong>: Mostrar el tamaño del mercado y el potencial de crecimiento.</li></ol><ol type="1" id="3c9648ad-99fc-8069-8bad-fde0cbf3c9d1" class="numbered-list" start="6" dir="auto"><li><strong>Tracción</strong>: Probar que tu idea funciona (ventas, usuarios, métricas, testimonios).</li></ol><ol type="1" id="3c9648ad-99fc-806c-8bad-d91964dcb323" class="numbered-list" start="7" dir="auto"><li><strong>Equipo</strong>: Presentar al equipo que hace esto posible, destacando su experiencia y pasión.</li></ol><ol type="1" id="3c9648ad-99fc-807c-a715-edc853af837c" class="numbered-list" start="8" dir="auto"><li><strong>Cierre con Llamada a la Acción (CTA)</strong>: Decir claramente qué quieres que la audiencia haga a continuación (invertir, comprar, agendar una reunión).</li></ol><hr id="3c9648ad-99fc-8007-b532-e1b08ba96b5a" dir="auto"/><h2 id="3c9648ad-99fc-80dd-a7d6-c8a405bc1612" class="" dir="auto"><strong>📝 Tipos de Pitch</strong></h2><table id="3c9648ad-99fc-80a2-8e64-f554fb0a56ed" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8035-948e-e608f6598224" dir="ltr"><th id="zxs&lt;" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="]&lt;}N" class="simple-table-header-color simple-table-header"><strong>Duración</strong></th><th id="hTWn" class="simple-table-header-color simple-table-header"><strong>Contexto</strong></th><th id="&lt;O&lt;^" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-802e-94ad-f8394c6cfe21" dir="ltr"><td id="zxs&lt;" class=""><strong>Elevator Pitch (Ascensor)</strong></td><td id="]&lt;}N" class="">30 segundos - 2 minutos</td><td id="hTWn" class="">Encuentros casuales, networking, presentaciones rápidas.</td><td id="&lt;O&lt;^" class="">&quot;Hola, soy Ana de XYZ. Creamos un software que reduce un 40% los costos de logística. ¿Te gustaría ver una demo?&quot;</td></tr><tr id="3c9648ad-99fc-8089-af12-daf2b23ec31f" dir="ltr"><td id="zxs&lt;" class=""><strong>Pitch de Ventas</strong></td><td id="]&lt;}N" class="">5-10 minutos</td><td id="hTWn" class="">Reuniones con clientes potenciales.</td><td id="&lt;O&lt;^" class="">Presentación de un producto o servicio con foco en cómo resuelve el problema específico del cliente.</td></tr><tr id="3c9648ad-99fc-80b8-98e3-f322157b7601" dir="ltr"><td id="zxs&lt;" class=""><strong>Pitch de Inversión</strong></td><td id="]&lt;}N" class="">5-15 minutos</td><td id="hTWn" class="">Reuniones con inversores, aceleradoras, rondas de financiamiento.</td><td id="&lt;O&lt;^" class="">Presentación detallada del negocio, el mercado, la tracción y la oportunidad de inversión.</td></tr><tr id="3c9648ad-99fc-8027-bce4-edc4545b2c9a" dir="ltr"><td id="zxs&lt;" class=""><strong>Pitch de Competencia</strong></td><td id="]&lt;}N" class="">3-5 minutos</td><td id="hTWn" class="">Concursos de emprendimiento, hackathons, demo days.</td><td id="&lt;O&lt;^" class="">Una versión condensada y dinámica del pitch de inversión, diseñada para impresionar a un jurado.</td></tr><tr id="3c9648ad-99fc-8002-a24a-f1fc38a83412" dir="ltr"><td id="zxs&lt;" class=""><strong>Pitch de Producto</strong></td><td id="]&lt;}N" class="">2-5 minutos</td><td id="hTWn" class="">Lanzamientos, demostraciones.</td><td id="&lt;O&lt;^" class="">Enfocado en las funcionalidades y beneficios del producto.</td></tr><tr id="3c9648ad-99fc-809e-a536-dc2a8b966612" dir="ltr"><td id="zxs&lt;" class=""><strong>Pitch de Elevator Escrito</strong></td><td id="]&lt;}N" class="">Texto corto (1-2 párrafos)</td><td id="hTWn" class="">Correos electrónicos, perfiles de LinkedIn, resúmenes.</td><td id="&lt;O&lt;^" class="">Un resumen escrito que se puede leer rápido.</td></tr></tbody></table><hr id="3c9648ad-99fc-80a1-8da2-fced78e331fd" dir="auto"/><h2 id="3c9648ad-99fc-80ac-9563-eaa004941dbb" class="" dir="auto"><strong>💡 Ejemplos de Pitches Famosos</strong></h2><h3 id="3c9648ad-99fc-80cb-87f6-e3921f12b39c" class="" dir="auto"><strong>Ejemplo 1: Airbnb (Elevator Pitch)</strong></h3><blockquote id="3c9648ad-99fc-808f-bcea-d7eb49c44b2a" class="" dir="auto"><em>&quot;Book rooms with locals, rather than hotels. We help you find a place to stay anywhere in the world, at any price point, in any neighborhood.&quot;</em></blockquote><p id="3c9648ad-99fc-8038-bfba-e6d7baab3e14" class="" dir="auto"><strong>Análisis</strong>: Es simple, claro y resuelve un problema concreto (encontrar alojamiento) con una propuesta diferente (con locales, no hoteles). Despierta curiosidad.</p><h3 id="3c9648ad-99fc-8056-8c88-fb9ea84ab2c3" class="" dir="auto"><strong>Ejemplo 2: Uber (Elevator Pitch)</strong></h3><blockquote id="3c9648ad-99fc-80de-b9e4-ec7cb075f7c7" class="" dir="auto"><em>&quot;Uber is a smartphone app that connects you with a driver in minutes. You can get a ride anywhere, anytime, at the tap of a button.&quot;</em></blockquote><p id="3c9648ad-99fc-80d4-92d0-fe0ce217eb69" class="" dir="auto"><strong>Análisis</strong>: Explica el producto (app), la acción (conectar con un conductor), la promesa (en minutos, en cualquier lugar) y la facilidad de uso (un botón).</p><h3 id="3c9648ad-99fc-8043-819d-cfb0cf8a3ba6" class="" dir="auto"><strong>Ejemplo 3: Dropbox (Pitch de Inversión)</strong></h3><blockquote id="3c9648ad-99fc-8042-9c38-fb8dd71a5f99" class="" dir="auto"><em>&quot;Dropbox is a place where all your files come together. It syncs to all your devices, so you can access anything from anywhere. It’s like a USB stick that never gets lost, and it works on every platform.&quot;</em></blockquote><p id="3c9648ad-99fc-80ea-b306-f9afc52f47b6" class="" dir="auto"><strong>Análisis</strong>: Usa una analogía que la gente entiende (USB que nunca se pierde) y destaca los beneficios clave (sincronización, acceso desde cualquier lugar, multiplataforma).</p><h3 id="3c9648ad-99fc-80d7-a372-d47920fff0d9" class="" dir="auto"><strong>Ejemplo 4: Tesla (Pitch de Visión)</strong></h3><blockquote id="3c9648ad-99fc-8062-a987-d42972b12e58" class="" dir="auto"><em>&quot;Tesla’s mission is to accelerate the world’s transition to sustainable energy.&quot;</em></blockquote><p id="3c9648ad-99fc-8092-9420-d332ab055be3" class="" dir="auto"><strong>Análisis</strong>: Es un pitch de misión, no de producto. Va directo al propósito y al impacto, creando una conexión emocional con la audiencia.</p><hr id="3c9648ad-99fc-80c1-931a-f30d941f9e40" dir="auto"/><h2 id="3c9648ad-99fc-80a7-8c23-f4dbefdb6935" class="" dir="auto"><strong>⚠️ Errores Comunes al Hacer un Pitch</strong></h2><table id="3c9648ad-99fc-8061-bd3b-de55c031f3d1" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-809a-87cb-c0142c19216f" dir="ltr"><th id="Z&lt;=q" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="kSZF" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="i;]h" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8008-9459-e8d888614e06" dir="ltr"><td id="Z&lt;=q" class=""><strong>Demasiada información</strong></td><td id="kSZF" class="">Querer contar todo en el pitch.</td><td id="i;]h" class="">La audiencia se pierde, no retiene nada clave.</td></tr><tr id="3c9648ad-99fc-8072-aa26-e5196aa94bdf" dir="ltr"><td id="Z&lt;=q" class=""><strong>No entender a la audiencia</strong></td><td id="kSZF" class="">Usar el mismo pitch para clientes, inversores o colegas.</td><td id="i;]h" class="">El mensaje no resuena, se pierde la oportunidad.</td></tr><tr id="3c9648ad-99fc-800e-9018-ec7b0e22fe87" dir="ltr"><td id="Z&lt;=q" class=""><strong>No tener un gancho</strong></td><td id="kSZF" class="">Empezar de manera aburrida o genérica.</td><td id="i;]h" class="">La audiencia se desconecta desde el primer segundo.</td></tr><tr id="3c9648ad-99fc-8000-b994-e6a062418472" dir="ltr"><td id="Z&lt;=q" class=""><strong>No incluir un CTA (Call To Action)</strong></td><td id="kSZF" class="">Terminar sin decir qué quieres que hagan.</td><td id="i;]h" class="">Se desperdicia la oportunidad de conversión.</td></tr><tr id="3c9648ad-99fc-80bf-afda-e104379bc1e9" dir="ltr"><td id="Z&lt;=q" class=""><strong>Usar jerga técnica</strong></td><td id="kSZF" class="">Llenar el pitch de tecnicismos que la audiencia no entiende.</td><td id="i;]h" class="">La audiencia no entiende el valor, se siente excluida.</td></tr><tr id="3c9648ad-99fc-80af-abeb-d260aa589690" dir="ltr"><td id="Z&lt;=q" class=""><strong>No mostrar tracción</strong></td><td id="kSZF" class="">Hablar de potencial sin evidencia.</td><td id="i;]h" class="">Parece humo, no hay credibilidad.</td></tr><tr id="3c9648ad-99fc-8001-b7ce-ceaa66e8412d" dir="ltr"><td id="Z&lt;=q" class=""><strong>No practicar</strong></td><td id="kSZF" class="">Improvisar sin preparación.</td><td id="i;]h" class="">Inseguridad, mensaje poco claro.</td></tr></tbody></table><hr id="3c9648ad-99fc-80bb-8c2f-c45c5d1925f7" dir="auto"/><h2 id="3c9648ad-99fc-8024-bc2b-f6a8293d17cf" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-8085-9609-d855bcd4311d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e6-b566-c35e85ca3c4d" dir="ltr"><th id="@:lo" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="&gt;uy&lt;" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8004-a336-d8fe0be744cb" dir="ltr"><td id="@:lo" class=""><strong>Reunión con inversores</strong></td><td id="&gt;uy&lt;" class="">Pitch de inversión para conseguir financiamiento.</td></tr><tr id="3c9648ad-99fc-800b-b866-d98ba668ab25" dir="ltr"><td id="@:lo" class=""><strong>Reunión con clientes</strong></td><td id="&gt;uy&lt;" class="">Pitch de ventas para cerrar un contrato.</td></tr><tr id="3c9648ad-99fc-8042-a9cd-de4723dd4d69" dir="ltr"><td id="@:lo" class=""><strong>Networking profesional</strong></td><td id="&gt;uy&lt;" class="">Elevator pitch para presentarte en un evento.</td></tr><tr id="3c9648ad-99fc-8022-bd4d-da07944e7005" dir="ltr"><td id="@:lo" class=""><strong>Concursos de emprendimiento</strong></td><td id="&gt;uy&lt;" class="">Pitch de competencia para ganar visibilidad y premios.</td></tr><tr id="3c9648ad-99fc-80c7-98da-dc746ec6edae" dir="ltr"><td id="@:lo" class=""><strong>Internamente (dentro de la empresa)</strong></td><td id="&gt;uy&lt;" class="">Pitch para conseguir recursos o apoyo para un proyecto.</td></tr><tr id="3c9648ad-99fc-80ab-8bd8-c06b9da2e8fa" dir="ltr"><td id="@:lo" class=""><strong>Reclutamiento de talento</strong></td><td id="&gt;uy&lt;" class="">Pitch para atraer a un candidato (ej: explicar la misión y el impacto del equipo).</td></tr><tr id="3c9648ad-99fc-80ee-a8d8-ecd31032a775" dir="ltr"><td id="@:lo" class=""><strong>Redes sociales y LinkedIn</strong></td><td id="&gt;uy&lt;" class="">Elevator pitch escrito para tu perfil o tu empresa.</td></tr></tbody></table><hr id="3c9648ad-99fc-802a-a87c-f227f5d71e32" dir="auto"/><h2 id="3c9648ad-99fc-80dd-b28c-c84257827db0" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-8095-83c6-d27007e0a164" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-807a-abbf-e60f9047b182" dir="ltr"><th id="Up]C" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="ILxB" class="simple-table-header-color simple-table-header" style="width:399px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8081-a059-e2633bc584a3" dir="ltr"><td id="Up]C" class=""><strong>Storytelling</strong></td><td id="ILxB" class="" style="width:399px">El arte de contar historias es fundamental para un buen pitch (conectar emocionalmente).</td></tr><tr id="3c9648ad-99fc-801e-a70e-d0a256d1ba73" dir="ltr"><td id="Up]C" class=""><strong>Propuesta de Valor</strong></td><td id="ILxB" class="" style="width:399px">Es el corazón del pitch: el qué, el por qué y para quién.</td></tr><tr id="3c9648ad-99fc-800d-82d0-c73055be4806" dir="ltr"><td id="Up]C" class=""><strong>Elevator Pitch</strong></td><td id="ILxB" class="" style="width:399px">El pitch más breve y conocido, diseñado para situaciones rápidas.</td></tr><tr id="3c9648ad-99fc-801d-b661-e7985b47a15b" dir="ltr"><td id="Up]C" class=""><strong>Presentación Efectiva</strong></td><td id="ILxB" class="" style="width:399px">Un pitch es una presentación condensada y dirigida a un objetivo específico.</td></tr><tr id="3c9648ad-99fc-8049-a523-e596b30dd198" dir="ltr"><td id="Up]C" class=""><strong>Ventas</strong></td><td id="ILxB" class="" style="width:399px">El pitch es una herramienta central en el proceso de ventas.</td></tr><tr id="3c9648ad-99fc-808f-8c42-dcb99c4bbc5c" dir="ltr"><td id="Up]C" class=""><strong>Marketing</strong></td><td id="ILxB" class="" style="width:399px">El pitch es el mensaje clave que se utiliza en campañas y comunicación.</td></tr><tr id="3c9648ad-99fc-8097-895c-ec953972fae9" dir="ltr"><td id="Up]C" class=""><strong>Persuasión</strong></td><td id="ILxB" class="" style="width:399px">El pitch utiliza principios de persuasión para lograr su objetivo.</td></tr></tbody></table><hr id="3c9648ad-99fc-8061-8070-f56d11ab9824" dir="auto"/><h2 id="3c9648ad-99fc-8055-b0cf-d46100de0b33" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-80da-89c7-fa738940793c" class="" dir="auto">El pitch es como el <strong>tráiler de una película</strong>. En 2 minutos, el tráiler debe:</p><ul id="3c9648ad-99fc-8029-956c-e2183b99b0b8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Atrapar tu atención</strong> con una escena impactante (el gancho).</li></ul><ul id="3c9648ad-99fc-80ee-9919-d06028de0863" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Presentar el conflicto o problema</strong> (el problema).</li></ul><ul id="3c9648ad-99fc-8074-ab03-c0a2a938e30f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mostrar al héroe y la solución</strong> (la solución).</li></ul><ul id="3c9648ad-99fc-80ed-8a3c-ccdad3a7e1d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar emoción y curiosidad</strong> (la oportunidad).</li></ul><ul id="3c9648ad-99fc-8045-9c48-c185ce5fafd7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Decirte cuándo se estrena</strong> (la llamada a la acción).</li></ul><p id="3c9648ad-99fc-8004-871c-df1617830d94" class="" dir="auto">Si el tráiler es malo, no verás la película, por muy buena que sea. Lo mismo ocurre con el pitch: si no es convincente, no conseguirás la inversión, la venta o la oportunidad.</p><hr id="3c9648ad-99fc-8002-9c22-d45b602294ce" dir="auto"/><h2 id="3c9648ad-99fc-8068-835e-f2537c2ff94c" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-80b9-ab45-d2c87ab2db8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">O&#x27;Leary, C. (2010). <em>The Pitch: The Art of Persuasive Storytelling</em>. Penguin.</li></ul><ul id="3c9648ad-99fc-80c7-b42f-cc94dba39956" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Duarte, N. (2010). <em>Resonate: Present Visual Stories that Transform Audiences</em>. Wiley.</li></ul><ul id="3c9648ad-99fc-8093-be24-f06b577dab50" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kawasaki, G. (2011). <em>Enchantment: The Art of Changing Hearts, Minds, and Actions</em>. Portfolio.</li></ul><ul id="3c9648ad-99fc-80e5-a0b4-f0ae0ce476ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2011). <em>The Lean Startup</em>. Crown Business.</li></ul><ul id="3c9648ad-99fc-8025-88c9-df80ad8e9394" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2022). <em>The Art of the Pitch</em>.</li></ul><ul id="3c9648ad-99fc-80a4-bb0f-cbd5fe698189" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Guy Kawasaki, (2006). <em>The Art of the Start</em>. Portfolio.</li></ul><hr id="3c9648ad-99fc-80b0-be86-dacf9527375d" dir="auto"/><h2 id="3c9648ad-99fc-8016-9cf5-edce3e57d3f4" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-8028-a1e2-ead5613daa73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La claridad es más importante que la creatividad</strong>: Un pitch simple y claro es más efectivo que uno creativo pero confuso.</li></ul><ul id="3c9648ad-99fc-8034-840c-fd90ea491106" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conoce a tu audiencia</strong>: Personaliza el pitch según a quién te diriges. Lo que le importa a un inversor no es lo mismo que a un cliente.</li></ul><ul id="3c9648ad-99fc-8055-b583-c3c482c9c7ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Practica, practica, practica</strong>: Los mejores pitches parecen improvisados, pero son el resultado de horas de práctica.</li></ul><ul id="3c9648ad-99fc-80ff-8c85-fa1e80e7e7a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Las historias venden</strong>: Incluye una historia (de un cliente, de tu viaje, de un problema que resolviste) para conectar emocionalmente.</li></ul><ul id="3c9648ad-99fc-8080-b53f-cc6381105d5c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sé auténtico</strong>: La audiencia percibe cuando no eres genuino. Habla con pasión y convicción.</li></ul><ul id="3c9648ad-99fc-802e-9ef1-d23a6d9adda1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Menos es más</strong>: Elimina toda palabra que no sea necesaria. La brevedad es la clave del impacto.</li></ul><ul id="3c9648ad-99fc-8050-b515-f165316ae8e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Un buen pitch es el que se recuerda</strong>: No solo importa lo que dices, sino cómo lo dices (tono, ritmo, lenguaje corporal) y lo que la audiencia recuerda después.</li></ul><p id="3c9648ad-99fc-800d-97ef-c72837d3b95c" class="" dir="auto"><strong>Estructura resumida para armar tu pitch</strong>:</p><ol type="1" id="3c9648ad-99fc-808c-a7a9-fe528c37175d" class="numbered-list" start="1" dir="auto"><li><strong>Gancho</strong>: Frase que atrapa (pregunta, dato, historia).</li></ol><ol type="1" id="3c9648ad-99fc-80b1-b770-eafe3e6210f2" class="numbered-list" start="2" dir="auto"><li><strong>Problema</strong>: El dolor que resuelves (1 frase).</li></ol><ol type="1" id="3c9648ad-99fc-80ce-8db9-e531da08d901" class="numbered-list" start="3" dir="auto"><li><strong>Solución</strong>: Tu producto/servicio (1 frase).</li></ol><ol type="1" id="3c9648ad-99fc-802f-b1aa-f2ef3e90e9c5" class="numbered-list" start="4" dir="auto"><li><strong>Beneficio</strong>: El valor único (1 frase).</li></ol><ol type="1" id="3c9648ad-99fc-80c3-8968-cb066bd3a238" class="numbered-list" start="5" dir="auto"><li><strong>CTA</strong>: Qué quieres que hagan (1 frase).</li></ol><blockquote id="3c9648ad-99fc-807e-932c-d775ab9d1f0b" class="" dir="auto"><em>Ejemplo: &quot;¿Sabías que el 70% de las PYMES cierran por problemas de flujo de caja? Nosotros somos [Nombre], y nuestra plataforma automatiza el cobro de facturas, reduciendo el tiempo de pago de 60 a 15 días. Hemos ayudado a 500 empresas a mejorar su liquidez. Queremos invitar a 10 empresas más a probarlo gratis este mes. ¿Te interesaría ser una de ellas?&quot;</em></blockquote></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

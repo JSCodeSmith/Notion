@@ -1,0 +1,826 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Cadena de Valor (Value Chain)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-8010-ac23-f71729c61016" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Cadena de Valor (Value Chain)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-8099-98e6-c7b2a28ca709" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-802d-86f7-f1966f8f42d3" class="" dir="auto"><strong>📄 Cadena de Valor (Value Chain)</strong></h1><hr id="3ea648ad-99fc-804e-9336-c07db07214a8" dir="auto"/><h2 id="3ea648ad-99fc-80b6-93dd-f8601fdf8e2c" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-8003-9965-faa96b8fdb7b" class="" dir="auto">La <strong>Cadena de Valor</strong> es un <strong>modelo de análisis estratégico</strong> desarrollado por <strong>Michael E. Porter</strong> en su libro <em>&quot;Competitive Advantage&quot;</em> (1985).</p><p id="3ea648ad-99fc-80d5-8946-e38d9f133d4d" class="" dir="auto">Permite <strong>descomponer una empresa en sus actividades estratégicas relevantes</strong> para entender cómo se genera valor para el cliente y cómo se pueden reducir costos o aumentar la diferenciación. </p><p id="3ea648ad-99fc-808d-aca4-f66485df60db" class="" dir="auto">Es una herramienta fundamental para identificar <strong>fuentes de ventaja competitiva</strong> dentro de la organización.</p><hr id="3ea648ad-99fc-80f4-85c8-d10be1a59001" dir="auto"/><h2 id="3ea648ad-99fc-8071-8211-d5f8371ef7d4" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-802b-a12d-da9b7d8f1e91" class="" dir="auto">La Cadena de Valor representa a la empresa como una <strong>serie de actividades interconectadas</strong> que transforman <strong>insumos (materias primas, información, recursos)</strong> en <strong>productos o servicios finales</strong> que el cliente valora.</p><p id="3ea648ad-99fc-8099-8fb2-e243c6471854" class="" dir="auto">Cada actividad puede agregar valor (o no) y contribuir a la ventaja competitiva de la empresa.</p><p id="3ea648ad-99fc-8005-a43f-c07d397ecd16" class="" dir="auto"><strong>La idea central</strong>: La ventaja competitiva no se encuentra en la empresa como un todo, sino en las <strong>actividades específicas</strong> que realiza. </p><p id="3ea648ad-99fc-80ca-9f3a-dde34b2dc78c" class="" dir="auto">Al analizar cada actividad, se pueden identificar oportunidades para:</p><ul id="3ea648ad-99fc-8009-871d-d76e0d49783b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir costos</strong> (liderazgo en costos).</li></ul><ul id="3ea648ad-99fc-80ea-b698-e864c6d50141" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la diferenciación</strong> (valor único para el cliente).</li></ul><p id="3ea648ad-99fc-80d8-aba3-dbd11ed26e8c" class="" dir="auto"><strong>Estructura de la Cadena de Valor</strong>:</p><p id="3ea648ad-99fc-80c1-bbbe-cf64e8ab2fa5" class="" dir="auto">La cadena se divide en dos grandes grupos de actividades:</p><ol type="1" id="3ea648ad-99fc-8000-819b-ff191e2bd4eb" class="numbered-list" start="1" dir="auto"><li><strong>Actividades Primarias</strong>: Directamente relacionadas con la creación, entrega y soporte del producto o servicio.</li></ol><ol type="1" id="3ea648ad-99fc-80b4-bef3-f2df838e11ae" class="numbered-list" start="2" dir="auto"><li><strong>Actividades de Apoyo</strong>: Proporcionan la infraestructura y los recursos necesarios para que las actividades primarias se realicen.</li></ol><hr id="3ea648ad-99fc-80cd-8b7e-d7380b1d3165" dir="auto"/><h2 id="3ea648ad-99fc-8013-b3bf-fc06845a66c6" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-80c7-b187-ce7810ddf0c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar fuentes de ventaja competitiva</strong>: ¿Dónde se crea valor y dónde se puede mejorar?</li></ul><ul id="3ea648ad-99fc-8051-a3f4-e536e5ae794a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir costos</strong>: Detectar ineficiencias en cada actividad.</li></ul><ul id="3ea648ad-99fc-8033-ad32-e970a9056cb4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la diferenciación</strong>: Identificar actividades que pueden generar un valor único para el cliente.</li></ul><ul id="3ea648ad-99fc-802d-90db-f193df5fcbb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar procesos</strong>: Mejorar la coordinación entre actividades.</li></ul><ul id="3ea648ad-99fc-805f-ba24-fbbfab96021b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tomar decisiones estratégicas</strong>: Decidir qué actividades realizar internamente y cuáles externalizar (outsourcing).</li></ul><ul id="3ea648ad-99fc-809b-ad31-f98bb1bbff9e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Analizar a la competencia</strong>: Comparar la cadena de valor propia con la de los competidores.</li></ul><ul id="3ea648ad-99fc-80c4-ab19-ea64c419f8b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear la organización</strong>: Entender cómo cada área contribuye a la propuesta de valor.</li></ul><hr id="3ea648ad-99fc-80e4-a3cb-ef12262dcccb" dir="auto"/><h2 id="3ea648ad-99fc-809b-8148-e13a5e84aee3" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Las Actividades de la Cadena de Valor</strong></h2><p id="3ea648ad-99fc-8043-bf6e-f9692aa36c66" class="" dir="auto">La Cadena de Valor se compone de <strong>9 actividades</strong> (5 primarias y 4 de apoyo) que se representan gráficamente como una cadena:</p><p id="3ea648ad-99fc-8047-a414-e8af2df3d85f" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ea648ad-99fc-8091-b1da-e88b91b33622" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────────────────┐
+│                         CADENA DE VALOR (PORTER)                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────┐  │
+│  │                    ACTIVIDADES DE APOYO                               │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │  Infraestructura de la Empresa (Planificación, Finanzas, Legal)       │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │  Gestión de Recursos Humanos (Reclutamiento, Capacitación)            │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │  Desarrollo de Tecnología (I+D, Automatización, Software)             │  │
+│  ├───────────────────────────────────────────────────────────────────────┤  │
+│  │  Abastecimiento (Compras, Proveedores, Materias Primas)               │  │
+│  └───────────────────────────────────────────────────────────────────────┘  │
+│                                                                             │
+│  ┌──────────┬──────────┬──────────┬──────────┬──────────┐                  │
+│  │ LOGÍSTICA│OPERACIONES│LOGÍSTICA│MARKETING │ SERVICIO │                  │
+│  │  INTERNA │  (Produ- │ EXTERNA  │ Y VENTAS │   AL     │                  │
+│  │ (Recep-  │  cción)  │ (Distri- │ (Public- │ CLIENTE  │                  │
+│  │  ción,   │          │  bución) │  idad,   │ (Soporte,│                  │
+│  │  Almace- │          │          │ Promo-   │ Garantía)│                  │
+│  │  namien- │          │          │  ción)   │          │                  │
+│  │  to)     │          │          │          │          │                  │
+│  └──────────┴──────────┴──────────┴──────────┴──────────┘                  │
+│                    ACTIVIDADES PRIMARIAS                                    │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3ea648ad-99fc-80ad-8670-d90e8ebfe2d6" dir="auto"/><h3 id="3ea648ad-99fc-80f9-b5cd-dceb53726963" class="" dir="auto"><strong>📌 Actividades Primarias</strong></h3><table id="3ea648ad-99fc-80ec-85c5-f868581c4126" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8078-ae61-fcfeeb2cf632" dir="ltr"><th id="lne=" class="simple-table-header-color simple-table-header"><strong>Actividad</strong></th><th id="numD" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="G:Kf" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8060-b26f-eac135ce66d3" dir="ltr"><td id="lne=" class=""><strong>1. Logística Interna</strong></td><td id="numD" class="">Recepción, almacenamiento y distribución de insumos para la producción.</td><td id="G:Kf" class="">Almacenar materias primas, gestionar inventarios.</td></tr><tr id="3ea648ad-99fc-8083-8f0e-d37f478f2827" dir="ltr"><td id="lne=" class=""><strong>2. Operaciones (Producción)</strong></td><td id="numD" class="">Transformación de insumos en productos terminados.</td><td id="G:Kf" class="">Ensamblaje, fabricación, empaquetado.</td></tr><tr id="3ea648ad-99fc-8009-9972-d2b2649c42e3" dir="ltr"><td id="lne=" class=""><strong>3. Logística Externa</strong></td><td id="numD" class="">Almacenamiento y distribución del producto terminado al cliente.</td><td id="G:Kf" class="">Gestión de almacenes, transporte, entrega.</td></tr><tr id="3ea648ad-99fc-80a5-8a71-c0227b149a60" dir="ltr"><td id="lne=" class=""><strong>4. Marketing y Ventas</strong></td><td id="numD" class="">Actividades para persuadir al cliente a comprar el producto.</td><td id="G:Kf" class="">Publicidad, promociones, fuerza de ventas, pricing.</td></tr><tr id="3ea648ad-99fc-80be-ba89-c6547d83a9fe" dir="ltr"><td id="lne=" class=""><strong>5. Servicio al Cliente</strong></td><td id="numD" class="">Actividades post-venta para mantener o mejorar el valor del producto.</td><td id="G:Kf" class="">Soporte técnico, garantías, atención al cliente.</td></tr></tbody></table><hr id="3ea648ad-99fc-80a8-9b42-db27d8de3b6c" dir="auto"/><h3 id="3ea648ad-99fc-8070-9413-c0d0f1931c0b" class="" dir="auto"><strong>📌 Actividades de Apoyo</strong></h3><table id="3ea648ad-99fc-8064-8299-db3a567f5230" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-801b-8a5a-c8a98eed762a" dir="ltr"><th id="po_}" class="simple-table-header-color simple-table-header"><strong>Actividad</strong></th><th id="&lt;_K|" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="tSah" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-806a-8787-e769b479e983" dir="ltr"><td id="po_}" class=""><strong>1. Abastecimiento (Compras)</strong></td><td id="&lt;_K|" class="">Adquisición de insumos, materias primas y servicios.</td><td id="tSah" class="">Negociación con proveedores, compra de materiales.</td></tr><tr id="3ea648ad-99fc-80ee-9d7a-fd4d00715409" dir="ltr"><td id="po_}" class=""><strong>2. Desarrollo de Tecnología</strong></td><td id="&lt;_K|" class="">Investigación, desarrollo y mejora de productos y procesos.</td><td id="tSah" class="">I+D, automatización, desarrollo de software.</td></tr><tr id="3ea648ad-99fc-8003-8ddb-c115b941012a" dir="ltr"><td id="po_}" class=""><strong>3. Gestión de Recursos Humanos</strong></td><td id="&lt;_K|" class="">Reclutamiento, capacitación, compensación y desarrollo del personal.</td><td id="tSah" class="">Contratación, formación, evaluación de desempeño.</td></tr><tr id="3ea648ad-99fc-80aa-8cdf-ea5f2a4c97b5" dir="ltr"><td id="po_}" class=""><strong>4. Infraestructura de la Empresa</strong></td><td id="&lt;_K|" class="">Planificación, finanzas, legal, contabilidad, gestión de la calidad.</td><td id="tSah" class="">Dirección general, planificación estratégica, finanzas.</td></tr></tbody></table><hr id="3ea648ad-99fc-80ee-bf3a-f88f2ba693a2" dir="auto"/><h2 id="3ea648ad-99fc-80d7-a2f0-d2ec57b61f03" class="" dir="auto"><strong>💡 Ejemplo Práctico: Cadena de Valor de una Empresa de Café (Starbucks)</strong></h2><table id="3ea648ad-99fc-8061-8564-fa208af93db4" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80a2-847f-cb44d285596d" dir="ltr"><th id="Gwv_" class="simple-table-header-color simple-table-header"><strong>Actividad</strong></th><th id="jyTh" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="[Rcm" class="simple-table-header-color simple-table-header"><strong>¿Cómo agrega valor?</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-806e-8871-fd3dc8d9e2de" dir="ltr"><td id="Gwv_" class=""><strong>Logística Interna</strong></td><td id="jyTh" class="">Compra de granos de café de alta calidad en países productores.</td><td id="[Rcm" class="">Calidad del producto final.</td></tr><tr id="3ea648ad-99fc-80d6-9242-f593eb71a5ef" dir="ltr"><td id="Gwv_" class=""><strong>Operaciones</strong></td><td id="jyTh" class="">Tostado, molienda y preparación del café en tiendas.</td><td id="[Rcm" class="">Consistencia y sabor.</td></tr><tr id="3ea648ad-99fc-80f2-a6d6-fd62dd01c54a" dir="ltr"><td id="Gwv_" class=""><strong>Logística Externa</strong></td><td id="jyTh" class="">Distribución de granos a tiendas y gestión de inventario.</td><td id="[Rcm" class="">Disponibilidad y frescura.</td></tr><tr id="3ea648ad-99fc-80d0-9418-f82acd94aa3d" dir="ltr"><td id="Gwv_" class=""><strong>Marketing y Ventas</strong></td><td id="jyTh" class="">Marca aspiracional, experiencia de tienda, programa de lealtad.</td><td id="[Rcm" class="">Diferenciación y fidelización.</td></tr><tr id="3ea648ad-99fc-8016-80cf-cc8cf297c8c2" dir="ltr"><td id="Gwv_" class=""><strong>Servicio al Cliente</strong></td><td id="jyTh" class="">Atención personalizada, personalización de bebidas.</td><td id="[Rcm" class="">Experiencia del cliente.</td></tr><tr id="3ea648ad-99fc-804a-8215-cba52b8cabd6" dir="ltr"><td id="Gwv_" class=""><strong>Abastecimiento</strong></td><td id="jyTh" class="">Relaciones con productores de café (comercio justo).</td><td id="[Rcm" class="">Sostenibilidad y calidad.</td></tr><tr id="3ea648ad-99fc-808b-8274-d25fd94f7f07" dir="ltr"><td id="Gwv_" class=""><strong>Desarrollo de Tecnología</strong></td><td id="jyTh" class="">App móvil, pedidos anticipados, programa de recompensas.</td><td id="[Rcm" class="">Conveniencia y engagement.</td></tr><tr id="3ea648ad-99fc-80e6-bbc7-e6c56ec871f2" dir="ltr"><td id="Gwv_" class=""><strong>Gestión de RRHH</strong></td><td id="jyTh" class="">Capacitación de baristas, cultura de servicio.</td><td id="[Rcm" class="">Calidad del servicio.</td></tr><tr id="3ea648ad-99fc-80bb-952c-ec60704d529a" dir="ltr"><td id="Gwv_" class=""><strong>Infraestructura</strong></td><td id="jyTh" class="">Gestión financiera, planificación estratégica, expansión global.</td><td id="[Rcm" class="">Crecimiento y rentabilidad.</td></tr></tbody></table><p id="3ea648ad-99fc-80e8-8a9d-f5fe335e0160" class="" dir="auto"><strong>Ventaja competitiva de Starbucks</strong>: La diferenciación se logra a través de la <strong>experiencia de tienda</strong>, la <strong>calidad del café</strong> y el <strong>servicio al cliente</strong>, no solo por el precio.</p><hr id="3ea648ad-99fc-80f8-9901-eb98304c91d4" dir="auto"/><h2 id="3ea648ad-99fc-8076-afa8-d4ce9f174909" class="" dir="auto"><strong>📊 Análisis de la Cadena de Valor: ¿Cómo se usa?</strong></h2><ol type="1" id="3ea648ad-99fc-8006-bbe6-c56f99ccfe28" class="numbered-list" start="1" dir="auto"><li><strong>Identificar las actividades</strong>: Descomponer la empresa en sus actividades primarias y de apoyo.</li></ol><ol type="1" id="3ea648ad-99fc-8038-a630-f91d0f6877d6" class="numbered-list" start="2" dir="auto"><li><strong>Asignar costos</strong>: Determinar cuánto cuesta cada actividad.</li></ol><ol type="1" id="3ea648ad-99fc-80cd-9606-cfd42399f6be" class="numbered-list" start="3" dir="auto"><li><strong>Identificar el valor agregado</strong>: ¿Qué actividades generan valor para el cliente? ¿Cuáles no?</li></ol><ol type="1" id="3ea648ad-99fc-80ec-864c-f2ed03622d26" class="numbered-list" start="4" dir="auto"><li><strong>Comparar con la competencia</strong>: ¿Cómo se compara nuestra cadena con la de los competidores?</li></ol><ol type="1" id="3ea648ad-99fc-80bd-af4c-fd05867d0b21" class="numbered-list" start="5" dir="auto"><li><strong>Identificar oportunidades</strong>:<ul id="3ea648ad-99fc-8019-b5e0-f9458d847db8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducción de costos</strong>: Eliminar actividades que no agregan valor.</li></ul><ul id="3ea648ad-99fc-806e-8324-fc22eba8d590" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diferenciación</strong>: Mejorar actividades que generan valor único.</li></ul></li></ol><ol type="1" id="3ea648ad-99fc-80a4-86ab-fe860b2bb5e6" class="numbered-list" start="6" dir="auto"><li><strong>Optimizar la coordinación</strong>: Mejorar la comunicación entre actividades (ej: logística interna y operaciones).</li></ol><ol type="1" id="3ea648ad-99fc-80a7-be8a-e4b53b6a8602" class="numbered-list" start="7" dir="auto"><li><strong>Decidir sobre outsourcing</strong>: ¿Qué actividades podemos externalizar sin perder valor?</li></ol><hr id="3ea648ad-99fc-80c8-8295-e70cc38f0a1d" dir="auto"/><h2 id="3ea648ad-99fc-8071-bad0-c20984bf6cac" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar la Cadena de Valor</strong></h2><table id="3ea648ad-99fc-809d-b7ea-e9d8bdf9c0ee" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8098-9f6f-e1f76aa9c6ac" dir="ltr"><th id="zZq|" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="]`?d" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="LNpe" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80f7-b1c0-e5cfe29ebb03" dir="ltr"><td id="zZq|" class=""><strong>No involucrar a todas las áreas</strong></td><td id="]`?d" class="">Hacer el análisis solo desde la dirección.</td><td id="LNpe" class="">Se pierden perspectivas valiosas.</td></tr><tr id="3ea648ad-99fc-80d2-b357-ef0bd8e50767" dir="ltr"><td id="zZq|" class=""><strong>Confundir valor con costo</strong></td><td id="]`?d" class="">Pensar que reducir costos siempre aumenta el valor.</td><td id="LNpe" class="">Se puede sacrificar la calidad o la experiencia del cliente.</td></tr><tr id="3ea648ad-99fc-800f-8dfc-e862c7d359e0" dir="ltr"><td id="zZq|" class=""><strong>No actualizar el análisis</strong></td><td id="]`?d" class="">Hacer el análisis una vez y no revisarlo.</td><td id="LNpe" class="">El análisis queda obsoleto.</td></tr><tr id="3ea648ad-99fc-8067-a4a6-e14bfc8b73ba" dir="ltr"><td id="zZq|" class=""><strong>Ignorar las interconexiones</strong></td><td id="]`?d" class="">Analizar cada actividad de forma aislada.</td><td id="LNpe" class="">Se pierden sinergias y oportunidades de mejora.</td></tr><tr id="3ea648ad-99fc-8047-877a-c06fa11440e0" dir="ltr"><td id="zZq|" class=""><strong>No medir el impacto</strong></td><td id="]`?d" class="">No cuantificar el valor o el costo de cada actividad.</td><td id="LNpe" class="">Decisiones basadas en intuición.</td></tr><tr id="3ea648ad-99fc-80ed-81f1-ff1d9fc3b282" dir="ltr"><td id="zZq|" class=""><strong>Copiar la cadena de la competencia</strong></td><td id="]`?d" class="">Imitar sin adaptar a las capacidades propias.</td><td id="LNpe" class="">Pérdida de diferenciación.</td></tr></tbody></table><hr id="3ea648ad-99fc-8001-9518-e211746570af" dir="auto"/><h2 id="3ea648ad-99fc-80a5-8613-d3b0a633c579" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-808a-9b56-c27da3d630cf" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8033-8d54-fa51607f5334" dir="ltr"><th id="pBYZ" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="b&gt;wQ" class="simple-table-header-color simple-table-header" style="width:405px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-800a-b531-d61230926e77" dir="ltr"><td id="pBYZ" class=""><strong>Análisis de competitividad</strong></td><td id="b&gt;wQ" class="" style="width:405px">Identificar en qué actividades la empresa es superior a la competencia.</td></tr><tr id="3ea648ad-99fc-80b7-b03f-c9a1244d538e" dir="ltr"><td id="pBYZ" class=""><strong>Reducción de costos</strong></td><td id="b&gt;wQ" class="" style="width:405px">Detectar ineficiencias en actividades específicas.</td></tr><tr id="3ea648ad-99fc-8059-a63b-cf987d4dd5ca" dir="ltr"><td id="pBYZ" class=""><strong>Diferenciación</strong></td><td id="b&gt;wQ" class="" style="width:405px">Identificar actividades que generan valor único.</td></tr><tr id="3ea648ad-99fc-8007-bc88-faf1882fabf9" dir="ltr"><td id="pBYZ" class=""><strong>Decisiones de outsourcing</strong></td><td id="b&gt;wQ" class="" style="width:405px">Decidir qué actividades externalizar.</td></tr><tr id="3ea648ad-99fc-8082-ac5b-ea7bd5da51d7" dir="ltr"><td id="pBYZ" class=""><strong>Transformación digital</strong></td><td id="b&gt;wQ" class="" style="width:405px">Identificar actividades que pueden digitalizarse o automatizarse.</td></tr><tr id="3ea648ad-99fc-8011-a48d-d12405fbcedb" dir="ltr"><td id="pBYZ" class=""><strong>Fusiones y adquisiciones</strong></td><td id="b&gt;wQ" class="" style="width:405px">Evaluar la complementariedad de las cadenas de valor.</td></tr></tbody></table><hr id="3ea648ad-99fc-80b4-883c-cc00b0227a8d" dir="auto"/><h2 id="3ea648ad-99fc-8004-b54e-f1e4d2d09c12" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-805b-9a57-f1425fbc3e16" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8057-b554-e60fcc3513e6" dir="ltr"><th id="dccC" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="HeN{" class="simple-table-header-color simple-table-header" style="width:435px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8057-a7f0-d8ad82d67afa" dir="ltr"><td id="dccC" class=""><strong>Ventaja Competitiva</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor es una herramienta para identificarla y construirla.</td></tr><tr id="3ea648ad-99fc-801f-be56-f69761052b4e" dir="ltr"><td id="dccC" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor ayuda a decidir si competir en costos o diferenciación.</td></tr><tr id="3ea648ad-99fc-80da-b0d4-d521ff175006" dir="ltr"><td id="dccC" class=""><strong>Las 5 Fuerzas de Porter</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor ayuda a responder a las fuerzas de la industria.</td></tr><tr id="3ea648ad-99fc-80c6-aef1-dadca490808d" dir="ltr"><td id="dccC" class=""><strong>Recursos Estratégicos (VRIO)</strong></td><td id="HeN{" class="" style="width:435px">Los recursos y capacidades se despliegan a través de la Cadena de Valor.</td></tr><tr id="3ea648ad-99fc-8007-b24e-ecb6d27955e7" dir="ltr"><td id="dccC" class=""><strong>Business Model Canvas</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor profundiza en los bloques de Actividades y Recursos Clave.</td></tr><tr id="3ea648ad-99fc-80f4-b9d7-c214bab2b1c3" dir="ltr"><td id="dccC" class=""><strong>Outsourcing</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor ayuda a decidir qué actividades externalizar.</td></tr><tr id="3ea648ad-99fc-80cd-9703-ff5bb7bd53e2" dir="ltr"><td id="dccC" class=""><strong>Transformación Digital</strong></td><td id="HeN{" class="" style="width:435px">La Cadena de Valor identifica oportunidades de digitalización.</td></tr></tbody></table><hr id="3ea648ad-99fc-809d-b865-cfc60c24b86c" dir="auto"/><h2 id="3ea648ad-99fc-8093-b71d-d73302c0270a" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-80ca-bc68-d0fee1aa93d3" class="" dir="auto">La Cadena de Valor es como <strong>una receta de cocina</strong>. Cada paso (actividad) de la receta (logística interna, operaciones, marketing, etc.) contribuye al plato final (producto o servicio). Si un paso es lento o ineficiente, el plato tarda más en llegar o sabe peor. Si un paso es excelente (ej: ingredientes de primera calidad), el plato se diferencia y el cliente está dispuesto a pagar más. Analizar la Cadena de Valor es como revisar cada paso de la receta para ver dónde se puede mejorar, reducir costos o agregar un toque especial que haga único el plato.</p><hr id="3ea648ad-99fc-80f8-8ddb-f824e797aaf1" dir="auto"/><h2 id="3ea648ad-99fc-806b-8c4c-fc1e739d1f2b" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-804d-911e-deaef541e876" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1985). <em>Competitive Advantage: Creating and Sustaining Superior Performance</em>. Free Press.</li></ul><ul id="3ea648ad-99fc-80e9-8a94-e55808cd3b15" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1996). <em>What is Strategy?</em>. Harvard Business Review.</li></ul><ul id="3ea648ad-99fc-80bc-834e-e25557863d33" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The Value Chain Framework</em>.</li></ul><ul id="3ea648ad-99fc-803f-842c-ecab15067dac" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, R. S., &amp; Norton, D. P. (2004). <em>Strategy Maps</em>. Harvard Business School Press.</li></ul><hr id="3ea648ad-99fc-80c3-b8ba-facd04a6a0ad" dir="auto"/><h2 id="3ea648ad-99fc-807d-b789-c482b9427050" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-8038-9ac2-cd0db0adb801" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La Cadena de Valor es una herramienta de diagnóstico</strong>: No te dice qué hacer, pero te muestra dónde están las oportunidades.</li></ul><ul id="3ea648ad-99fc-80a9-8acc-f81d883d8bf5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todas las actividades son igual de importantes</strong>: Identifica las actividades <strong>críticas</strong> para la ventaja competitiva y enfoca los recursos allí.</li></ul><ul id="3ea648ad-99fc-8034-a85c-da73a9e33964" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La Cadena de Valor es dinámica</strong>: Las actividades y su importancia cambian con el tiempo, la tecnología y el mercado.</li></ul><ul id="3ea648ad-99fc-8091-a2ca-c2f201236beb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para usar la Cadena de Valor</strong>:<ol type="1" id="3ea648ad-99fc-801d-bfd9-d59b97a87daf" class="numbered-list" start="1" dir="auto"><li><strong>Empieza por el cliente</strong>: ¿Qué valora el cliente? ¿Qué actividades contribuyen a ese valor?</li></ol><ol type="1" id="3ea648ad-99fc-8051-91e7-ec3c32ea6664" class="numbered-list" start="2" dir="auto"><li><strong>Involucra a todas las áreas</strong>: Cada departamento conoce sus propias actividades y puede aportar ideas.</li></ol><ol type="1" id="3ea648ad-99fc-80d1-8f3f-f3b6ac3bd447" class="numbered-list" start="3" dir="auto"><li><strong>Cuantifica</strong>: Asigna costos e ingresos a cada actividad para saber cuáles son más rentables.</li></ol><ol type="1" id="3ea648ad-99fc-8068-b7a8-c9243bd9f201" class="numbered-list" start="4" dir="auto"><li><strong>Compara con la competencia</strong>: ¿En qué actividades somos mejores? ¿En cuáles somos peores?</li></ol><ol type="1" id="3ea648ad-99fc-8033-837d-c67a6e7c1301" class="numbered-list" start="5" dir="auto"><li><strong>Identifica las interconexiones</strong>: ¿Cómo afecta un cambio en una actividad a las demás?</li></ol><ol type="1" id="3ea648ad-99fc-809b-80d0-e9359f5b70d2" class="numbered-list" start="6" dir="auto"><li><strong>Prioriza</strong>: No puedes mejorar todo a la vez. Enfócate en las actividades que más impacto tienen.</li></ol><ol type="1" id="3ea648ad-99fc-801e-8e91-d49ee3a20a62" class="numbered-list" start="7" dir="auto"><li><strong>Revisa periódicamente</strong>: La Cadena de Valor debe actualizarse a medida que la empresa y el mercado evolucionan.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

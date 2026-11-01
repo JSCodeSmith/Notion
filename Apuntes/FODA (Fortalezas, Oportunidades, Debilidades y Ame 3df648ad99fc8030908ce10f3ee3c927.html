@@ -1,0 +1,820 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>FODA (Fortalezas, Oportunidades, Debilidades y Amenazas)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-8030-908c-e10f3ee3c927" class="page sans"><header><h1 class="page-title" dir="auto"><strong>FODA (Fortalezas, Oportunidades, Debilidades y Amenazas)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3df648ad-99fc-8095-89dd-ff9762b597a7" class="" dir="auto">
+</p><h1 id="3df648ad-99fc-8047-9151-fef116b3eb7a" class="" dir="auto"><strong>📄 FODA (Fortalezas, Oportunidades, Debilidades y Amenazas)</strong></h1><hr id="3df648ad-99fc-80d3-9ea8-c60954dcdb25" dir="auto"/><h2 id="3df648ad-99fc-80b1-87d4-db8676be28f4" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-8078-b0a5-cae978a2cbd6" class="" dir="auto">El <strong>FODA</strong> (también conocido como <strong>SWOT</strong> en inglés: Strengths, Weaknesses, Opportunities, Threats) es una <strong>herramienta de análisis estratégico</strong> que permite evaluar la <strong>situación actual</strong> de una empresa, proyecto o persona, identificando sus <strong>factores internos</strong> (Fortalezas y Debilidades) y <strong>factores externos</strong> (Oportunidades y Amenazas). </p><p id="3e0648ad-99fc-8087-8f9f-ee3b51b1c8ce" class="" dir="auto">Su objetivo es proporcionar una <strong>visión completa</strong> del entorno y de la organización para <strong>tomar decisiones estratégicas</strong> informadas.</p><hr id="3df648ad-99fc-80bc-a7a6-f3598f4fe42e" dir="auto"/><h2 id="3df648ad-99fc-8037-9bf4-dea73a5a40de" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-802e-aa3c-ff0bddbcb58e" class="" dir="auto">El FODA es una <strong>matriz de 2x2</strong> que cruza dos dimensiones:</p><ul id="3df648ad-99fc-80e2-9047-d3116fe67765" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Interno vs. Externo</strong>: Lo que depende de la organización (interno) y lo que viene del entorno (externo).</li></ul><ul id="3df648ad-99fc-800e-8e0a-c68225c8d7a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Positivo vs. Negativo</strong>: Lo que ayuda (positivo) y lo que perjudica (negativo).</li></ul><table id="3df648ad-99fc-80c3-a974-ef2b11f3cb07" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80ba-b467-fb57b0d13229" dir="ltr"><th id="vUP[" class="simple-table-header-color simple-table-header"></th><th id="~{es" class="simple-table-header-color simple-table-header"><strong>Positivo</strong></th><th id="g[dU" class="simple-table-header-color simple-table-header" style="width:298px"><strong>Negativo</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80bf-af0e-c76a7e1483f6" dir="ltr"><td id="vUP[" class=""><strong>Interno</strong></td><td id="~{es" class=""><strong>Fortalezas</strong></td><td id="g[dU" class="" style="width:298px"><strong>Debilidades</strong></td></tr><tr id="3df648ad-99fc-8093-9dbb-c826139a09c1" dir="ltr"><td id="vUP[" class=""><strong>Externo</strong></td><td id="~{es" class=""><strong>Oportunidades</strong></td><td id="g[dU" class="" style="width:298px"><strong>Amenazas</strong></td></tr></tbody></table><p id="3df648ad-99fc-809b-bd0e-fe53dceb568a" class="" dir="auto">El FODA no es un fin en sí mismo, sino un <strong>punto de partida</strong> para la planificación estratégica. Ayuda a responder preguntas como:</p><ul id="3df648ad-99fc-80af-9995-e15234544231" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué hacemos bien? (Fortalezas)</li></ul><ul id="3df648ad-99fc-80c2-b2dc-e9349e620039" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué nos falta o hacemos mal? (Debilidades)</li></ul><ul id="3df648ad-99fc-80ea-b6bf-ec2fc0ccc895" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué oportunidades podemos aprovechar? (Oportunidades)</li></ul><ul id="3df648ad-99fc-805b-9c07-c08990875b6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué riesgos debemos enfrentar? (Amenazas)</li></ul><hr id="3df648ad-99fc-801c-9ba9-ed009c39f616" dir="auto"/><h2 id="3df648ad-99fc-801d-8fdc-d9a469263fdb" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-80a3-8a6d-d5e934f81676" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diagnosticar la situación actual</strong>: Tener una visión clara de la posición competitiva.</li></ul><ul id="3df648ad-99fc-80cb-82ff-e29fdde7d5cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar ventajas competitivas</strong>: Aprovechar las fortalezas para diferenciarse.</li></ul><ul id="3df648ad-99fc-8073-844f-fc4a49a4fd67" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Corregir debilidades</strong>: Detectar áreas de mejora y desarrollar planes de acción.</li></ul><ul id="3df648ad-99fc-80a9-a05e-e9597edb9e7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Anticipar riesgos</strong>: Prepararse para amenazas del entorno.</li></ul><ul id="3df648ad-99fc-80d9-9ebd-d5b352312545" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aprovechar oportunidades</strong>: Detectar tendencias y mercados no explotados.</li></ul><ul id="3df648ad-99fc-8093-829a-dac8b9c95974" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Guiar la estrategia</strong>: Alinear los recursos internos con las oportunidades externas.</li></ul><ul id="3df648ad-99fc-8092-ac26-fa0dc4373e59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar la comunicación</strong>: Es una herramienta simple y visual que todos entienden.</li></ul><hr id="3df648ad-99fc-80e5-8f7a-d824b581a157" dir="auto"/><h2 id="3df648ad-99fc-8035-979e-e2517bfa1097" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los 4 Cuadrantes del FODA</strong></h2><h3 id="3df648ad-99fc-80dc-9b07-f9490f8527a4" class="" dir="auto"><strong>1️⃣ Fortalezas (Strengths) - Interno / Positivo</strong></h3><p id="3df648ad-99fc-80c8-89da-e8d230b613b2" class="" dir="auto"><strong>Definición</strong>: Son los <strong>recursos, capacidades o atributos internos</strong> que la organización posee y que le dan una <strong>ventaja competitiva</strong>. </p><p id="3e0648ad-99fc-8011-b14c-d836e7bd6064" class="" dir="auto">Son los puntos fuertes que deben mantenerse y potenciarse.</p><p id="3df648ad-99fc-801c-9b85-d8112e81fd7b" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3df648ad-99fc-80ee-9ac0-f8ca8cf96cf8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué hacemos mejor que la competencia?</li></ul><ul id="3df648ad-99fc-8062-bcde-e75d6d9faea1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos únicos tenemos? (talento, tecnología, marca, ubicación)</li></ul><ul id="3df648ad-99fc-80b7-a0d7-ed079e9c1870" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué nos diferencia positivamente?</li></ul><ul id="3df648ad-99fc-805d-8b8b-c80cc3c662da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué es lo que nuestros clientes valoran más de nosotros?</li></ul><p id="3df648ad-99fc-8081-9300-ec3e5475a027" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3df648ad-99fc-80b4-82ad-c8e972aeb839" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Marca reconocida y valorada.</li></ul><ul id="3df648ad-99fc-8064-bd08-c67b0407b9e6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Equipo talentoso y comprometido.</li></ul><ul id="3df648ad-99fc-80e3-b38a-eb08382bb179" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tecnología propia y difícil de imitar.</li></ul><ul id="3df648ad-99fc-8029-89bb-dc27c1cca007" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Buena situación financiera.</li></ul><ul id="3df648ad-99fc-8099-b846-eddad0880193" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cultura organizacional fuerte.</li></ul><ul id="3df648ad-99fc-809a-9e60-e5224918f861" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Lealtad de los clientes.</li></ul><hr id="3df648ad-99fc-800c-8f30-d6d997995fce" dir="auto"/><h3 id="3df648ad-99fc-808b-99a6-ea3abd8d47d5" class="" dir="auto"><strong>2️⃣ Debilidades (Weaknesses) - Interno / Negativo</strong></h3><p id="3df648ad-99fc-80a3-b5e4-f89cb92f5067" class="" dir="auto"><strong>Definición</strong>: Son los <strong>recursos, capacidades o atributos internos</strong> que la organización <strong>carece o que la ponen en desventaja</strong> frente a la competencia. </p><p id="3e0648ad-99fc-8060-8a73-dfdcf293cf8f" class="" dir="auto">Son los puntos débiles que deben corregirse o mitigarse.</p><p id="3df648ad-99fc-80cc-9985-e6e0e65f3797" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3df648ad-99fc-8061-96b1-c05e4f22edab" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué hacemos mal o podríamos mejorar?</li></ul><ul id="3df648ad-99fc-80b9-a107-d90dd49e0bfb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos nos faltan? (talento, tecnología, capital)</li></ul><ul id="3df648ad-99fc-80d0-b926-dda1a1bf09b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué nos hace vulnerables?</li></ul><ul id="3df648ad-99fc-80f9-a2c1-cf4d98043558" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué es lo que nuestros clientes critican?</li></ul><p id="3df648ad-99fc-80d2-b953-d4a2d1def23b" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3df648ad-99fc-8020-94c6-dd3a5fb01ab7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Falta de talento en áreas clave.</li></ul><ul id="3df648ad-99fc-805e-b2b9-c9abb3ea1628" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tecnología obsoleta.</li></ul><ul id="3df648ad-99fc-8035-94c1-f1eacca17157" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Problemas de flujo de caja.</li></ul><ul id="3df648ad-99fc-809b-a0e0-fabed5b02f17" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mala reputación o marca débil.</li></ul><ul id="3df648ad-99fc-8020-89ca-c98f06b6f86b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Procesos ineficientes.</li></ul><ul id="3df648ad-99fc-80c6-ba8c-fff978f9703b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alta rotación de personal.</li></ul><ul id="3df648ad-99fc-8038-b3fe-d1861ddb1cb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Dependencia de un solo cliente o proveedor.</li></ul><hr id="3df648ad-99fc-80fb-823b-d1da7a0d13af" dir="auto"/><h3 id="3df648ad-99fc-80d5-aabd-f7bd06d060da" class="" dir="auto"><strong>3️⃣ Oportunidades (Opportunities) - Externo / Positivo</strong></h3><p id="3df648ad-99fc-80ca-87dd-e62a80b096b4" class="" dir="auto"><strong>Definición</strong>: Son las <strong>circunstancias, tendencias o cambios en el entorno externo</strong> que la organización puede <strong>aprovechar</strong> para crecer, mejorar o expandirse. </p><p id="3e0648ad-99fc-809c-8397-e9b0004993b2" class="" dir="auto">Son factores que no controlamos, pero que podemos capitalizar.</p><p id="3df648ad-99fc-8059-af73-d1a1099b9589" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3df648ad-99fc-8024-8c04-eb64fc0a0d26" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué tendencias del mercado podemos aprovechar?</li></ul><ul id="3df648ad-99fc-80fb-99b5-cce76a89c8ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Hay necesidades no cubiertas?</li></ul><ul id="3df648ad-99fc-801c-946e-c3a93b11f3f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Hay cambios regulatorios o tecnológicos que nos beneficien?</li></ul><ul id="3df648ad-99fc-8077-a4da-d3457a52084d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Hay nuevos mercados o segmentos a los que podamos llegar?</li></ul><p id="3df648ad-99fc-8018-8447-c3fa17ec093a" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3df648ad-99fc-80aa-99dc-ec653691e25a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crecimiento de la economía digital.</li></ul><ul id="3df648ad-99fc-80df-a642-fa9c312281dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Nuevas tecnologías (IA, blockchain, IoT).</li></ul><ul id="3df648ad-99fc-80c0-99f0-ee64fe978d99" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios en las preferencias de los consumidores (sostenibilidad, salud).</li></ul><ul id="3df648ad-99fc-8085-af1f-d6942d075770" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Nuevos mercados geográficos.</li></ul><ul id="3df648ad-99fc-80af-a33c-e9dd22b33ceb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Debilidad de los competidores.</li></ul><ul id="3df648ad-99fc-8045-af55-df61a73002da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Subsidios o incentivos gubernamentales.</li></ul><ul id="3df648ad-99fc-80fa-9b11-cfac34ff3f7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alianzas estratégicas disponibles.</li></ul><hr id="3df648ad-99fc-805a-8410-c6926a01f050" dir="auto"/><h3 id="3df648ad-99fc-8096-a92c-d80bf6afa4a6" class="" dir="auto"><strong>4️⃣ Amenazas (Threats) - Externo / Negativo</strong></h3><p id="3df648ad-99fc-8003-8b5c-c18deaf0b18f" class="" dir="auto"><strong>Definición</strong>: Son las <strong>circunstancias, tendencias o cambios en el entorno externo</strong> que pueden <strong>perjudicar</strong> a la organización. </p><p id="3e0648ad-99fc-80ef-98ed-cda7ea9d254b" class="" dir="auto">Son riesgos que no controlamos, pero que debemos anticipar y mitigar.</p><p id="3df648ad-99fc-8071-bd3b-dc23f972c0ae" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3df648ad-99fc-806e-8206-c80b49844284" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué está haciendo la competencia?</li></ul><ul id="3df648ad-99fc-8088-9447-e58aebd2f0ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué cambios regulatorios o políticos nos afectan?</li></ul><ul id="3df648ad-99fc-8005-9794-c88d921b150b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué tendencias sociales o económicas nos perjudican?</li></ul><ul id="3df648ad-99fc-8080-b03e-c7a521b29c74" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué riesgos tecnológicos o de mercado enfrentamos?</li></ul><p id="3df648ad-99fc-80c4-860e-e823f33db296" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3df648ad-99fc-8025-980b-f0fce2342e2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Nuevos competidores disruptivos.</li></ul><ul id="3df648ad-99fc-8015-82ee-f8d8a51554b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Recesión económica o inflación.</li></ul><ul id="3df648ad-99fc-8087-9f77-c306087e092d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios regulatorios desfavorables.</li></ul><ul id="3df648ad-99fc-80ea-b61d-e587d56b6d02" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumento de costos de materias primas.</li></ul><ul id="3df648ad-99fc-8003-8ef1-dedb0667fdc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios en las preferencias de los consumidores.</li></ul><ul id="3df648ad-99fc-802f-ae49-d376ce5c7de5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ciberataques o riesgos de seguridad.</li></ul><ul id="3df648ad-99fc-8023-bb80-e152c49923e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pandemias o desastres naturales.</li></ul><hr id="3df648ad-99fc-805f-b179-c5c45dd08085" dir="auto"/><h2 id="3df648ad-99fc-80f1-97e9-cef201a6c72f" class="" dir="auto"><strong>📊 Matriz FODA (Ejemplo Visual)</strong></h2><p id="3df648ad-99fc-8011-b965-cdd0a6e7a938" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3df648ad-99fc-80f5-9ae3-f52a0a5b7380" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────────────────┐
+│                                 FODA                                        │
+├─────────────────────────────────────┬───────────────────────────────────────┤
+│         FORTALEZAS (Interno +)      │         DEBILIDADES (Interno -)      │
+│                                     │                                       │
+│  - Marca reconocida                 │  - Falta de talento digital           │
+│  - Equipo talentoso                 │  - Tecnología obsoleta                │
+│  - Buena situación financiera       │  - Procesos ineficientes              │
+│  - Lealtad de clientes              │  - Alta rotación de personal          │
+│  - Cultura organizacional fuerte    │  - Dependencia de un solo proveedor   │
+│                                     │                                       │
+├─────────────────────────────────────┼───────────────────────────────────────┤
+│        OPORTUNIDADES (Externo +)    │          AMENAZAS (Externo -)         │
+│                                     │                                       │
+│  - Crecimiento del mercado digital  │  - Nuevos competidores disruptivos    │
+│  - Nuevas tecnologías (IA)          │  - Recesión económica                 │
+│  - Nuevos mercados geográficos      │  - Cambios regulatorios               │
+│  - Alianzas estratégicas            │  - Aumento de costos                  │
+│  - Cambios en preferencias          │  - Ciberataques                       │
+│  - Incentivos gubernamentales       │  - Pandemias o desastres naturales    │
+│                                     │                                       │
+└─────────────────────────────────────┴───────────────────────────────────────┘</code></pre><hr id="3df648ad-99fc-8010-8016-cc8ca0e31764" dir="auto"/><h2 id="3df648ad-99fc-80cb-a3db-c8dfd96817c7" class="" dir="auto"><strong>💡 Ejemplo Práctico: FODA de una Startup de Delivery</strong></h2><table id="3df648ad-99fc-801c-aaf4-d348f210966b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8097-92ee-c5d958a369cf" dir="ltr"><th id="hADc" class="simple-table-header-color simple-table-header"><strong>Fortalezas</strong></th><th id="_svm" class="simple-table-header-color simple-table-header" style="width:381px"><strong>Debilidades</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8024-bd32-ec8973138ff9" dir="ltr"><td id="hADc" class="">App fácil de usar.</td><td id="_svm" class="" style="width:381px">Poca presencia en ciudades pequeñas.</td></tr><tr id="3df648ad-99fc-80bd-97ca-d323f3ae5ffc" dir="ltr"><td id="hADc" class="">Alianzas con restaurantes locales.</td><td id="_svm" class="" style="width:381px">Dependencia de repartidores autónomos.</td></tr><tr id="3df648ad-99fc-8025-8daf-f585ef74b62f" dir="ltr"><td id="hADc" class="">Equipo joven y ágil.</td><td id="_svm" class="" style="width:381px">Recursos limitados para marketing.</td></tr><tr id="3df648ad-99fc-808e-9785-d2f015263a62" dir="ltr"><td id="hADc" class="">Buena calificación en app stores.</td><td id="_svm" class="" style="width:381px">Márgenes ajustados.</td></tr></tbody></table><table id="3df648ad-99fc-80d5-b28f-e618bc83277a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8099-8182-dc7504bfc2cc" dir="ltr"><th id=";xDY" class="simple-table-header-color simple-table-header"><strong>Oportunidades</strong></th><th id="nAz&lt;" class="simple-table-header-color simple-table-header" style="width:289px"><strong>Amenazas</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8076-904e-e76ba3cb9f2d" dir="ltr"><td id=";xDY" class="">Crecimiento del delivery en la región.</td><td id="nAz&lt;" class="" style="width:289px">Competencia de Rappi, Uber Eats, PedidosYa.</td></tr><tr id="3df648ad-99fc-808b-a4e8-f8d1c73f75df" dir="ltr"><td id=";xDY" class="">Nuevas categorías (supermercado, farmacia).</td><td id="nAz&lt;" class="" style="width:289px">Regulación laboral para repartidores.</td></tr><tr id="3df648ad-99fc-808d-a159-e538f17c4396" dir="ltr"><td id=";xDY" class="">Alianzas con supermercados.</td><td id="nAz&lt;" class="" style="width:289px">Aumento de costos de combustible.</td></tr><tr id="3df648ad-99fc-8092-bb20-d34062b91570" dir="ltr"><td id=";xDY" class="">Expansión a nuevas ciudades.</td><td id="nAz&lt;" class="" style="width:289px">Cambios en las preferencias del consumidor.</td></tr></tbody></table><p id="3df648ad-99fc-8014-b16a-e4d0b3d79c92" class="" dir="auto"><strong>Estrategias derivadas del FODA</strong>:</p><ul id="3df648ad-99fc-80e3-b6a1-faf7f48f7d26" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fortalezas + Oportunidades (FO)</strong>: Usar la app fácil de usar para expandirse a nuevas ciudades.</li></ul><ul id="3df648ad-99fc-8037-b9d5-e910d1404c2e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Debilidades + Oportunidades (DO)</strong>: Invertir en marketing para aprovechar el crecimiento del delivery.</li></ul><ul id="3df648ad-99fc-8061-a88d-da60fcc7deb1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fortalezas + Amenazas (FA)</strong>: Usar la buena calificación para diferenciarse de la competencia.</li></ul><ul id="3df648ad-99fc-8001-86e8-cc79ad18c1c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Debilidades + Amenazas (DA)</strong>: Diversificar las categorías para reducir la dependencia de los restaurantes.</li></ul><hr id="3df648ad-99fc-80b7-8e0f-d429057cc990" dir="auto"/><h2 id="3df648ad-99fc-809e-8066-cd9e7d63e6ac" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar el FODA</strong></h2><table id="3df648ad-99fc-807f-9da0-fca54852c2f8" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-800e-b7f2-e96f94540fea" dir="ltr"><th id="Ww;T" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="SaKL" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="FzNz" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80cf-b0d2-f811077e5e5f" dir="ltr"><td id="Ww;T" class=""><strong>Confundir lo interno con lo externo</strong></td><td id="SaKL" class="">Poner una amenaza como debilidad o viceversa.</td><td id="FzNz" class="">Análisis incorrecto, estrategias equivocadas.</td></tr><tr id="3df648ad-99fc-80ca-80db-fb344dd82b71" dir="ltr"><td id="Ww;T" class=""><strong>Ser demasiado genérico</strong></td><td id="SaKL" class="">Poner &quot;buen equipo&quot; sin especificar por qué es una fortaleza.</td><td id="FzNz" class="">El análisis pierde valor.</td></tr><tr id="3df648ad-99fc-8082-803b-c5a5b12822e4" dir="ltr"><td id="Ww;T" class=""><strong>No involucrar a diferentes áreas</strong></td><td id="SaKL" class="">Hacer el FODA solo desde la dirección.</td><td id="FzNz" class="">Se pierden perspectivas valiosas.</td></tr><tr id="3df648ad-99fc-8002-8ba0-e3488e99c52e" dir="ltr"><td id="Ww;T" class=""><strong>No priorizar</strong></td><td id="SaKL" class="">Listar todo sin distinguir lo más crítico.</td><td id="FzNz" class="">Falta de foco, estrategias diluidas.</td></tr><tr id="3df648ad-99fc-80e2-b8ba-c63a13a74d29" dir="ltr"><td id="Ww;T" class=""><strong>No actuar</strong></td><td id="SaKL" class="">Hacer el FODA y no usarlo para la estrategia.</td><td id="FzNz" class="">Pérdida de tiempo, análisis sin impacto.</td></tr><tr id="3df648ad-99fc-8025-901e-d4a75e4f57ee" dir="ltr"><td id="Ww;T" class=""><strong>Hacerlo una sola vez</strong></td><td id="SaKL" class="">No actualizarlo periódicamente.</td><td id="FzNz" class="">El análisis queda obsoleto.</td></tr><tr id="3df648ad-99fc-8068-9427-cdc3981eb574" dir="ltr"><td id="Ww;T" class=""><strong>Confundir síntomas con causas</strong></td><td id="SaKL" class="">Poner &quot;bajas ventas&quot; como debilidad, cuando es un síntoma.</td><td id="FzNz" class="">No se atacan las causas raíz.</td></tr></tbody></table><hr id="3df648ad-99fc-808a-a37f-fcf42ea73edd" dir="auto"/><h2 id="3df648ad-99fc-804e-b8f6-e9ac868179d0" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-803e-8403-c4d060390e02" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80f4-a839-ef1c309e72ce" dir="ltr"><th id="bnZ_" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="?IYx" class="simple-table-header-color simple-table-header" style="width:360px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8014-b4e1-e15a2ea056e8" dir="ltr"><td id="bnZ_" class=""><strong>Planificación estratégica</strong></td><td id="?IYx" class="" style="width:360px">Evaluar la posición competitiva y definir la estrategia.</td></tr><tr id="3df648ad-99fc-8065-a56f-eb1e37595e99" dir="ltr"><td id="bnZ_" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id="?IYx" class="" style="width:360px">Analizar si el mercado y la empresa están listos.</td></tr><tr id="3df648ad-99fc-802e-9dc6-dbfec4503b08" dir="ltr"><td id="bnZ_" class=""><strong>Entrada a un nuevo mercado</strong></td><td id="?IYx" class="" style="width:360px">Evaluar las oportunidades y amenazas del nuevo mercado.</td></tr><tr id="3df648ad-99fc-809c-bc23-e8e74aac1202" dir="ltr"><td id="bnZ_" class=""><strong>Evaluación de una startup</strong></td><td id="?IYx" class="" style="width:360px">Analizar la viabilidad del negocio.</td></tr><tr id="3df648ad-99fc-804a-aa79-e075220befd9" dir="ltr"><td id="bnZ_" class=""><strong>Desarrollo personal</strong></td><td id="?IYx" class="" style="width:360px">Evaluar fortalezas y debilidades para el crecimiento profesional.</td></tr><tr id="3df648ad-99fc-800e-a441-e24d33096e8d" dir="ltr"><td id="bnZ_" class=""><strong>Análisis de competencia</strong></td><td id="?IYx" class="" style="width:360px">Comparar el FODA de la empresa con el de los competidores.</td></tr></tbody></table><hr id="3df648ad-99fc-80be-bc90-e81a42ea2689" dir="auto"/><h2 id="3df648ad-99fc-8067-ae1a-e653ec727283" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-80b5-a1e6-f3b9d2a410a4" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8042-bd10-efd005f4bf27" dir="ltr"><th id="sU{y" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="hNi:" class="simple-table-header-color simple-table-header" style="width:381px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80b2-aa35-f76ac8f5c8d7" dir="ltr"><td id="sU{y" class=""><strong>PESTEL</strong></td><td id="hNi:" class="" style="width:381px">Analiza el entorno externo (Oportunidades y Amenazas). El FODA integra lo externo con lo interno.</td></tr><tr id="3df648ad-99fc-8057-9982-f82db8412a43" dir="ltr"><td id="sU{y" class=""><strong>Las 5 Fuerzas de Porter</strong></td><td id="hNi:" class="" style="width:381px">Analiza la industria. El FODA analiza la empresa en su conjunto.</td></tr><tr id="3df648ad-99fc-8059-b419-e69396fc5c21" dir="ltr"><td id="sU{y" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="hNi:" class="" style="width:381px">El FODA ayuda a decidir qué estrategia genérica seguir.</td></tr><tr id="3df648ad-99fc-8018-9c7d-f0cea7ab217e" dir="ltr"><td id="sU{y" class=""><strong>Ventaja Competitiva</strong></td><td id="hNi:" class="" style="width:381px">Las fortalezas del FODA son la base de la ventaja competitiva.</td></tr><tr id="3df648ad-99fc-80ef-b7d0-cf544401215b" dir="ltr"><td id="sU{y" class=""><strong>Matriz BCG</strong></td><td id="hNi:" class="" style="width:381px">Analiza la cartera de productos. El FODA analiza la empresa completa.</td></tr><tr id="3df648ad-99fc-80e5-8a17-dda864faee4f" dir="ltr"><td id="sU{y" class=""><strong>OKR</strong></td><td id="hNi:" class="" style="width:381px">Los objetivos se definen a partir del FODA.</td></tr><tr id="3df648ad-99fc-803c-b9d2-dd47665f2713" dir="ltr"><td id="sU{y" class=""><strong>Plan de Negocio</strong></td><td id="hNi:" class="" style="width:381px">El FODA es una parte fundamental del plan de negocio.</td></tr></tbody></table><hr id="3df648ad-99fc-8088-9ee4-cb2be6530e4a" dir="auto"/><h2 id="3df648ad-99fc-8022-b76f-c58cf0eae2f6" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-804e-b706-ea00d67607d3" class="" dir="auto">El FODA es como <strong>un chequeo médico completo</strong> para una empresa. Las <strong>Fortalezas</strong> son los músculos y la buena salud; las <strong>Debilidades</strong> son las áreas que necesitan tratamiento; las <strong>Oportunidades</strong> son las vacunas o hábitos saludables que podemos adoptar; y las <strong>Amenazas</strong> son los riesgos de enfermar (virus, accidentes). El médico (el estratega) usa este diagnóstico para recetar un plan de acción: reforzar lo que está fuerte, tratar lo débil, prevenir riesgos y aprovechar las oportunidades.</p><hr id="3df648ad-99fc-80e2-b5f1-f4ad3315f2d3" dir="auto"/><h2 id="3df648ad-99fc-80a3-88b2-deb24b22d67a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-803f-9212-cf3f332194a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Humphrey, A. (1960). <em>SWOT Analysis for Management Consulting</em>. SRI International.</li></ul><ul id="3df648ad-99fc-80fa-9668-ea1c8d565f62" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kotler, P., &amp; Keller, K. L. (2016). <em>Marketing Management</em>. Pearson.</li></ul><ul id="3df648ad-99fc-80ce-85dd-e30a2f486697" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The SWOT Analysis Framework</em>.</li></ul><ul id="3df648ad-99fc-80fe-91ba-d3770411a1a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mintzberg, H. (1994). <em>The Rise and Fall of Strategic Planning</em>. Free Press.</li></ul><ul id="3df648ad-99fc-8090-a1d9-ce10866ea649" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, R. S., &amp; Norton, D. P. (2008). <em>The Execution Premium</em>. Harvard Business Press.</li></ul><hr id="3df648ad-99fc-80f8-97e9-cb161bcbbad8" dir="auto"/><h2 id="3df648ad-99fc-80f9-9cd6-cfbaca3835c1" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-8094-997c-e976749cebdf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El FODA es una herramienta de diagnóstico, no de estrategia</strong>: No te dice qué hacer, pero te da la información para decidir. La estrategia viene después, al cruzar los cuadrantes.</li></ul><ul id="3df648ad-99fc-800b-84ef-c9a92af269f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sé honesto y específico</strong>: Un FODA con generalidades no sirve. &quot;Buen equipo&quot; es vago; &quot;equipo con 10 años de experiencia en IA&quot; es específico y útil.</li></ul><ul id="3df648ad-99fc-80e5-b278-d4f3aa2a7059" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Involucra a diferentes perspectivas</strong>: Un FODA hecho solo por la dirección puede estar sesgado. Incluye a empleados, clientes y socios.</li></ul><ul id="3df648ad-99fc-8070-9c31-de0b2cb65280" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Actualízalo periódicamente</strong>: El entorno cambia; el FODA debe ser un documento vivo.</li></ul><ul id="3df648ad-99fc-80a0-982b-d2953b293b3e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para hacer un buen FODA</strong>:<ol type="1" id="3df648ad-99fc-8020-ad46-ee82e055cc2d" class="numbered-list" start="1" dir="auto"><li><strong>Empieza por el exterior</strong>: Analiza primero el entorno (PESTEL, Porter) para identificar Oportunidades y Amenazas.</li></ol><ol type="1" id="3df648ad-99fc-8079-bc8d-fd5b551eb9e7" class="numbered-list" start="2" dir="auto"><li><strong>Luego mira hacia adentro</strong>: Evalúa los recursos y capacidades internas (Fortalezas y Debilidades).</li></ol><ol type="1" id="3df648ad-99fc-8038-815c-c5587cfad677" class="numbered-list" start="3" dir="auto"><li><strong>Sé específico y prioriza</strong>: No listes todo; enfócate en lo más relevante.</li></ol><ol type="1" id="3df648ad-99fc-80a0-8ab5-d3b1455b9e94" class="numbered-list" start="4" dir="auto"><li><strong>Cruza los cuadrantes</strong>: Genera estrategias FO (ofensivas), DO (mejora), FA (defensivas) y DA (supervivencia).</li></ol><ol type="1" id="3df648ad-99fc-80c1-868b-cacf29f7a390" class="numbered-list" start="5" dir="auto"><li><strong>Usa el FODA para la acción</strong>: Define objetivos, KPIs y planes de acción a partir del análisis.</li></ol><ol type="1" id="3df648ad-99fc-8061-8832-dba50f8221ec" class="numbered-list" start="6" dir="auto"><li><strong>Revísalo regularmente</strong>: Al menos una vez al año o cuando cambie el entorno significativamente.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

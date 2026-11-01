@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>📄 ETPS (Estrategia, Tecnología, Personas, Sistemas)</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8003-ae04-cabe3bc93ca7" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>📄 ETPS (Estrategia, Tecnología, Personas, Sistemas)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c8648ad-99fc-807d-9af6-f4180928ee1b" class="" dir="auto">
+</p><h1 id="3c8648ad-99fc-808a-a5a9-d2369550a843" class="" dir="auto"><strong>📄 ETPS (Estrategia, Tecnología, Personas, Sistemas) - Propuesta por Francis Aguilar en 1967</strong></h1><hr id="3c8648ad-99fc-80e5-8d1c-ddeee24689a9" dir="auto"/><h2 id="3c8648ad-99fc-806c-be84-cb3299d710b5" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c8648ad-99fc-80ee-b840-d8f6ad941103" class="" dir="auto">El modelo <strong>ETPS</strong> (Estrategia, Tecnología, Personas, Sistemas) es un <strong>marco de gestión estratégica</strong> propuesto por <strong>Francis Aguilar</strong> en 1967 en su obra <em>&quot;Scanning the Business Environment&quot;</em>. </p><p id="3c8648ad-99fc-8075-87b4-ccee3f8941b0" class="" dir="auto">Este modelo establece que toda organización, para ser exitosa y sostenible, debe gestionar de manera equilibrada cuatro dimensiones clave: <strong>Estrategia</strong>, <strong>Tecnología</strong>, <strong>Personas</strong> y <strong>Sistemas</strong>. </p><p id="3c8648ad-99fc-807f-8ef7-f3d136fb5f74" class="" dir="auto">El modelo propone que existe una interrelación crítica entre estos cuatro elementos, y que el desequilibrio o la falta de alineación entre ellos puede llevar al fracaso organizacional.</p><hr id="3c8648ad-99fc-80c2-9e55-e65eac1dfdc5" dir="auto"/><h2 id="3c8648ad-99fc-80e7-8de1-ccf28f8caad1" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c8648ad-99fc-80df-b136-d75ded9eb9e4" class="" dir="auto">Aguilar, profesor de la <strong>Harvard Business School</strong>, desarrolló este modelo en el contexto de su trabajo sobre el <strong>escaneo del entorno empresarial</strong> (<em>environmental scanning</em>), una práctica que permite a las empresas anticiparse a los cambios externos. </p><p id="3c8648ad-99fc-800f-b511-de418fb87f1b" class="" dir="auto">Su propuesta era que las organizaciones no solo necesitaban monitorear el entorno externo, sino también gestionar internamente estos cuatro factores críticos de manera integrada.</p><p id="3c8648ad-99fc-8041-a6f4-e6fce9e0e8a2" class="" dir="auto">El modelo se convirtió en un precursor de otros marcos de gestión más conocidos, como el <strong>Balanced Scorecard</strong> de Kaplan y Norton (1992) y el modelo de <strong>McKinsey 7S</strong> (1970). </p><p id="3c8648ad-99fc-80e7-93e7-f9af88997be8" class="" dir="auto">Es especialmente relevante para entender la <strong>gestión del cambio</strong>, la <strong>transformación digital</strong> y la <strong>alineación estratégica</strong>.</p><hr id="3c8648ad-99fc-80c7-9eeb-fb72a2e2e32c" dir="auto"/><h2 id="3c8648ad-99fc-8060-a34b-f7d6e9bb74a6" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c8648ad-99fc-801c-b5b0-e6cf3e4ac3b6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diagnosticar la salud organizacional</strong>: Evaluar si los cuatro elementos están alineados y funcionando en armonía.</li></ul><ul id="3c8648ad-99fc-8058-851b-c16c1e8abec6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Guiar la gestión del cambio</strong>: Al cambiar un elemento (ej: tecnología), los demás deben ajustarse para mantener el equilibrio.</li></ul><ul id="3c8648ad-99fc-8061-9c39-f0b520ada8df" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear la estrategia con la ejecución</strong>: Asegurar que la estrategia se refleje en la tecnología, las personas y los sistemas.</li></ul><ul id="3c8648ad-99fc-8098-a41a-c38cd4aa8900" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar desequilibrios</strong>: Detectar si la organización está sobreinvirtiendo en tecnología sin desarrollar a las personas o si la estrategia no está soportada por los sistemas adecuados.</li></ul><ul id="3c8648ad-99fc-80ab-ad2b-e187d2baed66" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Prepararse para el futuro</strong>: Anticipar cómo los cambios en el entorno externo afectarán a estos cuatro elementos y preparar la organización en consecuencia.</li></ul><hr id="3c8648ad-99fc-805c-8b7f-e8ea1ec9af73" dir="auto"/><h2 id="3c8648ad-99fc-80d5-92e2-e7de86660290" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los 4 Pilares del ETPS</strong></h2><p id="3c8648ad-99fc-80b0-8528-e350b91bec31" class="" dir="auto">El modelo ETPS propone que estos cuatro elementos están <strong>interconectados y se afectan mutuamente</strong>. </p><p id="3c8648ad-99fc-804c-9c55-c21d9a8bcfc4" class="" dir="auto">Un cambio en uno requiere ajustes en los otros tres.</p><h3 id="3c8648ad-99fc-80fd-bc03-e90677085741" class="" dir="auto"><strong>🔵 1. Estrategia (Strategy)</strong></h3><p id="3c8648ad-99fc-8040-9ab9-edcd7d24b342" class="" dir="auto"><strong>Definición</strong>: La <strong>dirección y el plan de acción</strong> de la organización para alcanzar sus objetivos a largo plazo. Es el &quot;qué&quot; y el &quot;por qué&quot; de la empresa.</p><p id="3c8648ad-99fc-80fb-b8cd-d7de9f6eacf2" class="" dir="auto"><strong>Elementos clave</strong>:</p><ul id="3c8648ad-99fc-80d3-bd83-fcf2d7705de2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Misión, visión y valores</strong>: El propósito y la identidad de la organización.</li></ul><ul id="3c8648ad-99fc-8060-b67e-f7ea78e10650" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetivos estratégicos</strong>: Metas claras y medibles.</li></ul><ul id="3c8648ad-99fc-80d5-81e6-dcd646a41f54" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ventaja competitiva</strong>: Cómo la empresa se diferencia en el mercado.</li></ul><ul id="3c8648ad-99fc-802e-a909-cfab47235482" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Modelo de negocio</strong>: Cómo la empresa crea, entrega y captura valor.</li></ul><ul id="3c8648ad-99fc-8070-b674-c0710997c0df" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Plan de acción</strong>: Los pasos concretos para ejecutar la estrategia.</li></ul><p id="3c8648ad-99fc-8025-b749-d8a684a49bbd" class="" dir="auto"><strong>Ejemplo</strong>: Una empresa que decide expandirse a nuevos mercados internacionales debe ajustar su estrategia de marketing, producción y distribución.</p><hr id="3c8648ad-99fc-8041-a0e8-ee466d87d24f" dir="auto"/><h3 id="3c8648ad-99fc-8001-a309-c8f72316bd8b" class="" dir="auto"><strong>🟢 2. Tecnología (Technology)</strong></h3><p id="3c8648ad-99fc-80fe-af54-e9b975bfdefd" class="" dir="auto"><strong>Definición</strong>: El conjunto de <strong>herramientas, equipos, software y conocimientos técnicos</strong> que la organización utiliza para desarrollar productos, servicios y procesos. </p><p id="3c8648ad-99fc-8036-aaee-eb8fcdf10df3" class="" dir="auto">No se limita a la tecnología de la información (TI), sino que incluye tecnología de producción, logística, comunicaciones, etc.</p><p id="3c8648ad-99fc-80a0-b2fa-e4219b38479e" class="" dir="auto"><strong>Elementos clave</strong>:</p><ul id="3c8648ad-99fc-801c-8979-c2e85063df44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Infraestructura tecnológica</strong>: Hardware, software, redes, equipos de producción.</li></ul><ul id="3c8648ad-99fc-806c-9ae0-ec632b7ac263" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación tecnológica</strong>: Capacidad de desarrollar o adoptar nuevas tecnologías.</li></ul><ul id="3c8648ad-99fc-8020-9aa4-db7285c552e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Automatización</strong>: Uso de tecnología para reducir la intervención humana en procesos repetitivos.</li></ul><ul id="3c8648ad-99fc-808c-b18d-feb8406601e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Datos y analítica</strong>: Tecnologías para capturar, almacenar y analizar datos para la toma de decisiones.</li></ul><ul id="3c8648ad-99fc-805c-9f8a-de8b9d58b879" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ciberseguridad</strong>: Protección de la información y los sistemas tecnológicos.</li></ul><p id="3c8648ad-99fc-8011-8f1f-c02b74cc73ab" class="" dir="auto"><strong>Ejemplo</strong>: La adopción de inteligencia artificial para automatizar el servicio al cliente o la implementación de un nuevo sistema ERP para integrar los procesos de la empresa.</p><hr id="3c8648ad-99fc-8078-826f-cfedb5504ea1" dir="auto"/><h3 id="3c8648ad-99fc-80b5-9bdd-d055c9d25114" class="" dir="auto"><strong>🟠 3. Personas (People)</strong></h3><p id="3c8648ad-99fc-8002-9159-c084f7a31289" class="" dir="auto"><strong>Definición</strong>: Los <strong>colaboradores, equipos, líderes y la cultura organizacional</strong> que hacen posible la ejecución de la estrategia. </p><p id="3c8648ad-99fc-8042-81e0-cb88a84c5b38" class="" dir="auto">Es el capital humano de la organización.</p><p id="3c8648ad-99fc-805b-b803-f2b760975d08" class="" dir="auto"><strong>Elementos clave</strong>:</p><ul id="3c8648ad-99fc-8099-ae0a-e39ba3d63b32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Talento y habilidades</strong>: Competencias técnicas y blandas de los empleados.</li></ul><ul id="3c8648ad-99fc-80ae-9585-e50db6f3bef6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura organizacional</strong>: Valores, creencias, normas y comportamientos compartidos.</li></ul><ul id="3c8648ad-99fc-80b0-84c9-c0a650dce8a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Liderazgo</strong>: Capacidad de los líderes para guiar, motivar y alinear a los equipos.</li></ul><ul id="3c8648ad-99fc-8073-b53b-c0be485b23d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura organizacional</strong>: Cómo se organizan los equipos (funcional, horizontal, matricial).</li></ul><ul id="3c8648ad-99fc-8087-9ec0-e2242ece392a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión del talento</strong>: Reclutamiento, desarrollo, retención y compensación.</li></ul><ul id="3c8648ad-99fc-8094-9215-f5b6a1a42576" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Clima laboral</strong>: Satisfacción, compromiso y bienestar de los empleados.</li></ul><p id="3c8648ad-99fc-8024-b2bc-c53d5be8ba6c" class="" dir="auto"><strong>Ejemplo</strong>: Capacitar a los empleados en nuevas tecnologías para que puedan adaptarse a la transformación digital.</p><hr id="3c8648ad-99fc-800e-95cc-fe796abb2e4b" dir="auto"/><h3 id="3c8648ad-99fc-804d-9908-cfb37430b25a" class="" dir="auto"><strong>🟣 4. Sistemas (Systems)</strong></h3><p id="3c8648ad-99fc-806e-a609-e1cd8b71a626" class="" dir="auto"><strong>Definición</strong>: Los <strong>procesos, procedimientos, normas, políticas y sistemas de información</strong> que dan estructura y orden a la organización. </p><p id="3c8648ad-99fc-8071-8bee-c69702c55c1e" class="" dir="auto">Son la &quot;columna vertebral&quot; que permite que la estrategia, la tecnología y las personas trabajen juntas de manera coordinada.</p><p id="3c8648ad-99fc-800e-b4ee-f5978a374b4b" class="" dir="auto"><strong>Elementos clave</strong>:</p><ul id="3c8648ad-99fc-800d-8f31-f56d787c786b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Procesos</strong>: Flujos de trabajo y procedimientos operativos (ej: cadena de suministro, atención al cliente).</li></ul><ul id="3c8648ad-99fc-808a-924f-f863b96e38ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistemas de información</strong>: Herramientas para la gestión de datos, comunicación y toma de decisiones (ej: CRM, ERP, BI).</li></ul><ul id="3c8648ad-99fc-8036-b0bf-dafbebaec3ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Políticas y normas</strong>: Reglas internas que guían el comportamiento y las decisiones.</li></ul><ul id="3c8648ad-99fc-806d-a816-cf909e224ef3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura de gobierno</strong>: Cómo se toman las decisiones y se distribuye la autoridad.</li></ul><ul id="3c8648ad-99fc-8042-9d25-c9d005ab32d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mecanismos de control y evaluación</strong>: KPIs, sistemas de medición, auditorías y procesos de mejora continua.</li></ul><p id="3c8648ad-99fc-8026-ac25-cf32dcfc10c9" class="" dir="auto"><strong>Ejemplo</strong>: Implementar un nuevo sistema de evaluación de desempeño que alinee los objetivos individuales con la estrategia de la empresa.</p><hr id="3c8648ad-99fc-8032-9640-d7d57c5d3df2" dir="auto"/><h2 id="3c8648ad-99fc-8017-ac71-dd1c7a60f530" class="" dir="auto"><strong>💡 La Interconexión: Cómo se Relacionan los 4 Pilares</strong></h2><table id="3c8648ad-99fc-80ab-bd04-d5f24cf47826" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80b3-a6e1-cdbbb1380163" dir="ltr"><th id="sFgx" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th><th id="@?tL" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="DSW&lt;" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-80b3-b8ad-eb52368f2b2e" dir="ltr"><td id="sFgx" class=""><strong>Estrategia ↔ Tecnología</strong></td><td id="@?tL" class="">La tecnología debe habilitar la estrategia; la estrategia debe guiar la inversión tecnológica.</td><td id="DSW&lt;" class="">Si la estrategia es expandirse a e-commerce, la tecnología debe soportar una tienda online y un sistema de pagos digitales.</td></tr><tr id="3c8648ad-99fc-8075-b182-d3afb835d026" dir="ltr"><td id="sFgx" class=""><strong>Estrategia ↔ Personas</strong></td><td id="@?tL" class="">Las personas deben entender y ejecutar la estrategia; la estrategia debe considerar las capacidades de las personas.</td><td id="DSW&lt;" class="">Si la estrategia requiere innovación, se necesitan personas creativas y una cultura que fomente la experimentación.</td></tr><tr id="3c8648ad-99fc-806b-9fe2-d087608b5cba" dir="ltr"><td id="sFgx" class=""><strong>Estrategia ↔ Sistemas</strong></td><td id="@?tL" class="">Los sistemas deben soportar la estrategia; la estrategia debe definir los sistemas necesarios.</td><td id="DSW&lt;" class="">Si la estrategia es crecer rápidamente, los sistemas deben ser escalables y flexibles.</td></tr><tr id="3c8648ad-99fc-8067-a7f9-c1d3b5516da9" dir="ltr"><td id="sFgx" class=""><strong>Tecnología ↔ Personas</strong></td><td id="@?tL" class="">Las personas deben tener las habilidades para usar la tecnología; la tecnología debe diseñarse pensando en las personas.</td><td id="DSW&lt;" class="">Si se implementa un nuevo software, los empleados deben ser capacitados para usarlo.</td></tr><tr id="3c8648ad-99fc-808a-b308-d7e06a267e14" dir="ltr"><td id="sFgx" class=""><strong>Tecnología ↔ Sistemas</strong></td><td id="@?tL" class="">Los sistemas deben integrar la tecnología; la tecnología debe automatizar y optimizar los sistemas.</td><td id="DSW&lt;" class="">Un sistema de gestión de inventarios (sistema) debe integrarse con un software de logística (tecnología).</td></tr><tr id="3c8648ad-99fc-806e-9aa3-eccd4835d3e9" dir="ltr"><td id="sFgx" class=""><strong>Personas ↔ Sistemas</strong></td><td id="@?tL" class="">Las personas deben seguir y mejorar los sistemas; los sistemas deben facilitar el trabajo de las personas.</td><td id="DSW&lt;" class="">Un sistema de gestión del talento debe ser fácil de usar para que los empleados lo adopten.</td></tr></tbody></table><hr id="3c8648ad-99fc-805a-a1dd-d875ba46a55f" dir="auto"/><h2 id="3c8648ad-99fc-80e0-bcad-fd6dad2f9aec" class="" dir="auto"><strong>🧠 Aplicación del Modelo ETPS en la Práctica</strong></h2><h3 id="3c8648ad-99fc-8033-8b92-e2e40dec6a6a" class="" dir="auto"><strong>1. Diagnóstico Organizacional</strong></h3><p id="3c8648ad-99fc-80f1-b9ba-f279c242d3d2" class="" dir="auto">Para evaluar la salud de una organización, se puede aplicar una <strong>matriz de alineación ETPS</strong>:</p><table id="3c8648ad-99fc-800a-b560-ee5620277387" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8079-8e26-fbbf8a8dcef5" dir="ltr"><th id="e:e}" class="simple-table-header-color simple-table-header"><strong>Dimensión</strong></th><th id="HeXj" class="simple-table-header-color simple-table-header"><strong>Estado Actual</strong></th><th id="[\{w" class="simple-table-header-color simple-table-header"><strong>Estado Deseado</strong></th><th id="DTBh" class="simple-table-header-color simple-table-header"><strong>Brecha</strong></th><th id="\|CP" class="simple-table-header-color simple-table-header"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-80d1-9332-e064e0b0af39" dir="ltr"><td id="e:e}" class=""><strong>Estrategia</strong></td><td id="HeXj" class="">...</td><td id="[\{w" class="">...</td><td id="DTBh" class="">...</td><td id="\|CP" class="">...</td></tr><tr id="3c8648ad-99fc-80f6-8368-fa7545798949" dir="ltr"><td id="e:e}" class=""><strong>Tecnología</strong></td><td id="HeXj" class="">...</td><td id="[\{w" class="">...</td><td id="DTBh" class="">...</td><td id="\|CP" class="">...</td></tr><tr id="3c8648ad-99fc-80b1-8d0a-ef24f71cdb03" dir="ltr"><td id="e:e}" class=""><strong>Personas</strong></td><td id="HeXj" class="">...</td><td id="[\{w" class="">...</td><td id="DTBh" class="">...</td><td id="\|CP" class="">...</td></tr><tr id="3c8648ad-99fc-80a5-8adf-d86d70dc86f0" dir="ltr"><td id="e:e}" class=""><strong>Sistemas</strong></td><td id="HeXj" class="">...</td><td id="[\{w" class="">...</td><td id="DTBh" class="">...</td><td id="\|CP" class="">...</td></tr></tbody></table><p id="3c8648ad-99fc-8060-bcae-ea730916d413" class="" dir="auto"><strong>Ejemplo de diagnóstico</strong>:</p><ul id="3c8648ad-99fc-801f-a493-eaeb2e456c57" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: La empresa quiere lanzar un nuevo producto en 6 meses.</li></ul><ul id="3c8648ad-99fc-807c-a660-e9b933760f8d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tecnología</strong>: El área de I+D no tiene las herramientas adecuadas para prototipado rápido.</li></ul><ul id="3c8648ad-99fc-80b2-a1db-fa6926601f2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Personas</strong>: El equipo de I+D no tiene experiencia en el desarrollo de ese tipo de producto.</li></ul><ul id="3c8648ad-99fc-80a8-b450-d5b04b10d579" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistemas</strong>: El proceso de aprobación de nuevos productos toma 3 meses, demasiado lento para el objetivo de 6 meses.</li></ul><p id="3c8648ad-99fc-804e-8b23-db92dd0196dc" class="" dir="auto"><strong>Conclusión</strong>: La empresa necesita invertir en tecnología, capacitar al equipo (o contratar nuevo talento), y rediseñar el proceso de aprobación para acelerar el lanzamiento. La estrategia está alineada, pero los otros tres elementos (Tecnología, Personas, Sistemas) deben ajustarse para hacerla viable.</p><h3 id="3c8648ad-99fc-80d3-b44f-da99384fbd47" class="" dir="auto"><strong>2. Gestión de la Transformación Digital</strong></h3><p id="3c8648ad-99fc-8044-8d89-c8863cf5b90c" class="" dir="auto">La transformación digital es un cambio que afecta a todos los pilares del ETPS:</p><table id="3c8648ad-99fc-80aa-a65a-e78e61528008" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8097-b1a4-c074b4d26ca4" dir="ltr"><th id="r~bj" class="simple-table-header-color simple-table-header"><strong>Pilar</strong></th><th id="@_Kr" class="simple-table-header-color simple-table-header" style="width:421.00001525878906px"><strong>Impacto de la Transformación Digital</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8074-8297-f0938d033bc4" dir="ltr"><td id="r~bj" class=""><strong>Estrategia</strong></td><td id="@_Kr" class="" style="width:421.00001525878906px">Nuevos modelos de negocio digitales, nuevos canales, nuevos segmentos de clientes.</td></tr><tr id="3c8648ad-99fc-8060-b22f-d0d36bbb7fb7" dir="ltr"><td id="r~bj" class=""><strong>Tecnología</strong></td><td id="@_Kr" class="" style="width:421.00001525878906px">Adopción de cloud, IA, Big Data, automatización, IoT.</td></tr><tr id="3c8648ad-99fc-80cb-8b9a-cd26bed3d022" dir="ltr"><td id="r~bj" class=""><strong>Personas</strong></td><td id="@_Kr" class="" style="width:421.00001525878906px">Nuevas habilidades digitales, cultura de datos, mentalidad ágil.</td></tr><tr id="3c8648ad-99fc-8039-be56-c355732c732f" dir="ltr"><td id="r~bj" class=""><strong>Sistemas</strong></td><td id="@_Kr" class="" style="width:421.00001525878906px">Nuevos procesos digitales, integración de sistemas, ciberseguridad.</td></tr></tbody></table><p id="3c8648ad-99fc-800f-890a-c133020dd2de" class="" dir="auto"><strong>Ejemplo</strong>: Una empresa de retail tradicional que quiere transformarse digitalmente debe:</p><ul id="3c8648ad-99fc-808b-9c9b-d8ec3bd7744d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: Definir una estrategia omnicanal (tiendas físicas + e-commerce).</li></ul><ul id="3c8648ad-99fc-809f-b483-d4bfc8b02a44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tecnología</strong>: Implementar una plataforma de e-commerce, un sistema de gestión de inventarios en tiempo real, y herramientas de analítica de datos.</li></ul><ul id="3c8648ad-99fc-8076-a6c5-d966f25fc942" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Personas</strong>: Contratar o capacitar a los empleados en marketing digital, análisis de datos y gestión de la experiencia del cliente.</li></ul><ul id="3c8648ad-99fc-80a2-8a6c-c5336b7e7f22" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistemas</strong>: Rediseñar los procesos de compra, logística y atención al cliente para integrar los canales digitales y físicos.</li></ul><hr id="3c8648ad-99fc-806a-8966-c6fd9eec1f03" dir="auto"/><h2 id="3c8648ad-99fc-80c8-b7bd-ccb38b7d71fc" class="" dir="auto"><strong>⚠️ Errores Comunes al Aplicar el Modelo ETPS</strong></h2><table id="3c8648ad-99fc-80d7-9a84-e4aba4298c85" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-80dc-a8b8-d86264fd72aa" dir="ltr"><th id="&lt;:HE" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="dJag" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="nRG`" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8006-a4c3-e300308edbf5" dir="ltr"><td id="&lt;:HE" class=""><strong>Desalineación entre los pilares</strong></td><td id="dJag" class="">Cambiar la estrategia sin ajustar la tecnología o sin capacitar a las personas.</td><td id="nRG`" class="">La estrategia no se ejecuta; fracaso del cambio.</td></tr><tr id="3c8648ad-99fc-8020-b7bb-fdc6b52bbcff" dir="ltr"><td id="&lt;:HE" class=""><strong>Invertir en tecnología sin considerar a las personas</strong></td><td id="dJag" class="">Comprar software sin capacitar a los empleados.</td><td id="nRG`" class="">Baja adopción, resistencia al cambio.</td></tr><tr id="3c8648ad-99fc-8007-b9fc-e943c241615f" dir="ltr"><td id="&lt;:HE" class=""><strong>Descuidar los sistemas</strong></td><td id="dJag" class="">Crear nuevos procesos sin documentarlos o formalizarlos.</td><td id="nRG`" class="">Caos, falta de estandarización, errores.</td></tr><tr id="3c8648ad-99fc-80f9-9fd2-ebffc6448446" dir="ltr"><td id="&lt;:HE" class=""><strong>No medir el impacto</strong></td><td id="dJag" class="">Implementar cambios sin indicadores de éxito.</td><td id="nRG`" class="">No se sabe si el cambio está funcionando.</td></tr><tr id="3c8648ad-99fc-807c-9384-cefbd14a1388" dir="ltr"><td id="&lt;:HE" class=""><strong>No involucrar a todos los pilares en la planificación</strong></td><td id="dJag" class="">Que solo el área de TI decida sobre la tecnología sin consultar a las áreas de negocio o recursos humanos.</td><td id="nRG`" class="">Tecnología que no se adapta a las necesidades reales de la organización.</td></tr></tbody></table><hr id="3c8648ad-99fc-80a6-86ad-c983438c7ce8" dir="auto"/><h2 id="3c8648ad-99fc-803e-8e5e-c712ae17a2c6" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c8648ad-99fc-8079-87c0-d507cf48fe78" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c8648ad-99fc-8000-ba88-fefa00075fe1" dir="ltr"><th id="EwEd" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="MpLy" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c8648ad-99fc-8063-a836-e002f9023f45" dir="ltr"><td id="EwEd" class=""><strong>Balanced Scorecard (Kaplan &amp; Norton)</strong></td><td id="MpLy" class="">El modelo ETPS es un precursor del Balanced Scorecard, que también integra perspectiva financiera, de clientes, procesos y aprendizaje.</td></tr><tr id="3c8648ad-99fc-803d-90c3-d3966d5785a4" dir="ltr"><td id="EwEd" class=""><strong>McKinsey 7S</strong></td><td id="MpLy" class="">Modelo similar que incluye estrategia, estructura, sistemas, habilidades, staff, estilo y valores compartidos.</td></tr><tr id="3c8648ad-99fc-809b-bf8c-f80bf604b714" dir="ltr"><td id="EwEd" class=""><strong>Transformación Digital</strong></td><td id="MpLy" class="">El ETPS es un marco útil para guiar la transformación digital, ya que aborda la alineación entre estrategia, tecnología, personas y sistemas.</td></tr><tr id="3c8648ad-99fc-8098-8b69-ee639167b0f6" dir="ltr"><td id="EwEd" class=""><strong>Gestión del Cambio</strong></td><td id="MpLy" class="">El ETPS es una herramienta para gestionar el cambio organizacional, ya que permite identificar qué pilares deben ajustarse.</td></tr><tr id="3c8648ad-99fc-804a-9375-db756304e93a" dir="ltr"><td id="EwEd" class=""><strong>Escaneo del Entorno (Environmental Scanning)</strong></td><td id="MpLy" class="">La obra original de Aguilar se centra en el monitoreo del entorno externo; el ETPS es su marco para gestionar la respuesta interna a esos cambios.</td></tr><tr id="3c8648ad-99fc-8058-a03c-c8892e6a4450" dir="ltr"><td id="EwEd" class=""><strong>Ventaja Competitiva</strong></td><td id="MpLy" class="">La alineación de los cuatro pilares del ETPS es necesaria para sostener una ventaja competitiva en el tiempo.</td></tr></tbody></table><hr id="3c8648ad-99fc-8027-b0ba-d0b553d36da1" dir="auto"/><h2 id="3c8648ad-99fc-80d5-8620-cd6f166e150c" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c8648ad-99fc-80ba-b12d-c1306d3c034b" class="" dir="auto">El ETPS es como un <strong>taburete de cuatro patas</strong>:</p><ul id="3c8648ad-99fc-800f-a506-e841567491f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong> es la dirección: hacia dónde te sientas (la meta).</li></ul><ul id="3c8648ad-99fc-8001-8c46-fb8bcd4c8c0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tecnología</strong> es una pata: la herramienta que te permite llegar (ej: el vehículo).</li></ul><ul id="3c8648ad-99fc-8047-a444-e86419a881fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Personas</strong> es otra pata: quienes te llevan (los conductores).</li></ul><ul id="3c8648ad-99fc-80fd-8bcc-feea0f54e5bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistemas</strong> es otra pata: las reglas y procesos que te guían (el mapa y las señales de tráfico).</li></ul><p id="3c8648ad-99fc-801c-94d9-e0f6a7867e8e" class="" dir="auto">Si una pata es más corta o está desalineada, el taburete se tambalea. Si la estrategia cambia (ej: decides ir a un destino diferente), todas las demás patas deben ajustarse para mantener el equilibrio. Si no lo hacen, el taburete se cae (la organización fracasa en alcanzar sus objetivos).</p><hr id="3c8648ad-99fc-8021-90b4-d068942d7f97" dir="auto"/><h2 id="3c8648ad-99fc-80f5-b0d4-d0eca444408f" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c8648ad-99fc-8032-833c-faab2305330c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aguilar, F. J. (1967). <em>Scanning the Business Environment</em>. Macmillan.</li></ul><ul id="3c8648ad-99fc-80ee-819d-c5b1df225e2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business School, (1967). <em>Francis Aguilar and the ETPS Framework</em>.</li></ul><ul id="3c8648ad-99fc-80c3-bfb8-daf5c73f67ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, R. S., &amp; Norton, D. P. (1992). <em>The Balanced Scorecard</em>. Harvard Business Review.</li></ul><ul id="3c8648ad-99fc-8078-9259-da54a1144214" class="bulleted-list" dir="auto"><li style="list-style-type:disc">McKinsey &amp; Company, (1970). <em>The 7S Framework</em>.</li></ul><hr id="3c8648ad-99fc-807a-977d-c48e3e628c70" dir="auto"/><h2 id="3c8648ad-99fc-80ab-8085-f49934450ddb" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c8648ad-99fc-801d-8bfc-d308ef96142e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>ETPS fue un avance en su época</strong>: En 1967, Aguilar ya intuía que las organizaciones necesitaban ser sistémicas y que los factores internos (Tecnología, Personas, Sistemas) debían alinearse con la Estrategia. Su enfoque fue precursor de la gestión del cambio y de los modelos de alineación estratégica.</li></ul><ul id="3c8648ad-99fc-808f-b29b-f84a36ff6083" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La relevancia actual del modelo</strong>: En la era de la transformación digital, el ETPS sigue siendo extremadamente relevante. Las empresas que invierten solo en tecnología (sin ajustar estrategia, personas o sistemas) fracasan en sus procesos de digitalización. El ETPS ayuda a recordar que la tecnología es un habilitador, pero no el fin.</li></ul><ul id="3c8648ad-99fc-8099-8314-d33d4a33ca61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aplicación en el análisis de casos empresariales</strong>: Al estudiar casos de éxito o fracaso (ej: Blockbuster vs. Netflix, Yape, Nubank), el modelo ETPS es útil para analizar qué pilar falló o cuál fue la clave del éxito.<ul id="3c8648ad-99fc-80ca-9e09-d2cc9babfe63" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Blockbuster</strong>: Estrategia equivocada (no ver el streaming), tecnología obsoleta, personas resistentes al cambio, sistemas burocráticos.</li></ul><ul id="3c8648ad-99fc-8059-ba96-dc2f23eeb8ef" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Netflix</strong>: Estrategia clara (streaming), tecnología innovadora (algoritmos, nube), personas con mentalidad ágil, sistemas escalables.</li></ul></li></ul><ul id="3c8648ad-99fc-800a-929b-d5b65daf7c41" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar el ETPS</strong>:<ol type="1" id="3c8648ad-99fc-80e0-b0f7-f763a98f8eaf" class="numbered-list" start="1" dir="auto"><li><strong>No subestimes la interconexión</strong>: Ningún pilar funciona en aislamiento. Un cambio en uno requiere ajustes en los otros tres.</li></ol><ol type="1" id="3c8648ad-99fc-806a-b962-fa1da38f08e9" class="numbered-list" start="2" dir="auto"><li><strong>La cultura (personas) es el pilar más difícil de cambiar</strong>: A menudo, la estrategia y la tecnología cambian más rápido que la cultura. Por eso, la transformación digital suele fracasar por la resistencia de las personas.</li></ol><ol type="1" id="3c8648ad-99fc-80a9-9ac3-d0ef0c5b195a" class="numbered-list" start="3" dir="auto"><li><strong>Los sistemas son el pegamento</strong>: Los sistemas (procesos, políticas, herramientas de gestión) son el pegamento que mantiene unidos los otros tres pilares. Si los sistemas no son robustos, los otros pilares se desarticulan.</li></ol><ol type="1" id="3c8648ad-99fc-8003-ab81-d15e8dc0bc29" class="numbered-list" start="4" dir="auto"><li><strong>La estrategia debe guiar todo</strong>: Antes de invertir en tecnología o cambiar personas, asegúrate de que la estrategia esté clara y sea compartida por toda la organización.</li></ol><ol type="1" id="3c8648ad-99fc-8051-94b5-d4348677325c" class="numbered-list" start="5" dir="auto"><li><strong>Revisa periódicamente</strong>: El entorno cambia; los cuatro pilares deben ajustarse continuamente para mantener la alineación.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

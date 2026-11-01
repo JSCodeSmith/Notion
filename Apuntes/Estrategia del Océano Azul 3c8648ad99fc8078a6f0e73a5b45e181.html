@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estrategia del Océano Azul</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8078-a6f0-e73a5b45e181" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estrategia del Océano Azul</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-80e6-bbd5-ece6559e0c5d" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-802b-af4c-d4a44b59e91d" class="" dir="auto"><strong>📄 Estrategia del Océano Azul</strong></h1><hr id="3c9648ad-99fc-8049-9530-c654c84b2144" dir="auto"/><h2 id="3c9648ad-99fc-80a5-9a2e-f7aed6ebf0d2" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-8006-a1e6-ed3d302b4e6e" class="" dir="auto">La Estrategia del Océano Azul es un enfoque de gestión estratégica que propone <strong>crear nuevos espacios de mercado</strong> (océanos azules) en lugar de competir en mercados existentes y saturados (océanos rojos). </p><p id="3c9648ad-99fc-8048-9f1f-e4e0bf1808d5" class="" dir="auto">Fue desarrollada por los profesores <strong>W. Chan Kim y Renée Mauborgne</strong> en su libro homónimo de 2005, y se basa en el estudio de más de 150 casos de empresas que lograron un crecimiento rentable y sostenible a través de la innovación en valor.</p><hr id="3c9648ad-99fc-80bf-b810-fe6ef44a1f74" dir="auto"/><h2 id="3c9648ad-99fc-8022-9c62-f93a0654e070" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-8027-9760-ec79c3ddde80" class="" dir="auto">La metáfora de los océanos es clave:</p><ul id="3c9648ad-99fc-802b-a70d-e37759612f8e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Océano Rojo</strong>: Representa todas las industrias existentes, donde los límites del mercado están definidos y las reglas de competencia son conocidas.</li></ul><ul id="3c9648ad-99fc-80ba-a8bc-ddd04b180561" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Las empresas luchan por ganar participación de mercado, lo que lleva a una competencia sanguinaria (de ahí el &quot;rojo&quot;).</li></ul><ul id="3c9648ad-99fc-8094-ac69-d4279d7837a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Océano Azul</strong>: Representa espacios de mercado no explotados, donde la demanda se crea en lugar de disputarse. </li></ul><ul id="3c9648ad-99fc-8031-8872-cce8a75a233b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hay oportunidades de crecimiento rentable y sostenible porque la competencia es irrelevante.</li></ul><p id="3c9648ad-99fc-80c3-ae58-f15e5836dc30" class="" dir="auto">La estrategia del océano azul no se trata de ser mejor que la competencia, sino de <strong>hacer que la competencia sea irrelevante</strong> al crear un nuevo mercado donde no haya rivales.</p><hr id="3c9648ad-99fc-8060-ac27-e96bca93b26b" dir="auto"/><h2 id="3c9648ad-99fc-8079-af07-d004519db258" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-8076-9e33-f6197593fe1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear nuevos mercados</strong>: En lugar de competir en mercados existentes.</li></ul><ul id="3c9648ad-99fc-8017-aef0-e87cce6e0dc2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovar en valor</strong>: Ofrecer un salto de valor para los clientes y la empresa simultáneamente.</li></ul><ul id="3c9648ad-99fc-80a0-bb9d-deb8878541fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Romper la competencia</strong>: Hacer que la competencia sea irrelevante al redefinir las reglas del juego.</li></ul><ul id="3c9648ad-99fc-806e-8cc2-c431293a884a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar crecimiento rentable</strong>: Crear demanda en lugar de disputar la existente.</li></ul><ul id="3c9648ad-99fc-8007-bd0b-f85c829eb32c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Evitar la guerra de precios</strong>: Diferenciarse radicalmente en lugar de competir por precio.</li></ul><ul id="3c9648ad-99fc-800d-bac1-f957283cbcfd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear la organización</strong>: Enfocar a toda la empresa en la creación de valor único.</li></ul><hr id="3c9648ad-99fc-800f-89d8-fabdf3dfdce7" dir="auto"/><h2 id="3c9648ad-99fc-8030-8f17-edfe4d414a7e" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3c9648ad-99fc-807b-b1f7-e2111e9c76dd" class="" dir="auto">La estrategia del océano azul se basa en el concepto de <strong>innovación en valor</strong>, que combina dos elementos:</p><ol type="1" id="3c9648ad-99fc-80da-af82-e6dbe87e6f79" class="numbered-list" start="1" dir="auto"><li><strong>Diferenciación</strong>: Crear un producto o servicio único que los clientes valoren.</li></ol><ol type="1" id="3c9648ad-99fc-8012-b075-ffa386fc09f1" class="numbered-list" start="2" dir="auto"><li><strong>Bajo costo</strong>: Mantener costos bajos para ser rentable.</li></ol><p id="3c9648ad-99fc-8076-b1fc-c08748243ad8" class="" dir="auto"><strong>La innovación en valor</strong> se logra cuando una empresa rompe el trade-off tradicional entre diferenciación y bajo costo, y logra ambas cosas al mismo tiempo.</p><h3 id="3c9648ad-99fc-8024-9eea-c8b48d74d362" class="" dir="auto"><strong>Las 4 Acciones para crear un Océano Azul (Marco ERRC)</strong></h3><p id="3c9648ad-99fc-80f1-ab03-cd3d491981e1" class="" dir="auto">Para construir un océano azul, se debe aplicar el marco <strong>EERR</strong> (Eliminar, Reducir, Aumentar, Crear):</p><table id="3c9648ad-99fc-8069-bf5e-f83d5445c1cd" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-808d-956b-de479c94c611" dir="ltr"><th id="KGyE" class="simple-table-header-color simple-table-header"><strong>Acción</strong></th><th id="rDKQ" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="nw&lt;S" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8007-b4ec-f9fa7e0e8ce2" dir="ltr"><td id="KGyE" class=""><strong>Eliminar</strong></td><td id="rDKQ" class="">¿Qué factores que la industria da por sentado deberían eliminarse?</td><td id="nw&lt;S" class="">Reducir costos y simplificar.</td></tr><tr id="3c9648ad-99fc-8035-a740-efffcc1fe79b" dir="ltr"><td id="KGyE" class=""><strong>Reducir</strong></td><td id="rDKQ" class="">¿Qué factores deberían reducirse muy por debajo del estándar de la industria?</td><td id="nw&lt;S" class="">Reducir costos sin perder valor.</td></tr><tr id="3c9648ad-99fc-8040-88bb-c551f63199fb" dir="ltr"><td id="KGyE" class=""><strong>Aumentar</strong></td><td id="rDKQ" class="">¿Qué factores deberían incrementarse muy por encima del estándar de la industria?</td><td id="nw&lt;S" class="">Aumentar el valor percibido.</td></tr><tr id="3c9648ad-99fc-80c6-8837-cb9527280d10" dir="ltr"><td id="KGyE" class=""><strong>Crear</strong></td><td id="rDKQ" class="">¿Qué factores que la industria nunca ha ofrecido deberían crearse?</td><td id="nw&lt;S" class="">Crear nueva demanda y diferenciación.</td></tr></tbody></table><hr id="3c9648ad-99fc-80c0-83d5-e980f4de879c" dir="auto"/><h2 id="3c9648ad-99fc-80e6-94d4-d6603eb48999" class="" dir="auto"><strong>📝 El Lienzo Estratégico</strong></h2><p id="3c9648ad-99fc-80e5-9191-ca0a469a7186" class="" dir="auto">El <strong>Lienzo Estratégico</strong> es una herramienta gráfica que compara la propuesta de valor de una empresa con la de sus competidores.</p><p id="3c9648ad-99fc-80af-94c4-e31e0e7dba0a" class="" dir="auto">Muestra cómo una empresa se diferencia en los factores clave de competencia de la industria.</p><p id="3c9648ad-99fc-8061-85c3-d81a54dec9a3" class="" dir="auto"><strong>Curva de Valor</strong>: Es la representación gráfica en el lienzo estratégico que muestra el desempeño de una empresa en cada factor clave de la industria.</p><p id="3c9648ad-99fc-809b-b385-fabe3b41ddef" class="" dir="auto">El objetivo del océano azul es <strong>dibujar una nueva curva de valor</strong> que se diferencie radicalmente de la de los competidores, rompiendo con las reglas establecidas.</p><hr id="3c9648ad-99fc-80ed-bb83-f8fd33b84968" dir="auto"/><h2 id="3c9648ad-99fc-80d4-92fc-fc44050b09e3" class="" dir="auto"><strong>💡 Ejemplos de Océano Azul</strong></h2><h3 id="3c9648ad-99fc-8069-8b9d-f61f3da914f7" class="" dir="auto"><strong>1️⃣ Cirque du Soleil</strong></h3><ul id="3c9648ad-99fc-80d2-996f-f9a608e8847f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Industria tradicional</strong>: Circo (océano rojo).</li></ul><ul id="3c9648ad-99fc-803a-b0ac-ce3341446b89" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Problemas</strong>: Competencia feroz, costos altos (animales, artistas), declive de la audiencia.</li></ul><ul id="3c9648ad-99fc-8068-b8aa-dbcf0d425f18" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia de Océano Azul</strong>:<ul id="3c9648ad-99fc-80ae-b09a-ff4ec94dfdb1" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Eliminar</strong>: Animales, carpas tradicionales, artistas famosos.</li></ul><ul id="3c9648ad-99fc-8086-896e-c1e62ee5c37c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Reducir</strong>: Costos de transporte y mantenimiento.</li></ul><ul id="3c9648ad-99fc-802a-b421-c2d84dbe7831" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aumentar</strong>: Experiencia artística, música en vivo, escenografía.</li></ul><ul id="3c9648ad-99fc-80d7-940b-e3801ec6a5ad" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Crear</strong>: Espectáculo teatral de alto nivel, sin animales, con narrativa.</li></ul></li></ul><ul id="3c9648ad-99fc-80f8-9f28-e020c20aee42" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Crearon un nuevo mercado de &quot;entretenimiento teatral de circo&quot;, atrayendo a adultos dispuestos a pagar mucho más que por un circo tradicional.</li></ul><h3 id="3c9648ad-99fc-80ec-8677-c5099787c8dd" class="" dir="auto"><strong>2️⃣ Netflix</strong></h3><ul id="3c9648ad-99fc-80ed-b785-c8217ddf7bc4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Industria tradicional</strong>: Alquiler de videos (Blockbuster, tiendas físicas).</li></ul><ul id="3c9648ad-99fc-80d4-b3ca-d0fbce421fa7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Problemas</strong>: Penalizaciones por demora, desplazamientos, catálogo limitado.</li></ul><ul id="3c9648ad-99fc-80db-8d0b-f0af02e1cedf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia de Océano Azul</strong>:<ul id="3c9648ad-99fc-8032-9faa-f5873e9a6e37" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Eliminar</strong>: Tiendas físicas, penalizaciones por demora.</li></ul><ul id="3c9648ad-99fc-80e9-904e-df2953d45d30" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Reducir</strong>: Costos operativos y de inventario.</li></ul><ul id="3c9648ad-99fc-80b3-b23b-faca03ca16f9" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aumentar</strong>: Catálogo de contenido, recomendaciones personalizadas.</li></ul><ul id="3c9648ad-99fc-802a-85e8-f788a5b852cd" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Crear</strong>: Suscripción mensual, streaming bajo demanda, contenido original.</li></ul></li></ul><ul id="3c9648ad-99fc-80b0-88e8-cfe220cb4650" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Crearon el mercado del streaming bajo demanda, haciendo que la competencia (Blockbuster) fuera irrelevante.</li></ul><h3 id="3c9648ad-99fc-8025-9cc6-fb492de6fc00" class="" dir="auto"><strong>3️⃣ Uber</strong></h3><ul id="3c9648ad-99fc-8089-8ba0-c479631fb6db" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Industria tradicional</strong>: Taxis.</li></ul><ul id="3c9648ad-99fc-8068-aa75-dd05360b0ca5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Problemas</strong>: Dificultad para encontrar taxi, pagos en efectivo, falta de transparencia.</li></ul><ul id="3c9648ad-99fc-8075-8e60-e9ee1e0a9c3c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia de Océano Azul</strong>:<ul id="3c9648ad-99fc-8002-a93b-ca92ab0bb65f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Eliminar</strong>: Medidores de taxi, sistemas de radio.</li></ul><ul id="3c9648ad-99fc-8089-aabe-f7ed7bf7c1b8" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Reducir</strong>: Tiempo de espera, costos de gestión de flotas.</li></ul><ul id="3c9648ad-99fc-804a-8321-fd7dad21093c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aumentar</strong>: Transparencia en precios, seguridad, calificación de conductores.</li></ul><ul id="3c9648ad-99fc-807a-bcc0-e6f4acd3195e" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Crear</strong>: App de solicitud de viajes, pagos digitales, economía colaborativa.</li></ul></li></ul><ul id="3c9648ad-99fc-8081-9a47-f5e8b87ba544" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Crearon el mercado de la movilidad bajo demanda.</li></ul><h3 id="3c9648ad-99fc-8086-9b53-deba0ecacb10" class="" dir="auto"><strong>4️⃣ Nintendo Wii</strong></h3><ul id="3c9648ad-99fc-80fd-9480-f90276c9ad8e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Industria tradicional</strong>: Consolas de videojuegos (PS3, Xbox 360).</li></ul><ul id="3c9648ad-99fc-8072-9642-cc2cebac9150" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Problemas</strong>: Competencia por gráficos y procesamiento; mercados saturados para jugadores &quot;hardcore&quot;.</li></ul><ul id="3c9648ad-99fc-80cf-bb07-f8234c2b96d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia de Océano Azul</strong>:<ul id="3c9648ad-99fc-80de-abe1-e511ac07dd11" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Eliminar</strong>: Gráficos de alta definición, complejidad de controles.</li></ul><ul id="3c9648ad-99fc-8023-9065-c0aca93de11f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Reducir</strong>: Potencia de procesamiento, costos de hardware.</li></ul><ul id="3c9648ad-99fc-80bf-a5b2-ee57e6657179" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aumentar</strong>: Jugabilidad, interacción física, accesibilidad.</li></ul><ul id="3c9648ad-99fc-800f-9fe7-ebfdc4b93a8d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Crear</strong>: Control por movimiento, juegos para toda la familia.</li></ul></li></ul><ul id="3c9648ad-99fc-8013-8ba4-d3f03e2e3884" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Atrajeron a un nuevo segmento de jugadores (familias, adultos mayores) que antes no jugaban videojuegos.</li></ul><h3 id="3c9648ad-99fc-80e1-8f76-e39b03ad08d4" class="" dir="auto"><strong>5️⃣ Yellow Tail (Vino)</strong></h3><ul id="3c9648ad-99fc-80d0-8d50-deb173191dd8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Industria tradicional</strong>: Vinos (complejos, elitistas, lenguaje técnico).</li></ul><ul id="3c9648ad-99fc-80cb-83d7-e03ab750ea2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Problemas</strong>: Consumidores intimidados por la complejidad del vino.</li></ul><ul id="3c9648ad-99fc-80fa-883a-d4a3df48169f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia de Océano Azul</strong>:<ul id="3c9648ad-99fc-804f-a49e-c872ed34fd0c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Eliminar</strong>: Terminología compleja, añejamiento prolongado.</li></ul><ul id="3c9648ad-99fc-8072-b754-ed6703cc4ebc" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Reducir</strong>: Variedades de uva y complejidad.</li></ul><ul id="3c9648ad-99fc-8094-af33-f226e0006485" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aumentar</strong>: Accesibilidad, sabor afrutado, diseño de etiqueta.</li></ul><ul id="3c9648ad-99fc-8011-b6dc-d994d36eca53" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Crear</strong>: Vino fácil de beber, divertido y atractivo para bebedores ocasionales.</li></ul></li></ul><ul id="3c9648ad-99fc-801c-9c64-c8a07f5dcc96" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Uno de los vinos más vendidos del mundo, atrayendo a nuevos consumidores.</li></ul><hr id="3c9648ad-99fc-80e9-b705-e7915d9a6bf4" dir="auto"/><h2 id="3c9648ad-99fc-8048-8ed5-f7defd735ceb" class="" dir="auto"><strong>⚠️ Errores Comunes al Aplicar la Estrategia del Océano Azul</strong></h2><table id="3c9648ad-99fc-80dc-ab0c-d43289a8a503" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-808c-a0c7-dad28a30e8fe" dir="ltr"><th id="EsNX" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="B|xv" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id=";bMS" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80b9-883b-c1a70cea535b" dir="ltr"><td id="EsNX" class=""><strong>No validar el mercado</strong></td><td id="B|xv" class="">Crear un nuevo mercado sin confirmar que hay demanda real.</td><td id=";bMS" class="">Inversión desperdiciada en un producto que nadie quiere.</td></tr><tr id="3c9648ad-99fc-80f0-b4e8-d35928458f00" dir="ltr"><td id="EsNX" class=""><strong>Copiar sin adaptar</strong></td><td id="B|xv" class="">Intentar replicar un océano azul exitoso sin adaptarlo al contexto.</td><td id=";bMS" class="">Entrar en un océano rojo disfrazado.</td></tr><tr id="3c9648ad-99fc-808f-afd8-f9dbd2511123" dir="ltr"><td id="EsNX" class=""><strong>No comunicar el valor</strong></td><td id="B|xv" class="">Crear una innovación de valor pero no saber comunicarla.</td><td id=";bMS" class="">Los clientes no entienden el valor, no compran.</td></tr><tr id="3c9648ad-99fc-80bd-8f14-cdc2a20fa9f0" dir="ltr"><td id="EsNX" class=""><strong>No alinear la organización</strong></td><td id="B|xv" class="">La estrategia de océano azul requiere cambios en toda la empresa, no solo en el producto.</td><td id=";bMS" class="">Desalineación, resistencia al cambio.</td></tr><tr id="3c9648ad-99fc-8034-a661-f9477033afa0" dir="ltr"><td id="EsNX" class=""><strong>Confundir océano azul con nicho</strong></td><td id="B|xv" class="">Un océano azul crea un mercado masivo; un nicho es un mercado pequeño.</td><td id=";bMS" class="">Crecimiento limitado.</td></tr><tr id="3c9648ad-99fc-8037-8ac2-f6603be83c7b" dir="ltr"><td id="EsNX" class=""><strong>No proteger el océano azul</strong></td><td id="B|xv" class="">No construir barreras de entrada (patentes, marca, ecosistema).</td><td id=";bMS" class="">Competidores imitan y convierten el océano azul en rojo.</td></tr></tbody></table><hr id="3c9648ad-99fc-8064-9453-c323ffe269c5" dir="auto"/><h2 id="3c9648ad-99fc-80b0-9f0e-cb7e9089eb7f" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-808f-9d2e-d880312fa452" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-807a-98e1-dcbc2927e23f" dir="ltr"><th id="Dx\L" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="&gt;}pN" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-800a-ade8-d11db72b4d6c" dir="ltr"><td id="Dx\L" class=""><strong>Industria saturada</strong></td><td id="&gt;}pN" class="">Buscar un océano azul para escapar de la competencia feroz.</td></tr><tr id="3c9648ad-99fc-8042-b750-ec3249f56399" dir="ltr"><td id="Dx\L" class=""><strong>Nuevas empresas (startups)</strong></td><td id="&gt;}pN" class="">Crear un mercado nuevo en lugar de competir contra gigantes establecidos.</td></tr><tr id="3c9648ad-99fc-804f-ba08-c0a5155c19db" dir="ltr"><td id="Dx\L" class=""><strong>Transformación digital</strong></td><td id="&gt;}pN" class="">Usar la tecnología para crear nuevos espacios de mercado.</td></tr><tr id="3c9648ad-99fc-8010-930a-eff69894675c" dir="ltr"><td id="Dx\L" class=""><strong>Innovación de productos</strong></td><td id="&gt;}pN" class="">Desarrollar productos que resuelvan problemas no atendidos.</td></tr><tr id="3c9648ad-99fc-806a-8f30-c8ca3364189a" dir="ltr"><td id="Dx\L" class=""><strong>Cambio de modelo de negocio</strong></td><td id="&gt;}pN" class="">Redefinir cómo se genera valor en la industria.</td></tr></tbody></table><hr id="3c9648ad-99fc-808b-ba1c-f49f7f1e893a" dir="auto"/><h2 id="3c9648ad-99fc-8045-93ce-cd252ffb4aa6" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-80e3-a15d-e8abed294ff0" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8020-838c-f9d2805ce55f" dir="ltr"><th id="kayg" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="ke}s" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-807b-82db-c0cb597e98d0" dir="ltr"><td id="kayg" class=""><strong>Disrupción</strong></td><td id="ke}s" class="">La estrategia del océano azul suele llevar a la disrupción de industrias establecidas.</td></tr><tr id="3c9648ad-99fc-8038-973b-fc8adccfc9d9" dir="ltr"><td id="kayg" class=""><strong>Innovación</strong></td><td id="ke}s" class="">El océano azul se basa en la innovación en valor (no solo tecnológica).</td></tr><tr id="3c9648ad-99fc-80cf-abe6-d75e1d0e2f69" dir="ltr"><td id="kayg" class=""><strong>Ventaja Competitiva</strong></td><td id="ke}s" class="">En lugar de defender una ventaja, se crea un mercado sin competencia.</td></tr><tr id="3c9648ad-99fc-80a7-b3ab-d08c7ecb56ff" dir="ltr"><td id="kayg" class=""><strong>Segmentación de Mercado</strong></td><td id="ke}s" class="">El océano azul busca no segmentar, sino crear un mercado masivo nuevo.</td></tr><tr id="3c9648ad-99fc-806d-8575-c3cb2fc1c9c9" dir="ltr"><td id="kayg" class=""><strong>Porter (5 Fuerzas)</strong></td><td id="ke}s" class="">La estrategia del océano azul evita las 5 fuerzas al hacer que la competencia sea irrelevante.</td></tr><tr id="3c9648ad-99fc-80f0-9531-f8ee56076350" dir="ltr"><td id="kayg" class=""><strong>Lean Startup</strong></td><td id="ke}s" class="">Complementaria: valida océanos azules mediante experimentación rápida y feedback.</td></tr><tr id="3c9648ad-99fc-802b-b4ba-ddb7ba7f1b6f" dir="ltr"><td id="kayg" class=""><strong>Estrategia de Diferenciación</strong></td><td id="ke}s" class="">El océano azul va más allá de la diferenciación; es una reinvención del mercado.</td></tr></tbody></table><hr id="3c9648ad-99fc-805b-b1ec-d3d04342b3b8" dir="auto"/><h2 id="3c9648ad-99fc-802c-96fb-c51018dbe3cf" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-802a-9628-c77848afc4f1" class="" dir="auto">La Estrategia del Océano Azul es como <strong>ser el primer explorador en descubrir una nueva isla</strong>, en lugar de luchar por un pedazo de tierra en un continente ya colonizado. Mientras otros pelean por el territorio existente, tú creas un nuevo espacio donde no hay competidores. La isla tiene recursos nuevos y atractivos, y puedes establecer tus propias reglas. Es más difícil que competir en lo conocido, pero los beneficios son mucho mayores.</p><hr id="3c9648ad-99fc-80c4-a5df-d2eabc654f02" dir="auto"/><h2 id="3c9648ad-99fc-80ef-8800-ea9d2ff3f690" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-8043-aa9b-d50d98bbba90" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2005). <em>Blue Ocean Strategy: How to Create Uncontested Market Space and Make the Competition Irrelevant</em>. Harvard Business Review Press.</li></ul><ul id="3c9648ad-99fc-8048-872d-fe640f15a310" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2017). <em>Blue Ocean Shift: Beyond Competing</em>. Harvard Business Review Press.</li></ul><ul id="3c9648ad-99fc-8006-9384-d0107f1633cf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2004). <em>Blue Ocean Strategy</em>. Harvard Business Review.</li></ul><ul id="3c9648ad-99fc-809b-a5a9-d9edf7d5e549" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Chan, K. W., &amp; Mauborgne, R. (2015). <em>Red Ocean Traps</em>. Harvard Business Review.</li></ul><hr id="3c9648ad-99fc-80fe-bc03-fbe01b4b5edd" dir="auto"/><h2 id="3c9648ad-99fc-8022-ad56-e4c7e52d8031" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-80fa-8984-fb6b160e8b3b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No es solo &quot;innovación&quot;</strong>: La diferencia clave entre una innovación normal y un océano azul es que este último <strong>cambia las reglas del juego</strong> y hace que la competencia sea irrelevante.</li></ul><ul id="3c9648ad-99fc-80a6-a598-f09a07973399" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El océano azul requiere valentía</strong>: Crear un mercado nuevo implica incertidumbre y riesgo. Pero el mayor riesgo es quedarse en el océano rojo y competir hasta la muerte.</li></ul><ul id="3c9648ad-99fc-803e-865d-fd79f0d70475" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La sostenibilidad del océano azul</strong>: Un océano azul eventualmente se vuelve rojo cuando llegan imitadores. La clave es <strong>construir barreras de entrada</strong> (patentes, marca, ecosistema, cultura) y <strong>seguir innovando</strong> para crear nuevos océanos azules.</li></ul><ul id="3c9648ad-99fc-8090-a4a4-ccab339fc485" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar la estrategia del océano azul</strong>:<ol type="1" id="3c9648ad-99fc-808d-a324-c0d739ee579d" class="numbered-list" start="1" dir="auto"><li><strong>Piensa en no clientes</strong>: ¿Quién no consume tu industria y por qué? Ahí hay un océano azul.</li></ol><ol type="1" id="3c9648ad-99fc-80e1-8954-d765804c457d" class="numbered-list" start="2" dir="auto"><li><strong>Cuestiona los supuestos de la industria</strong>: ¿Por qué se hacen las cosas de cierta manera? ¿Se pueden hacer diferente?</li></ol><ol type="1" id="3c9648ad-99fc-806c-9139-e84e865e96f3" class="numbered-list" start="3" dir="auto"><li><strong>Usa el marco EERR</strong>: Elimina, reduce, aumenta y crea sistemáticamente.</li></ol><ol type="1" id="3c9648ad-99fc-8075-86e4-d89ca8f6ca84" class="numbered-list" start="4" dir="auto"><li><strong>Visualiza tu curva de valor</strong>: Dibuja el lienzo estratégico y compáralo con la competencia.</li></ol><ol type="1" id="3c9648ad-99fc-80e0-9c65-cf48df1561b8" class="numbered-list" start="5" dir="auto"><li><strong>Comunica el valor</strong>: Si no sabes comunicar por qué eres diferente, no tendrás éxito.</li></ol><ol type="1" id="3c9648ad-99fc-8042-a2ed-d021b8f2215e" class="numbered-list" start="6" dir="auto"><li><strong>Protege tu océano azul</strong>: Patenta, registra marcas, construye ecosistemas.</li></ol><ol type="1" id="3c9648ad-99fc-8071-853b-dc6b32e3180b" class="numbered-list" start="7" dir="auto"><li><strong>Sé rápido y ágil</strong>: Los océanos azules no duran para siempre; escalar rápido es clave.</li></ol></li></ul><ul id="3c9648ad-99fc-80cc-9201-e0d812ebdbef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Océano Azul vs. Disrupción</strong>:<ul id="3c9648ad-99fc-80c0-8fde-fb93f34d9afc" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La <strong>disrupción</strong> suele empezar en mercados de baja gama y sube hacia arriba.</li></ul><ul id="3c9648ad-99fc-8098-9064-fd087e123ce1" class="bulleted-list" dir="auto"><li style="list-style-type:circle">El <strong>océano azul</strong> crea un mercado completamente nuevo y atrae a nuevos clientes desde el principio.</li></ul></li></ul><ul id="3c9648ad-99fc-80c6-a2b6-f486a4fd0adb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Océano Azul en la era digital</strong>:<ul id="3c9648ad-99fc-8034-b45c-e6524bc62f0f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La tecnología digital es un habilitador clave para crear océanos azules (ej: streaming de Netflix, economía colaborativa de Uber).</li></ul><ul id="3c9648ad-99fc-80af-a8df-c736edd63dc5" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La IA permite crear nuevos espacios de mercado (ej: asesores financieros automatizados, diagnóstico médico con IA).</li></ul><ul id="3c9648ad-99fc-8097-b2ce-cae7abb0453f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Las plataformas digitales facilitan la creación de océanos azules al conectar oferta y demanda de nuevas maneras.</li></ul></li></ul><ul id="3c9648ad-99fc-8042-8785-d0af076642ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo de océano azul en Latinoamérica</strong>:<ul id="3c9648ad-99fc-80ec-a374-d74e45bf14ee" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Mercado Pago</strong>: Creó el mercado de pagos digitales en una región donde la bancarización era baja.</li></ul><ul id="3c9648ad-99fc-8053-b084-e5bdd1304559" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Rappi</strong>: Creó el mercado de delivery de todo (no solo comida) en Latinoamérica.</li></ul><ul id="3c9648ad-99fc-80a1-9a6a-f90d186732c3" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Nubank</strong>: Creó el mercado de banca digital sin comisiones, haciendo que los bancos tradicionales fueran irrelevantes para millones de personas.</li></ul></li></ul><ul id="3c9648ad-99fc-8068-8407-ffd6c696c7bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conclusión</strong>: La Estrategia del Océano Azul es una herramienta poderosa para escapar de la competencia destructiva y encontrar nuevas oportunidades de crecimiento. Sin embargo, requiere de una mentalidad audaz, una ejecución impecable y una capacidad constante de reinvención, ya que ningún océano azul lo es para siempre.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

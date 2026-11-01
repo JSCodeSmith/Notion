@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>OKR (Objectives and Key Results)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-8023-96c7-dd9677400d49" class="page sans"><header><h1 class="page-title" dir="auto"><strong>OKR (Objectives and Key Results)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-8068-94c6-c36a88b84ad9" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-8071-97da-eb3aba114a10" class="" dir="auto"><strong>📄 OKR (Objectives and Key Results)</strong></h1><hr id="3ea648ad-99fc-8036-a601-ee681d3944d2" dir="auto"/><h2 id="3ea648ad-99fc-8030-9e09-e73daff30505" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-80e9-b612-d8df9b99cfcc" class="" dir="auto"><strong>OKR</strong> son las siglas de <strong>Objectives and Key Results</strong> (Objetivos y Resultados Clave). </p><p id="3ea648ad-99fc-807e-8a89-df496dcd682f" class="" dir="auto">Es un <strong>marco de gestión</strong> utilizado para <strong>definir, comunicar y medir objetivos</strong> de manera clara y ambiciosa.</p><p id="3ea648ad-99fc-80c5-ba4d-eebff98a4008" class="" dir="auto">Fue popularizado por <strong>John Doerr</strong> (inversor de Google) y adoptado por empresas como <strong>Google, Intel, LinkedIn, Spotify, Twitter y Airbnb</strong>. </p><p id="3ea648ad-99fc-801a-a117-e14115391dfb" class="" dir="auto">Un OKR combina un <strong>Objetivo</strong> (qué queremos lograr, inspirador y cualitativo) con <strong>Resultados Clave</strong> (cómo mediremos el éxito, específicos y cuantitativos).</p><hr id="3ea648ad-99fc-8053-92e4-dcb5fd8333de" dir="auto"/><h2 id="3ea648ad-99fc-8064-a66d-ef75034daa8e" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-807c-a01f-f04a19cbfbd0" class="" dir="auto">El OKR es una herramienta que conecta la <strong>estrategia</strong> con la <strong>ejecución</strong>. </p><p id="3ea648ad-99fc-804c-8ab5-d317ceaa95af" class="" dir="auto">Ayuda a las organizaciones a <strong>enfocarse</strong> en lo que realmente importa, <strong>alinear</strong> a todos los equipos hacia los mismos objetivos, y <strong>medir</strong> el progreso de forma transparente.</p><p id="3ea648ad-99fc-809e-a266-d06b4f909b51" class="" dir="auto"><strong>Filosofía del OKR</strong>:</p><ul id="3ea648ad-99fc-80ef-8e8e-e0f87ddcfbc8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque</strong>: Menos es más. Es mejor tener pocos OKRs (3-5 por trimestre) que muchos.</li></ul><ul id="3ea648ad-99fc-809c-abb8-edc5d3842b44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ambición</strong>: Los objetivos deben ser inspiradores y desafiantes (a veces, incluso &quot;imposibles&quot;).</li></ul><ul id="3ea648ad-99fc-80ce-a142-e8edf0b1997c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Transparencia</strong>: Todos los OKRs son públicos dentro de la organización.</li></ul><ul id="3ea648ad-99fc-80b7-8c14-f0515469653f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alineación</strong>: Los OKRs de los equipos deben conectar con los de la empresa.</li></ul><ul id="3ea648ad-99fc-8072-b04c-d7175c75ad9e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Medición</strong>: Los resultados clave son cuantificables y sin ambigüedades.</li></ul><ul id="3ea648ad-99fc-8014-82e2-c855231e0335" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aprendizaje</strong>: Si no se alcanza el 100% del OKR, no es un fracaso; es una oportunidad de aprendizaje.</li></ul><p id="3ea648ad-99fc-8032-93ee-ebd10f2e40ee" class="" dir="auto"><strong>Diferencia con los KPIs</strong>:</p><ul id="3ea648ad-99fc-8026-856c-d8038429dd77" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>KPIs</strong>: Métricas continuas que miden el desempeño (ej: tasa de retención).</li></ul><ul id="3ea648ad-99fc-80d6-993c-e8559d8b4789" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>OKRs</strong>: Objetivos con un plazo definido (ej: lanzar una nueva funcionalidad en Q4).</li></ul><hr id="3ea648ad-99fc-80eb-b3b7-e801fa792098" dir="auto"/><h2 id="3ea648ad-99fc-800e-8bf6-fc83524da696" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-8087-b5d3-e52738c2bc4f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfocar a la organización</strong>: Evitar la dispersión y concentrar esfuerzos en lo crítico.</li></ul><ul id="3ea648ad-99fc-8016-990c-ce706a62d521" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear equipos</strong>: Asegurar que todos trabajen hacia los mismos objetivos.</li></ul><ul id="3ea648ad-99fc-80f5-8839-cb3b454bbeb5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la transparencia</strong>: Todos saben qué se está priorizando.</li></ul><ul id="3ea648ad-99fc-8070-86ac-d7e9d19c7f32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Medir el progreso</strong>: Los resultados clave permiten saber si se avanza o no.</li></ul><ul id="3ea648ad-99fc-800a-85db-ff2e853ae065" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la ambición</strong>: Los OKRs deben ser desafiantes para impulsar la innovación.</li></ul><ul id="3ea648ad-99fc-8044-b448-d06b5965d3ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la agilidad</strong>: Los OKRs se revisan y ajustan periódicamente (generalmente cada trimestre).</li></ul><ul id="3ea648ad-99fc-8085-8bf5-f0b0dbbbb8e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empoderar a los equipos</strong>: Los equipos definen sus propios OKRs, alineados con la estrategia.</li></ul><hr id="3ea648ad-99fc-8086-82bf-c970b7bbad1f" dir="auto"/><h2 id="3ea648ad-99fc-805d-a2dc-efca914c7df4" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? La Estructura de un OKR</strong></h2><p id="3ea648ad-99fc-80e6-94c1-fd266da340f8" class="" dir="auto">Un OKR se compone de dos partes:</p><h3 id="3ea648ad-99fc-80e8-be55-e7dd9fc51548" class="" dir="auto"><strong>🎯 Objetivo (Objective)</strong></h3><ul id="3ea648ad-99fc-801f-8858-e9af40b4504a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Qué?</strong> Es lo que quieres lograr.</li></ul><ul id="3ea648ad-99fc-80f2-83d4-eeb22a12fea0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-80e9-912b-f9e415b45977" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Cualitativo</strong>: Inspirador, motivador, memorable.</li></ul><ul id="3ea648ad-99fc-80b3-abd0-f3ad15e1c3b3" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Ambicioso</strong>: Debe ser un reto, no algo fácil.</li></ul><ul id="3ea648ad-99fc-8040-8e04-cd7ce6222ae9" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Con plazo</strong>: Generalmente un trimestre (3 meses) o un año.</li></ul><ul id="3ea648ad-99fc-80a5-9022-d733fe67e405" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Accionable</strong>: Debe estar bajo tu control.</li></ul></li></ul><ul id="3ea648ad-99fc-809d-bd9e-f508d4cb6f85" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplos</strong>:<ul id="3ea648ad-99fc-80a6-9414-f1b29701413d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">&quot;Convertirnos en la app de referencia para freelancers en Latinoamérica.&quot;</li></ul><ul id="3ea648ad-99fc-809a-baaa-e508f8e68606" class="bulleted-list" dir="auto"><li style="list-style-type:circle">&quot;Revolucionar la experiencia de compra online.&quot;</li></ul><ul id="3ea648ad-99fc-802e-bca9-ddf0ad4edc03" class="bulleted-list" dir="auto"><li style="list-style-type:circle">&quot;Ser la empresa más innovadora del sector fintech.&quot;</li></ul></li></ul><h3 id="3ea648ad-99fc-80c7-a22c-e88f84eb4e81" class="" dir="auto"><strong>📊 Resultados Clave (Key Results)</strong></h3><ul id="3ea648ad-99fc-80b8-8eba-deb0f545e7f1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Cómo?</strong> Son las métricas que indican si el objetivo se está cumpliendo.</li></ul><ul id="3ea648ad-99fc-8013-82ac-ea303a15b592" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-805b-b81c-cd5c2f59bffb" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Cuantitativos</strong>: Medibles con números.</li></ul><ul id="3ea648ad-99fc-80ea-a1b0-ef049e940071" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Específicos</strong>: Sin ambigüedades.</li></ul><ul id="3ea648ad-99fc-8024-bc2f-d79a0068e5e2" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Verificables</strong>: Se puede comprobar si se lograron o no.</li></ul><ul id="3ea648ad-99fc-80ad-8dae-eb2880184e55" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Con plazo</strong>: Deben cumplirse en el mismo período que el objetivo.</li></ul><ul id="3ea648ad-99fc-80c3-9f29-c5426b51ec05" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Limitados</strong>: 3-5 resultados clave por objetivo.</li></ul></li></ul><ul id="3ea648ad-99fc-8024-87be-c74f655d1e8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplos</strong> (para el objetivo &quot;Convertirnos en la app de referencia para freelancers&quot;):<ul id="3ea648ad-99fc-8012-a30e-c175928c797c" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Aumentar los usuarios activos mensuales de 50,000 a 200,000.</li></ul><ul id="3ea648ad-99fc-80d5-a19f-dc40297f0506" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Alcanzar un NPS de 70.</li></ul><ul id="3ea648ad-99fc-80c5-8624-cd69c426562a" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Conseguir 500,000 descargas en el trimestre.</li></ul><ul id="3ea648ad-99fc-807a-ba26-f73d6f704253" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Reducir la tasa de abandono del 15% al 5%.</li></ul></li></ul><hr id="3ea648ad-99fc-8058-ae41-e8c79d0cc272" dir="auto"/><h2 id="3ea648ad-99fc-808c-80a4-c18c68f57376" class="" dir="auto"><strong>📝 Ejemplos de OKR</strong></h2><h3 id="3ea648ad-99fc-8096-bd01-e89e78df5220" class="" dir="auto"><strong>Ejemplo 1: Startup de Delivery (Trimestre Q4)</strong></h3><table id="3ea648ad-99fc-80ba-81c8-f118e25d0570" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-804c-a750-ffadc22a7f40" dir="ltr"><th id="r&gt;;o" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th><th id="=\\=" class="simple-table-header-color simple-table-header" style="width:408px"><strong>Resultados Clave</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80e2-8b56-c4c45b80e681" dir="ltr"><td id="r&gt;;o" class=""><strong>Convertirnos en la app de delivery líder en Lima</strong></td><td id="=\\=" class="" style="width:408px">1. Aumentar los pedidos diarios de 5,000 a 15,000.</td></tr><tr id="3ea648ad-99fc-800e-9e72-fcdd66631863" dir="ltr"><td id="r&gt;;o" class=""></td><td id="=\\=" class="" style="width:408px">2. Alcanzar 100,000 usuarios activos mensuales.</td></tr><tr id="3ea648ad-99fc-801d-9ffb-e6400219bcc3" dir="ltr"><td id="r&gt;;o" class=""></td><td id="=\\=" class="" style="width:408px">3. Reducir el tiempo promedio de entrega de 45 a 30 minutos.</td></tr><tr id="3ea648ad-99fc-802b-b7ec-db85753d1a97" dir="ltr"><td id="r&gt;;o" class=""></td><td id="=\\=" class="" style="width:408px">4. Conseguir un NPS de 65.</td></tr></tbody></table><h3 id="3ea648ad-99fc-806e-96c6-fe2a322708be" class="" dir="auto"><strong>Ejemplo 2: Equipo de Marketing (Trimestre Q1)</strong></h3><table id="3ea648ad-99fc-8085-80e8-c74a9bd5bd08" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8040-a6ca-df3e00121769" dir="ltr"><th id="eT&lt;}" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th><th id="ElLO" class="simple-table-header-color simple-table-header" style="width:406px"><strong>Resultados Clave</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8031-b8c2-fdcbed9599a1" dir="ltr"><td id="eT&lt;}" class=""><strong>Aumentar el conocimiento de marca en el mercado hispanohablante</strong></td><td id="ElLO" class="" style="width:406px">1. Incrementar el tráfico orgánico de 100,000 a 300,000 visitas mensuales.</td></tr><tr id="3ea648ad-99fc-8051-8b4f-e2e9e4be6351" dir="ltr"><td id="eT&lt;}" class=""></td><td id="ElLO" class="" style="width:406px">2. Conseguir 10,000 seguidores nuevos en LinkedIn.</td></tr><tr id="3ea648ad-99fc-8046-9a0c-cbd894d2b4bf" dir="ltr"><td id="eT&lt;}" class=""></td><td id="ElLO" class="" style="width:406px">3. Generar 500 leads calificados.</td></tr><tr id="3ea648ad-99fc-8020-b0d6-cf06ab64034f" dir="ltr"><td id="eT&lt;}" class=""></td><td id="ElLO" class="" style="width:406px">4. Aumentar la tasa de conversión de la landing page del 2% al 5%.</td></tr></tbody></table><h3 id="3ea648ad-99fc-8050-89d9-e4636b486435" class="" dir="auto"><strong>Ejemplo 3: Equipo de Producto (Trimestre Q2)</strong></h3><table id="3ea648ad-99fc-8057-974c-e6a5a1849bd7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-801a-a858-d641f1fb545b" dir="ltr"><th id="IV`:" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th><th id="yfu&lt;" class="simple-table-header-color simple-table-header" style="width:390px"><strong>Resultados Clave</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8040-ad17-f205ea67fb42" dir="ltr"><td id="IV`:" class=""><strong>Mejorar la experiencia de onboarding de nuevos usuarios</strong></td><td id="yfu&lt;" class="" style="width:390px">1. Reducir el tiempo de registro de 5 minutos a 1 minuto.</td></tr><tr id="3ea648ad-99fc-801d-bdd2-ee3f42bc8d9e" dir="ltr"><td id="IV`:" class=""></td><td id="yfu&lt;" class="" style="width:390px">2. Aumentar la tasa de activación del 40% al 70%.</td></tr><tr id="3ea648ad-99fc-8071-b0eb-fed73ec2fa37" dir="ltr"><td id="IV`:" class=""></td><td id="yfu&lt;" class="" style="width:390px">3. Reducir los tickets de soporte relacionados con el onboarding en un 50%.</td></tr><tr id="3ea648ad-99fc-8068-8672-d9b4b2aec7fe" dir="ltr"><td id="IV`:" class=""></td><td id="yfu&lt;" class="" style="width:390px">4. Alcanzar un CSAT de 4.5/5 en el proceso de onboarding.</td></tr></tbody></table><h3 id="3ea648ad-99fc-8059-b32b-c3a20d19c02f" class="" dir="auto"><strong>Ejemplo 4: OKR Personal (Desarrollo Profesional)</strong></h3><table id="3ea648ad-99fc-800c-ae51-d571f614dd7a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8092-b704-ceca7ddbb416" dir="ltr"><th id="x^{G" class="simple-table-header-color simple-table-header"><strong>Objetivo</strong></th><th id="{Ikm" class="simple-table-header-color simple-table-header" style="width:425px"><strong>Resultados Clave</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80a5-b2f0-c59c71ff8b06" dir="ltr"><td id="x^{G" class=""><strong>Convertirme en un experto en análisis de datos</strong></td><td id="{Ikm" class="" style="width:425px">1. Completar 3 cursos de especialización en Data Science.</td></tr><tr id="3ea648ad-99fc-804e-8fa7-dd7746719abd" dir="ltr"><td id="x^{G" class=""></td><td id="{Ikm" class="" style="width:425px">2. Realizar 5 proyectos prácticos con Python y SQL.</td></tr><tr id="3ea648ad-99fc-80a9-8918-f9e4ddfe099d" dir="ltr"><td id="x^{G" class=""></td><td id="{Ikm" class="" style="width:425px">3. Obtener una certificación en Power BI.</td></tr><tr id="3ea648ad-99fc-8039-aac4-f44a4e51b3e4" dir="ltr"><td id="x^{G" class=""></td><td id="{Ikm" class="" style="width:425px">4. Publicar 2 artículos técnicos en LinkedIn.</td></tr></tbody></table><hr id="3ea648ad-99fc-8057-bae5-e52bbff65b6a" dir="auto"/><h2 id="3ea648ad-99fc-8057-9ba1-df8989350ab9" class="" dir="auto"><strong>📊 Comparativa: OKR vs. KPI</strong></h2><table id="3ea648ad-99fc-8016-84cb-d350611b8358" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80d6-8907-e60d5c856ac8" dir="ltr"><th id="RJCJ" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="qOo@" class="simple-table-header-color simple-table-header"><strong>OKR</strong></th><th id="A{Gc" class="simple-table-header-color simple-table-header" style="width:340px"><strong>KPI</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80a0-a294-dfba0a56652d" dir="ltr"><td id="RJCJ" class=""><strong>Propósito</strong></td><td id="qOo@" class="">Definir objetivos ambiciosos y medir su progreso.</td><td id="A{Gc" class="" style="width:340px">Medir el desempeño continuo.</td></tr><tr id="3ea648ad-99fc-807f-9380-c4dbc003bdbb" dir="ltr"><td id="RJCJ" class=""><strong>Plazo</strong></td><td id="qOo@" class="">Trimestral o anual.</td><td id="A{Gc" class="" style="width:340px">Continuo (semanal, mensual).</td></tr><tr id="3ea648ad-99fc-80a2-841e-ed99f05854ec" dir="ltr"><td id="RJCJ" class=""><strong>Enfoque</strong></td><td id="qOo@" class="">Cambio, innovación, crecimiento.</td><td id="A{Gc" class="" style="width:340px">Operación, eficiencia, estabilidad.</td></tr><tr id="3ea648ad-99fc-80ca-aa32-f35097f6ecd3" dir="ltr"><td id="RJCJ" class=""><strong>Cantidad</strong></td><td id="qOo@" class="">Pocos (3-5 por trimestre).</td><td id="A{Gc" class="" style="width:340px">Muchos (depende del área).</td></tr><tr id="3ea648ad-99fc-8024-8a76-f733577e1a63" dir="ltr"><td id="RJCJ" class=""><strong>Ejemplo</strong></td><td id="qOo@" class="">&quot;Lanzar una nueva funcionalidad en Q4.&quot;</td><td id="A{Gc" class="" style="width:340px">&quot;Tasa de retención mensual.&quot;</td></tr><tr id="3ea648ad-99fc-809a-855c-d3f50f260592" dir="ltr"><td id="RJCJ" class=""><strong>Relación</strong></td><td id="qOo@" class="">Los KPIs pueden ser resultados clave de un OKR.</td><td id="A{Gc" class="" style="width:340px">Los KPIs son métricas de desempeño.</td></tr></tbody></table><hr id="3ea648ad-99fc-8093-af9f-ebf402a40f8c" dir="auto"/><h2 id="3ea648ad-99fc-802a-b6a1-dbab84c594f5" class="" dir="auto"><strong>⚠️ Errores Comunes al Implementar OKRs</strong></h2><table id="3ea648ad-99fc-8019-91b4-f37af8035a80" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8004-be08-d5fc14f88b62" dir="ltr"><th id="Y=?i" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="^FLn" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="qq?K" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8081-89cd-f8e308cd2716" dir="ltr"><td id="Y=?i" class=""><strong>Demasiados OKRs</strong></td><td id="^FLn" class="">Definir 10 o más OKRs por trimestre.</td><td id="qq?K" class="">Dispersión, falta de foco.</td></tr><tr id="3ea648ad-99fc-8019-963a-cccdf03cc273" dir="ltr"><td id="Y=?i" class=""><strong>Objetivos poco ambiciosos</strong></td><td id="^FLn" class="">Poner objetivos fáciles de alcanzar.</td><td id="qq?K" class="">No se impulsa la innovación.</td></tr><tr id="3ea648ad-99fc-8089-9007-ea7af03414f3" dir="ltr"><td id="Y=?i" class=""><strong>Resultados clave no medibles</strong></td><td id="^FLn" class="">Usar métricas vagas (ej: &quot;mejorar la marca&quot;).</td><td id="qq?K" class="">No se puede saber si se cumplió.</td></tr><tr id="3ea648ad-99fc-80c7-a762-de1aff5e9916" dir="ltr"><td id="Y=?i" class=""><strong>No alinear con la estrategia</strong></td><td id="^FLn" class="">OKRs de equipos desconectados de los de la empresa.</td><td id="qq?K" class="">Esfuerzos desalineados.</td></tr><tr id="3ea648ad-99fc-8046-93b9-c420e8f0ae94" dir="ltr"><td id="Y=?i" class=""><strong>Usar OKRs como evaluación de desempeño</strong></td><td id="^FLn" class="">Vincular OKRs a bonos o evaluaciones.</td><td id="qq?K" class="">Miedo al fracaso, objetivos poco ambiciosos.</td></tr><tr id="3ea648ad-99fc-80aa-b5dc-fd9dd9345841" dir="ltr"><td id="Y=?i" class=""><strong>No revisar periódicamente</strong></td><td id="^FLn" class="">Definir OKRs y olvidarlos.</td><td id="qq?K" class="">Pérdida de foco, no se ajusta el rumbo.</td></tr><tr id="3ea648ad-99fc-801e-9a1b-f7c8f759bb51" dir="ltr"><td id="Y=?i" class=""><strong>No aprender del fracaso</strong></td><td id="^FLn" class="">Castigar el no cumplimiento al 100%.</td><td id="qq?K" class="">Desmotivación, ocultación de problemas.</td></tr></tbody></table><hr id="3ea648ad-99fc-8048-aede-d802b566e5ad" dir="auto"/><h2 id="3ea648ad-99fc-8095-89a7-e6ef9cdf86cb" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-808b-87b0-f8a167d40254" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8008-8807-e9f1b7e3a3ba" dir="ltr"><th id="vh}`" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="Kvpw" class="simple-table-header-color simple-table-header" style="width:360px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80da-98b3-d97e1cd93f9f" dir="ltr"><td id="vh}`" class=""><strong>Startup en crecimiento</strong></td><td id="Kvpw" class="" style="width:360px">Alinear a todos los equipos hacia los objetivos del trimestre.</td></tr><tr id="3ea648ad-99fc-8010-8883-e16f9af2551c" dir="ltr"><td id="vh}`" class=""><strong>Empresa en transformación digital</strong></td><td id="Kvpw" class="" style="width:360px">Enfocar los esfuerzos en la digitalización.</td></tr><tr id="3ea648ad-99fc-809a-beb8-d56e127e710f" dir="ltr"><td id="vh}`" class=""><strong>Equipo de producto</strong></td><td id="Kvpw" class="" style="width:360px">Definir objetivos claros para el lanzamiento de nuevas funcionalidades.</td></tr><tr id="3ea648ad-99fc-80ad-83c6-c6d50f9eb69a" dir="ltr"><td id="vh}`" class=""><strong>Desarrollo personal</strong></td><td id="Kvpw" class="" style="width:360px">Establecer metas de aprendizaje y crecimiento profesional.</td></tr><tr id="3ea648ad-99fc-8027-aef7-fb5f074a31e5" dir="ltr"><td id="vh}`" class=""><strong>Organización sin fines de lucro</strong></td><td id="Kvpw" class="" style="width:360px">Medir el impacto social de los proyectos.</td></tr></tbody></table><hr id="3ea648ad-99fc-80be-ada8-d67e06726a22" dir="auto"/><h2 id="3ea648ad-99fc-80fe-8d29-f2cfc13c02f7" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-8001-92e0-dc9e7cd555a1" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80d2-b276-faf5d7948339" dir="ltr"><th id="vjYS" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="Rv}e" class="simple-table-header-color simple-table-header" style="width:452px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8007-b478-dbbbc7df476d" dir="ltr"><td id="vjYS" class=""><strong>KPIs</strong></td><td id="Rv}e" class="" style="width:452px">Los KPIs pueden ser resultados clave dentro de un OKR.</td></tr><tr id="3ea648ad-99fc-80fa-93b9-d222ca5d7f3c" dir="ltr"><td id="vjYS" class=""><strong>SMART</strong></td><td id="Rv}e" class="" style="width:452px">Los resultados clave deben ser SMART (Específicos, Medibles, Alcanzables, Relevantes, Temporales).</td></tr><tr id="3ea648ad-99fc-8010-8885-e5a140f9b803" dir="ltr"><td id="vjYS" class=""><strong>Balanced Scorecard</strong></td><td id="Rv}e" class="" style="width:452px">Marco más amplio que integra KPIs y OKRs.</td></tr><tr id="3ea648ad-99fc-8033-8645-cc5beff6baef" dir="ltr"><td id="vjYS" class=""><strong>Lean Startup</strong></td><td id="Rv}e" class="" style="width:452px">Los OKRs ayudan a medir el progreso de las hipótesis.</td></tr><tr id="3ea648ad-99fc-8029-a89f-cd7c9d284d61" dir="ltr"><td id="vjYS" class=""><strong>Business Model Canvas</strong></td><td id="Rv}e" class="" style="width:452px">Los OKRs se derivan del modelo de negocio.</td></tr><tr id="3ea648ad-99fc-806c-90c2-d4211cbc831f" dir="ltr"><td id="vjYS" class=""><strong>FODA</strong></td><td id="Rv}e" class="" style="width:452px">Los OKRs se definen a partir del análisis FODA.</td></tr><tr id="3ea648ad-99fc-8086-8655-e5bf71c2c857" dir="ltr"><td id="vjYS" class=""><strong>Cultura Organizacional</strong></td><td id="Rv}e" class="" style="width:452px">Los OKRs requieren una cultura de transparencia y ambición.</td></tr></tbody></table><hr id="3ea648ad-99fc-807b-affc-caec4de4ef57" dir="auto"/><h2 id="3ea648ad-99fc-80d0-abd5-fd0b4dadc987" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-80bd-89bf-db9c1a5163d9" class="" dir="auto">Los OKRs son como <strong>el sistema de navegación de un barco</strong>:</p><ul id="3ea648ad-99fc-80c3-a2f5-c5712dddf99d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>Objetivo</strong> es el destino (ej: &quot;llegar a la isla del tesoro&quot;).</li></ul><ul id="3ea648ad-99fc-802c-81d2-e5dd8bf931e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los <strong>Resultados Clave</strong> son las coordenadas y las millas náuticas que debes recorrer para saber si estás en el camino correcto (ej: &quot;navegar 100 millas al norte&quot;, &quot;encontrar 3 puntos de referencia&quot;).</li></ul><ul id="3ea648ad-99fc-80da-b94c-e6be2d0feefa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>timón</strong> es la ejecución diaria.</li></ul><ul id="3ea648ad-99fc-8034-96c8-f6aa6a8c9ae1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La <strong>brújula</strong> es la revisión periódica para ajustar el rumbo.</li></ul><p id="3ea648ad-99fc-8076-bb59-f1394d27153e" class="" dir="auto">Sin un destino claro (Objetivo) y sin coordenadas (Resultados Clave), el barco navega sin rumbo. Los OKRs te ayudan a mantener el rumbo y a saber si estás más cerca o más lejos de tu meta.</p><hr id="3ea648ad-99fc-8060-a908-f99567b777af" dir="auto"/><h2 id="3ea648ad-99fc-80aa-88bc-e58d81e4f746" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-8056-b8f7-d0b75d794ff2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Doerr, J. (2018). <em>Measure What Matters</em>. Portfolio.</li></ul><ul id="3ea648ad-99fc-8040-960f-ffb66747d929" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Grove, A. (1983). <em>High Output Management</em>. Random House.</li></ul><ul id="3ea648ad-99fc-8007-88e3-cde42bc1e33c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Google, (2024). <em>Google&#x27;s OKR Playbook</em>.</li></ul><ul id="3ea648ad-99fc-8055-a918-f8b648d30a2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The OKR Framework</em>.</li></ul><ul id="3ea648ad-99fc-8062-8153-ec7e1b1174fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">What Matters, (2024). <em>OKR Resources</em>.</li></ul><hr id="3ea648ad-99fc-807e-9282-c810976bd0d6" dir="auto"/><h2 id="3ea648ad-99fc-804a-8791-e402d8b90806" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-80af-bd32-dc5ba0e37f91" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Los OKRs no son una bala de plata</strong>: No resuelven todos los problemas de una organización, pero ayudan a enfocar y alinear.</li></ul><ul id="3ea648ad-99fc-8043-8359-f6465162ae1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La cultura es clave</strong>: Los OKRs requieren una cultura de transparencia, ambición y aprendizaje. Si la cultura es de miedo al fracaso, los OKRs no funcionarán.</li></ul><ul id="3ea648ad-99fc-80f7-bab0-e7241d6e2ff2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No vincules OKRs a bonos</strong>: Si lo haces, los empleados pondrán objetivos fáciles para asegurar el bono. Los OKRs deben ser ambiciosos.</li></ul><ul id="3ea648ad-99fc-80f6-bee1-e1e51d8b6722" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para implementar OKRs</strong>:<ol type="1" id="3ea648ad-99fc-80f5-80ac-db55f0088d12" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con pocos</strong>: 1-3 OKRs por equipo, 3-5 resultados clave por objetivo.</li></ol><ol type="1" id="3ea648ad-99fc-807c-af20-da54ba3b900b" class="numbered-list" start="2" dir="auto"><li><strong>Alinea de arriba hacia abajo y de abajo hacia arriba</strong>: Los OKRs de la empresa guían a los equipos, pero los equipos también proponen.</li></ol><ol type="1" id="3ea648ad-99fc-8057-aeb2-e21e03066773" class="numbered-list" start="3" dir="auto"><li><strong>Hazlos públicos</strong>: La transparencia fomenta la colaboración y la alineación.</li></ol><ol type="1" id="3ea648ad-99fc-802f-81f7-ebe55f7cbf91" class="numbered-list" start="4" dir="auto"><li><strong>Revisa semanalmente o quincenalmente</strong>: No esperes al final del trimestre para ver el progreso.</li></ol><ol type="1" id="3ea648ad-99fc-80ff-aefc-d681bb84bc88" class="numbered-list" start="5" dir="auto"><li><strong>Celebra el aprendizaje</strong>: Si no se alcanza el 100%, analiza por qué y aprende.</li></ol><ol type="1" id="3ea648ad-99fc-801c-bf9a-e9db39f6dfbf" class="numbered-list" start="6" dir="auto"><li><strong>No los conviertas en una tarea burocrática</strong>: Los OKRs deben ser ágiles y flexibles.</li></ol><ol type="1" id="3ea648ad-99fc-8082-9d6a-d43a605763ef" class="numbered-list" start="7" dir="auto"><li><strong>Sé paciente</strong>: La implementación de OKRs lleva tiempo; no esperes resultados perfectos el primer trimestre.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

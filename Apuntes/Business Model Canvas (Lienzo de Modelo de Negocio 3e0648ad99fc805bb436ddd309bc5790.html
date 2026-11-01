@@ -1,0 +1,825 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Business Model Canvas (Lienzo de Modelo de Negocio)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3e0648ad-99fc-805b-b436-ddd309bc5790" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Business Model Canvas (Lienzo de Modelo de Negocio)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3e0648ad-99fc-80cf-9efb-f96f2570705b" class="" dir="auto">
+</p><h1 id="3e0648ad-99fc-80ae-bdcf-e1763130235e" class="" dir="auto"><strong>📄 Business Model Canvas (Lienzo de Modelo de Negocio)</strong></h1><hr id="3e0648ad-99fc-8037-85d5-e70350581b98" dir="auto"/><h2 id="3e0648ad-99fc-80c9-85e9-fcc03415d0c2" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3e0648ad-99fc-80d9-b630-d5143aa195f3" class="" dir="auto">El <strong>Business Model Canvas (BMC)</strong> es una <strong>herramienta de gestión estratégica</strong> creada por <strong>Alexander Osterwalder</strong> e <strong>Yves Pigneur</strong> en su libro <em>&quot;Business Model Generation&quot;</em> (2010). </p><p id="3e0648ad-99fc-8089-a427-faed9f1d891e" class="" dir="auto">Permite <strong>describir, visualizar, evaluar y modificar</strong> el modelo de negocio de una empresa en una sola página, a través de <strong>9 bloques interconectados</strong> que cubren las áreas clave de cualquier negocio: clientes, oferta, infraestructura y viabilidad financiera.</p><hr id="3e0648ad-99fc-803a-8c72-cab828a0ae5a" dir="auto"/><h2 id="3e0648ad-99fc-80b1-b4f1-cbeedbd394d0" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3e0648ad-99fc-8083-b693-c389eac372e1" class="" dir="auto">El BMC es una <strong>representación visual</strong> de cómo una empresa <strong>crea, entrega y captura valor</strong>.</p><p id="3e0648ad-99fc-803d-b69a-cb99aaecb328" class="" dir="auto"> Reemplaza al tradicional plan de negocio (que suele ser un documento extenso y rígido) por un <strong>lienzo de una sola página</strong> que se puede modificar rápidamente, fomentando la <strong>experimentación</strong> y la <strong>agilidad</strong>.</p><p id="3e0648ad-99fc-808e-a978-d8c97b75c21f" class="" dir="auto">Es especialmente útil para <strong>startups</strong>, <strong>emprendedores</strong> y <strong>equipos de innovación</strong>, ya que permite <strong>probar hipótesis</strong> y <strong>iterar</strong> el modelo de negocio de forma rápida y colaborativa. </p><p id="3e0648ad-99fc-80fb-83c4-d1d8c948b3e6" class="" dir="auto">También es utilizado por grandes empresas para <strong>analizar</strong> y <strong>reinventar</strong> sus modelos de negocio existentes.</p><p id="3e0648ad-99fc-800e-8d0c-c5992c906a6e" class="" dir="auto"><strong>Filosofía del BMC</strong>:</p><ul id="3e0648ad-99fc-8083-95b8-fe155e183821" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Simplicidad</strong>: Todo el modelo de negocio en una página.</li></ul><ul id="3e0648ad-99fc-807d-93ee-dedeab828592" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Visual</strong>: Fomenta la comprensión rápida y la colaboración.</li></ul><ul id="3e0648ad-99fc-8070-a288-dbfa821b7964" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Iterativo</strong>: Se puede modificar y adaptar fácilmente.</li></ul><ul id="3e0648ad-99fc-808e-bdb7-fc4c0433181b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Centrado en el cliente</strong>: Pone al cliente en el centro del modelo.</li></ul><hr id="3e0648ad-99fc-80a9-a6e8-de183e0bc69e" dir="auto"/><h2 id="3e0648ad-99fc-80a1-bf99-f166321ce255" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3e0648ad-99fc-8040-b3b6-f72e58c724ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Visualizar el modelo de negocio</strong>: Tener una visión completa y clara de cómo funciona la empresa.</li></ul><ul id="3e0648ad-99fc-8010-a524-e98c75dc70c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Validar hipótesis</strong>: Probar supuestos sobre clientes, propuesta de valor y fuentes de ingresos.</li></ul><ul id="3e0648ad-99fc-80ad-8be7-f8c429e4a71a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la innovación</strong>: Explorar nuevos modelos de negocio de forma rápida.</li></ul><ul id="3e0648ad-99fc-8085-ab83-fec2f80d9e1d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear al equipo</strong>: Todos los miembros comparten la misma visión del negocio.</li></ul><ul id="3e0648ad-99fc-80f4-954a-c5db4dbd7ab5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunicar a inversores</strong>: Explicar el modelo de negocio de forma clara y concisa.</li></ul><ul id="3e0648ad-99fc-80b0-bf03-dbbb93510406" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comparar modelos</strong>: Analizar el modelo propio frente al de la competencia.</li></ul><ul id="3e0648ad-99fc-80a1-9dec-f45982808577" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Iterar y pivotar</strong>: Modificar el modelo según el feedback del mercado.</li></ul><hr id="3e0648ad-99fc-80d3-a813-c3ed24211695" dir="auto"/><h2 id="3e0648ad-99fc-80f3-b49f-ea0ce66348f3" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los 9 Bloques del Business Model Canvas</strong></h2><p id="3e0648ad-99fc-8012-a63e-e248782fd2c3" class="" dir="auto">El BMC se divide en 9 bloques que cubren las 4 áreas principales de un negocio:</p><table id="3e0648ad-99fc-800f-a147-fd73890a1059" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e0648ad-99fc-8031-bb59-dbfe465dc0c4" dir="ltr"><th id="]I;O" class="simple-table-header-color simple-table-header"><strong>Área</strong></th><th id="EgzA" class="simple-table-header-color simple-table-header"><strong>Bloques</strong></th><th id="R]~p" class="simple-table-header-color simple-table-header"><strong>Pregunta Clave</strong></th></tr></thead><tbody><tr id="3e0648ad-99fc-80be-ae33-c88afc065c37" dir="ltr"><td id="]I;O" class=""><strong>Clientes</strong></td><td id="EgzA" class="">Segmentos de Clientes, Relaciones con Clientes, Canales</td><td id="R]~p" class="">¿Para quién creamos valor?</td></tr><tr id="3e0648ad-99fc-8032-8a90-e9682e973080" dir="ltr"><td id="]I;O" class=""><strong>Oferta</strong></td><td id="EgzA" class="">Propuesta de Valor</td><td id="R]~p" class="">¿Qué valor entregamos?</td></tr><tr id="3e0648ad-99fc-8095-b113-d4391396cd9e" dir="ltr"><td id="]I;O" class=""><strong>Infraestructura</strong></td><td id="EgzA" class="">Recursos Clave, Actividades Clave, Alianzas Clave</td><td id="R]~p" class="">¿Cómo lo hacemos?</td></tr><tr id="3e0648ad-99fc-80f8-942a-e1d153b28de7" dir="ltr"><td id="]I;O" class=""><strong>Viabilidad Financiera</strong></td><td id="EgzA" class="">Fuentes de Ingreso, Estructura de Costos</td><td id="R]~p" class="">¿Cómo generamos ingresos y gestionamos costos?</td></tr></tbody></table><hr id="3e0648ad-99fc-8078-9318-d5539704dab5" dir="auto"/><h3 id="3e0648ad-99fc-8093-993a-fe03d11d9796" class="" dir="auto"><strong>1️⃣ Segmentos de Clientes (Customer Segments)</strong></h3><p id="3e0648ad-99fc-805d-a64c-f8d3bbe07f6b" class="" dir="auto"><strong>Definición</strong>: Los <strong>grupos de personas u organizaciones</strong> a los que la empresa dirige su propuesta de valor.</p><p id="3e0648ad-99fc-80e5-a7f8-f0b0eb3efa2c" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8073-aa8a-d85d8bb0cce6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Para quién creamos valor?</li></ul><ul id="3e0648ad-99fc-8015-ad9f-edc772cfca5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Quiénes son nuestros clientes más importantes?</li></ul><ul id="3e0648ad-99fc-800c-9fbe-e983408c5663" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Son consumidores (B2C) o empresas (B2B)?</li></ul><p id="3e0648ad-99fc-80a5-b375-e7d1f37399ff" class="" dir="auto"><strong>Tipos de segmentos</strong>:</p><ul id="3e0648ad-99fc-804f-a49f-f955a4b83064" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mercado masivo</strong>: Un solo segmento amplio (ej: Coca-Cola).</li></ul><ul id="3e0648ad-99fc-80a6-9cfb-fcc8e964d517" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nicho</strong>: Un segmento específico y especializado (ej: Rolex).</li></ul><ul id="3e0648ad-99fc-80ac-959d-f1812022eb6f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Segmentado</strong>: Varios segmentos con necesidades ligeramente diferentes (ej: bancos).</li></ul><ul id="3e0648ad-99fc-8089-aa36-fb58bad6a027" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diversificado</strong>: Segmentos no relacionados (ej: Amazon: retail + cloud).</li></ul><ul id="3e0648ad-99fc-80da-b1af-c31506d2f430" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Plataforma multilateral</strong>: Dos o más segmentos interdependientes (ej: Uber: conductores + pasajeros).</li></ul><hr id="3e0648ad-99fc-8097-8f79-e872995b39de" dir="auto"/><h3 id="3e0648ad-99fc-80ab-8e31-f41dc027bb4b" class="" dir="auto"><strong>2️⃣ Propuesta de Valor (Value Proposition)</strong></h3><p id="3e0648ad-99fc-809f-888d-c7e7d183ae04" class="" dir="auto"><strong>Definición</strong>: El <strong>conjunto de productos y servicios</strong> que crean valor para un segmento de clientes específico. </p><p id="3e0648ad-99fc-8049-a9b2-ff2275edab96" class="" dir="auto">Es la razón por la que los clientes eligen una empresa sobre otra.</p><p id="3e0648ad-99fc-80b9-bf1c-ebcd3c9d9384" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8006-8294-f4d266d39185" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué problema resolvemos?</li></ul><ul id="3e0648ad-99fc-8086-8e29-e9070f90f34e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué necesidad satisfacemos?</li></ul><ul id="3e0648ad-99fc-801f-89bf-c182b1af91d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Por qué los clientes nos elegirían a nosotros?</li></ul><p id="3e0648ad-99fc-80fd-a88a-ecee05998f24" class="" dir="auto"><strong>Elementos de valor</strong>:</p><ul id="3e0648ad-99fc-8026-99e5-d0e711264473" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Novedad</strong>: Algo que no existía (ej: iPhone).</li></ul><ul id="3e0648ad-99fc-8076-bd86-f08b0c3db281" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rendimiento</strong>: Mejor rendimiento (ej: procesadores más rápidos).</li></ul><ul id="3e0648ad-99fc-80d3-9ec7-cd19275685ff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Personalización</strong>: Adaptado a cada cliente (ej: Netflix).</li></ul><ul id="3e0648ad-99fc-8047-9174-f6d5dfb55b20" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diseño</strong>: Estética y usabilidad (ej: Apple).</li></ul><ul id="3e0648ad-99fc-80c3-9569-ef8ac5a89ac5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Marca/Estatus</strong>: Valor simbólico (ej: Rolex).</li></ul><ul id="3e0648ad-99fc-8054-b61f-d6ce7bdfedbb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Precio</strong>: Más barato (ej: Ryanair).</li></ul><ul id="3e0648ad-99fc-8011-802e-e26d0ae4cedd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong>: Llegar a quien no tenía acceso (ej: Nubank).</li></ul><ul id="3e0648ad-99fc-80a5-816f-f19d74d09bb9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conveniencia</strong>: Más fácil de usar (ej: Uber).</li></ul><hr id="3e0648ad-99fc-80fe-841f-da3ab26f8b9b" dir="auto"/><h3 id="3e0648ad-99fc-805f-931b-dae2ea7204d9" class="" dir="auto"><strong>3️⃣ Canales (Channels)</strong></h3><p id="3e0648ad-99fc-80cc-a34b-c65e44b456d0" class="" dir="auto"><strong>Definición</strong>: Cómo la empresa <strong>se comunica y llega a sus clientes</strong> para entregar la propuesta de valor.</p><p id="3e0648ad-99fc-807c-84d7-f7c53a67659a" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8071-a8fb-e61821123d0a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿A través de qué canales queremos llegar a nuestros clientes?</li></ul><ul id="3e0648ad-99fc-804e-a799-d9a879a415e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cómo los contactamos?</li></ul><ul id="3e0648ad-99fc-806a-947a-c71b6cbc6725" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cómo entregamos el producto o servicio?</li></ul><p id="3e0648ad-99fc-8030-8d6c-c59553247370" class="" dir="auto"><strong>Fases de los canales</strong>:</p><ol type="1" id="3e0648ad-99fc-801e-a077-f811b4ee0adf" class="numbered-list" start="1" dir="auto"><li><strong>Conocimiento</strong>: Cómo damos a conocer nuestro producto.</li></ol><ol type="1" id="3e0648ad-99fc-8038-81bd-c6906bf5f9e9" class="numbered-list" start="2" dir="auto"><li><strong>Evaluación</strong>: Cómo ayudamos a los clientes a evaluar nuestra propuesta.</li></ol><ol type="1" id="3e0648ad-99fc-80fc-9892-ff2481202843" class="numbered-list" start="3" dir="auto"><li><strong>Compra</strong>: Cómo permitimos la compra.</li></ol><ol type="1" id="3e0648ad-99fc-8037-a355-cc9b27daab5e" class="numbered-list" start="4" dir="auto"><li><strong>Entrega</strong>: Cómo entregamos el producto o servicio.</li></ol><ol type="1" id="3e0648ad-99fc-80bc-9e3a-cee2c1f626cb" class="numbered-list" start="5" dir="auto"><li><strong>Post-venta</strong>: Cómo brindamos soporte.</li></ol><p id="3e0648ad-99fc-802e-96f5-e638d4c656f0" class="" dir="auto"><strong>Tipos de canales</strong>:</p><ul id="3e0648ad-99fc-80b5-9019-e8d2cae64859" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Directos</strong>: Web, app, tienda propia, equipo de ventas.</li></ul><ul id="3e0648ad-99fc-80ae-920e-cab3189347f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Indirectos</strong>: Distribuidores, mayoristas, socios, marketplaces.</li></ul><hr id="3e0648ad-99fc-80b8-84b8-fb905ec5c880" dir="auto"/><h3 id="3e0648ad-99fc-8005-a8a8-cac0bbcc0618" class="" dir="auto"><strong>4️⃣ Relaciones con Clientes (Customer Relationships)</strong></h3><p id="3e0648ad-99fc-80cd-9813-d3f683056880" class="" dir="auto"><strong>Definición</strong>: El <strong>tipo de relación</strong> que la empresa establece con cada segmento de clientes.</p><p id="3e0648ad-99fc-809e-9fc2-e2d1d71edf6d" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-80c9-901a-e55dee1961e9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué tipo de relación espera nuestro cliente?</li></ul><ul id="3e0648ad-99fc-80c3-9386-e8ed07c570aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cómo la mantenemos?</li></ul><ul id="3e0648ad-99fc-8080-b8be-d218a0727a51" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué costo tiene?</li></ul><p id="3e0648ad-99fc-80a1-bb73-ff9f44573074" class="" dir="auto"><strong>Tipos de relaciones</strong>:</p><ul id="3e0648ad-99fc-800a-83f2-ca4570406d46" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asistencia personal</strong>: Atención humana dedicada.</li></ul><ul id="3e0648ad-99fc-80de-82f7-e934c9cec3c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asistencia personal dedicada</strong>: Un asesor exclusivo por cliente.</li></ul><ul id="3e0648ad-99fc-8001-895b-e86f7e8d572a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Autoservicio</strong>: El cliente se sirve a sí mismo (ej: FAQs, tutoriales).</li></ul><ul id="3e0648ad-99fc-80aa-a370-f897ff923e48" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Servicios automatizados</strong>: Chatbots, recomendaciones automáticas.</li></ul><ul id="3e0648ad-99fc-8009-8d13-cc98be29dced" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunidades</strong>: Foros, redes sociales donde los clientes se ayudan.</li></ul><ul id="3e0648ad-99fc-80ca-bb14-e4fca37d7bed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Co-creación</strong>: Los clientes participan en la creación de valor (ej: Wikipedia, YouTube).</li></ul><p id="3e0648ad-99fc-80f3-bd93-e7e2650b7d16" class="" dir="auto"><strong>Objetivos</strong>:</p><ul id="3e0648ad-99fc-807d-a767-cc6bd4f30ec1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adquisición</strong>: Atraer nuevos clientes.</li></ul><ul id="3e0648ad-99fc-80c2-980f-d0451f61bf7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Retención</strong>: Mantener a los clientes existentes.</li></ul><ul id="3e0648ad-99fc-80b7-98a9-c2cbba3ec4f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Venta cruzada (cross-selling)</strong> : Vender productos complementarios.</li></ul><ul id="3e0648ad-99fc-807c-b7c8-d14182413446" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Venta ascendente (up-selling)</strong> : Vender productos más caros.</li></ul><hr id="3e0648ad-99fc-80c4-9291-ed6a1de4de28" dir="auto"/><h3 id="3e0648ad-99fc-8042-bfe1-e76b75bbdb86" class="" dir="auto"><strong>5️⃣ Fuentes de Ingreso (Revenue Streams)</strong></h3><p id="3e0648ad-99fc-801b-8f80-e3cb157725d4" class="" dir="auto"><strong>Definición</strong>: Cómo la empresa <strong>genera ingresos</strong> a partir de cada segmento de clientes.</p><p id="3e0648ad-99fc-8090-a4c1-ee1e0128c267" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8082-99cc-c1dd67074ea2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Por qué valor están dispuestos a pagar nuestros clientes?</li></ul><ul id="3e0648ad-99fc-806c-a7a8-d833a9c60a57" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cómo pagan?</li></ul><ul id="3e0648ad-99fc-80a6-a0d4-c06cbc881025" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cómo preferirían pagar?</li></ul><p id="3e0648ad-99fc-80ac-b963-c08110e8d5f5" class="" dir="auto"><strong>Tipos de fuentes de ingreso</strong>:</p><ul id="3e0648ad-99fc-8046-b602-fa0a59738dd7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Venta de activos</strong>: Venta de productos físicos (ej: Apple vende iPhone).</li></ul><ul id="3e0648ad-99fc-80d3-a6a5-edd63e5b8a40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuota por uso</strong>: Pago por uso (ej: AWS, Uber).</li></ul><ul id="3e0648ad-99fc-8033-ab0f-d73d36cb222c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuota de suscripción</strong>: Pago recurrente (ej: Netflix, Spotify).</li></ul><ul id="3e0648ad-99fc-806d-ad69-cf0ab5122c4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Préstamo/Alquiler/Leasing</strong>: Pago por uso temporal (ej: Airbnb).</li></ul><ul id="3e0648ad-99fc-80de-91c6-fda9b90d4201" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Licencias</strong>: Pago por uso de propiedad intelectual (ej: Microsoft).</li></ul><ul id="3e0648ad-99fc-8041-89f1-d81730b3ba93" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comisiones</strong>: Pago por intermediación (ej: Mercado Libre).</li></ul><ul id="3e0648ad-99fc-80ee-9dad-eec9ab4f78ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Publicidad</strong>: Pago por mostrar anuncios (ej: Google, Meta).</li></ul><p id="3e0648ad-99fc-8098-9657-cde54bd21f29" class="" dir="auto"><strong>Mecanismos de precio</strong>:</p><ul id="3e0648ad-99fc-80b4-a64f-d43a150264a1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Precio fijo</strong>: Lista de precios, precios por producto, por segmento, por volumen.</li></ul><ul id="3e0648ad-99fc-803a-ac88-e0dedfc8f4bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Precio dinámico</strong>: Negociación, subasta, precios en tiempo real (ej: Uber surge pricing).</li></ul><hr id="3e0648ad-99fc-804c-97c0-cef572559d63" dir="auto"/><h3 id="3e0648ad-99fc-8000-b58a-fcc56bc891f1" class="" dir="auto"><strong>6️⃣ Recursos Clave (Key Resources)</strong></h3><p id="3e0648ad-99fc-8092-ac49-ddee634a9ac5" class="" dir="auto"><strong>Definición</strong>: Los <strong>activos más importantes</strong> para que el modelo de negocio funcione.</p><p id="3e0648ad-99fc-8077-b88f-c3ab6ce2cff5" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-806b-aa28-dad5d302761a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos necesitamos?</li></ul><ul id="3e0648ad-99fc-80da-9d62-f48fe08723df" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos son imprescindibles?</li></ul><p id="3e0648ad-99fc-80a7-a775-ffb44073bdba" class="" dir="auto"><strong>Tipos de recursos</strong>:</p><ul id="3e0648ad-99fc-8005-ad72-c57849201c41" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Físicos</strong>: Instalaciones, maquinaria, vehículos, puntos de venta.</li></ul><ul id="3e0648ad-99fc-808d-8491-fce9d1c39f1c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Intelectuales</strong>: Marcas, patentes, derechos de autor, datos, conocimiento.</li></ul><ul id="3e0648ad-99fc-8058-aa19-f8e42c41e47d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Humanos</strong>: Talento, experiencia, habilidades.</li></ul><ul id="3e0648ad-99fc-80dd-bd68-e28fb348623b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Financieros</strong>: Capital, líneas de crédito, efectivo.</li></ul><hr id="3e0648ad-99fc-8066-b27f-ed3e6e03e2d2" dir="auto"/><h3 id="3e0648ad-99fc-80f5-a3a9-f4e199645fa1" class="" dir="auto"><strong>7️⃣ Actividades Clave (Key Activities)</strong></h3><p id="3e0648ad-99fc-80a9-a979-ccc72f23ec11" class="" dir="auto"><strong>Definición</strong>: Las <strong>acciones más importantes</strong> que la empresa debe realizar para que su modelo de negocio funcione.</p><p id="3e0648ad-99fc-8082-83ce-f5880d5d9445" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8002-8230-d0d4931a9e54" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué actividades son imprescindibles?</li></ul><ul id="3e0648ad-99fc-803d-baff-e21244aa43f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué hacemos para crear, entregar y capturar valor?</li></ul><p id="3e0648ad-99fc-80ba-b86d-f1b4d64fa3e8" class="" dir="auto"><strong>Tipos de actividades</strong>:</p><ul id="3e0648ad-99fc-808f-9af0-fef90cbd3e8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Producción</strong>: Fabricación de productos.</li></ul><ul id="3e0648ad-99fc-80ba-b2ff-e2e66a8afb73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resolución de problemas</strong>: Consultoría, desarrollo de software.</li></ul><ul id="3e0648ad-99fc-80c1-aca5-cce8a51ee791" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Plataforma/Red</strong>: Gestión de plataformas (ej: Uber, Airbnb).</li></ul><ul id="3e0648ad-99fc-8099-9716-ffdb6c68f2c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Marketing y ventas</strong>: Atraer y convertir clientes.</li></ul><ul id="3e0648ad-99fc-8025-bcb1-c488a3e13951" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Logística</strong>: Distribución y entrega.</li></ul><hr id="3e0648ad-99fc-805e-ae2e-c7321f96fd07" dir="auto"/><h3 id="3e0648ad-99fc-800d-a754-ce72798929d9" class="" dir="auto"><strong>8️⃣ Alianzas Clave (Key Partnerships)</strong></h3><p id="3e0648ad-99fc-8090-9663-fd2352fb1fc9" class="" dir="auto"><strong>Definición</strong>: La <strong>red de proveedores y socios</strong> que ayudan a que el modelo de negocio funcione.</p><p id="3e0648ad-99fc-8032-b5a3-f4ecdb3826bf" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-80ec-9301-fd7b0b655c07" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Quiénes son nuestros socios clave?</li></ul><ul id="3e0648ad-99fc-80c6-a683-de658861b153" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué actividades externalizamos?</li></ul><ul id="3e0648ad-99fc-8053-9b6b-f8b8f921824b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos adquirimos de nuestros socios?</li></ul><p id="3e0648ad-99fc-80da-b7d1-f6f2f0bda56d" class="" dir="auto"><strong>Tipos de alianzas</strong>:</p><ul id="3e0648ad-99fc-802d-b14a-e796fa75c39f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alianzas estratégicas entre no competidores</strong>.</li></ul><ul id="3e0648ad-99fc-802e-8679-c043c59e2900" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Competencia colaborativa (coopetencia)</strong> : Alianzas entre competidores.</li></ul><ul id="3e0648ad-99fc-8012-823b-e80081e3738f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Joint ventures</strong>: Empresas conjuntas.</li></ul><ul id="3e0648ad-99fc-8052-8b6f-d8decedf2a1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Relaciones comprador-proveedor</strong>: Para asegurar suministros.</li></ul><p id="3e0648ad-99fc-804e-9c98-c23fb7781e65" class="" dir="auto"><strong>Motivaciones para las alianzas</strong>:</p><ul id="3e0648ad-99fc-8079-80bc-ff0f0f522d4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Economías de escala</strong>: Reducir costos.</li></ul><ul id="3e0648ad-99fc-80c3-b4c6-cd0872e49d2f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducción de riesgo e incertidumbre</strong>.</li></ul><ul id="3e0648ad-99fc-8021-9506-ff136e8b4c63" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adquisición de recursos y actividades</strong>: Acceder a capacidades que no se tienen.</li></ul><hr id="3e0648ad-99fc-80ca-a03e-f6594fa927ee" dir="auto"/><h3 id="3e0648ad-99fc-80fe-84d4-fb52cc29a749" class="" dir="auto"><strong>9️⃣ Estructura de Costos (Cost Structure)</strong></h3><p id="3e0648ad-99fc-8034-b369-e843d7779ef9" class="" dir="auto"><strong>Definición</strong>: Todos los <strong>costos</strong> en los que incurre la empresa para operar el modelo de negocio.</p><p id="3e0648ad-99fc-800c-ab7f-dd5c8b6eec9d" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3e0648ad-99fc-8007-900d-fbcf4412c2b5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Cuáles son los costos más importantes?</li></ul><ul id="3e0648ad-99fc-8073-a5fc-f52970e5cca1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué actividades son más costosas?</li></ul><ul id="3e0648ad-99fc-80fd-becc-e8f56c354343" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué recursos son más costosos?</li></ul><p id="3e0648ad-99fc-80fd-8095-cee7714a5770" class="" dir="auto"><strong>Tipos de estructura de costos</strong>:</p><ul id="3e0648ad-99fc-80c7-8137-ca44f31bd8bb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Orientada a costos</strong>: Minimizar costos (ej: Ryanair, Walmart).</li></ul><ul id="3e0648ad-99fc-80ea-88b2-f42d1d5c7582" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Orientada al valor</strong>: Enfocarse en crear valor premium (ej: Apple, Rolex).</li></ul><p id="3e0648ad-99fc-8032-b701-cfcd0f4872c6" class="" dir="auto"><strong>Características</strong>:</p><ul id="3e0648ad-99fc-80bd-ab7d-f7e2f86363ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Costos fijos</strong>: No varían con el volumen (ej: alquiler, salarios).</li></ul><ul id="3e0648ad-99fc-8001-89e5-df1a6c834bcc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Costos variables</strong>: Varían con el volumen (ej: materias primas).</li></ul><ul id="3e0648ad-99fc-8054-8b5b-e0098cb71a23" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Economías de escala</strong>: Costos unitarios disminuyen al aumentar la producción.</li></ul><ul id="3e0648ad-99fc-80f6-b2ac-e0ffd9ee65b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Economías de alcance</strong>: Costos unitarios disminuyen al diversificar.</li></ul><hr id="3e0648ad-99fc-800c-ae99-d98272cfe17d" dir="auto"/><h2 id="3e0648ad-99fc-80ad-a235-ebbeb1ee5883" class="" dir="auto"><strong>📊 El Business Model Canvas (Visual)</strong></h2><p id="3e0648ad-99fc-8038-82c5-f868481ae863" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3e0648ad-99fc-805e-9877-f8d18c403c19" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌───────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 BUSINESS MODEL CANVAS                                         │
+├─────────────────────┬─────────────────────┬─────────────────────┬───────────────────────────┤
+│   ALIANZAS CLAVE    │  ACTIVIDADES CLAVE  │   PROPUESTA DE      │  RELACIONES CON CLIENTES  │
+│                     │                     │      VALOR          │                           │
+│  - Socios           │  - Producción       │                     │  - Asistencia personal    │
+│  - Proveedores      │  - Resolución       │  - Productos y      │  - Autoservicio           │
+│  - Joint ventures   │    de problemas     │    servicios        │  - Comunidades            │
+│                     │  - Plataforma       │  - Beneficios       │  - Co-creación            │
+│                     ├─────────────────────┤    para el cliente  │                           │
+│                     │  RECURSOS CLAVE     │                     ├───────────────────────────┤
+│                     │                     │                     │        CANALES            │
+│                     │  - Físicos          │                     │                           │
+│                     │  - Intelectuales    │                     │  - Directos               │
+│                     │  - Humanos          │                     │  - Indirectos             │
+│                     │  - Financieros      │                     │                           │
+├─────────────────────┴─────────────────────┴─────────────────────┴───────────────────────────┤
+│                                                                                               │
+│  ESTRUCTURA DE COSTOS                                    FUENTES DE INGRESO                   │
+│                                                                                               │
+│  - Costos fijos                                          - Venta de activos                   │
+│  - Costos variables                                      - Cuota por uso                      │
+│  - Economías de escala                                   - Suscripción                        │
+│  - Economías de alcance                                  - Publicidad                         │
+│                                                          - Comisiones                         │
+│                                                                                               │
+└───────────────────────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3e0648ad-99fc-804f-a51f-ee93698d3fde" dir="auto"/><h2 id="3e0648ad-99fc-8045-89de-cede617ef074" class="" dir="auto"><strong>💡 Ejemplo Práctico: Business Model Canvas de Netflix</strong></h2><table id="3e0648ad-99fc-8086-bac5-d8f34639df7b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e0648ad-99fc-80e7-a245-e6d076b0423d" dir="ltr"><th id="z{v=" class="simple-table-header-color simple-table-header"><strong>Bloque</strong></th><th id=";eM@" class="simple-table-header-color simple-table-header" style="width:481px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3e0648ad-99fc-8089-8539-c03ba9e8a1ad" dir="ltr"><td id="z{v=" class=""><strong>Segmentos de Clientes</strong></td><td id=";eM@" class="" style="width:481px">Personas de todo el mundo que consumen contenido audiovisual.</td></tr><tr id="3e0648ad-99fc-804b-83a6-c3772c6c52dc" dir="ltr"><td id="z{v=" class=""><strong>Propuesta de Valor</strong></td><td id=";eM@" class="" style="width:481px">Acceso ilimitado a series y películas en cualquier lugar, sin anuncios (en plan premium), con contenido original.</td></tr><tr id="3e0648ad-99fc-80f2-bf74-eadec4256e79" dir="ltr"><td id="z{v=" class=""><strong>Canales</strong></td><td id=";eM@" class="" style="width:481px">App móvil, web, Smart TV, consolas, socios (operadores de cable).</td></tr><tr id="3e0648ad-99fc-80a1-9415-db287aee3eed" dir="ltr"><td id="z{v=" class=""><strong>Relaciones con Clientes</strong></td><td id=";eM@" class="" style="width:481px">Autoservicio (la app recomienda contenido), comunidades (redes sociales), atención al cliente.</td></tr><tr id="3e0648ad-99fc-80a9-be24-cee7a4bbf04f" dir="ltr"><td id="z{v=" class=""><strong>Fuentes de Ingreso</strong></td><td id=";eM@" class="" style="width:481px">Suscripción mensual (planes Básico, Estándar, Premium).</td></tr><tr id="3e0648ad-99fc-8070-8eaf-c983a385bdf9" dir="ltr"><td id="z{v=" class=""><strong>Recursos Clave</strong></td><td id=";eM@" class="" style="width:481px">Plataforma tecnológica, algoritmo de recomendación, contenido original, marca.</td></tr><tr id="3e0648ad-99fc-80a4-a7a0-d2d8002d33a6" dir="ltr"><td id="z{v=" class=""><strong>Actividades Clave</strong></td><td id=";eM@" class="" style="width:481px">Producción de contenido, gestión de la plataforma, marketing, análisis de datos.</td></tr><tr id="3e0648ad-99fc-800e-a004-ded4353fd22e" dir="ltr"><td id="z{v=" class=""><strong>Alianzas Clave</strong></td><td id=";eM@" class="" style="width:481px">Productoras, estudios, creadores de contenido, operadores de telecomunicaciones.</td></tr><tr id="3e0648ad-99fc-80cb-9c4f-f148e7228121" dir="ltr"><td id="z{v=" class=""><strong>Estructura de Costos</strong></td><td id=";eM@" class="" style="width:481px">Producción de contenido (el mayor costo), tecnología, marketing, licencias.</td></tr></tbody></table><hr id="3e0648ad-99fc-8078-aaea-c68418c3fb7b" dir="auto"/><h2 id="3e0648ad-99fc-80e6-86d1-e2808b9a1fb1" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar el Business Model Canvas</strong></h2><table id="3e0648ad-99fc-806e-b5a5-e85559a59917" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e0648ad-99fc-80bf-81bd-fd98df3aa80e" dir="ltr"><th id="Ap&gt;e" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="LwFZ" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="XKBe" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3e0648ad-99fc-80fa-bed9-f180a3f0861a" dir="ltr"><td id="Ap&gt;e" class=""><strong>Llenar el lienzo sin validar</strong></td><td id="LwFZ" class="">Completar los 9 bloques con suposiciones sin hablar con clientes.</td><td id="XKBe" class="">Modelo de negocio basado en hipótesis no validadas.</td></tr><tr id="3e0648ad-99fc-80ec-9a06-c3d37b19f1a0" dir="ltr"><td id="Ap&gt;e" class=""><strong>Confundir el BMC con un plan de negocio</strong></td><td id="LwFZ" class="">Pensar que el BMC es suficiente para conseguir inversión.</td><td id="XKBe" class="">Falta de detalle financiero y operativo.</td></tr><tr id="3e0648ad-99fc-80d7-ab40-cf6300aa4b79" dir="ltr"><td id="Ap&gt;e" class=""><strong>No iterar</strong></td><td id="LwFZ" class="">Hacer el BMC una vez y no actualizarlo.</td><td id="XKBe" class="">El modelo queda obsoleto.</td></tr><tr id="3e0648ad-99fc-8063-bb40-fc53d2daf3ea" dir="ltr"><td id="Ap&gt;e" class=""><strong>No priorizar</strong></td><td id="LwFZ" class="">Poner demasiada información en cada bloque.</td><td id="XKBe" class="">El lienzo se vuelve confuso.</td></tr><tr id="3e0648ad-99fc-8031-89e1-d0bc67705ed6" dir="ltr"><td id="Ap&gt;e" class=""><strong>Ignorar la interconexión</strong></td><td id="LwFZ" class="">Analizar los bloques de forma aislada.</td><td id="XKBe" class="">No se ven las sinergias ni los conflictos.</td></tr><tr id="3e0648ad-99fc-809e-a70e-fbe86c436ac3" dir="ltr"><td id="Ap&gt;e" class=""><strong>No involucrar al equipo</strong></td><td id="LwFZ" class="">Hacer el BMC solo.</td><td id="XKBe" class="">Falta de alineación y perspectivas.</td></tr></tbody></table><hr id="3e0648ad-99fc-8063-9367-c8e0f691d676" dir="auto"/><h2 id="3e0648ad-99fc-804e-83a9-ffa66b0c7c08" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3e0648ad-99fc-8014-9740-ee505d7c881b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e0648ad-99fc-80ee-b7a5-cd82515220e1" dir="ltr"><th id="TRJ&lt;" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="x:oC" class="simple-table-header-color simple-table-header" style="width:320px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3e0648ad-99fc-804a-a4fb-d46422bfe106" dir="ltr"><td id="TRJ&lt;" class=""><strong>Startup en etapa temprana</strong></td><td id="x:oC" class="" style="width:320px">Definir y validar el modelo de negocio.</td></tr><tr id="3e0648ad-99fc-8040-8119-f3e2cd59e2dc" dir="ltr"><td id="TRJ&lt;" class=""><strong>Empresa existente</strong></td><td id="x:oC" class="" style="width:320px">Analizar y reinventar el modelo de negocio.</td></tr><tr id="3e0648ad-99fc-808c-8f15-e0743b184e61" dir="ltr"><td id="TRJ&lt;" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id="x:oC" class="" style="width:320px">Evaluar cómo encaja en el modelo actual.</td></tr><tr id="3e0648ad-99fc-8089-80cb-d4c39b80fbe4" dir="ltr"><td id="TRJ&lt;" class=""><strong>Expansión a nuevos mercados</strong></td><td id="x:oC" class="" style="width:320px">Adaptar el modelo a un nuevo contexto.</td></tr><tr id="3e0648ad-99fc-8007-a63d-d3677c6e421d" dir="ltr"><td id="TRJ&lt;" class=""><strong>Pitch a inversores</strong></td><td id="x:oC" class="" style="width:320px">Explicar el modelo de negocio de forma visual.</td></tr></tbody></table><hr id="3e0648ad-99fc-8081-a2ca-c25bd9732b54" dir="auto"/><h2 id="3e0648ad-99fc-80ed-aa2a-eed65c9dd4c1" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3e0648ad-99fc-8047-b1e4-e95780bacfa2" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e0648ad-99fc-802c-b400-d88388128d4c" dir="ltr"><th id="dKr?" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="o=B|" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3e0648ad-99fc-8017-adb6-c19c53a291da" dir="ltr"><td id="dKr?" class=""><strong>Canvas de la Propuesta de Valor</strong></td><td id="o=B|" class="">Complementa al BMC, profundizando en el bloque de Propuesta de Valor.</td></tr><tr id="3e0648ad-99fc-8007-abe0-eed59a6d518f" dir="ltr"><td id="dKr?" class=""><strong>Lean Startup</strong></td><td id="o=B|" class="">El BMC es una herramienta clave para validar hipótesis.</td></tr><tr id="3e0648ad-99fc-8007-845b-f24b1073dab5" dir="ltr"><td id="dKr?" class=""><strong>MVP</strong></td><td id="o=B|" class="">El MVP se diseña para validar los bloques del BMC.</td></tr><tr id="3e0648ad-99fc-8019-b34f-c026d57287ab" dir="ltr"><td id="dKr?" class=""><strong>FODA</strong></td><td id="o=B|" class="">El FODA analiza la situación; el BMC describe el modelo.</td></tr><tr id="3e0648ad-99fc-803b-b69f-f15324471c6d" dir="ltr"><td id="dKr?" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="o=B|" class="">El BMC ayuda a definir la estrategia competitiva.</td></tr><tr id="3e0648ad-99fc-803a-a01d-dce5c1feef68" dir="ltr"><td id="dKr?" class=""><strong>OKR</strong></td><td id="o=B|" class="">Los objetivos se derivan del modelo de negocio.</td></tr></tbody></table><hr id="3e0648ad-99fc-80f6-b58b-dca409295ff5" dir="auto"/><h2 id="3e0648ad-99fc-80a8-8430-fc3ef7e78af4" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3e0648ad-99fc-8008-9175-ff1877406e43" class="" dir="auto">El Business Model Canvas es como <strong>el plano de una casa</strong>. No es la casa en sí (el negocio en funcionamiento), pero te permite ver de un vistazo cómo está diseñada: dónde están las habitaciones (segmentos), qué materiales se usan (recursos), cómo se conectan los espacios (canales), y cuánto cuesta construirla y mantenerla (costos e ingresos). Puedes modificar el plano antes de construir, ahorrando tiempo y dinero. Y si algo no funciona, puedes rediseñar el plano sin tener que demoler la casa.</p><hr id="3e0648ad-99fc-80e8-a789-e68782515216" dir="auto"/><h2 id="3e0648ad-99fc-80cd-a1c5-cfa68250ad4b" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3e0648ad-99fc-80b2-881a-cf5d5f435362" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation</em>. John Wiley &amp; Sons.</li></ul><ul id="3e0648ad-99fc-8054-8c22-e8997777593f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., Pigneur, Y., Bernarda, G., &amp; Smith, A. (2014). <em>Value Proposition Design</em>. John Wiley &amp; Sons.</li></ul><ul id="3e0648ad-99fc-80d0-b9be-f1399277df09" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2012). <em>The Business Model Canvas Explained</em>.</li></ul><ul id="3e0648ad-99fc-8070-b5ef-d1aee1cdcdf1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Strategyzer, (2024). <em>Business Model Canvas</em>.</li></ul><hr id="3e0648ad-99fc-8006-b7e7-e52f0a38b6ab" dir="auto"/><h2 id="3e0648ad-99fc-809a-ba58-f4b95abfba03" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3e0648ad-99fc-8043-9a99-c62cd54dcb03" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El BMC es una herramienta viva</strong>: No es un documento estático; debe actualizarse a medida que se aprende del mercado.</li></ul><ul id="3e0648ad-99fc-8094-9f53-fc01bde5688d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empieza por el cliente</strong>: Antes de llenar el lienzo, asegúrate de conocer bien a tu cliente (Segmentos, Propuesta de Valor).</li></ul><ul id="3e0648ad-99fc-8052-884e-e257664a8be9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valida cada bloque</strong>: No des nada por sentado. Habla con clientes, prueba hipótesis, itera.</li></ul><ul id="3e0648ad-99fc-8076-b496-de0d21218d9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para usar el BMC</strong>:<ol type="1" id="3e0648ad-99fc-8017-956d-cd1ba76892e8" class="numbered-list" start="1" dir="auto"><li><strong>Imprime el lienzo en grande</strong>: Para trabajarlo en equipo con post-its.</li></ol><ol type="1" id="3e0648ad-99fc-8033-8eda-eea5e692fe4e" class="numbered-list" start="2" dir="auto"><li><strong>Empieza por los segmentos y la propuesta de valor</strong>: Son el corazón del modelo.</li></ol><ol type="1" id="3e0648ad-99fc-80be-84a6-c08c7ed9070c" class="numbered-list" start="3" dir="auto"><li><strong>Cuestiona cada bloque</strong>: ¿Es realmente necesario? ¿Se puede simplificar?</li></ol><ol type="1" id="3e0648ad-99fc-805a-bce5-d3737831e54a" class="numbered-list" start="4" dir="auto"><li><strong>Identifica las interconexiones</strong>: ¿Cómo afecta un cambio en un bloque a los demás?</li></ol><ol type="1" id="3e0648ad-99fc-8097-b605-ce7cc037aa4b" class="numbered-list" start="5" dir="auto"><li><strong>Prioriza</strong>: No todos los bloques son igual de importantes en todas las etapas.</li></ol><ol type="1" id="3e0648ad-99fc-8022-91be-fbced305437a" class="numbered-list" start="6" dir="auto"><li><strong>Valida con clientes reales</strong>: El BMC no sirve si no se contrasta con la realidad.</li></ol><ol type="1" id="3e0648ad-99fc-80ba-9bb1-dce3cf7af24b" class="numbered-list" start="7" dir="auto"><li><strong>Úsalo como herramienta de comunicación</strong>: Es ideal para alinear al equipo y comunicar a inversores.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

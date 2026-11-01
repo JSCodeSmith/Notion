@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>RBV (Resource-Based View) - Visión Basada en Recursos</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-80c0-8b5b-c037877bfa45" class="page sans"><header><h1 class="page-title" dir="auto"><strong>RBV (Resource-Based View) - Visión Basada en Recursos</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-80b3-9d22-f7a41777a993" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-8004-ba2b-f873990faca0" class="" dir="auto"><strong>📄 RBV (Resource-Based View) - Visión Basada en Recursos</strong></h1><hr id="3ea648ad-99fc-80ef-a6e6-ca5dd890c080" dir="auto"/><h2 id="3ea648ad-99fc-8015-a0e1-eb97ddb2d5f5" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-8059-9050-e6d2af371e32" class="" dir="auto">La <strong>Visión Basada en Recursos (RBV)</strong> es un <strong>marco teórico de estrategia empresarial</strong> que sostiene que la <strong>ventaja competitiva de una empresa</strong> reside principalmente en sus <strong>recursos y capacidades internas</strong>, más que en su posición en el mercado o en las condiciones externas de la industria. </p><p id="3ea648ad-99fc-8034-8921-c4987a178261" class="" dir="auto">Fue desarrollada por <strong>Jay Barney</strong> (1991), <strong>Birger Wernerfelt</strong> (1984) y otros autores, y se complementa con el <strong>modelo VRIO</strong> para evaluar si un recurso puede generar una ventaja competitiva sostenible.</p><hr id="3ea648ad-99fc-802f-aff2-d0a9a97a7cf6" dir="auto"/><h2 id="3ea648ad-99fc-80e9-a7eb-d11edb25c85c" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-8030-9108-c1f40ab3c7e6" class="" dir="auto">La RBV surge como una <strong>alternativa a las teorías tradicionales</strong> (como las 5 Fuerzas de Porter) que se centraban en el <strong>entorno externo</strong> para explicar el éxito de las empresas.</p><p id="3ea648ad-99fc-8074-b4c3-fea50ddac509" class="" dir="auto"> La RBV propone que <strong>la verdadera fuente de ventaja competitiva está dentro de la empresa</strong>: en sus recursos, capacidades y competencias distintivas.</p><p id="3ea648ad-99fc-807f-bedb-f69a3bbcbaff" class="" dir="auto"><strong>Conceptos clave</strong>:</p><ul id="3ea648ad-99fc-8011-b46f-f8f355d5f705" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Recursos</strong>: Activos tangibles e intangibles que la empresa posee o controla (ej: patentes, marca, talento, tecnología, cultura).</li></ul><ul id="3ea648ad-99fc-8023-932d-c194f94102c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Capacidades</strong>: Habilidades de la empresa para <strong>desplegar</strong> sus recursos de manera efectiva (ej: capacidad de innovación, capacidad de marketing).</li></ul><ul id="3ea648ad-99fc-8054-adba-de382af84684" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Competencias Distintivas</strong>: Capacidades únicas que diferencian a la empresa y son difíciles de imitar.</li></ul><ul id="3ea648ad-99fc-800b-8af5-c26c67ead650" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ventaja Competitiva Sostenible</strong>: Se logra cuando una empresa posee recursos que son <strong>valiosos, raros, inimitables y organizados</strong> (VRIO).</li></ul><p id="3ea648ad-99fc-80bd-ae93-e454f0ad258e" class="" dir="auto"><strong>La premisa central</strong>: Si una empresa tiene recursos que sus competidores no pueden replicar, puede obtener una ventaja competitiva sostenible.</p><hr id="3ea648ad-99fc-805a-96ee-c427d642532f" dir="auto"/><h2 id="3ea648ad-99fc-8075-9a81-f293b2352a3f" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-800d-8662-f1b18c8baec9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar fuentes de ventaja competitiva</strong>: ¿Qué recursos y capacidades nos hacen únicos?</li></ul><ul id="3ea648ad-99fc-80ad-99f5-df39ec16603f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Guiar la estrategia</strong>: Decidir en qué recursos invertir y cómo desplegarlos.</li></ul><ul id="3ea648ad-99fc-8050-afce-f128fd55b981" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Evaluar adquisiciones</strong>: Analizar si los recursos de una empresa objetivo son valiosos.</li></ul><ul id="3ea648ad-99fc-8058-ae85-f3da57ba5adb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proteger los recursos clave</strong>: Blindar los activos que generan la ventaja competitiva.</li></ul><ul id="3ea648ad-99fc-8014-b980-e7e71efd3448" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovar</strong>: Combinar recursos existentes de nuevas maneras para crear valor.</li></ul><ul id="3ea648ad-99fc-80b1-a530-e03f120cb316" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Competir en entornos cambiantes</strong>: La RBV ayuda a las empresas a adaptarse aprovechando sus recursos internos.</li></ul><hr id="3ea648ad-99fc-807c-ba67-c51923b19764" dir="auto"/><h2 id="3ea648ad-99fc-80fc-acac-db1a41d0e20f" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los Fundamentos de la RBV</strong></h2><p id="3ea648ad-99fc-8058-9822-e82dade24f60" class="" dir="auto">La RBV se basa en dos supuestos fundamentales:</p><ol type="1" id="3ea648ad-99fc-809a-b8f5-c75d4e5de83d" class="numbered-list" start="1" dir="auto"><li><strong>Heterogeneidad de recursos</strong>: Las empresas son diferentes porque poseen recursos distintos.</li></ol><ol type="1" id="3ea648ad-99fc-808c-9130-dd31eac17d1f" class="numbered-list" start="2" dir="auto"><li><strong>Inmovilidad de recursos</strong>: Algunos recursos son difíciles de mover o replicar entre empresas.</li></ol><p id="3ea648ad-99fc-80b8-8f95-e5fecd859169" class="" dir="auto"><strong>El modelo VRIO</strong> (desarrollado por Barney) es la herramienta operativa de la RBV. Evalúa si un recurso puede generar una ventaja competitiva sostenible:</p><table id="3ea648ad-99fc-80b0-b63a-ee8958b2b130" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80a2-bf78-f3f7ab1b257c" dir="ltr"><th id="UDhU" class="simple-table-header-color simple-table-header"><strong>Criterio</strong></th><th id="{u?N" class="simple-table-header-color simple-table-header"><strong>Pregunta Clave</strong></th><th id="hS{a" class="simple-table-header-color simple-table-header"><strong>Implicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8095-a7a9-e155be522fc7" dir="ltr"><td id="UDhU" class=""><strong>V</strong> - Valioso (Valuable)</td><td id="{u?N" class="">¿El recurso permite explotar oportunidades o neutralizar amenazas?</td><td id="hS{a" class="">Si no es valioso, genera desventaja competitiva.</td></tr><tr id="3ea648ad-99fc-8094-bdc3-c3f48371027a" dir="ltr"><td id="UDhU" class=""><strong>R</strong> - Raro (Rare)</td><td id="{u?N" class="">¿Es escaso entre los competidores actuales o potenciales?</td><td id="hS{a" class="">Si es común, solo genera paridad competitiva.</td></tr><tr id="3ea648ad-99fc-80e7-86ed-e99de5a8263d" dir="ltr"><td id="UDhU" class=""><strong>I</strong> - Inimitable (Inimitable)</td><td id="{u?N" class="">¿Es difícil o costoso de imitar?</td><td id="hS{a" class="">Si es fácil de copiar, la ventaja es temporal.</td></tr><tr id="3ea648ad-99fc-8082-b285-c07a47ec5546" dir="ltr"><td id="UDhU" class=""><strong>O</strong> - Organizado (Organized)</td><td id="{u?N" class="">¿La empresa está organizada para capturar el valor del recurso?</td><td id="hS{a" class="">Si no está organizada, el valor se desperdicia.</td></tr></tbody></table><p id="3ea648ad-99fc-8028-a91b-f168da800957" class="" dir="auto"><strong>Resultado</strong>:</p><ul id="3ea648ad-99fc-8082-b731-d5b67e63195e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si un recurso cumple con los 4 criterios → <strong>Ventaja Competitiva Sostenible</strong>.</li></ul><ul id="3ea648ad-99fc-80f6-98c3-d329b93f93b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si cumple con 3 → <strong>Ventaja Competitiva Temporal</strong>.</li></ul><ul id="3ea648ad-99fc-8051-8a5e-ce441578f368" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si cumple con 2 → <strong>Paridad Competitiva</strong>.</li></ul><ul id="3ea648ad-99fc-806a-8cc0-fdea4a5c263c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si cumple con 1 o 0 → <strong>Desventaja Competitiva</strong>.</li></ul><hr id="3ea648ad-99fc-80c3-8fc4-d63f0aa823c2" dir="auto"/><h2 id="3ea648ad-99fc-8068-a809-cf5bb6d8e64e" class="" dir="auto"><strong>📝 Tipos de Recursos en la RBV</strong></h2><table id="3ea648ad-99fc-805e-9d61-da9b54f64361" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-803f-8418-d5eaba4b8c8d" dir="ltr"><th id="yzBl" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="phce" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="w\&gt;h" class="simple-table-header-color simple-table-header"><strong>Ejemplos</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-802e-9f84-dc490a45bbda" dir="ltr"><td id="yzBl" class=""><strong>Tangibles</strong></td><td id="phce" class="">Activos físicos y financieros.</td><td id="w\&gt;h" class="">Instalaciones, maquinaria, efectivo, inversiones.</td></tr><tr id="3ea648ad-99fc-80ed-9a32-f6d874d3429d" dir="ltr"><td id="yzBl" class=""><strong>Intangibles</strong></td><td id="phce" class="">Activos no físicos.</td><td id="w\&gt;h" class="">Marca, patentes, reputación, cultura, conocimiento.</td></tr><tr id="3ea648ad-99fc-80ae-8d82-f6e24ccdfc69" dir="ltr"><td id="yzBl" class=""><strong>Humanos</strong></td><td id="phce" class="">Habilidades y experiencia de las personas.</td><td id="w\&gt;h" class="">Talento, liderazgo, capacitación, know-how.</td></tr><tr id="3ea648ad-99fc-8022-8542-d56c31d9fa98" dir="ltr"><td id="yzBl" class=""><strong>Organizacionales</strong></td><td id="phce" class="">Sistemas y procesos internos.</td><td id="w\&gt;h" class="">Procesos, estructura, sistemas de información, rutinas.</td></tr><tr id="3ea648ad-99fc-8091-92ed-e8fa9147c71d" dir="ltr"><td id="yzBl" class=""><strong>Relacionales</strong></td><td id="phce" class="">Vínculos con actores externos.</td><td id="w\&gt;h" class="">Alianzas, redes, relaciones con clientes y proveedores.</td></tr></tbody></table><hr id="3ea648ad-99fc-8074-bcfd-df0bf0206c2d" dir="auto"/><h2 id="3ea648ad-99fc-8045-8fcf-f63e92ea086f" class="" dir="auto"><strong>💡 Ejemplos de RBV en Empresas</strong></h2><table id="3ea648ad-99fc-8061-a0c0-e3b479c0fc48" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8099-a3d4-fc73903272b5" dir="ltr"><th id="oek=" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="`vAA" class="simple-table-header-color simple-table-header"><strong>Recurso Clave</strong></th><th id="ysMy" class="simple-table-header-color simple-table-header"><strong>¿V?</strong></th><th id="xgE;" class="simple-table-header-color simple-table-header"><strong>¿R?</strong></th><th id="U}&gt;;" class="simple-table-header-color simple-table-header"><strong>¿I?</strong></th><th id="Mtjk" class="simple-table-header-color simple-table-header"><strong>¿O?</strong></th><th id="dW_`" class="simple-table-header-color simple-table-header"><strong>Resultado</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-807e-88d7-fdb072802dc6" dir="ltr"><td id="oek=" class=""><strong>Apple</strong></td><td id="`vAA" class="">Ecosistema integrado (hardware + software + servicios)</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80e1-a94f-c063c17255b3" dir="ltr"><td id="oek=" class=""><strong>Netflix</strong></td><td id="`vAA" class="">Algoritmo de recomendación + datos de usuarios</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80b6-bb91-f01d5f622bc4" dir="ltr"><td id="oek=" class=""><strong>Amazon</strong></td><td id="`vAA" class="">Red logística + AWS</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80e0-90b8-ffdfd4fe9bab" dir="ltr"><td id="oek=" class=""><strong>Google</strong></td><td id="`vAA" class="">Algoritmo de búsqueda + datos</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80af-a02f-df5c28452a75" dir="ltr"><td id="oek=" class=""><strong>Coca-Cola</strong></td><td id="`vAA" class="">Marca + receta secreta</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80f2-b8b1-e1f42f5a6be9" dir="ltr"><td id="oek=" class=""><strong>Tesla</strong></td><td id="`vAA" class="">Tecnología de baterías + Supercharger Network</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-8007-a724-c716d1ba15b1" dir="ltr"><td id="oek=" class=""><strong>Zara</strong></td><td id="`vAA" class="">Cadena de suministro ultrarrápida</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80b0-96c4-d7112831db28" dir="ltr"><td id="oek=" class=""><strong>Nubank</strong></td><td id="`vAA" class="">Cultura de &quot;customer obsession&quot; + tecnología</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-8011-8e36-c7b18d86137d" dir="ltr"><td id="oek=" class=""><strong>Mercado Libre</strong></td><td id="`vAA" class="">Ecosistema integrado (marketplace + pagos + logística)</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr><tr id="3ea648ad-99fc-80d6-9465-cf835d8cc193" dir="ltr"><td id="oek=" class=""><strong>Globant</strong></td><td id="`vAA" class="">Cultura de innovación + talento</td><td id="ysMy" class="">✅</td><td id="xgE;" class="">✅</td><td id="U}&gt;;" class="">✅</td><td id="Mtjk" class="">✅</td><td id="dW_`" class="">Ventaja Sostenible</td></tr></tbody></table><hr id="3ea648ad-99fc-8055-a4b3-d27717232d1c" dir="auto"/><h2 id="3ea648ad-99fc-80df-9915-d87812f7ab3c" class="" dir="auto"><strong>📊 Comparativa: RBV vs. 5 Fuerzas de Porter</strong></h2><table id="3ea648ad-99fc-80a0-b474-e502e4d50607" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8094-a4c0-e66e0b940448" dir="ltr"><th id="BAxI" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="ElWe" class="simple-table-header-color simple-table-header"><strong>RBV</strong></th><th id="ylDD" class="simple-table-header-color simple-table-header"><strong>5 Fuerzas de Porter</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80c7-8bc1-d68c3f10e9a7" dir="ltr"><td id="BAxI" class=""><strong>Enfoque</strong></td><td id="ElWe" class="">Interno (recursos y capacidades).</td><td id="ylDD" class="">Externo (industria y competencia).</td></tr><tr id="3ea648ad-99fc-8074-84b1-fa986ade1ee6" dir="ltr"><td id="BAxI" class=""><strong>Fuente de ventaja</strong></td><td id="ElWe" class="">Recursos únicos y difíciles de imitar.</td><td id="ylDD" class="">Posición en la industria.</td></tr><tr id="3ea648ad-99fc-8022-9b49-d9697a2528e2" dir="ltr"><td id="BAxI" class=""><strong>Unidad de análisis</strong></td><td id="ElWe" class="">La empresa y sus recursos.</td><td id="ylDD" class="">La industria y su estructura.</td></tr><tr id="3ea648ad-99fc-8086-9a22-c9f66406ac8c" dir="ltr"><td id="BAxI" class=""><strong>Pregunta clave</strong></td><td id="ElWe" class="">¿Qué tenemos que otros no tienen?</td><td id="ylDD" class="">¿Cómo es la industria en la que competimos?</td></tr><tr id="3ea648ad-99fc-80ff-bacc-fa36ea08775f" dir="ltr"><td id="BAxI" class=""><strong>Complementariedad</strong></td><td id="ElWe" class="">Ambas son necesarias: la RBV mira hacia adentro, Porter hacia afuera.</td><td id="ylDD" class=""></td></tr></tbody></table><hr id="3ea648ad-99fc-80c2-9e28-d0381c7807fd" dir="auto"/><h2 id="3ea648ad-99fc-8080-b298-f59a67d4afee" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar la RBV</strong></h2><table id="3ea648ad-99fc-8011-8292-e3303178a3a7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8094-9da4-f9352b84b53e" dir="ltr"><th id="~Cn=" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="AU&lt;r" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="}xQZ" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-807d-b48b-ca4a0d75175f" dir="ltr"><td id="~Cn=" class=""><strong>Confundir recursos con capacidades</strong></td><td id="AU&lt;r" class="">Pensar que tener un recurso es suficiente; no considerar cómo se usa.</td><td id="}xQZ" class="">Recursos subutilizados.</td></tr><tr id="3ea648ad-99fc-80c4-ae35-cce5efa7aef4" dir="ltr"><td id="~Cn=" class=""><strong>Ignorar la organización</strong></td><td id="AU&lt;r" class="">Tener recursos valiosos pero no estar organizado para aprovecharlos.</td><td id="}xQZ" class="">El valor se desperdicia.</td></tr><tr id="3ea648ad-99fc-8095-9291-ef2acee19fa3" dir="ltr"><td id="~Cn=" class=""><strong>No proteger los recursos</strong></td><td id="AU&lt;r" class="">No patentar, no registrar marcas, no blindar conocimiento.</td><td id="}xQZ" class="">Los competidores copian la ventaja.</td></tr><tr id="3ea648ad-99fc-80cb-b073-f10f7ff112ae" dir="ltr"><td id="~Cn=" class=""><strong>Descuidar los intangibles</strong></td><td id="AU&lt;r" class="">Enfocarse solo en recursos tangibles (dinero, maquinaria).</td><td id="}xQZ" class="">Perder la verdadera fuente de diferenciación.</td></tr><tr id="3ea648ad-99fc-80ae-8431-c67a4a41d750" dir="ltr"><td id="~Cn=" class=""><strong>No actualizar</strong></td><td id="AU&lt;r" class="">Mantener recursos obsoletos, no invertir en renovación.</td><td id="}xQZ" class="">Pérdida de competitividad.</td></tr><tr id="3ea648ad-99fc-806e-ac95-fb7132e49414" dir="ltr"><td id="~Cn=" class=""><strong>Subestimar los recursos humanos</strong></td><td id="AU&lt;r" class="">No invertir en talento, no retener a los mejores.</td><td id="}xQZ" class="">Fuga de conocimiento.</td></tr></tbody></table><hr id="3ea648ad-99fc-80c0-949c-feff05677781" dir="auto"/><h2 id="3ea648ad-99fc-8079-afb8-d339e34285cc" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-80bc-9f82-e15a3f7c8ef1" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80bb-a4aa-ebc41b013d30" dir="ltr"><th id="BkTY" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="y\ie" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80bf-a2bd-c5a1f24a7584" dir="ltr"><td id="BkTY" class=""><strong>Planificación estratégica</strong></td><td id="y\ie" class="">Identificar en qué recursos basar la estrategia de la empresa.</td></tr><tr id="3ea648ad-99fc-8036-b38f-e9e2ccef1e9c" dir="ltr"><td id="BkTY" class=""><strong>Evaluación de inversiones</strong></td><td id="y\ie" class="">Decidir qué recursos necesitan más inversión (ej: I+D, talento).</td></tr><tr id="3ea648ad-99fc-807b-9785-cb75758b2020" dir="ltr"><td id="BkTY" class=""><strong>Fusiones y adquisiciones</strong></td><td id="y\ie" class="">Analizar qué recursos estratégicos tiene la empresa objetivo.</td></tr><tr id="3ea648ad-99fc-8010-8b0a-c02eb2bcbae6" dir="ltr"><td id="BkTY" class=""><strong>Gestión de riesgos</strong></td><td id="y\ie" class="">Identificar recursos críticos que podrían perderse.</td></tr><tr id="3ea648ad-99fc-8079-a714-f87e5a0bd97b" dir="ltr"><td id="BkTY" class=""><strong>Innovación</strong></td><td id="y\ie" class="">Combinar recursos existentes para crear nuevas ofertas de valor.</td></tr><tr id="3ea648ad-99fc-8070-a5f9-d6397b40d522" dir="ltr"><td id="BkTY" class=""><strong>Competitividad</strong></td><td id="y\ie" class="">Comparar recursos con los de los competidores.</td></tr></tbody></table><hr id="3ea648ad-99fc-8085-9078-e84f2d9218a9" dir="auto"/><h2 id="3ea648ad-99fc-8018-be4c-c1ac4b750e10" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-80ac-b474-e6720e6fa852" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-807e-a43f-f1db354a9d9f" dir="ltr"><th id="lD\b" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="HW]b" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8063-b843-c42838e9a894" dir="ltr"><td id="lD\b" class=""><strong>VRIO</strong></td><td id="HW]b" class="">El VRIO es la herramienta operativa de la RBV.</td></tr><tr id="3ea648ad-99fc-80c1-8d4a-cc16428c002c" dir="ltr"><td id="lD\b" class=""><strong>Ventaja Competitiva</strong></td><td id="HW]b" class="">La RBV explica cómo se construye y sostiene.</td></tr><tr id="3ea648ad-99fc-80c0-8218-d34af768e7cf" dir="ltr"><td id="lD\b" class=""><strong>Capacidades Organizacionales</strong></td><td id="HW]b" class="">Lo que la empresa hace con sus recursos.</td></tr><tr id="3ea648ad-99fc-804f-b227-d2113c28f63c" dir="ltr"><td id="lD\b" class=""><strong>Cadena de Valor</strong></td><td id="HW]b" class="">Los recursos se despliegan a través de las actividades de la cadena de valor.</td></tr><tr id="3ea648ad-99fc-80a2-b60c-f2f69c634fca" dir="ltr"><td id="lD\b" class=""><strong>5 Fuerzas de Porter</strong></td><td id="HW]b" class="">La RBV complementa el análisis externo con un enfoque interno.</td></tr><tr id="3ea648ad-99fc-808d-8e42-c744315fcaa9" dir="ltr"><td id="lD\b" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="HW]b" class="">La RBV ayuda a identificar si la empresa tiene recursos para sostener una estrategia de diferenciación o liderazgo en costos.</td></tr><tr id="3ea648ad-99fc-8002-adcd-de483564a640" dir="ltr"><td id="lD\b" class=""><strong>Océano Azul</strong></td><td id="HW]b" class="">La RBV ayuda a evaluar si los recursos permiten crear un océano azul.</td></tr><tr id="3ea648ad-99fc-806c-829a-da953e21a542" dir="ltr"><td id="lD\b" class=""><strong>Capital Intelectual</strong></td><td id="HW]b" class="">Suma del capital humano, estructural y relacional (recursos intangibles).</td></tr></tbody></table><hr id="3ea648ad-99fc-80d2-8218-e26bb74bfafa" dir="auto"/><h2 id="3ea648ad-99fc-806b-b793-ffa2e5d3d79e" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-8037-ba8f-e2a7f92a1066" class="" dir="auto">La RBV es como <strong>un equipo de fútbol que gana no por su táctica, sino por tener a los mejores jugadores</strong>. Mientras que otros equipos se enfocan en la estrategia del partido (Porter), este equipo se enfoca en tener jugadores únicos (recursos) que marcan la diferencia. Si tienes a Messi, no necesitas la táctica más compleja; tu recurso único te da la ventaja. Pero si no sabes cómo usarlo (organización), el talento se desperdicia.</p><hr id="3ea648ad-99fc-80cd-8c4b-c676daa10a23" dir="auto"/><h2 id="3ea648ad-99fc-800c-8bc8-ce55188f2664" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-80c3-a85b-ec9279090497" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Wernerfelt, B. (1984). <em>A Resource-Based View of the Firm</em>. Strategic Management Journal.</li></ul><ul id="3ea648ad-99fc-8014-9b20-e71334266dbd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Barney, J. B. (1991). <em>Firm Resources and Sustained Competitive Advantage</em>. Journal of Management.</li></ul><ul id="3ea648ad-99fc-80d5-b47d-cd624b16ab4a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Barney, J. B. (1995). <em>Looking Inside for Competitive Advantage</em>. Academy of Management Perspectives.</li></ul><ul id="3ea648ad-99fc-8094-92cf-ec7caed92e22" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Grant, R. M. (1991). <em>The Resource-Based Theory of Competitive Advantage</em>. California Management Review.</li></ul><ul id="3ea648ad-99fc-804b-b177-f11a1b7e2a2a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Peteraf, M. A. (1993). <em>The Cornerstones of Competitive Advantage: A Resource-Based View</em>. Strategic Management Journal.</li></ul><ul id="3ea648ad-99fc-809f-aa50-cb5c6aa765aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The Resource-Based View of the Firm</em>.</li></ul><hr id="3ea648ad-99fc-802c-8363-f2859097fc7e" dir="auto"/><h2 id="3ea648ad-99fc-80ed-8d59-d9481201c240" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-800a-b905-e2618bd61a4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La RBV es una herramienta de diagnóstico interno</strong>: Te ayuda a identificar qué tienes que otros no tienen.</li></ul><ul id="3ea648ad-99fc-8012-a2f0-cc21c31963a7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todos los recursos son estratégicos</strong>: Solo aquellos que cumplen con los criterios VRIO.</li></ul><ul id="3ea648ad-99fc-8017-b3d6-f1ee2e12a594" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Los recursos más valiosos son intangibles</strong>: Marca, cultura, conocimiento, relaciones. Son difíciles de imitar.</li></ul><ul id="3ea648ad-99fc-80d1-933a-d427c59a6a86" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La organización es clave</strong>: Tener recursos valiosos no sirve si no estás organizado para aprovecharlos.</li></ul><ul id="3ea648ad-99fc-8003-8608-c41b102f7ef9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar la RBV</strong>:<ol type="1" id="3ea648ad-99fc-80f1-bca3-f580451b0d40" class="numbered-list" start="1" dir="auto"><li><strong>Haz un inventario de recursos</strong>: Lista todos los recursos tangibles e intangibles.</li></ol><ol type="1" id="3ea648ad-99fc-80c3-a1f1-ec01165bf29c" class="numbered-list" start="2" dir="auto"><li><strong>Evalúa con VRIO</strong>: Analiza cada recurso bajo los 4 criterios.</li></ol><ol type="1" id="3ea648ad-99fc-80c2-b96a-f5546623aaa2" class="numbered-list" start="3" dir="auto"><li><strong>Identifica los recursos estratégicos</strong>: Selecciona aquellos que cumplen con VRIO.</li></ol><ol type="1" id="3ea648ad-99fc-807c-a638-fc08b2d45404" class="numbered-list" start="4" dir="auto"><li><strong>Invierte en ellos</strong>: Protege, mantén y desarrolla los recursos estratégicos.</li></ol><ol type="1" id="3ea648ad-99fc-8025-8ef3-f785c168754c" class="numbered-list" start="5" dir="auto"><li><strong>Combina recursos</strong>: La innovación a menudo surge de combinar recursos existentes de nuevas maneras.</li></ol><ol type="1" id="3ea648ad-99fc-80d9-a9bb-cdcc2c0ab4f2" class="numbered-list" start="6" dir="auto"><li><strong>No te duermas</strong>: Los recursos que hoy son VRIO pueden no serlo mañana. Renueva y adapta.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

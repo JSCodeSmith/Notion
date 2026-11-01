@@ -1,0 +1,819 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Proceso de Atención al Cliente — Soporte ITSM</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-80d8-9ca9-fee4a97a8111" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Proceso de Atención al Cliente — Soporte ITSM</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ce648ad-99fc-8060-9e26-e63c20cb0e05" class="" dir="auto">
+</p><h1 id="3ce648ad-99fc-809c-95a5-fa223d0d0b83" class="" dir="auto"><strong>📄 Proceso de Atención al Cliente (Soporte ITSM)</strong></h1><hr id="3ce648ad-99fc-80f7-839f-e9afa5472532" dir="auto"/><h2 id="3ce648ad-99fc-80aa-8c5b-d03026cdb9ff" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-800f-8470-c8530b626761" class="" dir="auto">El Proceso de Atención al Cliente, en el contexto de ITSM (Information Technology Service Management - Gestión de Servicios de TI), es el conjunto de <strong>actividades, procedimientos y políticas</strong> diseñadas para <strong>gestionar y resolver las solicitudes, incidentes y problemas</strong> de los usuarios de los servicios de TI. </p><p id="3ce648ad-99fc-8013-8e7d-cef28598a1ed" class="" dir="auto">Su objetivo es <strong>restaurar el servicio normal</strong> lo más rápido posible y <strong>minimizar el impacto negativo</strong> en las operaciones del negocio, garantizando la <strong>satisfacción del usuario final</strong>.</p><hr id="3ce648ad-99fc-8098-a001-c4702a8b1094" dir="auto"/><h2 id="3ce648ad-99fc-8079-b341-cd9afae5879b" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-80c8-9e99-fa34d0041305" class="" dir="auto">ITSM no se trata solo de &quot;arreglar computadoras&quot;. </p><p id="3ce648ad-99fc-80ea-9c92-dd3f363f042f" class="" dir="auto">Es una <strong>disciplina estratégica</strong> que alinea la entrega de servicios de TI con las necesidades del negocio. </p><p id="3ce648ad-99fc-80b7-a9a3-d8b98c746419" class="" dir="auto">El soporte ITSM es el &quot;cara a cara&quot; de esta disciplina: es la interfaz entre los usuarios (internos o externos) y los equipos de TI.</p><p id="3ce648ad-99fc-801d-a629-fe49eed8cf44" class="" dir="auto">A diferencia de un simple &quot;helpdesk&quot; (que resuelve problemas técnicos aislados), el soporte ITSM sigue un <strong>marco estructurado</strong> (como ITIL - Information Technology Infrastructure Library) que incluye:</p><ul id="3ce648ad-99fc-8061-b17c-ce5db3766f2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Incidentes</strong>: Restaurar el servicio lo antes posible.</li></ul><ul id="3ce648ad-99fc-8050-a845-d4c8a9018cf3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Problemas</strong>: Encontrar y eliminar la causa raíz de los incidentes recurrentes.</li></ul><ul id="3ce648ad-99fc-80c3-8581-f971e4408e3b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Solicitudes</strong>: Atender peticiones de servicio (ej: acceso a un sistema, instalación de software).</li></ul><ul id="3ce648ad-99fc-80b7-8eb9-ea019df7bd96" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Cambios</strong>: Controlar y gestionar los cambios en la infraestructura de TI para minimizar riesgos.</li></ul><ul id="3ce648ad-99fc-80a9-a470-d17ab7f029de" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión de Niveles de Servicio (SLA)</strong>: Acordar y monitorizar el nivel de servicio que se debe ofrecer a los usuarios.</li></ul><hr id="3ce648ad-99fc-803c-9acb-db968c44c731" dir="auto"/><h2 id="3ce648ad-99fc-80db-8e30-d363ddd4a240" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-805e-b7c1-e35d593a6748" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Restaurar el servicio rápidamente</strong>: Minimizar el tiempo de inactividad de los sistemas.</li></ul><ul id="3ce648ad-99fc-8033-b9c3-d4c8bfb6ac9a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la productividad</strong>: Los usuarios pueden volver a trabajar sin interrupciones prolongadas.</li></ul><ul id="3ce648ad-99fc-8091-abe9-cb38b86f13ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la satisfacción del usuario</strong>: Un soporte eficiente y empático genera confianza.</li></ul><ul id="3ce648ad-99fc-8030-b6c7-e08b0bf91471" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar y corregir problemas recurrentes</strong>: Prevenir futuros incidentes.</li></ul><ul id="3ce648ad-99fc-8093-86d5-cb50021f7f2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear TI con el negocio</strong>: Asegurar que los servicios de TI soporten los objetivos de la organización.</li></ul><ul id="3ce648ad-99fc-8090-b438-fe9e2d7fe3e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar recursos</strong>: Gestionar eficientemente el tiempo del equipo de TI, priorizando lo crítico.</li></ul><ul id="3ce648ad-99fc-80f4-9bae-f57a88d2cf72" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cumplir con SLAs (Acuerdos de Nivel de Servicio)</strong>: Garantizar que la TI cumple con los estándares acordados.</li></ul><hr id="3ce648ad-99fc-8004-b63a-cf6072596f8d" dir="auto"/><h2 id="3ce648ad-99fc-8097-8d21-e8795cbdf5cf" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Ciclo de Vida de un Incidente</strong></h2><p id="3ce648ad-99fc-80ed-a2e3-fa90fd709150" class="" dir="auto">El proceso de atención al cliente en ITSM se basa en un <strong>ciclo de vida</strong> que comienza con el reporte de un incidente y termina con su resolución y cierre. </p><p id="3ce648ad-99fc-8070-b7c2-dbce9156276a" class="" dir="auto">Este ciclo se gestiona a través de una <strong>herramienta de ticketing</strong> (Service Desk).</p><p id="3ce648ad-99fc-806e-a79e-d3b1c2f27472" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ce648ad-99fc-80f9-ad17-e3866894353f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌───────────────────────────────────────────────────────────────────────────────┐
+│                        CICLO DE VIDA DE UN INCIDENTE                        │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│   1. REGISTRO        2. CLASIFICACIÓN     3. PRIORIZACIÓN    4. DIAGNÓSTICO │
+│   (Creación del      (Categorizar:        (Impacto y          (Identificar   │
+│   Ticket)            Incidente /          Urgencia)           la causa)      │
+│                      Solicitud)                                             │
+│                                                                               │
+│          ┌──────────────────────────────────────────────────────┐            │
+│          │                                                      │            │
+│          ▼                                                      │            │
+│   5. ESCALAMIENTO      6. RESOLUCIÓN       7. CIERRE          │            │
+│   (Nivel 1 -&gt; Nivel 2  (Implementar        (Verificar          │            │
+│    -&gt; Nivel 3)         la solución)        solución,          │            │
+│                                             documentar)       │            │
+│                                                              │            │
+│                                                              │            │
+│   8. COMUNICACIÓN Y SEGUIMIENTO (En todas las etapas)        │            │
+│                                                                               │
+└───────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3ce648ad-99fc-8008-a21e-c04f9e747c8a" dir="auto"/><h2 id="3ce648ad-99fc-8088-9d16-e4bdddf590f5" class="" dir="auto"><strong>📝 Niveles de Soporte (Estructura de Escalamiento)</strong></h2><p id="3ce648ad-99fc-8050-9488-e69f0b8c3d20" class="" dir="auto">El soporte ITSM se organiza típicamente en <strong>niveles</strong> para gestionar los incidentes de manera eficiente:</p><table id="3ce648ad-99fc-8096-8501-c568c45accf9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80fc-8044-eb2e4bda4fed" dir="ltr"><th id="qTWC" class="simple-table-header-color simple-table-header"><strong>Nivel</strong></th><th id="r}[B" class="simple-table-header-color simple-table-header"><strong>Nombre</strong></th><th id="KxYG" class="simple-table-header-color simple-table-header"><strong>Responsabilidad</strong></th><th id="XxZi" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80cc-baf0-e7ff57a3b6ba" dir="ltr"><td id="qTWC" class=""><strong>Nivel 0</strong></td><td id="r}[B" class="">Autoservicio</td><td id="KxYG" class="">El usuario resuelve el problema por sí mismo.</td><td id="XxZi" class="">Base de conocimiento, FAQ, chatbots, tutoriales, foros de la comunidad.</td></tr><tr id="3ce648ad-99fc-80af-a1c2-fa220858ec10" dir="ltr"><td id="qTWC" class=""><strong>Nivel 1</strong></td><td id="r}[B" class="">Service Desk (Mesa de Ayuda)</td><td id="KxYG" class="">Primer punto de contacto. Resuelven problemas comunes y rutinarios (consultas, contraseñas, acceso a sistemas).</td><td id="XxZi" class="">&quot;Mi correo no funciona&quot;, &quot;¿Cómo cambio mi contraseña?&quot;, &quot;Necesito acceso a la VPN&quot;.</td></tr><tr id="3ce648ad-99fc-80fa-80b5-c8276fafbbce" dir="ltr"><td id="qTWC" class=""><strong>Nivel 2</strong></td><td id="r}[B" class="">Soporte Técnico Especializado</td><td id="KxYG" class="">Resuelven problemas más complejos que Nivel 1. Tienen conocimientos más profundos de aplicaciones, sistemas operativos y redes.</td><td id="XxZi" class="">Problemas de conectividad, errores de software específicos, configuración avanzada de sistemas.</td></tr><tr id="3ce648ad-99fc-80c3-840c-eea778791572" dir="ltr"><td id="qTWC" class=""><strong>Nivel 3</strong></td><td id="r}[B" class="">Soporte de Backend / Expertos</td><td id="KxYG" class="">Ingenieros y desarrolladores que resuelven problemas de infraestructura, aplicaciones y código.</td><td id="XxZi" class="">Bugs en el software, fallos en servidores, problemas de bases de datos, vulnerabilidades de seguridad.</td></tr><tr id="3ce648ad-99fc-800b-bfda-c0403526d898" dir="ltr"><td id="qTWC" class=""><strong>Nivel 4</strong></td><td id="r}[B" class="">Proveedores Externos / Terceros</td><td id="KxYG" class="">Soporte de proveedores externos (ej: Microsoft, Oracle, AWS).</td><td id="XxZi" class="">Problemas con software de terceros o infraestructura en la nube que requieren intervención del proveedor.</td></tr></tbody></table><hr id="3ce648ad-99fc-80ae-9f0b-c41c954d9c62" dir="auto"/><h2 id="3ce648ad-99fc-8059-889b-d37d58d302c3" class="" dir="auto"><strong>💡 Ejemplos Prácticos</strong></h2><h3 id="3ce648ad-99fc-80e7-9a4a-d8375d89b4be" class="" dir="auto"><strong>Ejemplo 1: Un usuario no puede acceder a su correo electrónico</strong></h3><ol type="1" id="3ce648ad-99fc-808a-8729-f197ac8750c6" class="numbered-list" start="1" dir="auto"><li><strong>Registro</strong>: El usuario reporta el incidente a través del portal de soporte o por teléfono. Se crea un ticket.</li></ol><ol type="1" id="3ce648ad-99fc-80a6-be56-ff7c662f6f6e" class="numbered-list" start="2" dir="auto"><li><strong>Clasificación</strong>: El agente de Nivel 1 clasifica el incidente como &quot;Acceso a Correo Electrónico&quot;.</li></ol><ol type="1" id="3ce648ad-99fc-8084-b25d-fd270aba83e6" class="numbered-list" start="3" dir="auto"><li><strong>Priorización</strong>: Se evalúa el impacto (el usuario no puede trabajar) y la urgencia (alta). El ticket se prioriza como &quot;Alta&quot;.</li></ol><ol type="1" id="3ce648ad-99fc-803d-a0b9-d5f8667975b2" class="numbered-list" start="4" dir="auto"><li><strong>Diagnóstico</strong>: El agente de Nivel 1 verifica la conexión a internet y el estado de la cuenta. Si detecta que la contraseña ha expirado, la restablece.</li></ol><ol type="1" id="3ce648ad-99fc-8030-a86d-ca9a147a3cb3" class="numbered-list" start="5" dir="auto"><li><strong>Resolución</strong>: El agente restablece la contraseña y proporciona la nueva al usuario.</li></ol><ol type="1" id="3ce648ad-99fc-80bc-a894-c1f538679662" class="numbered-list" start="6" dir="auto"><li><strong>Cierre</strong>: El usuario confirma que puede acceder al correo. El ticket se cierra y se documenta la solución.</li></ol><h3 id="3ce648ad-99fc-80ff-a347-ed91f4bcf6a4" class="" dir="auto"><strong>Ejemplo 2: La aplicación de ventas está fallando</strong></h3><ol type="1" id="3ce648ad-99fc-80b9-ad49-fc2e15ac3512" class="numbered-list" start="1" dir="auto"><li><strong>Registro</strong>: Varios usuarios reportan que la aplicación de ventas no carga. El Nivel 1 crea un ticket.</li></ol><ol type="1" id="3ce648ad-99fc-804e-aa49-d4c783e77a5f" class="numbered-list" start="2" dir="auto"><li><strong>Clasificación</strong>: Se clasifica como &quot;Incidente - Aplicación de Ventas&quot;.</li></ol><ol type="1" id="3ce648ad-99fc-8079-8d25-e90d8299c235" class="numbered-list" start="3" dir="auto"><li><strong>Priorización</strong>: Impacto crítico (las ventas se detienen) y urgencia alta. Se prioriza como <strong>&quot;Crítico&quot;</strong>.</li></ol><ol type="1" id="3ce648ad-99fc-80b9-9789-fd98a5b45728" class="numbered-list" start="4" dir="auto"><li><strong>Diagnóstico</strong>: Nivel 1 intenta reiniciar la aplicación, pero no funciona. Escala el ticket a Nivel 2.</li></ol><ol type="1" id="3ce648ad-99fc-8066-bf7d-f951aa81ed66" class="numbered-list" start="5" dir="auto"><li><strong>Escalamiento</strong>: Nivel 2 investiga y descubre que el servidor de la aplicación está caído. Escala a Nivel 3 (equipo de infraestructura).</li></ol><ol type="1" id="3ce648ad-99fc-80d0-8164-c981d740c018" class="numbered-list" start="6" dir="auto"><li><strong>Resolución</strong>: Nivel 3 reinicia el servidor y soluciona el problema.</li></ol><ol type="1" id="3ce648ad-99fc-80ec-9d22-d21e21b4cfb1" class="numbered-list" start="7" dir="auto"><li><strong>Comunicación</strong>: Se envía una comunicación a todos los usuarios informando que el servicio ya está disponible.</li></ol><ol type="1" id="3ce648ad-99fc-80df-96d4-caa567bdeccf" class="numbered-list" start="8" dir="auto"><li><strong>Cierre</strong>: Se verifica la solución y se cierra el ticket. Se analiza la causa raíz para evitar que vuelva a ocurrir.</li></ol><hr id="3ce648ad-99fc-80fb-a72d-ee71b02d41e3" dir="auto"/><h2 id="3ce648ad-99fc-80bc-a0e6-e8b10e54483c" class="" dir="auto"><strong>⚠️ Errores Comunes en el Soporte ITSM</strong></h2><table id="3ce648ad-99fc-8085-a435-da6e58d863a0" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80bd-b846-cdcaed754280" dir="ltr"><th id="d&lt;Zp" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="^rO?" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="]U:F" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-804f-b298-d85e3998b597" dir="ltr"><td id="d&lt;Zp" class=""><strong>No priorizar correctamente</strong></td><td id="^rO?" class="">Tratar todos los incidentes con la misma urgencia.</td><td id="]U:F" class="">Se descuidan problemas críticos, afectando el negocio.</td></tr><tr id="3ce648ad-99fc-8042-867f-c61dea2d0fe9" dir="ltr"><td id="d&lt;Zp" class=""><strong>Falta de comunicación</strong></td><td id="^rO?" class="">No mantener informado al usuario sobre el estado de su ticket.</td><td id="]U:F" class="">Frustración y desconfianza del usuario.</td></tr><tr id="3ce648ad-99fc-80e2-9772-d62420b5da8a" dir="ltr"><td id="d&lt;Zp" class=""><strong>No documentar las soluciones</strong></td><td id="^rO?" class="">Resolver el problema sin registrar la solución.</td><td id="]U:F" class="">Se pierde conocimiento, los mismos problemas se repiten.</td></tr><tr id="3ce648ad-99fc-8053-9536-faf4e0b3dc86" dir="ltr"><td id="d&lt;Zp" class=""><strong>No gestionar los SLA</strong></td><td id="^rO?" class="">No cumplir con los acuerdos de nivel de servicio.</td><td id="]U:F" class="">Pérdida de credibilidad, penalizaciones contractuales.</td></tr><tr id="3ce648ad-99fc-808a-816f-edd3e6b38998" dir="ltr"><td id="d&lt;Zp" class=""><strong>No hacer análisis de causa raíz</strong></td><td id="^rO?" class="">Resolver el síntoma sin buscar la causa subyacente.</td><td id="]U:F" class="">Problemas recurrentes, mayor carga de trabajo a largo plazo.</td></tr><tr id="3ce648ad-99fc-800c-a599-e5b5c8e67e60" dir="ltr"><td id="d&lt;Zp" class=""><strong>Externalizar todo el soporte</strong></td><td id="^rO?" class="">Sin supervisión ni control de la calidad del servicio.</td><td id="]U:F" class="">Baja calidad, falta de conocimiento del contexto del negocio.</td></tr></tbody></table><hr id="3ce648ad-99fc-8055-a43b-e4055d7aa373" dir="auto"/><h2 id="3ce648ad-99fc-80a1-9280-de0202445bd1" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-8084-8ceb-e7c6a94063be" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-803e-ac91-c7976234bc71" dir="ltr"><th id="zPyf" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="?`^&gt;" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8044-aa3a-e086d0c11392" dir="ltr"><td id="zPyf" class=""><strong>Empresa con 500+ empleados</strong></td><td id="?`^&gt;" class="">Implementar un Service Desk con Nivel 1, Nivel 2 y Nivel 3, con herramientas de ticketing y SLAs.</td></tr><tr id="3ce648ad-99fc-8081-b189-d788b7937d75" dir="ltr"><td id="zPyf" class=""><strong>Startup tecnológica</strong></td><td id="?`^&gt;" class="">Usar una herramienta de ticketing simple (ej: Zendesk, Freshdesk) y un equipo de soporte multidisciplinario.</td></tr><tr id="3ce648ad-99fc-807e-829b-f3c7d48eed96" dir="ltr"><td id="zPyf" class=""><strong>Empresa de e-commerce</strong></td><td id="?`^&gt;" class="">Priorizar incidentes críticos (problemas de pago, caídas de servidor) con un equipo de Nivel 2 y Nivel 3 24/7.</td></tr><tr id="3ce648ad-99fc-80e4-81c9-ec03f744e675" dir="ltr"><td id="zPyf" class=""><strong>Organización gubernamental</strong></td><td id="?`^&gt;" class="">Establecer procesos formales de ITSM (basados en ITIL) con altos estándares de seguridad y control.</td></tr></tbody></table><hr id="3ce648ad-99fc-808c-b3b8-c8486baa7c56" dir="auto"/><h2 id="3ce648ad-99fc-8013-a39b-d4949dec57ba" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8045-aa30-fffd1eeee136" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-808c-83c1-c3b1d8d65ef3" dir="ltr"><th id="}WxE" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="HVYy" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-807d-a63d-da8d46fbd685" dir="ltr"><td id="}WxE" class=""><strong>ITIL (Information Technology Infrastructure Library)</strong></td><td id="HVYy" class="">El marco de mejores prácticas más utilizado para la gestión de servicios de TI.</td></tr><tr id="3ce648ad-99fc-808c-a7ba-cff64a7cefb8" dir="ltr"><td id="}WxE" class=""><strong>SLA (Acuerdo de Nivel de Servicio)</strong></td><td id="HVYy" class="">Define los estándares de servicio que el soporte ITSM debe cumplir.</td></tr><tr id="3ce648ad-99fc-80b1-b704-eb0443976d32" dir="ltr"><td id="}WxE" class=""><strong>Ticketing System</strong></td><td id="HVYy" class="">La herramienta central para gestionar incidentes y solicitudes.</td></tr><tr id="3ce648ad-99fc-8086-bb67-cc770da588d7" dir="ltr"><td id="}WxE" class=""><strong>Base de Conocimiento</strong></td><td id="HVYy" class="">Un repositorio de soluciones documentadas para que los agentes y usuarios puedan resolver problemas por sí mismos.</td></tr><tr id="3ce648ad-99fc-8036-8c18-ed3839d32163" dir="ltr"><td id="}WxE" class=""><strong>Gestión de Incidentes</strong></td><td id="HVYy" class="">El proceso principal del soporte ITSM.</td></tr><tr id="3ce648ad-99fc-8013-afca-d239cdd9102f" dir="ltr"><td id="}WxE" class=""><strong>Gestión de Problemas</strong></td><td id="HVYy" class="">El proceso de encontrar y eliminar la causa raíz de los incidentes recurrentes.</td></tr><tr id="3ce648ad-99fc-809c-b53f-e1cb7cfaf303" dir="ltr"><td id="}WxE" class=""><strong>Gestión de Cambios</strong></td><td id="HVYy" class="">Controla los cambios en la infraestructura de TI que pueden causar incidentes.</td></tr><tr id="3ce648ad-99fc-8051-a8c0-de8f7670b17d" dir="ltr"><td id="}WxE" class=""><strong>Automatización</strong></td><td id="HVYy" class="">Se utiliza para agilizar la clasificación, asignación y resolución de tickets, mejorando la eficiencia del soporte.</td></tr></tbody></table><hr id="3ce648ad-99fc-8080-8b36-f005c0a9e6a9" dir="auto"/><h2 id="3ce648ad-99fc-8035-8ba0-fadfaf0f42d1" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-80bb-b8e5-e3080b71afef" class="" dir="auto">El Soporte ITSM es como el <strong>servicio de atención al cliente de una aerolínea en un aeropuerto</strong>:</p><ul id="3ce648ad-99fc-80b4-8e58-d9c25a7d07ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nivel 0 (Autoservicio)</strong>: Consultar el estado del vuelo en la pantalla o en la app.</li></ul><ul id="3ce648ad-99fc-8087-8042-fe7cd01b4415" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nivel 1 (Service Desk)</strong>: El mostrador de atención al cliente donde te dan información general y te ayudan con asientos o equipaje de mano.</li></ul><ul id="3ce648ad-99fc-803c-acd7-d58dea291c17" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nivel 2 (Soporte Técnico)</strong>: Cuando el avión tiene un problema técnico que el personal de tierra no puede resolver, llaman a los ingenieros de mantenimiento.</li></ul><ul id="3ce648ad-99fc-80f5-8b3f-e96f32e64876" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nivel 3 (Expertos)</strong>: Si el problema es complejo (ej: fallo en un motor), los ingenieros de la fábrica del avión deben intervenir.</li></ul><p id="3ce648ad-99fc-8005-a4a7-c3c97c7973c4" class="" dir="auto">El objetivo es que el pasajero (usuario) pueda volar (trabajar) sin interrupciones, y que si algo falla, se resuelva lo más rápido posible con la mínima molestia.</p><hr id="3ce648ad-99fc-80c1-89af-e8ccf7332d4c" dir="auto"/><h2 id="3ce648ad-99fc-80d5-8f28-ca52b2da202d" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-8012-86cb-d9fdf219f606" class="bulleted-list" dir="auto"><li style="list-style-type:disc">ITIL Foundation (2011 Edition). <em>AXELOS</em>.</li></ul><ul id="3ce648ad-99fc-809c-84e9-e2bf5fc95c2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">ISO/IEC 20000 (IT Service Management Standard).</li></ul><ul id="3ce648ad-99fc-8068-9c4f-c0678a495466" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, <em>IT Service Management</em>.</li></ul><ul id="3ce648ad-99fc-801e-a966-ef52b5ab80b5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Gartner, <em>IT Service Management Market Research</em>.</li></ul><ul id="3ce648ad-99fc-8046-85a9-f14aa353da9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forrester, <em>Service Desk Trends</em>.</li></ul><hr id="3ce648ad-99fc-80c2-9b3d-c6147b4c5539" dir="auto"/><h2 id="3ce648ad-99fc-805e-a548-e59f7731073c" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-8041-939a-cf74d4121184" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El ITSM no es solo tecnología, es un cambio cultural</strong>: Implica que la organización priorice el servicio al cliente interno, la transparencia y la mejora continua. Es una mentalidad, no solo un software.</li></ul><ul id="3ce648ad-99fc-8077-89e0-f74a7b2194a9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La comunicación es tan importante como la resolución técnica</strong>: Mantener al usuario informado durante todo el proceso (incluso si no hay novedades) reduce la frustración y genera confianza. Un ticket no resuelto pero con comunicación es mejor que un ticket resuelto sin comunicación.</li></ul><ul id="3ce648ad-99fc-8093-ba09-d29ceec1a7f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La documentación y la base de conocimiento son la clave para escalar el soporte</strong>: Invertir en documentar soluciones, errores comunes y procedimientos reduce el tiempo de resolución y permite que los agentes de Nivel 1 resuelvan más problemas sin escalar a Nivel 2.</li></ul><ul id="3ce648ad-99fc-8074-97f6-d5ea7204491f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Los SLA son una promesa que debe cumplirse</strong>: Si se acuerda un tiempo de respuesta de 1 hora para incidentes críticos, se debe cumplir. Si no se puede cumplir, se debe renegociar el SLA, no incumplirlo.</li></ul><ul id="3ce648ad-99fc-8095-b0ed-f07e98babbb0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para implementar un soporte ITSM efectivo</strong>:<ol type="1" id="3ce648ad-99fc-8081-a50f-dca590c052e6" class="numbered-list" start="1" dir="auto"><li><strong>Elige la herramienta adecuada</strong>: Hay muchas herramientas de ticketing (ServiceNow, Jira Service Management, Zendesk, Freshdesk). Elige la que se adapte a tu tamaño y necesidades.</li></ol><ol type="1" id="3ce648ad-99fc-8032-bcab-f16cc07464db" class="numbered-list" start="2" dir="auto"><li><strong>Define SLAs claros</strong>: Establece tiempos de respuesta, tiempos de resolución y prioridades claras para cada tipo de incidente y solicitud.</li></ol><ol type="1" id="3ce648ad-99fc-80ea-8451-e673aee3af9e" class="numbered-list" start="3" dir="auto"><li><strong>Capacita a tu equipo</strong>: No basta con tener un software; el equipo debe estar capacitado en los procesos y en habilidades de comunicación.</li></ol><ol type="1" id="3ce648ad-99fc-8099-a249-ca9ecb132786" class="numbered-list" start="4" dir="auto"><li><strong>Mide y mejora</strong>: Usa métricas como el tiempo de resolución (MTTR), el número de tickets escalados, y la satisfacción del usuario para mejorar continuamente.</li></ol><ol type="1" id="3ce648ad-99fc-8079-bd18-c53ba3aff9e5" class="numbered-list" start="5" dir="auto"><li><strong>Fomenta el autoservicio</strong>: Una base de conocimiento bien mantenida reduce la carga del Service Desk y empodera a los usuarios para resolver sus propios problemas.</li></ol><ol type="1" id="3ce648ad-99fc-8069-ad8c-fc0be1775a6a" class="numbered-list" start="6" dir="auto"><li><strong>Escala tu soporte</strong>: A medida que la empresa crece, el soporte debe escalar en estructura (más niveles) y en tecnología (automatización, inteligencia artificial).</li></ol><ol type="1" id="3ce648ad-99fc-809d-9ecd-ed3f47a0ca46" class="numbered-list" start="7" dir="auto"><li><strong>Cultiva la empatía</strong>: El soporte ITSM no es solo resolver problemas técnicos; es ayudar a personas que están frustradas o estresadas. La empatía y la paciencia son tan importantes como los conocimientos técnicos.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

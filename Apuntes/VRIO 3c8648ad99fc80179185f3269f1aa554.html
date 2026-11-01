@@ -1,0 +1,799 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>VRIO</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8017-9185-f3269f1aa554" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">VRIO</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-802b-90a7-e5e65f72ef2d" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-80b1-a598-ff5d180e71d7" class="" dir="auto"><strong>📄 VRIO</strong></h1><hr id="3c9648ad-99fc-801e-8da5-f6bb2e39c303" dir="auto"/><h2 id="3c9648ad-99fc-8019-b4a6-c3deeb9b5a91" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-8072-b235-de9dc09ce24d" class="" dir="auto">El marco VRIO es un <strong>modelo de análisis estratégico</strong> que evalúa los <strong>recursos y capacidades</strong> de una organización para determinar si pueden ser fuente de <strong>ventaja competitiva sostenible</strong>. </p><p id="3c9648ad-99fc-804a-99b4-c136c243e202" class="" dir="auto">Fue desarrollado por <strong>Jay Barney</strong> en 1991 y se ha convertido en una herramienta fundamental en la gestión estratégica para entender por qué algunas empresas superan a otras.</p><hr id="3c9648ad-99fc-8051-bd25-ce3195eff700" dir="auto"/><h2 id="3c9648ad-99fc-8077-bacd-efd378b98251" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80b4-9def-d27cd03f0938" class="" dir="auto">El VRIO, cuyo acrónimo proviene de sus cuatro criterios (Valioso, Raro, Inimitable y Organizado), es una <strong>prueba de fuego</strong> para los activos de una empresa. </p><p id="3c9648ad-99fc-80a5-9019-de60bad7903a" class="" dir="auto">No todos los recursos son estratégicos. </p><p id="3c9648ad-99fc-802f-b640-e64e5245d83e" class="" dir="auto">Una empresa puede tener una gran fábrica, un equipo talentoso o una marca reconocida, pero si estos recursos no cumplen con los cuatro criterios de VRIO, no generarán una ventaja competitiva sostenible.</p><p id="3c9648ad-99fc-80a7-95b4-f91c8df7d9fc" class="" dir="auto">El modelo se basa en la <strong>Visión Basada en Recursos (RBV)</strong>, que sostiene que la ventaja competitiva de una empresa reside en sus recursos y capacidades internas, más que en su entorno externo. </p><p id="3c9648ad-99fc-80a5-b465-d69a5a786de2" class="" dir="auto">La pregunta central que responde VRIO es: </p><p id="3c9648ad-99fc-80b1-a71e-c4ac22820deb" class="" dir="auto"><strong>¿Por qué algunas empresas son más exitosas que otras, incluso cuando operan en la misma industria?</strong></p><p id="3c9648ad-99fc-804c-95e8-fcad592fcd83" class="" dir="auto"><strong>Cada recurso se evalúa en cuatro dimensiones</strong>:</p><table id="3c9648ad-99fc-808d-a63c-ed042eb1f98e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8031-bab2-de0f84fbf8ea" dir="ltr"><th id="yW&gt;J" class="simple-table-header-color simple-table-header"><strong>Criterio</strong></th><th id="bwph" class="simple-table-header-color simple-table-header"><strong>Pregunta Clave</strong></th><th id="Ud?p" class="simple-table-header-color simple-table-header" style="width:293px"><strong>¿Qué significa?</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-803a-a3e2-d28b3311320c" dir="ltr"><td id="yW&gt;J" class=""><strong>V</strong>alioso (Valuable)</td><td id="bwph" class="">¿El recurso permite a la empresa explotar oportunidades o neutralizar amenazas?</td><td id="Ud?p" class="" style="width:293px">El recurso agrega valor al cliente o reduce costos.</td></tr><tr id="3c9648ad-99fc-8050-b54d-f39e3222a98d" dir="ltr"><td id="yW&gt;J" class=""><strong>R</strong>aro (Rare)</td><td id="bwph" class="">¿El recurso es escaso entre los competidores actuales o potenciales?</td><td id="Ud?p" class="" style="width:293px">Si todos lo tienen, no genera diferenciación.</td></tr><tr id="3c9648ad-99fc-80c8-bf7a-e4e4bd1ae5b6" dir="ltr"><td id="yW&gt;J" class=""><strong>I</strong>nimitabile (Inimitable)</td><td id="bwph" class="">¿Es difícil o costoso para los competidores imitar el recurso?</td><td id="Ud?p" class="" style="width:293px">La dificultad de imitación protege la ventaja.</td></tr><tr id="3c9648ad-99fc-80b8-9c41-e0ccd652ad36" dir="ltr"><td id="yW&gt;J" class=""><strong>O</strong>rganizado (Organized)</td><td id="bwph" class="">¿La empresa está organizada para capturar el valor del recurso?</td><td id="Ud?p" class="" style="width:293px">La empresa debe tener los procesos y la estructura para aprovecharlo.</td></tr></tbody></table><p id="3c9648ad-99fc-808b-9b9b-ed46ab939fad" class="" dir="auto">Si un recurso cumple con los cuatro criterios, es una <strong>fuente de ventaja competitiva sostenible</strong>.</p><hr id="3c9648ad-99fc-8094-b9b3-ced17db7286f" dir="auto"/><h2 id="3c9648ad-99fc-8095-92d8-d610e9d69a2f" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-80f8-bc55-f993c794ef61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diagnosticar la ventaja competitiva</strong>: Identificar si los recursos actuales generan una ventaja real.</li></ul><ul id="3c9648ad-99fc-805c-8c52-e6448e34e3df" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Guiar la inversión</strong>: Decidir en qué recursos y capacidades invertir para construir ventajas sostenibles.</li></ul><ul id="3c9648ad-99fc-806d-a18a-e3d814c7864a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Evaluar adquisiciones</strong>: Analizar los recursos de una empresa objetivo antes de comprarla.</li></ul><ul id="3c9648ad-99fc-80a9-ac71-d272611ae083" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Formular estrategias</strong>: Diseñar estrategias que aprovechen al máximo los recursos VRIO de la empresa.</li></ul><ul id="3c9648ad-99fc-802b-bc11-fd6871da3587" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar vulnerabilidades</strong>: Detectar recursos que no cumplen con los criterios y necesitan ser fortalecidos o protegidos.</li></ul><hr id="3c9648ad-99fc-80e7-9e84-e2e2faffddab" dir="auto"/><h2 id="3c9648ad-99fc-8015-916f-cf0f363bae94" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Proceso de Análisis VRIO</strong></h2><p id="3c9648ad-99fc-8062-92b2-c7d3cbd1019c" class="" dir="auto">El análisis VRIO se realiza siguiendo estos pasos:</p><ol type="1" id="3c9648ad-99fc-8009-90c9-dde0fd964b80" class="numbered-list" start="1" dir="auto"><li><strong>Identificar recursos y capacidades</strong>: Listar todos los activos tangibles e intangibles, así como las capacidades organizativas (ej: patentes, marca, talento, cultura, procesos).</li></ol><ol type="1" id="3c9648ad-99fc-801f-a2f5-fcd54f909571" class="numbered-list" start="2" dir="auto"><li><strong>Evaluar el Valor (Value)</strong>: Preguntar: ¿Este recurso permite a la empresa explotar una oportunidad o neutralizar una amenaza? ¿Agrega valor al cliente o reduce costos?<ul id="3c9648ad-99fc-807e-b662-f6b0723281e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Si la respuesta es NO</strong> → El recurso genera una <strong>desventaja competitiva</strong>.</li></ul></li></ol><ol type="1" id="3c9648ad-99fc-8069-9fb6-cc9372b48efc" class="numbered-list" start="3" dir="auto"><li><strong>Evaluar la Rareza (Rarity)</strong>: Preguntar: ¿Este recurso es escaso entre los competidores actuales o potenciales?<ul id="3c9648ad-99fc-80f2-adf6-e358d352623b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Si la respuesta es NO</strong> → El recurso genera <strong>paridad competitiva</strong> (es necesario para competir, pero no te da ventaja).</li></ul></li></ol><ol type="1" id="3c9648ad-99fc-8009-82a1-cb26f199bd53" class="numbered-list" start="4" dir="auto"><li><strong>Evaluar la Inimitabilidad (Imitability)</strong>: Preguntar: ¿Es difícil o costoso para los competidores imitar este recurso?<ul id="3c9648ad-99fc-8005-8c50-c11e36479677" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Si la respuesta es NO</strong> → El recurso genera una <strong>ventaja competitiva temporal</strong> (la competencia puede copiarlo).</li></ul></li></ol><ol type="1" id="3c9648ad-99fc-8094-9df4-d9b5e2e65487" class="numbered-list" start="5" dir="auto"><li><strong>Evaluar la Organización (Organization)</strong>: Preguntar: ¿La empresa está organizada para capturar el valor de este recurso?<ul id="3c9648ad-99fc-8069-a16e-ce08334f38ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Si la respuesta es NO</strong> → El recurso tiene <strong>potencial sin explotar</strong> (la empresa no está aprovechándolo al máximo).</li></ul></li></ol><ol type="1" id="3c9648ad-99fc-803c-94f7-cd07b61d3cb0" class="numbered-list" start="6" dir="auto"><li><strong>Conclusión</strong>: Si el recurso cumple con los cuatro criterios, es una <strong>ventaja competitiva sostenible</strong>.</li></ol><hr id="3c9648ad-99fc-80f4-9889-e4eb4dcc64aa" dir="auto"/><h2 id="3c9648ad-99fc-8084-a448-e092d1811635" class="" dir="auto"><strong>📊 Matriz de Resultados VRIO</strong></h2><table id="3c9648ad-99fc-8052-8d4b-e06b6f02373b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8077-918c-c78149a487db" dir="ltr"><th id="QPom" class="simple-table-header-color simple-table-header"><strong>Valor</strong></th><th id=":FM~" class="simple-table-header-color simple-table-header"><strong>Rareza</strong></th><th id="dQyq" class="simple-table-header-color simple-table-header"><strong>Inimitabilidad</strong></th><th id=";Uh@" class="simple-table-header-color simple-table-header"><strong>Organización</strong></th><th id="RKUm" class="simple-table-header-color simple-table-header"><strong>Resultado</strong></th><th id="U{rl" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-809f-9a07-ca4a05bfd821" dir="ltr"><td id="QPom" class="">❌ No</td><td id=":FM~" class="">❌ No</td><td id="dQyq" class="">❌ No</td><td id=";Uh@" class="">❌ No</td><td id="RKUm" class=""><strong>Desventaja Competitiva</strong></td><td id="U{rl" class="">Un proceso obsoleto que aumenta costos.</td></tr><tr id="3c9648ad-99fc-801d-a013-e03bae80c879" dir="ltr"><td id="QPom" class="">✅ Sí</td><td id=":FM~" class="">❌ No</td><td id="dQyq" class="">❌ No</td><td id=";Uh@" class="">✅ Sí</td><td id="RKUm" class=""><strong>Paridad Competitiva</strong></td><td id="U{rl" class="">Un sistema ERP estándar que todos usan.</td></tr><tr id="3c9648ad-99fc-80fa-b843-f1ab7bda60ad" dir="ltr"><td id="QPom" class="">✅ Sí</td><td id=":FM~" class="">✅ Sí</td><td id="dQyq" class="">❌ No</td><td id=";Uh@" class="">✅ Sí</td><td id="RKUm" class=""><strong>Ventaja Temporal</strong></td><td id="U{rl" class="">Una patente que expira en 5 años.</td></tr><tr id="3c9648ad-99fc-80e0-8d49-de5ef89b07c5" dir="ltr"><td id="QPom" class="">✅ Sí</td><td id=":FM~" class="">✅ Sí</td><td id="dQyq" class="">✅ Sí</td><td id=";Uh@" class="">❌ No</td><td id="RKUm" class=""><strong>Potencial sin Explotar</strong></td><td id="U{rl" class="">Talento excepcional pero sin procesos para retenerlo.</td></tr><tr id="3c9648ad-99fc-8091-b526-ff72196ff062" dir="ltr"><td id="QPom" class="">✅ Sí</td><td id=":FM~" class="">✅ Sí</td><td id="dQyq" class="">✅ Sí</td><td id=";Uh@" class="">✅ Sí</td><td id="RKUm" class=""><strong>Ventaja Competitiva Sostenible</strong></td><td id="U{rl" class="">Ecosistema de Apple (hardware + software + servicios).</td></tr></tbody></table><hr id="3c9648ad-99fc-80e2-8edd-e9a114f97715" dir="auto"/><h2 id="3c9648ad-99fc-80a0-89d3-c8f0e22b098a" class="" dir="auto"><strong>💡 Ejemplos de Recursos VRIO en Empresas Famosas</strong></h2><table id="3c9648ad-99fc-808c-bb00-c885fae43aaa" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8060-a634-fc2c7cb890e6" dir="ltr"><th id="j|;E" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="BsPA" class="simple-table-header-color simple-table-header"><strong>Recurso / Capacidad</strong></th><th id="&lt;Wko" class="simple-table-header-color simple-table-header"><strong>V</strong></th><th id="S_zu" class="simple-table-header-color simple-table-header"><strong>R</strong></th><th id="MbVq" class="simple-table-header-color simple-table-header"><strong>I</strong></th><th id="]|Sc" class="simple-table-header-color simple-table-header"><strong>O</strong></th><th id="SNnM" class="simple-table-header-color simple-table-header" style="width:188px"><strong>Resultado</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80b6-8827-f38e57073402" dir="ltr"><td id="j|;E" class=""><strong>Apple</strong></td><td id="BsPA" class="">Ecosistema integrado (hardware + software + servicios)</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: Los costos de cambio son altos; los competidores no pueden replicar la integración.</td></tr><tr id="3c9648ad-99fc-80df-82f0-ee4a5377290c" dir="ltr"><td id="j|;E" class=""><strong>Netflix</strong></td><td id="BsPA" class="">Algoritmo de recomendación + datos de usuarios</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: Los datos de comportamiento son únicos y difíciles de replicar.</td></tr><tr id="3c9648ad-99fc-80ea-a109-d4f0d368cfd3" dir="ltr"><td id="j|;E" class=""><strong>Amazon</strong></td><td id="BsPA" class="">Red logística global + AWS</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La escala y la integración de logística y cloud son difíciles de imitar.</td></tr><tr id="3c9648ad-99fc-80ec-b679-fc3eb2d41567" dir="ltr"><td id="j|;E" class=""><strong>Google</strong></td><td id="BsPA" class="">Algoritmo de búsqueda + datos de usuarios</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: El algoritmo y los datos de búsqueda generan un círculo virtuoso difícil de copiar.</td></tr><tr id="3c9648ad-99fc-801d-b497-f328418073f3" dir="ltr"><td id="j|;E" class=""><strong>Coca-Cola</strong></td><td id="BsPA" class="">Marca + receta secreta</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La marca global y la receta secreta son difíciles de replicar.</td></tr><tr id="3c9648ad-99fc-80af-b29a-f6ee84e34fd4" dir="ltr"><td id="j|;E" class=""><strong>Tesla</strong></td><td id="BsPA" class="">Tecnología de baterías + Supercharger Network</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La red de supercargadores y la tecnología de baterías son difíciles de imitar.</td></tr><tr id="3c9648ad-99fc-8019-bd7b-e34308b1fbeb" dir="ltr"><td id="j|;E" class=""><strong>Zara</strong></td><td id="BsPA" class="">Cadena de suministro ultrarrápida</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La integración vertical y la velocidad de respuesta son difíciles de replicar.</td></tr><tr id="3c9648ad-99fc-8008-9f65-f825b8b37ebf" dir="ltr"><td id="j|;E" class=""><strong>Nubank</strong></td><td id="BsPA" class="">Cultura de &quot;customer obsession&quot; + tecnología</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La cultura y la tecnología de datos son difíciles de copiar.</td></tr><tr id="3c9648ad-99fc-80c4-b12c-c5dfff3f7e65" dir="ltr"><td id="j|;E" class=""><strong>Mercado Libre</strong></td><td id="BsPA" class="">Ecosistema integrado (marketplace + pagos + logística)</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: La integración regional y el conocimiento del mercado local.</td></tr><tr id="3c9648ad-99fc-8025-b2aa-d615982e7605" dir="ltr"><td id="j|;E" class=""><strong>Spotify</strong></td><td id="BsPA" class="">Algoritmo de recomendación + datos de escucha</td><td id="&lt;Wko" class="">✅</td><td id="S_zu" class="">✅</td><td id="MbVq" class="">✅</td><td id="]|Sc" class="">✅</td><td id="SNnM" class="" style="width:188px"><strong>Ventaja Sostenible</strong>: Los datos de comportamiento de usuario son únicos y difíciles de replicar.</td></tr></tbody></table><hr id="3c9648ad-99fc-8056-a31d-fd489bd7438f" dir="auto"/><h2 id="3c9648ad-99fc-8024-863f-dd2bf3eb272f" class="" dir="auto"><strong>⚠️ Errores Comunes al Aplicar VRIO</strong></h2><table id="3c9648ad-99fc-8076-98dd-caa758f26246" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-802f-8618-c76ba3aa215c" dir="ltr"><th id="Wv~=" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="cR`l" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="JOy\" class="simple-table-header-color simple-table-header" style="width:278.9943084716797px"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8006-84cc-c514406d692f" dir="ltr"><td id="Wv~=" class=""><strong>No identificar todos los recursos</strong></td><td id="cR`l" class="">Focalizarse solo en los activos tangibles (ej: fábricas) e ignorar intangibles (ej: cultura).</td><td id="JOy\" class="" style="width:278.9943084716797px">No se captura el verdadero potencial competitivo.</td></tr><tr id="3c9648ad-99fc-805e-a9ed-cefefd7b24c8" dir="ltr"><td id="Wv~=" class=""><strong>Subestimar la inimitabilidad</strong></td><td id="cR`l" class="">Pensar que un recurso es difícil de imitar cuando en realidad no lo es.</td><td id="JOy\" class="" style="width:278.9943084716797px">Se sobreestima la ventaja competitiva.</td></tr><tr id="3c9648ad-99fc-8052-b0f9-d9f1d24791e9" dir="ltr"><td id="Wv~=" class=""><strong>Ignorar la organización</strong></td><td id="cR`l" class="">Evaluar un recurso como VRIO, pero no considerar si la empresa está organizada para aprovecharlo.</td><td id="JOy\" class="" style="width:278.9943084716797px">El recurso no genera el valor esperado.</td></tr><tr id="3c9648ad-99fc-808a-be53-d92eb2634842" dir="ltr"><td id="Wv~=" class=""><strong>No actualizar el análisis</strong></td><td id="cR`l" class="">El VRIO debe hacerse periódicamente, no solo una vez.</td><td id="JOy\" class="" style="width:278.9943084716797px">El análisis queda obsoleto.</td></tr><tr id="3c9648ad-99fc-80d7-9e34-d46ea933930c" dir="ltr"><td id="Wv~=" class=""><strong>No considerar el contexto</strong></td><td id="cR`l" class="">Un recurso puede ser VRIO en un mercado, pero no en otro.</td><td id="JOy\" class="" style="width:278.9943084716797px">Aplicación incorrecta del modelo.</td></tr><tr id="3c9648ad-99fc-8024-ab87-ecdee8748185" dir="ltr"><td id="Wv~=" class=""><strong>Confundir VRIO con la ventaja en sí</strong></td><td id="cR`l" class="">El VRIO evalúa recursos, no el resultado final.</td><td id="JOy\" class="" style="width:278.9943084716797px">No se entiende la relación causa-efecto.</td></tr></tbody></table><hr id="3c9648ad-99fc-80ad-8a79-d4f82c9d760a" dir="auto"/><h2 id="3c9648ad-99fc-805b-9f28-ce685f4a3ba2" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-80f3-bb4f-da5f581669e3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-804c-988c-f6697d378bfa" dir="ltr"><th id="P@wQ" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id=";M:[" class="simple-table-header-color simple-table-header" style="width:413px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-809e-a9a3-ff951c4de0da" dir="ltr"><td id="P@wQ" class=""><strong>Planificación estratégica</strong></td><td id=";M:[" class="" style="width:413px">Evaluar qué recursos pueden convertirse en ventajas competitivas.</td></tr><tr id="3c9648ad-99fc-8001-926c-f2abb0d2c41d" dir="ltr"><td id="P@wQ" class=""><strong>Análisis de competencia</strong></td><td id=";M:[" class="" style="width:413px">Comparar los recursos de la empresa con los de los competidores.</td></tr><tr id="3c9648ad-99fc-80b3-a88e-c9947b6a27c6" dir="ltr"><td id="P@wQ" class=""><strong>Fusión y adquisición</strong></td><td id=";M:[" class="" style="width:413px">Evaluar los recursos de la empresa objetivo.</td></tr><tr id="3c9648ad-99fc-801f-b7eb-f069cc66e0c6" dir="ltr"><td id="P@wQ" class=""><strong>Gestión del cambio</strong></td><td id=";M:[" class="" style="width:413px">Identificar qué recursos necesitan fortalecerse.</td></tr><tr id="3c9648ad-99fc-80d6-9a2d-d7be9a90f27e" dir="ltr"><td id="P@wQ" class=""><strong>Innovación</strong></td><td id=";M:[" class="" style="width:413px">Identificar recursos que pueden ser la base de nuevas ofertas.</td></tr></tbody></table><hr id="3c9648ad-99fc-80b6-a028-face2d8096f5" dir="auto"/><h2 id="3c9648ad-99fc-80cf-bdf9-c7e85424116a" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-8015-9592-e4f75fa3769d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-805e-9663-ce1cee02b6c2" dir="ltr"><th id="nlU^" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="Xdzy" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80f7-89e3-cb6e87d12a82" dir="ltr"><td id="nlU^" class=""><strong>Visión Basada en Recursos (RBV)</strong></td><td id="Xdzy" class="">El VRIO es la herramienta operativa de la RBV.</td></tr><tr id="3c9648ad-99fc-8031-9615-f2aa128c93d2" dir="ltr"><td id="nlU^" class=""><strong>Ventaja Competitiva</strong></td><td id="Xdzy" class="">El VRIO explica cómo se construye la ventaja competitiva sostenible.</td></tr><tr id="3c9648ad-99fc-8082-a749-c8ab29fcb950" dir="ltr"><td id="nlU^" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="Xdzy" class="">El VRIO ayuda a identificar si la empresa tiene recursos para sostener una estrategia de diferenciación o liderazgo en costos.</td></tr><tr id="3c9648ad-99fc-800d-b0da-e4d230d50e34" dir="ltr"><td id="nlU^" class=""><strong>Cadena de Valor</strong></td><td id="Xdzy" class="">El VRIO se aplica a las actividades de la cadena de valor.</td></tr><tr id="3c9648ad-99fc-802b-8b17-c4b0230248d7" dir="ltr"><td id="nlU^" class=""><strong>Análisis FODA (SWOT)</strong></td><td id="Xdzy" class="">El VRIO profundiza en el análisis de las fortalezas (internas).</td></tr><tr id="3c9648ad-99fc-8045-b1d4-e0c1a156d326" dir="ltr"><td id="nlU^" class=""><strong>5 Fuerzas de Porter</strong></td><td id="Xdzy" class="">El VRIO complementa el análisis del entorno con un enfoque interno.</td></tr><tr id="3c9648ad-99fc-80c3-b72b-e4e53da14051" dir="ltr"><td id="nlU^" class=""><strong>Océano Azul</strong></td><td id="Xdzy" class="">El VRIO ayuda a evaluar si los recursos permiten crear un océano azul.</td></tr></tbody></table><hr id="3c9648ad-99fc-8084-93bf-fb6e0ee48031" dir="auto"/><h2 id="3c9648ad-99fc-80e6-b963-d2311bc7da0c" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-8062-ad58-f446ca5ad3ca" class="" dir="auto">El VRIO es como un <strong>filtro de café</strong> para los recursos de una empresa. Así como un filtro solo deja pasar lo que es realmente valioso, el VRIO filtra los recursos que pueden generar una ventaja competitiva sostenible. Cada criterio (Valor, Rareza, Inimitabilidad, Organización) es una capa del filtro. Si un recurso no pasa todas las capas, no es un recurso estratégico; es solo un activo más que no te da ventaja sobre la competencia.</p><hr id="3c9648ad-99fc-8058-a186-e5da3bd36441" dir="auto"/><h2 id="3c9648ad-99fc-80e0-b157-fa7729deea4a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-80b8-8c13-d897430a2fba" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Barney, J. B. (1991). <em>Firm Resources and Sustained Competitive Advantage</em>. Journal of Management.</li></ul><ul id="3c9648ad-99fc-80a1-ad58-e631c923c157" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Barney, J. B. (1995). <em>Looking Inside for Competitive Advantage</em>. Academy of Management Perspectives.</li></ul><ul id="3c9648ad-99fc-8041-9f7a-e9032fa86e9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Wernerfelt, B. (1984). <em>A Resource-Based View of the Firm</em>. Strategic Management Journal.</li></ul><ul id="3c9648ad-99fc-800b-9803-de16139f9497" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Grant, R. M. (1991). <em>The Resource-Based Theory of Competitive Advantage</em>. California Management Review.</li></ul><ul id="3c9648ad-99fc-80ec-a7a4-e56646fd329b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2022). <em>What Is the VRIO Framework?</em>.</li></ul><ul id="3c9648ad-99fc-80d3-a06a-f5c24691d9db" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MBA智库, (2024). <em>VRIO Analysis</em>.</li></ul><hr id="3c9648ad-99fc-80f1-9cf2-d69a973ef7e7" dir="auto"/><h2 id="3c9648ad-99fc-8098-beb0-ca078f455716" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-802c-89ab-c9ee300b692d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El VRIO no es una varita mágica</strong>: Es una herramienta de diagnóstico, no una solución en sí misma. Identificar un recurso VRIO es solo el primer paso; luego hay que explotarlo.</li></ul><ul id="3c9648ad-99fc-8005-937b-cf8be56dfc1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La &quot;inimitabilidad&quot; es el criterio más difícil de cumplir</strong>: La mayoría de los recursos son fáciles de copiar (ej: tecnología, procesos, incluso marcas pueden ser copiadas). La verdadera inimitabilidad suele venir de la cultura, la historia, la confianza o el ecosistema.</li></ul><ul id="3c9648ad-99fc-8075-af85-e6f4b3ddd0b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La organización es tan importante como los recursos</strong>: Muchas empresas tienen recursos valiosos, pero no están organizadas para aprovecharlos (ej: talento sin procesos de innovación, tecnología sin estrategia de adopción).</li></ul><ul id="3c9648ad-99fc-80a0-84e4-f90e1da52ea8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar el VRIO</strong>:<ol type="1" id="3c9648ad-99fc-8019-a138-dab33eb7638f" class="numbered-list" start="1" dir="auto"><li><strong>Sé honesto en la evaluación</strong>: No sobreestimes tus recursos. Si un recurso no es realmente raro o difícil de imitar, admítelo. Es mejor saberlo ahora que descubrirlo cuando un competidor te supera.</li></ol><ol type="1" id="3c9648ad-99fc-801a-b9e1-c38ca5154405" class="numbered-list" start="2" dir="auto"><li><strong>Involucra a diferentes áreas</strong>: Los recursos pueden estar ocultos en áreas como cultura organizacional, procesos internos o relaciones con clientes. Habla con diferentes departamentos para identificar todos los recursos.</li></ol><ol type="1" id="3c9648ad-99fc-804f-b159-e03ab7d8446f" class="numbered-list" start="3" dir="auto"><li><strong>No olvides los recursos intangibles</strong>: La marca, la cultura, la reputación, el conocimiento tácito y las relaciones con los clientes suelen ser los recursos más difíciles de imitar.</li></ol><ol type="1" id="3c9648ad-99fc-805c-91ba-e45cd717c84d" class="numbered-list" start="4" dir="auto"><li><strong>Actualiza regularmente</strong>: Los recursos que son VRIO hoy pueden no serlo mañana. La tecnología avanza, los competidores aprenden y las preferencias de los clientes cambian.</li></ol><ol type="1" id="3c9648ad-99fc-80e5-953c-ff280d3cd98f" class="numbered-list" start="5" dir="auto"><li><strong>El VRIO es contextual</strong>: Un recurso puede ser VRIO en un mercado o industria, pero no en otro. Aplica el modelo en el contexto correcto.</li></ol></li></ul><p id="3f6648ad-99fc-8027-bd44-c9e6df1ee51a" class="" dir="auto">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

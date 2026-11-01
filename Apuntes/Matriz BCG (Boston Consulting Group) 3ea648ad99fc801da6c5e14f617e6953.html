@@ -1,0 +1,829 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Matriz BCG (Boston Consulting Group)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-801d-a6c5-e14f617e6953" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Matriz BCG (Boston Consulting Group)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-80f0-b2ba-ee41d4cafe5e" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-804c-b5af-e8723657ca71" class="" dir="auto"><strong>📄 Matriz BCG (Boston Consulting Group)</strong></h1><hr id="3ea648ad-99fc-801f-a459-e62b968675cd" dir="auto"/><h2 id="3ea648ad-99fc-8012-9639-dac25b073f46" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-8092-b111-fda5001c2013" class="" dir="auto">La <strong>Matriz BCG</strong> es una <strong>herramienta de análisis de portafolio de productos</strong> desarrollada por la <strong>Boston Consulting Group (BCG)</strong> en la década de 1970. </p><p id="3ea648ad-99fc-801f-b7b3-fd91f34d43a8" class="" dir="auto">Permite a las empresas <strong>clasificar sus productos o unidades de negocio</strong> según dos dimensiones: <strong>participación de mercado relativa</strong> (alta o baja) y <strong>tasa de crecimiento del mercado</strong> (alta o baja). </p><p id="3ea648ad-99fc-80c1-8634-ee9d3e37b1c8" class="" dir="auto">El objetivo es <strong>decidir en qué productos invertir, cuáles mantener y cuáles descontinuar</strong>, optimizando la asignación de recursos.</p><hr id="3ea648ad-99fc-809d-bfbf-c8bf69b386c0" dir="auto"/><h2 id="3ea648ad-99fc-8000-a32e-e882604f4942" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-80b3-9882-d91ea1a6f099" class="" dir="auto">La Matriz BCG se basa en la idea de que una empresa debe tener un <strong>portafolio equilibrado</strong> de productos: algunos que generen efectivo (para financiar a otros), algunos que crezcan (para el futuro) y otros que estén en declive (para ser gestionados o eliminados).</p><p id="3ea648ad-99fc-80c7-a791-ce768bc904ca" class="" dir="auto"><strong>Dimensiones de la matriz</strong>:</p><ul id="3ea648ad-99fc-803e-8858-fac38fb704f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eje Y (vertical)</strong>: Tasa de crecimiento del mercado (alta o baja).</li></ul><ul id="3ea648ad-99fc-80c3-a271-f226c341ca5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eje X (horizontal)</strong>: Participación de mercado relativa (alta o baja). </li></ul><ul id="3ea648ad-99fc-8020-800c-cd17b89ffa48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se mide en relación con el competidor más grande.</li></ul><p id="3ea648ad-99fc-80b2-bebe-d7170d30b899" class="" dir="auto"><strong>Los 4 cuadrantes</strong>:</p><ol type="1" id="3ea648ad-99fc-808f-8834-ec0ed326fea7" class="numbered-list" start="1" dir="auto"><li><strong>Estrella (Star)</strong>: Alta participación, alto crecimiento.</li></ol><ol type="1" id="3ea648ad-99fc-80f0-ad70-c4b016050ebd" class="numbered-list" start="2" dir="auto"><li><strong>Vaca Lechera (Cash Cow)</strong>: Alta participación, bajo crecimiento.</li></ol><ol type="1" id="3ea648ad-99fc-8007-adc1-d10e802790fc" class="numbered-list" start="3" dir="auto"><li><strong>Interrogante (Question Mark)</strong>: Baja participación, alto crecimiento.</li></ol><ol type="1" id="3ea648ad-99fc-80bb-97d3-d3c2241d849a" class="numbered-list" start="4" dir="auto"><li><strong>Perro (Dog)</strong>: Baja participación, bajo crecimiento.</li></ol><hr id="3ea648ad-99fc-80c2-b54c-d8a0b908e1ed" dir="auto"/><h2 id="3ea648ad-99fc-8041-8dbc-d4be181e06bd" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-8040-aa87-cf4f4795e5e9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Clasificar productos</strong>: Identificar el rol de cada producto en el portafolio.</li></ul><ul id="3ea648ad-99fc-80ae-8119-f38b364998d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asignar recursos</strong>: Decidir en qué productos invertir y de cuáles retirar fondos.</li></ul><ul id="3ea648ad-99fc-808b-a4f2-d99331d46eb5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Equilibrar el portafolio</strong>: Asegurar que haya productos que generen efectivo y productos que crezcan.</li></ul><ul id="3ea648ad-99fc-80ce-ac5e-d8f6f64fa8bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tomar decisiones estratégicas</strong>: Invertir, mantener, desinvertir o descontinuar.</li></ul><ul id="3ea648ad-99fc-8011-b955-f128e9be4820" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Analizar la competencia</strong>: Evaluar la posición de la empresa frente a sus rivales.</li></ul><ul id="3ea648ad-99fc-80a0-ad13-edec9d553442" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunicar la estrategia</strong>: Es una herramienta visual simple y clara.</li></ul><hr id="3ea648ad-99fc-80e1-9db8-e31f3841c390" dir="auto"/><h2 id="3ea648ad-99fc-8064-b7b9-d1010089bf15" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los 4 Cuadrantes</strong></h2><h3 id="3ea648ad-99fc-80c9-b356-f54530a9e93c" class="" dir="auto"><strong>1️⃣ Estrella (Star) - Alta Participación / Alto Crecimiento</strong></h3><ul id="3ea648ad-99fc-804e-a6cd-e653e79111d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Productos líderes en un mercado en rápido crecimiento.</li></ul><ul id="3ea648ad-99fc-806c-9c58-e771414872df" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-80de-9073-d302cf482414" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Alta participación de mercado.</li></ul><ul id="3ea648ad-99fc-809c-a5cc-cb0a17848e2c" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Alto crecimiento del mercado.</li></ul><ul id="3ea648ad-99fc-8064-8639-e22a9c121ea9" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Generan ingresos, pero requieren inversión para mantener el liderazgo.</li></ul><ul id="3ea648ad-99fc-806d-bfd1-eef17f7cc429" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Son el futuro de la empresa.</li></ul></li></ul><ul id="3ea648ad-99fc-8054-901c-fa958697f9cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: <strong>Invertir</strong> para mantener o aumentar la participación.</li></ul><ul id="3ea648ad-99fc-8088-a56b-edb7fd64487c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: iPhone (Apple), Tesla (vehículos eléctricos).</li></ul><hr id="3ea648ad-99fc-8005-9218-efe0a26a283e" dir="auto"/><h3 id="3ea648ad-99fc-802e-9b8a-d98fc8036da4" class="" dir="auto"><strong>2️⃣ Vaca Lechera (Cash Cow) - Alta Participación / Bajo Crecimiento</strong></h3><ul id="3ea648ad-99fc-8036-befc-e61f892c8b89" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Productos líderes en un mercado maduro y de bajo crecimiento.</li></ul><ul id="3ea648ad-99fc-809c-b28d-d929ed612c9f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-805f-ba9c-c77c050fc82e" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Alta participación de mercado.</li></ul><ul id="3ea648ad-99fc-80de-ac04-c94a23945219" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Bajo crecimiento del mercado.</li></ul><ul id="3ea648ad-99fc-8027-8594-f2062b621ade" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Generan más efectivo del que necesitan para mantenerse.</li></ul><ul id="3ea648ad-99fc-807e-a0db-efd5b04552d7" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Financian a las Estrellas y a los Interrogantes.</li></ul></li></ul><ul id="3ea648ad-99fc-805d-9eef-cb568581f27d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: <strong>Mantener</strong> y <strong>ordeñar</strong> (extraer efectivo) para financiar otros productos.</li></ul><ul id="3ea648ad-99fc-8078-90d1-fe9794ab9cd1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Windows (Microsoft), Coca-Cola (bebidas carbonatadas).</li></ul><hr id="3ea648ad-99fc-8076-87a9-fd4181632ade" dir="auto"/><h3 id="3ea648ad-99fc-8093-9b72-d512125dc7c5" class="" dir="auto"><strong>3️⃣ Interrogante (Question Mark) - Baja Participación / Alto Crecimiento</strong></h3><ul id="3ea648ad-99fc-80ef-a616-fa730cd28766" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Productos en un mercado en crecimiento, pero con baja participación.</li></ul><ul id="3ea648ad-99fc-8076-a905-db003b9ebade" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-8094-ac21-d48efa00f032" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Baja participación de mercado.</li></ul><ul id="3ea648ad-99fc-8026-a7d7-ee75f3135806" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Alto crecimiento del mercado.</li></ul><ul id="3ea648ad-99fc-806a-b081-ff6192d4e8c2" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Requieren inversión para ganar participación.</li></ul><ul id="3ea648ad-99fc-8053-8653-eb023df50b15" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Son una apuesta: pueden convertirse en Estrellas o en Perros.</li></ul></li></ul><ul id="3ea648ad-99fc-80ff-8eb7-d353fdd24b27" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: <strong>Invertir selectivamente</strong> para ganar participación, o <strong>desinvertir</strong> si no hay potencial.</li></ul><ul id="3ea648ad-99fc-800c-a7b4-e0a18126c938" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Google Stadia (fracasó), Amazon Alexa (en crecimiento).</li></ul><hr id="3ea648ad-99fc-809c-9a61-f9e0648d4760" dir="auto"/><h3 id="3ea648ad-99fc-80ef-98dc-d406986cbf58" class="" dir="auto"><strong>4️⃣ Perro (Dog) - Baja Participación / Bajo Crecimiento</strong></h3><ul id="3ea648ad-99fc-80d1-8f01-c054e64a2934" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Productos con baja participación en un mercado maduro y de bajo crecimiento.</li></ul><ul id="3ea648ad-99fc-808c-ab94-ec83dd24edf5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-804c-9602-ecfd86a5540d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Baja participación de mercado.</li></ul><ul id="3ea648ad-99fc-80fa-9457-e08f056cbc3e" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Bajo crecimiento del mercado.</li></ul><ul id="3ea648ad-99fc-8090-850a-fcec2f19011f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Generan pocos ingresos o incluso pérdidas.</li></ul><ul id="3ea648ad-99fc-8038-8b4a-d14beec9d490" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Consumen recursos que podrían usarse en otros productos.</li></ul></li></ul><ul id="3ea648ad-99fc-8056-9322-e8876993d412" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrategia</strong>: <strong>Desinvertir</strong> o <strong>descontinuar</strong>, salvo que tengan un valor estratégico.</li></ul><ul id="3ea648ad-99fc-804e-a1ff-c905942d6b44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: BlackBerry (teléfonos), Kodak (película fotográfica).</li></ul><hr id="3ea648ad-99fc-802b-a5e1-f1cb6d8a9a40" dir="auto"/><h2 id="3ea648ad-99fc-80e8-886a-ff7f9c4b0c89" class="" dir="auto"><strong>📊 Matriz BCG Visual</strong></h2><p id="3ea648ad-99fc-8082-a8b1-c87bfd1a2be3" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ea648ad-99fc-8094-a035-d5a2798170c1" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────────────────┐
+│                            MATRIZ BCG                                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   Alta  ┌─────────────────────────┬─────────────────────────┐              │
+│         │                         │                         │              │
+│         │       ESTRELLA          │      INTERROGANTE       │              │
+│         │         (Star)          │     (Question Mark)     │              │
+│         │                         │                         │              │
+│   Tasa  │  - Alta participación   │  - Baja participación   │              │
+│    de   │  - Alto crecimiento     │  - Alto crecimiento     │              │
+│  Creci- │  - Invertir             │  - Invertir selectiva-  │              │
+│  miento │  - Ej: iPhone           │    mente o desinvertir  │              │
+│    del  │                         │  - Ej: Amazon Alexa     │              │
+│ Mercado │                         │                         │              │
+│         ├─────────────────────────┼─────────────────────────┤              │
+│         │                         │                         │              │
+│   Baja  │     VACA LECHERA        │         PERRO           │              │
+│         │     (Cash Cow)          │          (Dog)          │              │
+│         │                         │                         │              │
+│         │  - Alta participación   │  - Baja participación   │              │
+│         │  - Bajo crecimiento     │  - Bajo crecimiento     │              │
+│         │  - Mantener/ordeñar     │  - Desinvertir/descon-  │              │
+│         │  - Ej: Windows          │    tinuar               │              │
+│         │                         │  - Ej: BlackBerry       │              │
+│         └─────────────────────────┴─────────────────────────┘              │
+│                                                                             │
+│              Alta                            Baja                           │
+│                    Participación de Mercado Relativa                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3ea648ad-99fc-8086-96dc-d08da324375d" dir="auto"/><h2 id="3ea648ad-99fc-801b-a6f5-fda9a125883f" class="" dir="auto"><strong>💡 Ejemplo Práctico: Matriz BCG de Apple</strong></h2><table id="3ea648ad-99fc-8026-8c12-e5e690f55ce9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8022-b67f-cbdfb2b29116" dir="ltr"><th id="k&lt;qR" class="simple-table-header-color simple-table-header"><strong>Producto</strong></th><th id="he:G" class="simple-table-header-color simple-table-header"><strong>Cuadrante</strong></th><th id="hI&lt;F" class="simple-table-header-color simple-table-header"><strong>Participación</strong></th><th id="rfcH" class="simple-table-header-color simple-table-header"><strong>Crecimiento</strong></th><th id="k]TS" class="simple-table-header-color simple-table-header"><strong>Estrategia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-804f-892e-ccfc51c890fb" dir="ltr"><td id="k&lt;qR" class=""><strong>iPhone</strong></td><td id="he:G" class="">Estrella</td><td id="hI&lt;F" class="">Alta</td><td id="rfcH" class="">Alto</td><td id="k]TS" class="">Invertir para mantener liderazgo.</td></tr><tr id="3ea648ad-99fc-80e4-993f-f0ec05f9fb38" dir="ltr"><td id="k&lt;qR" class=""><strong>Mac</strong></td><td id="he:G" class="">Vaca Lechera</td><td id="hI&lt;F" class="">Alta</td><td id="rfcH" class="">Bajo</td><td id="k]TS" class="">Mantener y extraer efectivo.</td></tr><tr id="3ea648ad-99fc-8062-8748-c0ad4347d167" dir="ltr"><td id="k&lt;qR" class=""><strong>Apple Watch</strong></td><td id="he:G" class="">Interrogante</td><td id="hI&lt;F" class="">Media</td><td id="rfcH" class="">Alto</td><td id="k]TS" class="">Invertir para ganar participación.</td></tr><tr id="3ea648ad-99fc-8050-8175-ef5e2dce58e3" dir="ltr"><td id="k&lt;qR" class=""><strong>iPod</strong></td><td id="he:G" class="">Perro</td><td id="hI&lt;F" class="">Baja</td><td id="rfcH" class="">Bajo</td><td id="k]TS" class="">Descontinuar (ya discontinuado).</td></tr><tr id="3ea648ad-99fc-806b-a088-cc325e4197d0" dir="ltr"><td id="k&lt;qR" class=""><strong>Servicios (iCloud, Music)</strong></td><td id="he:G" class="">Estrella</td><td id="hI&lt;F" class="">Alta</td><td id="rfcH" class="">Alto</td><td id="k]TS" class="">Invertir para crecer.</td></tr></tbody></table><hr id="3ea648ad-99fc-80eb-8a22-ebbba2f675d5" dir="auto"/><h2 id="3ea648ad-99fc-80ad-b2af-f63e135e6906" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar la Matriz BCG</strong></h2><table id="3ea648ad-99fc-80be-b22a-e9de042b4a60" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8095-9221-e557a1577607" dir="ltr"><th id="ffco" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="Bk\X" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="EsRU" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8016-a151-f17bfd6586b5" dir="ltr"><td id="ffco" class=""><strong>Clasificar mal un producto</strong></td><td id="Bk\X" class="">Poner un Perro como Estrella o viceversa.</td><td id="EsRU" class="">Decisiones de inversión equivocadas.</td></tr><tr id="3ea648ad-99fc-804b-958e-f884a01e88ea" dir="ltr"><td id="ffco" class=""><strong>Ignorar el contexto</strong></td><td id="Bk\X" class="">No considerar factores externos (competencia, regulación).</td><td id="EsRU" class="">Análisis incompleto.</td></tr><tr id="3ea648ad-99fc-8007-a330-dbd0b0417e60" dir="ltr"><td id="ffco" class=""><strong>Usar solo la matriz</strong></td><td id="Bk\X" class="">Tomar decisiones basadas solo en la BCG.</td><td id="EsRU" class="">Se ignoran otros factores estratégicos.</td></tr><tr id="3ea648ad-99fc-80c7-9d55-f641cf2dded8" dir="ltr"><td id="ffco" class=""><strong>No actualizar</strong></td><td id="Bk\X" class="">Mantener la misma clasificación durante años.</td><td id="EsRU" class="">El análisis queda obsoleto.</td></tr><tr id="3ea648ad-99fc-8044-ba3f-d4add69bc1ed" dir="ltr"><td id="ffco" class=""><strong>Confundir crecimiento con rentabilidad</strong></td><td id="Bk\X" class="">Asumir que un mercado en crecimiento es rentable.</td><td id="EsRU" class="">Inversiones en mercados no rentables.</td></tr><tr id="3ea648ad-99fc-80cb-b779-fd00b6045520" dir="ltr"><td id="ffco" class=""><strong>No considerar sinergias</strong></td><td id="Bk\X" class="">Analizar productos de forma aislada.</td><td id="EsRU" class="">Se pierden oportunidades de sinergia.</td></tr></tbody></table><hr id="3ea648ad-99fc-800b-9558-ca219ceb21f6" dir="auto"/><h2 id="3ea648ad-99fc-80d9-9cee-c8020d177ce2" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-807a-8f67-c249064c3fb5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80ca-946b-ed404a4c40f6" dir="ltr"><th id="ac^W" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="Y`r[" class="simple-table-header-color simple-table-header" style="width:331px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80bf-91d8-f4423d5eb474" dir="ltr"><td id="ac^W" class=""><strong>Gestión de portafolio</strong></td><td id="Y`r[" class="" style="width:331px">Decidir en qué productos invertir y cuáles descontinuar.</td></tr><tr id="3ea648ad-99fc-809c-ad1c-dcefc02430a5" dir="ltr"><td id="ac^W" class=""><strong>Planificación estratégica</strong></td><td id="Y`r[" class="" style="width:331px">Equilibrar el portafolio de productos.</td></tr><tr id="3ea648ad-99fc-80d1-bc00-dc48e8031cf6" dir="ltr"><td id="ac^W" class=""><strong>Asignación de recursos</strong></td><td id="Y`r[" class="" style="width:331px">Distribuir el presupuesto entre productos.</td></tr><tr id="3ea648ad-99fc-803e-af04-fc292ffa2e5a" dir="ltr"><td id="ac^W" class=""><strong>Análisis de competencia</strong></td><td id="Y`r[" class="" style="width:331px">Comparar la posición de la empresa con la competencia.</td></tr><tr id="3ea648ad-99fc-80f7-ad22-e044d163239f" dir="ltr"><td id="ac^W" class=""><strong>Evaluación de adquisiciones</strong></td><td id="Y`r[" class="" style="width:331px">Analizar el portafolio de una empresa objetivo.</td></tr></tbody></table><hr id="3ea648ad-99fc-8063-adaa-e1c09a5b0e9d" dir="auto"/><h2 id="3ea648ad-99fc-80f9-9a34-d9a7c081b6da" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-80e0-97f4-cd7a2e677a84" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80c9-8eff-fbdb3291ca1e" dir="ltr"><th id="r;^@" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="`hQb" class="simple-table-header-color simple-table-header" style="width:314px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-805a-be94-d1cdd6229951" dir="ltr"><td id="r;^@" class=""><strong>Ciclo de Vida del Producto</strong></td><td id="`hQb" class="" style="width:314px">La Matriz BCG refleja las etapas del ciclo de vida (introducción, crecimiento, madurez, declive).</td></tr><tr id="3ea648ad-99fc-80fa-9faa-e21a3276047a" dir="ltr"><td id="r;^@" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="`hQb" class="" style="width:314px">La BCG ayuda a decidir si competir en costos o diferenciación.</td></tr><tr id="3ea648ad-99fc-804f-a8f1-cf8bd382c068" dir="ltr"><td id="r;^@" class=""><strong>Cadena de Valor</strong></td><td id="`hQb" class="" style="width:314px">La BCG identifica dónde asignar recursos en la cadena de valor.</td></tr><tr id="3ea648ad-99fc-80b2-8787-da6ede28c6d2" dir="ltr"><td id="r;^@" class=""><strong>FODA</strong></td><td id="`hQb" class="" style="width:314px">La BCG es un complemento al análisis FODA.</td></tr><tr id="3ea648ad-99fc-807a-a7af-ebdabb202c2a" dir="ltr"><td id="r;^@" class=""><strong>Ventaja Competitiva</strong></td><td id="`hQb" class="" style="width:314px">La BCG ayuda a identificar productos con ventaja competitiva.</td></tr><tr id="3ea648ad-99fc-808d-8460-d16489d05ceb" dir="ltr"><td id="r;^@" class=""><strong>Business Model Canvas</strong></td><td id="`hQb" class="" style="width:314px">La BCG analiza el portafolio de productos del modelo de negocio.</td></tr></tbody></table><hr id="3ea648ad-99fc-80a1-b8b2-fe898122a640" dir="auto"/><h2 id="3ea648ad-99fc-8083-9456-ffaa13091481" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-8008-a48d-c6a73ea634e0" class="" dir="auto">La Matriz BCG es como <strong>un jardín con diferentes tipos de plantas</strong>:</p><ul id="3ea648ad-99fc-80bb-947c-c48be6d2ca10" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estrellas</strong>: Plantas que crecen rápido y hay que regar mucho (invertir) para que sigan creciendo.</li></ul><ul id="3ea648ad-99fc-807b-920a-c21fe74340c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Vacas Lecheras</strong>: Árboles frutales maduros que dan frutos (efectivo) sin necesitar mucha agua.</li></ul><ul id="3ea648ad-99fc-8084-b108-c8c01173dd16" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Interrogantes</strong>: Semillas que pueden convertirse en grandes árboles o no germinar. Hay que decidir si regarlas o no.</li></ul><ul id="3ea648ad-99fc-809e-9309-c2bd06359554" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Perros</strong>: Plantas marchitas que ya no dan frutos y consumen agua que podría usarse en otras plantas. Hay que arrancarlas.</li></ul><p id="3ea648ad-99fc-801c-85ca-fadd4a0a88ab" class="" dir="auto">El jardinero (el estratega) debe equilibrar el jardín: usar el agua (recursos) de las Vacas Lecheras para regar las Estrellas e Interrogantes, y deshacerse de los Perros.</p><hr id="3ea648ad-99fc-8017-9261-cf9ca8a8e971" dir="auto"/><h2 id="3ea648ad-99fc-803c-b428-f9b77c90c863" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-8008-96cb-d91f160f7277" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Boston Consulting Group, (1970). <em>The Product Portfolio Matrix</em>.</li></ul><ul id="3ea648ad-99fc-80be-a104-fa986488a707" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1980). <em>Competitive Strategy</em>. Free Press.</li></ul><ul id="3ea648ad-99fc-80fc-953e-c4bd24fd10c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The BCG Matrix Explained</em>.</li></ul><ul id="3ea648ad-99fc-8053-8194-e5f0f1012b79" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kotler, P., &amp; Keller, K. L. (2016). <em>Marketing Management</em>. Pearson.</li></ul><hr id="3ea648ad-99fc-80cc-a3b0-e0d3fbfc0880" dir="auto"/><h2 id="3ea648ad-99fc-80de-b44c-dd2a4c350022" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-806c-81d0-e93c2312f517" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La Matriz BCG es una herramienta de análisis, no una decisión</strong>: No te dice qué hacer, pero te ayuda a ver el panorama del portafolio.</li></ul><ul id="3ea648ad-99fc-8033-8e51-dd30a75b7fcf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todos los Perros deben ser eliminados</strong>: Algunos pueden tener valor estratégico (ej: un producto que complementa a otro).</li></ul><ul id="3ea648ad-99fc-800b-83e2-ed3da350aa26" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todos los Interrogantes deben ser invertidos</strong>: Algunos pueden no tener potencial; hay que ser selectivo.</li></ul><ul id="3ea648ad-99fc-803d-8663-c39cc4938549" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para usar la Matriz BCG</strong>:<ol type="1" id="3ea648ad-99fc-8077-b803-e4950038a471" class="numbered-list" start="1" dir="auto"><li><strong>Define bien el mercado</strong>: La tasa de crecimiento y la participación dependen de cómo definas el mercado.</li></ol><ol type="1" id="3ea648ad-99fc-8098-9f0c-ca39e29b7c6c" class="numbered-list" start="2" dir="auto"><li><strong>Usa datos reales</strong>: No clasifiques por intuición; usa datos de mercado y ventas.</li></ol><ol type="1" id="3ea648ad-99fc-80b0-94dd-e0a52d3f900c" class="numbered-list" start="3" dir="auto"><li><strong>Revisa periódicamente</strong>: La clasificación cambia con el tiempo.</li></ol><ol type="1" id="3ea648ad-99fc-8078-9f32-e689c6439720" class="numbered-list" start="4" dir="auto"><li><strong>Combínala con otras herramientas</strong>: No tomes decisiones basadas solo en la BCG; úsala junto con el FODA, la Cadena de Valor, etc.</li></ol><ol type="1" id="3ea648ad-99fc-8053-907f-e96615d47577" class="numbered-list" start="5" dir="auto"><li><strong>Piensa en sinergias</strong>: Un producto Perro puede ser clave para la venta de otro producto Estrella.</li></ol><ol type="1" id="3ea648ad-99fc-8028-8b49-dd9d90b2326f" class="numbered-list" start="6" dir="auto"><li><strong>Sé realista</strong>: No todos los Interrogantes pueden convertirse en Estrellas. Prioriza los que tengan más potencial.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

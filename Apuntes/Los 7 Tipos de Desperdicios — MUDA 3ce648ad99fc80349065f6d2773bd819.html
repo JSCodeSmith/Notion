@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Los 7 Tipos de Desperdicios — MUDA</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-8034-9065-f6d2773bd819" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Los 7 Tipos de Desperdicios — MUDA</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ce648ad-99fc-80ab-a9dc-c52cdbe16a26" class="" dir="auto">
+</p><h1 id="3ce648ad-99fc-8010-a858-da06aceb89ca" class="" dir="auto"><strong>📄 Los 7 Tipos de Desperdicios (MUDA) - Lean Manufacturing</strong></h1><hr id="3ce648ad-99fc-8085-a26d-fe98958a024a" dir="auto"/><h2 id="3ce648ad-99fc-80f3-ad67-ee6b981b8bb8" class="" dir="auto"><strong>📝 Definición</strong></h2><ul id="3ce648ad-99fc-8062-b87c-c6d9141281c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En el marco de la <strong>filosofía Lean</strong> (originada en el Sistema de Producción Toyota), un <strong>desperdicio</strong> (o <strong>MUDA</strong> en japonés) es toda <strong>actividad que consume recursos pero que no agrega valor desde la perspectiva del cliente</strong>. </li></ul><ul id="3ce648ad-99fc-80d2-9fc1-ec3bcb972b5c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La eliminación sistemática de estos desperdicios es el corazón de la mejora continua y la excelencia operativa. </li></ul><ul id="3ce648ad-99fc-80dc-908f-ef413b95a49a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identificarlos es el primer paso para optimizar procesos, reducir costos y aumentar la eficiencia.</li></ul><hr id="3ce648ad-99fc-80d9-9806-c4729260e938" dir="auto"/><h2 id="3ce648ad-99fc-80c4-90ba-e0522b2d445a" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-80a5-b3ff-cf70e114621c" class="" dir="auto">El concepto de <strong>MUDA</strong> fue popularizado por <strong>Taiichi Ohno</strong>, el padre del Sistema de Producción Toyota (TPS). </p><p id="3ce648ad-99fc-80f9-a910-d357c9211d02" class="" dir="auto">Ohno identificó siete categorías principales de desperdicio que se encuentran en cualquier proceso productivo u organizacional. </p><p id="3ce648ad-99fc-8067-8bcb-c60764d2ae9c" class="" dir="auto">Su filosofía se basa en que la mayoría de las actividades en una operación típica son desperdicio, y que la clave para la competitividad es <strong>identificar, reducir y eliminar</strong> estas actividades sin valor agregado.</p><hr id="3ce648ad-99fc-80fe-bee6-fe5aec5b4291" dir="auto"/><h2 id="3ce648ad-99fc-8024-bb89-fd8e3c0b76b5" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-8037-b5d2-cad947314774" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir costos operativos</strong>: Eliminar actividades que consumen recursos sin generar valor.</li></ul><ul id="3ce648ad-99fc-801a-8228-c89202a7280e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la productividad</strong>: Liberar tiempo y capacidad para actividades que sí generan valor.</li></ul><ul id="3ce648ad-99fc-802e-a8ff-e23c3c2d1d2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la calidad</strong>: Reducir errores y retrabajos.</li></ul><ul id="3ce648ad-99fc-805c-a61e-e025cd977ee4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acortar los tiempos de entrega</strong>: Eliminar esperas y movimientos innecesarios.</li></ul><ul id="3ce648ad-99fc-80af-bd9d-f9514aec552c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la satisfacción del cliente</strong>: Entregar productos y servicios más rápido y con mayor calidad.</li></ul><ul id="3ce648ad-99fc-801f-a56b-edc3f78a5d5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la mejora continua</strong>: Establecer una cultura de revisión y optimización constante de los procesos.</li></ul><hr id="3ce648ad-99fc-8014-acff-ef34e5fd1ef5" dir="auto"/><h2 id="3ce648ad-99fc-804b-9e83-decdf034588b" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los 7 Desperdicios (MUDA)</strong></h2><p id="3ce648ad-99fc-801a-9100-f973a89d7e70" class="" dir="auto">Los 7 desperdicios se recuerdan fácilmente con el acrónimo en inglés <strong>TIM WOOD</strong> (o <strong>DOWNTIME</strong> en algunas versiones).</p><table id="3ce648ad-99fc-8060-9010-d22476512dc5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80e2-9375-f32d4001971e" dir="ltr"><th id="[CPv" class="simple-table-header-color simple-table-header"><strong>Acrónimo</strong></th><th id="Nd[Q" class="simple-table-header-color simple-table-header"><strong>Desperdicio</strong></th><th id="J:Fx" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8008-a649-f50f4ceafaa1" dir="ltr"><td id="[CPv" class=""><strong>T</strong></td><td id="Nd[Q" class=""><strong>Transporte</strong> (Transportation)</td><td id="J:Fx" class="">Movimiento innecesario de productos, materiales o información.</td></tr><tr id="3ce648ad-99fc-8089-a9de-c89550779136" dir="ltr"><td id="[CPv" class=""><strong>I</strong></td><td id="Nd[Q" class=""><strong>Inventario</strong> (Inventory)</td><td id="J:Fx" class="">Exceso de productos, materiales o información almacenada.</td></tr><tr id="3ce648ad-99fc-8049-99f2-d43521f5a8b3" dir="ltr"><td id="[CPv" class=""><strong>M</strong></td><td id="Nd[Q" class=""><strong>Movimiento</strong> (Motion)</td><td id="J:Fx" class="">Movimientos innecesarios de personas o equipos.</td></tr><tr id="3ce648ad-99fc-80e4-a784-c33e57c02cb9" dir="ltr"><td id="[CPv" class=""><strong>W</strong></td><td id="Nd[Q" class=""><strong>Espera</strong> (Waiting)</td><td id="J:Fx" class="">Tiempo perdido esperando materiales, información, aprobaciones, etc.</td></tr><tr id="3ce648ad-99fc-80b1-9d0a-ce57d75c92f0" dir="ltr"><td id="[CPv" class=""><strong>O</strong></td><td id="Nd[Q" class=""><strong>Sobre-procesamiento</strong> (Over-processing)</td><td id="J:Fx" class="">Hacer más de lo que el cliente necesita o exige.</td></tr><tr id="3ce648ad-99fc-808b-b7cb-fc7e0e8f5d9b" dir="ltr"><td id="[CPv" class=""><strong>O</strong></td><td id="Nd[Q" class=""><strong>Sobre-producción</strong> (Over-production)</td><td id="J:Fx" class="">Producir más de lo que se necesita o antes de que se necesite.</td></tr><tr id="3ce648ad-99fc-802f-8055-fb2167b873f4" dir="ltr"><td id="[CPv" class=""><strong>D</strong></td><td id="Nd[Q" class=""><strong>Defectos / Retrabajo</strong> (Defects / Rework)</td><td id="J:Fx" class="">Errores que requieren corrección o retrabajo.</td></tr></tbody></table><hr id="3ce648ad-99fc-8049-b8f4-edd8b15ed43f" dir="auto"/><h2 id="3ce648ad-99fc-8015-b991-c9e684ad77f2" class="" dir="auto"><strong>📝 Los 7 Desperdicios en Detalle</strong></h2><hr id="3ce648ad-99fc-8007-806b-e0744094b88a" dir="auto"/><h3 id="3ce648ad-99fc-805c-861a-d0a6a3c5c965" class="" dir="auto"><strong>1️⃣ Transporte (Transportation)</strong></h3><p id="3ce648ad-99fc-8066-88a6-f4f1a4d61e12" class="" dir="auto"><strong>Definición</strong>: Movimiento innecesario de productos, materiales, herramientas o información de un lugar a otro.</p><p id="3ce648ad-99fc-80b5-a5c8-dc3e9f9e898d" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-8059-9402-e739c179730b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mover productos entre diferentes plantas o almacenes sin necesidad.</li></ul><ul id="3ce648ad-99fc-8039-9ba1-fed164fd3827" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Enviar un documento a múltiples departamentos para su revisión sin motivo.</li></ul><ul id="3ce648ad-99fc-808d-880d-e2f4c34fa389" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Transportar materiales a una estación de trabajo que no está lista para procesarlos.</li></ul><p id="3ce648ad-99fc-80e2-bd16-cecba08b8287" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-80c3-9275-cd787f4e58cf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumento de costos de logística.</li></ul><ul id="3ce648ad-99fc-80a5-bcec-c4acdfc70621" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Riesgo de daños o pérdidas durante el transporte.</li></ul><ul id="3ce648ad-99fc-80d4-9a49-f51a1e875f0d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumento de los tiempos de entrega.</li></ul><p id="3ce648ad-99fc-80b7-87a5-f336abeef82a" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-801e-82eb-d4a6c752d016" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Optimizar la distribución de la planta (layout).</li></ul><ul id="3ce648ad-99fc-806f-bed2-ce5101dfa43d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reducir distancias entre procesos.</li></ul><ul id="3ce648ad-99fc-80a3-8c22-d89137aa3e5f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Minimizar los traslados de materiales y productos semielaborados.</li></ul><hr id="3ce648ad-99fc-8059-847a-d54287042e41" dir="auto"/><h3 id="3ce648ad-99fc-808b-abd9-fb2b7ae655b5" class="" dir="auto"><strong>2️⃣ Inventario (Inventory)</strong></h3><p id="3ce648ad-99fc-800e-9aa3-c307c4084b74" class="" dir="auto"><strong>Definición</strong>: Exceso de productos, materiales, información o trabajo en proceso (WIP - Work In Progress) que no se está utilizando.</p><p id="3ce648ad-99fc-80ec-a0a7-fb58f7fbaef2" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-8044-bf47-f4ce0c6edbb3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Almacenar grandes cantidades de materias primas que no se utilizan.</li></ul><ul id="3ce648ad-99fc-80a8-8104-dee9a04fdc49" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Acumular productos terminados que no se venden.</li></ul><ul id="3ce648ad-99fc-8054-9e3f-ce738f416622" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tener demasiados datos sin procesar o informes que nadie lee.</li></ul><p id="3ce648ad-99fc-808d-b17d-f1a6d957090a" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-80cc-869d-cc61adfee997" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Inmovilización de capital en inventario.</li></ul><ul id="3ce648ad-99fc-80cf-b26d-de5dd99472cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Costos de almacenamiento y mantenimiento.</li></ul><ul id="3ce648ad-99fc-80d1-b0ef-f752e0fcd435" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Riesgo de obsolescencia o deterioro.</li></ul><ul id="3ce648ad-99fc-80b9-8c16-e3ab8baa69d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Dificultad para detectar problemas de calidad (el inventario oculta los defectos).</li></ul><p id="3ce648ad-99fc-8052-9d4d-ffe2c396ef67" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-8082-921b-d1f3cebed2d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implementar sistemas de producción &quot;justo a tiempo&quot; (JIT).</li></ul><ul id="3ce648ad-99fc-8067-b1ab-d46e5a496811" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reducir los lotes de producción.</li></ul><ul id="3ce648ad-99fc-805f-812a-c98513b02c75" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejorar la previsión de la demanda.</li></ul><ul id="3ce648ad-99fc-8011-b978-dd3befde7f30" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implementar sistemas de gestión de inventario (Kanban).</li></ul><hr id="3ce648ad-99fc-80e0-8175-c56a8d8ad585" dir="auto"/><h3 id="3ce648ad-99fc-8084-a7a8-e197e39348d2" class="" dir="auto"><strong>3️⃣ Movimiento (Motion)</strong></h3><p id="3ce648ad-99fc-809d-9134-e50541b5e5fb" class="" dir="auto"><strong>Definición</strong>: Movimientos innecesarios de personas o equipos dentro de un proceso.</p><p id="3ce648ad-99fc-80c2-96d3-dfd3592530fa" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-80e7-97d7-c5f10d347185" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Un operario que se desplaza largas distancias para buscar herramientas.</li></ul><ul id="3ce648ad-99fc-80ba-9a5d-f0c7652f8a96" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Movimientos repetitivos que no agregan valor.</li></ul><ul id="3ce648ad-99fc-80a4-a2f5-e9761ac120cf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tener que girar o estirarse para alcanzar materiales o controles.</li></ul><p id="3ce648ad-99fc-8027-93db-d0bc66b7dfec" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-807d-bc0f-fd0908c9b890" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Desgaste físico y fatiga de los trabajadores.</li></ul><ul id="3ce648ad-99fc-8031-a524-f8bebef0a0c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mayor riesgo de accidentes laborales.</li></ul><ul id="3ce648ad-99fc-8093-86c7-e71533942b60" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pérdida de tiempo y productividad.</li></ul><p id="3ce648ad-99fc-8034-89fd-eec4d16adb22" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-8002-a100-fabe27aa4b3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rediseñar la estación de trabajo para que los materiales y herramientas estén al alcance de la mano.</li></ul><ul id="3ce648ad-99fc-8069-a2d4-e80595b92596" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implementar la ergonomía en el diseño del puesto de trabajo.</li></ul><ul id="3ce648ad-99fc-80ac-aa7e-faade35f3f47" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estandarizar las rutas de trabajo.</li></ul><hr id="3ce648ad-99fc-80e1-a630-d2e8a6df28d0" dir="auto"/><h3 id="3ce648ad-99fc-80c3-8c58-f925fbddaa55" class="" dir="auto"><strong>4️⃣ Espera (Waiting)</strong></h3><p id="3ce648ad-99fc-80ac-99b2-c2a198f2a6f0" class="" dir="auto"><strong>Definición</strong>: Tiempo muerto en el que personas, máquinas o procesos están inactivos porque están esperando algo (materiales, información, aprobaciones, etc.).</p><p id="3ce648ad-99fc-807d-b126-da996f59ba8c" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-808a-899e-c9e082ff72c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Un operario esperando la llegada de materiales.</li></ul><ul id="3ce648ad-99fc-805b-83ef-df150263dae9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Una máquina detenida por falta de mantenimiento o por un error.</li></ul><ul id="3ce648ad-99fc-80bb-8e24-fd154f425e44" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Esperar la aprobación de un jefe para seguir con un proceso.</li></ul><ul id="3ce648ad-99fc-8081-ae91-f93c3eb779eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Esperar una respuesta del cliente o de un proveedor.</li></ul><p id="3ce648ad-99fc-801d-a583-f8ffc0c9c43a" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-8079-a072-cd47adc61290" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Baja utilización de recursos (personas y máquinas).</li></ul><ul id="3ce648ad-99fc-801a-82c9-cb4350108377" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumento del tiempo de ciclo y del tiempo de entrega.</li></ul><ul id="3ce648ad-99fc-8087-9c30-dcf2ad6fe12c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Frustración y desmotivación del equipo.</li></ul><p id="3ce648ad-99fc-80f8-b65b-dadb495b56ea" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-80e5-a327-db38c8888125" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Sincronizar los flujos de trabajo.</li></ul><ul id="3ce648ad-99fc-8088-984e-f1d3b6a2d2f1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reducir el tiempo de preparación de máquinas (SMED).</li></ul><ul id="3ce648ad-99fc-80d7-85f4-efb0b5f9bc10" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Automatizar las aprobaciones.</li></ul><ul id="3ce648ad-99fc-803e-a4e6-f18e35e3c4c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejorar la planificación y la programación.</li></ul><hr id="3ce648ad-99fc-80ca-9334-ec364de53ab4" dir="auto"/><h3 id="3ce648ad-99fc-8011-9859-d214c59ffa9d" class="" dir="auto"><strong>5️⃣ Sobre-procesamiento (Over-processing)</strong></h3><p id="3ce648ad-99fc-8090-9669-c8eea6885dcb" class="" dir="auto"><strong>Definición</strong>: Realizar más trabajo del necesario o utilizar herramientas, equipos o procedimientos más complejos de lo requerido.</p><p id="3ce648ad-99fc-80e1-8504-ffa0e9ccbd5a" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-80fb-8f67-fefead69d287" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Realizar informes con un nivel de detalle que el cliente no necesita.</li></ul><ul id="3ce648ad-99fc-809b-83cb-d8682edad7ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Utilizar materiales de mayor calidad de la necesaria.</li></ul><ul id="3ce648ad-99fc-80ce-ac66-cc3b43a127dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Realizar pasos de inspección o control que no agregan valor.</li></ul><p id="3ce648ad-99fc-80cd-aa2a-da9271cbf3f7" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-80b9-8302-e4e2e78f9ebd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumento del tiempo y los costos de producción.</li></ul><ul id="3ce648ad-99fc-8035-80ba-cfcca9edbc6b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Complejidad innecesaria.</li></ul><ul id="3ce648ad-99fc-804c-a772-f56e12f876ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Posible disminución de la calidad (al complicar el proceso).</li></ul><p id="3ce648ad-99fc-80dc-838c-ef465323d8ad" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-8020-96cf-e46a3a4d8b38" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Definir claramente los requisitos del cliente.</li></ul><ul id="3ce648ad-99fc-80f3-81da-c131fa706b71" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estandarizar los procesos.</li></ul><ul id="3ce648ad-99fc-808f-80cd-cb28f32a9621" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Eliminar pasos redundantes.</li></ul><ul id="3ce648ad-99fc-80c9-9626-df39c01f53d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Utilizar la tecnología adecuada para cada tarea.</li></ul><hr id="3ce648ad-99fc-802b-9397-d90695a186ba" dir="auto"/><h3 id="3ce648ad-99fc-80ab-ba58-cab5c85493ed" class="" dir="auto"><strong>6️⃣ Sobre-producción (Over-production)</strong></h3><p id="3ce648ad-99fc-80ec-a681-dfbaf36d011f" class="" dir="auto"><strong>Definición</strong>: Producir más de lo que se necesita o producir antes de que se necesite.</p><p id="3ce648ad-99fc-80b3-ac63-e4e64ece309d" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-8063-984f-c13fb70945dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fabricar productos antes de que haya una orden de compra.</li></ul><ul id="3ce648ad-99fc-804b-a0e7-e01b9569535f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Generar informes que nadie va a leer.</li></ul><ul id="3ce648ad-99fc-8014-bba3-d22628795e04" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Desarrollar funcionalidades que el cliente no ha solicitado.</li></ul><p id="3ce648ad-99fc-80ca-8ecd-ccb24a0600b7" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-800d-b2a0-cee63db28ca2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Exceso de inventario (que a su vez genera otros desperdicios).</li></ul><ul id="3ce648ad-99fc-8060-a630-d3015f5723a4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ocupación de espacio y recursos.</li></ul><ul id="3ce648ad-99fc-80fc-ab99-f16972bc1fd3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Riesgo de obsolescencia.</li></ul><p id="3ce648ad-99fc-80ed-8741-c033921bf34b" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-8098-8c7b-f079a142c59a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Producir solo lo que se necesita (pull system).</li></ul><ul id="3ce648ad-99fc-80d1-83c8-e608cb231b9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejorar la previsión de la demanda.</li></ul><ul id="3ce648ad-99fc-8091-91d6-c8e54bdb0cd6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implementar sistemas &quot;justo a tiempo&quot; (JIT).</li></ul><ul id="3ce648ad-99fc-80d7-a50a-d825cfb6cd28" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validar las funcionalidades antes de desarrollarlas (ej: MVP).</li></ul><hr id="3ce648ad-99fc-803e-a3db-e004b35f8931" dir="auto"/><h3 id="3ce648ad-99fc-804a-ac43-f69dbf56338f" class="" dir="auto"><strong>7️⃣ Defectos / Retrabajo (Defects / Rework)</strong></h3><p id="3ce648ad-99fc-80ad-98b7-cc4c271d69f4" class="" dir="auto"><strong>Definición</strong>: Errores que requieren corrección, retrabajo o desecho del producto o servicio.</p><p id="3ce648ad-99fc-801b-bde1-fdac85fb7b74" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3ce648ad-99fc-8096-83dc-f20259c8c82b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Productos defectuosos que deben ser reprocesados o desechados.</li></ul><ul id="3ce648ad-99fc-8092-bb77-ffa358d197a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Errores en la facturación que requieren corrección.</li></ul><ul id="3ce648ad-99fc-804e-b2d0-db881754aa4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bugs en el software que requieren parches.</li></ul><ul id="3ce648ad-99fc-8042-96ff-d767cd641928" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Instrucciones mal entendidas que llevan a resultados incorrectos.</li></ul><p id="3ce648ad-99fc-8092-8c22-d9a86a20201c" class="" dir="auto"><strong>Consecuencias</strong>:</p><ul id="3ce648ad-99fc-800a-9fe3-cd82a885dab9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Costos de retrabajo (mano de obra, materiales, tiempo).</li></ul><ul id="3ce648ad-99fc-803d-a019-da5f9a7c682b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Insatisfacción del cliente.</li></ul><ul id="3ce648ad-99fc-80f3-9ac0-e5863e14bc92" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pérdida de reputación.</li></ul><ul id="3ce648ad-99fc-80d4-874a-f4c4429e9add" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mayor tiempo de entrega.</li></ul><p id="3ce648ad-99fc-8011-be8a-c0523b3d9512" class="" dir="auto"><strong>Cómo eliminarlo</strong>:</p><ul id="3ce648ad-99fc-809e-8893-f92b425630cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Implementar controles de calidad en cada etapa (no solo al final).</li></ul><ul id="3ce648ad-99fc-8094-bfeb-fa7d689fddb8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Realizar pruebas y validaciones continuas.</li></ul><ul id="3ce648ad-99fc-8022-91e6-f7ed40380542" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Capacitar al personal.</li></ul><ul id="3ce648ad-99fc-80d8-8856-ef70d7443b7f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identificar y corregir la causa raíz de los errores (gestión de problemas).</li></ul><ul id="3ce648ad-99fc-80c9-9f3b-e57b335ea8b5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Automatizar procesos críticos para evitar errores humanos.</li></ul><hr id="3ce648ad-99fc-804b-b4e3-e0492c0b072f" dir="auto"/><h2 id="3ce648ad-99fc-80a2-be8d-e66356d64210" class="" dir="auto"><strong>📊 Tabla Resumen de los 7 Desperdicios</strong></h2><table id="3ce648ad-99fc-80b7-b7b2-db70549caffc" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80cd-a87f-c683d7cdc3b3" dir="ltr"><th id="wO&gt;C" class="simple-table-header-color simple-table-header"><strong>#</strong></th><th id="]abI" class="simple-table-header-color simple-table-header"><strong>Desperdicio (MUDA)</strong></th><th id="rppD" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="hXuz" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th><th id="M=Ng" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80ba-a1f8-f3aac9feb39b" dir="ltr"><td id="wO&gt;C" class="">1</td><td id="]abI" class=""><strong>Transporte</strong></td><td id="rppD" class="">Movimiento innecesario de productos o información.</td><td id="hXuz" class="">Mover materiales entre almacenes.</td><td id="M=Ng" class="">Costos logísticos, retrasos.</td></tr><tr id="3ce648ad-99fc-80af-8b2f-fd31c92de8c4" dir="ltr"><td id="wO&gt;C" class="">2</td><td id="]abI" class=""><strong>Inventario</strong></td><td id="rppD" class="">Exceso de productos o materiales almacenados.</td><td id="hXuz" class="">Stock acumulado sin rotación.</td><td id="M=Ng" class="">Capital inmovilizado, costos de almacenamiento.</td></tr><tr id="3ce648ad-99fc-801d-af83-e15980b13768" dir="ltr"><td id="wO&gt;C" class="">3</td><td id="]abI" class=""><strong>Movimiento</strong></td><td id="rppD" class="">Movimientos innecesarios de personas.</td><td id="hXuz" class="">Caminar largas distancias para buscar herramientas.</td><td id="M=Ng" class="">Fatiga, pérdida de tiempo.</td></tr><tr id="3ce648ad-99fc-805a-bd7c-d92e44c9ad3c" dir="ltr"><td id="wO&gt;C" class="">4</td><td id="]abI" class=""><strong>Espera</strong></td><td id="rppD" class="">Tiempo muerto esperando algo.</td><td id="hXuz" class="">Esperar la aprobación de un jefe.</td><td id="M=Ng" class="">Baja productividad, retrasos.</td></tr><tr id="3ce648ad-99fc-80a9-921f-c6ece4b9e74a" dir="ltr"><td id="wO&gt;C" class="">5</td><td id="]abI" class=""><strong>Sobre-procesamiento</strong></td><td id="rppD" class="">Hacer más de lo necesario.</td><td id="hXuz" class="">Informes con detalles innecesarios.</td><td id="M=Ng" class="">Costos adicionales, complejidad.</td></tr><tr id="3ce648ad-99fc-80cd-a511-ead4c588a1c7" dir="ltr"><td id="wO&gt;C" class="">6</td><td id="]abI" class=""><strong>Sobre-producción</strong></td><td id="rppD" class="">Producir más de lo necesario.</td><td id="hXuz" class="">Fabricar antes de tener una orden de compra.</td><td id="M=Ng" class="">Exceso de inventario, desperdicio de recursos.</td></tr><tr id="3ce648ad-99fc-8072-accd-d35a63876ca0" dir="ltr"><td id="wO&gt;C" class="">7</td><td id="]abI" class=""><strong>Defectos</strong></td><td id="rppD" class="">Errores que requieren retrabajo.</td><td id="hXuz" class="">Bugs en software, productos defectuosos.</td><td id="M=Ng" class="">Costos de retrabajo, insatisfacción del cliente.</td></tr></tbody></table><hr id="3ce648ad-99fc-80b2-aa5d-f10946546912" dir="auto"/><h2 id="3ce648ad-99fc-8071-94b3-e605f6375b3f" class="" dir="auto"><strong>⚠️ Errores Comunes en la Identificación de Desperdicios</strong></h2><table id="3ce648ad-99fc-8055-ba8b-facdd4393ceb" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80e2-b4e7-ed3f62065f30" dir="ltr"><th id="Yfrn" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="HO;q" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="G~&lt;Q" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8081-b293-eb357ef67080" dir="ltr"><td id="Yfrn" class=""><strong>No involucrar a los empleados</strong></td><td id="HO;q" class="">No preguntar a quienes realizan el proceso qué actividades consideran desperdicio.</td><td id="G~&lt;Q" class="">No se identifican desperdicios ocultos.</td></tr><tr id="3ce648ad-99fc-8074-ab3d-fac69b3c7f91" dir="ltr"><td id="Yfrn" class=""><strong>Confundir desperdicio con trabajo necesario</strong></td><td id="HO;q" class="">No saber distinguir entre lo que es desperdicio y lo que es necesario para el cumplimiento normativo o la calidad.</td><td id="G~&lt;Q" class="">Se eliminan actividades necesarias.</td></tr><tr id="3ce648ad-99fc-80bd-999d-e9b179f72581" dir="ltr"><td id="Yfrn" class=""><strong>No priorizar</strong></td><td id="HO;q" class="">Querer eliminar todos los desperdicios a la vez.</td><td id="G~&lt;Q" class="">Se genera caos y se pierde el foco.</td></tr><tr id="3ce648ad-99fc-8093-8947-cc0ffd13a217" dir="ltr"><td id="Yfrn" class=""><strong>No medir el impacto</strong></td><td id="HO;q" class="">Eliminar actividades sin medir el ahorro de tiempo, costo o mejora de calidad.</td><td id="G~&lt;Q" class="">No se justifica el esfuerzo ni se puede escalar la mejora.</td></tr><tr id="3ce648ad-99fc-80b4-b951-ee5d41f3a452" dir="ltr"><td id="Yfrn" class=""><strong>Ignorar la tecnología</strong></td><td id="HO;q" class="">No considerar herramientas de automatización para eliminar desperdicios.</td><td id="G~&lt;Q" class="">Oportunidades perdidas de mejora.</td></tr></tbody></table><hr id="3ce648ad-99fc-801f-a8ca-f9974dcfa766" dir="auto"/><h2 id="3ce648ad-99fc-8005-99ab-f815e4671dce" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-800c-8194-c7d9ed040e74" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80c3-af15-f3f51e38358f" dir="ltr"><th id="^bo]" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="GIHt" class="simple-table-header-color simple-table-header" style="width:413px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80db-ad1b-eb4fd41f5064" dir="ltr"><td id="^bo]" class=""><strong>Manufactura</strong></td><td id="GIHt" class="" style="width:413px">Identificar desperdicios en la línea de producción (ej: movimientos, esperas).</td></tr><tr id="3ce648ad-99fc-8036-80fe-c9ec1d7e37a6" dir="ltr"><td id="^bo]" class=""><strong>Desarrollo de software</strong></td><td id="GIHt" class="" style="width:413px">Identificar desperdicios en el ciclo de desarrollo (ej: sobre-procesamiento, defectos).</td></tr><tr id="3ce648ad-99fc-800e-a493-e4df39d70743" dir="ltr"><td id="^bo]" class=""><strong>Logística</strong></td><td id="GIHt" class="" style="width:413px">Identificar desperdicios en la cadena de suministro (ej: transporte, inventario).</td></tr><tr id="3ce648ad-99fc-805f-95de-c62ccd89d0cb" dir="ltr"><td id="^bo]" class=""><strong>Atención al cliente</strong></td><td id="GIHt" class="" style="width:413px">Identificar desperdicios en los procesos de atención al cliente (ej: esperas, sobre-procesamiento).</td></tr><tr id="3ce648ad-99fc-802d-a768-d51a0209c95a" dir="ltr"><td id="^bo]" class=""><strong>Administración</strong></td><td id="GIHt" class="" style="width:413px">Identificar desperdicios en los procesos administrativos (ej: aprobaciones, papeleo).</td></tr></tbody></table><hr id="3ce648ad-99fc-8019-9385-e767b8faa548" dir="auto"/><h2 id="3ce648ad-99fc-8070-af6c-d32c3ba0384f" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-801a-bd9b-f2f1ea0515b6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8078-a3d1-c331b145a59a" dir="ltr"><th id="VRhG" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="xZz{" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80fe-ac1e-dd7c63677319" dir="ltr"><td id="VRhG" class=""><strong>Lean Management</strong></td><td id="xZz{" class="">La eliminación de desperdicios es el corazón del Lean Management.</td></tr><tr id="3ce648ad-99fc-80ad-a7dc-edca60631f4f" dir="ltr"><td id="VRhG" class=""><strong>Kaizen</strong></td><td id="xZz{" class="">La mejora continua se enfoca en la identificación y eliminación de desperdicios paso a paso.</td></tr><tr id="3ce648ad-99fc-8087-99db-ff25da882062" dir="ltr"><td id="VRhG" class=""><strong>Value Stream Mapping (VSM)</strong></td><td id="xZz{" class="">Herramienta para visualizar el flujo de valor y separar actividades con valor agregado de las que son desperdicio.</td></tr><tr id="3ce648ad-99fc-80fb-b81b-c583fb12c83e" dir="ltr"><td id="VRhG" class=""><strong>Justo a Tiempo (JIT)</strong></td><td id="xZz{" class="">Estrategia para eliminar el desperdicio de inventario y sobre-producción.</td></tr><tr id="3ce648ad-99fc-801e-92d1-e1d74be0f2db" dir="ltr"><td id="VRhG" class=""><strong>Automatización</strong></td><td id="xZz{" class="">Una forma de eliminar desperdicios (especialmente tareas repetitivas y manuales).</td></tr><tr id="3ce648ad-99fc-80fe-9c68-ca4267abce86" dir="ltr"><td id="VRhG" class=""><strong>RPA (Robotic Process Automation)</strong></td><td id="xZz{" class="">Tecnología para automatizar tareas NVA (sin valor agregado).</td></tr><tr id="3ce648ad-99fc-80cd-9eb8-dfdb50e6b4b3" dir="ltr"><td id="VRhG" class=""><strong>NVA (Non-Value Added)</strong></td><td id="xZz{" class="">Actividades sin valor agregado, que incluyen los 7 desperdicios.</td></tr></tbody></table><hr id="3ce648ad-99fc-80fb-8f25-ef44c044de28" dir="auto"/><h2 id="3ce648ad-99fc-802e-9a4b-cca38708d9c5" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-8049-8527-e701aa8aba1c" class="" dir="auto">Los 7 desperdicios son como <strong>las fugas de agua en una tubería</strong>. Una tubería con fugas (desperdicios) puede seguir funcionando, pero pierde agua (recursos), tiempo y dinero. Si tapamos una fuga (eliminamos un desperdicio), la presión (eficiencia) aumenta. Tapamos todas y la tubería (el proceso) funciona a su máxima eficiencia, sin perder recursos.</p><hr id="3ce648ad-99fc-80cb-b985-ea20fa9cc55f" dir="auto"/><h2 id="3ce648ad-99fc-8025-8941-c67b6005cae0" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-80fb-98f9-d6fbfc4f0f5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ohno, T. (1988). <em>Toyota Production System: Beyond Large-Scale Production</em>. Productivity Press.</li></ul><ul id="3ce648ad-99fc-804f-95d0-c626b5bba8e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Liker, J. K. (2004). <em>The Toyota Way</em>. McGraw-Hill.</li></ul><ul id="3ce648ad-99fc-8036-8d73-cf439d33259c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Womack, J. P., &amp; Jones, D. T. (1996). <em>Lean Thinking</em>. Simon &amp; Schuster.</li></ul><ul id="3ce648ad-99fc-80e4-ab97-d39b5efb3166" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rother, M., &amp; Shook, J. (1999). <em>Learning to See: Value Stream Mapping to Add Value and Eliminate MUDA</em>. Lean Enterprise Institute.</li></ul><ul id="3ce648ad-99fc-8039-b6a5-c3d6e54750e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">George, M. L. (2003). <em>Lean Six Sigma</em>. McGraw-Hill.</li></ul><ul id="3ce648ad-99fc-8038-a315-ec2b5ca6308d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2022). <em>The Lean Approach to Digital Transformation</em>.</li></ul><hr id="3ce648ad-99fc-8082-81e4-e47992be954e" dir="auto"/><h2 id="3ce648ad-99fc-80f8-92bd-e82eb4bd9ae9" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-80bb-8ff7-cffb001d1531" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Los desperdicios no son solo físicos</strong>: En el mundo digital y de servicios, el desperdicio también está presente: esperar aprobaciones en un CRM, buscar información en múltiples bases de datos, reescribir documentos, tener reuniones improductivas. Los 7 desperdicios se aplican a cualquier proceso, no solo a la manufactura.</li></ul><ul id="3ce648ad-99fc-8066-9838-cbdeeea6ecd1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todos los desperdicios son iguales</strong>: La sobre-producción y los defectos suelen ser los más costosos. Prioriza los desperdicios que más impacto tienen en tu operación.</li></ul><ul id="3ce648ad-99fc-80e0-8ee3-ecd39e6dfb3c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para eliminar desperdicios</strong>:<ol type="1" id="3ce648ad-99fc-801b-88b7-cbfb8c8f7a4f" class="numbered-list" start="1" dir="auto"><li><strong>Mapea el proceso</strong>: Dibuja el flujo completo (Value Stream Mapping) y marca cada paso como VA (valor agregado), NVA (sin valor agregado) o NNVA (necesario sin valor agregado).</li></ol><ol type="1" id="3ce648ad-99fc-8021-9632-d897261e8961" class="numbered-list" start="2" dir="auto"><li><strong>Pregunta &quot;¿Por qué?&quot;</strong>: Usa la técnica de los &quot;5 porqués&quot; para llegar a la raíz del desperdicio.</li></ol><ol type="1" id="3ce648ad-99fc-8064-934c-febdbed38e42" class="numbered-list" start="3" dir="auto"><li><strong>Prioriza</strong>: Identifica los desperdicios que más tiempo o recursos consumen y atácalos primero.</li></ol><ol type="1" id="3ce648ad-99fc-80ae-8de2-f8411a7bc2a1" class="numbered-list" start="4" dir="auto"><li><strong>Prueba en pequeño</strong>: Implementa cambios en un área piloto antes de escalar.</li></ol><ol type="1" id="3ce648ad-99fc-8090-83d7-f1d35f4ae549" class="numbered-list" start="5" dir="auto"><li><strong>Mide el impacto</strong>: Compara tiempos, costos y calidad antes y después de eliminar el desperdicio.</li></ol><ol type="1" id="3ce648ad-99fc-806f-b0c7-cf647d78e412" class="numbered-list" start="6" dir="auto"><li><strong>Capacita al equipo</strong>: Enseña a todos a identificar y eliminar desperdicios; la mejora debe ser responsabilidad de todos.</li></ol><ol type="1" id="3ce648ad-99fc-8022-92bc-d2c96fc9c4f7" class="numbered-list" start="7" dir="auto"><li><strong>No es un proyecto, es un viaje continuo</strong>: La eliminación de desperdicios es un proceso continuo, no un proyecto con fecha de inicio y fin. Los procesos cambian y nuevos desperdicios pueden aparecer.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

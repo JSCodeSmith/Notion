@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>VA (Value Added / Valor Agregado)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-8093-ae92-ddbd694e3d83" class="page sans"><header><h1 class="page-title" dir="auto"><strong>VA (Value Added / Valor Agregado)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3ea648ad-99fc-80fd-851f-fa0eeaba2a9d" class="" dir="auto"><strong>📄 VA (Value Added / Valor Agregado)</strong></h1><hr id="3ea648ad-99fc-80f0-815d-c5d09ffe300f" dir="auto"/><h2 id="3ea648ad-99fc-801b-b176-c64e834c128e" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-8053-95a9-f67cc98f85fa" class="" dir="auto"><strong>VA</strong> son las siglas de <strong>Value Added</strong> (Valor Agregado). </p><p id="3ea648ad-99fc-801d-8247-f37ed70c2fa3" class="" dir="auto">En el contexto empresarial y de gestión de procesos, se refiere a <strong>toda actividad, característica o atributo que incrementa el valor de un producto o servicio desde la perspectiva del cliente</strong>. </p><p id="3ea648ad-99fc-804a-a8cb-feb6efd3da87" class="" dir="auto">Es decir, es aquello por lo que el cliente está dispuesto a pagar. </p><p id="3ea648ad-99fc-806c-9239-c901c80a4f0b" class="" dir="auto">Un proceso, producto o servicio es valioso en la medida en que <strong>transforma, mejora o satisface</strong> una necesidad del cliente de una manera que este percibe como beneficiosa.</p><hr id="3ea648ad-99fc-80f0-9c6b-e6afb917a5df" dir="auto"/><h2 id="3ea648ad-99fc-80cd-aa66-cbde319ae76c" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-8062-a2e6-fcbe249b1a77" class="" dir="auto">El concepto de <strong>Valor Agregado</strong> es fundamental en la <strong>filosofía Lean</strong>, la <strong>gestión de procesos</strong>, el <strong>marketing</strong> y la <strong>estrategia empresarial</strong>. </p><p id="3ea648ad-99fc-8070-b759-e74e801964a7" class="" dir="auto">Se basa en la premisa de que <strong>el cliente define el valor</strong>: lo que para una empresa puede parecer un esfuerzo valioso, para el cliente puede ser irrelevante o incluso un desperdicio.</p><p id="3ea648ad-99fc-809c-9658-c6e6cd9be945" class="" dir="auto"><strong>La pregunta clave</strong>: ¿El cliente estaría dispuesto a pagar por esta actividad, característica o paso del proceso? Si la respuesta es <strong>SÍ</strong>, es <strong>VA (Valor Agregado)</strong>. </p><p id="3ea648ad-99fc-80b6-9fcf-c24fb008f582" class="" dir="auto">Si la respuesta es <strong>NO</strong>, es <strong>NVA (Non-Value Added / Sin Valor Agregado)</strong> o <strong>NNVA (Necessary Non-Value Added / Necesario sin Valor Agregado)</strong> .</p><p id="3ea648ad-99fc-800d-89ac-e58246c4c6a5" class="" dir="auto"><strong>Características del Valor Agregado</strong>:</p><ul id="3ea648ad-99fc-801f-8094-dd288a8f7b60" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Transforma</strong> el producto, servicio o información.</li></ul><ul id="3ea648ad-99fc-80b7-997d-e2c56bd1b94f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El cliente lo percibe</strong> como valioso.</li></ul><ul id="3ea648ad-99fc-8044-8ebe-ffa29bd65bdf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El cliente está dispuesto a pagar</strong> por ello.</li></ul><ul id="3ea648ad-99fc-805f-b8e6-c91cba225949" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Se hace bien a la primera</strong> (sin errores ni retrabajos).</li></ul><hr id="3ea648ad-99fc-80ac-93f8-ebe9f2414f40" dir="auto"/><h2 id="3ea648ad-99fc-80c8-99d5-f02ed5af95c2" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-8012-915f-d5c508107ad9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar actividades que generan valor</strong>: Enfocar los recursos en lo que realmente importa al cliente.</li></ul><ul id="3ea648ad-99fc-803e-96cb-e3e5a7ce41cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eliminar desperdicios</strong>: Identificar y eliminar actividades que no agregan valor (NVA).</li></ul><ul id="3ea648ad-99fc-80eb-98da-f06a07765510" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar procesos</strong>: Mejorar la eficiencia eliminando pasos innecesarios.</li></ul><ul id="3ea648ad-99fc-80a5-9c2a-e0955332ec18" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la satisfacción del cliente</strong>: Ofrecer lo que el cliente valora.</li></ul><ul id="3ea648ad-99fc-80c2-91ec-eabf1a4345ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Justificar precios premium</strong>: Si el valor agregado es alto, el cliente está dispuesto a pagar más.</li></ul><ul id="3ea648ad-99fc-8083-94d9-e3689057a755" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Guiar la innovación</strong>: Crear nuevas formas de agregar valor.</li></ul><ul id="3ea648ad-99fc-80b8-b9e7-cc89c2b3cd1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear la estrategia</strong>: Asegurar que todos los esfuerzos se dirijan a crear valor para el cliente.</li></ul><hr id="3ea648ad-99fc-80aa-bd34-f110c5bb0221" dir="auto"/><h2 id="3ea648ad-99fc-80b0-8d0f-edfc0d5c07ba" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? La Clasificación de Actividades</strong></h2><p id="3ea648ad-99fc-800e-84cd-cd9e3beebc64" class="" dir="auto">En la filosofía Lean, las actividades se clasifican en tres categorías:</p><table id="3ea648ad-99fc-80c6-b9f0-d22dbb8c89e9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8070-84d2-de8e713dbca1" dir="ltr"><th id="b~QE" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="MBbt" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="][KS" class="simple-table-header-color simple-table-header"><strong>¿El cliente paga por ello?</strong></th><th id="h`jg" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80bb-bc4e-fba9532494da" dir="ltr"><td id="b~QE" class=""><strong>VA (Value Added)</strong></td><td id="MBbt" class="">Transforma el producto/servicio y el cliente lo valora.</td><td id="][KS" class=""><strong>SÍ</strong></td><td id="h`jg" class="">Ensamblar un producto, cocinar un plato, escribir código funcional.</td></tr><tr id="3ea648ad-99fc-803f-ab97-df3414edc008" dir="ltr"><td id="b~QE" class=""><strong>NNVA (Necessary Non-Value Added)</strong></td><td id="MBbt" class="">No agrega valor desde la perspectiva del cliente, pero es necesaria por regulaciones, leyes o gestión.</td><td id="][KS" class=""><strong>NO</strong> (pero es necesaria)</td><td id="h`jg" class="">Llenar formularios de cumplimiento, facturación, auditorías.</td></tr><tr id="3ea648ad-99fc-80da-8ef7-cecd01777398" dir="ltr"><td id="b~QE" class=""><strong>NVA (Non-Value Added)</strong></td><td id="MBbt" class="">No agrega valor y no es necesaria. Es desperdicio puro (MUDA).</td><td id="][KS" class=""><strong>NO</strong></td><td id="h`jg" class="">Esperas, retrabajos, movimientos innecesarios, burocracia excesiva.</td></tr></tbody></table><p id="3ea648ad-99fc-804d-9453-e2618c925111" class="" dir="auto"><strong>El objetivo es maximizar VA, minimizar NNVA y eliminar NVA.</strong></p><hr id="3ea648ad-99fc-803d-b6ac-cfaada0570e1" dir="auto"/><h2 id="3ea648ad-99fc-806f-9012-eb4e595d7f5b" class="" dir="auto"><strong>📝 Tipos de Valor Agregado</strong></h2><table id="3ea648ad-99fc-8036-bb09-e869e9592a70" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-800c-90d9-dba227965844" dir="ltr"><th id="?ahM" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="rUcd" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="b?[b" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80ac-b615-fcb6d68c6b93" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado Funcional</strong></td><td id="rUcd" class="">Mejora el rendimiento o la funcionalidad del producto.</td><td id="b?[b" class="">Un procesador más rápido, una batería de mayor duración.</td></tr><tr id="3ea648ad-99fc-80f7-840b-cf7bb341623e" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado Emocional</strong></td><td id="rUcd" class="">Genera una conexión emocional con el cliente.</td><td id="b?[b" class="">Una marca aspiracional (Apple), una experiencia memorable (Starbucks).</td></tr><tr id="3ea648ad-99fc-8024-8f88-c8332138cf3b" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado Social</strong></td><td id="rUcd" class="">Mejora el estatus o la pertenencia a un grupo.</td><td id="b?[b" class="">Un auto de lujo, una marca de moda exclusiva.</td></tr><tr id="3ea648ad-99fc-8026-97ee-cb3e12b8699b" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado de Servicio</strong></td><td id="rUcd" class="">Mejora la experiencia de compra o post-venta.</td><td id="b?[b" class="">Envío gratis, devoluciones sin preguntas, soporte 24/7.</td></tr><tr id="3ea648ad-99fc-805a-a6f4-cccb57017143" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado de Conveniencia</strong></td><td id="rUcd" class="">Facilita el acceso o el uso del producto.</td><td id="b?[b" class="">Compra en un clic (Amazon), entrega en 30 minutos (Rappi).</td></tr><tr id="3ea648ad-99fc-80e8-9dcc-fe51c9108c83" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado de Personalización</strong></td><td id="rUcd" class="">Adapta el producto a las necesidades del cliente.</td><td id="b?[b" class="">Recomendaciones personalizadas (Netflix), productos a medida.</td></tr><tr id="3ea648ad-99fc-80ab-baf8-c50eeb745696" dir="ltr"><td id="?ahM" class=""><strong>Valor Agregado de Sostenibilidad</strong></td><td id="rUcd" class="">Contribuye a un impacto positivo en el medio ambiente o la sociedad.</td><td id="b?[b" class="">Productos reciclables, comercio justo, huella de carbono neutral.</td></tr></tbody></table><hr id="3ea648ad-99fc-8037-b5b9-e22e55d8a22d" dir="auto"/><h2 id="3ea648ad-99fc-8064-baa3-fd0d8ba8e1bd" class="" dir="auto"><strong>💡 Ejemplos de Valor Agregado por Industria</strong></h2><table id="3ea648ad-99fc-8003-9c5d-eb8f9499ce04" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80f3-b0f7-e1662c4bd3e9" dir="ltr"><th id="COKc" class="simple-table-header-color simple-table-header"><strong>Industria</strong></th><th id="NqSW" class="simple-table-header-color simple-table-header"><strong>Actividad VA (Valor Agregado)</strong></th><th id="tBn_" class="simple-table-header-color simple-table-header"><strong>Actividad NVA (Sin Valor Agregado)</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80e9-a529-fa72f33e7d84" dir="ltr"><td id="COKc" class=""><strong>Manufactura</strong></td><td id="NqSW" class="">Ensamblar un producto.</td><td id="tBn_" class="">Mover materiales de un almacén a otro sin necesidad.</td></tr><tr id="3ea648ad-99fc-8086-9280-d4607a01023d" dir="ltr"><td id="COKc" class=""><strong>Restaurante</strong></td><td id="NqSW" class="">Cocinar un plato.</td><td id="tBn_" class="">Esperar a que el cliente pida (tiempo muerto).</td></tr><tr id="3ea648ad-99fc-80de-822e-f3e4d99968f1" dir="ltr"><td id="COKc" class=""><strong>Software</strong></td><td id="NqSW" class="">Escribir código funcional.</td><td id="tBn_" class="">Corregir bugs por errores de diseño.</td></tr><tr id="3ea648ad-99fc-8045-8c10-f6dd02edb5c0" dir="ltr"><td id="COKc" class=""><strong>E-commerce</strong></td><td id="NqSW" class="">Entregar el producto al cliente.</td><td id="tBn_" class="">Procesar manualmente un pedido que podría ser automático.</td></tr><tr id="3ea648ad-99fc-8030-8730-dfb71e633f6b" dir="ltr"><td id="COKc" class=""><strong>Banca</strong></td><td id="NqSW" class="">Evaluar un crédito.</td><td id="tBn_" class="">Esperar la aprobación de un gerente (burocracia).</td></tr><tr id="3ea648ad-99fc-80a4-833e-fc645c7358be" dir="ltr"><td id="COKc" class=""><strong>Salud</strong></td><td id="NqSW" class="">Diagnosticar y tratar a un paciente.</td><td id="tBn_" class="">Rellenar formularios duplicados.</td></tr><tr id="3ea648ad-99fc-801d-bfd7-df4dfdb5e4e7" dir="ltr"><td id="COKc" class=""><strong>Educación</strong></td><td id="NqSW" class="">Enseñar una habilidad.</td><td id="tBn_" class="">Administrar exámenes estandarizados innecesarios.</td></tr></tbody></table><hr id="3ea648ad-99fc-8080-94de-de1ae2f44f2a" dir="auto"/><h2 id="3ea648ad-99fc-80e7-89cb-d3cd0ebd8dfe" class="" dir="auto"><strong>📊 El Valor Agregado en la Cadena de Valor (Porter)</strong></h2><p id="3ea648ad-99fc-80d0-90ae-daa045572bc5" class="" dir="auto">En la <strong>Cadena de Valor de Porter</strong>, cada actividad primaria y de apoyo puede agregar valor (o no). El análisis consiste en:</p><ol type="1" id="3ea648ad-99fc-80a8-b5f0-cb9820bed098" class="numbered-list" start="1" dir="auto"><li><strong>Identificar las actividades</strong> de la cadena.</li></ol><ol type="1" id="3ea648ad-99fc-8047-8c43-efcad4d4ef6a" class="numbered-list" start="2" dir="auto"><li><strong>Determinar cuáles agregan valor</strong> desde la perspectiva del cliente.</li></ol><ol type="1" id="3ea648ad-99fc-804a-bde6-ffbbfb0bcba1" class="numbered-list" start="3" dir="auto"><li><strong>Eliminar o reducir las que no agregan valor</strong>.</li></ol><ol type="1" id="3ea648ad-99fc-8032-ad16-dffb1eb6ec7b" class="numbered-list" start="4" dir="auto"><li><strong>Optimizar las que agregan valor</strong> para aumentar la diferenciación o reducir costos.</li></ol><p id="3ea648ad-99fc-8037-83cc-c46b4ccb649a" class="" dir="auto"><strong>Ejemplo (Starbucks)</strong> :</p><ul id="3ea648ad-99fc-80b1-8d6f-f9a172dc2b13" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>VA</strong>: Calidad del café, experiencia de tienda, atención personalizada.</li></ul><ul id="3ea648ad-99fc-8036-9cdf-e8807cbed44f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>NVA</strong>: Esperar en la fila (se puede reducir con pedidos móviles).</li></ul><ul id="3ea648ad-99fc-80e1-9457-c12c031e621f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>NNVA</strong>: Cumplir con regulaciones sanitarias.</li></ul><hr id="3ea648ad-99fc-80af-822d-ec90eddea93b" dir="auto"/><h2 id="3ea648ad-99fc-806a-84c1-d0d460e6d4b2" class="" dir="auto"><strong>⚠️ Errores Comunes al Identificar Valor Agregado</strong></h2><table id="3ea648ad-99fc-804a-b7fc-fccb7fb30f73" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-807c-94ef-ff4aff211e96" dir="ltr"><th id="r@OZ" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="feRW" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="iI^C" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8052-848b-dc2ac9bacb7c" dir="ltr"><td id="r@OZ" class=""><strong>Asumir que el cliente valora lo que nosotros valoramos</strong></td><td id="feRW" class="">Creer que una característica es valiosa sin validarlo con el cliente.</td><td id="iI^C" class="">Inversión en algo que el cliente no valora.</td></tr><tr id="3ea648ad-99fc-8046-93e0-e793430e3c89" dir="ltr"><td id="r@OZ" class=""><strong>Confundir VA con NNVA</strong></td><td id="feRW" class="">Pensar que una actividad necesaria (ej: facturación) agrega valor al cliente.</td><td id="iI^C" class="">No se prioriza correctamente.</td></tr><tr id="3ea648ad-99fc-808a-862b-c2cde4e88245" dir="ltr"><td id="r@OZ" class=""><strong>No preguntar al cliente</strong></td><td id="feRW" class="">Definir el valor desde la perspectiva interna.</td><td id="iI^C" class="">Se pierde la perspectiva del cliente.</td></tr><tr id="3ea648ad-99fc-8021-b81c-cc7862fd50b6" dir="ltr"><td id="r@OZ" class=""><strong>Ignorar el valor emocional</strong></td><td id="feRW" class="">Centrarse solo en el valor funcional.</td><td id="iI^C" class="">Se pierde la conexión emocional con el cliente.</td></tr><tr id="3ea648ad-99fc-80bc-8492-ee17b8fccd6f" dir="ltr"><td id="r@OZ" class=""><strong>No medir el impacto</strong></td><td id="feRW" class="">No cuantificar cuánto valor agrega una actividad.</td><td id="iI^C" class="">Decisiones basadas en intuición.</td></tr><tr id="3ea648ad-99fc-80e0-b68b-c363f5ed3fb3" dir="ltr"><td id="r@OZ" class=""><strong>No actualizar</strong></td><td id="feRW" class="">Mantener actividades que agregaban valor en el pasado pero ya no.</td><td id="iI^C" class="">Procesos obsoletos.</td></tr></tbody></table><hr id="3ea648ad-99fc-802a-ae58-eb9cf661dfc6" dir="auto"/><h2 id="3ea648ad-99fc-8045-a739-d8b49b61d7b1" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-805f-98b0-cfd67a3b44bc" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-803c-9751-c99a345a6505" dir="ltr"><th id="XA&lt;m" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="Gmn[" class="simple-table-header-color simple-table-header" style="width:370px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8034-9c10-e1b9e80b6f2d" dir="ltr"><td id="XA&lt;m" class=""><strong>Mejora de procesos (Lean)</strong></td><td id="Gmn[" class="" style="width:370px">Identificar y eliminar NVA para optimizar procesos.</td></tr><tr id="3ea648ad-99fc-80a3-a850-f44dc5b60022" dir="ltr"><td id="XA&lt;m" class=""><strong>Diseño de productos</strong></td><td id="Gmn[" class="" style="width:370px">Enfocarse en características que el cliente valora.</td></tr><tr id="3ea648ad-99fc-802b-968c-c4514a44475e" dir="ltr"><td id="XA&lt;m" class=""><strong>Marketing</strong></td><td id="Gmn[" class="" style="width:370px">Comunicar el valor agregado del producto.</td></tr><tr id="3ea648ad-99fc-80fb-b4d9-e573839e132c" dir="ltr"><td id="XA&lt;m" class=""><strong>Precios</strong></td><td id="Gmn[" class="" style="width:370px">Justificar un precio premium si el valor agregado es alto.</td></tr><tr id="3ea648ad-99fc-80f3-8fc3-ea90fac72feb" dir="ltr"><td id="XA&lt;m" class=""><strong>Innovación</strong></td><td id="Gmn[" class="" style="width:370px">Crear nuevas formas de agregar valor.</td></tr><tr id="3ea648ad-99fc-80c6-a3bb-e2f45d7cd7cc" dir="ltr"><td id="XA&lt;m" class=""><strong>Experiencia del cliente</strong></td><td id="Gmn[" class="" style="width:370px">Diseñar cada punto de contacto para agregar valor.</td></tr></tbody></table><hr id="3ea648ad-99fc-800f-a9b5-f14ec93644db" dir="auto"/><h2 id="3ea648ad-99fc-80f0-8005-dfa9281a9e94" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-8045-9a6d-dbb15ae4a59c" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80af-8930-f82d2ff419e5" dir="ltr"><th id="gkhW" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="FJ}}" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80ea-9bce-f611d19374fa" dir="ltr"><td id="gkhW" class=""><strong>NVA (Non-Value Added)</strong></td><td id="FJ}}" class="">Lo opuesto al VA: actividades que no agregan valor.</td></tr><tr id="3ea648ad-99fc-80f6-8c84-fec89d1d5552" dir="ltr"><td id="gkhW" class=""><strong>NNVA (Necessary Non-Value Added)</strong></td><td id="FJ}}" class="">Actividades necesarias pero que no agregan valor al cliente.</td></tr><tr id="3ea648ad-99fc-8064-abed-e81b48c2ac5f" dir="ltr"><td id="gkhW" class=""><strong>MUDA (Desperdicio)</strong></td><td id="FJ}}" class="">Los 7 desperdicios son formas de NVA.</td></tr><tr id="3ea648ad-99fc-80cc-871d-c2759611dd08" dir="ltr"><td id="gkhW" class=""><strong>Lean Management</strong></td><td id="FJ}}" class="">El corazón del Lean es maximizar VA y eliminar NVA.</td></tr><tr id="3ea648ad-99fc-80df-83c4-d6b658be979b" dir="ltr"><td id="gkhW" class=""><strong>Cadena de Valor (Porter)</strong></td><td id="FJ}}" class="">Herramienta para identificar VA en cada actividad.</td></tr><tr id="3ea648ad-99fc-80ef-887d-f1d9e0d5cd59" dir="ltr"><td id="gkhW" class=""><strong>Propuesta de Valor</strong></td><td id="FJ}}" class="">El VA es el corazón de la propuesta de valor.</td></tr><tr id="3ea648ad-99fc-80d1-8d51-efd8cf615119" dir="ltr"><td id="gkhW" class=""><strong>Ventaja Competitiva</strong></td><td id="FJ}}" class="">El VA es la base de la diferenciación.</td></tr><tr id="3ea648ad-99fc-80ec-80b8-ccb2fe3ddc7a" dir="ltr"><td id="gkhW" class=""><strong>Value Stream Mapping (VSM)</strong></td><td id="FJ}}" class="">Herramienta para visualizar VA y NVA en un proceso.</td></tr></tbody></table><hr id="3ea648ad-99fc-80e7-bd11-ecb2742e2948" dir="auto"/><h2 id="3ea648ad-99fc-8066-bd9f-e5bea7cc532b" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-80cb-9fcb-f02958d13b7b" class="" dir="auto">El Valor Agregado es como <strong>el sabor de un plato</strong>. Los ingredientes (recursos) y el proceso de cocción (actividades) pueden ser muchos, pero lo que realmente importa al cliente es <strong>el sabor final</strong> (el valor). Si un paso en la receta no mejora el sabor, es un desperdicio (NVA). Si un paso es necesario pero no mejora el sabor (ej: lavar los platos), es NNVA. El chef (la empresa) debe enfocarse en los pasos que realmente hacen que el plato sepa mejor (VA) y eliminar los que no aportan nada.</p><hr id="3ea648ad-99fc-8089-9f7a-c1552a096872" dir="auto"/><h2 id="3ea648ad-99fc-80e3-bfb3-ce9fbe2db0e1" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-80a9-91be-cd796aa42d39" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ohno, T. (1988). <em>Toyota Production System: Beyond Large-Scale Production</em>. Productivity Press.</li></ul><ul id="3ea648ad-99fc-80e3-925c-f33011fe010e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Womack, J. P., &amp; Jones, D. T. (1996). <em>Lean Thinking</em>. Simon &amp; Schuster.</li></ul><ul id="3ea648ad-99fc-801f-94af-e9b892d7e51f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1985). <em>Competitive Advantage</em>. Free Press.</li></ul><ul id="3ea648ad-99fc-80c9-bc48-db19f16add92" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rother, M., &amp; Shook, J. (1999). <em>Learning to See: Value Stream Mapping to Add Value and Eliminate MUDA</em>. Lean Enterprise Institute.</li></ul><ul id="3ea648ad-99fc-8022-b1ad-e936e454ed4b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>Value Added vs. Non-Value Added</em>.</li></ul><hr id="3ea648ad-99fc-8086-87cb-d53dba5ccb60" dir="auto"/><h2 id="3ea648ad-99fc-8004-b76f-e2a3e277c209" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-80bb-a0da-e4ad60f42619" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El valor lo define el cliente, no la empresa</strong>: No asumas que sabes lo que el cliente valora; pregúntale y observa su comportamiento.</li></ul><ul id="3ea648ad-99fc-802d-96b4-c2091979874a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todas las actividades NNVA son malas</strong>: Algunas son necesarias por ley o por gestión. El objetivo es minimizarlas, no eliminarlas.</li></ul><ul id="3ea648ad-99fc-80ce-9720-f2d21f508302" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El VA puede ser funcional o emocional</strong>: No te centres solo en lo funcional; el valor emocional es igual de importante.</li></ul><ul id="3ea648ad-99fc-8026-9c35-d5847f27d88b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para identificar y aumentar el VA</strong>:<ol type="1" id="3ea648ad-99fc-8056-8db0-f19bf23f368c" class="numbered-list" start="1" dir="auto"><li><strong>Escucha al cliente</strong>: Pregunta qué valora y qué no.</li></ol><ol type="1" id="3ea648ad-99fc-8040-bcd5-f4bfbfdb50c9" class="numbered-list" start="2" dir="auto"><li><strong>Mapea el proceso</strong>: Usa Value Stream Mapping para visualizar VA, NNVA y NVA.</li></ol><ol type="1" id="3ea648ad-99fc-80de-b3de-c67c415de253" class="numbered-list" start="3" dir="auto"><li><strong>Prioriza</strong>: Enfócate en las actividades que más valor agregan.</li></ol><ol type="1" id="3ea648ad-99fc-80a9-a724-e4437ce9e5d1" class="numbered-list" start="4" dir="auto"><li><strong>Elimina NVA</strong>: Reduce esperas, retrabajos, movimientos innecesarios.</li></ol><ol type="1" id="3ea648ad-99fc-804a-b8ea-e9df0514d2ff" class="numbered-list" start="5" dir="auto"><li><strong>Minimiza NNVA</strong>: Automatiza o simplifica actividades necesarias pero que no agregan valor.</li></ol><ol type="1" id="3ea648ad-99fc-8088-bd44-caab7fed7cc4" class="numbered-list" start="6" dir="auto"><li><strong>Innova en VA</strong>: Busca nuevas formas de agregar valor (ej: personalización, sostenibilidad).</li></ol><ol type="1" id="3ea648ad-99fc-8046-9eef-e3efed1558ab" class="numbered-list" start="7" dir="auto"><li><strong>Mide el impacto</strong>: Evalúa cómo las mejoras en VA afectan la satisfacción del cliente y los resultados del negocio.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

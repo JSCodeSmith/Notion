@@ -1,0 +1,820 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estructura Horizontal (Plana)</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-80d9-8fdd-fd3c7e30f478" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estructura Horizontal (Plana)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3ce648ad-99fc-8082-8d23-c0e503b3bb3e" class="" dir="auto"><strong>📄 Estructura Horizontal (Plana)</strong></h1><hr id="3ce648ad-99fc-80ed-ac99-c6ac6b5df3ab" dir="auto"/><h2 id="3ce648ad-99fc-8074-a0d2-d608f6d9a8c7" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-807e-a25c-fea1d065fb0e" class="" dir="auto">La estructura horizontal, también conocida como <strong>estructura plana</strong>, es un modelo organizacional caracterizado por tener <strong>pocos o ningún nivel jerárquico</strong> entre la alta dirección y los empleados operativos. </p><p id="3ce648ad-99fc-8027-abf2-ec8163c8e419" class="" dir="auto">En este modelo, el poder de decisión y la autonomía se distribuyen ampliamente, y la comunicación fluye de manera más directa, sin los filtros y demoras de una larga cadena de mando.</p><hr id="3ce648ad-99fc-803e-9496-c44c4f32b62b" dir="auto"/><h2 id="3ce648ad-99fc-80b8-9d96-eeebf48caed4" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-802d-843c-c9c151eae145" class="" dir="auto">En una estructura horizontal, el organigrama es &quot;ancho&quot; en lugar de &quot;alto&quot;. </p><p id="3ce648ad-99fc-801a-9e93-d95d3723bdf0" class="" dir="auto">Existen muy pocos jefes o supervisores intermedios; los equipos suelen ser autogestionados y los colaboradores tienen un alto grado de responsabilidad y toma de decisiones.</p><p id="3ce648ad-99fc-8046-b7f0-d1987ddeb84e" class="" dir="auto">Este modelo es típico de <strong>startups, empresas tecnológicas y organizaciones innovadoras</strong> que buscan agilidad, flexibilidad y rápida adaptación al cambio. </p><p id="3ce648ad-99fc-8024-84ad-fb8fd16422ba" class="" dir="auto">Se aleja radicalmente del modelo jerárquico tradicional de la estructura funcional.</p><p id="3ce648ad-99fc-8000-8114-eaa40074c8aa" class="" dir="auto"><strong>Características Clave</strong>:</p><ul id="3ce648ad-99fc-803d-97f2-ec0f48fbbe48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pocos niveles de mando (generalmente 2 o 3).</li></ul><ul id="3ce648ad-99fc-80ab-b103-fd1078eecc3d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Amplios tramos de control (un gerente supervisa a muchos empleados).</li></ul><ul id="3ce648ad-99fc-8079-a59c-dd97df8199cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Equipos autónomos y multidisciplinarios.</li></ul><ul id="3ce648ad-99fc-80a6-84a9-ecf4c40231b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Comunicación directa, sin intermediarios.</li></ul><ul id="3ce648ad-99fc-8080-ab8f-c82272db8304" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Procesos de toma de decisiones descentralizados.</li></ul><ul id="3ce648ad-99fc-8045-b0e0-d051f52e4f4e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cultura de confianza y empoderamiento.</li></ul><hr id="3ce648ad-99fc-8046-9245-ef14ab3ef85f" dir="auto"/><h2 id="3ce648ad-99fc-8034-97f8-d10e0562e4af" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-8062-98a4-e43da0283823" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acelerar la toma de decisiones</strong>: Menos niveles jerárquicos = decisiones más rápidas.</li></ul><ul id="3ce648ad-99fc-803d-8379-ec04871f39f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la innovación</strong>: Los empleados tienen libertad para experimentar y proponer ideas.</li></ul><ul id="3ce648ad-99fc-80b7-adbd-d52dd10f36f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la comunicación</strong>: La información fluye directamente sin distorsiones.</li></ul><ul id="3ce648ad-99fc-8014-ab6e-dbcf73a54c9a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar el compromiso</strong>: Los empleados se sienten dueños de su trabajo.</li></ul><ul id="3ce648ad-99fc-8009-aadd-f0c184b20736" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir costos</strong>: Menos puestos directivos = menos gasto administrativo.</li></ul><ul id="3ce648ad-99fc-802e-9759-eb8922a8e560" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptarse al cambio</strong>: Mayor flexibilidad para responder a entornos volátiles.</li></ul><ul id="3ce648ad-99fc-8054-9f08-c0b859cd4ed6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Atraer talento</strong>: Profesionales innovadores prefieren estructuras planas.</li></ul><hr id="3ce648ad-99fc-80be-ba4a-f8950ddf0af7" dir="auto"/><h2 id="3ce648ad-99fc-80d5-9e09-e9df50f2d53d" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3ce648ad-99fc-8077-a808-ddc054e9544c" class="" dir="auto">La estructura horizontal se apoya en varios pilares fundamentales:</p><ol type="1" id="3ce648ad-99fc-8056-9873-d98160c6f424" class="numbered-list" start="1" dir="auto"><li><strong>Liderazgo distribuido</strong>: No hay un &quot;jefe&quot; único; el liderazgo emerge según la situación y la experiencia.</li></ol><ol type="1" id="3ce648ad-99fc-8041-9f5f-d6dc4815452f" class="numbered-list" start="2" dir="auto"><li><strong>Equipos autogestionados</strong>: Los equipos toman decisiones sobre su propio trabajo sin supervisión constante.</li></ol><ol type="1" id="3ce648ad-99fc-8050-99a2-fa40cabb6b75" class="numbered-list" start="3" dir="auto"><li><strong>Roles flexibles</strong>: Los empleados no están atados a descripciones de puesto rígidas; pueden asumir diferentes funciones según las necesidades.</li></ol><ol type="1" id="3ce648ad-99fc-805b-8084-eb1d062d94a9" class="numbered-list" start="4" dir="auto"><li><strong>Comunicación abierta</strong>: La información es accesible para todos (transparencia radical).</li></ol><ol type="1" id="3ce648ad-99fc-8040-a5df-dd0692b55060" class="numbered-list" start="5" dir="auto"><li><strong>Cultura de confianza</strong>: Se confía en que los empleados harán lo correcto sin necesidad de control estricto.</li></ol><ol type="1" id="3ce648ad-99fc-80ea-8504-cc6981049e3a" class="numbered-list" start="6" dir="auto"><li><strong>Mecanismos de coordinación</strong>: Dado que no hay tantos jefes, los equipos necesitan procesos claros para coordinar (ej: reuniones diarias, sprints, OKRs).</li></ol><p id="3ce648ad-99fc-80b0-ac14-edc68391da1f" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ce648ad-99fc-8078-bf6f-fb3d1a255040" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">                    ┌──────────────────────────────────┐
+                    │      Alta Dirección / CEO       │
+                    │          (Liderazgo)            │
+                    └──────────────┬───────────────────┘
+                                   │
+      ┌────────────────────────────┼────────────────────────────┐
+      │                            │                            │
+      ▼                            ▼                            ▼
+┌─────────────┐            ┌─────────────┐            ┌─────────────┐
+│   Equipo    │            │   Equipo    │            │   Equipo    │
+│  Producto  │◄───────────│  Desarrollo │◄───────────│  Marketing  │
+│             │            │             │            │             │
+│  - PM       │            │  - Devs     │            │  - Growth   │
+│  - Diseño   │            │  - QA       │            │  - Contenido│
+│  - Data     │            │  - DevOps   │            │  - Social   │
+└─────────────┘            └─────────────┘            └─────────────┘
+      │                            │                            │
+      └────────────────────────────┼────────────────────────────┘
+                                   │
+                          ┌────────┴────────┐
+                          │   Alianzas y    │
+                          │    Socios       │
+                          └─────────────────┘</code></pre><p id="3ce648ad-99fc-80d6-b45e-dae76ab10301" class="" dir="auto"><em>Niveles jerárquicos mínimos (2-3). </em></p><p id="3ce648ad-99fc-807d-bed5-ec3541f873e2" class="" dir="auto"><em>Los equipos colaboran entre sí sin necesidad de múltiples aprobaciones.</em></p><hr id="3ce648ad-99fc-80b3-ab57-d7eff822d8b2" dir="auto"/><h2 id="3ce648ad-99fc-80ec-a49c-f347065d3642" class="" dir="auto"><strong>📝 Ventajas y Desventajas</strong></h2><h3 id="3ce648ad-99fc-804c-9231-c4a7b243cf10" class="" dir="auto"><strong>✅ Ventajas</strong></h3><table id="3ce648ad-99fc-8059-ab3f-c3f866240d6a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80ff-ab83-f411aab5ffba" dir="ltr"><th id="WTgA" class="simple-table-header-color simple-table-header"><strong>Ventaja</strong></th><th id="_xMz" class="simple-table-header-color simple-table-header" style="width:458px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8051-a8df-e6bad723026b" dir="ltr"><td id="WTgA" class=""><strong>Agilidad y velocidad</strong></td><td id="_xMz" class="" style="width:458px">Las decisiones se toman rápidamente, sin esperar aprobaciones de múltiples niveles.</td></tr><tr id="3ce648ad-99fc-8056-9406-f7e895f321cc" dir="ltr"><td id="WTgA" class=""><strong>Innovación</strong></td><td id="_xMz" class="" style="width:458px">Los empleados tienen libertad para experimentar y proponer nuevas ideas.</td></tr><tr id="3ce648ad-99fc-80c3-98d4-c631e8a6f360" dir="ltr"><td id="WTgA" class=""><strong>Mayor compromiso</strong></td><td id="_xMz" class="" style="width:458px">Los colaboradores se sienten dueños de su trabajo y más motivados.</td></tr><tr id="3ce648ad-99fc-8020-aea5-c00c45f7171a" dir="ltr"><td id="WTgA" class=""><strong>Comunicación directa</strong></td><td id="_xMz" class="" style="width:458px">La información fluye sin filtros ni distorsiones jerárquicas.</td></tr><tr id="3ce648ad-99fc-80aa-9c4c-d6f7714e21a2" dir="ltr"><td id="WTgA" class=""><strong>Reducción de costos</strong></td><td id="_xMz" class="" style="width:458px">Menos jefes y supervisores = menor gasto en gestión.</td></tr><tr id="3ce648ad-99fc-800f-81ad-fb8cb7e73801" dir="ltr"><td id="WTgA" class=""><strong>Atracción de talento</strong></td><td id="_xMz" class="" style="width:458px">Profesionales creativos y autónomos prefieren este entorno.</td></tr><tr id="3ce648ad-99fc-805f-9293-efe1c6701960" dir="ltr"><td id="WTgA" class=""><strong>Adaptabilidad</strong></td><td id="_xMz" class="" style="width:458px">La organización responde rápidamente a cambios en el mercado.</td></tr></tbody></table><h3 id="3ce648ad-99fc-8047-b417-feb31179ce72" class="" dir="auto"><strong>❌ Desventajas</strong></h3><table id="3ce648ad-99fc-806c-a08b-d5a8d73bd7ed" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8020-9bef-dceb01ecfcb2" dir="ltr"><th id="xwVB" class="simple-table-header-color simple-table-header"><strong>Desventaja</strong></th><th id="U;NN" class="simple-table-header-color simple-table-header" style="width:382px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-801c-a0cd-e1de187b63b0" dir="ltr"><td id="xwVB" class=""><strong>Falta de dirección clara</strong></td><td id="U;NN" class="" style="width:382px">Sin muchos niveles jerárquicos, puede haber confusión sobre quién decide qué.</td></tr><tr id="3ce648ad-99fc-8020-8301-ecd6890a5fb8" dir="ltr"><td id="xwVB" class=""><strong>Sobrecarga de los líderes</strong></td><td id="U;NN" class="" style="width:382px">Los pocos líderes existentes pueden estar sobrecargados al supervisar a muchos.</td></tr><tr id="3ce648ad-99fc-80c3-b016-daa27cba351a" dir="ltr"><td id="xwVB" class=""><strong>Dificultad para escalar</strong></td><td id="U;NN" class="" style="width:382px">Cuando la organización crece, es difícil mantener la estructura plana.</td></tr><tr id="3ce648ad-99fc-80c4-9d2e-d25a9870cd72" dir="ltr"><td id="xwVB" class=""><strong>Conflictos</strong></td><td id="U;NN" class="" style="width:382px">Sin una jerarquía clara, pueden surgir conflictos sobre roles y responsabilidades.</td></tr><tr id="3ce648ad-99fc-8060-997a-ebda7e2ddd1e" dir="ltr"><td id="xwVB" class=""><strong>Toma de decisiones lenta</strong></td><td id="U;NN" class="" style="width:382px">Paradoja: si no hay procesos claros, la toma de decisiones puede ser caótica.</td></tr><tr id="3ce648ad-99fc-808c-a4f2-fd2519491ffa" dir="ltr"><td id="xwVB" class=""><strong>Dependencia de la cultura</strong></td><td id="U;NN" class="" style="width:382px">La estructura solo funciona si hay una cultura sólida de confianza y responsabilidad.</td></tr><tr id="3ce648ad-99fc-8004-a723-ea7b71558de5" dir="ltr"><td id="xwVB" class=""><strong>No apta para todos</strong></td><td id="U;NN" class="" style="width:382px">Algunas industrias (ej: manufactura, salud) requieren estructuras más jerárquicas.</td></tr></tbody></table><hr id="3ce648ad-99fc-8023-b38e-e14a7ac1cc0a" dir="auto"/><h2 id="3ce648ad-99fc-8050-a32e-fe3e976b6907" class="" dir="auto"><strong>💡 Ejemplos de Empresas con Estructura Horizontal</strong></h2><h3 id="3ce648ad-99fc-80c3-88ca-d76927415798" class="" dir="auto"><strong>1️⃣ Valve (Empresa de Videojuegos)</strong></h3><ul id="3ce648ad-99fc-8025-b00f-ee081be0be94" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura</strong>: Sin gerentes. Los empleados eligen en qué proyectos trabajar.</li></ul><ul id="3ce648ad-99fc-804f-a050-f731576fc478" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura</strong>: Autonomía total, toma de decisiones colectiva, sin jerarquías formales.</li></ul><ul id="3ce648ad-99fc-8022-87e9-c467607d8cc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Innovación continua, productos icónicos (Half-Life, Steam).</li></ul><ul id="3ce648ad-99fc-8071-b136-d27c1f27b379" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Frase célebre</strong>: &quot;Los gerentes son personas que crean burocracia; nosotros no los necesitamos.&quot;</li></ul><h3 id="3ce648ad-99fc-8001-ae1e-cb1ec96ecaeb" class="" dir="auto"><strong>2️⃣ Spotify (Modelo &quot;Squad&quot;)</strong></h3><ul id="3ce648ad-99fc-8053-8706-c83212e4c2d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura</strong>: Organización en &quot;Squads&quot; (equipos autónomos) con líderes de producto, no jefes.</li></ul><ul id="3ce648ad-99fc-80f6-a3c4-c048cc1d0a37" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura</strong>: Equipos autogestionados, alineados por objetivos (no por órdenes).</li></ul><ul id="3ce648ad-99fc-8000-bef6-dce688425978" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Lanzamiento continuo de funcionalidades, gran capacidad de innovación.</li></ul><ul id="3ce648ad-99fc-80ef-aa57-d8a94603d416" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Particularidad</strong>: Cada squad tiene autonomía para decidir qué construir y cómo.</li></ul><h3 id="3ce648ad-99fc-80d1-b085-dad2ba1872ac" class="" dir="auto"><strong>3️⃣ Zappos (Tienda de Zapatos Online)</strong></h3><ul id="3ce648ad-99fc-80d4-8ced-e8d9ddb64871" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura</strong>: Holocracia (sin títulos, sin jefes, roles flexibles).</li></ul><ul id="3ce648ad-99fc-800d-bfd9-d0e77468a6ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura</strong>: Los empleados gestionan su propio trabajo en círculos autoorganizados.</li></ul><ul id="3ce648ad-99fc-80aa-8634-f8af11d960a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Alto compromiso de los empleados, cultura de innovación.</li></ul><ul id="3ce648ad-99fc-8086-aee8-c6b472143650" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Advertencia</strong>: La implementación fue compleja y tuvo sus desafíos.</li></ul><h3 id="3ce648ad-99fc-80f9-a66f-cfcafb2f3b7e" class="" dir="auto"><strong>4️⃣ Basecamp (Software de Gestión de Proyectos)</strong></h3><ul id="3ce648ad-99fc-80e2-829d-cc04358c9c54" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura</strong>: Plana, con equipos pequeños y autónomos.</li></ul><ul id="3ce648ad-99fc-8036-8291-d2cff1dab770" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura</strong>: Sin gerentes intermedios, los equipos se organizan ellos mismos.</li></ul><ul id="3ce648ad-99fc-80c2-935d-ccf50a8d73e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Producto de alta calidad, ambiente de trabajo tranquilo y productivo.</li></ul><h3 id="3ce648ad-99fc-8082-88dd-c314a5d1c7a4" class="" dir="auto"><strong>5️⃣ Morning Star (Procesamiento de Tomates)</strong></h3><ul id="3ce648ad-99fc-808c-8ded-e8f5f8bfb17d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura</strong>: Organización sin jefes, los empleados negocian sus propias responsabilidades.</li></ul><ul id="3ce648ad-99fc-80e1-9929-dc94ea49d1dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura</strong>: Cada empleado firma un &quot;Acuerdo de Responsabilidad Personal&quot; con sus colegas.</li></ul><ul id="3ce648ad-99fc-80b2-99c7-c093ff83b0fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Alta productividad, bajos costos, innovación continua.</li></ul><ul id="3ce648ad-99fc-8022-9311-d605d5868f7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Particularidad</strong>: Funciona en una industria manufacturera (inusual).</li></ul><hr id="3ce648ad-99fc-807d-8eae-fcdc8f21c357" dir="auto"/><h2 id="3ce648ad-99fc-8021-97bf-c821e8567021" class="" dir="auto"><strong>⚠️ Errores Comunes al Implementar una Estructura Horizontal</strong></h2><table id="3ce648ad-99fc-806d-9f1c-f365d9df2f26" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80e3-b37c-d7d8f4e6eb14" dir="ltr"><th id="?}Js" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="FbL:" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="u[ZQ" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80f2-aa4e-d6c733470ff7" dir="ltr"><td id="?}Js" class=""><strong>No preparar la cultura</strong></td><td id="FbL:" class="">Implementar una estructura plana sin haber construido una cultura de confianza.</td><td id="u[ZQ" class="">Caos, falta de dirección, conflictos.</td></tr><tr id="3ce648ad-99fc-80ab-a40a-ea1ec65d44d8" dir="ltr"><td id="?}Js" class=""><strong>Falta de procesos de coordinación</strong></td><td id="FbL:" class="">Asumir que sin jefes, todo se organiza solo.</td><td id="u[ZQ" class="">Desorganización, duplicación de esfuerzos.</td></tr><tr id="3ce648ad-99fc-8000-9b09-e71e0d47a50a" dir="ltr"><td id="?}Js" class=""><strong>Eliminar todos los líderes</strong></td><td id="FbL:" class="">Pensar que no se necesitan líderes en absoluto.</td><td id="u[ZQ" class="">Falta de guía, pérdida de visión estratégica.</td></tr><tr id="3ce648ad-99fc-8020-a90b-c61484b1c88e" dir="ltr"><td id="?}Js" class=""><strong>No adaptar al tamaño de la empresa</strong></td><td id="FbL:" class="">Pretender mantener una estructura plana cuando la empresa ya es grande.</td><td id="u[ZQ" class="">Inviabilidad, necesidad de algún nivel jerárquico.</td></tr><tr id="3ce648ad-99fc-80d7-8711-dce8159a81e0" dir="ltr"><td id="?}Js" class=""><strong>No definir roles claramente</strong></td><td id="FbL:" class="">Confundir &quot;estructura plana&quot; con &quot;sin estructura&quot;.</td><td id="u[ZQ" class="">Ambigüedad, confusiones sobre responsabilidades.</td></tr><tr id="3ce648ad-99fc-80f9-806a-e160aa0a6b43" dir="ltr"><td id="?}Js" class=""><strong>Subestimar la resistencia al cambio</strong></td><td id="FbL:" class="">No gestionar la transición hacia una estructura plana.</td><td id="u[ZQ" class="">Empleados confundidos, resistencia activa.</td></tr><tr id="3ce648ad-99fc-801c-a3f2-dbd7520f132d" dir="ltr"><td id="?}Js" class=""><strong>No medir resultados</strong></td><td id="FbL:" class="">Implementar sin métricas que evalúen el funcionamiento.</td><td id="u[ZQ" class="">No saber si la estructura funciona o no.</td></tr></tbody></table><hr id="3ce648ad-99fc-8065-9b27-ce70af4eb287" dir="auto"/><h2 id="3ce648ad-99fc-8015-9d7a-ddb7acd61ddb" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-8085-ad0f-f0b2544425a2" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-802e-91e7-d203894bb96e" dir="ltr"><th id="=c&gt;h" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="`a;i" class="simple-table-header-color simple-table-header" style="width:348px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80e7-85b0-f0766818670f" dir="ltr"><td id="=c&gt;h" class=""><strong>Startups tecnológicas</strong></td><td id="`a;i" class="" style="width:348px">Necesitan agilidad, innovación y rápida adaptación al mercado.</td></tr><tr id="3ce648ad-99fc-808d-bebf-eaecbee1c169" dir="ltr"><td id="=c&gt;h" class=""><strong>Empresas creativas</strong></td><td id="`a;i" class="" style="width:348px">Diseño, publicidad, desarrollo de videojuegos, contenido.</td></tr><tr id="3ce648ad-99fc-80b6-a7e3-fa6ec658eefa" dir="ltr"><td id="=c&gt;h" class=""><strong>Proyectos de innovación</strong></td><td id="`a;i" class="" style="width:348px">Dentro de grandes corporaciones (laboratorios de innovación).</td></tr><tr id="3ce648ad-99fc-8099-a50f-d593b391cf72" dir="ltr"><td id="=c&gt;h" class=""><strong>Empresas que quieren transformación digital</strong></td><td id="`a;i" class="" style="width:348px">La estructura horizontal acelera la digitalización.</td></tr><tr id="3ce648ad-99fc-8023-afa3-e37ad754ea4c" dir="ltr"><td id="=c&gt;h" class=""><strong>Organizaciones con cultura fuerte</strong></td><td id="`a;i" class="" style="width:348px">Donde los empleados son altamente autónomos y responsables.</td></tr><tr id="3ce648ad-99fc-808f-87f9-d43d022ab600" dir="ltr"><td id="=c&gt;h" class=""><strong>Empresas con equipos remotos</strong></td><td id="`a;i" class="" style="width:348px">La estructura plana facilita la coordinación remota.</td></tr></tbody></table><hr id="3ce648ad-99fc-8062-bbec-fe66e37b82ba" dir="auto"/><h2 id="3ce648ad-99fc-8011-9726-f109577d812e" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8064-b59b-ef633a3a62af" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80c9-8fd5-ef99b5cae151" dir="ltr"><th id="amnJ" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="LIAJ" class="simple-table-header-color simple-table-header" style="width:405px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8099-a661-fcd22dcbbd18" dir="ltr"><td id="amnJ" class=""><strong>Estructura Funcional</strong></td><td id="LIAJ" class="" style="width:405px">Opuesta: jerárquica, especializada por funciones, más rígida.</td></tr><tr id="3ce648ad-99fc-8018-8213-efd3b5e337e9" dir="ltr"><td id="amnJ" class=""><strong>Estructura Matricial</strong></td><td id="LIAJ" class="" style="width:405px">Combina jerarquía con equipos interfuncionales, pero sigue teniendo jefes.</td></tr><tr id="3ce648ad-99fc-8038-b6c1-e9fda35df265" dir="ltr"><td id="amnJ" class=""><strong>Holocracia</strong></td><td id="LIAJ" class="" style="width:405px">Sistema de gobierno sin jefes, con roles flexibles y autoorganización.</td></tr><tr id="3ce648ad-99fc-80c7-8f36-f28aa296cb68" dir="ltr"><td id="amnJ" class=""><strong>Agilidad</strong></td><td id="LIAJ" class="" style="width:405px">La estructura horizontal es el hábitat natural de las metodologías ágiles.</td></tr><tr id="3ce648ad-99fc-800e-ad21-ff8de0745c5b" dir="ltr"><td id="amnJ" class=""><strong>Autogestión</strong></td><td id="LIAJ" class="" style="width:405px">Los equipos se gestionan a sí mismos sin supervisión constante.</td></tr><tr id="3ce648ad-99fc-8059-a71e-d347724443b7" dir="ltr"><td id="amnJ" class=""><strong>Empoderamiento</strong></td><td id="LIAJ" class="" style="width:405px">Los empleados tienen autoridad para tomar decisiones.</td></tr><tr id="3ce648ad-99fc-809e-ab77-d1155174265d" dir="ltr"><td id="amnJ" class=""><strong>Cultura Organizacional</strong></td><td id="LIAJ" class="" style="width:405px">La estructura horizontal requiere una cultura específica (confianza, transparencia).</td></tr><tr id="3ce648ad-99fc-8067-ab53-dc2987f45459" dir="ltr"><td id="amnJ" class=""><strong>Startup</strong></td><td id="LIAJ" class="" style="width:405px">La estructura horizontal es típica de startups en etapas tempranas.</td></tr></tbody></table><hr id="3ce648ad-99fc-80f5-89bd-e7e4cdf97421" dir="auto"/><h2 id="3ce648ad-99fc-806d-87a9-fd5331933c18" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-8028-8193-f32f98d824fb" class="" dir="auto">La estructura horizontal es como un <strong>equipo de fútbol en el campo</strong>:</p><ul id="3ce648ad-99fc-8055-9c73-ec482a2fe731" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No hay un gerente que diga cada paso (los jugadores toman decisiones en tiempo real).</li></ul><ul id="3ce648ad-99fc-80a0-99b0-cd49ec2cbfdd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hay roles claros (delanteros, defensas, mediocampistas), pero son flexibles (un defensa puede atacar).</li></ul><ul id="3ce648ad-99fc-80ce-862d-c359add9e61e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Todos se comunican directamente en el campo.</li></ul><ul id="3ce648ad-99fc-804d-a0c1-ede8a1456d1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si alguien ve una oportunidad, actúa sin esperar permiso del entrenador.</li></ul><p id="3ce648ad-99fc-8016-8648-df79f165f2d4" class="" dir="auto">El entrenador (el CEO) da la estrategia general, pero en el campo, los jugadores se autogestionan. Así es la estructura horizontal: hay un propósito común, roles flexibles y decisión distribuida.</p><hr id="3ce648ad-99fc-8024-9bcd-cf116f4f5e6a" dir="auto"/><h2 id="3ce648ad-99fc-80dd-99f1-da86214bbc30" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-80ca-a198-e35ac988ee69" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bernstein, E. (2014). <em>The Transparency Trap</em>. Harvard Business Review.</li></ul><ul id="3ce648ad-99fc-8014-ae80-f1b293252c4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Laloux, F. (2014). <em>Reinventing Organizations</em>. Nelson Parker.</li></ul><ul id="3ce648ad-99fc-80b0-be97-eaa1ecd4004f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robertson, B. J. (2015). <em>Holacracy: The New Management System for a Rapidly Changing World</em>. Henry Holt and Co.</li></ul><ul id="3ce648ad-99fc-80ac-91a7-d585a57ba116" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hamel, G. (2007). <em>The Future of Management</em>. Harvard Business Review.</li></ul><ul id="3ce648ad-99fc-8050-a193-dacc646657cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mintzberg, H. (1979). <em>The Structuring of Organizations</em>. Prentice-Hall.</li></ul><ul id="3ce648ad-99fc-80eb-a505-f96657054d85" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robbins, S. P., &amp; Coulter, M. (2018). <em>Administración</em>. Pearson.</li></ul><hr id="3ce648ad-99fc-8093-93a5-d3baed02023a" dir="auto"/><h2 id="3ce648ad-99fc-8044-920c-e90227590052" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-8006-90cd-c2a8b58b16aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La estructura horizontal no es para todos</strong>: No funciona bien en industrias que requieren control estricto (ej: salud, manufactura de alta precisión, aviación). Pero es ideal para entornos creativos, tecnológicos y de innovación.</li></ul><ul id="3ce648ad-99fc-80a8-846a-cf50f4b97b20" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La transición es compleja</strong>: Pasar de una estructura jerárquica a una plana es un cambio cultural profundo. Requiere:<ul id="3ce648ad-99fc-8005-b4a3-eba516ca2b7d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Formación</strong> en autogestión.</li></ul><ul id="3ce648ad-99fc-80b0-9821-dcd1bc0d023d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Nuevos procesos</strong> de toma de decisiones.</li></ul><ul id="3ce648ad-99fc-80db-a87b-f9b03505ddd5" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Paciencia</strong>: los resultados no son inmediatos.</li></ul></li></ul><ul id="3ce648ad-99fc-8087-985c-fb78163d50ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El tamaño importa</strong>: Una estructura horizontal funciona bien en empresas de hasta <strong>50-100 empleados</strong>. Más allá, se vuelve difícil de gestionar. Algunas empresas como Zappos han intentado mantenerla en organizaciones grandes, pero es un desafío.</li></ul><ul id="3ce648ad-99fc-8009-ac02-e9a0b181e919" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Sin jefes? No exactamente</strong>: En una estructura plana, los líderes no desaparecen; su rol cambia:<ul id="3ce648ad-99fc-8043-a8eb-f2a9d924379c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>De mandar a facilitar</strong>.</li></ul><ul id="3ce648ad-99fc-8079-b699-f5dd0bd196c9" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>De controlar a apoyar</strong>.</li></ul><ul id="3ce648ad-99fc-8024-bdd6-fa9378d86d8e" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>De supervisar a coach</strong>.</li></ul></li></ul><ul id="3ce648ad-99fc-809e-92c9-ce798cd18a3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mecanismos clave para que funcione</strong>:<ol type="1" id="3ce648ad-99fc-8056-8d88-d2d9356d2b3a" class="numbered-list" start="1" dir="auto"><li><strong>Reuniones de equipo</strong> (daily stand-ups, retrospectivas).</li></ol><ol type="1" id="3ce648ad-99fc-8099-b8e3-c0495753302d" class="numbered-list" start="2" dir="auto"><li><strong>Objetivos compartidos</strong> (OKRs).</li></ol><ol type="1" id="3ce648ad-99fc-8008-85fc-ef080a9c3e35" class="numbered-list" start="3" dir="auto"><li><strong>Transparencia total</strong> (acceso a información financiera, estratégica).</li></ol><ol type="1" id="3ce648ad-99fc-80ab-94b4-e5e91e4da187" class="numbered-list" start="4" dir="auto"><li><strong>Círculos de decisión</strong> (quién decide qué, según el tema).</li></ol><ol type="1" id="3ce648ad-99fc-80b5-9632-f19bfc51968f" class="numbered-list" start="5" dir="auto"><li><strong>Feedforward y feedback continuo</strong>.</li></ol></li></ul><ul id="3ce648ad-99fc-80c9-8082-cc38c4a2d5f5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Relación con la Transformación Digital</strong>:<ul id="3ce648ad-99fc-80e5-b3f0-f89d293b278d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La estructura horizontal es un <strong>habilitador clave</strong> de la transformación digital.</li></ul><ul id="3ce648ad-99fc-800f-9769-f6b221480a21" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Permite a los equipos de tecnología, producto y negocio colaborar sin fricciones.</li></ul><ul id="3ce648ad-99fc-80cc-9e69-f9a9e7dadfc9" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Acelera el <strong>time-to-market</strong> y la experimentación.</li></ul></li></ul><ul id="3ce648ad-99fc-80eb-b4c4-c924e52e5bb2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para implementar una estructura horizontal</strong>:<ol type="1" id="3ce648ad-99fc-80ac-8f14-e87e4963a1ed" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con un proyecto piloto</strong>: No revientes toda la organización de golpe.</li></ol><ol type="1" id="3ce648ad-99fc-80d0-af43-ceea8f4fe989" class="numbered-list" start="2" dir="auto"><li><strong>Invierte en formación</strong>: Enseña autogestión, liderazgo distribuido, comunicación asertiva.</li></ol><ol type="1" id="3ce648ad-99fc-80d7-8b25-ef50df569e5c" class="numbered-list" start="3" dir="auto"><li><strong>Define procesos claros</strong>: No confundas &quot;plana&quot; con &quot;sin estructura&quot;.</li></ol><ol type="1" id="3ce648ad-99fc-8050-84e6-e29bddc4a881" class="numbered-list" start="4" dir="auto"><li><strong>Mide y ajusta</strong>: Usa métricas de satisfacción, productividad y resultados.</li></ol><ol type="1" id="3ce648ad-99fc-808c-bffd-c348320a32f9" class="numbered-list" start="5" dir="auto"><li><strong>Sé paciente</strong>: El cambio cultural lleva tiempo (años, no meses).</li></ol><ol type="1" id="3ce648ad-99fc-80ae-b406-e21fd3d76926" class="numbered-list" start="6" dir="auto"><li><strong>Prepárate para escalar</strong>: ¿Qué harás cuando la empresa crezca? Define mecanismos para mantener la agilidad.</li></ol><ol type="1" id="3ce648ad-99fc-80e2-8c3e-cb5db931b92b" class="numbered-list" start="7" dir="auto"><li><strong>Comunica el &quot;por qué&quot;</strong>: La estructura plana solo funciona si todos entienden su propósito y se sienten parte de ella.</li></ol></li></ul><ul id="3ce648ad-99fc-8066-b8d9-df4efa208950" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Futuro de la estructura horizontal</strong>:<ul id="3ce648ad-99fc-80a3-a0fb-da6b0c23aade" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Con el trabajo remoto y la digitalización, la estructura horizontal se vuelve más viable.</li></ul><ul id="3ce648ad-99fc-8058-93de-fe73b7c00ffb" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Plataformas digitales permiten coordinar equipos autónomos sin necesidad de jefes intermedios.</li></ul><ul id="3ce648ad-99fc-802b-94fb-f56b68a195f2" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La IA y la automatización están reemplazando algunas funciones de supervisión, facilitando la estructura plana.</li></ul><ul id="3ce648ad-99fc-803b-a7a4-e1a2184c5834" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Es probable que veamos más empresas adoptando modelos híbridos: estructura funcional en áreas estables, y horizontal en áreas innovadoras.</li></ul></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

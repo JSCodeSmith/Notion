@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Holocracia</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-80e5-b697-c3480596791a" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Holocracia</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-8077-957f-dba9005a778d" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-8064-a8b2-f3f2ea0c46c2" class="" dir="auto"><strong>📄 Holocracia</strong></h1><hr id="3ea648ad-99fc-8068-af01-d38fae3bc166" dir="auto"/><h2 id="3ea648ad-99fc-8050-8cb3-c3144fa9d1e8" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-8010-8f43-d7bb37261ca5" class="" dir="auto">La <strong>Holocracia</strong> es un <strong>sistema de gobierno y gestión organizacional</strong> en el que la <strong>autoridad y la toma de decisiones se distribuyen</strong> en lugar de concentrarse en una jerarquía tradicional. </p><p id="3ea648ad-99fc-8018-b60d-ff5163937588" class="" dir="auto">Fue desarrollada por <strong>Brian Robertson</strong> y formalizada en su libro <em>&quot;Holacracy: The New Management System for a Rapidly Changing World&quot;</em> (2015). </p><p id="3ea648ad-99fc-80e8-9611-e3fde83af891" class="" dir="auto">En una holocracia, los empleados se organizan en <strong>círculos</strong> (equipos) autónomos y desempeñan <strong>roles</strong> definidos y flexibles, en lugar de tener títulos de trabajo fijos. </p><p id="3ea648ad-99fc-8095-9d8c-f7f93430b16c" class="" dir="auto">La autoridad se distribuye a través de <strong>roles</strong> y <strong>procesos</strong>, no a través de <strong>jefes</strong>.</p><hr id="3ea648ad-99fc-8039-b910-cfc0455cd10c" dir="auto"/><h2 id="3ea648ad-99fc-806b-b069-e473db9ee58a" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-8010-affb-f7ad5d85f482" class="" dir="auto">La Holocracia es una <strong>evolución radical de la estructura organizacional</strong>. </p><p id="3ea648ad-99fc-807e-a583-f3bcb0c592b8" class="" dir="auto">En lugar de una jerarquía de personas (jefe → subordinado), la Holocracia establece una <strong>jerarquía de propósitos y roles</strong>. </p><p id="3ea648ad-99fc-80c7-b33b-d08144145c29" class="" dir="auto">La organización se ve como un <strong>sistema vivo</strong> compuesto por <strong>círculos</strong> anidados (como muñecas rusas), donde cada círculo tiene un propósito y autonomía para tomar decisiones dentro de su dominio.</p><p id="3ea648ad-99fc-8069-8bae-dc8bdda78ff9" class="" dir="auto"><strong>Conceptos clave</strong>:</p><ul id="3ea648ad-99fc-8014-b55b-fc12bcd38b7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Círculos</strong>: Equipos autónomos que se organizan en torno a un propósito. Pueden anidarse (un círculo dentro de otro).</li></ul><ul id="3ea648ad-99fc-805d-89c7-cf4f96f931d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Roles</strong>: En lugar de puestos de trabajo fijos, las personas asumen <strong>roles</strong> específicos con responsabilidades y autoridad claras. Una persona puede tener varios roles en diferentes círculos.</li></ul><ul id="3ea648ad-99fc-80e0-b811-eb58e073ad3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Autoridad distribuida</strong>: La autoridad no viene del puesto jerárquico, sino del <strong>rol</strong> que se desempeña.</li></ul><ul id="3ea648ad-99fc-80cf-a8a5-de1cc8dbd30e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Procesos claros</strong>: La Holocracia tiene <strong>reglas y procesos definidos</strong> (no es una ausencia de estructura) para la toma de decisiones, la resolución de conflictos y la evolución de los roles.</li></ul><ul id="3ea648ad-99fc-803c-99d8-d497ebcc2060" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Autogestión</strong>: Los círculos son autónomos para tomar decisiones dentro de su dominio, sin necesidad de aprobación de un jefe.</li></ul><p id="3ea648ad-99fc-8037-b79f-c030118db58c" class="" dir="auto"><strong>La diferencia clave con la estructura horizontal (plana)</strong>:</p><ul id="3ea648ad-99fc-80c3-b509-c511009c554c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estructura plana</strong>: No hay jefes, pero tampoco hay un sistema formal de toma de decisiones. La autoorganización es más informal.</li></ul><ul id="3ea648ad-99fc-80a8-95b5-cca802b90156" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Holocracia</strong>: No hay jefes, pero hay un <strong>sistema formal</strong> de roles, procesos y círculos que definen cómo se toman las decisiones y cómo se distribuye la autoridad.</li></ul><hr id="3ea648ad-99fc-8096-960b-c096d94b1396" dir="auto"/><h2 id="3ea648ad-99fc-80a0-807d-f27cc46cf8b4" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-8067-8df6-e9256fd89af6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Distribuir la autoridad</strong>: Permitir que las decisiones se tomen en el nivel más cercano a la información.</li></ul><ul id="3ea648ad-99fc-80a2-8211-f2eb82e8e059" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la agilidad</strong>: Responder rápidamente a los cambios sin depender de una cadena de mando.</li></ul><ul id="3ea648ad-99fc-80a4-ad78-e30314a8266b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la autonomía</strong>: Los empleados tienen claridad sobre su autoridad y responsabilidad.</li></ul><ul id="3ea648ad-99fc-80c3-b54b-cf8b6ccfc96d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eliminar la burocracia</strong>: Sustituir la jerarquía de personas por una jerarquía de propósitos y roles.</li></ul><ul id="3ea648ad-99fc-80ca-a606-e0e6527cde3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la transparencia</strong>: Las reglas y procesos son explícitos y conocidos por todos.</li></ul><ul id="3ea648ad-99fc-800a-a002-feaffc62658d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empoderar a los equipos</strong>: Los círculos tienen autonomía para decidir sobre su propio trabajo.</li></ul><ul id="3ea648ad-99fc-8013-b1fd-dbc7f7257d5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Escalar sin perder agilidad</strong>: La estructura de círculos anidados permite crecer sin volverse rígida.</li></ul><hr id="3ea648ad-99fc-809f-ac59-fa7c6b496100" dir="auto"/><h2 id="3ea648ad-99fc-8023-a7aa-cf6669682181" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Los Elementos de la Holocracia</strong></h2><p id="3ea648ad-99fc-806e-827a-defc3ca4c0e3" class="" dir="auto">La Holocracia se basa en una <strong>constitución</strong> (un documento que establece las reglas del juego) y varios elementos clave:</p><h3 id="3ea648ad-99fc-801d-88f8-c9a458d2343a" class="" dir="auto"><strong>1️⃣ Círculos</strong></h3><ul id="3ea648ad-99fc-80ba-a10d-e9757b8264bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Un grupo de roles que trabajan juntos hacia un propósito común.</li></ul><ul id="3ea648ad-99fc-80c2-852d-c9a7c35ed79d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-805c-9a4e-f69d30719ea8" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Cada círculo tiene un <strong>propósito</strong> claro.</li></ul><ul id="3ea648ad-99fc-806a-b88c-c7e22e96f56a" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Los círculos pueden <strong>anidarse</strong> (un círculo dentro de otro).</li></ul><ul id="3ea648ad-99fc-806c-a221-ea4923510383" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Cada círculo tiene <strong>roles</strong> definidos.</li></ul><ul id="3ea648ad-99fc-802a-b9fe-c2569491f163" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Los círculos son <strong>autónomos</strong> para tomar decisiones dentro de su dominio.</li></ul></li></ul><ul id="3ea648ad-99fc-8075-b0ac-f6eaaf637aa4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Un círculo de Marketing, un círculo de Producto, un círculo de Ventas.</li></ul><h3 id="3ea648ad-99fc-80a2-a603-e498db938c62" class="" dir="auto"><strong>2️⃣ Roles</strong></h3><ul id="3ea648ad-99fc-80e5-a027-f874aabc7ddb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Una <strong>función</strong> con responsabilidades y autoridad específicas.</li></ul><ul id="3ea648ad-99fc-80a9-b030-d5884dda2441" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-806d-b45d-de18e3d6af86" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Los roles son <strong>flexibles</strong> y pueden evolucionar.</li></ul><ul id="3ea648ad-99fc-8050-b7b6-e0158811567d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Una persona puede tener <strong>múltiples roles</strong> en diferentes círculos.</li></ul><ul id="3ea648ad-99fc-8005-a865-df9245736b47" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Cada rol tiene un <strong>propósito</strong>, <strong>responsabilidades</strong> y <strong>autoridad</strong> definidos.</li></ul><ul id="3ea648ad-99fc-80b9-9349-d12205684cac" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Los roles se asignan a <strong>personas</strong>, no a puestos de trabajo.</li></ul></li></ul><ul id="3ea648ad-99fc-8070-ad7b-dec380b866fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Rol de &quot;Diseñador UX&quot;, Rol de &quot;Community Manager&quot;, Rol de &quot;Líder de Círculo&quot;.</li></ul><h3 id="3ea648ad-99fc-8076-9c6c-cd0329372870" class="" dir="auto"><strong>3️⃣ Reuniones de Gobernanza</strong></h3><ul id="3ea648ad-99fc-8086-8edf-d0e3c74698b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Reuniones periódicas para <strong>evolucionar los roles y los círculos</strong>.</li></ul><ul id="3ea648ad-99fc-8060-ab21-eaea1a0aa7a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-8017-b4a0-ec76aec4488b" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Se revisan y ajustan los roles y las políticas.</li></ul><ul id="3ea648ad-99fc-804c-8110-c96a1233981a" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Se toman decisiones sobre la estructura.</li></ul><ul id="3ea648ad-99fc-8030-a733-fa03988df2b7" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Se resuelven tensiones y conflictos.</li></ul></li></ul><ul id="3ea648ad-99fc-80b5-8657-dc7d374f12d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Reunión mensual de gobernanza del círculo de Marketing.</li></ul><h3 id="3ea648ad-99fc-80ad-abb2-fba0c84fe4ff" class="" dir="auto"><strong>4️⃣ Reuniones Tácticas</strong></h3><ul id="3ea648ad-99fc-8067-a3f4-e5846c7eeef7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Reuniones periódicas para <strong>coordinar el trabajo diario</strong>.</li></ul><ul id="3ea648ad-99fc-80e5-9eae-f600d056b0c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Características</strong>:<ul id="3ea648ad-99fc-8026-a0f3-eb1dc4ccdd1d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Se revisan las tareas y los proyectos en curso.</li></ul><ul id="3ea648ad-99fc-8079-9b1f-c9f0c4fd7767" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Se identifican obstáculos y se toman decisiones operativas.</li></ul><ul id="3ea648ad-99fc-80ad-85a8-f8b56dbe3474" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Son más frecuentes que las reuniones de gobernanza.</li></ul></li></ul><ul id="3ea648ad-99fc-807e-8bc7-e8698217a0dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Reunión semanal de coordinación del círculo de Producto.</li></ul><h3 id="3ea648ad-99fc-8041-80e7-eead3187e000" class="" dir="auto"><strong>5️⃣ Líderes de Círculo y Enlaces</strong></h3><ul id="3ea648ad-99fc-80df-9143-e24cbaf7eedb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Líder de Círculo</strong>: Rol que se encarga de facilitar las reuniones de gobernanza y asegurar que el círculo cumpla su propósito.</li></ul><ul id="3ea648ad-99fc-803f-b82b-ef3541cde95f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enlace (Rep Link)</strong>: Rol que representa a un círculo en el círculo padre, asegurando la comunicación y la alineación.</li></ul><ul id="3ea648ad-99fc-8021-8a1e-c8adda4c868d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitador</strong>: Rol que facilita las reuniones y asegura que se sigan los procesos.</li></ul><ul id="3ea648ad-99fc-8009-8ccf-cfe7612fde87" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Secretario</strong>: Rol que documenta las decisiones y mantiene la constitución.</li></ul><hr id="3ea648ad-99fc-80b5-8c0d-dd01c0208f24" dir="auto"/><h2 id="3ea648ad-99fc-8092-86f5-eb9dcdca61d6" class="" dir="auto"><strong>📊 Holocracia vs. Jerarquía Tradicional</strong></h2><table id="3ea648ad-99fc-8021-baaf-f444e135e7e9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-807a-9d59-ee48d67d02f0" dir="ltr"><th id="tBAQ" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="_bxw" class="simple-table-header-color simple-table-header"><strong>Jerarquía Tradicional</strong></th><th id="qAxi" class="simple-table-header-color simple-table-header"><strong>Holocracia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8039-a664-cd862d82ec36" dir="ltr"><td id="tBAQ" class=""><strong>Autoridad</strong></td><td id="_bxw" class="">Concentrada en jefes.</td><td id="qAxi" class="">Distribuida en roles.</td></tr><tr id="3ea648ad-99fc-8071-a36f-dd337526a2fd" dir="ltr"><td id="tBAQ" class=""><strong>Estructura</strong></td><td id="_bxw" class="">Pirámide jerárquica.</td><td id="qAxi" class="">Círculos anidados.</td></tr><tr id="3ea648ad-99fc-808d-bd5d-d27bdcebc7c0" dir="ltr"><td id="tBAQ" class=""><strong>Toma de decisiones</strong></td><td id="_bxw" class="">Centralizada, lenta.</td><td id="qAxi" class="">Descentralizada, ágil.</td></tr><tr id="3ea648ad-99fc-80ec-af04-d93a892c3053" dir="ltr"><td id="tBAQ" class=""><strong>Roles</strong></td><td id="_bxw" class="">Puestos de trabajo fijos.</td><td id="qAxi" class="">Roles flexibles y evolutivos.</td></tr><tr id="3ea648ad-99fc-80b6-8a55-cd8729303490" dir="ltr"><td id="tBAQ" class=""><strong>Comunicación</strong></td><td id="_bxw" class="">Vertical (jefe a subordinado).</td><td id="qAxi" class="">Horizontal (entre roles y círculos).</td></tr><tr id="3ea648ad-99fc-80f1-bad5-d51ab85c624b" dir="ltr"><td id="tBAQ" class=""><strong>Cambio</strong></td><td id="_bxw" class="">Resistente, burocrático.</td><td id="qAxi" class="">Ágil, evolutivo.</td></tr><tr id="3ea648ad-99fc-80a9-8538-e8f4be0097cb" dir="ltr"><td id="tBAQ" class=""><strong>Transparencia</strong></td><td id="_bxw" class="">Limitada.</td><td id="qAxi" class="">Alta (reglas explícitas).</td></tr><tr id="3ea648ad-99fc-80b7-8e12-e8de1ac8a3d7" dir="ltr"><td id="tBAQ" class=""><strong>Cultura</strong></td><td id="_bxw" class="">Control, obediencia.</td><td id="qAxi" class="">Autonomía, propósito.</td></tr></tbody></table><hr id="3ea648ad-99fc-80b4-b3ba-f3411f882a23" dir="auto"/><h2 id="3ea648ad-99fc-8037-8f1e-e294b7c7e88f" class="" dir="auto"><strong>💡 Ejemplos de Empresas con Holocracia</strong></h2><table id="3ea648ad-99fc-80f5-a570-d270f9520650" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8035-a905-d70b36deb55c" dir="ltr"><th id="FsA&gt;" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="~m|K" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="kTOq" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8019-80f6-d315412f152f" dir="ltr"><td id="FsA&gt;" class=""><strong>Zappos</strong></td><td id="~m|K" class="">Retail</td><td id="kTOq" class="">Adoptó la Holocracia en 2013, eliminando jefes y títulos.</td></tr><tr id="3ea648ad-99fc-8009-9170-e63c48a66361" dir="ltr"><td id="FsA&gt;" class=""><strong>Valve</strong></td><td id="~m|K" class="">Videojuegos</td><td id="kTOq" class="">Estructura horizontal sin jefes (similar a la Holocracia).</td></tr><tr id="3ea648ad-99fc-80ec-9316-d9eadaf9f94c" dir="ltr"><td id="FsA&gt;" class=""><strong>Morning Star</strong></td><td id="~m|K" class="">Alimentos</td><td id="kTOq" class="">Autogestión con acuerdos de responsabilidad entre pares.</td></tr><tr id="3ea648ad-99fc-80dc-a15f-e1121673cd9b" dir="ltr"><td id="FsA&gt;" class=""><strong>Buurtzorg</strong></td><td id="~m|K" class="">Salud</td><td id="kTOq" class="">Enfermeros autogestionados en equipos pequeños.</td></tr><tr id="3ea648ad-99fc-80c0-92b5-fcec6f561ef1" dir="ltr"><td id="FsA&gt;" class=""><strong>Medium</strong></td><td id="~m|K" class="">Publicaciones</td><td id="kTOq" class="">Adoptó la Holocracia en 2016 (luego la abandonó).</td></tr><tr id="3ea648ad-99fc-8078-8e5c-f647e160d3d1" dir="ltr"><td id="FsA&gt;" class=""><strong>David Allen Company</strong></td><td id="~m|K" class="">Productividad</td><td id="kTOq" class="">Adoptó la Holocracia para su gestión interna.</td></tr><tr id="3ea648ad-99fc-80cf-bc35-dcd7e323cc3b" dir="ltr"><td id="FsA&gt;" class=""><strong>Precision Nutrition</strong></td><td id="~m|K" class="">Nutrición</td><td id="kTOq" class="">Adoptó la Holocracia para su equipo.</td></tr></tbody></table><p id="3ea648ad-99fc-80fc-b3a2-e508d6c552a8" class="" dir="auto"><strong>Nota</strong>: La adopción de la Holocracia no siempre es exitosa. Algunas empresas la han abandonado por dificultades de implementación o resistencia cultural.</p><hr id="3ea648ad-99fc-808b-b64d-f89d45a4313d" dir="auto"/><h2 id="3ea648ad-99fc-80e9-8452-d9ba7e2ad6b5" class="" dir="auto"><strong>⚠️ Desafíos y Críticas a la Holocracia</strong></h2><table id="3ea648ad-99fc-808a-b33b-ce71c222e479" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8080-ba25-d4fd35cc07f6" dir="ltr"><th id="|JYl" class="simple-table-header-color simple-table-header"><strong>Desafío</strong></th><th id="?Q{~" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id=";AMk" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-805b-943d-f6a405fa600c" dir="ltr"><td id="|JYl" class=""><strong>Curva de aprendizaje</strong></td><td id="?Q{~" class="">Requiere tiempo y esfuerzo entender y aplicar el sistema.</td><td id=";AMk" class="">Frustración inicial, baja productividad.</td></tr><tr id="3ea648ad-99fc-800a-a5d9-dec086348e27" dir="ltr"><td id="|JYl" class=""><strong>Resistencia al cambio</strong></td><td id="?Q{~" class="">Los empleados acostumbrados a jerarquías pueden resistirse.</td><td id=";AMk" class="">Conflictos, rotación de personal.</td></tr><tr id="3ea648ad-99fc-8086-a606-cc9233c1527f" dir="ltr"><td id="|JYl" class=""><strong>Complejidad</strong></td><td id="?Q{~" class="">La constitución y los procesos son complejos.</td><td id=";AMk" class="">Confusión, burocracia.</td></tr><tr id="3ea648ad-99fc-80ac-b889-caedee8c875e" dir="ltr"><td id="|JYl" class=""><strong>Ambigüedad de roles</strong></td><td id="?Q{~" class="">Los roles pueden ser confusos si no se definen bien.</td><td id=";AMk" class="">Conflictos, duplicación de esfuerzos.</td></tr><tr id="3ea648ad-99fc-8098-94e3-fb9a9db5850b" dir="ltr"><td id="|JYl" class=""><strong>Falta de liderazgo</strong></td><td id="?Q{~" class="">Sin jefes, puede faltar dirección y visión.</td><td id=";AMk" class="">Desalineación, falta de foco.</td></tr><tr id="3ea648ad-99fc-80cf-938f-eb7ac2c275b1" dir="ltr"><td id="|JYl" class=""><strong>Escalabilidad</strong></td><td id="?Q{~" class="">Puede ser difícil de mantener en organizaciones grandes.</td><td id=";AMk" class="">Complejidad excesiva, pérdida de agilidad.</td></tr><tr id="3ea648ad-99fc-80cf-b39c-e156c0d7155f" dir="ltr"><td id="|JYl" class=""><strong>No es para todos</strong></td><td id="?Q{~" class="">No todos los empleados se adaptan a la autogestión.</td><td id=";AMk" class="">Rotación, insatisfacción.</td></tr><tr id="3ea648ad-99fc-8061-8560-d64a0176c01a" dir="ltr"><td id="|JYl" class=""><strong>Críticas</strong></td><td id="?Q{~" class="">Algunos la consideran una moda o una utopía.</td><td id=";AMk" class="">Descrédito, abandono del sistema.</td></tr></tbody></table><hr id="3ea648ad-99fc-809b-ab89-d4b695f98bbb" dir="auto"/><h2 id="3ea648ad-99fc-8014-953a-c741d8eec8fb" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-806a-ac0a-d33ffd1ea006" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8053-8cdc-db4626e6753e" dir="ltr"><th id="Dttj" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="^QeZ" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8034-9750-f73ba5763a2c" dir="ltr"><td id="Dttj" class=""><strong>Startup en crecimiento</strong></td><td id="^QeZ" class="">Adoptar la Holocracia para mantener la agilidad mientras se escala.</td></tr><tr id="3ea648ad-99fc-807c-b5e6-c0700b2731f2" dir="ltr"><td id="Dttj" class=""><strong>Empresa tradicional en transformación</strong></td><td id="^QeZ" class="">Incorporar elementos de Holocracia (círculos, roles) para aumentar la autonomía.</td></tr><tr id="3ea648ad-99fc-8001-8942-e4835fd13b90" dir="ltr"><td id="Dttj" class=""><strong>Organización sin fines de lucro</strong></td><td id="^QeZ" class="">Usar la Holocracia para distribuir la autoridad y empoderar a los voluntarios.</td></tr><tr id="3ea648ad-99fc-80ca-90c8-c9aca0e1980d" dir="ltr"><td id="Dttj" class=""><strong>Equipos autogestionados</strong></td><td id="^QeZ" class="">Aplicar los principios de la Holocracia a equipos específicos.</td></tr></tbody></table><hr id="3ea648ad-99fc-8098-8257-ff843ee1376d" dir="auto"/><h2 id="3ea648ad-99fc-8039-ba07-c1ee05906394" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-80ee-800c-e4ad05a9864b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80c0-8ac9-f635d682be6b" dir="ltr"><th id="^R@~" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="dgVu" class="simple-table-header-color simple-table-header" style="width:370px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80e8-bcd6-c4130961ca11" dir="ltr"><td id="^R@~" class=""><strong>Estructura Horizontal (Plana)</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia es una evolución formal de la estructura plana.</td></tr><tr id="3ea648ad-99fc-80c3-8e50-ca75d4d99f76" dir="ltr"><td id="^R@~" class=""><strong>Autogestión</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia es un sistema de autogestión con reglas claras.</td></tr><tr id="3ea648ad-99fc-804c-a650-e2509565a777" dir="ltr"><td id="^R@~" class=""><strong>Agilidad</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia busca la agilidad a través de la distribución de la autoridad.</td></tr><tr id="3ea648ad-99fc-804d-a294-ebe73d5dd477" dir="ltr"><td id="^R@~" class=""><strong>Teoría Sociotécnica</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia integra lo social (círculos, roles) y lo técnico (procesos, constitución).</td></tr><tr id="3ea648ad-99fc-8055-bea2-c6a8692f089e" dir="ltr"><td id="^R@~" class=""><strong>Cultura Organizacional</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia requiere una cultura de confianza y transparencia.</td></tr><tr id="3ea648ad-99fc-8030-8be8-d8dfca43b700" dir="ltr"><td id="^R@~" class=""><strong>Liderazgo Distribuido</strong></td><td id="dgVu" class="" style="width:370px">La Holocracia distribuye el liderazgo a través de roles.</td></tr><tr id="3ea648ad-99fc-8063-816a-d7b40952587e" dir="ltr"><td id="^R@~" class=""><strong>OKR</strong></td><td id="dgVu" class="" style="width:370px">Los OKR pueden usarse dentro de los círculos para alinear objetivos.</td></tr></tbody></table><hr id="3ea648ad-99fc-8026-88e8-cddc4e0cdef6" dir="auto"/><h2 id="3ea648ad-99fc-80b6-9e5f-e300879a1d67" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-806e-a63c-e33204645a9a" class="" dir="auto">La Holocracia es como <strong>una colmena de abejas</strong>. No hay una abeja &quot;jefa&quot; que dé órdenes; cada abeja tiene un <strong>rol</strong> (recolectora, nodriza, guardiana) y trabaja de manera autónoma hacia un <strong>propósito común</strong> (la supervivencia de la colmena). La colmena se organiza en <strong>círculos</strong> (panales) que se comunican y coordinan a través de <strong>procesos</strong> (danzas, feromonas). Si una abeja detecta un problema, actúa sin esperar permiso. La colmena es un sistema vivo, autoorganizado y altamente eficiente. Eso es la Holocracia.</p><hr id="3ea648ad-99fc-804b-8f8e-f2eddbfc85b0" dir="auto"/><h2 id="3ea648ad-99fc-80bd-95d1-c5c32ab9c33c" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-8060-9f94-f66a622c503a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robertson, B. J. (2015). <em>Holacracy: The New Management System for a Rapidly Changing World</em>. Henry Holt and Co.</li></ul><ul id="3ea648ad-99fc-80d9-9c87-db04c5dc29eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bernstein, E., Bunch, J., Canner, N., &amp; Lee, M. (2016). <em>Beyond the Holacracy Hype</em>. Harvard Business Review.</li></ul><ul id="3ea648ad-99fc-80ec-a173-ff12874575f5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2015). <em>The Holacracy Experiment at Zappos</em>.</li></ul><ul id="3ea648ad-99fc-80e7-8d5a-fa65f33ce28c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Laloux, F. (2014). <em>Reinventing Organizations</em>. Nelson Parker.</li></ul><ul id="3ea648ad-99fc-80df-a90c-e523a0b3cab4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forbes, (2023). <em>Holacracy: Pros, Cons, and Examples</em>.</li></ul><hr id="3ea648ad-99fc-80ea-8c1a-f649565435f3" dir="auto"/><h2 id="3ea648ad-99fc-8061-a4ff-d20f9f05f9e5" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-80ce-9c2d-f680017dd14f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La Holocracia no es &quot;ausencia de estructura&quot;</strong>: Es una estructura <strong>diferente</strong>, basada en roles y procesos, no en jerarquías de personas.</li></ul><ul id="3ea648ad-99fc-8035-a93f-f884100d8ef2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No es para todas las empresas</strong>: Funciona mejor en organizaciones pequeñas o medianas, con empleados altamente autónomos y una cultura de confianza.</li></ul><ul id="3ea648ad-99fc-809e-84d3-c72c1adedd49" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Requiere un cambio cultural profundo</strong>: No basta con implementar la constitución; hay que cambiar la mentalidad de las personas.</li></ul><ul id="3ea648ad-99fc-8000-9f2e-fce921f79aa0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para implementar la Holocracia</strong>:<ol type="1" id="3ea648ad-99fc-8057-a1d6-e6ca8fbac140" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con un piloto</strong>: No implementes la Holocracia en toda la empresa de golpe. Prueba en un equipo o departamento.</li></ol><ol type="1" id="3ea648ad-99fc-8032-ae86-f1b97dd5212d" class="numbered-list" start="2" dir="auto"><li><strong>Capacita a todos</strong>: La Holocracia requiere formación en los procesos y en la mentalidad de autogestión.</li></ol><ol type="1" id="3ea648ad-99fc-801c-9064-ff2bcf6b418a" class="numbered-list" start="3" dir="auto"><li><strong>Ten paciencia</strong>: La transición lleva tiempo (meses o años). No esperes resultados inmediatos.</li></ol><ol type="1" id="3ea648ad-99fc-80ba-88e9-cc63d788fea9" class="numbered-list" start="4" dir="auto"><li><strong>Adapta el modelo</strong>: No copies la Holocracia al pie de la letra; adáptala a tu cultura y necesidades.</li></ol><ol type="1" id="3ea648ad-99fc-8071-a467-fc29e679755d" class="numbered-list" start="5" dir="auto"><li><strong>Mide el impacto</strong>: Evalúa si la Holocracia está mejorando la agilidad, la satisfacción y los resultados.</li></ol><ol type="1" id="3ea648ad-99fc-80d2-b8db-faa2597fcf75" class="numbered-list" start="6" dir="auto"><li><strong>Prepárate para la resistencia</strong>: Algunos empleados pueden resistirse al cambio. Gestiona el cambio con empatía y comunicación.</li></ol><ol type="1" id="3ea648ad-99fc-804f-a868-e9e20ff803da" class="numbered-list" start="7" dir="auto"><li><strong>No es una bala de plata</strong>: La Holocracia no resuelve todos los problemas. Combínala con otras herramientas (OKR, Lean, etc.) según sea necesario.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

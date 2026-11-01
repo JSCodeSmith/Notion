@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Fintech</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-80df-aaf1-dc6c837f2c98" class="page sans"><header><h1 class="page-title" dir="auto">Fintech</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3df648ad-99fc-801e-9a1a-ff74965bfde0" class="" dir="auto">
+</p><h1 id="3df648ad-99fc-80ce-81a6-e80115ac79af" class="" dir="auto"><strong>📄 Fintech (Financial Technology)</strong></h1><hr id="3df648ad-99fc-80f6-bdf0-cbe28bfec072" dir="auto"/><h2 id="3df648ad-99fc-80a0-b5aa-f617d8001f52" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-80cc-948b-cc7df748239a" class="" dir="auto">Fintech es el término que describe la aplicación de <strong>tecnología innovadora</strong> para ofrecer servicios financieros de manera más eficiente, accesible y personalizada. </p><p id="3e0648ad-99fc-80e3-a61d-efd6289d1d97" class="" dir="auto">Abarca desde aplicaciones móviles de banca y pagos hasta plataformas de inversión, criptomonedas y seguros.</p><hr id="3df648ad-99fc-8014-8135-d4e4f87d7c23" dir="auto"/><h2 id="3df648ad-99fc-80a4-9280-fd1d66e5748c" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-8040-8416-ed7caac46c58" class="" dir="auto">Fintech es la confluencia entre <strong>finanzas y tecnología</strong>. </p><p id="3e0648ad-99fc-8067-ba6b-f021e523d181" class="" dir="auto">No se trata solo de digitalizar servicios existentes (como una banca en línea), sino de <strong>reinventar la experiencia financiera</strong> utilizando datos, inteligencia artificial, blockchain y diseño centrado en el usuario. </p><p id="3e0648ad-99fc-8087-8afd-fc47ca28d338" class="" dir="auto">Su objetivo es resolver problemas tradicionales del sistema financiero: exclusión, altas comisiones, lentitud, falta de transparencia y procesos burocráticos.</p><hr id="3df648ad-99fc-8082-95f1-dac8336b8330" dir="auto"/><h2 id="3df648ad-99fc-80d5-a424-e61c3aebd755" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-80f3-8c2e-d807c39dc7b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Inclusión financiera</strong>: Llevar servicios bancarios a poblaciones no bancarizadas (especialmente en Latinoamérica, África y Asia).</li></ul><ul id="3df648ad-99fc-8028-82b1-fa96fd2b251b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducción de costos</strong>: Eliminar intermediarios y automatizar procesos, abaratando los servicios.</li></ul><ul id="3df648ad-99fc-808a-b1d5-ed944b4e559e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Experiencia del usuario</strong>: Interfaces intuitivas, procesos rápidos y personalización.</li></ul><ul id="3df648ad-99fc-80bd-ba2b-f2e923793a76" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Democratización de la inversión</strong>: Permitir a pequeños inversores acceder a productos antes reservados para grandes capitales.</li></ul><ul id="3df648ad-99fc-808d-92a0-f50775f37e4f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación en pagos</strong>: Transferencias instantáneas, pagos sin contacto, divisas digitales.</li></ul><ul id="3df648ad-99fc-803b-8128-fc1f03be9136" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejora en la toma de decisiones</strong>: Uso de IA y Big Data para evaluar riesgos crediticios y detectar fraudes.</li></ul><hr id="3df648ad-99fc-80c9-bcd3-c911204fc22e" dir="auto"/><h2 id="3df648ad-99fc-803e-a434-c1ab30a7dcc7" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3df648ad-99fc-80e6-be3f-e4a26be49b7f" class="" dir="auto">El modelo de funcionamiento de una fintech se basa en:</p><ol type="1" id="3df648ad-99fc-8065-81d0-d84450888a45" class="numbered-list" start="1" dir="auto"><li><strong>Plataforma tecnológica</strong>: Desarrollo de software, apps móviles y APIs que conectan a usuarios con servicios financieros.</li></ol><ol type="1" id="3df648ad-99fc-80a8-b35e-eb8de5cebb22" class="numbered-list" start="2" dir="auto"><li><strong>Procesamiento de datos</strong>: Análisis de grandes volúmenes de datos (Big Data) para evaluar riesgos, personalizar ofertas y detectar patrones de fraude.</li></ol><ol type="1" id="3df648ad-99fc-8090-925f-e9abc13994bd" class="numbered-list" start="3" dir="auto"><li><strong>Modelos de negocio alternativos</strong>: Suscripciones, comisiones por transacción, &quot;freemium&quot;, o ingresos por intereses.</li></ol><ol type="1" id="3df648ad-99fc-8085-a4e2-cf9c5bf11a69" class="numbered-list" start="4" dir="auto"><li><strong>Regulación y cumplimiento</strong>: Las fintech deben operar dentro de marcos legales (KYC, AML - Conozca a su Cliente, Prevención de Lavado de Dinero).</li></ol><ol type="1" id="3df648ad-99fc-806d-9501-ca1bd998df35" class="numbered-list" start="5" dir="auto"><li><strong>Alianzas estratégicas</strong>: Colaboración con bancos tradicionales, otras fintech, o empresas de tecnología.</li></ol><hr id="3df648ad-99fc-8065-a0f4-c9c68b0e849f" dir="auto"/><h2 id="3df648ad-99fc-8072-b592-c6dba14c639d" class="" dir="auto"><strong>📝 Tipos de Fintech</strong></h2><table id="3df648ad-99fc-809d-be62-c0ad3efc539f" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80cf-91b9-c498cc976907" dir="ltr"><th id="dcWM" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="[X;O" class="simple-table-header-color simple-table-header"><strong>Subcategoría</strong></th><th id="ol^@" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="LKp;" class="simple-table-header-color simple-table-header"><strong>Ejemplos</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-805f-92af-f83ae0270f62" dir="ltr"><td id="dcWM" class=""><strong>Pagos y Transferencias</strong></td><td id="[X;O" class="">Pagos móviles</td><td id="ol^@" class="">Aplicaciones para pagar con el celular.</td><td id="LKp;" class="">PayPal, Stripe, Adyen</td></tr><tr id="3df648ad-99fc-8058-b722-e1ab37cc9f51" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Transferencias internacionales</td><td id="ol^@" class="">Envío de dinero entre países con bajas comisiones.</td><td id="LKp;" class="">Wise, Remitly, Western Union (digital)</td></tr><tr id="3df648ad-99fc-80b0-9b0b-ce67544dd65d" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Billeteras digitales</td><td id="ol^@" class="">Almacenamiento de dinero y tarjetas virtuales.</td><td id="LKp;" class="">Mercado Pago, Ualá, Payoneer</td></tr><tr id="3df648ad-99fc-8090-93ce-eb59bfba37b8" dir="ltr"><td id="dcWM" class=""><strong>Préstamos y Créditos</strong></td><td id="[X;O" class="">Préstamos P2P (Peer-to-Peer)</td><td id="ol^@" class="">Conexión directa entre prestamistas y prestatarios.</td><td id="LKp;" class="">LendingClub, Afluenta</td></tr><tr id="3df648ad-99fc-800d-aa65-cc0962903d33" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Préstamos para PYMES</td><td id="ol^@" class="">Financiamiento rápido para pequeñas empresas.</td><td id="LKp;" class="">Konfío, Kabbage</td></tr><tr id="3df648ad-99fc-809a-a945-d6aea6d84ea9" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Préstamos personales</td><td id="ol^@" class="">Evaluación crediticia con IA y datos alternativos.</td><td id="LKp;" class="">Avant, Lenddo</td></tr><tr id="3df648ad-99fc-80c6-bd84-c9a047dfb340" dir="ltr"><td id="dcWM" class=""><strong>Banca Digital (Neobancos)</strong></td><td id="[X;O" class="">Bancos 100% digitales</td><td id="ol^@" class="">Sin sucursales físicas, todo desde la app.</td><td id="LKp;" class="">Nubank, Revolut, Monzo, C6 Bank</td></tr><tr id="3df648ad-99fc-80c2-9348-c234eddd2489" dir="ltr"><td id="dcWM" class=""><strong>Inversiones y WealthTech</strong></td><td id="[X;O" class="">Robo-advisors</td><td id="ol^@" class="">Asesoramiento de inversión automatizado.</td><td id="LKp;" class="">Betterment, Wealthfront</td></tr><tr id="3df648ad-99fc-80a0-b7a6-f9c6d74798dc" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Trading de acciones/criptos</td><td id="ol^@" class="">Plataformas de compra-venta.</td><td id="LKp;" class="">Robinhood, eToro, Binance</td></tr><tr id="3df648ad-99fc-80c6-a2ad-c1fa7f0797a3" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Crowdfunding</td><td id="ol^@" class="">Financiamiento colectivo para proyectos.</td><td id="LKp;" class="">Kickstarter, GoFundMe</td></tr><tr id="3df648ad-99fc-8052-ae0c-d74c9cc58cc2" dir="ltr"><td id="dcWM" class=""><strong>Seguros (Insurtech)</strong></td><td id="[X;O" class="">Seguros digitales</td><td id="ol^@" class="">Contratación y gestión de pólizas desde app.</td><td id="LKp;" class="">Lemonade, Sure, AXA (digital)</td></tr><tr id="3df648ad-99fc-805a-8d35-eeadb7a2e3ce" dir="ltr"><td id="dcWM" class=""><strong>RegTech (Regulatory Tech)</strong></td><td id="[X;O" class="">Cumplimiento normativo</td><td id="ol^@" class="">Herramientas para gestionar regulaciones y prevenir fraudes.</td><td id="LKp;" class="">Chainalysis, Trulioo</td></tr><tr id="3df648ad-99fc-8027-bff7-f1f3f422b378" dir="ltr"><td id="dcWM" class=""><strong>Blockchain y Cripto</strong></td><td id="[X;O" class="">Criptomonedas</td><td id="ol^@" class="">Intercambio y custodia de activos digitales.</td><td id="LKp;" class="">Coinbase, Binance, Bitso</td></tr><tr id="3df648ad-99fc-80bc-be9f-c9e575fb19ba" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">DeFi (Finanzas Descentralizadas)</td><td id="ol^@" class="">Servicios financieros sin intermediarios.</td><td id="LKp;" class="">Uniswap, Aave</td></tr><tr id="3df648ad-99fc-8050-b5f0-dfb6f31c613f" dir="ltr"><td id="dcWM" class=""></td><td id="[X;O" class="">Tokenización</td><td id="ol^@" class="">Representación digital de activos (bienes raíces, arte).</td><td id="LKp;" class="">Tokeny</td></tr></tbody></table><hr id="3df648ad-99fc-8024-abb7-fac47567508f" dir="auto"/><h2 id="3df648ad-99fc-802c-bd9c-f439f5fbf7fc" class="" dir="auto"><strong>💡 Ejemplos de Fintech Globales</strong></h2><table id="3df648ad-99fc-8072-99ad-e96993a96602" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-803e-9de5-c4769aa03497" dir="ltr"><th id="&gt;zOp" class="simple-table-header-color simple-table-header"><strong>Fintech</strong></th><th id="_^nx" class="simple-table-header-color simple-table-header"><strong>País de Origen</strong></th><th id="wykq" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="eqsl" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80b4-8ff0-ce14416739bb" dir="ltr"><td id="&gt;zOp" class=""><strong>Stripe</strong></td><td id="_^nx" class="">EE.UU.</td><td id="wykq" class="">Pagos</td><td id="eqsl" class="">Procesamiento de pagos en línea para empresas.</td></tr><tr id="3df648ad-99fc-805c-88dc-fda3e23ecb49" dir="ltr"><td id="&gt;zOp" class=""><strong>Revolut</strong></td><td id="_^nx" class="">Reino Unido</td><td id="wykq" class="">Banca Digital</td><td id="eqsl" class="">Cuenta mult divisa, cripto, inversiones.</td></tr><tr id="3df648ad-99fc-80f7-af60-f99802133c35" dir="ltr"><td id="&gt;zOp" class=""><strong>Nubank</strong></td><td id="_^nx" class="">Brasil</td><td id="wykq" class="">Banca Digital</td><td id="eqsl" class="">Banco digital líder en América Latina.</td></tr><tr id="3df648ad-99fc-8097-840b-f5fd113cf113" dir="ltr"><td id="&gt;zOp" class=""><strong>PayPal</strong></td><td id="_^nx" class="">EE.UU.</td><td id="wykq" class="">Pagos</td><td id="eqsl" class="">Plataforma de pagos en línea global.</td></tr><tr id="3df648ad-99fc-8093-8198-c8ebdaa6a49b" dir="ltr"><td id="&gt;zOp" class=""><strong>Robinhood</strong></td><td id="_^nx" class="">EE.UU.</td><td id="wykq" class="">Inversiones</td><td id="eqsl" class="">Trading de acciones y cripto sin comisiones.</td></tr><tr id="3df648ad-99fc-8004-aaec-d1474c53b4da" dir="ltr"><td id="&gt;zOp" class=""><strong>Wise</strong></td><td id="_^nx" class="">Reino Unido</td><td id="wykq" class="">Transferencias</td><td id="eqsl" class="">Transferencias internacionales a bajo costo.</td></tr><tr id="3df648ad-99fc-809b-bbc3-c0a62d2a6552" dir="ltr"><td id="&gt;zOp" class=""><strong>Coinbase</strong></td><td id="_^nx" class="">EE.UU.</td><td id="wykq" class="">Cripto</td><td id="eqsl" class="">Exchange de criptomonedas.</td></tr><tr id="3df648ad-99fc-8081-b173-c1179e23b9d3" dir="ltr"><td id="&gt;zOp" class=""><strong>Adyen</strong></td><td id="_^nx" class="">Países Bajos</td><td id="wykq" class="">Pagos</td><td id="eqsl" class="">Plataforma de pagos para empresas globales.</td></tr><tr id="3df648ad-99fc-80f6-828d-c54b0b08a407" dir="ltr"><td id="&gt;zOp" class=""><strong>Klarna</strong></td><td id="_^nx" class="">Suecia</td><td id="wykq" class="">Pagos</td><td id="eqsl" class="">&quot;Compra ahora, paga después&quot; (BNPL).</td></tr><tr id="3df648ad-99fc-8043-9049-d89f3ec47b3e" dir="ltr"><td id="&gt;zOp" class=""><strong>SoFi</strong></td><td id="_^nx" class="">EE.UU.</td><td id="wykq" class="">Préstamos/Inversiones</td><td id="eqsl" class="">Préstamos estudiantiles e inversiones.</td></tr></tbody></table><hr id="3df648ad-99fc-804b-85fb-c3d4bb34c027" dir="auto"/><h2 id="3df648ad-99fc-80d3-a6de-eaca13f6074d" class="" dir="auto"><strong>🌎 Fintech en América Latina</strong></h2><table id="3df648ad-99fc-8081-ab08-d6bd82dac0ff" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80e8-823f-ec4e511c187b" dir="ltr"><th id="&gt;}SD" class="simple-table-header-color simple-table-header"><strong>Fintech</strong></th><th id="gkQq" class="simple-table-header-color simple-table-header"><strong>País</strong></th><th id="|OHy" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="u{Uc" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80b2-8d78-fd8cc580a986" dir="ltr"><td id="&gt;}SD" class=""><strong>Mercado Pago</strong></td><td id="gkQq" class="">Argentina</td><td id="|OHy" class="">Pagos/Billetera</td><td id="u{Uc" class="">Líder en pagos digitales en la región.</td></tr><tr id="3df648ad-99fc-8084-9dbd-ec332ee759b9" dir="ltr"><td id="&gt;}SD" class=""><strong>Nubank</strong></td><td id="gkQq" class="">Brasil</td><td id="|OHy" class="">Banca Digital</td><td id="u{Uc" class="">Neobanco con millones de usuarios.</td></tr><tr id="3df648ad-99fc-80b8-9c18-fce814e40673" dir="ltr"><td id="&gt;}SD" class=""><strong>Ualá</strong></td><td id="gkQq" class="">Argentina</td><td id="|OHy" class="">Billetera Digital</td><td id="u{Uc" class="">Tarjeta prepaga y servicios financieros.</td></tr><tr id="3df648ad-99fc-8036-a31b-ce2676a53e6a" dir="ltr"><td id="&gt;}SD" class=""><strong>Konfío</strong></td><td id="gkQq" class="">México</td><td id="|OHy" class="">Préstamos PYMES</td><td id="u{Uc" class="">Créditos con evaluación tecnológica.</td></tr><tr id="3df648ad-99fc-80be-a9f2-df0ba0d7a094" dir="ltr"><td id="&gt;}SD" class=""><strong>RappiPay</strong></td><td id="gkQq" class="">Colombia</td><td id="|OHy" class="">Pagos/Billetera</td><td id="u{Uc" class="">Fintech del ecosistema Rappi.</td></tr><tr id="3df648ad-99fc-80b1-8426-fdf6d05b2fca" dir="ltr"><td id="&gt;}SD" class=""><strong>C6 Bank</strong></td><td id="gkQq" class="">Brasil</td><td id="|OHy" class="">Banca Digital</td><td id="u{Uc" class="">Banco digital con cuenta y tarjeta.</td></tr><tr id="3df648ad-99fc-8070-9cfd-c2e07f937d5a" dir="ltr"><td id="&gt;}SD" class=""><strong>Creditas</strong></td><td id="gkQq" class="">Brasil</td><td id="|OHy" class="">Préstamos</td><td id="u{Uc" class="">Préstamos con garantía de vehículos o inmuebles.</td></tr><tr id="3df648ad-99fc-8066-a9bd-e2dc4e2297d8" dir="ltr"><td id="&gt;}SD" class=""><strong>Klar</strong></td><td id="gkQq" class="">México</td><td id="|OHy" class="">Banca Digital</td><td id="u{Uc" class="">Neobanco con tarjeta de crédito/débito.</td></tr><tr id="3df648ad-99fc-8022-ab4c-c815d15c7eb0" dir="ltr"><td id="&gt;}SD" class=""><strong>DaviPlata</strong></td><td id="gkQq" class="">Colombia</td><td id="|OHy" class="">Billetera</td><td id="u{Uc" class="">Billetera móvil para pagos y transferencias.</td></tr><tr id="3df648ad-99fc-80ba-916f-d762c8c418e4" dir="ltr"><td id="&gt;}SD" class=""><strong>Yappy</strong></td><td id="gkQq" class="">Panamá</td><td id="|OHy" class="">Pagos</td><td id="u{Uc" class="">Plataforma de pagos instantáneos.</td></tr></tbody></table><p id="3df648ad-99fc-8099-8b81-c109f4fd5f68" class="" dir="auto"><strong>Dato clave</strong>: América Latina es una de las regiones con mayor crecimiento fintech del mundo, impulsada por la alta penetración de smartphones y la baja bancarización tradicional.</p><hr id="3df648ad-99fc-80c7-8146-e8c56d30f203" dir="auto"/><h2 id="3df648ad-99fc-807f-b3ba-c05743de7c14" class="" dir="auto"><strong>⚠️ Errores Comunes en Fintech</strong></h2><ol type="1" id="3df648ad-99fc-808e-afde-f77444cf9610" class="numbered-list" start="1" dir="auto"><li><strong>Descuido de la ciberseguridad</strong>: La confianza es el activo más importante. Un hackeo puede destruir la empresa.</li></ol><ol type="1" id="3df648ad-99fc-80cb-901f-cb73e5fbd128" class="numbered-list" start="2" dir="auto"><li><strong>Complejidad regulatoria</strong>: Subestimar los requisitos legales y de cumplimiento (KYC, AML, protección de datos).</li></ol><ol type="1" id="3df648ad-99fc-80c4-be7c-edbd4d746c3f" class="numbered-list" start="3" dir="auto"><li><strong>Modelo de negocio no sostenible</strong>: Ofrecer servicios &quot;gratuitos&quot; sin un plan claro de monetización a largo plazo.</li></ol><ol type="1" id="3df648ad-99fc-80db-8385-cc033f84bdfd" class="numbered-list" start="4" dir="auto"><li><strong>Ignorar la experiencia del usuario</strong>: Interfaces complejas que alejan a los usuarios no tecnológicos.</li></ol><ol type="1" id="3df648ad-99fc-80b7-acbc-df0c1a4cf6b9" class="numbered-list" start="5" dir="auto"><li><strong>No diferenciarse</strong>: En un mercado saturado, copiar el modelo de otros sin una propuesta de valor única.</li></ol><ol type="1" id="3df648ad-99fc-80a2-9365-d2cf924ce6a2" class="numbered-list" start="6" dir="auto"><li><strong>Dependencia de terceros</strong>: Confiar en proveedores externos sin planes de contingencia.</li></ol><hr id="3df648ad-99fc-809f-b57b-df2d98464565" dir="auto"/><h2 id="3df648ad-99fc-80c4-bb7b-f642620adb3e" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-80dc-be75-c7e3e593c355" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8098-81cc-f61e81237c43" dir="ltr"><th id="FSfh" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="LEaS" class="simple-table-header-color simple-table-header" style="width:343.00001525878906px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8005-aca7-d60e8ca75260" dir="ltr"><td id="FSfh" class=""><strong>Inclusión financiera</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Llevar servicios bancarios a zonas rurales sin sucursales.</td></tr><tr id="3df648ad-99fc-80dc-bb13-f9b82df1d041" dir="ltr"><td id="FSfh" class=""><strong>Pago de servicios</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Pagar agua, luz, internet desde el celular.</td></tr><tr id="3df648ad-99fc-805a-aa52-ede548730708" dir="ltr"><td id="FSfh" class=""><strong>Préstamos rápidos</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Obtener un crédito en minutos para emergencias.</td></tr><tr id="3df648ad-99fc-80dd-81c9-e2d803bd82de" dir="ltr"><td id="FSfh" class=""><strong>Inversiones para todos</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Invertir desde $1 en acciones o cripto desde el celular.</td></tr><tr id="3df648ad-99fc-802b-aeea-db6932bdadb9" dir="ltr"><td id="FSfh" class=""><strong>Transferencias internacionales</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Enviar dinero a familiares en el extranjero con bajas comisiones.</td></tr><tr id="3df648ad-99fc-800b-a19f-eaa82b8e065b" dir="ltr"><td id="FSfh" class=""><strong>Financiamiento de PYMES</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Acceso a crédito para pequeñas empresas.</td></tr><tr id="3df648ad-99fc-80f7-8632-e61f8af1b9a7" dir="ltr"><td id="FSfh" class=""><strong>Cumplimiento regulatorio</strong></td><td id="LEaS" class="" style="width:343.00001525878906px">Automatizar la prevención de lavado de dinero.</td></tr></tbody></table><hr id="3df648ad-99fc-802e-9e2e-c2d7d99b6d05" dir="auto"/><h2 id="3df648ad-99fc-8084-bd21-d0d7bf101681" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-803a-b375-c4ae79828d9f" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80c2-97cf-ca18e6323125" dir="ltr"><th id="@O&gt;R" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="Xz`m" class="simple-table-header-color simple-table-header" style="width:318.00001525878906px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-800e-ab2b-c0a0ca58b78b" dir="ltr"><td id="@O&gt;R" class=""><strong>Neobanco</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Banco 100% digital sin sucursales físicas (tipo Nubank, Revolut).</td></tr><tr id="3df648ad-99fc-80ba-aa12-d3b2daefadf8" dir="ltr"><td id="@O&gt;R" class=""><strong>Blockchain</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Tecnología descentralizada que fintech usan para cripto y DeFi.</td></tr><tr id="3df648ad-99fc-8013-88e6-f5e518696516" dir="ltr"><td id="@O&gt;R" class=""><strong>Open Banking</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">API que permiten compartir datos financieros entre entidades.</td></tr><tr id="3df648ad-99fc-801d-a06a-df05cf396548" dir="ltr"><td id="@O&gt;R" class=""><strong>DeFi (Finanzas Descentralizadas)</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Servicios financieros sin intermediarios, basados en blockchain.</td></tr><tr id="3df648ad-99fc-8076-9f86-ce4d31f4c037" dir="ltr"><td id="@O&gt;R" class=""><strong>RegTech</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Tecnología para gestionar el cumplimiento normativo.</td></tr><tr id="3df648ad-99fc-8065-aa57-fba94ee90331" dir="ltr"><td id="@O&gt;R" class=""><strong>Insurtech</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Aplicación de tecnología a la industria de seguros.</td></tr><tr id="3df648ad-99fc-80b2-b1e8-e5b301f8311b" dir="ltr"><td id="@O&gt;R" class=""><strong>Paytech</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Fintech especializada en procesamiento de pagos.</td></tr><tr id="3df648ad-99fc-8087-83a2-cc4985867bb9" dir="ltr"><td id="@O&gt;R" class=""><strong>WealthTech</strong></td><td id="Xz`m" class="" style="width:318.00001525878906px">Tecnología para gestión de inversiones y patrimonio.</td></tr></tbody></table><hr id="3df648ad-99fc-804e-b245-fb633d746397" dir="auto"/><h2 id="3df648ad-99fc-8065-ba00-e722d65835db" class="" dir="auto"><strong>📊 Tendencias y Futuro de las Fintech</strong></h2><ul id="3df648ad-99fc-80fd-83b6-e1136c9427c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Inteligencia Artificial</strong>: Uso de IA para evaluar riesgos crediticios, detectar fraudes y ofrecer asesoramiento financiero personalizado.</li></ul><ul id="3df648ad-99fc-80ea-837b-c7cacdf684d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Open Banking</strong>: APIs que permiten a terceros acceder a datos bancarios (con consentimiento), creando ecosistemas más integrados.</li></ul><ul id="3df648ad-99fc-8087-a1ec-e2b505bf5c57" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Central Bank Digital Currencies (CBDCs)</strong>: Monedas digitales emitidas por bancos centrales (ejemplo: el real digital en Brasil).</li></ul><ul id="3df648ad-99fc-802e-92bb-e73874a2e6be" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Criptomonedas y Stablecoins</strong>: Mayor adopción de activos digitales para pagos y transferencias.</li></ul><ul id="3df648ad-99fc-8020-ab0b-c0f55e1733ff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>SuperApps</strong>: Aplicaciones que integran múltiples servicios financieros (banca, seguros, inversiones, comercio) en una sola plataforma (ejemplo: Rappi, Mercado Pago).</li></ul><ul id="3df648ad-99fc-8083-b702-cdf2ba060d1e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fintech para PYMES</strong>: Crecimiento de soluciones financieras específicas para pequeñas y medianas empresas.</li></ul><ul id="3df648ad-99fc-8051-8ce5-fb89fbc1c884" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>ESG Fintech</strong>: Tecnología financiera enfocada en inversiones sostenibles y socialmente responsables.</li></ul><hr id="3df648ad-99fc-80ec-8470-de2e52f93bd2" dir="auto"/><h2 id="3df648ad-99fc-804f-8fbe-d6b1a70b1177" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-8040-b2ad-ee58e9ecafd2" class="" dir="auto">Una fintech es como un <strong>restaurante de comida rápida vs. un restaurante tradicional</strong>. La banca tradicional es como un restaurante de alta cocina: elegante, con muchos procesos, pero lento y caro. La fintech es el restaurante de comida rápida: rápido, eficiente, accesible para todos, y con una experiencia simplificada. Pero a diferencia de la comida rápida, la fintech no sacrifica la calidad, solo optimiza el proceso para llegar a más personas.</p><hr id="3df648ad-99fc-808f-bab9-f89e238ca2b9" dir="auto"/><h2 id="3df648ad-99fc-80ed-95d8-caadb80c2c59" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-80ab-ac9f-cd127d96994d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Schueffel, P. (2016). <em>Taming the Beast: A Scientific Definition of Fintech</em>. Journal of Innovation Management.</li></ul><ul id="3df648ad-99fc-8063-9d72-da982605613e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Arner, D. W., Barberis, J., &amp; Buckley, R. P. (2016). <em>The Evolution of Fintech: A New Post-Crisis Paradigm?</em>. Georgetown Journal of International Law.</li></ul><ul id="3df648ad-99fc-8025-9e43-df2063023829" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Banco Interamericano de Desarrollo (BID), (2021). <em>Fintech en América Latina: Ecosistema y desafíos</em>.</li></ul><ul id="3df648ad-99fc-803c-a476-da84c5de80f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">McKinsey &amp; Company, (2023). <em>The Future of Fintech: A Global Perspective</em>.</li></ul><ul id="3df648ad-99fc-8060-9b4f-c53232d9cc24" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Finnovating, (2024). <em>State of Fintech Report</em>.</li></ul><ul id="3df648ad-99fc-801a-a783-f437462844d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forbes, &quot;Top Fintech Companies&quot; (2025).</li></ul><hr id="3df648ad-99fc-80ae-bbd2-d43effdeae96" dir="auto"/><h2 id="3df648ad-99fc-804a-a076-ff6277eb0d43" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-8096-a5b1-c9344e0462e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El factor &quot;confianza&quot;</strong>: A pesar de la tecnología, la confianza sigue siendo el activo más valioso de una fintech. Los usuarios deben sentir que su dinero y datos están seguros.</li></ul><ul id="3df648ad-99fc-8083-818f-cfec0f4c9d28" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regulación como barrera y oportunidad</strong>: Navegar la regulación es costoso y complejo, pero también es una barrera de entrada que protege a los jugadores establecidos.</li></ul><ul id="3df648ad-99fc-8078-891b-fc7c6d029553" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Latinoamérica como laboratorio fintech</strong>: La región tiene una oportunidad única: alta penetración de smartphones, baja bancarización, y una población joven y digital. Es un mercado fértil para la innovación.</li></ul><ul id="3df648ad-99fc-80bf-9d5e-c300279d7f7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El desafío de la rentabilidad</strong>: Muchas fintech crecen rápido pero tardan en ser rentables. El equilibrio entre crecimiento y sostenibilidad es clave.</li></ul><ul id="3df648ad-99fc-80bc-8731-ea30860e4030" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Educación financiera</strong>: Las fintech no solo ofrecen servicios, sino que también educan a los usuarios sobre finanzas personales, contribuyendo a una sociedad más financieramente inclusiva.</li></ul><ul id="3df648ad-99fc-80d9-94cc-c7b77af30044" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para emprendedores fintech</strong>:<ol type="1" id="3df648ad-99fc-804e-99b3-ce2b098f750c" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con un problema real</strong>, no con una tecnología buscando un problema.</li></ol><ol type="1" id="3df648ad-99fc-8071-b00b-fd6a028414c6" class="numbered-list" start="2" dir="auto"><li><strong>Prioriza la regulación</strong>: Consulta con abogados especializados desde el día 1.</li></ol><ol type="1" id="3df648ad-99fc-8009-8b57-d58e126ace62" class="numbered-list" start="3" dir="auto"><li><strong>Enfócate en la experiencia de usuario</strong>: La tecnología debe ser invisible, la experiencia debe ser excepcional.</li></ol><ol type="1" id="3df648ad-99fc-8012-9599-c78ad7a04b6b" class="numbered-list" start="4" dir="auto"><li><strong>Construye alianzas</strong>: Colabora con bancos, aseguradoras y otras fintech para escalar.</li></ol><ol type="1" id="3df648ad-99fc-802f-a3d2-e183b6673819" class="numbered-list" start="5" dir="auto"><li><strong>Mide todo</strong>: Datos y métricas son el combustible de una fintech.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

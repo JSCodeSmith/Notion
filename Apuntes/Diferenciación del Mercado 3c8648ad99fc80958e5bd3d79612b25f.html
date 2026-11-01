@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Diferenciación del Mercado</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8095-8e5b-d3d79612b25f" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Diferenciación del Mercado</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-80a4-b44b-c2dfc0f8db5e" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-80ab-b653-d0a44648244a" class="" dir="auto"><strong>📄 Diferenciación del Mercado</strong></h1><hr id="3c9648ad-99fc-80e7-90c1-e3f5a1e47474" dir="auto"/><h2 id="3c9648ad-99fc-8037-825a-c2d8ac4d40a5" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-803b-ab6b-ebe41776a19e" class="" dir="auto">La diferenciación del mercado es una <strong>estrategia competitiva</strong> que consiste en <strong>crear un producto o servicio percibido como único</strong> por los clientes, de manera que se distinga de la competencia y justifique un <strong>precio superior</strong> o una <strong>preferencia sostenida</strong>. </p><p id="3c9648ad-99fc-8049-bb40-fb5e4715be7d" class="" dir="auto">No se trata de ser diferente por ser diferente, sino de <strong>ofrecer un valor único</strong> que los clientes valoren y por el que estén dispuestos a pagar.</p><hr id="3c9648ad-99fc-8098-b4c9-eb42eb67a5ac" dir="auto"/><h2 id="3c9648ad-99fc-80b8-9d09-dbe1068f27d0" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-806d-99fb-c8ea7f05f6ba" class="" dir="auto">La diferenciación no es solo tener un logo bonito o un eslogan pegadizo. </p><p id="3c9648ad-99fc-8084-afd9-ff3ea5ae54f5" class="" dir="auto">Es el <strong>arte de hacer que tu oferta sea percibida como especial</strong> en la mente del cliente. </p><p id="3c9648ad-99fc-80c1-a24f-dbdf3fd9e3aa" class="" dir="auto">La diferenciación puede basarse en el producto en sí (características, calidad, diseño), en el servicio (atención al cliente, garantías), en la marca (reputación, estatus), en la distribución (conveniencia, disponibilidad) o en la experiencia del cliente.</p><p id="3c9648ad-99fc-804e-a88c-c172d6d46357" class="" dir="auto"><strong>El objetivo final</strong> de la diferenciación es <strong>reducir la sensibilidad al precio</strong>: </p><p id="3c9648ad-99fc-80c7-b61e-efc31f63b281" class="" dir="auto">un cliente que valora la diferenciación estará dispuesto a pagar más por tu producto que por el de la competencia, porque percibe que obtiene un valor superior.</p><p id="3c9648ad-99fc-8015-8367-c6de578ca2f2" class="" dir="auto">Según <strong>Michael Porter</strong>, la diferenciación es una de las tres estrategias genéricas para lograr una ventaja competitiva (junto con el liderazgo en costos y el enfoque).</p><hr id="3c9648ad-99fc-809b-87f8-cdc4f2ae6360" dir="auto"/><h2 id="3c9648ad-99fc-80cb-b84f-e2c390063ead" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-80c1-9b8c-e5c5fc8dc257" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Justificar un precio premium</strong>: Los clientes pagan más por lo que perciben como mejor.</li></ul><ul id="3c9648ad-99fc-80e9-a766-f01768050861" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir la competencia en precio</strong>: Cuando te diferencias, no compites solo por el precio más bajo.</li></ul><ul id="3c9648ad-99fc-8094-bf2d-f25ff4597bed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear lealtad de marca</strong>: Los clientes diferenciados son más fieles y menos propensos a cambiar de proveedor.</li></ul><ul id="3c9648ad-99fc-80dc-920e-c85cb67f1022" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Atraer a un segmento específico</strong>: La diferenciación permite apuntar a un nicho de mercado que valora lo que ofreces.</li></ul><ul id="3c9648ad-99fc-80e6-ba2f-f3cbb87d5d69" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Protegerse de nuevos entrantes</strong>: Una diferenciación fuerte crea barreras de entrada (ej: marca, patentes, ecosistema).</li></ul><ul id="3c9648ad-99fc-807a-a38e-ead0d978e97f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la rentabilidad</strong>: Los precios premium generan mayores márgenes.</li></ul><hr id="3c9648ad-99fc-8098-8b7c-f002c4888098" dir="auto"/><h2 id="3c9648ad-99fc-8026-9712-e7055ae631cb" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Tipos de Diferenciación</strong></h2><table id="3c9648ad-99fc-8070-9c42-c30a9f86854a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8014-81f3-faf97dbf34ae" dir="ltr"><th id="&lt;fMN" class="simple-table-header-color simple-table-header"><strong>Tipo de Diferenciación</strong></th><th id="jMPx" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="`fJG" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-803a-8003-f9746d1889f9" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Producto</strong></td><td id="jMPx" class="">Características físicas, calidad, diseño, funcionalidad.</td><td id="`fJG" class="">Apple: diseño, ecosistema integrado, materiales premium.</td></tr><tr id="3c9648ad-99fc-8070-a307-f5cb895c005b" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Servicio</strong></td><td id="jMPx" class="">Atención al cliente, garantías, servicios postventa, personalización.</td><td id="`fJG" class="">Zappos: servicio al cliente excepcional, devoluciones gratis y sin preguntas.</td></tr><tr id="3c9648ad-99fc-80f3-bc65-e966a341768d" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Marca</strong></td><td id="jMPx" class="">Reputación, identidad, estatus, storytelling.</td><td id="`fJG" class="">Nike: marca asociada a excelencia deportiva y superación personal.</td></tr><tr id="3c9648ad-99fc-8086-a9e4-fd3685f00765" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Distribución</strong></td><td id="jMPx" class="">Conveniencia, disponibilidad, canales exclusivos.</td><td id="`fJG" class="">Amazon: entrega rápida (Prime), disponibilidad global, experiencia omnicanal.</td></tr><tr id="3c9648ad-99fc-80f7-9d4b-df21258e9bea" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Precio (no confundir con liderazgo en costos)</strong></td><td id="jMPx" class="">Precio más alto asociado a calidad o exclusividad.</td><td id="`fJG" class="">Rolex: precio premium asociado a lujo y estatus.</td></tr><tr id="3c9648ad-99fc-80cd-bc28-e53a2d84d5d4" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación de Experiencia</strong></td><td id="jMPx" class="">Experiencia de usuario, emocional, sensorial.</td><td id="`fJG" class="">Starbucks: experiencia de &quot;tercer lugar&quot; entre el hogar y el trabajo.</td></tr><tr id="3c9648ad-99fc-800e-a407-f0b53c45c37c" dir="ltr"><td id="&lt;fMN" class=""><strong>Diferenciación Tecnológica</strong></td><td id="jMPx" class="">Innovación, patentes, tecnología exclusiva.</td><td id="`fJG" class="">Tesla: tecnología de baterías, conducción autónoma, actualizaciones OTA.</td></tr></tbody></table><hr id="3c9648ad-99fc-801c-8e52-f5e655dc5c98" dir="auto"/><h2 id="3c9648ad-99fc-8018-bcb9-d3782bef03f4" class="" dir="auto"><strong>💡 Ejemplos de Diferenciación en Empresas Famosas</strong></h2><table id="3c9648ad-99fc-8063-864f-f7eb0953117e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-803e-bcb8-caddb2e5d25e" dir="ltr"><th id="lL~V" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="z{Tb" class="simple-table-header-color simple-table-header"><strong>Tipo de Diferenciación</strong></th><th id="gk|@" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8010-9f0c-cd3621a639d4" dir="ltr"><td id="lL~V" class=""><strong>Apple</strong></td><td id="z{Tb" class="">Producto, Marca, Ecosistema</td><td id="gk|@" class="">Diseño premium, ecosistema integrado, marca aspiracional.</td></tr><tr id="3c9648ad-99fc-8031-94b6-e1bcdba9e845" dir="ltr"><td id="lL~V" class=""><strong>Tesla</strong></td><td id="z{Tb" class="">Tecnológica, Marca</td><td id="gk|@" class="">Tecnología de baterías, conducción autónoma, marca visionaria.</td></tr><tr id="3c9648ad-99fc-8013-a7d8-c670242a4618" dir="ltr"><td id="lL~V" class=""><strong>Patagonia</strong></td><td id="z{Tb" class="">Marca, Sostenibilidad</td><td id="gk|@" class="">Marca asociada a activismo y sostenibilidad, ropa duradera.</td></tr><tr id="3c9648ad-99fc-8060-af0a-de0e72f2fa39" dir="ltr"><td id="lL~V" class=""><strong>Zappos</strong></td><td id="z{Tb" class="">Servicio</td><td id="gk|@" class="">Servicio al cliente excepcional, devoluciones gratuitas y sin preguntas.</td></tr><tr id="3c9648ad-99fc-80f1-9612-fd51992ac7c9" dir="ltr"><td id="lL~V" class=""><strong>Starbucks</strong></td><td id="z{Tb" class="">Experiencia</td><td id="gk|@" class="">Experiencia de &quot;tercer lugar&quot;, personalización, ambiente.</td></tr><tr id="3c9648ad-99fc-8024-87eb-ff52af121245" dir="ltr"><td id="lL~V" class=""><strong>Netflix</strong></td><td id="z{Tb" class="">Tecnológica, Contenido</td><td id="gk|@" class="">Algoritmo de recomendación, contenido original exclusivo.</td></tr><tr id="3c9648ad-99fc-80a4-89b9-e96ec4c04ae8" dir="ltr"><td id="lL~V" class=""><strong>Nubank</strong></td><td id="z{Tb" class="">Servicio, Producto</td><td id="gk|@" class="">Sin comisiones, app intuitiva, atención al cliente 24/7.</td></tr><tr id="3c9648ad-99fc-807f-88dd-c72df0dbaee0" dir="ltr"><td id="lL~V" class=""><strong>Spotify</strong></td><td id="z{Tb" class="">Tecnológica, Servicio</td><td id="gk|@" class="">Algoritmo de recomendación, playlists personalizadas, modelo freemium.</td></tr><tr id="3c9648ad-99fc-8053-8029-f467e80288d8" dir="ltr"><td id="lL~V" class=""><strong>Mercado Libre</strong></td><td id="z{Tb" class="">Ecosistema, Servicio</td><td id="gk|@" class="">Integración de pagos, logística y créditos.</td></tr></tbody></table><hr id="3c9648ad-99fc-80b1-8483-f3b579125488" dir="auto"/><h2 id="3c9648ad-99fc-801e-b52f-fdf8de768f19" class="" dir="auto"><strong>⚠️ Errores Comunes al Intentar Diferenciarse</strong></h2><table id="3c9648ad-99fc-80f4-9e02-e04c9f6b6452" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8003-86ca-dfcfb404da9c" dir="ltr"><th id="umxV" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="R@eE" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="AxB\" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8015-8d22-f44181fc1429" dir="ltr"><td id="umxV" class=""><strong>Diferenciación sin valor</strong></td><td id="R@eE" class="">Ser diferente en algo que al cliente no le importa.</td><td id="AxB\" class="">No genera disposición a pagar más.</td></tr><tr id="3c9648ad-99fc-80a5-afab-edc09a0e654c" dir="ltr"><td id="umxV" class=""><strong>Diferenciación fácil de copiar</strong></td><td id="R@eE" class="">Una ventaja que los competidores pueden replicar rápidamente.</td><td id="AxB\" class="">La diferenciación se diluye.</td></tr><tr id="3c9648ad-99fc-80f1-8aae-efd2bb491a85" dir="ltr"><td id="umxV" class=""><strong>No comunicar la diferenciación</strong></td><td id="R@eE" class="">Tener una diferenciación real pero no saber comunicarla.</td><td id="AxB\" class="">El cliente no la percibe.</td></tr><tr id="3c9648ad-99fc-807b-b5a9-d5f9ef952135" dir="ltr"><td id="umxV" class=""><strong>Intentar diferenciarse en todo</strong></td><td id="R@eE" class="">Querer ser todo para todos.</td><td id="AxB\" class="">No eres especial para nadie.</td></tr><tr id="3c9648ad-99fc-801e-b9c3-c175be17d5c7" dir="ltr"><td id="umxV" class=""><strong>Ignorar la evolución del mercado</strong></td><td id="R@eE" class="">Mantener la misma diferenciación cuando el mercado cambia.</td><td id="AxB\" class="">La diferenciación se vuelve irrelevante.</td></tr><tr id="3c9648ad-99fc-80a9-bf60-ece313513b03" dir="ltr"><td id="umxV" class=""><strong>Sobrediferenciación</strong></td><td id="R@eE" class="">Añadir tantas características que el producto se vuelve complejo y caro.</td><td id="AxB\" class="">Aumento de costos, menor atractivo para el cliente.</td></tr></tbody></table><hr id="3c9648ad-99fc-8005-8dc6-dc4dd3860782" dir="auto"/><h2 id="3c9648ad-99fc-8055-837f-c8cf8f7b1450" class="" dir="auto"><strong>📊 Las 10 Fuentes de Diferenciación (Según Harvard Business Review)</strong></h2><table id="3c9648ad-99fc-8072-91db-c98408b130aa" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8047-af80-c4600bbd97fd" dir="ltr"><th id="WDik" class="simple-table-header-color simple-table-header"><strong>Fuente de Diferenciación</strong></th><th id="SbiL" class="simple-table-header-color simple-table-header" style="width:331.00001525878906px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-809a-88f9-ee3a5de1a176" dir="ltr"><td id="WDik" class=""><strong>Precio</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Ser el más barato o el más caro asociado a exclusividad.</td></tr><tr id="3c9648ad-99fc-8026-a6cf-dbcbfa1747f7" dir="ltr"><td id="WDik" class=""><strong>Calidad</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Calidad superior percibida (durabilidad, rendimiento).</td></tr><tr id="3c9648ad-99fc-80f1-99a0-f1d2e4e409aa" dir="ltr"><td id="WDik" class=""><strong>Servicio</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Atención al cliente excepcional, garantías, soporte.</td></tr><tr id="3c9648ad-99fc-80d4-a9b1-d05abd04f47d" dir="ltr"><td id="WDik" class=""><strong>Innovación</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Ser el primero en ofrecer algo nuevo.</td></tr><tr id="3c9648ad-99fc-807f-a5a5-f5a514a4502b" dir="ltr"><td id="WDik" class=""><strong>Experiencia</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Experiencia de usuario superior (fácil, agradable, memorable).</td></tr><tr id="3c9648ad-99fc-8015-a374-fb9b90da0733" dir="ltr"><td id="WDik" class=""><strong>Diseño</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Estética, usabilidad, identidad visual.</td></tr><tr id="3c9648ad-99fc-80e6-b5db-d4e8bc0372e7" dir="ltr"><td id="WDik" class=""><strong>Marca</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Reputación, estatus, storytelling.</td></tr><tr id="3c9648ad-99fc-801a-ae2c-d7c1735f496c" dir="ltr"><td id="WDik" class=""><strong>Distribución</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Conveniencia, disponibilidad, canales exclusivos.</td></tr><tr id="3c9648ad-99fc-8038-8a2e-c55645bea13f" dir="ltr"><td id="WDik" class=""><strong>Personalización</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Productos o servicios adaptados a las necesidades del cliente.</td></tr><tr id="3c9648ad-99fc-80b3-a3a7-ce831441872d" dir="ltr"><td id="WDik" class=""><strong>Sostenibilidad</strong></td><td id="SbiL" class="" style="width:331.00001525878906px">Compromiso con el medio ambiente y la responsabilidad social.</td></tr></tbody></table><hr id="3c9648ad-99fc-80ed-80c1-d46ba28d63bc" dir="auto"/><h2 id="3c9648ad-99fc-8025-991b-f1695e6e6b2c" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-80d6-92da-c38d83af4236" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80af-b860-dff7a37a7d63" dir="ltr"><th id="hjNo" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="x:zw" class="simple-table-header-color simple-table-header" style="width:339.00001525878906px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-805a-9573-d5921be5d985" dir="ltr"><td id="hjNo" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id="x:zw" class="" style="width:339.00001525878906px">Diseñar una diferenciación clara para destacar en el mercado.</td></tr><tr id="3c9648ad-99fc-8002-b90e-f06725b03a08" dir="ltr"><td id="hjNo" class=""><strong>Entrada a un mercado saturado</strong></td><td id="x:zw" class="" style="width:339.00001525878906px">La diferenciación es clave para abrirse paso.</td></tr><tr id="3c9648ad-99fc-8009-93c2-db3685f65df1" dir="ltr"><td id="hjNo" class=""><strong>Aumento de precios</strong></td><td id="x:zw" class="" style="width:339.00001525878906px">La diferenciación permite justificar un precio más alto.</td></tr><tr id="3c9648ad-99fc-8028-9837-cf90eb49df73" dir="ltr"><td id="hjNo" class=""><strong>Defensa frente a competidores de bajo costo</strong></td><td id="x:zw" class="" style="width:339.00001525878906px">La diferenciación reduce la competencia en precio.</td></tr><tr id="3c9648ad-99fc-800b-90e5-e3072bf82175" dir="ltr"><td id="hjNo" class=""><strong>Atracción de un nicho de mercado</strong></td><td id="x:zw" class="" style="width:339.00001525878906px">La diferenciación permite apuntar a un segmento específico.</td></tr></tbody></table><hr id="3c9648ad-99fc-80d5-ab89-c987a36a1d45" dir="auto"/><h2 id="3c9648ad-99fc-8007-9172-c1fa18097d01" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-8097-b62e-e9e80ffa6bdc" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-805a-86c6-e2668dec53a2" dir="ltr"><th id="Q~Dw" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="V`UZ" class="simple-table-header-color simple-table-header" style="width:306.00001525878906px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-808b-9d89-e76a7d76ce5e" dir="ltr"><td id="Q~Dw" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación es una de las tres estrategias genéricas.</td></tr><tr id="3c9648ad-99fc-803e-868d-de5848e6391c" dir="ltr"><td id="Q~Dw" class=""><strong>Propuesta de Valor</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación es la base de la propuesta de valor.</td></tr><tr id="3c9648ad-99fc-8099-9462-e3cab2aa6b55" dir="ltr"><td id="Q~Dw" class=""><strong>Ventaja Competitiva</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación es una fuente de ventaja competitiva sostenible.</td></tr><tr id="3c9648ad-99fc-806e-80ba-db9dc0e01729" dir="ltr"><td id="Q~Dw" class=""><strong>Segmentación de Mercado</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación permite apuntar a segmentos específicos.</td></tr><tr id="3c9648ad-99fc-8081-8b99-f354dee584c7" dir="ltr"><td id="Q~Dw" class=""><strong>Posicionamiento</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación define cómo te posicionas en la mente del cliente.</td></tr><tr id="3c9648ad-99fc-80cb-8236-fedd8982cdd4" dir="ltr"><td id="Q~Dw" class=""><strong>Océano Azul</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación es clave para crear nuevos espacios de mercado.</td></tr><tr id="3c9648ad-99fc-80ba-9a5f-dd7a11c7ada2" dir="ltr"><td id="Q~Dw" class=""><strong>Branding</strong></td><td id="V`UZ" class="" style="width:306.00001525878906px">La diferenciación se comunica a través de la marca.</td></tr></tbody></table><hr id="3c9648ad-99fc-8074-af4f-f5109fc6d59a" dir="auto"/><h2 id="3c9648ad-99fc-8046-a2d6-df7fa41f7df3" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-80c4-bf51-ccfcb8cc9ff3" class="" dir="auto">La diferenciación es como <strong>la personalidad de una persona en una multitud</strong>. Si todos son iguales (mismo estilo, mismo discurso, mismo comportamiento), nadie destaca. Pero si una persona tiene una personalidad única (sentido del humor, inteligencia, carisma, habilidades especiales), la gente la recuerda y la prefiere. La diferenciación hace que tu empresa sea &quot;esa persona especial&quot; en el mercado, la que los clientes recuerdan y eligen.</p><hr id="3c9648ad-99fc-807e-b86b-ef5993e1941e" dir="auto"/><h2 id="3c9648ad-99fc-807b-9654-db055c076788" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-8034-8b3e-d15d3c7bbdac" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1980). <em>Competitive Strategy</em>. Free Press.</li></ul><ul id="3c9648ad-99fc-80fe-be16-d03c71b95145" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1985). <em>Competitive Advantage</em>. Free Press.</li></ul><ul id="3c9648ad-99fc-8087-b12a-f86befa957ad" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2005). <em>Blue Ocean Strategy</em>. Harvard Business Review Press.</li></ul><ul id="3c9648ad-99fc-80f3-8a9b-e70ce8f8acf7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Trout, J., &amp; Ries, A. (1981). <em>Positioning: The Battle for Your Mind</em>. McGraw-Hill.</li></ul><ul id="3c9648ad-99fc-80e1-b4a2-cba502c96a82" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2010). <em>The 10 Sources of Differentiation</em>.</li></ul><ul id="3c9648ad-99fc-8013-9997-e6cb06ce9c25" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Keller, K. L. (2008). <em>Strategic Brand Management</em>. Pearson.</li></ul><hr id="3c9648ad-99fc-809c-9cf7-df5725490f6d" dir="auto"/><h2 id="3c9648ad-99fc-807e-9491-c1d611181e3e" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-807a-87cf-f559a9ee96c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La diferenciación no es un lujo; es una necesidad</strong>: En mercados saturados, la diferenciación es la única forma de sobrevivir. Si no te diferencias, compites por precio, y en esa guerra, el ganador suele ser el que tiene la estructura de costos más baja.</li></ul><ul id="3c9648ad-99fc-806d-a054-d576b2f669a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La diferenciación debe ser sostenible</strong>: Una diferenciación fácil de copiar no es una diferenciación real. Para que sea sostenible, debe basarse en recursos difíciles de imitar (patentes, marca, cultura, datos).</li></ul><ul id="3c9648ad-99fc-808d-988b-f79c3ec0b723" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La diferenciación no es solo para productos premium</strong>: Incluso las marcas de bajo costo pueden diferenciarse (ej: Ryanair en aerolíneas, diferenciada por su eficiencia extrema y bajo costo, no por lujo).</li></ul><ul id="3c9648ad-99fc-80d1-9411-c65c44e5c448" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para construir una diferenciación efectiva</strong>:<ol type="1" id="3c9648ad-99fc-8027-b4f1-ec253ecce260" class="numbered-list" start="1" dir="auto"><li><strong>Conoce a tu cliente</strong>: ¿Qué valora realmente? ¿Por qué está dispuesto a pagar más?</li></ol><ol type="1" id="3c9648ad-99fc-80e9-a45a-c16d27ce58e7" class="numbered-list" start="2" dir="auto"><li><strong>Identifica tu fortaleza única</strong>: ¿Qué haces mejor que los demás? ¿Qué te hace especial?</li></ol><ol type="1" id="3c9648ad-99fc-80bb-bdc9-ec9e000637e5" class="numbered-list" start="3" dir="auto"><li><strong>Comunica tu diferenciación</strong>: No sirve de nada ser diferente si no lo comunicas de manera efectiva.</li></ol><ol type="1" id="3c9648ad-99fc-804f-b541-fd272fc91940" class="numbered-list" start="4" dir="auto"><li><strong>Valida con clientes reales</strong>: No supongas que los clientes valoran lo que tú crees que valoran. Pregúntales y observa su comportamiento.</li></ol><ol type="1" id="3c9648ad-99fc-8001-93d4-fc7a786781e8" class="numbered-list" start="5" dir="auto"><li><strong>La diferenciación debe ser consistente</strong>: Todos los aspectos de la empresa (producto, servicio, marketing, cultura) deben reflejar la diferenciación. Una incoherencia confunde al cliente.</li></ol><ol type="1" id="3c9648ad-99fc-808c-aaac-cf9f8f9081b6" class="numbered-list" start="6" dir="auto"><li><strong>Evoluciona con el mercado</strong>: La diferenciación de hoy puede no ser suficiente mañana. Mantén la innovación constante.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

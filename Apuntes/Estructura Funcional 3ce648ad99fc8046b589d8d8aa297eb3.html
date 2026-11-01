@@ -1,0 +1,823 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estructura Funcional</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-8046-b589-d8d8aa297eb3" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estructura Funcional</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ce648ad-99fc-8084-acbd-e5226fc7cdd1" class="" dir="auto">
+</p><h1 id="3ce648ad-99fc-802e-8be3-c0554226dc6f" class="" dir="auto"><strong>📄 Estructura Funcional</strong></h1><hr id="3ce648ad-99fc-802b-b03c-c782cc31bdac" dir="auto"/><h2 id="3ce648ad-99fc-80bd-a9b8-f1a17f625591" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-80c4-bb38-d155686aeaca" class="" dir="auto">La estructura funcional es un <strong>modelo de organización empresarial</strong> que agrupa a los empleados según su <strong>especialidad o función</strong> (como marketing, finanzas, recursos humanos, producción, etc.). </p><p id="3ce648ad-99fc-807b-99fd-c9de37ddd31c" class="" dir="auto">Cada departamento está dirigido por un especialista en esa área y responde a la alta dirección. </p><p id="3ce648ad-99fc-80ec-ab43-c604df6eea9e" class="" dir="auto">Es el modelo organizativo más tradicional y ampliamente utilizado en empresas de todos los tamaños.</p><hr id="3ce648ad-99fc-80af-9c22-f2b283c9e9e3" dir="auto"/><h2 id="3ce648ad-99fc-802d-85d2-c0c8123de66e" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-8009-af0a-e582042bbb8d" class="" dir="auto">En una estructura funcional, el trabajo se divide en <strong>departamentos especializados</strong>, cada uno con una función clara y específica. </p><p id="3ce648ad-99fc-80a2-8257-d7a7552da1fb" class="" dir="auto">Por ejemplo, el departamento de marketing se encarga de todas las actividades de promoción y comunicación, el departamento de finanzas gestiona los recursos económicos, y el de recursos humanos administra el talento.</p><p id="3ce648ad-99fc-8012-8a33-e681f1e38553" class="" dir="auto">Esta estructura se basa en los principios de <strong>división del trabajo</strong> y <strong>especialización</strong>, propuestos por Adam Smith y formalizados por Henri Fayol.</p><p id="3ce648ad-99fc-805c-b7b2-fed5fd6b52d6" class="" dir="auto"> La idea es que las personas se agrupen por su conocimiento y habilidad, lo que permite una mayor eficiencia y profundidad técnica en cada área.</p><hr id="3ce648ad-99fc-80f6-a470-d33a921b7c80" dir="auto"/><h2 id="3ce648ad-99fc-8097-baf4-de79607f8fc9" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-80bb-b6a1-ea51f48469d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Especialización</strong>: Permite que los empleados se vuelvan expertos en su función.</li></ul><ul id="3ce648ad-99fc-80f1-85de-f644c2962100" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eficiencia operativa</strong>: Agrupa recursos similares, reduciendo duplicaciones.</li></ul><ul id="3ce648ad-99fc-8067-b3ee-f849ae4fe40d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Claridad en la toma de decisiones</strong>: Cada área tiene un responsable claro.</li></ul><ul id="3ce648ad-99fc-809e-b4a4-dff7ed83bc88" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Desarrollo profesional</strong>: Los empleados pueden crecer dentro de su especialidad.</li></ul><ul id="3ce648ad-99fc-804d-ba32-f5d6f0decc52" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estandarización</strong>: Facilita la creación de procesos y procedimientos uniformes.</li></ul><ul id="3ce648ad-99fc-80ef-8fa6-da75d9d72ff3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Control y supervisión</strong>: La dirección puede monitorear el desempeño de cada función de manera independiente.</li></ul><hr id="3ce648ad-99fc-801f-bb82-f018d075460c" dir="auto"/><h2 id="3ce648ad-99fc-80d5-8d08-c8b0cced2c17" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3ce648ad-99fc-8043-8b78-e5ece57eb04d" class="" dir="auto">La estructura funcional se organiza en varios niveles jerárquicos:</p><ol type="1" id="3ce648ad-99fc-80d7-805a-eb6f43ae0015" class="numbered-list" start="1" dir="auto"><li><strong>Alta Dirección</strong>: Define la estrategia general de la empresa.</li></ol><ol type="1" id="3ce648ad-99fc-80cb-8b03-f29f485eb597" class="numbered-list" start="2" dir="auto"><li><strong>Gerentes Funcionales</strong>: Líderes de cada departamento (ej: Director de Marketing, Director de Finanzas).</li></ol><ol type="1" id="3ce648ad-99fc-80ce-8ff7-c8d8faf5c1d8" class="numbered-list" start="3" dir="auto"><li><strong>Equipos Operativos</strong>: Colaboradores especializados en cada función.</li></ol><p id="3ce648ad-99fc-8042-b5bf-ddb8f2c0cf04" class="" dir="auto"><strong>Flujo de Comunicación:</strong></p><ul id="3ce648ad-99fc-8092-a53f-c5c952e0fde8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Vertical</strong>: Las órdenes fluyen de arriba hacia abajo (de la dirección a los empleados).</li></ul><ul id="3ce648ad-99fc-807c-81df-f1bea8b162dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Horizontal</strong>: Dentro del mismo departamento, los equipos colaboran en proyectos específicos.</li></ul><ul id="3ce648ad-99fc-808e-a02d-c5e5f6f6fc4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Interdepartamental</strong>: Aunque es menos común, los departamentos se coordinan a través de reuniones o comités.</li></ul><p id="3ce648ad-99fc-8041-97d3-cf78b2d954e5" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ce648ad-99fc-8054-9ea0-fa7f3a809e39" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">                    ┌──────────────────────┐
+                    │    Alta Dirección    │
+                    │    (CEO / Gerente)   │
+                    └───────────┬──────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+        ▼                       ▼                       ▼
+┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+│   Marketing   │       │   Finanzas    │       │    Recursos   │
+│               │       │               │       │    Humanos    │
+│  - Publicidad │       │  - Contabilidad│       │  - Reclut.    │
+│  - Investig.  │       │  - Tesorería  │       │  - Capacit.   │
+│  - Ventas     │       │  - Presupuesto│       │  - Nómina     │
+└───────────────┘       └───────────────┘       └───────────────┘
+        │                       │                       │
+        ▼                       ▼                       ▼
+┌───────────────┐       ┌───────────────┐       ┌───────────────┐
+│  Operaciones  │       │     I+D       │       │  Servicios    │
+│  (Producción) │       │ (Investig. y  │       │   Generales   │
+│               │       │  Desarrollo)  │       │               │
+│  - Producción │       │  - Nuevos     │       │  - Sistemas   │
+│  - Logística  │       │    Productos  │       │  - Infraest.  │
+│  - Calidad    │       │  - Patentes   │       │  - Manten.    │
+└───────────────┘       └───────────────┘       └───────────────┘</code></pre><hr id="3ce648ad-99fc-80c9-afa2-dac49dc7f2c5" dir="auto"/><h2 id="3ce648ad-99fc-800a-b2c0-f518036db213" class="" dir="auto"><strong>📝 Ventajas y Desventajas</strong></h2><h3 id="3ce648ad-99fc-803f-ace8-fea6aef414da" class="" dir="auto"><strong>✅ Ventajas</strong></h3><table id="3ce648ad-99fc-80ac-9f05-fb2303679dc9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8029-9a1a-c976e3e45b6a" dir="ltr"><th id="&lt;nC`" class="simple-table-header-color simple-table-header"><strong>Ventaja</strong></th><th id="}Jct" class="simple-table-header-color simple-table-header" style="width:398px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-808c-96c0-f508e3a0c0b9" dir="ltr"><td id="&lt;nC`" class=""><strong>Especialización</strong></td><td id="}Jct" class="" style="width:398px">Los empleados se vuelven expertos en su área, mejorando la calidad del trabajo.</td></tr><tr id="3ce648ad-99fc-803c-8bb7-f7acf9808cc2" dir="ltr"><td id="&lt;nC`" class=""><strong>Eficiencia operativa</strong></td><td id="}Jct" class="" style="width:398px">Los recursos se utilizan de manera óptima, evitando duplicaciones.</td></tr><tr id="3ce648ad-99fc-808f-82f8-fd97d774c6be" dir="ltr"><td id="&lt;nC`" class=""><strong>Claridad en la comunicación</strong></td><td id="}Jct" class="" style="width:398px">La cadena de mando es clara y directa, facilitando la toma de decisiones.</td></tr><tr id="3ce648ad-99fc-80af-a53d-d46a78171413" dir="ltr"><td id="&lt;nC`" class=""><strong>Desarrollo de carrera</strong></td><td id="}Jct" class="" style="width:398px">Los empleados pueden especializarse y crecer profesionalmente dentro de su función.</td></tr><tr id="3ce648ad-99fc-8036-b214-e9c89aa75e83" dir="ltr"><td id="&lt;nC`" class=""><strong>Economías de escala</strong></td><td id="}Jct" class="" style="width:398px">Al centralizar funciones similares, se pueden lograr economías de escala.</td></tr><tr id="3ce648ad-99fc-80f7-9c63-d0538f945d85" dir="ltr"><td id="&lt;nC`" class=""><strong>Control y supervisión</strong></td><td id="}Jct" class="" style="width:398px">Los gerentes pueden monitorear el desempeño de su área con precisión.</td></tr></tbody></table><h3 id="3ce648ad-99fc-807f-8aef-ff78eca691dd" class="" dir="auto"><strong>❌ Desventajas</strong></h3><table id="3ce648ad-99fc-8075-8cd6-e370bfd5242d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8006-9d5f-f913bf66506d" dir="ltr"><th id="J@bA" class="simple-table-header-color simple-table-header"><strong>Desventaja</strong></th><th id="UucZ" class="simple-table-header-color simple-table-header" style="width:418px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-800b-a906-d5dd806a2cce" dir="ltr"><td id="J@bA" class=""><strong>Silos organizativos</strong></td><td id="UucZ" class="" style="width:418px">Los departamentos tienden a trabajar de forma aislada, sin comunicación entre sí.</td></tr><tr id="3ce648ad-99fc-80e5-8a0e-f9bdbe03ae5f" dir="ltr"><td id="J@bA" class=""><strong>Toma de decisiones lenta</strong></td><td id="UucZ" class="" style="width:418px">Las decisiones deben subir y bajar por la jerarquía, lo que puede ser lento.</td></tr><tr id="3ce648ad-99fc-80a6-9aaf-da781111ac9b" dir="ltr"><td id="J@bA" class=""><strong>Rigidez</strong></td><td id="UucZ" class="" style="width:418px">La estructura puede ser resistente al cambio y a la innovación.</td></tr><tr id="3ce648ad-99fc-80ef-8e0b-ea87e27453f0" dir="ltr"><td id="J@bA" class=""><strong>Conflictos interdepartamentales</strong></td><td id="UucZ" class="" style="width:418px">Los departamentos pueden competir por recursos y prioridades.</td></tr><tr id="3ce648ad-99fc-8051-9e07-ecdc0fd4eab8" dir="ltr"><td id="J@bA" class=""><strong>Falta de visión global</strong></td><td id="UucZ" class="" style="width:418px">Los empleados se enfocan en su función, perdiendo la perspectiva general del negocio.</td></tr><tr id="3ce648ad-99fc-800f-9ebe-c237f4944225" dir="ltr"><td id="J@bA" class=""><strong>Dificultad para adaptarse</strong></td><td id="UucZ" class="" style="width:418px">En entornos cambiantes, la estructura puede ser demasiado rígida.</td></tr></tbody></table><hr id="3ce648ad-99fc-80f6-8f34-e5eea28131ce" dir="auto"/><h2 id="3ce648ad-99fc-8077-8b08-e58e599adc0f" class="" dir="auto"><strong>💡 Ejemplos de Empresas con Estructura Funcional</strong></h2><h3 id="3ce648ad-99fc-80b5-bb6f-ee82e342a171" class="" dir="auto"><strong>Ejemplo 1: Empresa Manufacturera Tradicional</strong></h3><ul id="3ce648ad-99fc-80c6-9ca6-ebd628084a8a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Producción, Marketing, Finanzas, Recursos Humanos, I+D.</li></ul><ul id="3ce648ad-99fc-809b-a2ce-cb54d89ec09b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: Cada departamento reporta a la dirección general. Coordinan a través de reuniones periódicas.</li></ul><h3 id="3ce648ad-99fc-800b-9962-cfa3c5a79c78" class="" dir="auto"><strong>Ejemplo 2: Cadena de Retail</strong></h3><ul id="3ce648ad-99fc-80d4-8507-dce9c6fe968e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Ventas, Compras, Logística, Marketing, Finanzas.</li></ul><ul id="3ce648ad-99fc-8018-a2fc-c94151391cd9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: El departamento de compras negocia con proveedores, logística se encarga del almacenamiento y distribución, y ventas gestiona las tiendas.</li></ul><h3 id="3ce648ad-99fc-8079-a189-f3d207e4e4be" class="" dir="auto"><strong>Ejemplo 3: Empresa de Servicios Profesionales (Consultoría)</strong></h3><ul id="3ce648ad-99fc-80cc-944c-d446fec6edf9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Consultoría Estratégica, Consultoría Operativa, Finanzas, Marketing, Recursos Humanos.</li></ul><ul id="3ce648ad-99fc-8033-99dd-d54dbeb860d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: Los consultores trabajan en proyectos bajo la supervisión de los gerentes de cada área funcional.</li></ul><h3 id="3ce648ad-99fc-8085-a491-ff6f4b93dc13" class="" dir="auto"><strong>Ejemplo 4: Startup en Crecimiento</strong></h3><ul id="3ce648ad-99fc-8057-a80e-fd786abd809d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Desarrollo de Producto, Marketing, Ventas, Operaciones, Finanzas.</li></ul><ul id="3ce648ad-99fc-80e8-a9ca-fa6ee4f18947" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: A medida que crecen, muchas startups pasan de una estructura plana a una funcional para manejar la complejidad.</li></ul><hr id="3ce648ad-99fc-80b4-8b70-dafd16c526e7" dir="auto"/><h2 id="3ce648ad-99fc-8020-bf38-da71a2bed677" class="" dir="auto"><strong>⚠️ Errores Comunes al Implementar una Estructura Funcional</strong></h2><table id="3ce648ad-99fc-8079-b5cb-d1580ba06656" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8023-be66-f32cafb22630" dir="ltr"><th id="mYZd" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="k:UQ" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="pVb|" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-804f-aca9-d6f70b12acd4" dir="ltr"><td id="mYZd" class=""><strong>Demasiada rigidez</strong></td><td id="k:UQ" class="">No permitir flexibilidad en los roles o procesos.</td><td id="pVb|" class="">Incapacidad para adaptarse a cambios del mercado.</td></tr><tr id="3ce648ad-99fc-80d3-8af8-dcbaa5adb90b" dir="ltr"><td id="mYZd" class=""><strong>Falta de comunicación</strong></td><td id="k:UQ" class="">No establecer mecanismos de coordinación interdepartamental.</td><td id="pVb|" class="">Conflictos, duplicación de esfuerzos, pérdida de oportunidades.</td></tr><tr id="3ce648ad-99fc-80a5-a001-ddd17f6baa7d" dir="ltr"><td id="mYZd" class=""><strong>Sobrecarga de la alta dirección</strong></td><td id="k:UQ" class="">Todos los departamentos reportan al mismo nivel, lo que puede saturar al CEO.</td><td id="pVb|" class="">Cuellos de botella, decisiones lentas.</td></tr><tr id="3ce648ad-99fc-8039-8760-e9e795599841" dir="ltr"><td id="mYZd" class=""><strong>Poca autonomía</strong></td><td id="k:UQ" class="">Centralizar todas las decisiones en la cúpula directiva.</td><td id="pVb|" class="">Desmotivación del talento, baja agilidad.</td></tr><tr id="3ce648ad-99fc-8059-95fd-ecfe772d8f99" dir="ltr"><td id="mYZd" class=""><strong>Ignorar la cultura organizacional</strong></td><td id="k:UQ" class="">Implementar la estructura sin considerar la cultura existente.</td><td id="pVb|" class="">Resistencia al cambio, baja adopción.</td></tr><tr id="3ce648ad-99fc-8079-bbd4-c8567479b559" dir="ltr"><td id="mYZd" class=""><strong>No adaptar la estructura al tamaño de la empresa</strong></td><td id="k:UQ" class="">Usar una estructura funcional en una empresa muy pequeña o muy grande sin ajustes.</td><td id="pVb|" class="">Ineficiencia o burocracia excesiva.</td></tr></tbody></table><hr id="3ce648ad-99fc-80be-8807-deb8d89fda60" dir="auto"/><h2 id="3ce648ad-99fc-80da-b867-d6a8b0946196" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-80be-b455-f19cef633677" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8014-8053-fc66d094e5c1" dir="ltr"><th id="uDnH" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="?M?u" class="simple-table-header-color simple-table-header" style="width:391px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-809c-8f3d-ee7d96c57854" dir="ltr"><td id="uDnH" class=""><strong>Empresa mediana/grande</strong></td><td id="?M?u" class="" style="width:391px">La estructura funcional es ideal para organizaciones con operaciones estables.</td></tr><tr id="3ce648ad-99fc-8090-99ad-d1d0781d435f" dir="ltr"><td id="uDnH" class=""><strong>Industrias tradicionales</strong></td><td id="?M?u" class="" style="width:391px">Manufactura, retail, servicios financieros, consultoría.</td></tr><tr id="3ce648ad-99fc-805f-abc5-cf68a0f264e9" dir="ltr"><td id="uDnH" class=""><strong>Empresas con productos estandarizados</strong></td><td id="?M?u" class="" style="width:391px">Donde la eficiencia y la especialización son clave.</td></tr><tr id="3ce648ad-99fc-807c-997e-dc2a1a834c82" dir="ltr"><td id="uDnH" class=""><strong>Organizaciones con presupuesto limitado</strong></td><td id="?M?u" class="" style="width:391px">La estructura funcional es menos costosa que otras estructuras más complejas.</td></tr><tr id="3ce648ad-99fc-80ea-9017-ee79ad704e22" dir="ltr"><td id="uDnH" class=""><strong>Empresas en crecimiento</strong></td><td id="?M?u" class="" style="width:391px">Muchas startups adoptan esta estructura al crecer, para manejar la complejidad.</td></tr></tbody></table><hr id="3ce648ad-99fc-8043-b01d-df2f60cae579" dir="auto"/><h2 id="3ce648ad-99fc-8072-99e2-de5c695f354a" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8094-9223-d6922244c1c3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8038-a707-d19600320fb4" dir="ltr"><th id="]m\^" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="kpHj" class="simple-table-header-color simple-table-header" style="width:387px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80ca-8205-fd17b8b7b0bd" dir="ltr"><td id="]m\^" class=""><strong>Estructura Divisional</strong></td><td id="kpHj" class="" style="width:387px">Alternativa que agrupa por productos, regiones o clientes, no por funciones.</td></tr><tr id="3ce648ad-99fc-8064-bf20-f6d339707143" dir="ltr"><td id="]m\^" class=""><strong>Estructura Matricial</strong></td><td id="kpHj" class="" style="width:387px">Combina la estructura funcional con la divisional (doble dependencia).</td></tr><tr id="3ce648ad-99fc-80d8-b486-e72bf9ce42fa" dir="ltr"><td id="]m\^" class=""><strong>Estructura Plana</strong></td><td id="kpHj" class="" style="width:387px">Opuesta: pocos niveles jerárquicos, equipos autónomos (común en startups).</td></tr><tr id="3ce648ad-99fc-806c-a1fc-d765eb5848e1" dir="ltr"><td id="]m\^" class=""><strong>Organización en Red</strong></td><td id="kpHj" class="" style="width:387px">Modelo moderno donde la estructura funcional se combina con alianzas externas.</td></tr><tr id="3ce648ad-99fc-806b-ac84-d0f4996271b1" dir="ltr"><td id="]m\^" class=""><strong>Centralización vs Descentralización</strong></td><td id="kpHj" class="" style="width:387px">La estructura funcional tiende a ser más centralizada.</td></tr><tr id="3ce648ad-99fc-80f3-90e5-d8ba5c0f3b6b" dir="ltr"><td id="]m\^" class=""><strong>División del Trabajo</strong></td><td id="kpHj" class="" style="width:387px">Principio fundamental en el que se basa esta estructura.</td></tr><tr id="3ce648ad-99fc-801e-8fb9-e7ed1cf75600" dir="ltr"><td id="]m\^" class=""><strong>Cadena de Mando</strong></td><td id="kpHj" class="" style="width:387px">La estructura funcional define claramente la cadena de mando.</td></tr><tr id="3ce648ad-99fc-80b2-9cce-d2a025c33f52" dir="ltr"><td id="]m\^" class=""><strong>Organigrama</strong></td><td id="kpHj" class="" style="width:387px">La estructura funcional se representa como un organigrama jerárquico vertical.</td></tr></tbody></table><hr id="3ce648ad-99fc-805f-982f-d0457683ad23" dir="auto"/><h2 id="3ce648ad-99fc-8051-9191-f838ef3baa47" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-8018-88cb-cb0eecbbce43" class="" dir="auto">La estructura funcional es como un <strong>hospital</strong>. Los doctores (especialistas) se organizan por áreas: cardiología, pediatría, traumatología, etc. Cada área tiene su propio jefe de servicio, y todos reportan a la dirección del hospital. Esto permite que cada especialista se concentre en lo que mejor sabe hacer, pero a veces los pacientes necesitan coordinación entre varias áreas (interdepartamental), lo que puede generar retrasos o conflictos.</p><hr id="3ce648ad-99fc-80dc-88c5-da3e808ff81a" dir="auto"/><h2 id="3ce648ad-99fc-80ac-8df5-d6e849cfef58" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-8019-86cb-e842476f21c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fayol, H. (1916). <em>Administration Industrielle et Générale</em>.</li></ul><ul id="3ce648ad-99fc-80f5-9682-c798aab56a32" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mintzberg, H. (1979). <em>The Structuring of Organizations</em>. Prentice-Hall.</li></ul><ul id="3ce648ad-99fc-8069-abda-ec4cd490c592" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robbins, S. P., &amp; Coulter, M. (2018). <em>Administración</em>. Pearson.</li></ul><ul id="3ce648ad-99fc-80f4-a0f0-fb6af4541882" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Daft, R. L. (2015). <em>Organization Theory and Design</em>. Cengage Learning.</li></ul><ul id="3ce648ad-99fc-8099-b87f-d1bb49427144" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2012). <em>Organizational Structure: The Functional Structure</em>.</li></ul><ul id="3ce648ad-99fc-80c2-9142-cddd24c3f185" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Koontz, H., &amp; Weihrich, H. (2010). <em>Administración: Una Perspectiva Global</em>. McGraw-Hill.</li></ul><hr id="3ce648ad-99fc-80b3-8a78-e002d60e1032" dir="auto"/><h2 id="3ce648ad-99fc-80db-92a8-dc1b80fdfed1" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-80ec-9862-c57d39801fb4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuándo usar estructura funcional</strong>:<ul id="3ce648ad-99fc-8017-b6c2-e9c12be3b8a8" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Empresas de tamaño mediano a grande.</li></ul><ul id="3ce648ad-99fc-807b-a95c-d241aca57b06" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Operaciones estables y predecibles.</li></ul><ul id="3ce648ad-99fc-80a2-a953-d799666a74e8" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Énfasis en la eficiencia y la especialización técnica.</li></ul><ul id="3ce648ad-99fc-8063-885e-d5e78dc14a4d" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Productos o servicios estandarizados.</li></ul><ul id="3ce648ad-99fc-80f0-b512-ea66168b3f63" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Entornos competitivos donde el costo es clave.</li></ul></li></ul><ul id="3ce648ad-99fc-801f-8cd1-cbd6f5b404e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuándo NO usar estructura funcional</strong>:<ul id="3ce648ad-99fc-8057-a742-df235b6b01cf" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Startups en etapa temprana (muy rígida).</li></ul><ul id="3ce648ad-99fc-806a-b3ca-d018bd91fda0" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Entornos altamente cambiantes (requiere agilidad).</li></ul><ul id="3ce648ad-99fc-80fd-b6e6-f59bc71a6ec4" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Empresas con productos muy diversos (mejor estructura divisional).</li></ul><ul id="3ce648ad-99fc-803c-8bac-f09dff1e4439" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Organizaciones que necesitan innovación radical (la estructura limita la creatividad interdisciplinaria).</li></ul></li></ul><ul id="3ce648ad-99fc-80e5-8958-da1af772bd6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo mejorar la estructura funcional</strong>:<ol type="1" id="3ce648ad-99fc-806b-a537-c7c733331068" class="numbered-list" start="1" dir="auto"><li><strong>Crear equipos interfuncionales</strong> para proyectos específicos (sin romper la estructura base).</li></ol><ol type="1" id="3ce648ad-99fc-8066-b4b4-fb0519a03b5d" class="numbered-list" start="2" dir="auto"><li><strong>Establecer comités de coordinación</strong> para resolver conflictos interdepartamentales.</li></ol><ol type="1" id="3ce648ad-99fc-8085-a3ef-e001dbef8c06" class="numbered-list" start="3" dir="auto"><li><strong>Fomentar la comunicación horizontal</strong> más allá de la jerarquía vertical.</li></ol><ol type="1" id="3ce648ad-99fc-8015-9531-fc7ad3918e4f" class="numbered-list" start="4" dir="auto"><li><strong>Descentralizar decisiones</strong> en la medida de lo posible, dando autonomía a los gerentes funcionales.</li></ol><ol type="1" id="3ce648ad-99fc-8045-be7d-e1d2df3aebea" class="numbered-list" start="5" dir="auto"><li><strong>Revisar la estructura periódicamente</strong> para adaptarse al crecimiento y cambios del entorno.</li></ol></li></ul><ul id="3ce648ad-99fc-8014-8ce3-e4f0c3441f3b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Evolución hacia estructuras más ágiles</strong>:<ul id="3ce648ad-99fc-804a-82e4-ee9727374416" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Muchas empresas tradicionales están combinando la estructura funcional con equipos ágiles o &quot;tribus&quot; (como en Spotify), manteniendo la especialización pero añadiendo flexibilidad.</li></ul><ul id="3ce648ad-99fc-8026-8385-f8402a007453" class="bulleted-list" dir="auto"><li style="list-style-type:circle">En la era digital, la estructura funcional se está adaptando para incluir roles como &quot;Product Owner&quot;, &quot;Scrum Master&quot;, y &quot;Equipos Autónomos&quot;.</li></ul></li></ul><ul id="3ce648ad-99fc-8061-892f-df0835dcbc81" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Impacto en la Transformación Digital</strong>:<ul id="3ce648ad-99fc-80fe-ad27-c298e4d3af84" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La estructura funcional puede ralentizar la transformación digital si los departamentos trabajan en silos.</li></ul><ul id="3ce648ad-99fc-8070-9590-c4955f248ad5" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Para acelerar la digitalización, es clave romper los silos y fomentar la colaboración entre áreas como TI, Marketing y Operaciones.</li></ul></li></ul><ul id="3ce648ad-99fc-805b-95dd-c271f3ad8b76" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejo final</strong>: La estructura funcional es excelente para la eficiencia y la especialización, pero requiere mecanismos de coordinación para evitar los silos. En el entorno actual, es recomendable combinarla con enfoques más ágiles y flexibles, especialmente en áreas como tecnología, innovación y atención al cliente.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

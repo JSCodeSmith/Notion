@@ -1,0 +1,825 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Canvas de la Propuesta de Valor</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-8042-8a01-d3065611c725" class="page sans"><header><h1 class="page-title" dir="auto">Canvas de la Propuesta de Valor</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3df648ad-99fc-803d-bec2-e7ecd66d92ae" class="" dir="auto">
+</p><h1 id="3df648ad-99fc-8010-98a4-ec24f0aa42e5" class="" dir="auto"><strong>📄 Canvas de la Propuesta de Valor (Value Proposition Canvas)</strong></h1><hr id="3df648ad-99fc-80e6-b095-cf146de96d0b" dir="auto"/><h2 id="3df648ad-99fc-801d-aba2-f5a2ef184644" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-806c-9e91-f2dad59eb610" class="" dir="auto">El Canvas de la Propuesta de Valor es una herramienta de gestión estratégica diseñada por <strong>Alexander Osterwalder y Yves Pigneur</strong> (creadores del Business Model Canvas). </p><p id="3e0648ad-99fc-8090-9dae-f876b38a6ded" class="" dir="auto">Permite <strong>diseñar, analizar y optimizar la propuesta de valor</strong> de un producto o servicio, asegurando que esta se alinee perfectamente con las necesidades, deseos y dolores de los clientes. </p><p id="3e0648ad-99fc-80c9-86fb-f72b0d35620c" class="" dir="auto">Es la herramienta ideal para encontrar el <strong>Product-Market Fit</strong> (adecuación producto-mercado).</p><hr id="3df648ad-99fc-8098-9b12-e3f0fbe9096a" dir="auto"/><h2 id="3df648ad-99fc-8077-b8ba-c3810c0a8490" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-800d-adbd-fc94dfaa8d33" class="" dir="auto">El Canvas de la Propuesta de Valor se divide en dos grandes bloques que encajan entre sí como una llave en una cerradura:</p><ol type="1" id="3df648ad-99fc-8066-9ce5-e39993ea7d75" class="numbered-list" start="1" dir="auto"><li><strong>El Perfil del Cliente</strong> (La cerradura): Describe quién es el cliente, qué quiere y qué problemas tiene.</li></ol><ol type="1" id="3df648ad-99fc-8031-a41a-cb603612d660" class="numbered-list" start="2" dir="auto"><li><strong>El Mapa de Valor</strong> (La llave): Describe cómo el producto o servicio crea valor para ese cliente.</li></ol><p id="3df648ad-99fc-8009-ab23-ef5388a85820" class="" dir="auto">El objetivo del canvas es lograr un <strong>&quot;Ajuste&quot; (Fit)</strong> perfecto entre ambos lados. </p><p id="3e0648ad-99fc-800e-85b9-fd4eb19f5da2" class="" dir="auto">Si la llave (propuesta de valor) no encaja en la cerradura (necesidades del cliente), el producto fracasará en el mercado, por muy innovador que sea.</p><hr id="3df648ad-99fc-8056-a464-d7f58aa72680" dir="auto"/><h2 id="3df648ad-99fc-8096-8626-e60ca56da04a" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-8009-8bc6-e67777d33244" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diseñar productos centrados en el cliente</strong>: Asegurar que el desarrollo de producto resuelve problemas reales.</li></ul><ul id="3df648ad-99fc-80af-bd8a-d1b64b46083b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Validar hipótesis</strong>: Probar si la propuesta de valor realmente resuena con los clientes.</li></ul><ul id="3df648ad-99fc-8094-95e0-df68b7c52721" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar la comunicación</strong>: Clarificar el mensaje de marketing y ventas.</li></ul><ul id="3df648ad-99fc-8080-b9b7-db0037364335" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovar</strong>: Identificar oportunidades no cubiertas para mejorar o crear nuevos productos.</li></ul><ul id="3df648ad-99fc-8028-8038-d9272317eb55" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear equipos</strong>: Sincronizar a los equipos de producto, marketing y ventas en torno a la misma visión del cliente y el valor.</li></ul><hr id="3df648ad-99fc-80a0-a383-edca2aa0c59c" dir="auto"/><h2 id="3df648ad-99fc-8025-ae5b-c1fbcb706a76" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3df648ad-99fc-8022-a688-c72317d12adb" class="" dir="auto">La herramienta se divide en dos secciones principales que se analizan en conjunto:</p><h3 id="3df648ad-99fc-802a-8c0b-cec898096b31" class="" dir="auto"><strong>1. El Perfil del Cliente (Customer Profile)</strong></h3><p id="3df648ad-99fc-80ae-a81d-cabeae258218" class="" dir="auto">Esta sección profundiza en la comprensión del cliente objetivo. </p><p id="3e0648ad-99fc-80ff-9ec3-fbf4303ecec3" class="" dir="auto">Se divide en tres subcomponentes:</p><ul id="3df648ad-99fc-801e-aa63-c429cf3bd7ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Trabajos del Cliente (Customer Jobs)</strong>:<ul id="3df648ad-99fc-8023-997f-fec810570485" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Qué tareas funcionales, sociales o emocionales intenta realizar el cliente?</strong></li></ul><ul id="3df648ad-99fc-8077-8a98-d9092ee581a5" class="bulleted-list" dir="auto"><li style="list-style-type:circle">No se refiere solo a las tareas prácticas (ej: &quot;hacer la compra&quot;), sino también a las sociales (ej: &quot;quedar bien con la familia&quot;) y emocionales (ej: &quot;sentirse seguro&quot;).</li></ul></li></ul><ul id="3df648ad-99fc-802e-903e-ea4c4dc2e999" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alegrías (Gains)</strong>:<ul id="3df648ad-99fc-8060-92f4-c36d8906bf0a" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Qué resultados positivos, beneficios o aspiraciones espera el cliente?</strong></li></ul><ul id="3df648ad-99fc-80fa-b629-db3bd5959719" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Incluye beneficios funcionales (ej: &quot;ahorrar tiempo&quot;), beneficios sociales (ej: &quot;estatus&quot;) y emocionales (ej: &quot;sentirse tranquilo&quot;).</li></ul></li></ul><ul id="3df648ad-99fc-8086-b7b8-d1f93822a54b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Frustraciones (Pains)</strong>:<ul id="3df648ad-99fc-8049-90e6-d1a0e7acc713" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Qué riesgos, obstáculos o experiencias negativas teme o experimenta el cliente?</strong></li></ul><ul id="3df648ad-99fc-800f-bb82-e76138322b4a" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Pueden ser costos, esfuerzo, tiempo, riesgos, o emociones negativas (ej: &quot;miedo a equivocarse&quot;).</li></ul></li></ul><h3 id="3df648ad-99fc-80c2-a0f8-d7d8e8841034" class="" dir="auto"><strong>2. El Mapa de Valor (Value Map)</strong></h3><p id="3df648ad-99fc-80a7-ab81-e3322aeccc17" class="" dir="auto">Esta sección describe cómo la oferta crea valor para el cliente. </p><p id="3e0648ad-99fc-80fb-9867-d12ec0354ae7" class="" dir="auto">Se divide en tres subcomponentes que buscan alinearse con los tres del perfil del cliente:</p><ul id="3df648ad-99fc-804f-9b54-edc9cea60a58" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Productos y Servicios (Products &amp; Services)</strong>:<ul id="3df648ad-99fc-8060-abfe-e3686632fa89" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Qué productos o servicios concretos se ofrecen?</strong></li></ul><ul id="3df648ad-99fc-80a3-bf43-fb403e742c3e" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Es un listado de lo que se vende (ej: &quot;App móvil&quot;, &quot;Soporte 24/7&quot;, &quot;Garantía extendida&quot;).</li></ul></li></ul><ul id="3df648ad-99fc-8087-823e-ebfb4a80958f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Creadores de Alegrías (Gain Creators)</strong>:<ul id="3df648ad-99fc-800b-8794-f2704a74146c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Cómo el producto genera los resultados positivos o beneficios que el cliente espera?</strong></li></ul><ul id="3df648ad-99fc-80d9-8bdf-d2eb52cf4d7f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Debe responderse para cada alegría identificada en el perfil del cliente.</li></ul></li></ul><ul id="3df648ad-99fc-8059-8556-f8b2efdec815" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aliviadores de Frustraciones (Pain Relievers)</strong>:<ul id="3df648ad-99fc-8044-9d2f-c77fd81c5afc" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>¿Cómo el producto soluciona los problemas y reduce los riesgos del cliente?</strong></li></ul><ul id="3df648ad-99fc-802e-9eb8-dc979bd0318e" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Debe responderse para cada frustración identificada en el perfil del cliente.</li></ul></li></ul><hr id="3df648ad-99fc-80e2-a69c-d4620aab1dd7" dir="auto"/><h2 id="3df648ad-99fc-80e1-81b8-c08a60a299df" class="" dir="auto"><strong>🧩 Estructura Visual del Canvas</strong></h2><p id="3df648ad-99fc-8043-b725-d5fd0815e72e" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3df648ad-99fc-80b5-ad08-ff2cc5e45a63" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────┐
+│                    CANVAS DE LA PROPUESTA DE VALOR          │
+├────────────────────────────┬────────────────────────────────┤
+│   PERFIL DEL CLIENTE       │         MAPA DE VALOR          │
+│                            │                                │
+│  ┌──────────────────────┐  │  ┌──────────────────────────┐  │
+│  │     ALEGRÍAS (Gains)  │  │  │   CREADORES DE ALEGRÍAS  │  │
+│  │  - [Ahorrar dinero]   │◄─┼──│  - [Precios bajos]       │  │
+│  │  - [Sentirse seguro]  │  │  │  - [Garantía de calidad] │  │
+│  └──────────────────────┘  │  └──────────────────────────┘  │
+│                            │  ┌──────────────────────────┐  │
+│  ┌──────────────────────┐  │  │     PRODUCTOS Y          │  │
+│  │  TRABAJOS DEL CLIENTE │  │  │      SERVICIOS          │  │
+│  │  - [Comparar precios] │◄─┼──│  - [App de compras]     │  │
+│  │  - [Comprar rápido]   │  │  │  - [Soporte 24/7]       │  │
+│  └──────────────────────┘  │  └──────────────────────────┘  │
+│                            │  ┌──────────────────────────┐  │
+│  ┌──────────────────────┐  │  │ ALIVIADORES DE           │  │
+│  │  FRUSTRACIONES (Pains)│  │  │  FRUSTRACIONES          │  │
+│  │  - [Pérdida de tiempo]│◄─┼──│  - [Entrega en 1 día]   │  │
+│  │  - [Riesgo de fraude] │  │  │  - [Pago seguro]        │  │
+│  └──────────────────────┘  │  └──────────────────────────┘  │
+├────────────────────────────┴────────────────────────────────┤
+│                    AJUSTE (FIT)                             │
+│  La &quot;llave&quot; (Mapa de Valor) debe encajar perfectamente     │
+│  en la &quot;cerradura&quot; (Perfil del Cliente).                   │
+└─────────────────────────────────────────────────────────────┘</code></pre><hr id="3df648ad-99fc-80b6-b39e-c46f70a613ba" dir="auto"/><h2 id="3df648ad-99fc-80ea-a96f-d0752b6c9bb6" class="" dir="auto"><strong>💡 Ejemplo Práctico: Spotify (versión Freemium)</strong></h2><h3 id="3df648ad-99fc-805d-9aee-ce1bf2480f41" class="" dir="auto"><strong>📌 Perfil del Cliente (Usuario gratuito)</strong></h3><ul id="3df648ad-99fc-8056-b2de-c82e8d092035" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Trabajos</strong>: Escuchar música, descubrir nuevos artistas, crear listas de reproducción, compartir música con amigos.</li></ul><ul id="3df648ad-99fc-8041-af2c-e4b652d7bb2a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alegrías</strong>: Acceso gratuito a un catálogo masivo, personalización, no necesidad de poseer archivos físicos.</li></ul><ul id="3df648ad-99fc-8041-8943-f9e70fb06838" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Frustraciones</strong>: Anuncios entre canciones, no poder descargar música, saltos limitados.</li></ul><h3 id="3df648ad-99fc-80ca-8e6b-d6de25792d52" class="" dir="auto"><strong>📌 Mapa de Valor (Spotify Gratuito)</strong></h3><ul id="3df648ad-99fc-806b-bc23-e0d0663f6fe1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Productos/Servicios</strong>: App de streaming, listas personalizadas (Discover Weekly).</li></ul><ul id="3df648ad-99fc-80e6-8804-ea4e1e733f9d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Creadores de Alegrías</strong>: Algoritmo de recomendación que hace descubrimiento fácil (Alegría: descubrir música). Acceso inmediato (Alegría: ahorrar tiempo).</li></ul><ul id="3df648ad-99fc-806f-b5bf-e9b05f199598" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aliviadores de Frustraciones</strong>: No tener que comprar cada canción (Alivia: costo). (Aunque <em>no</em> alivia la frustración de los anuncios o los saltos limitados; esto está reservado para la versión de pago, lo que crea un &quot;Fit&quot; para un segmento de cliente diferente).</li></ul><h3 id="3df648ad-99fc-80e7-8412-e82bf663bf28" class="" dir="auto"><strong>📌 El Ajuste (Fit)</strong></h3><ul id="3df648ad-99fc-80dd-b926-c61596415a21" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>¿Encaja?</strong>: Sí, para el segmento de clientes que está dispuesto a tolerar anuncios a cambio de música gratuita e ilimitada. El Fit es intencionalmente incompleto para crear un <strong>upgrade</strong> a la versión Premium, donde el Fit es perfecto (sin anuncios, descargas, saltos ilimitados).</li></ul><hr id="3df648ad-99fc-8071-971c-d7f9925c5ebc" dir="auto"/><h2 id="3df648ad-99fc-80ca-8782-cf26a08db740" class="" dir="auto"><strong>⚠️ Errores Comunes</strong></h2><table id="3df648ad-99fc-80f1-9327-e30d6b2339fd" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80ef-b641-ee868e883e85" dir="ltr"><th id="xt&gt;P" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="s@`@" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="QePf" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80a2-8faa-d36b1f9fb641" dir="ltr"><td id="xt&gt;P" class=""><strong>Construir sobre suposiciones</strong></td><td id="s@`@" class="">No validar el perfil del cliente con investigación real.</td><td id="QePf" class="">La propuesta de valor no conecta con la realidad del mercado.</td></tr><tr id="3df648ad-99fc-80a6-a760-c45d234401df" dir="ltr"><td id="xt&gt;P" class=""><strong>Confundir características con beneficios</strong></td><td id="s@`@" class="">Listar &quot;nuestra app es rápida&quot; en lugar de &quot;ahorra tiempo al cliente&quot;.</td><td id="QePf" class="">El cliente no entiende el valor real.</td></tr><tr id="3df648ad-99fc-80b8-84d8-e71746aabdec" dir="ltr"><td id="xt&gt;P" class=""><strong>Crear &quot;creadores de alegrías&quot; sin frustraciones</strong></td><td id="s@`@" class="">Centrarse solo en lo positivo e ignorar los problemas del cliente.</td><td id="QePf" class="">El producto no soluciona lo más urgente para el cliente.</td></tr><tr id="3df648ad-99fc-807c-872a-ccbf34641fc9" dir="ltr"><td id="xt&gt;P" class=""><strong>Intentar aliviar todas las frustraciones</strong></td><td id="s@`@" class="">Querer resolverlo todo para todos los clientes.</td><td id="QePf" class="">Propuesta de valor diluida, costos elevados, sin enfoque claro.</td></tr><tr id="3df648ad-99fc-80d2-9e46-c7ee8243d618" dir="ltr"><td id="xt&gt;P" class=""><strong>No priorizar</strong></td><td id="s@`@" class="">Tratar todas las alegrías y frustraciones con la misma importancia.</td><td id="QePf" class="">Esfuerzos mal invertidos, perder de vista lo que realmente importa.</td></tr><tr id="3df648ad-99fc-8068-8916-ec7a7b4f2a40" dir="ltr"><td id="xt&gt;P" class=""><strong>No iterar</strong></td><td id="s@`@" class="">Crear el canvas una vez y darlo por terminado.</td><td id="QePf" class="">La propuesta de valor queda obsoleta ante cambios del mercado.</td></tr></tbody></table><hr id="3df648ad-99fc-8040-8b31-fda36426a60c" dir="auto"/><h2 id="3df648ad-99fc-8012-bbd2-d4bcc0e0633e" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-80f2-b88e-c47ad9c6a277" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80a2-9325-c306796ad945" dir="ltr"><th id="Alp~" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="juuH" class="simple-table-header-color simple-table-header" style="width:374px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80d2-8e6e-f0443edd6997" dir="ltr"><td id="Alp~" class=""><strong>Desarrollo de nuevo producto</strong></td><td id="juuH" class="" style="width:374px">Validar ideas antes de invertir en desarrollo.</td></tr><tr id="3df648ad-99fc-8026-97ee-dc3c7b61e5e7" dir="ltr"><td id="Alp~" class=""><strong>Mejora de producto existente</strong></td><td id="juuH" class="" style="width:374px">Identificar qué frustraciones no se están aliviando.</td></tr><tr id="3df648ad-99fc-80ab-85f6-d663fc4d3a5d" dir="ltr"><td id="Alp~" class=""><strong>Lanzamiento al mercado</strong></td><td id="juuH" class="" style="width:374px">Definir el mensaje de marketing y el posicionamiento.</td></tr><tr id="3df648ad-99fc-80b7-b9be-e36cbeb32e97" dir="ltr"><td id="Alp~" class=""><strong>Pivot (cambio de estrategia)</strong></td><td id="juuH" class="" style="width:374px">Redefinir la propuesta de valor para un nuevo segmento de clientes.</td></tr><tr id="3df648ad-99fc-8024-87e1-cae2749edef4" dir="ltr"><td id="Alp~" class=""><strong>Análisis de competencia</strong></td><td id="juuH" class="" style="width:374px">Mapear las propuestas de valor de los competidores para encontrar oportunidades.</td></tr></tbody></table><hr id="3df648ad-99fc-80a7-850e-f95e4623f64e" dir="auto"/><h2 id="3df648ad-99fc-8051-9aae-cf046c171684" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-8028-a394-cc72e571a903" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80cc-bde8-db5e8fe3bf87" dir="ltr"><th id="q~OR" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id=":Hoz" class="simple-table-header-color simple-table-header" style="width:383px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80d1-97d3-ccd7d881f12f" dir="ltr"><td id="q~OR" class=""><strong>Business Model Canvas</strong></td><td id=":Hoz" class="" style="width:383px">Es complementario. El Value Proposition Canvas se enfoca en el bloque central del Business Model Canvas: la Propuesta de Valor.</td></tr><tr id="3df648ad-99fc-80d0-a754-e35e02731ba2" dir="ltr"><td id="q~OR" class=""><strong>Product-Market Fit</strong></td><td id=":Hoz" class="" style="width:383px">El objetivo principal del Value Proposition Canvas es lograr este ajuste entre el producto y el mercado.</td></tr><tr id="3df648ad-99fc-80a1-833f-fd05c6fcac8d" dir="ltr"><td id="q~OR" class=""><strong>Lean Startup</strong></td><td id=":Hoz" class="" style="width:383px">El canvas es una herramienta clave para validar hipótesis en el ciclo Construir-Medir-Aprender.</td></tr><tr id="3df648ad-99fc-80ac-92c1-c381bba432be" dir="ltr"><td id="q~OR" class=""><strong>Producto Mínimo Viable (MVP)</strong></td><td id=":Hoz" class="" style="width:383px">El MVP se diseña para probar si las hipótesis de aliviadores de frustraciones y creadores de alegrías son correctas.</td></tr><tr id="3df648ad-99fc-80f8-81b3-d2bd7ed5e617" dir="ltr"><td id="q~OR" class=""><strong>Design Thinking</strong></td><td id=":Hoz" class="" style="width:383px">El canvas se alimenta de la fase de empatía y definición del Design Thinking.</td></tr></tbody></table><hr id="3df648ad-99fc-80c6-9a7d-d8fda4e2ad0a" dir="auto"/><h2 id="3df648ad-99fc-8008-a95c-e6e9269f381d" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-80ff-8a11-df5b81ceafa6" class="" dir="auto">El Canvas de la Propuesta de Valor es como la <strong>cerradura y la llave de una puerta</strong>:</p><ul id="3df648ad-99fc-8011-9bbf-f7f301dc0121" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>Perfil del Cliente</strong> es la <strong>cerradura</strong>: tiene una forma única determinada por los trabajos, alegrías y frustraciones del cliente.</li></ul><ul id="3df648ad-99fc-805b-9d8c-d802ed88f2da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>Mapa de Valor</strong> es la <strong>llave</strong>: está diseñado para encajar en esa cerradura a través de productos, creadores de alegrías y aliviadores de frustraciones.</li></ul><p id="3df648ad-99fc-8072-9850-de46a836df32" class="" dir="auto">Si la llave (tu producto) no encaja perfectamente en la cerradura (las necesidades del cliente), la puerta no se abre (no hay venta). Un buen &quot;Fit&quot; significa que la llave abre la puerta sin esfuerzo.</p><hr id="3df648ad-99fc-80e1-bf58-e54a2f6540ef" dir="auto"/><h2 id="3df648ad-99fc-802e-b5d4-d4eab5c9cbdb" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-80ad-a5fe-c5b64ddb1ec8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., Pigneur, Y., Bernarda, G., &amp; Smith, A. (2014). <em>Value Proposition Design</em>. John Wiley &amp; Sons.</li></ul><ul id="3df648ad-99fc-80a6-a17e-f9a2164d2c02" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation</em>. John Wiley &amp; Sons.</li></ul><ul id="3df648ad-99fc-803e-b98d-f63f71b88bce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Strategyzer (plataforma oficial de la metodología de Osterwalder).</li></ul><ul id="3df648ad-99fc-806f-99d7-dcbd65147845" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2014). <em>The Value Proposition Canvas</em>.</li></ul><hr id="3df648ad-99fc-80cb-a354-c7797be808f1" dir="auto"/><h2 id="3df648ad-99fc-805b-8fca-ee96f0cb634c" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-80d3-b8e1-e59817a53989" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empieza siempre por el cliente</strong>: No diseñes la propuesta de valor antes de entender profundamente al cliente. Es un error común (y costoso) empezar por el producto.</li></ul><ul id="3df648ad-99fc-8002-8c1f-c0397f83f44b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No es un formulario estático</strong>: El canvas se llena, se valida con clientes reales, se descarta y se vuelve a llenar. Es una herramienta de aprendizaje.</li></ul><ul id="3df648ad-99fc-806d-ba74-f89c1d4e74e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Prioriza</strong>: No todas las frustraciones son igual de importantes. Usa un sistema de puntuación (ej: alto, medio, bajo) para enfocar los esfuerzos en lo que más importa.</li></ul><ul id="3df648ad-99fc-80eb-941f-dffd5a46cb21" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El &quot;Fit&quot; puede ser de tres tipos</strong>:<ol type="1" id="3df648ad-99fc-8083-9e0c-f421d481ee74" class="numbered-list" start="1" dir="auto"><li><strong>Ajuste de Problema-Solución</strong>: Frustraciones → Aliviadores.</li></ol><ol type="1" id="3df648ad-99fc-80d7-b5e1-f28947e2a451" class="numbered-list" start="2" dir="auto"><li><strong>Ajuste de Ganancia-Creador</strong>: Alegrías → Creadores de Alegrías.</li></ol><ol type="1" id="3df648ad-99fc-804b-b4cf-d876bf81ab63" class="numbered-list" start="3" dir="auto"><li><strong>Ajuste de Trabajo-Servicio</strong>: Trabajos → Productos y Servicios.</li></ol></li></ul><ul id="3df648ad-99fc-80df-a315-d66ab5c288e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo de uso en una Fintech</strong>:<ul id="3df648ad-99fc-80c1-8cb9-c49edd8ba561" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Cliente</em>: Joven no bancarizado.</li></ul><ul id="3df648ad-99fc-80d1-979a-f143539e61c9" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Frustración</em>: No puede acceder a crédito.</li></ul><ul id="3df648ad-99fc-8061-8dc9-d7221567065d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Aliviador</em>: App que evalúa su historial de pagos de servicios.</li></ul><ul id="3df648ad-99fc-80fc-af8d-f891ed39290c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Alegría</em>: Sentirse incluido financieramente.</li></ul><ul id="3df648ad-99fc-8004-a35f-ec1d73880978" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Creador de Alegría</em>: Tarjeta de crédito digital aprobada en minutos.</li></ul></li></ul><ul id="3df648ad-99fc-80f6-b765-cf2d2a0a51cf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conclusión</strong>: El Canvas de la Propuesta de Valor es una herramienta poderosa para <strong>poner al cliente en el centro de la estrategia</strong>. </li></ul><ul id="3e0648ad-99fc-80e3-83cf-fa19d376f674" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Te obliga a salir de la oficina y hablar con los clientes para entender realmente lo que necesitan. </li></ul><ul id="3e0648ad-99fc-804e-a096-cc03c7dca18a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Su uso es crucial para evitar el error más común en los negocios: <strong>construir algo que nadie quiere</strong>. </li></ul><ul id="3e0648ad-99fc-804c-861d-f764d9661c1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Úsalo siempre que estés diseñando un nuevo producto, entrando a un nuevo mercado o mejorando una oferta existente.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

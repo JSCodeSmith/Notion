@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>PESTEL Analysis</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8084-b4bd-e9176e361153" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">PESTEL Analysis</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3c9648ad-99fc-805f-b1f6-ec71ca273e49" class="" dir="auto"><strong>📄 PESTEL Analysis</strong></h1><hr id="3c9648ad-99fc-80b8-bd03-d218161a338f" dir="auto"/><h2 id="3c9648ad-99fc-808a-ab0d-c753352f0723" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-80c8-9b6f-f6c4bfc3b6f3" class="" dir="auto">PESTEL es un <strong>marco de análisis estratégico</strong> que se utiliza para evaluar el <strong>entorno macro externo</strong> en el que opera una organización. </p><p id="3c9648ad-99fc-80c8-9779-cd68c45d9de2" class="" dir="auto">Examina seis categorías de factores externos que pueden afectar el desempeño y las decisiones estratégicas de una empresa: <strong>Políticos, Económicos, Sociales, Tecnológicos, Ecológicos (Ambientales) y Legales</strong>.</p><hr id="3c9648ad-99fc-805e-bf19-dc4b91f977ae" dir="auto"/><h2 id="3c9648ad-99fc-8077-8569-e9f3ae32e3c3" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80dd-b952-db842ea1df46" class="" dir="auto">El análisis PESTEL, también conocido como PESTLE o STEP, es una herramienta fundamental de <strong>escaneo ambiental</strong>. </p><p id="3c9648ad-99fc-80ff-af63-ff5c70cc9819" class="" dir="auto">Ayuda a las organizaciones a <strong>identificar y comprender</strong> las fuerzas externas que están fuera de su control, pero que pueden tener un impacto significativo en su negocio. </p><p id="3c9648ad-99fc-805b-bd63-fb432a6e8d0f" class="" dir="auto">Proporciona una &quot;fotografía&quot; del entorno en el que la empresa compite, lo que permite anticipar amenazas, aprovechar oportunidades y mitigar riesgos.</p><hr id="3c9648ad-99fc-8054-98bc-df5aaaf66193" dir="auto"/><h2 id="3c9648ad-99fc-809f-ac9c-c16b69784f24" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-8036-9671-de6c5f5e2237" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar amenazas y oportunidades</strong>: Detectar cambios en el entorno que puedan afectar al negocio.</li></ul><ul id="3c9648ad-99fc-8027-b247-d3bef674f2f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Planificar estratégicamente</strong>: Utilizar la información para la formulación de estrategias.</li></ul><ul id="3c9648ad-99fc-8040-aee6-d051aee11a82" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Apoyar la toma de decisiones</strong>: Proporcionar un contexto para decisiones de inversión, expansión o innovación.</li></ul><ul id="3c9648ad-99fc-803f-99d6-f22d87270f73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Evaluar nuevos mercados</strong>: Antes de entrar en un nuevo país o región.</li></ul><ul id="3c9648ad-99fc-80b7-8579-d4a0fce3bf61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestionar riesgos</strong>: Anticipar y prepararse para cambios regulatorios, económicos o sociales.</li></ul><ul id="3c9648ad-99fc-801c-9f61-e6fdf3206ae0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear la estrategia</strong>: Asegurar que la estrategia empresarial sea consistente con el entorno externo.</li></ul><hr id="3c9648ad-99fc-80e0-ab8c-f3dd846227f8" dir="auto"/><h2 id="3c9648ad-99fc-80dd-8d3b-c17a063287cf" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3c9648ad-99fc-8072-aa1f-ce7675a727fc" class="" dir="auto">El análisis PESTEL se realiza siguiendo estos pasos:</p><ol type="1" id="3c9648ad-99fc-8038-8eb5-d26d4545332c" class="numbered-list" start="1" dir="auto"><li><strong>Definir el alcance</strong>: Determinar el horizonte temporal y geográfico del análisis (ej: mercado local, regional o global).</li></ol><ol type="1" id="3c9648ad-99fc-8074-bc11-f93be2595f22" class="numbered-list" start="2" dir="auto"><li><strong>Recopilar información</strong>: Investigar a fondo cada una de las seis categorías, utilizando fuentes como informes gubernamentales, estudios de mercado, noticias económicas y publicaciones especializadas.</li></ol><ol type="1" id="3c9648ad-99fc-80f5-8e25-d1759bcba0ba" class="numbered-list" start="3" dir="auto"><li><strong>Analizar el impacto</strong>: Evaluar cómo cada factor afecta a la organización (positiva o negativamente, y en qué magnitud).</li></ol><ol type="1" id="3c9648ad-99fc-8069-b631-c6d095470478" class="numbered-list" start="4" dir="auto"><li><strong>Priorizar</strong>: Identificar los factores más críticos y urgentes.</li></ol><ol type="1" id="3c9648ad-99fc-802e-bca2-daeabcb376ea" class="numbered-list" start="5" dir="auto"><li><strong>Aplicar a la estrategia</strong>: Integrar los hallazgos en el proceso de planificación estratégica.</li></ol><ol type="1" id="3c9648ad-99fc-80f8-80c5-ff5186f27aaa" class="numbered-list" start="6" dir="auto"><li><strong>Actualizar regularmente</strong>: El entorno cambia; el análisis debe actualizarse periódicamente.</li></ol><hr id="3c9648ad-99fc-8067-87de-df1111464aa2" dir="auto"/><h2 id="3c9648ad-99fc-80ef-b53c-e1e7a85a452b" class="" dir="auto"><strong>📝 Las 6 Fuerzas del PESTEL</strong></h2><hr id="3c9648ad-99fc-80e8-ac5a-e8e178a3b142" dir="auto"/><h3 id="3c9648ad-99fc-8002-bc44-c0b47676c735" class="" dir="auto"><strong>1️⃣ Político (Political)</strong></h3><p id="3c9648ad-99fc-8083-8d84-eec0ac46c3dd" class="" dir="auto"><strong>Definición</strong>: Factores relacionados con la <strong>estabilidad, políticas y acciones del gobierno</strong>, así como el clima político general.</p><p id="3c9648ad-99fc-802f-aa99-f866821e4455" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-8083-9784-e97ff955f3c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estabilidad del gobierno y sistema político.</li></ul><ul id="3c9648ad-99fc-8001-b5e2-e8f7aabff1b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Políticas fiscales y comerciales.</li></ul><ul id="3c9648ad-99fc-808c-9008-d920160ccef2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Relaciones internacionales y conflictos geopolíticos.</li></ul><ul id="3c9648ad-99fc-80f3-93c1-fe59669ea3e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Política de gasto público y subsidios.</li></ul><ul id="3c9648ad-99fc-80b0-8987-e653619e0f3d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Corrupción y transparencia gubernamental.</li></ul><ul id="3c9648ad-99fc-809d-853e-c854306f65a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Regulaciones sobre comercio exterior (aranceles, barreras).</li></ul><ul id="3c9648ad-99fc-8059-afdb-fc71b64a2d3d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Clima de inversión extranjera directa.</li></ul><p id="3c9648ad-99fc-8034-a366-f8bd286591fe" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-8078-a180-f24c50e56309" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: Un gobierno que ofrece incentivos fiscales para startups tecnológicas.</li></ul><ul id="3c9648ad-99fc-80d7-a8cd-e5bcc80a6bb7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Un cambio de gobierno que impone aranceles a productos importados.</li></ul><hr id="3c9648ad-99fc-803c-b5f3-f600099f78a8" dir="auto"/><h3 id="3c9648ad-99fc-8063-bf58-e72c0e344f01" class="" dir="auto"><strong>2️⃣ Económico (Economic)</strong></h3><p id="3c9648ad-99fc-8064-8ee2-ccfb40dc3ec6" class="" dir="auto"><strong>Definición</strong>: Factores que afectan el <strong>rendimiento económico</strong> de un país o región y, por ende, el poder adquisitivo y el comportamiento de los consumidores.</p><p id="3c9648ad-99fc-80d1-91af-c4823160ac21" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-8054-ae28-dd42c92bd1ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crecimiento del PIB (Producto Interno Bruto).</li></ul><ul id="3c9648ad-99fc-809d-b37a-ed465841f35b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tasa de inflación y deflación.</li></ul><ul id="3c9648ad-99fc-80e6-afc4-dfafc0708b59" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tasa de interés y política monetaria.</li></ul><ul id="3c9648ad-99fc-80a3-a81f-f7cd32a349fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tasa de desempleo y nivel de ingresos.</li></ul><ul id="3c9648ad-99fc-80dc-8cdd-d7436a8d13cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tipo de cambio y fluctuaciones monetarias.</li></ul><ul id="3c9648ad-99fc-8031-8119-d54c96ed39a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Disponibilidad de crédito y financiamiento.</li></ul><ul id="3c9648ad-99fc-80a1-ba06-c50cfc66e0a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ciclos económicos (recesión, auge, recuperación).</li></ul><p id="3c9648ad-99fc-8041-937f-fb1a325c7715" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-804b-a01a-ec64c651aa18" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: Una tasa de interés baja que facilita el acceso a financiamiento.</li></ul><ul id="3c9648ad-99fc-8095-9155-c02fb61fb754" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Una recesión económica que reduce el gasto de los consumidores.</li></ul><hr id="3c9648ad-99fc-8063-ac9c-dc17a406c384" dir="auto"/><h3 id="3c9648ad-99fc-8010-aaaa-cdbbcbeee395" class="" dir="auto"><strong>3️⃣ Social (Social)</strong></h3><p id="3c9648ad-99fc-802a-8b85-db995e9be8b3" class="" dir="auto"><strong>Definición</strong>: Factores relacionados con la <strong>demografía, cultura, valores y tendencias sociales</strong> de la población.</p><p id="3c9648ad-99fc-80fa-9f6a-f8026b08e11a" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-801e-9c16-fce7b2dac516" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Distribución por edad, género y etnia.</li></ul><ul id="3c9648ad-99fc-8064-961f-cddce0aedd78" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Nivel educativo y habilidades.</li></ul><ul id="3c9648ad-99fc-80fb-8556-d2e6d733ac9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Tendencias en estilos de vida y hábitos de consumo.</li></ul><ul id="3c9648ad-99fc-806a-90d2-d54d4f92b16d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios en la estructura familiar y roles de género.</li></ul><ul id="3c9648ad-99fc-806a-a19b-eceed2442fa7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Movilidad geográfica y urbanización.</li></ul><ul id="3c9648ad-99fc-80f5-ae33-cf01c5198c45" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Actitudes hacia el trabajo, el ocio y la salud.</li></ul><ul id="3c9648ad-99fc-80b1-a58f-dd33b377e4a1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Conciencia social y preferencias éticas (sostenibilidad, inclusión).</li></ul><p id="3c9648ad-99fc-804f-a59d-fc0ea7961ceb" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-8002-8acf-ce35b4494647" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: Creciente demanda de productos sostenibles y ecológicos.</li></ul><ul id="3c9648ad-99fc-80a4-a219-cb1e66e79536" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Envejecimiento de la población, reduciendo la fuerza laboral disponible.</li></ul><hr id="3c9648ad-99fc-808f-936e-fe96b7fef8f3" dir="auto"/><h3 id="3c9648ad-99fc-80fd-bf14-e799c2586343" class="" dir="auto"><strong>4️⃣ Tecnológico (Technological)</strong></h3><p id="3c9648ad-99fc-80bf-b9d0-d27201c94253" class="" dir="auto"><strong>Definición</strong>: Factores relacionados con la <strong>innovación, desarrollo y adopción de tecnologías</strong> en el entorno.</p><p id="3c9648ad-99fc-80ac-81b2-d1e8aa8c4716" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-803b-b64e-e45f9265bdb8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Avances en Inteligencia Artificial, automatización y robótica.</li></ul><ul id="3c9648ad-99fc-8052-9a5d-ec655a415cdb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Desarrollo de nuevas tecnologías y su tasa de adopción.</li></ul><ul id="3c9648ad-99fc-80d0-b9f5-cec7551b5e6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Inversión en Investigación y Desarrollo (I+D).</li></ul><ul id="3c9648ad-99fc-80d7-b70a-e11399043f8c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Infraestructura digital (internet, conectividad, 5G).</li></ul><ul id="3c9648ad-99fc-8090-9388-c8541c6a60db" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Plataformas y ecosistemas digitales.</li></ul><ul id="3c9648ad-99fc-8068-8b36-c6f78b5f9ce6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Propiedad intelectual y patentes.</li></ul><ul id="3c9648ad-99fc-80c1-8f98-c48641a8bfa3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Automatización y ciberseguridad.</li></ul><p id="3c9648ad-99fc-8091-b07e-f8d427b45731" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-8085-8246-c312c5b95a8d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: La adopción de inteligencia artificial para mejorar procesos.</li></ul><ul id="3c9648ad-99fc-804a-8173-fdf9b1d4b93c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Competidores que utilizan tecnologías disruptivas para ofrecer soluciones más económicas.</li></ul><hr id="3c9648ad-99fc-8096-b74e-f5336c579471" dir="auto"/><h3 id="3c9648ad-99fc-8085-802a-fb03aa8b9a8b" class="" dir="auto"><strong>5️⃣ Ecológico (Environmental)</strong></h3><p id="3c9648ad-99fc-80a7-94d9-d57577bbe294" class="" dir="auto"><strong>Definición</strong>: Factores relacionados con el <strong>medio ambiente, recursos naturales y sostenibilidad</strong>. A veces se denomina &quot;Ambiental&quot; o &quot;Ecológico&quot;.</p><p id="3c9648ad-99fc-8009-8f7e-f62371c9da5d" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-8016-bfd2-c1d585ac9a56" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambio climático y fenómenos meteorológicos extremos.</li></ul><ul id="3c9648ad-99fc-80ce-91f2-e132928aa713" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Escasez de recursos naturales (agua, energía, materias primas).</li></ul><ul id="3c9648ad-99fc-805b-b803-f72dea0e8d78" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Niveles de contaminación y gestión de residuos.</li></ul><ul id="3c9648ad-99fc-80a0-aa9d-c4ace551993b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Legislación ambiental y estándares de sostenibilidad.</li></ul><ul id="3c9648ad-99fc-80d3-a1ec-f69a89ad9137" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Preocupación social por la huella de carbono y el impacto ecológico.</li></ul><ul id="3c9648ad-99fc-804f-b3f8-f059807a7a59" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Economía circular y modelos de negocio sostenibles.</li></ul><ul id="3c9648ad-99fc-8021-9feb-efd217707c6c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Disponibilidad y costo de energías renovables.</li></ul><p id="3c9648ad-99fc-80c5-8c50-f57ffb0b74d6" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-803f-87f9-c7d18ae2c15c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: Ofrecer productos ecológicos que atraen a consumidores conscientes.</li></ul><ul id="3c9648ad-99fc-80e4-b4eb-cad3a126b0ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Regulaciones que aumentan el costo de producción por requisitos ambientales.</li></ul><hr id="3c9648ad-99fc-8091-9036-e8ce245a8083" dir="auto"/><h3 id="3c9648ad-99fc-80b1-a24c-f5c96216734a" class="" dir="auto"><strong>6️⃣ Legal (Legal)</strong></h3><p id="3c9648ad-99fc-8068-9d99-f6696e7e01e1" class="" dir="auto"><strong>Definición</strong>: Factores relacionados con el <strong>marco jurídico y regulatorio</strong> que afecta a la empresa.</p><p id="3c9648ad-99fc-80c2-90d3-f7ec7b88837c" class="" dir="auto"><strong>Factores a considerar</strong>:</p><ul id="3c9648ad-99fc-8053-943d-edd072ad2ac3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Leyes laborales y de seguridad en el trabajo.</li></ul><ul id="3c9648ad-99fc-808b-aaf2-d3d14a188acc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Protección de datos y privacidad (ej: GDPR, LGPD).</li></ul><ul id="3c9648ad-99fc-8078-9b43-cc2f95a478b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Leyes de competencia y antimonopolio.</li></ul><ul id="3c9648ad-99fc-80ed-b0d7-c0b27b48d4fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Legislación fiscal y tributaria.</li></ul><ul id="3c9648ad-99fc-804e-8966-eafa11f9a962" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Normativas sectoriales específicas (salud, finanzas, telecomunicaciones).</li></ul><ul id="3c9648ad-99fc-8086-86f8-c3352e34b5bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Propiedad intelectual y derechos de autor.</li></ul><ul id="3c9648ad-99fc-803e-b4a5-ccb95c302f3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Leyes de protección al consumidor.</li></ul><p id="3c9648ad-99fc-80e2-94e6-e33934b233b2" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-809a-b282-f06170ead923" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportunidad</strong>: Una reforma fiscal que reduce la carga impositiva para startups.</li></ul><ul id="3c9648ad-99fc-80f2-b0cb-e926413003e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Amenaza</strong>: Nuevas leyes de protección de datos que requieren grandes inversiones en cumplimiento.</li></ul><hr id="3c9648ad-99fc-802c-a992-c97c07d18ce6" dir="auto"/><h2 id="3c9648ad-99fc-80a2-bfdd-da67c073a8a0" class="" dir="auto"><strong>💡 Ejemplos Prácticos</strong></h2><h3 id="3c9648ad-99fc-80e2-b83b-dd1497c21f2c" class="" dir="auto"><strong>Ejemplo 1: Análisis PESTEL para una Fintech Latinoamericana que planea expandirse</strong></h3><table id="3c9648ad-99fc-8051-b9b8-ce2f10674127" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80a8-9ae2-eaad785b9ff2" dir="ltr"><th id="Qp|}" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="agRG" class="simple-table-header-color simple-table-header"><strong>Factor</strong></th><th id="c]{s" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80e3-9010-cd8bc563d10f" dir="ltr"><td id="Qp|}" class=""><strong>Político</strong></td><td id="agRG" class="">Gobiernos en la región con políticas favorables a la innovación financiera.</td><td id="c]{s" class=""><strong>Positivo</strong>: Mayor apoyo a la inclusión financiera.</td></tr><tr id="3c9648ad-99fc-80fc-9402-da60fce34150" dir="ltr"><td id="Qp|}" class=""><strong>Económico</strong></td><td id="agRG" class="">Alta inflación y volatilidad del tipo de cambio.</td><td id="c]{s" class=""><strong>Negativo</strong>: Dificultad para fijar precios y gestionar ingresos en múltiples monedas.</td></tr><tr id="3c9648ad-99fc-80db-94c3-cd657255070c" dir="ltr"><td id="Qp|}" class=""><strong>Social</strong></td><td id="agRG" class="">Alta penetración de smartphones y población joven y digital.</td><td id="c]{s" class=""><strong>Positivo</strong>: Mercado potencial enorme para la banca digital.</td></tr><tr id="3c9648ad-99fc-8030-a452-eb389c7eb917" dir="ltr"><td id="Qp|}" class=""><strong>Tecnológico</strong></td><td id="agRG" class="">Avances en IA y cloud computing que permiten personalización y escalabilidad.</td><td id="c]{s" class=""><strong>Positivo</strong>: Oportunidad de innovar en servicios financieros.</td></tr><tr id="3c9648ad-99fc-80e3-8d45-c37abfdc7efc" dir="ltr"><td id="Qp|}" class=""><strong>Ecológico</strong></td><td id="agRG" class="">Creciente demanda de servicios financieros sostenibles (banca verde).</td><td id="c]{s" class=""><strong>Positivo</strong>: Oportunidad de diferenciación.</td></tr><tr id="3c9648ad-99fc-800f-be3e-eed72522746a" dir="ltr"><td id="Qp|}" class=""><strong>Legal</strong></td><td id="agRG" class="">Regulaciones de protección de datos (LGPD en Brasil, GDPR en Europa).</td><td id="c]{s" class=""><strong>Negativo</strong>: Costos y complejidad en el cumplimiento.</td></tr></tbody></table><p id="3c9648ad-99fc-80a3-b5d0-cb63d7a778af" class="" dir="auto"><strong>Estrategia sugerida</strong>: Expandirse aprovechando la población digital, pero con un fuerte enfoque en cumplimiento legal y protección de datos.</p><hr id="3c9648ad-99fc-80ae-a6b6-d442a3326236" dir="auto"/><h3 id="3c9648ad-99fc-80e7-bd14-f12de25f5209" class="" dir="auto"><strong>Ejemplo 2: Análisis PESTEL para una Empresa de Retail (Comercio Minorista)</strong></h3><table id="3c9648ad-99fc-808d-8f83-dfe565da8705" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e1-aa60-cb6a0c13c8ba" dir="ltr"><th id="CxkC" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="NEeW" class="simple-table-header-color simple-table-header"><strong>Factor</strong></th><th id="OAAe" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8011-85f1-d6ab7d15e0d2" dir="ltr"><td id="CxkC" class=""><strong>Político</strong></td><td id="NEeW" class="">Cambios en las políticas de importación y aranceles.</td><td id="OAAe" class=""><strong>Negativo</strong>: Aumento de costos de productos importados.</td></tr><tr id="3c9648ad-99fc-8083-88e8-d4169747b721" dir="ltr"><td id="CxkC" class=""><strong>Económico</strong></td><td id="NEeW" class="">Caída del poder adquisitivo por inflación.</td><td id="OAAe" class=""><strong>Negativo</strong>: Menor consumo de productos no esenciales.</td></tr><tr id="3c9648ad-99fc-80fb-9e59-e44ff5d87a98" dir="ltr"><td id="CxkC" class=""><strong>Social</strong></td><td id="NEeW" class="">Creciente preferencia por compras en línea y experiencias omnicanal.</td><td id="OAAe" class=""><strong>Positivo</strong>: Oportunidad de transformación digital.</td></tr><tr id="3c9648ad-99fc-8011-9389-da992d383556" dir="ltr"><td id="CxkC" class=""><strong>Tecnológico</strong></td><td id="NEeW" class="">Avances en automatización y logística inteligente.</td><td id="OAAe" class=""><strong>Positivo</strong>: Optimización de la cadena de suministro.</td></tr><tr id="3c9648ad-99fc-802b-beba-e5cc845ccbbd" dir="ltr"><td id="CxkC" class=""><strong>Ecológico</strong></td><td id="NEeW" class="">Mayor conciencia ambiental; demanda de productos sostenibles.</td><td id="OAAe" class=""><strong>Positivo</strong>: Líneas de productos ecológicos y empaques reciclables.</td></tr><tr id="3c9648ad-99fc-80a9-b52e-f794f070977d" dir="ltr"><td id="CxkC" class=""><strong>Legal</strong></td><td id="NEeW" class="">Leyes de protección al consumidor más estrictas.</td><td id="OAAe" class=""><strong>Negativo</strong>: Mayor costo de cumplimiento y riesgo de sanciones.</td></tr></tbody></table><p id="3c9648ad-99fc-8053-9762-f9a046724800" class="" dir="auto"><strong>Estrategia sugerida</strong>: Invertir en e-commerce y omnicanalidad, además de fortalecer la oferta de productos sostenibles.</p><hr id="3c9648ad-99fc-80f0-909f-ed5049936819" dir="auto"/><h2 id="3c9648ad-99fc-80c7-98ad-e5fe677989ca" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar PESTEL</strong></h2><table id="3c9648ad-99fc-809e-9924-f375d1fdad52" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e2-87d9-c1135e1f32e4" dir="ltr"><th id="UAnl" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="arR&gt;" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="Ot\=" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80cc-8411-dc57e1d17328" dir="ltr"><td id="UAnl" class=""><strong>Análisis superficial</strong></td><td id="arR&gt;" class="">Basarse en suposiciones en lugar de datos concretos.</td><td id="Ot\=" class="">Decisiones estratégicas basadas en información incorrecta.</td></tr><tr id="3c9648ad-99fc-8005-9b96-d3926200baab" dir="ltr"><td id="UAnl" class=""><strong>Ignorar la interacción entre factores</strong></td><td id="arR&gt;" class="">Analizar cada factor de forma aislada.</td><td id="Ot\=" class="">No ver el panorama completo; perder interrelaciones clave.</td></tr><tr id="3c9648ad-99fc-80ca-abe4-c1f410f6d584" dir="ltr"><td id="UAnl" class=""><strong>No priorizar</strong></td><td id="arR&gt;" class="">Identificar muchos factores sin distinguir los críticos.</td><td id="Ot\=" class="">Dilución de la estrategia, falta de enfoque.</td></tr><tr id="3c9648ad-99fc-80d4-a633-d16365813ede" dir="ltr"><td id="UAnl" class=""><strong>Análisis estático</strong></td><td id="arR&gt;" class="">No actualizar el análisis regularmente.</td><td id="Ot\=" class="">Estrategias obsoletas que no responden a cambios recientes.</td></tr><tr id="3c9648ad-99fc-8064-964b-de828cf1aa48" dir="ltr"><td id="UAnl" class=""><strong>No integrar con la estrategia</strong></td><td id="arR&gt;" class="">Hacer el análisis pero no usarlo en la toma de decisiones.</td><td id="Ot\=" class="">Pérdida de tiempo; el análisis no genera valor.</td></tr><tr id="3c9648ad-99fc-80c5-80ae-e94853b30e7b" dir="ltr"><td id="UAnl" class=""><strong>Sesgo de confirmación</strong></td><td id="arR&gt;" class="">Buscar solo factores que confirman ideas preconcebidas.</td><td id="Ot\=" class="">Ceguera ante amenazas reales y oportunidades no consideradas.</td></tr><tr id="3c9648ad-99fc-803b-aaf9-e3a090d26bfb" dir="ltr"><td id="UAnl" class=""><strong>Extensión excesiva</strong></td><td id="arR&gt;" class="">Tratar de cubrir demasiados factores o regiones.</td><td id="Ot\=" class="">Análisis poco profundo y difícil de gestionar.</td></tr></tbody></table><hr id="3c9648ad-99fc-80ad-87c1-db65275ed3ea" dir="auto"/><h2 id="3c9648ad-99fc-8040-a92a-d6f27a4c0e50" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-804a-98e0-e631ff36869b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80eb-aeb9-c86107070d2f" dir="ltr"><th id="jp_~" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="zh[\" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8005-ab38-f33e228e46b2" dir="ltr"><td id="jp_~" class=""><strong>Expansión internacional</strong></td><td id="zh[\" class="">Evaluar el entorno de un nuevo país antes de entrar.</td></tr><tr id="3c9648ad-99fc-809a-95b4-f89bba37505f" dir="ltr"><td id="jp_~" class=""><strong>Planificación estratégica</strong></td><td id="zh[\" class="">Entender el contexto macro para la formulación de estrategias.</td></tr><tr id="3c9648ad-99fc-808a-ae64-f56e334a9fb4" dir="ltr"><td id="jp_~" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id="zh[\" class="">Evaluar la viabilidad de un producto en un mercado específico.</td></tr><tr id="3c9648ad-99fc-80b7-a0ae-e4118e0f3a4c" dir="ltr"><td id="jp_~" class=""><strong>Gestión de riesgos</strong></td><td id="zh[\" class="">Identificar riesgos externos y preparar planes de contingencia.</td></tr><tr id="3c9648ad-99fc-807f-b551-df3ddc65e75b" dir="ltr"><td id="jp_~" class=""><strong>Análisis de competencia</strong></td><td id="zh[\" class="">Comparar el entorno en el que operan competidores.</td></tr><tr id="3c9648ad-99fc-8088-a302-eead25aabb49" dir="ltr"><td id="jp_~" class=""><strong>Innovación y desarrollo</strong></td><td id="zh[\" class="">Identificar tendencias tecnológicas o sociales para innovar.</td></tr><tr id="3c9648ad-99fc-8028-9fad-c8ff3d8c1a0f" dir="ltr"><td id="jp_~" class=""><strong>Relaciones con inversores</strong></td><td id="zh[\" class="">Proporcionar contexto para justificar decisiones estratégicas.</td></tr></tbody></table><hr id="3c9648ad-99fc-80c3-a649-c869fc9f1edd" dir="auto"/><h2 id="3c9648ad-99fc-80ef-813b-f176df1eee33" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-80de-9afa-dfc4909ae364" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-805a-9a31-ffb368a47a4f" dir="ltr"><th id="Q|gI" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="s[KH" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8004-be28-c39511854941" dir="ltr"><td id="Q|gI" class=""><strong>Análisis FODA (SWOT)</strong></td><td id="s[KH" class="">PESTEL analiza el entorno externo; FODA integra lo externo (Oportunidades y Amenazas) con lo interno (Fortalezas y Debilidades).</td></tr><tr id="3c9648ad-99fc-805e-934e-fb5e2e7430ae" dir="ltr"><td id="Q|gI" class=""><strong>Las 5 Fuerzas de Porter</strong></td><td id="s[KH" class="">PESTEL analiza el macroentorno; Porter analiza el microentorno (industria). Son complementarios.</td></tr><tr id="3c9648ad-99fc-8010-8cd4-df60963b1f65" dir="ltr"><td id="Q|gI" class=""><strong>Análisis de Escenarios</strong></td><td id="s[KH" class="">PESTEL proporciona insumos para construir escenarios futuros.</td></tr><tr id="3c9648ad-99fc-807e-8ba6-ffa1e2e21b8d" dir="ltr"><td id="Q|gI" class=""><strong>Mercados Emergentes</strong></td><td id="s[KH" class="">PESTEL es útil para evaluar mercados con entornos volátiles.</td></tr><tr id="3c9648ad-99fc-8033-90c0-f2e252ee6735" dir="ltr"><td id="Q|gI" class=""><strong>Sostenibilidad</strong></td><td id="s[KH" class="">El factor Ecológico se ha vuelto central en los análisis PESTEL modernos.</td></tr><tr id="3c9648ad-99fc-8092-889f-c296ec8378ba" dir="ltr"><td id="Q|gI" class=""><strong>Planificación Estratégica</strong></td><td id="s[KH" class="">PESTEL es una herramienta fundamental en este proceso.</td></tr><tr id="3c9648ad-99fc-8017-896d-e2f190fc240f" dir="ltr"><td id="Q|gI" class=""><strong>Inteligencia de Mercado</strong></td><td id="s[KH" class="">PESTEL es una forma de inteligencia competitiva.</td></tr></tbody></table><hr id="3c9648ad-99fc-8069-9bb5-d8b7d75e5b22" dir="auto"/><h2 id="3c9648ad-99fc-807c-842c-ef615f08d9b4" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-809e-bd26-c2f6cb12c2da" class="" dir="auto">El análisis PESTEL es como <strong>el pronóstico del tiempo para una empresa</strong>. Así como un capitán de barco necesita conocer el clima, la temperatura, la presión atmosférica y la dirección del viento para navegar, un líder empresarial necesita conocer el entorno político, económico, social, tecnológico, ecológico y legal para &quot;navegar&quot; su organización. Un buen capitán no solo mira el pronóstico, sino que también ajusta la ruta según las condiciones. Y, al igual que el clima, el entorno empresarial es dinámico; hay que revisar el pronóstico regularmente.</p><hr id="3c9648ad-99fc-80cb-8e3f-d4a8a3024053" dir="auto"/><h2 id="3c9648ad-99fc-80bf-8402-ff5eb015fb1f" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-8092-be2d-d470c1a8dd94" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Yüksel, I. (2012). <em>Developing a Multi-Criteria Decision Making Model for PESTEL Analysis</em>. International Journal of Business and Management.</li></ul><ul id="3c9648ad-99fc-8001-998f-d0a03d8d7706" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aguilar, F. J. (1967). <em>Scanning the Business Environment</em>. Macmillan.</li></ul><ul id="3c9648ad-99fc-8015-8cef-d39fda0e7e32" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, R. S., &amp; Norton, D. P. (1996). <em>The Balanced Scorecard</em>. Harvard Business Review.</li></ul><ul id="3c9648ad-99fc-806d-89e1-ff859f052bc9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Johnson, G., Scholes, K., &amp; Whittington, R. (2008). <em>Exploring Corporate Strategy</em>. FT Prentice Hall.</li></ul><ul id="3c9648ad-99fc-8043-b8d8-d802c353116a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2022). <em>PESTLE Analysis: A Framework for Understanding Macro-Environmental Forces</em>.</li></ul><ul id="3c9648ad-99fc-80b8-a120-db03a17dc78e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Oxford University Press, (2017). <em>Strategic Management: Concepts and Cases</em>.</li></ul><hr id="3c9648ad-99fc-8044-8b6a-fcbac2a4b7ac" dir="auto"/><h2 id="3c9648ad-99fc-800e-9d9a-c5d5488da3f7" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-803b-a4dc-d1305c7b1959" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El orden de las categorías puede variar</strong>: A veces se llama PEST (sin Ecológico y Legal), o STEP, o SLEPT, o STEEPLE (con Ética). Pero el contenido es fundamentalmente el mismo.</li></ul><ul id="3c9648ad-99fc-80d8-87df-f8ea524bf59c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La importancia del factor ecológico</strong>: Antes era menos relevante; hoy es central. El cambio climático y la sostenibilidad son temas prioritarios para empresas y gobiernos.</li></ul><ul id="3c9648ad-99fc-80fe-9935-df88c8589cd3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>PESTEL y digitalización</strong>: El factor tecnológico es ahora el más dinámico y disruptivo. La transformación digital afecta a todas las demás categorías.</li></ul><ul id="3c9648ad-99fc-8038-b687-f0684a63f0b6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Global vs Local</strong>: Un análisis PESTEL puede hacerse a nivel global, regional, nacional o incluso local. El nivel de detalle debe ajustarse al objetivo.</li></ul><ul id="3c9648ad-99fc-80f3-a22b-d3d2944ba022" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para un buen análisis PESTEL</strong>:<ol type="1" id="3c9648ad-99fc-8081-9ed2-de13efdb06f4" class="numbered-list" start="1" dir="auto"><li><strong>Investiga, no supongas</strong>: Usa fuentes confiables y datos actualizados.</li></ol><ol type="1" id="3c9648ad-99fc-80f7-b8b0-fd8bafa70c63" class="numbered-list" start="2" dir="auto"><li><strong>Sé específico</strong>: &quot;Inflación&quot; no es suficiente; ¿cuánto? ¿cuál es la tendencia?</li></ol><ol type="1" id="3c9648ad-99fc-8055-bc64-e23c00277fb0" class="numbered-list" start="3" dir="auto"><li><strong>Piensa en el horizonte temporal</strong>: Los factores de corto, mediano y largo plazo tienen diferente impacto.</li></ol><ol type="1" id="3c9648ad-99fc-80db-890d-c3cf21fdc274" class="numbered-list" start="4" dir="auto"><li><strong>Involucra a diferentes áreas</strong>: La perspectiva de marketing, finanzas, operaciones y recursos humanos enriquecen el análisis.</li></ol><ol type="1" id="3c9648ad-99fc-80e5-aef9-ee5a8ba8dbfd" class="numbered-list" start="5" dir="auto"><li><strong>Cuantifica cuando sea posible</strong>: Asigna probabilidades e impactos para priorizar.</li></ol><ol type="1" id="3c9648ad-99fc-80ba-8fdf-cc6a98e89f8b" class="numbered-list" start="6" dir="auto"><li><strong>Mantén una visión crítica</strong>: No todo cambio es una amenaza u oportunidad; evalúa objetivamente.</li></ol><ol type="1" id="3c9648ad-99fc-8085-b1c3-eae6843e9cc2" class="numbered-list" start="7" dir="auto"><li><strong>Actualiza regularmente</strong>: El entorno cambia rápido; el análisis debe ser un documento vivo.</li></ol></li></ul><ul id="3c9648ad-99fc-80bf-8ce6-fef975e4990d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo de priorización con matriz de impacto/probabilidad</strong>:<table id="3c9648ad-99fc-8092-9ecb-cbd541869a55" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8006-b993-fd1306d33b62" dir="ltr"><th id="jt~{" class="simple-table-header-color simple-table-header"><strong>Factor</strong></th><th id="FHj=" class="simple-table-header-color simple-table-header"><strong>Probabilidad</strong></th><th id="=|S@" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th><th id="^_u&lt;" class="simple-table-header-color simple-table-header"><strong>Prioridad</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80e1-b0e4-d2162de8961d" dir="ltr"><td id="jt~{" class="">Inflación alta</td><td id="FHj=" class="">Alta</td><td id="=|S@" class="">Alto</td><td id="^_u&lt;" class="">CRÍTICO</td></tr><tr id="3c9648ad-99fc-80e4-9a62-c1cc26bf68cd" dir="ltr"><td id="jt~{" class="">Nuevas leyes de protección de datos</td><td id="FHj=" class="">Media</td><td id="=|S@" class="">Alto</td><td id="^_u&lt;" class="">ALTO</td></tr><tr id="3c9648ad-99fc-8055-8299-d9f9c417b333" dir="ltr"><td id="jt~{" class="">Cambio de gobierno</td><td id="FHj=" class="">Media</td><td id="=|S@" class="">Medio</td><td id="^_u&lt;" class="">MEDIO</td></tr><tr id="3c9648ad-99fc-8049-98b5-ffcfc0fab11a" dir="ltr"><td id="jt~{" class="">Avance en IA</td><td id="FHj=" class="">Alta</td><td id="=|S@" class="">Alto</td><td id="^_u&lt;" class="">ESTRATÉGICO</td></tr></tbody></table></li></ul><ul id="3c9648ad-99fc-8091-b007-f1a26cfa4a95" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Integración con el FODA</strong>: Los factores identificados en PESTEL se convierten en <strong>Oportunidades</strong> (si son positivos) y <strong>Amenazas</strong> (si son negativos) en el análisis FODA.</li></ul><ul id="3c9648ad-99fc-80ee-bb2a-d3f71b9429e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tendencias actuales para incluir en un PESTEL (2025)</strong>:<ul id="3c9648ad-99fc-80db-a854-f9db4c58fdad" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Político</strong>: Geopolítica tensa, proteccionismo, nacionalismo digital.</li></ul><ul id="3c9648ad-99fc-8019-9041-e8f8e5bf9041" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Económico</strong>: Desaceleración global, inflación persistente, criptomonedas.</li></ul><ul id="3c9648ad-99fc-80be-b60d-effec45fdb07" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Social</strong>: Envejecimiento poblacional, cambio en hábitos de trabajo (remoto), conciencia social.</li></ul><ul id="3c9648ad-99fc-8054-8cdf-d782fb954d94" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Tecnológico</strong>: IA generativa, computación cuántica, biotecnología.</li></ul><ul id="3c9648ad-99fc-80c3-9784-d3bb9914a4b6" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Ecológico</strong>: Cambio climático, economía circular, regulaciones de emisiones.</li></ul><ul id="3c9648ad-99fc-8028-bf1f-deac4fd04ea1" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Legal</strong>: Regulación de IA, protección de datos, fiscalidad digital.</li></ul></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

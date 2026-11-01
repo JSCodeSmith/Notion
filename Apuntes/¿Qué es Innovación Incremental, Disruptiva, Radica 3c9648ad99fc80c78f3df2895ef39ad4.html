@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>¿Qué es Innovación? Incremental, Disruptiva, Radical y Tecnológica </title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c9648ad-99fc-80c7-8f3d-f2895ef39ad4" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">¿Qué es Innovación? Incremental, Disruptiva, Radical y Tecnológica </h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-80d1-b24f-fcc791a9b003" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-8051-926e-eaccd1264ca4" class="" dir="auto"><strong>📄 Innovación y sus Tipos</strong></h1><hr id="3c9648ad-99fc-803a-a11c-fb4c98ba0a16" dir="auto"/><h2 id="3c9648ad-99fc-80a8-ad1a-ced21053962d" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-80df-886b-e74ec123b791" class="" dir="auto">La innovación es el <strong>proceso de introducir algo nuevo</strong> (un producto, servicio, proceso, método o modelo de negocio) que <strong>genera valor</strong> para la organización, sus clientes y la sociedad. </p><p id="3c9648ad-99fc-80f1-b0d5-fc063f8a4a9d" class="" dir="auto">No se trata solo de una idea brillante, sino de <strong>implementar</strong> esa idea de manera exitosa y que tenga un impacto positivo.</p><hr id="3c9648ad-99fc-8019-8abc-c6f22596b452" dir="auto"/><h2 id="3c9648ad-99fc-803d-8270-d28ba0afee58" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-8081-96ac-ef3a8d494c56" class="" dir="auto">La innovación no es sinónimo de invención. </p><p id="3c9648ad-99fc-807c-9353-c1644c553f0e" class="" dir="auto">La invención es la creación de algo nuevo por primera vez (el primer teléfono). </p><p id="3c9648ad-99fc-8069-9478-dffb0b520db5" class="" dir="auto">La innovación es la <strong>aplicación práctica de esa invención de manera que genere valor</strong> (que el teléfono se convierta en un producto accesible y útil para millones de personas).</p><p id="3c9648ad-99fc-8059-a11f-c90d8fdd3571" class="" dir="auto">En el entorno empresarial actual, la innovación es un <strong>imperativo estratégico</strong>. </p><p id="3c9648ad-99fc-8023-96e9-c18e73f115c1" class="" dir="auto">Las organizaciones que no innovan corren el riesgo de volverse irrelevantes en un mercado que evoluciona constantemente. </p><p id="3c9648ad-99fc-80cd-b7ee-e0edfdb80c77" class="" dir="auto">Como dijo el economista Joseph Schumpeter: <em>&quot;La innovación es el motor del desarrollo económico, que destruye lo viejo y crea lo nuevo&quot;</em>.</p><hr id="3c9648ad-99fc-808b-9938-d107d712b714" dir="auto"/><h2 id="3c9648ad-99fc-804a-a3bf-ea4bde7c8cff" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-8074-8c75-ec2404cf23e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear ventaja competitiva</strong>: Diferenciarse de la competencia con propuestas únicas.</li></ul><ul id="3c9648ad-99fc-8071-8495-c568a3ef7ce2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aumentar la rentabilidad</strong>: Nuevos productos o procesos generan mayores márgenes.</li></ul><ul id="3c9648ad-99fc-807b-a4ea-c21a727f1d76" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Responder a los cambios del mercado</strong>: Adaptarse a nuevas necesidades y tecnologías.</li></ul><ul id="3c9648ad-99fc-8012-bd13-ea56a2ee136d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la eficiencia operativa</strong>: Optimizar procesos reduce costos y tiempos.</li></ul><ul id="3c9648ad-99fc-807f-8aa4-de9eb0663abc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Atraer y retener talento</strong>: Los profesionales quieren trabajar en entornos innovadores.</li></ul><ul id="3c9648ad-99fc-8042-bb44-daf1ef932a8d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Satisfacer a los clientes</strong>: Resolver problemas no atendidos o de maneras nunca antes vistas.</li></ul><ul id="3c9648ad-99fc-807d-a171-f9acb6e9b697" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asegurar la sostenibilidad</strong>: Las empresas que no innovan tienden a desaparecer.</li></ul><hr id="3c9648ad-99fc-8039-88c1-db242b52ead4" dir="auto"/><h2 id="3c9648ad-99fc-8051-876b-dd46e08e331a" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Fuentes y Procesos de Innovación</strong></h2><p id="3c9648ad-99fc-8076-a166-fd4e346c4ff4" class="" dir="auto">La innovación puede surgir de diversas fuentes:</p><ul id="3c9648ad-99fc-80a5-8141-d44697eabef7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Internas</strong>: I+D, equipos de innovación, sugerencias de empleados.</li></ul><ul id="3c9648ad-99fc-8040-a59d-cba3bd1ecb62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Externas</strong>: Clientes, proveedores, startups, universidades, competidores.</li></ul><ul id="3c9648ad-99fc-80e0-bb1b-fedec997a6e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tecnológicas</strong>: Avances en IA, biotecnología, materiales, etc.</li></ul><ul id="3c9648ad-99fc-8033-9e63-e7b7739f2158" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sociales</strong>: Cambios en las preferencias, hábitos y valores de los consumidores.</li></ul><p id="3c9648ad-99fc-80c3-8e06-da53777f949f" class="" dir="auto"><strong>El proceso típico de innovación sigue estas etapas</strong>:</p><ol type="1" id="3c9648ad-99fc-80d8-81e8-d4174dd29358" class="numbered-list" start="1" dir="auto"><li><strong>Identificación de oportunidades</strong>: Detectar necesidades no satisfechas o problemas por resolver.</li></ol><ol type="1" id="3c9648ad-99fc-8040-951f-f8bc647d2364" class="numbered-list" start="2" dir="auto"><li><strong>Generación de ideas</strong>: Lluvia de ideas, creatividad, investigación.</li></ol><ol type="1" id="3c9648ad-99fc-80e9-9d80-f40fb559d958" class="numbered-list" start="3" dir="auto"><li><strong>Selección y evaluación</strong>: Filtrar las mejores ideas según su viabilidad y potencial.</li></ol><ol type="1" id="3c9648ad-99fc-8090-bdc7-f3d4cbdbeab0" class="numbered-list" start="4" dir="auto"><li><strong>Desarrollo</strong>: Convertir la idea en un prototipo o producto mínimo viable (MVP).</li></ol><ol type="1" id="3c9648ad-99fc-80bf-a1c3-e03848cd690c" class="numbered-list" start="5" dir="auto"><li><strong>Implementación</strong>: Lanzar la innovación al mercado.</li></ol><ol type="1" id="3c9648ad-99fc-80b6-ae85-c853740ca807" class="numbered-list" start="6" dir="auto"><li><strong>Difusión y escalamiento</strong>: Expandir la innovación y mejorar continuamente.</li></ol><hr id="3c9648ad-99fc-8072-aa6f-f5aafe263005" dir="auto"/><h2 id="3c9648ad-99fc-80bf-82a3-e4d814ce4922" class="" dir="auto"><strong>📝 Tipos de Innovación</strong></h2><p id="3c9648ad-99fc-8049-8eb0-df6e5c995ea8" class="" dir="auto">Existen múltiples formas de clasificar la innovación. </p><p id="3ca648ad-99fc-804d-a2be-fff0809ec736" class="" dir="auto">La clasificación más común (según el <strong>impacto</strong> y la <strong>novedad</strong>) distingue entre <strong>innovación incremental, disruptiva, radical y tecnológica</strong>. </p><p id="3ca648ad-99fc-80c8-ae39-d2da95293c7a" class="" dir="auto">A continuación, las analizamos en detalle:</p><hr id="3c9648ad-99fc-8067-8cc5-c397a9e27758" dir="auto"/><h3 id="3c9648ad-99fc-80e1-94b3-eb4f3d773f64" class="" dir="auto"><strong>1️⃣ Innovación Incremental</strong></h3><p id="3c9648ad-99fc-80de-8428-f856a371fe19" class="" dir="auto"><strong>Definición</strong>: Es un tipo de innovación que introduce <strong>mejoras graduales y continuas</strong> en productos, servicios o procesos existentes. </p><p id="3ca648ad-99fc-80f7-a6aa-d0984f0b6a1e" class="" dir="auto">No cambia el paradigma actual, sino que lo optimiza.</p><p id="3c9648ad-99fc-80e8-8dd1-c85d2f98c67c" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-8003-816d-faf4ebed8fc3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bajo riesgo.</li></ul><ul id="3c9648ad-99fc-8081-8cf4-c00fa81a9ffa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Menor inversión en I+D.</li></ul><ul id="3c9648ad-99fc-80bd-b0c4-f8d81b21fb50" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se enfoca en la eficiencia y la mejora continua.</li></ul><ul id="3c9648ad-99fc-800c-8051-eddd12410871" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Generalmente, es una respuesta a la retroalimentación del cliente o a la competencia.</li></ul><ul id="3c9648ad-99fc-8049-8587-fe670c0add26" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ejemplos comunes: actualizaciones de software (versiones 1.1, 1.2), mejoras en la duración de la batería de un teléfono.</li></ul><p id="3c9648ad-99fc-807c-adb4-e13664aee311" class="" dir="auto"><strong>Ventajas</strong>:</p><ul id="3c9648ad-99fc-8038-8ab9-ca004f8ca538" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permite mantener la relevancia en el mercado.</li></ul><ul id="3c9648ad-99fc-8059-a1fd-e1d2c6e537f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es más fácil de implementar porque no requiere cambios radicales en la organización.</li></ul><ul id="3c9648ad-99fc-80ca-9572-ece913407d7b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Genera mejoras rápidas en la calidad y la satisfacción del cliente.</li></ul><p id="3c9648ad-99fc-808c-b407-cbdda06d1052" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-80e9-b35a-c4a7a1e77b4b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede llevar a la &quot;ceguera del éxito&quot;, donde la empresa se enfoca en lo inmediato y no ve la necesidad de un cambio mayor.</li></ul><ul id="3c9648ad-99fc-8078-b543-c842d14208fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Un competidor con una innovación radical o disruptiva puede superar a una empresa que solo innova de manera incremental.</li></ul><p id="3c9648ad-99fc-80b6-b1d3-c5d5dd0c67ce" class="" dir="auto"><strong>Ejemplo</strong>: <strong>Toyota</strong> y su sistema de mejora continua (Kaizen): pequeñas mejoras diarias en la producción que reducen desperdicios y aumentan la eficiencia.</p><hr id="3c9648ad-99fc-80eb-8369-f549906298c6" dir="auto"/><h3 id="3c9648ad-99fc-8000-9ab1-e25918a7c009" class="" dir="auto"><strong>2️⃣ Innovación Disruptiva</strong></h3><p id="3c9648ad-99fc-8085-a0b3-fcbee2f74f30" class="" dir="auto"><strong>Definición</strong>: Acuñado por Clayton Christensen, describe una innovación que <strong>crea un nuevo mercado</strong> y eventualmente <strong>desplaza a los líderes establecidos</strong>. </p><p id="3ca648ad-99fc-80a8-a783-c3654989b967" class="" dir="auto">Suele comenzar en un mercado de baja gama o &quot;no consumidores&quot; (clientes que no usaban el producto porque era demasiado caro o complejo), y luego asciende hasta reemplazar a los competidores tradicionales.</p><p id="3c9648ad-99fc-80dd-9ab8-c71191f919d5" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-80fa-a526-c061737aaa0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Riesgo alto.</li></ul><ul id="3c9648ad-99fc-80d3-81ef-c5a21af644c4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Suele ser más barata, sencilla o accesible que las alternativas existentes.</li></ul><ul id="3c9648ad-99fc-8091-9f87-c913d7784cdd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Al principio, los actores establecidos la ignoran porque no parece una amenaza para su mercado principal.</li></ul><ul id="3c9648ad-99fc-800b-9b72-fa402fa92ecf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Con el tiempo, mejora en calidad y rendimiento hasta convertirse en la opción preferida.</li></ul><p id="3c9648ad-99fc-80a2-9052-f93b326b8a87" class="" dir="auto"><strong>Ventajas</strong>:</p><ul id="3c9648ad-99fc-809a-ac22-f4f3ad636c8e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permite capturar nuevos segmentos de mercado.</li></ul><ul id="3c9648ad-99fc-806f-b064-ed5095ff72dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede crear una ventaja competitiva casi insuperable si se escala bien.</li></ul><ul id="3c9648ad-99fc-80bc-92e9-c001bd772112" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Desplaza a competidores lentos.</li></ul><p id="3c9648ad-99fc-80d9-8cc9-cd56646fe0a4" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-80b2-9bfd-c31193cfff6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede canibalizar el mercado existente.</li></ul><ul id="3c9648ad-99fc-8011-8a39-d80ebe716f54" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La rentabilidad inicial puede ser baja.</li></ul><ul id="3c9648ad-99fc-80ca-9d17-c8d34a5d891a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Requiere una visión estratégica a largo plazo.</li></ul><p id="3c9648ad-99fc-80eb-9caf-e75ec01609b5" class="" dir="auto"><strong>Ejemplo</strong>: <strong>Netflix vs. Blockbuster</strong>. Netflix comenzó con el alquiler de DVD por correo, un servicio que Blockbuster consideraba poco atractivo (mercado de baja gama). Luego, evolucionó al streaming, y finalmente eliminó a Blockbuster del mercado. </p><p id="3ca648ad-99fc-8017-90bc-cd2a3ff488e2" class="" dir="auto">Otro ejemplo: <strong>Uber</strong> (transporte bajo demanda) frente a los taxis tradicionales.</p><hr id="3c9648ad-99fc-80f5-a3b5-e8a89bea631d" dir="auto"/><h3 id="3c9648ad-99fc-8018-9e16-e35d2f4516c5" class="" dir="auto"><strong>3️⃣ Innovación Radical</strong></h3><p id="3c9648ad-99fc-80f6-9905-e278335e68f6" class="" dir="auto"><strong>Definición</strong>: Es una innovación que introduce <strong>cambios fundamentales y revolucionarios</strong> en la tecnología, los procesos o los modelos de negocio. </p><p id="3ca648ad-99fc-804e-adc8-c3dd35fd54ac" class="" dir="auto">Genera un <strong>salto cuántico</strong> en el rendimiento o el valor, creando mercados completamente nuevos o transformando radicalmente los existentes.</p><p id="3c9648ad-99fc-801c-9a6c-c0aef9ea186b" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-8051-9a9c-d20a388814b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Riesgo muy alto (no solo para la empresa, sino para la industria).</li></ul><ul id="3c9648ad-99fc-807b-896b-f3a77de0ba2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Gran inversión en I+D.</li></ul><ul id="3c9648ad-99fc-809d-bdcc-e9c802927a32" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambia las reglas del juego.</li></ul><ul id="3c9648ad-99fc-8023-a571-d39535504df0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede requerir nuevos conocimientos, habilidades y paradigmas.</li></ul><ul id="3c9648ad-99fc-80b2-8b5e-ed5ea2b1470f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Suele surgir de descubrimientos científicos o tecnológicos.</li></ul><p id="3c9648ad-99fc-805a-872f-f2aed43a6a9e" class="" dir="auto"><strong>Ventajas</strong>:</p><ul id="3c9648ad-99fc-807b-87dd-ef5b0c282e6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crea una posición de liderazgo casi imbatible.</li></ul><ul id="3c9648ad-99fc-80c9-babd-c6e7c3f84ef2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Posibilidad de capturar mercados completamente nuevos.</li></ul><ul id="3c9648ad-99fc-8024-8f5e-f786d63f2761" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Redefine el futuro de la industria.</li></ul><p id="3c9648ad-99fc-8032-a7eb-dd40da19cc4b" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-8091-9eed-f83363a2f5ec" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fracaso técnico o comercial (las probabilidades son altas).</li></ul><ul id="3c9648ad-99fc-808d-a864-c328d0f45ced" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Requiere mucho tiempo y dinero, con incertidumbre sobre el retorno.</li></ul><ul id="3c9648ad-99fc-8023-ae61-d7ec778faa90" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede encontrar resistencia en los actores existentes y en los usuarios.</li></ul><p id="3c9648ad-99fc-80c9-a91f-d84c5832cd1f" class="" dir="auto"><strong>Ejemplo</strong>: <strong>El automóvil</strong> frente al carruaje tirado por caballos.</p><p id="3ca648ad-99fc-80d2-a897-ccadaa3dfb6b" class="" dir="auto"> <strong>La imprenta</strong> frente a los manuscritos copiados a mano. </p><p id="3ca648ad-99fc-80be-9195-e953f072f56c" class="" dir="auto"><strong>El teléfono inteligente</strong> frente a los teléfonos móviles tradicionales. </p><p id="3ca648ad-99fc-8073-b9f6-fc0783367c96" class="" dir="auto">En el mundo empresarial moderno: <strong>Tesla</strong> y los vehículos eléctricos están transformando radicalmente la industria automotriz, o <strong>SpaceX</strong> con los cohetes reutilizables.</p><hr id="3c9648ad-99fc-8060-a41d-ed8432b3fe8c" dir="auto"/><h3 id="3c9648ad-99fc-800c-bc5c-cfe7f6b6e5f9" class="" dir="auto"><strong>4️⃣ Innovación Tecnológica</strong></h3><p id="3c9648ad-99fc-80ea-a153-c1b92aa978cf" class="" dir="auto"><strong>Definición</strong>: Se refiere específicamente a la aplicación de <strong>nuevos conocimientos tecnológicos</strong> para crear productos, procesos o servicios que antes no existían, o para mejorar drásticamente los existentes. </p><p id="3ca648ad-99fc-8015-ad5f-e406780597e6" class="" dir="auto">A menudo, la innovación tecnológica es el <strong>habilitador</strong> de la innovación radical y disruptiva.</p><p id="3c9648ad-99fc-807a-85c4-f595f80f2eb7" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-80eb-84c1-fe83d919a874" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Se centra en la tecnología como eje central del cambio.</li></ul><ul id="3c9648ad-99fc-80d4-bbfa-cb5725f7734e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede ser el resultado de la I+D en laboratorios.</li></ul><ul id="3c9648ad-99fc-80e3-b8e9-eb26f55b03fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Genera avances en la eficiencia, el rendimiento o las capacidades.</li></ul><ul id="3c9648ad-99fc-8066-aa9b-dd6d30b995d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es el motor de la Cuarta Revolución Industrial (IA, IoT, Blockchain, etc.).</li></ul><p id="3c9648ad-99fc-808f-ac72-fc9401c86b4c" class="" dir="auto"><strong>Tipos de innovación tecnológica</strong>:</p><ul id="3c9648ad-99fc-80eb-9c24-f4b53eb95583" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>De producto</strong>: Nuevas funcionalidades o productos (ej: un nuevo chip).</li></ul><ul id="3c9648ad-99fc-80a3-9627-e126dc7dbf9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>De proceso</strong>: Nuevas formas de fabricar o entregar (ej: impresión 3D).</li></ul><ul id="3c9648ad-99fc-80ee-bd3b-f94f9fb10bb1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>De plataforma</strong>: Nuevas infraestructuras tecnológicas (ej: cloud computing).</li></ul><p id="3c9648ad-99fc-806a-bf2d-e1d855f58ed8" class="" dir="auto"><strong>Ventajas</strong>:</p><ul id="3c9648ad-99fc-80d1-bd5a-e3ec8091134f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permite resolver problemas complejos.</li></ul><ul id="3c9648ad-99fc-8067-b0d3-c92ca4719114" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crea diferenciación difícil de imitar.</li></ul><ul id="3c9648ad-99fc-803a-b1bf-c48ef78d08fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede generar ahorros de costos significativos.</li></ul><p id="3c9648ad-99fc-8052-9cf9-cfb563549291" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-80e4-bf42-e5c7cdd9e400" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La tecnología puede quedar obsoleta rápidamente.</li></ul><ul id="3c9648ad-99fc-8048-9a65-c894d21b17c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puede no ser adoptada por el mercado (fallo de mercado).</li></ul><ul id="3c9648ad-99fc-809a-bdd2-d7474d9e2f90" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Requiere conocimientos especializados.</li></ul><p id="3c9648ad-99fc-804e-b1e2-c4f74c048a86" class="" dir="auto"><strong>Ejemplo</strong>: <strong>Inteligencia Artificial Generativa</strong> (ChatGPT, Gemini). No es solo una innovación incremental; es una innovación tecnológica que está habilitando nuevos productos y servicios, y tiene el potencial de ser radical o disruptiva en muchas industrias. Otro ejemplo: <strong>La tecnología de baterías de Tesla</strong>, que ha reducido drásticamente el costo de las baterías de iones de litio.</p><hr id="3c9648ad-99fc-8052-a323-da88eb20ae2f" dir="auto"/><h2 id="3c9648ad-99fc-803c-8cef-c44c9e0d9e1e" class="" dir="auto"><strong>📊 Tabla Comparativa: Tipos de Innovación</strong></h2><table id="3c9648ad-99fc-8026-ab7a-d77a0ebbec20" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8073-8ba4-e02b89a1558e" dir="ltr"><th id="OZMM" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="z&gt;rt" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th><th id="[]YZ" class="simple-table-header-color simple-table-header"><strong>Riesgo</strong></th><th id="Ebb&gt;" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th><th id="hPmF" class="simple-table-header-color simple-table-header"><strong>Horizonte Temporal</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80c3-b35e-c82e0be8605c" dir="ltr"><td id="OZMM" class=""><strong>Incremental</strong></td><td id="z&gt;rt" class="">Mejora gradual</td><td id="[]YZ" class="">Bajo</td><td id="Ebb&gt;" class="">Nuevas versiones de software</td><td id="hPmF" class="">Corto/Mediano</td></tr><tr id="3c9648ad-99fc-802d-a19d-f1507443f918" dir="ltr"><td id="OZMM" class=""><strong>Disruptiva</strong></td><td id="z&gt;rt" class="">Crea nuevo mercado, desplaza líderes</td><td id="[]YZ" class="">Alto</td><td id="Ebb&gt;" class="">Netflix, Uber</td><td id="hPmF" class="">Mediano/Largo</td></tr><tr id="3c9648ad-99fc-807a-a15b-c9189d2867a9" dir="ltr"><td id="OZMM" class=""><strong>Radical</strong></td><td id="z&gt;rt" class="">Revoluciona la industria</td><td id="[]YZ" class="">Muy Alto</td><td id="Ebb&gt;" class="">Automóvil, Imprenta</td><td id="hPmF" class="">Largo</td></tr><tr id="3c9648ad-99fc-80ef-b003-e15aa4f907c8" dir="ltr"><td id="OZMM" class=""><strong>Tecnológica</strong></td><td id="z&gt;rt" class="">Habilita nuevos productos/procesos</td><td id="[]YZ" class="">Alto-Medio</td><td id="Ebb&gt;" class="">IA Generativa, Blockchain</td><td id="hPmF" class="">Mediano/Largo</td></tr></tbody></table><hr id="3c9648ad-99fc-80ac-bc80-c81c3b9752b1" dir="auto"/><h2 id="3c9648ad-99fc-8036-8f99-d88c12bc0519" class="" dir="auto"><strong>⚠️ Errores Comunes en la Gestión de la Innovación</strong></h2><table id="3c9648ad-99fc-80e8-bd53-de5f7d34f784" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e8-9d27-db3f807be326" dir="ltr"><th id="ErY;" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="MmVK" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="X~{x" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80b6-bf7f-dc950c3f2b9a" dir="ltr"><td id="ErY;" class=""><strong>No definir la estrategia de innovación</strong></td><td id="MmVK" class="">Innovar sin un propósito claro o sin alineación con el negocio.</td><td id="X~{x" class="">Se pierde tiempo y recursos en ideas sin impacto.</td></tr><tr id="3c9648ad-99fc-80c1-a23e-e7045482558e" dir="ltr"><td id="ErY;" class=""><strong>Buscar solo innovación radical</strong></td><td id="MmVK" class="">Ignorar las innovaciones incrementales que mantienen el negocio en funcionamiento.</td><td id="X~{x" class="">Se descuida el core del negocio y se pierde competitividad a corto plazo.</td></tr><tr id="3c9648ad-99fc-8025-aa1b-d13aeeca3f75" dir="ltr"><td id="ErY;" class=""><strong>No escuchar al cliente</strong></td><td id="MmVK" class="">Innovar encerrado en el laboratorio sin validar con el mercado.</td><td id="X~{x" class="">Se desarrollan productos que nadie quiere.</td></tr><tr id="3c9648ad-99fc-80c7-973c-dcf4d292b919" dir="ltr"><td id="ErY;" class=""><strong>Miedo al fracaso</strong></td><td id="MmVK" class="">No tolerar el fracaso en los procesos de innovación.</td><td id="X~{x" class="">Se elimina la experimentación y la creatividad.</td></tr><tr id="3c9648ad-99fc-80ba-9291-cb69b18691bd" dir="ltr"><td id="ErY;" class=""><strong>No medir el ROI</strong></td><td id="MmVK" class="">Invertir en innovación sin métricas claras.</td><td id="X~{x" class="">No se puede justificar la inversión ni aprender de los errores.</td></tr><tr id="3c9648ad-99fc-80e0-82e7-da0aefa6418e" dir="ltr"><td id="ErY;" class=""><strong>No escalar la innovación</strong></td><td id="MmVK" class="">Tener grandes ideas que nunca se implementan a gran escala.</td><td id="X~{x" class="">El impacto se queda en un piloto sin efecto real.</td></tr></tbody></table><hr id="3c9648ad-99fc-8040-8a19-d2498d65d580" dir="auto"/><h2 id="3c9648ad-99fc-804b-b4fc-e9b676539d68" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-8011-96c0-de1c315d4a16" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80c4-99bb-eb6be934247c" dir="ltr"><th id="VkyO" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="&lt;{NN" class="simple-table-header-color simple-table-header" style="width:419px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8044-aa2a-c47aa7bf412a" dir="ltr"><td id="VkyO" class=""><strong>Empresa tradicional</strong></td><td id="&lt;{NN" class="" style="width:419px">Adoptar innovación incremental (Kaizen) para mejorar procesos y reducir costos.</td></tr><tr id="3c9648ad-99fc-8055-8073-e6257248a431" dir="ltr"><td id="VkyO" class=""><strong>Startup tecnológica</strong></td><td id="&lt;{NN" class="" style="width:419px">Buscar innovación disruptiva para crear un nuevo mercado y escalar rápidamente.</td></tr><tr id="3c9648ad-99fc-8097-bd97-e755895d9be8" dir="ltr"><td id="VkyO" class=""><strong>Gran corporación</strong></td><td id="&lt;{NN" class="" style="width:419px">Equilibrar las tres: incremental para el negocio actual, disruptiva para nuevos modelos de negocio (ej: laboratorios de innovación), y radical a través de adquisiciones o I+D.</td></tr><tr id="3c9648ad-99fc-8091-b750-c2ecbfc2f976" dir="ltr"><td id="VkyO" class=""><strong>Gobierno</strong></td><td id="&lt;{NN" class="" style="width:419px">Fomentar la innovación tecnológica a través de incentivos, educación y políticas públicas.</td></tr></tbody></table><hr id="3c9648ad-99fc-809d-b0f3-fde097822870" dir="auto"/><h2 id="3c9648ad-99fc-80c8-94cf-d962a68ed328" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-80ec-967a-f57522ac0971" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e7-9e71-d1be1e9419cd" dir="ltr"><th id="^^O&lt;" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="^;Pz" class="simple-table-header-color simple-table-header" style="width:386px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-809a-8bc4-dcc653c572c2" dir="ltr"><td id="^^O&lt;" class=""><strong>Lean Startup</strong></td><td id="^;Pz" class="" style="width:386px">Metodología para validar innovaciones (especialmente disruptivas y radicales) mediante la experimentación rápida y el MVP.</td></tr><tr id="3c9648ad-99fc-80a7-902a-db826360ea18" dir="ltr"><td id="^^O&lt;" class=""><strong>Océano Azul</strong></td><td id="^;Pz" class="" style="width:386px">La innovación disruptiva puede crear océanos azules (nuevos mercados sin competencia).</td></tr><tr id="3c9648ad-99fc-8035-8fe7-f4e0adfc42aa" dir="ltr"><td id="^^O&lt;" class=""><strong>Ventaja Competitiva</strong></td><td id="^;Pz" class="" style="width:386px">La innovación es la principal fuente de ventaja competitiva sostenible.</td></tr><tr id="3c9648ad-99fc-8046-820c-d4c4e2ab17e3" dir="ltr"><td id="^^O&lt;" class=""><strong>Transformación Digital</strong></td><td id="^;Pz" class="" style="width:386px">La innovación tecnológica es el motor de la transformación digital.</td></tr><tr id="3c9648ad-99fc-801e-9b2b-e00745bee9da" dir="ltr"><td id="^^O&lt;" class=""><strong>I+D (Investigación y Desarrollo)</strong></td><td id="^;Pz" class="" style="width:386px">El proceso formal de generar innovaciones (especialmente tecnológicas y radicales).</td></tr><tr id="3c9648ad-99fc-80f7-a729-d227a42b6870" dir="ltr"><td id="^^O&lt;" class=""><strong>Creatividad</strong></td><td id="^;Pz" class="" style="width:386px">La creatividad es la chispa; la innovación es la chispa convertida en valor.</td></tr><tr id="3c9648ad-99fc-802d-aebf-e96fa8a886d4" dir="ltr"><td id="^^O&lt;" class=""><strong>Estrategia</strong></td><td id="^;Pz" class="" style="width:386px">La innovación debe ser parte integral de la estrategia de la empresa.</td></tr></tbody></table><hr id="3c9648ad-99fc-8018-8446-e873eabb6269" dir="auto"/><h2 id="3c9648ad-99fc-80f1-b0a2-c8fc69023201" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-8090-8fdf-e340265af3e4" class="" dir="auto">La innovación es como <strong>cultivar un jardín</strong>:</p><ul id="3c9648ad-99fc-805f-9aac-ff0f10086163" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación Incremental</strong>: Es la <strong>poda y el riego diario</strong>. Pequeñas acciones continuas que mantienen el jardín en buen estado y mejoran la calidad de las plantas.</li></ul><ul id="3c9648ad-99fc-80f1-ab3b-ecefa27f5408" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación Disruptiva</strong>: Es la <strong>siembra de una nueva especie</strong> en un terreno que antes era improductivo. Al principio, nadie le presta atención, pero con el tiempo crece y se convierte en el árbol más grande del jardín.</li></ul><ul id="3c9648ad-99fc-8052-9fc5-f5b8a64e6b7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación Radical</strong>: Es <strong>cambiar el suelo, el clima y las técnicas de cultivo</strong>. Se introduce un cambio tan profundo que el jardín se transforma por completo.</li></ul><ul id="3c9648ad-99fc-801b-91c3-e28a09106025" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovación Tecnológica</strong>: Es <strong>el riego automatizado y los sensores de nutrientes</strong>. Son las herramientas tecnológicas que hacen posible la transformación del jardín.</li></ul><hr id="3c9648ad-99fc-80a3-adf5-e1eb7e23c59e" dir="auto"/><h2 id="3c9648ad-99fc-803a-8d49-e10fe31c938b" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-806c-9747-ce3a06986657" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Schumpeter, J. A. (1942). <em>Capitalism, Socialism and Democracy</em>. Harper &amp; Brothers.</li></ul><ul id="3c9648ad-99fc-8040-848f-e6b4aea54d19" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Christensen, C. M. (1997). <em>The Innovator&#x27;s Dilemma</em>. Harvard Business Review Press.</li></ul><ul id="3c9648ad-99fc-809d-9ce1-fcd06c368492" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rogers, E. M. (1962). <em>Diffusion of Innovations</em>. Free Press.</li></ul><ul id="3c9648ad-99fc-80dd-97f3-dbc03215395c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation</em>. John Wiley &amp; Sons.</li></ul><ul id="3c9648ad-99fc-8064-8215-dad844b48aa5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2011). <em>The Lean Startup</em>. Crown Business.</li></ul><ul id="3c9648ad-99fc-80d5-b7ab-f1848b851e19" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The Four Types of Innovation</em>.</li></ul><ul id="3c9648ad-99fc-80af-b774-ec95daceaae1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">McKinsey &amp; Company, (2023). <em>Innovation: The Key to Growth</em>.</li></ul><hr id="3c9648ad-99fc-80fa-bad9-f8a4e0a61b48" dir="auto"/><h2 id="3c9648ad-99fc-8019-9d82-ec41cc7f1ed6" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-8008-94df-c81b63e0e0ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovar no es &quot;tener ideas&quot;</strong>: Es <strong>ejecutar</strong>. Una idea sin implementación es solo un pensamiento. La innovación es el proceso completo: desde la idea hasta el valor.</li></ul><ul id="3c9648ad-99fc-80e7-a247-d51baa2d1748" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todas las empresas necesitan ser radicales</strong>: Para muchas empresas, la innovación incremental es suficiente y más adecuada. La clave está en elegir el tipo de innovación adecuado para el contexto y la estrategia.</li></ul><ul id="3c9648ad-99fc-80dc-bfb3-f8f0cc8b8a42" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La innovación disruptiva suele venir de afuera</strong>: Las empresas establecidas raramente son las que crean la disrupción (es un &quot;dilema&quot; del innovador). Por eso, las grandes empresas suelen crear laboratorios de innovación o adquirir startups.</li></ul><ul id="3c9648ad-99fc-8095-b2b5-e0116cfe009e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La innovación es un hábito</strong>: No es un evento aislado. Las empresas innovadoras cultivan una cultura de experimentación, curiosidad y aprendizaje continuo.</li></ul><ul id="3c9648ad-99fc-804f-873d-c6bc07e78d6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La innovación tecnológica no es suficiente</strong>: La tecnología por sí sola no crea valor. Debe ir acompañada de un modelo de negocio, una estrategia de marketing y una implementación efectiva.</li></ul><ul id="3c9648ad-99fc-8018-923c-c95f5cf1addc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para fomentar la innovación</strong>:<ol type="1" id="3c9648ad-99fc-8046-897e-f95b1c132ed2" class="numbered-list" start="1" dir="auto"><li><strong>Cultura de seguridad psicológica</strong>: Los empleados deben sentirse seguros para proponer ideas sin miedo al fracaso.</li></ol><ol type="1" id="3c9648ad-99fc-8060-b736-e711956810da" class="numbered-list" start="2" dir="auto"><li><strong>Diversidad de pensamiento</strong>: Equipos multidisciplinarios y con diferentes perspectivas generan mejores innovaciones.</li></ol><ol type="1" id="3c9648ad-99fc-80e9-a399-e443653b4561" class="numbered-list" start="3" dir="auto"><li><strong>Tiempo para innovar</strong>: Empresas como Google han destinado un % del tiempo de los empleados a proyectos de innovación (20% del tiempo).</li></ol><ol type="1" id="3c9648ad-99fc-80bb-bdd3-d9310c60d0fa" class="numbered-list" start="4" dir="auto"><li><strong>Escucha activa</strong>: No solo al cliente, sino también a los empleados, proveedores y al ecosistema.</li></ol><ol type="1" id="3c9648ad-99fc-8016-b8be-d555cb17646a" class="numbered-list" start="5" dir="auto"><li><strong>Presupuesto dedicado</strong>: La innovación no ocurre por casualidad; requiere inversión y recursos asignados.</li></ol><ol type="1" id="3c9648ad-99fc-80ef-bac5-dd5992950956" class="numbered-list" start="6" dir="auto"><li><strong>Mide lo que importa</strong>: No solo el ROI, sino también la cantidad de experimentos realizados, las ideas generadas y las lecciones aprendidas.</li></ol><ol type="1" id="3c9648ad-99fc-8056-9ae5-de4a472c24c6" class="numbered-list" start="7" dir="auto"><li><strong>Celebra el fracaso (inteligente)</strong>: Fracasar rápido y aprender de ello es parte del proceso innovador.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,827 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Marco ERRC (Eliminar, Reducir, Incrementar, Crear)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ea648ad-99fc-80ba-8687-e2dd4ff247e2" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Marco ERRC (Eliminar, Reducir, Incrementar, Crear)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ea648ad-99fc-80b3-b29a-efe5052345d8" class="" dir="auto">
+</p><h1 id="3ea648ad-99fc-80f5-aedd-f7eb39f9325f" class="" dir="auto"><strong>📄 Marco ERRC (Eliminar, Reducir, Incrementar, Crear)</strong></h1><hr id="3ea648ad-99fc-80c5-8cff-e03e41db80e3" dir="auto"/><h2 id="3ea648ad-99fc-8022-80e0-cda04d6aa448" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ea648ad-99fc-80fc-8c96-e68d83d9c663" class="" dir="auto">El <strong>Marco ERRC</strong> (Eliminate, Reduce, Raise, Create) es una <strong>herramienta de innovación en valor</strong> desarrollada por <strong>W. </strong></p><p id="3ea648ad-99fc-8041-9c7e-fa0b1e0e67b2" class="" dir="auto"><strong>Chan Kim y Renée Mauborgne</strong> en el marco de la <strong>Estrategia del Océano Azul</strong>. </p><p id="3ea648ad-99fc-8093-8a58-c8020a6dfa65" class="" dir="auto">Permite a las empresas <strong>redefinir su propuesta de valor</strong> rompiendo el trade-off tradicional entre <strong>diferenciación y bajo costo</strong>. </p><p id="3ea648ad-99fc-806c-a3d3-c29f0ef36912" class="" dir="auto">El marco propone cuatro acciones clave para transformar una industria: <strong>Eliminar</strong> factores que la industria da por sentado, </p><p id="3ea648ad-99fc-8000-858b-d3dd508b38b6" class="" dir="auto"><strong>Reducir</strong> factores por debajo del estándar, <strong>Incrementar</strong> factores por encima del estándar, y <strong>Crear</strong> factores que la industria nunca ha ofrecido.</p><hr id="3ea648ad-99fc-80b2-af77-de59db78f63c" dir="auto"/><h2 id="3ea648ad-99fc-808b-b0f8-f3249f4c3db6" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ea648ad-99fc-805b-b19a-c809a7f49378" class="" dir="auto">El Marco ERRC es una <strong>matriz de cuatro acciones</strong> que ayuda a las empresas a <strong>reinventar su modelo de negocio</strong> y a <strong>crear un nuevo espacio de mercado</strong> (océano azul) en lugar de competir en un mercado saturado (océano rojo). </p><p id="3ea648ad-99fc-8046-9665-ce9eb7798f67" class="" dir="auto">Su objetivo es <strong>romper el trade-off</strong> entre valor y costo: al eliminar y reducir actividades que no aportan valor, se reducen costos; al incrementar y crear actividades que sí aportan valor, se aumenta la diferenciación.</p><p id="3ea648ad-99fc-801c-8efd-e40ff1509d49" class="" dir="auto"><strong>Filosofía del Marco ERRC</strong>:</p><ul id="3ea648ad-99fc-8062-8b08-fd69ce13ea6c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No se trata de mejorar lo existente</strong>, sino de <strong>reinventarlo</strong>.</li></ul><ul id="3ea648ad-99fc-80dc-a945-fa8082586d75" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No se trata de ser mejor que la competencia</strong>, sino de <strong>hacer que la competencia sea irrelevante</strong>.</li></ul><ul id="3ea648ad-99fc-80b8-8f6e-e8b7601b80e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Se trata de crear un nuevo mercado</strong> donde no haya rivales.</li></ul><hr id="3ea648ad-99fc-8021-8bc6-c98c7fd7f0f4" dir="auto"/><h2 id="3ea648ad-99fc-803b-92a0-e811e01c428c" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ea648ad-99fc-80c9-a99f-e8d5ddfda959" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Redefinir la propuesta de valor</strong>: Identificar qué se puede eliminar, reducir, incrementar o crear.</li></ul><ul id="3ea648ad-99fc-80d7-8b0b-c9c66ebb6938" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Romper el trade-off costo-diferenciación</strong>: Lograr diferenciación y bajo costo simultáneamente.</li></ul><ul id="3ea648ad-99fc-8005-ad15-efacd11d9d00" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear un océano azul</strong>: Abrir un nuevo espacio de mercado sin competencia.</li></ul><ul id="3ea648ad-99fc-804b-8aa4-c09270aeb601" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Innovar en modelo de negocio</strong>: Transformar la forma en que se compite en una industria.</li></ul><ul id="3ea648ad-99fc-80c7-af7e-dcd61f1a23c9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear al equipo</strong>: Proporcionar un marco claro para la innovación.</li></ul><ul id="3ea648ad-99fc-8055-be7d-d5ab136cc0f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuestionar los supuestos de la industria</strong>: Preguntar por qué se hacen las cosas de cierta manera.</li></ul><hr id="3ea648ad-99fc-8002-b229-dc25289b3489" dir="auto"/><h2 id="3ea648ad-99fc-8039-814b-c220f132a4da" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? Las 4 Acciones del Marco ERRC</strong></h2><p id="3ea648ad-99fc-8008-9e0a-f097b68f0f00" class="" dir="auto">El marco se representa como una matriz de 2x2 con cuatro cuadrantes:</p><table id="3ea648ad-99fc-801a-b834-c59e060b55bb" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-80a7-90be-fbbfba5a251f" dir="ltr"><th id="Wpcy" class="simple-table-header-color simple-table-header"></th><th id=":`gv" class="simple-table-header-color simple-table-header"><strong>Reducir Costos</strong></th><th id="hTPc" class="simple-table-header-color simple-table-header" style="width:305px"><strong>Aumentar Valor</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8068-af96-e31d67d10b29" dir="ltr"><td id="Wpcy" class=""><strong>Acción</strong></td><td id=":`gv" class=""><strong>Eliminar</strong></td><td id="hTPc" class="" style="width:305px"><strong>Incrementar</strong></td></tr><tr id="3ea648ad-99fc-8049-8a57-eaa83d963ca0" dir="ltr"><td id="Wpcy" class=""><strong>Acción</strong></td><td id=":`gv" class=""><strong>Reducir</strong></td><td id="hTPc" class="" style="width:305px"><strong>Crear</strong></td></tr></tbody></table><hr id="3ea648ad-99fc-800a-aef5-f90ea507e2a1" dir="auto"/><h3 id="3ea648ad-99fc-80bc-8d4c-c8e9ade11361" class="" dir="auto"><strong>1️⃣ Eliminar (Eliminate)</strong></h3><p id="3ea648ad-99fc-80ab-91da-d93f6ed295b4" class="" dir="auto"><strong>Definición</strong>: ¿Qué factores que la industria da por sentado se pueden <strong>eliminar</strong>?</p><p id="3ea648ad-99fc-802a-a382-dcb557f12996" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3ea648ad-99fc-805c-b80b-ff13e15af293" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué características, servicios o procesos se han vuelto obsoletos?</li></ul><ul id="3ea648ad-99fc-80e7-8849-d1df5268754f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué es lo que la industria hace por costumbre, pero que ya no aporta valor?</li></ul><ul id="3ea648ad-99fc-804f-8020-f819a85d2ad3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede eliminar sin afectar la propuesta de valor?</li></ul><p id="3ea648ad-99fc-80a2-b3f8-f2745b1f74f1" class="" dir="auto"><strong>Objetivo</strong>: <strong>Reducir costos</strong> eliminando actividades que no generan valor.</p><p id="3ea648ad-99fc-8022-8837-f63724fb6168" class="" dir="auto"><strong>Ejemplo (Cirque du Soleil)</strong>:</p><ul id="3ea648ad-99fc-805f-9ae0-c17b8f4ff9f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eliminaron</strong>: Los animales, las estrellas del circo, las carpas tradicionales, las tres pistas simultáneas.</li></ul><ul id="3ea648ad-99fc-8083-b891-ee29d13bf729" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Redujeron costos drásticamente y eliminaron las críticas de los defensores de los animales.</li></ul><hr id="3ea648ad-99fc-807c-b377-c3e0029209a3" dir="auto"/><h3 id="3ea648ad-99fc-806f-ad4a-d09de298ee4e" class="" dir="auto"><strong>2️⃣ Reducir (Reduce)</strong></h3><p id="3ea648ad-99fc-80f4-97fd-ceb571337a56" class="" dir="auto"><strong>Definición</strong>: ¿Qué factores se pueden <strong>reducir muy por debajo</strong> del estándar de la industria?</p><p id="3ea648ad-99fc-80ff-995b-e2104291ee43" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3ea648ad-99fc-80cc-a4b4-d68f256c6219" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué características o servicios se ofrecen en exceso?</li></ul><ul id="3ea648ad-99fc-80e2-9f58-c85772128ad7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede reducir sin que el cliente lo note negativamente?</li></ul><ul id="3ea648ad-99fc-8062-98e5-d1b5746bafb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede simplificar?</li></ul><p id="3ea648ad-99fc-80d4-88df-e29bb64db5e6" class="" dir="auto"><strong>Objetivo</strong>: <strong>Reducir costos</strong> sin sacrificar valor percibido.</p><p id="3ea648ad-99fc-80bc-80d4-ff49cbef74a1" class="" dir="auto"><strong>Ejemplo (Cirque du Soleil)</strong>:</p><ul id="3ea648ad-99fc-809d-93ad-c0a2b1b16d43" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Redujeron</strong>: La complejidad de las acrobacias, el humor vulgar, la promoción masiva.</li></ul><ul id="3ea648ad-99fc-80f7-abff-e9218149b13f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Redujeron costos y se enfocaron en lo que realmente importaba: la experiencia artística.</li></ul><hr id="3ea648ad-99fc-80aa-8394-e91a90424fe0" dir="auto"/><h3 id="3ea648ad-99fc-800d-ae7d-de41aa55c6de" class="" dir="auto"><strong>3️⃣ Incrementar (Raise)</strong></h3><p id="3ea648ad-99fc-8005-9775-e587c46dad61" class="" dir="auto"><strong>Definición</strong>: ¿Qué factores se pueden <strong>incrementar muy por encima</strong> del estándar de la industria?</p><p id="3ea648ad-99fc-80c8-baa1-f2f0cd8dac01" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3ea648ad-99fc-80b6-bbf1-f6fae3b08022" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué valoran los clientes que la industria no está ofreciendo?</li></ul><ul id="3ea648ad-99fc-8042-814a-c3b6ff984aaa" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede mejorar para diferenciarse?</li></ul><ul id="3ea648ad-99fc-808b-ba26-fd8e6a64ae4b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede hacer mejor que la competencia?</li></ul><p id="3ea648ad-99fc-8069-9b67-c69dad420ff7" class="" dir="auto"><strong>Objetivo</strong>: <strong>Aumentar la diferenciación</strong> y el valor percibido.</p><p id="3ea648ad-99fc-8070-9bea-ec683ad67f04" class="" dir="auto"><strong>Ejemplo (Cirque du Soleil)</strong>:</p><ul id="3ea648ad-99fc-8073-9e79-d5305fcb7917" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Incrementaron</strong>: La calidad artística, la música en vivo, la escenografía, la experiencia teatral.</li></ul><ul id="3ea648ad-99fc-8084-a70c-f2f21b64df7b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Crearon una experiencia única que justificaba un precio premium.</li></ul><hr id="3ea648ad-99fc-80a7-a28b-ed8630693660" dir="auto"/><h3 id="3ea648ad-99fc-80c9-bf5e-fbb3115c7c00" class="" dir="auto"><strong>4️⃣ Crear (Create)</strong></h3><p id="3ea648ad-99fc-80b3-8963-ec87ae4b3f1a" class="" dir="auto"><strong>Definición</strong>: ¿Qué factores que la industria <strong>nunca ha ofrecido</strong> se pueden <strong>crear</strong>?</p><p id="3ea648ad-99fc-802a-96ef-d01eeb592120" class="" dir="auto"><strong>Preguntas clave</strong>:</p><ul id="3ea648ad-99fc-80fb-a1dd-fca301dd2898" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué necesidades no están siendo atendidas?</li></ul><ul id="3ea648ad-99fc-8074-ab4a-d8238e3b5f52" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede ofrecer que sea completamente nuevo?</li></ul><ul id="3ea648ad-99fc-80cb-86ec-d0e7b826414c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">¿Qué se puede inventar para sorprender al cliente?</li></ul><p id="3ea648ad-99fc-8043-ade6-ec5ce8e3fd98" class="" dir="auto"><strong>Objetivo</strong>: <strong>Crear nueva demanda</strong> y diferenciación radical.</p><p id="3ea648ad-99fc-803b-901a-d1502ef8cd3a" class="" dir="auto"><strong>Ejemplo (Cirque du Soleil)</strong>:</p><ul id="3ea648ad-99fc-8077-8567-f6727abde937" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crearon</strong>: Un espectáculo teatral con narrativa, un ambiente sofisticado, una experiencia para adultos (no solo niños).</li></ul><ul id="3ea648ad-99fc-8064-8ea4-d25cb4e43eaf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resultado</strong>: Atrajeron a un nuevo público (adultos, empresas) dispuesto a pagar precios mucho más altos que un circo tradicional.</li></ul><hr id="3ea648ad-99fc-807f-9885-dd8ce31249ee" dir="auto"/><h2 id="3ea648ad-99fc-80cb-921c-fdd5ad941c95" class="" dir="auto"><strong>📊 El Marco ERRC Visual</strong></h2><p id="3ea648ad-99fc-804b-9fef-fec7775b44f5" class="" dir="auto">text</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ea648ad-99fc-8039-b092-d5f56a7f8752" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────────────────┐
+│                            MARCO ERRC                                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   ┌─────────────────────────────┬─────────────────────────────────────────┐ │
+│   │        ELIMINAR             │           INCREMENTAR                   │ │
+│   │                             │                                         │ │
+│   │  ¿Qué factores que la       │  ¿Qué factores se pueden incrementar    │ │
+│   │  industria da por sentado   │  muy por encima del estándar de la      │ │
+│   │  se pueden eliminar?        │  industria?                             │ │
+│   │                             │                                         │ │
+│   │  - Reduce costos            │  - Aumenta valor                        │ │
+│   │  - Ej: Animales, estrellas  │  - Ej: Calidad artística, música        │ │
+│   │    del circo                │    en vivo, escenografía               │ │
+│   ├─────────────────────────────┼─────────────────────────────────────────┤ │
+│   │        REDUCIR              │           CREAR                         │ │
+│   │                             │                                         │ │
+│   │  ¿Qué factores se pueden    │  ¿Qué factores que la industria         │ │
+│   │  reducir muy por debajo     │  nunca ha ofrecido se pueden crear?     │ │
+│   │  del estándar?              │                                         │ │
+│   │                             │                                         │ │
+│   │  - Reduce costos            │  - Crea nueva demanda                   │ │
+│   │  - Ej: Complejidad de       │  - Ej: Experiencia teatral, ambiente    │ │
+│   │    acrobacias, humor vulgar │    sofisticado, público adulto          │ │
+│   └─────────────────────────────┴─────────────────────────────────────────┘ │
+│                                                                             │
+│   ◄────────────────────────── REDUCIR COSTOS ──────────────────────────►   │
+│   ◄────────────────────────── AUMENTAR VALOR ──────────────────────────►   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3ea648ad-99fc-80e3-9c66-c55f4e71c090" dir="auto"/><h2 id="3ea648ad-99fc-802c-8080-c60f5305afdb" class="" dir="auto"><strong>💡 Ejemplo Práctico: Marco ERRC de Nintendo Wii</strong></h2><table id="3ea648ad-99fc-80ae-b33a-c5dd6d06ef6a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-804c-8b85-d672e908be9a" dir="ltr"><th id="Hamc" class="simple-table-header-color simple-table-header"><strong>Acción</strong></th><th id="&lt;Gna" class="simple-table-header-color simple-table-header"><strong>Factores</strong></th><th id="{&gt;Kz" class="simple-table-header-color simple-table-header"><strong>Resultado</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-80e0-b651-efab68de9519" dir="ltr"><td id="Hamc" class=""><strong>Eliminar</strong></td><td id="&lt;Gna" class="">Gráficos de alta definición, complejidad de controles, enfoque en &quot;hardcore gamers&quot;.</td><td id="{&gt;Kz" class="">Reducción de costos de hardware y desarrollo.</td></tr><tr id="3ea648ad-99fc-801c-b3ea-df531cd7d028" dir="ltr"><td id="Hamc" class=""><strong>Reducir</strong></td><td id="&lt;Gna" class="">Potencia de procesamiento, costo del hardware.</td><td id="{&gt;Kz" class="">Consola más barata que la competencia.</td></tr><tr id="3ea648ad-99fc-8005-bb6f-c94cd9b7b0ce" dir="ltr"><td id="Hamc" class=""><strong>Incrementar</strong></td><td id="&lt;Gna" class="">Jugabilidad, interacción física, accesibilidad.</td><td id="{&gt;Kz" class="">Experiencia de juego única y divertida.</td></tr><tr id="3ea648ad-99fc-8050-b1a4-e60a015c5f81" dir="ltr"><td id="Hamc" class=""><strong>Crear</strong></td><td id="&lt;Gna" class="">Control por movimiento, juegos para toda la familia.</td><td id="{&gt;Kz" class="">Atrajo a nuevos segmentos (familias, adultos mayores).</td></tr></tbody></table><p id="3ea648ad-99fc-80b3-9bfb-c425f3ea7148" class="" dir="auto"><strong>Resultado</strong>: Nintendo Wii vendió más de 100 millones de unidades, superando a PlayStation 3 y Xbox 360, a pesar de tener hardware menos potente.</p><hr id="3ea648ad-99fc-8053-ba78-c706cca1a599" dir="auto"/><h2 id="3ea648ad-99fc-805d-96f2-f60f9f84524c" class="" dir="auto"><strong>💡 Ejemplo Práctico: Marco ERRC de Uber</strong></h2><table id="3ea648ad-99fc-8078-bb39-f3187e70dffe" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8007-85a6-e9f0bd31c7f1" dir="ltr"><th id="rmZI" class="simple-table-header-color simple-table-header"><strong>Acción</strong></th><th id="v]z]" class="simple-table-header-color simple-table-header"><strong>Factores</strong></th><th id="]PuR" class="simple-table-header-color simple-table-header"><strong>Resultado</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8041-9a00-e94b094b5ddb" dir="ltr"><td id="rmZI" class=""><strong>Eliminar</strong></td><td id="v]z]" class="">Flota de taxis propia, radioteléfonos, pago en efectivo.</td><td id="]PuR" class="">Reducción de costos operativos.</td></tr><tr id="3ea648ad-99fc-8036-81a6-ce3c0a227ed0" dir="ltr"><td id="rmZI" class=""><strong>Reducir</strong></td><td id="v]z]" class="">Tiempo de espera, incertidumbre en el precio, fricción en el pago.</td><td id="]PuR" class="">Mejora de la experiencia del usuario.</td></tr><tr id="3ea648ad-99fc-8065-a306-d6d6d6c7dec5" dir="ltr"><td id="rmZI" class=""><strong>Incrementar</strong></td><td id="v]z]" class="">Transparencia, conveniencia, seguridad (seguimiento GPS).</td><td id="]PuR" class="">Mayor confianza y satisfacción.</td></tr><tr id="3ea648ad-99fc-8084-a286-d691e33bac2c" dir="ltr"><td id="rmZI" class=""><strong>Crear</strong></td><td id="v]z]" class="">App móvil, pago automático, calificación bidireccional, precios dinámicos.</td><td id="]PuR" class="">Nuevo mercado de movilidad bajo demanda.</td></tr></tbody></table><p id="3ea648ad-99fc-8042-8d9d-fd5c7dd4a089" class="" dir="auto"><strong>Resultado</strong>: Uber transformó la industria del transporte, creando un nuevo mercado y desplazando a los taxis tradicionales.</p><hr id="3ea648ad-99fc-80d5-b6ae-f8b6259b5110" dir="auto"/><h2 id="3ea648ad-99fc-8014-a814-d411001da7b1" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar el Marco ERRC</strong></h2><table id="3ea648ad-99fc-806b-8154-c9bbee3575e3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-8027-99f2-ec35aa51a751" dir="ltr"><th id="Z[D{" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="&gt;C_:" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="Tg&lt;Y" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8007-8458-e9653f2754ab" dir="ltr"><td id="Z[D{" class=""><strong>No cuestionar los supuestos</strong></td><td id="&gt;C_:" class="">Asumir que lo que la industria hace es necesario.</td><td id="Tg&lt;Y" class="">No se identifican oportunidades de eliminación.</td></tr><tr id="3ea648ad-99fc-808c-8d2e-d52b5ad28611" dir="ltr"><td id="Z[D{" class=""><strong>Eliminar sin considerar el valor</strong></td><td id="&gt;C_:" class="">Eliminar factores que el cliente valora.</td><td id="Tg&lt;Y" class="">Pérdida de clientes.</td></tr><tr id="3ea648ad-99fc-80e4-a25b-dd18ee9ef6af" dir="ltr"><td id="Z[D{" class=""><strong>Crear sin validar</strong></td><td id="&gt;C_:" class="">Crear factores que el cliente no valora.</td><td id="Tg&lt;Y" class="">Inversión desperdiciada.</td></tr><tr id="3ea648ad-99fc-80c5-89ea-df6fbc548ff1" dir="ltr"><td id="Z[D{" class=""><strong>No priorizar</strong></td><td id="&gt;C_:" class="">Intentar aplicar las 4 acciones a la vez sin foco.</td><td id="Tg&lt;Y" class="">Confusión y falta de resultados.</td></tr><tr id="3ea648ad-99fc-800e-b9a5-cf581a0c20f5" dir="ltr"><td id="Z[D{" class=""><strong>No alinear con la estrategia</strong></td><td id="&gt;C_:" class="">Aplicar ERRC sin conexión con la estrategia general.</td><td id="Tg&lt;Y" class="">Iniciativas aisladas sin impacto.</td></tr><tr id="3ea648ad-99fc-80f2-9841-e91c636ea229" dir="ltr"><td id="Z[D{" class=""><strong>No medir el impacto</strong></td><td id="&gt;C_:" class="">No evaluar el impacto de las acciones en costos y valor.</td><td id="Tg&lt;Y" class="">No se sabe si la innovación funcionó.</td></tr></tbody></table><hr id="3ea648ad-99fc-8085-8412-e10c97ff67b5" dir="auto"/><h2 id="3ea648ad-99fc-80b9-9f1f-ecc8dd53a7b1" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ea648ad-99fc-80ee-bc4a-faa5b6ba35e1" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-803f-b94f-cf09d6700197" dir="ltr"><th id="BT[X" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id=":~t=" class="simple-table-header-color simple-table-header" style="width:482px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8086-bdfc-df16eae50b8a" dir="ltr"><td id="BT[X" class=""><strong>Industria saturada</strong></td><td id=":~t=" class="" style="width:482px">Buscar un océano azul eliminando, reduciendo, incrementando y creando factores.</td></tr><tr id="3ea648ad-99fc-806f-a028-c34fb530dcdd" dir="ltr"><td id="BT[X" class=""><strong>Lanzamiento de un nuevo producto</strong></td><td id=":~t=" class="" style="width:482px">Diseñar una propuesta de valor única.</td></tr><tr id="3ea648ad-99fc-80fb-825f-c22999be6c76" dir="ltr"><td id="BT[X" class=""><strong>Transformación de modelo de negocio</strong></td><td id=":~t=" class="" style="width:482px">Reinventar la forma de competir en la industria.</td></tr><tr id="3ea648ad-99fc-80c2-8bea-cb758923f83d" dir="ltr"><td id="BT[X" class=""><strong>Startup</strong></td><td id=":~t=" class="" style="width:482px">Crear un nuevo mercado en lugar de competir en uno existente.</td></tr><tr id="3ea648ad-99fc-80e7-ac85-d374af08a1fb" dir="ltr"><td id="BT[X" class=""><strong>Empresa establecida</strong></td><td id=":~t=" class="" style="width:482px">Reinventar su propuesta de valor para mantenerse relevante.</td></tr></tbody></table><hr id="3ea648ad-99fc-8008-b57f-cc0b94192744" dir="auto"/><h2 id="3ea648ad-99fc-80a2-94e9-dfb39b44fb73" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ea648ad-99fc-8018-b2ac-cada68b2feda" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ea648ad-99fc-800b-90d4-e1dfbcb2317b" dir="ltr"><th id="aNm\" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="R{~S" class="simple-table-header-color simple-table-header" style="width:434px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ea648ad-99fc-8057-8095-e128b9afa02e" dir="ltr"><td id="aNm\" class=""><strong>Estrategia del Océano Azul</strong></td><td id="R{~S" class="" style="width:434px">El Marco ERRC es una herramienta central de esta estrategia.</td></tr><tr id="3ea648ad-99fc-8094-b4fc-c1cec983e8eb" dir="ltr"><td id="aNm\" class=""><strong>Innovación en Valor</strong></td><td id="R{~S" class="" style="width:434px">El ERRC es la herramienta para lograr la innovación en valor.</td></tr><tr id="3ea648ad-99fc-8022-a998-e0cf12b7f66c" dir="ltr"><td id="aNm\" class=""><strong>Lienzo Estratégico</strong></td><td id="R{~S" class="" style="width:434px">El ERRC ayuda a dibujar una nueva curva de valor en el lienzo.</td></tr><tr id="3ea648ad-99fc-80fb-9f0c-e8658b5b3830" dir="ltr"><td id="aNm\" class=""><strong>Estrategias Genéricas de Porter</strong></td><td id="R{~S" class="" style="width:434px">El ERRC rompe el trade-off entre costo y diferenciación.</td></tr><tr id="3ea648ad-99fc-8054-9e20-e04a8693ee26" dir="ltr"><td id="aNm\" class=""><strong>Ventaja Competitiva</strong></td><td id="R{~S" class="" style="width:434px">El ERRC ayuda a crear una ventaja competitiva sostenible.</td></tr><tr id="3ea648ad-99fc-8029-98bd-d1a5c9a1698c" dir="ltr"><td id="aNm\" class=""><strong>Business Model Canvas</strong></td><td id="R{~S" class="" style="width:434px">El ERRC ayuda a rediseñar la propuesta de valor del BMC.</td></tr></tbody></table><hr id="3ea648ad-99fc-80fc-a36c-f7c3c6dd3b6d" dir="auto"/><h2 id="3ea648ad-99fc-8094-813c-d7a564a09821" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ea648ad-99fc-80d0-8f4a-e0e214908dbb" class="" dir="auto">El Marco ERRC es como <strong>una receta de cocina que reinventa un plato tradicional</strong>. En lugar de mejorar la receta existente (agregar más ingredientes, cocinar mejor), el chef decide:</p><ul id="3ea648ad-99fc-80f9-95a4-d7887779cebf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eliminar</strong> ingredientes que no aportan (ej: la sal en exceso).</li></ul><ul id="3ea648ad-99fc-802d-8c46-c62a07543f63" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir</strong> la cantidad de ingredientes costosos (ej: el azafrán).</li></ul><ul id="3ea648ad-99fc-8031-8aea-c7ea8d89a31e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Incrementar</strong> la calidad de los ingredientes clave (ej: usar aceite de oliva virgen extra).</li></ul><ul id="3ea648ad-99fc-8041-a38c-ffe6f030a15a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear</strong> una nueva presentación o un nuevo acompañamiento (ej: una salsa innovadora).</li></ul><p id="3ea648ad-99fc-8074-9a18-ee99ef579190" class="" dir="auto">El resultado es un plato completamente nuevo, más barato de producir y más valioso para el cliente. Eso es lo que hace el Marco ERRC con un modelo de negocio.</p><hr id="3ea648ad-99fc-8099-a1da-cc7ccbc82a29" dir="auto"/><h2 id="3ea648ad-99fc-8006-8f7a-d0a29bad1cb2" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ea648ad-99fc-8075-a47c-c38ae3008c97" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2005). <em>Blue Ocean Strategy</em>. Harvard Business Review Press.</li></ul><ul id="3ea648ad-99fc-807b-a034-f3f9c552d916" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2017). <em>Blue Ocean Shift</em>. Harvard Business Review Press.</li></ul><ul id="3ea648ad-99fc-80f9-88c1-ecc71e76de18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The ERRC Framework</em>.</li></ul><ul id="3ea648ad-99fc-80f5-a056-d339f06262bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Strategyzer, (2024). <em>The ERRC Grid</em>.</li></ul><hr id="3ea648ad-99fc-80ab-a40a-e7b1c6b5ee97" dir="auto"/><h2 id="3ea648ad-99fc-8097-92e4-d354a3667129" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ea648ad-99fc-807f-9e7a-ea9af55982a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El Marco ERRC es una herramienta de cuestionamiento</strong>: Te obliga a preguntar &quot;¿por qué?&quot; a todo lo que la industria da por sentado.</li></ul><ul id="3ea648ad-99fc-8054-a682-e0100c76788b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No se trata de mejorar, sino de reinventar</strong>: El ERRC no busca hacer lo mismo mejor, sino hacer algo completamente diferente.</li></ul><ul id="3ea648ad-99fc-8039-baf7-ef06f793e7d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La clave está en el equilibrio</strong>: Eliminar y reducir para bajar costos; incrementar y crear para aumentar valor. El objetivo es lograr ambos simultáneamente.</li></ul><ul id="3ea648ad-99fc-8071-9287-d9cec14c23a4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar el Marco ERRC</strong>:<ol type="1" id="3ea648ad-99fc-80d1-b37f-dd695495dfa3" class="numbered-list" start="1" dir="auto"><li><strong>Empieza por el cliente</strong>: ¿Qué valora realmente el cliente? ¿Qué no?</li></ol><ol type="1" id="3ea648ad-99fc-8087-af51-f205be0a4ecc" class="numbered-list" start="2" dir="auto"><li><strong>Cuestiona los supuestos</strong>: ¿Por qué hacemos esto? ¿Es realmente necesario?</li></ol><ol type="1" id="3ea648ad-99fc-80a1-8cd6-ef3926b963ea" class="numbered-list" start="3" dir="auto"><li><strong>Involucra a diferentes áreas</strong>: La innovación surge de la diversidad de perspectivas.</li></ol><ol type="1" id="3ea648ad-99fc-80f5-8a3b-d450dcba724d" class="numbered-list" start="4" dir="auto"><li><strong>Prioriza</strong>: No puedes eliminar, reducir, incrementar y crear todo a la vez. Enfócate en lo que más impacto tiene.</li></ol><ol type="1" id="3ea648ad-99fc-80b6-87b7-e79d0c485080" class="numbered-list" start="5" dir="auto"><li><strong>Valida con clientes</strong>: Antes de implementar, asegúrate de que el cliente valora lo que estás creando.</li></ol><ol type="1" id="3ea648ad-99fc-80ca-af14-fdb3a2b32fe9" class="numbered-list" start="6" dir="auto"><li><strong>Mide el impacto</strong>: Evalúa cómo las acciones del ERRC afectan los costos y el valor percibido.</li></ol><ol type="1" id="3ea648ad-99fc-8075-a500-c1cfddc1c19b" class="numbered-list" start="7" dir="auto"><li><strong>Revisa periódicamente</strong>: El mercado cambia; lo que hoy es un océano azul, mañana puede ser rojo.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

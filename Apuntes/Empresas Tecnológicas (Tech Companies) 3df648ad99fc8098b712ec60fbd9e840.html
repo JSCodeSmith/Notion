@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Empresas Tecnológicas (Tech Companies)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-8098-b712-ec60fbd9e840" class="page sans"><header><h1 class="page-title" dir="auto"><strong>Empresas Tecnológicas (Tech Companies)</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3df648ad-99fc-809c-9ee7-cf476f5be740" class="" dir="auto">
+</p><h1 id="3df648ad-99fc-80cd-82e3-d396325e5594" class="" dir="auto"><strong>Empresas Tecnológicas (Tech Companies)</strong></h1><hr id="3df648ad-99fc-8087-8688-f44c7bed50cd" dir="auto"/><h2 id="3df648ad-99fc-800b-b91d-ff8eb60c2c71" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-8003-8f9c-c32b64df6c12" class="" dir="auto">Una empresa tecnológica es una organización que <strong>utiliza la tecnología como su principal herramienta de negocio</strong>, ya sea para crear productos digitales, ofrecer servicios basados en software, o aplicar avances tecnológicos para resolver problemas en diversas industrias. </p><p id="3df648ad-99fc-8066-b9c5-fe3b37627eaf" class="" dir="auto">Su núcleo operativo y su propuesta de valor dependen fundamentalmente de la innovación tecnológica.</p><hr id="3df648ad-99fc-80b7-b864-cce71a367ed2" dir="auto"/><h2 id="3df648ad-99fc-8026-9c9a-f382de970787" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-80c7-b679-c6a78e6eae1e" class="" dir="auto">Una empresa tecnológica no se define únicamente por vender computadoras o desarrollar software. </p><p id="3df648ad-99fc-8041-887a-e8e00054c6b5" class="" dir="auto">Es aquella donde la <strong>tecnología es el eje central de su modelo de negocio</strong>, su ventaja competitiva y su motor de crecimiento. </p><p id="3df648ad-99fc-8090-9662-d40f0dd08467" class="" dir="auto">Desde gigantes globales como Apple y Google hasta startups de inteligencia artificial, estas empresas han transformado la economía moderna.</p><p id="3df648ad-99fc-80d0-b91f-d84f54b973cc" class="" dir="auto">A diferencia de una empresa tradicional (que usa tecnología como soporte), en una empresa tecnológica <strong>la tecnología es el producto o servicio principal</strong> que ofrecen al mercado.</p><hr id="3df648ad-99fc-8077-b56d-cfe6b95881dd" dir="auto"/><h2 id="3df648ad-99fc-80ea-8a93-fe2985280d13" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-809d-a9ea-eea0615868f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Digitalizar la economía</strong>: Crear plataformas, software y servicios que permiten la transformación digital.</li></ul><ul id="3df648ad-99fc-807f-9eaa-f561a8794f19" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Resolver problemas complejos</strong>: Aplicar tecnología de punta (IA, Big Data, Cloud) a desafíos de la sociedad.</li></ul><ul id="3df648ad-99fc-80ae-a6ce-cf34c0b5b673" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar eficiencia</strong>: Automatizar procesos, reducir costos y mejorar la productividad.</li></ul><ul id="3df648ad-99fc-805c-b013-f045c12e343d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear nuevos mercados</strong>: Desarrollar productos y servicios que antes no existían.</li></ul><ul id="3df648ad-99fc-8035-a64b-f8a64186a09d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Impulsar el crecimiento económico</strong>: Generar empleo de alto valor agregado y atraer inversiones.</li></ul><hr id="3df648ad-99fc-8080-aef7-d2f733d80b78" dir="auto"/><h2 id="3df648ad-99fc-80c2-8871-e7a052ff3bea" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3df648ad-99fc-8042-8677-e86b560cbe3a" class="" dir="auto">El funcionamiento de una empresa tecnológica se basa en un modelo de <strong>innovación continua</strong> y <strong>escalabilidad</strong>:</p><ol type="1" id="3df648ad-99fc-80a6-adc2-eaf2a4a061d0" class="numbered-list" start="1" dir="auto"><li><strong>Investigación y Desarrollo (I+D)</strong>: Inversión constante en nuevas tecnologías, actualización de plataformas y mejora de productos.</li></ol><ol type="1" id="3df648ad-99fc-8096-9fff-ffa7a4bf13ba" class="numbered-list" start="2" dir="auto"><li><strong>Desarrollo de Producto</strong>: Creación de software, hardware, o soluciones digitales basadas en las necesidades del mercado.</li></ol><ol type="1" id="3df648ad-99fc-80c5-a39e-c6c2eae7d06e" class="numbered-list" start="3" dir="auto"><li><strong>Infraestructura Tecnológica</strong>: Servidores, redes, plataformas cloud, sistemas de seguridad y datos.</li></ol><ol type="1" id="3df648ad-99fc-80d7-981c-d17bfe336ea9" class="numbered-list" start="4" dir="auto"><li><strong>Comercialización</strong>: Modelos de negocio como suscripciones (SaaS), licencias, publicidad o comercio electrónico.</li></ol><ol type="1" id="3df648ad-99fc-802b-b38c-e24bfccf4b38" class="numbered-list" start="5" dir="auto"><li><strong>Escalamiento</strong>: Capacidad de crecer geográficamente y en número de usuarios sin que los costos crezcan proporcionalmente.</li></ol><ol type="1" id="3df648ad-99fc-80f9-8ef6-da9a004dc021" class="numbered-list" start="6" dir="auto"><li><strong>Retroalimentación</strong>: Uso de datos y analítica para mejorar productos y tomar decisiones.</li></ol><hr id="3df648ad-99fc-80ba-a412-c01364f05819" dir="auto"/><h2 id="3df648ad-99fc-80c9-a180-ce593530fc7e" class="" dir="auto"><strong>📝 Tipos de Empresas Tecnológicas</strong></h2><table id="3df648ad-99fc-8070-9628-da13c45151ad" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80f2-b428-c87bdedfa086" dir="ltr"><th id="Hhj;" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="llRU" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="m;lj" class="simple-table-header-color simple-table-header"><strong>Ejemplos</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80fb-a3c9-cea92d0312cd" dir="ltr"><td id="Hhj;" class=""><strong>Gigantes Tecnológicos (Big Tech)</strong></td><td id="llRU" class="">Empresas globales que dominan múltiples sectores digitales.</td><td id="m;lj" class="">Google (Alphabet), Apple, Microsoft, Amazon, Meta</td></tr><tr id="3df648ad-99fc-804c-a49a-f78370e45d20" dir="ltr"><td id="Hhj;" class=""><strong>Empresas de Software (SaaS)</strong></td><td id="llRU" class="">Ofrecen software en la nube por suscripción.</td><td id="m;lj" class="">Salesforce, Zoom, Slack, Dropbox</td></tr><tr id="3df648ad-99fc-80e6-b0b9-f35d21f8da40" dir="ltr"><td id="Hhj;" class=""><strong>Hardware y Dispositivos</strong></td><td id="llRU" class="">Fabrican equipos físicos con alto contenido tecnológico.</td><td id="m;lj" class="">Apple, Samsung, Dell, HP</td></tr><tr id="3df648ad-99fc-80f0-832b-fb151c506268" dir="ltr"><td id="Hhj;" class=""><strong>Plataformas Digitales (Marketplaces)</strong></td><td id="llRU" class="">Conectan a compradores y vendedores en ecosistemas digitales.</td><td id="m;lj" class="">Mercado Libre, Amazon, Airbnb, Uber</td></tr><tr id="3df648ad-99fc-80e4-83c3-d55efc8b237b" dir="ltr"><td id="Hhj;" class=""><strong>Fintech</strong></td><td id="llRU" class="">Innovación en servicios financieros con tecnología.</td><td id="m;lj" class="">Nubank, Revolut, Stripe, PayPal</td></tr><tr id="3df648ad-99fc-8074-b2bb-d9e532057065" dir="ltr"><td id="Hhj;" class=""><strong>Inteligencia Artificial</strong></td><td id="llRU" class="">Empresas especializadas en IA, machine learning y automatización.</td><td id="m;lj" class="">OpenAI, DeepMind, DataRobot</td></tr><tr id="3df648ad-99fc-80c2-9ddd-f7bdc882caff" dir="ltr"><td id="Hhj;" class=""><strong>Ciberseguridad</strong></td><td id="llRU" class="">Protección de sistemas, redes y datos.</td><td id="m;lj" class="">CrowdStrike, Palo Alto Networks, Fortinet</td></tr><tr id="3df648ad-99fc-80d4-be79-d8bd58d271c8" dir="ltr"><td id="Hhj;" class=""><strong>Cloud Computing</strong></td><td id="llRU" class="">Infraestructura y servicios en la nube.</td><td id="m;lj" class="">AWS, Microsoft Azure, Google Cloud</td></tr><tr id="3df648ad-99fc-8091-a0dd-c37ca9fd3f9d" dir="ltr"><td id="Hhj;" class=""><strong>Biotech y HealthTech</strong></td><td id="llRU" class="">Tecnología aplicada a la salud y biotecnología.</td><td id="m;lj" class="">Illumina, Moderna (en su faceta tecnológica)</td></tr><tr id="3df648ad-99fc-8069-9536-e315f5be2cfc" dir="ltr"><td id="Hhj;" class=""><strong>EdTech</strong></td><td id="llRU" class="">Tecnología educativa y plataformas de aprendizaje.</td><td id="m;lj" class="">Coursera, Duolingo, Platzi</td></tr></tbody></table><hr id="3df648ad-99fc-802f-b33b-c89cb294b451" dir="auto"/><h2 id="3df648ad-99fc-8084-9d01-cacac8247b6e" class="" dir="auto"><strong>💡 Ejemplos de Empresas Tecnológicas Globales</strong></h2><table id="3df648ad-99fc-803a-be31-f41102a3bac6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80bd-80bd-e9ef6169a54e" dir="ltr"><th id="@Wp?" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="j~[D" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="V?GL" class="simple-table-header-color simple-table-header"><strong>Tecnología Clave</strong></th><th id="wbwF" class="simple-table-header-color simple-table-header"><strong>Fundación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-806e-a6cd-ef78dc093a95" dir="ltr"><td id="@Wp?" class=""><strong>Apple</strong></td><td id="j~[D" class="">Hardware/Software</td><td id="V?GL" class="">Ecosistema integrado, diseño, chips propios</td><td id="wbwF" class="">1976</td></tr><tr id="3df648ad-99fc-80f0-925f-e5fb65cabac3" dir="ltr"><td id="@Wp?" class=""><strong>Microsoft</strong></td><td id="j~[D" class="">Software/Cloud</td><td id="V?GL" class="">Windows, Azure, Office, IA</td><td id="wbwF" class="">1975</td></tr><tr id="3df648ad-99fc-80c2-9a13-e2bbba878396" dir="ltr"><td id="@Wp?" class=""><strong>Amazon</strong></td><td id="j~[D" class="">E-commerce/Cloud</td><td id="V?GL" class="">AWS, logística, IA, recomendaciones</td><td id="wbwF" class="">1994</td></tr><tr id="3df648ad-99fc-806b-a2ca-c078218ed8ce" dir="ltr"><td id="@Wp?" class=""><strong>Google</strong></td><td id="j~[D" class="">Internet/IA</td><td id="V?GL" class="">Búsqueda, Android, Cloud, IA</td><td id="wbwF" class="">1998</td></tr><tr id="3df648ad-99fc-80b2-93aa-cc4d5d726315" dir="ltr"><td id="@Wp?" class=""><strong>Meta</strong></td><td id="j~[D" class="">Redes Sociales/VR</td><td id="V?GL" class="">Facebook, Instagram, Reality Labs</td><td id="wbwF" class="">2004</td></tr><tr id="3df648ad-99fc-803d-8e30-fb12ecc6d374" dir="ltr"><td id="@Wp?" class=""><strong>Tesla</strong></td><td id="j~[D" class="">Automotriz/Energía</td><td id="V?GL" class="">Vehículos eléctricos, baterías, autopilot</td><td id="wbwF" class="">2003</td></tr><tr id="3df648ad-99fc-80ea-a118-d8a17bd1f23f" dir="ltr"><td id="@Wp?" class=""><strong>NVIDIA</strong></td><td id="j~[D" class="">Semiconductores/IA</td><td id="V?GL" class="">GPUs, IA, computación de alto rendimiento</td><td id="wbwF" class="">1993</td></tr><tr id="3df648ad-99fc-809d-a788-e15cefa33ca3" dir="ltr"><td id="@Wp?" class=""><strong>Netflix</strong></td><td id="j~[D" class="">Streaming</td><td id="V?GL" class="">Algoritmos de recomendación, CDN</td><td id="wbwF" class="">1997</td></tr><tr id="3df648ad-99fc-800b-a7d4-ee28f9e5c664" dir="ltr"><td id="@Wp?" class=""><strong>Spotify</strong></td><td id="j~[D" class="">Música Digital</td><td id="V?GL" class="">Recomendación por IA, streaming</td><td id="wbwF" class="">2006</td></tr><tr id="3df648ad-99fc-8038-8eaf-f2c99d957772" dir="ltr"><td id="@Wp?" class=""><strong>Salesforce</strong></td><td id="j~[D" class="">CRM/Cloud</td><td id="V?GL" class="">Cloud computing, IA para ventas</td><td id="wbwF" class="">1999</td></tr></tbody></table><hr id="3df648ad-99fc-8074-a8ae-ebfece73212f" dir="auto"/><h2 id="3df648ad-99fc-8071-9ad1-f2d6614b486e" class="" dir="auto"><strong>🌎 Empresas Tecnológicas en Latinoamérica</strong></h2><table id="3df648ad-99fc-80df-8eaf-ef054f3bf00e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-805b-97a6-c39065982971" dir="ltr"><th id="[oL^" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="Vq]v" class="simple-table-header-color simple-table-header"><strong>País</strong></th><th id="D@dw" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="lby[" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8000-a901-d694d3531a96" dir="ltr"><td id="[oL^" class=""><strong>Mercado Libre</strong></td><td id="Vq]v" class="">Argentina</td><td id="D@dw" class="">E-commerce/Fintech</td><td id="lby[" class="">Plataforma líder de comercio electrónico en LA</td></tr><tr id="3df648ad-99fc-803c-97eb-c67b0211473a" dir="ltr"><td id="[oL^" class=""><strong>Globant</strong></td><td id="Vq]v" class="">Argentina</td><td id="D@dw" class="">IT Services/SaaS</td><td id="lby[" class="">Desarrollo de software y transformación digital</td></tr><tr id="3df648ad-99fc-80fc-ba4a-f841e6b3034e" dir="ltr"><td id="[oL^" class=""><strong>Nubank</strong></td><td id="Vq]v" class="">Brasil</td><td id="D@dw" class="">Fintech</td><td id="lby[" class="">Banco digital, uno de los más grandes del mundo</td></tr><tr id="3df648ad-99fc-8009-a69e-cf93fabc0bb0" dir="ltr"><td id="[oL^" class=""><strong>Rappi</strong></td><td id="Vq]v" class="">Colombia</td><td id="D@dw" class="">Delivery/Fintech</td><td id="lby[" class="">Plataforma de delivery y servicios financieros</td></tr><tr id="3df648ad-99fc-805d-9a59-ea747965b058" dir="ltr"><td id="[oL^" class=""><strong>Konfío</strong></td><td id="Vq]v" class="">México</td><td id="D@dw" class="">Fintech</td><td id="lby[" class="">Créditos para PYMES con tecnología</td></tr><tr id="3df648ad-99fc-80a0-9e58-c7eb7c39be8b" dir="ltr"><td id="[oL^" class=""><strong>Despegar</strong></td><td id="Vq]v" class="">Argentina</td><td id="D@dw" class="">TravelTech</td><td id="lby[" class="">Plataforma de viajes y turismo online</td></tr><tr id="3df648ad-99fc-8086-b429-d27067ee1d1c" dir="ltr"><td id="[oL^" class=""><strong>C6 Bank</strong></td><td id="Vq]v" class="">Brasil</td><td id="D@dw" class="">Fintech</td><td id="lby[" class="">Banco 100% digital</td></tr><tr id="3df648ad-99fc-80e9-b045-ea806dfe150c" dir="ltr"><td id="[oL^" class=""><strong>Uala</strong></td><td id="Vq]v" class="">Argentina</td><td id="D@dw" class="">Fintech</td><td id="lby[" class="">Billetera digital y tarjetas prepagas</td></tr><tr id="3df648ad-99fc-8032-a5d3-c817b706f84b" dir="ltr"><td id="[oL^" class=""><strong>NotCo</strong></td><td id="Vq]v" class="">Chile</td><td id="D@dw" class="">FoodTech</td><td id="lby[" class="">IA para crear alimentos de origen vegetal</td></tr><tr id="3df648ad-99fc-80f5-bb0a-c0d77b34a0c7" dir="ltr"><td id="[oL^" class=""><strong>Wildlife Studios</strong></td><td id="Vq]v" class="">Brasil</td><td id="D@dw" class="">Gaming</td><td id="lby[" class="">Desarrollo de videojuegos para móviles</td></tr></tbody></table><hr id="3df648ad-99fc-80cf-8303-d3572fa0d3ad" dir="auto"/><h2 id="3df648ad-99fc-8059-abb6-e8629d401fb3" class="" dir="auto"><strong>⚠️ Errores Comunes en Empresas Tecnológicas</strong></h2><ol type="1" id="3df648ad-99fc-8024-8c19-e66c314b68c7" class="numbered-list" start="1" dir="auto"><li><strong>No entender al cliente</strong>: Creer que por tener tecnología avanzada, el producto se vende solo.</li></ol><ol type="1" id="3df648ad-99fc-809e-8ea4-dc3c31e9941a" class="numbered-list" start="2" dir="auto"><li><strong>Deuda técnica</strong>: Acumular código y sistemas mal diseñados que frenan el crecimiento futuro.</li></ol><ol type="1" id="3df648ad-99fc-80e2-85ff-c1203d23a5d2" class="numbered-list" start="3" dir="auto"><li><strong>Escalar sin procesos</strong>: Crecer rápido sin establecer estructuras organizativas adecuadas.</li></ol><ol type="1" id="3df648ad-99fc-8056-a6f6-e723f581c7b6" class="numbered-list" start="4" dir="auto"><li><strong>Descuidar la seguridad</strong>: No invertir en ciberseguridad, exponiendo datos y sistemas.</li></ol><ol type="1" id="3df648ad-99fc-80fc-ba6d-e42837a0c242" class="numbered-list" start="5" dir="auto"><li><strong>Obsolescencia tecnológica</strong>: No actualizarse y ser superado por competidores más ágiles.</li></ol><ol type="1" id="3df648ad-99fc-80cc-8a4f-c9da36f1619b" class="numbered-list" start="6" dir="auto"><li><strong>Cultura tóxica</strong>: Ritmos de trabajo insostenibles que queman al talento.</li></ol><ol type="1" id="3df648ad-99fc-8062-91c4-f30e99b20357" class="numbered-list" start="7" dir="auto"><li><strong>Dependencia de un solo producto</strong>: No diversificar riesgos.</li></ol><hr id="3df648ad-99fc-80d1-a388-e379c72181f3" dir="auto"/><h2 id="3df648ad-99fc-809a-b453-fb06b3f90ef8" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-807b-9bfa-fdacbcbca5a2" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8059-b55f-ef6ec69ecb62" dir="ltr"><th id="pNi=" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="EIsq" class="simple-table-header-color simple-table-header" style="width:455.00001525878906px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-801b-a098-da8a43017c14" dir="ltr"><td id="pNi=" class=""><strong>Transformación digital</strong></td><td id="EIsq" class="" style="width:455.00001525878906px">Empresas tradicionales adoptan tecnología para modernizar sus procesos.</td></tr><tr id="3df648ad-99fc-8033-af38-eeae5d828907" dir="ltr"><td id="pNi=" class=""><strong>Nuevas startups</strong></td><td id="EIsq" class="" style="width:455.00001525878906px">Creación de empresas con base en IA, fintech o SaaS.</td></tr><tr id="3df648ad-99fc-80bc-b4b7-db0a3fd3a26d" dir="ltr"><td id="pNi=" class=""><strong>Inversión</strong></td><td id="EIsq" class="" style="width:455.00001525878906px">Fondos de capital riesgo buscan empresas tecnológicas escalables.</td></tr><tr id="3df648ad-99fc-802b-800f-fada776364ab" dir="ltr"><td id="pNi=" class=""><strong>Innovación abierta</strong></td><td id="EIsq" class="" style="width:455.00001525878906px">Grandes empresas colaboran con startups tecnológicas.</td></tr><tr id="3df648ad-99fc-807a-8786-ce52c552d5b8" dir="ltr"><td id="pNi=" class=""><strong>Talento digital</strong></td><td id="EIsq" class="" style="width:455.00001525878906px">Atraer y retener perfiles técnicos (desarrolladores, científicos de datos).</td></tr></tbody></table><hr id="3df648ad-99fc-8018-b47c-e008c8cb8aaa" dir="auto"/><h2 id="3df648ad-99fc-802e-a529-c87910058525" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-80e9-9d81-d72c05a70597" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-804b-9c73-dd72103aa678" dir="ltr"><th id="@IqM" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="&lt;uVj" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8078-ab04-efa8989df3dd" dir="ltr"><td id="@IqM" class=""><strong>Startup</strong></td><td id="&lt;uVj" class="">La mayoría de las startups son empresas tecnológicas, pero las empresas tecnológicas no son siempre startups (ejemplo: Google).</td></tr><tr id="3df648ad-99fc-8034-899f-c5e4563f5a1b" dir="ltr"><td id="@IqM" class=""><strong>Empresa de Base Tecnológica (EBT)</strong></td><td id="&lt;uVj" class="">Las EBT son un subtipo de empresa tecnológica, con foco en I+D científica.</td></tr><tr id="3df648ad-99fc-808d-a665-d94743a3cbef" dir="ltr"><td id="@IqM" class=""><strong>Big Tech</strong></td><td id="&lt;uVj" class="">Empresas tecnológicas que han alcanzado un tamaño y poder de mercado dominante.</td></tr><tr id="3df648ad-99fc-8025-bdee-d419278ee5a5" dir="ltr"><td id="@IqM" class=""><strong>Transformación Digital</strong></td><td id="&lt;uVj" class="">Proceso por el cual empresas de cualquier industria se vuelven tecnológicas.</td></tr><tr id="3df648ad-99fc-80b9-83c7-ea012c54257c" dir="ltr"><td id="@IqM" class=""><strong>Scaleup</strong></td><td id="&lt;uVj" class="">Empresa tecnológica que ha superado la fase de startup y está en pleno crecimiento.</td></tr><tr id="3df648ad-99fc-8093-85d5-d3732ae5ca8a" dir="ltr"><td id="@IqM" class=""><strong>Unicornio</strong></td><td id="&lt;uVj" class="">Startup tecnológica valorada en más de $1,000 millones de dólares.</td></tr></tbody></table><hr id="3df648ad-99fc-8015-9c2e-d32b3a9bf8a6" dir="auto"/><h2 id="3df648ad-99fc-80c5-bd9d-cbc01d0cda3a" class="" dir="auto"><strong>📊 Datos y Tendencias</strong></h2><ul id="3df648ad-99fc-80a0-8780-dcb30412d924" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mercado Global</strong>: El sector tecnológico representa más del 30% del valor total del mercado bursátil global.</li></ul><ul id="3df648ad-99fc-8065-8264-c0280e7831d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Inversión en I+D</strong>: Las empresas tecnológicas son las que más invierten en investigación y desarrollo del mundo (Amazon, Google, Meta, Microsoft).</li></ul><ul id="3df648ad-99fc-80a8-a7ae-fb65eee6c370" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empleo</strong>: El sector tecnológico genera millones de empleos directos e indirectos, con salarios muy por encima del promedio.</li></ul><ul id="3df648ad-99fc-80f1-aae1-f6382024b208" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tendencias 2025-2030</strong>:<ul id="3df648ad-99fc-8083-9019-f9143171ad1d" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Inteligencia Artificial Generativa</em>: Transformará todos los sectores.</li></ul><ul id="3df648ad-99fc-808c-9bfa-df229fbf91e1" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Computación Cuántica</em>: Aplicaciones en química, finanzas y logística.</li></ul><ul id="3df648ad-99fc-809f-b38e-d5a9c15aa8cf" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Web3 y Blockchain</em>: Nuevos modelos de propiedad digital.</li></ul><ul id="3df648ad-99fc-8099-be03-e8ed65663db2" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Sostenibilidad</em>: Tecnologías verdes y energías renovables.</li></ul><ul id="3df648ad-99fc-8070-a802-eb41a575ae45" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Tecnología en Salud</em>: Medicina personalizada y dispositivos wearables.</li></ul></li></ul><hr id="3df648ad-99fc-8047-9003-e0b11bb3170b" dir="auto"/><h2 id="3df648ad-99fc-804f-a4c8-d94c857cf7a9" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-80a4-a264-c860ead49df9" class="" dir="auto">Una empresa tecnológica es como un <strong>ecosistema vivo y en evolución constante</strong>. Así como un bosque se adapta al cambio climático, las empresas tecnológicas deben adaptarse a nuevas tecnologías, regulaciones y demandas de los usuarios. Las que no se adaptan, desaparecen (como Blockbuster, Kodak o Nokia). Las que evolucionan, como Amazon (de librería a gigante global), sobreviven y prosperan.</p><hr id="3df648ad-99fc-805e-97c6-fc7d75654765" dir="auto"/><h2 id="3df648ad-99fc-8085-8fca-c7332392269e" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-805d-8cda-e7513111fa47" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Christensen, C. (1997). <em>The Innovator&#x27;s Dilemma</em>.</li></ul><ul id="3df648ad-99fc-80b4-9114-fc7b1c33cc2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">O&#x27;Reilly, T. (2017). <em>WTF: What&#x27;s the Future and Why It&#x27;s Up to Us</em>.</li></ul><ul id="3df648ad-99fc-8046-a3b5-d3f62f1e4dfe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Schmidt, E. &amp; Rosenberg, J. (2017). <em>How Google Works</em>.</li></ul><ul id="3df648ad-99fc-807f-92c2-f52257a2cf05" class="bulleted-list" dir="auto"><li style="list-style-type:disc">The Economist, &quot;The World&#x27;s Most Valuable Companies&quot; (2024).</li></ul><ul id="3df648ad-99fc-804c-b4e0-ffdfe1a849dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, &quot;The New Tech Giants&quot; (2023).</li></ul><ul id="3df648ad-99fc-802a-b54c-db2f2f7c8dc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">World Economic Forum, &quot;Technology and Innovation Reports&quot; (2025).</li></ul><ul id="3df648ad-99fc-8058-82cf-d8b6884f3457" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CB Insights, &quot;State of Tech&quot; Reports.</li></ul><hr id="3df648ad-99fc-8010-a5ed-daf78fe3200d" dir="auto"/><h2 id="3df648ad-99fc-8084-90c7-f57fdcf87524" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-80e4-bd28-ec9d74d1c1cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cultura Tech</strong>: Las empresas tecnológicas exitosas suelen compartir características como:<ul id="3df648ad-99fc-8015-9687-f25d740d07ac" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Cultura de datos</strong>: Decisiones basadas en métricas y experimentación (A/B testing).</li></ul><ul id="3df648ad-99fc-8065-b6eb-fd36b4f2b194" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Autonomía</strong>: Equipos pequeños con alta capacidad de decisión.</li></ul><ul id="3df648ad-99fc-80de-9e1c-ca4e1a743476" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Fracaso rápido</strong>: &quot;Fail fast, learn faster&quot; (fracasa rápido, aprende más rápido).</li></ul><ul id="3df648ad-99fc-8032-8d54-e7a8cc6f7334" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Pasión por el producto</strong>: Enfoque obsesivo en la experiencia del usuario.</li></ul><ul id="3df648ad-99fc-801f-b3eb-e4e3f3d8c17c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Aprendizaje continuo</strong>: Capacitación constante en nuevas tecnologías.</li></ul></li></ul><ul id="3df648ad-99fc-8063-aadc-c77ae0e320ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Métricas Clave</strong>:<ul id="3df648ad-99fc-8065-8450-e1d7621de89f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Tasa de crecimiento de usuarios</em>.</li></ul><ul id="3df648ad-99fc-80ca-a526-d146f69e2a4a" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Churn Rate</em> (tasa de abandono de clientes).</li></ul><ul id="3df648ad-99fc-8091-83ee-e5806b62026f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Net Revenue Retention (NRR)</em>: Capacidad de retener y expandir ingresos.</li></ul><ul id="3df648ad-99fc-807c-8076-da32b36a38b4" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Tiempo de desarrollo</em> (lead time, deployment frequency).</li></ul><ul id="3df648ad-99fc-808a-b35e-e1139601b74b" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><em>Market Share</em>: Participación en el mercado.</li></ul></li></ul><ul id="3df648ad-99fc-8060-b366-e347024a259b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Desafíos actuales</strong>:<ul id="3df648ad-99fc-804f-b86e-dce3b1311141" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Regulación</strong>: Mayor control gubernamental (antimonopolio, privacidad).</li></ul><ul id="3df648ad-99fc-8004-b193-db2b6ee68806" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Sostenibilidad</strong>: Reducir la huella de carbono y usar energías renovables.</li></ul><ul id="3df648ad-99fc-8049-9ab0-dca41097351f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Talento</strong>: Guerra por el talento digital, necesidad de diversidad.</li></ul><ul id="3df648ad-99fc-8024-8221-da1dcd3b1184" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Ética en IA</strong>: Sesgos algorítmicos y uso responsable de la inteligencia artificial.</li></ul></li></ul><ul id="3df648ad-99fc-8080-9e95-fe7ee458fe5f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El &quot;Techlash&quot;</strong>: Fenómeno de rechazo público a las grandes tecnológicas por su poder y prácticas cuestionables (privacidad, monopolio, evasión fiscal).</li></ul><ul id="3df648ad-99fc-808a-9789-da9f4e22918e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empresas tecnológicas en la economía real</strong>: Hoy en día, todas las empresas deben ser &quot;tecnológicas&quot; para sobrevivir. La transformación digital ya no es una opción, sino una necesidad.</li></ul><ul id="3df648ad-99fc-8066-b5e5-d7711e471622" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para quienes quieren trabajar en una empresa tecnológica</strong>:<ol type="1" id="3df648ad-99fc-8092-9d6a-cd146d21e9ab" class="numbered-list" start="1" dir="auto"><li><strong>Aprende constantemente</strong>: La tecnología cambia cada año.</li></ol><ol type="1" id="3df648ad-99fc-801c-842b-eeba68876d6b" class="numbered-list" start="2" dir="auto"><li><strong>Construye portafolio</strong>: Proyectos personales y contribuciones a código abierto.</li></ol><ol type="1" id="3df648ad-99fc-80bb-9b46-d27e12fe7cff" class="numbered-list" start="3" dir="auto"><li><strong>Desarrolla habilidades blandas</strong>: Comunicación, trabajo en equipo, pensamiento crítico.</li></ol><ol type="1" id="3df648ad-99fc-80d4-be61-cef9a13d3e12" class="numbered-list" start="4" dir="auto"><li><strong>Especialízate pero mantén visión general</strong>: Conoce bien un área (ej: backend, datos, IA) pero entiende cómo encaja en el todo.</li></ol><ol type="1" id="3df648ad-99fc-8059-ad90-f84f8d6e2730" class="numbered-list" start="5" dir="auto"><li><strong>Red de contactos</strong>: Participa en comunidades, eventos, hackathons.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,824 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estructura Matricial</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-8099-9f42-fc9e205e6665" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estructura Matricial</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ce648ad-99fc-80bc-90d1-e83cd95fa54d" class="" dir="auto">
+</p><h1 id="3ce648ad-99fc-805b-962a-f08adbbdfe98" class="" dir="auto"><strong>📄 Estructura Matricial</strong></h1><hr id="3ce648ad-99fc-807b-ad9c-faa0a181b91d" dir="auto"/><h2 id="3ce648ad-99fc-80f4-848e-d4d8c3b00bcd" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-805d-859d-d59de4c0033a" class="" dir="auto">La estructura matricial es un <strong>modelo de organización empresarial</strong> que combina <strong>dos dimensiones de autoridad</strong> simultáneamente: la <strong>funcional</strong> (por especialidad) y la <strong>divisional</strong> (por producto, proyecto o región). </p><p id="3ce648ad-99fc-806f-85d5-cb5d8a7acbd9" class="" dir="auto">En este modelo, los empleados reportan a <strong>dos jefes</strong> (o más) de manera simultánea:</p><p id="3ce648ad-99fc-80c1-835e-c8e8a8538e4f" class="" dir="auto">un jefe funcional (ej: director de marketing) y un jefe de proyecto o producto (ej: líder de un proyecto específico). </p><p id="3ce648ad-99fc-8037-b9c0-cef3e6ea92b0" class="" dir="auto">Es una estructura diseñada para <strong>compartir recursos</strong> y <strong>acelerar la innovación</strong> en organizaciones que manejan múltiples proyectos complejos.</p><hr id="3ce648ad-99fc-80c2-80c7-f4e2c50e7e4a" dir="auto"/><h2 id="3ce648ad-99fc-80d1-9d73-e023cd4fed31" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-80e0-bf9f-f3ee36ac0fcf" class="" dir="auto">La estructura matricial es un modelo híbrido que busca combinar lo mejor de dos mundos:</p><p id="3ce648ad-99fc-8098-affd-c388f75295e2" class="" dir="auto">la <strong>especialización funcional</strong> (donde los empleados pertenecen a un departamento) y la <strong>flexibilidad divisional</strong> (donde se organizan por proyectos o productos). </p><p id="3ce648ad-99fc-807d-86a1-c61456d729bd" class="" dir="auto">Es especialmente común en empresas de tecnología, consultoría, construcción, investigación y desarrollo, y en organizaciones que manejan múltiples proyectos simultáneamente.</p><p id="3ce648ad-99fc-8050-b3c6-fea8335e126c" class="" dir="auto"><strong>Imagina el organigrama como una matriz</strong>:</p><ul id="3ce648ad-99fc-8008-8fdb-c5f5ccc6c225" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eje vertical</strong>: Representa las funciones tradicionales (marketing, finanzas, producción, I+D, etc.).</li></ul><ul id="3ce648ad-99fc-80f9-8729-df2f82b0ef0f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Eje horizontal</strong>: Representa los proyectos, productos o regiones (ej: Proyecto A, Proyecto B, Proyecto C).</li></ul><p id="3ce648ad-99fc-8071-b76f-cde1a1334b70" class="" dir="auto"><strong>Cada empleado se encuentra en la intersección de una función y un proyecto</strong>, reportando a ambos jefes.</p><p id="3ce648ad-99fc-80de-aee1-d49ae1561133" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ce648ad-99fc-80f0-93cb-c4e7adcae11c" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────────────────────────────┐
+│                         ESTRUCTURA MATRICIAL                                │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│              ┌──────────────┬──────────────┬──────────────┬──────────────┐  │
+│              │   Director   │   Director   │   Director   │   Director   │  │
+│              │  Marketing   │   Finanzas   │  Producción  │     I+D      │  │
+│              │  (Funcional) │  (Funcional) │  (Funcional) │  (Funcional) │  │
+│              └──────┬───────┴──────┬───────┴──────┬───────┴──────┬───────┘  │
+│                     │              │              │              │          │
+│   ┌─────────────────┼──────────────┼──────────────┼──────────────┼───────┐ │
+│   │  Proyecto A     │   Empleado   │   Empleado   │   Empleado   │   Empleado │ │
+│   │  (Divisional)   │   (Mkt + A)  │   (Fin + A)  │   (Prod + A) │   (I+D+A) │ │
+│   └─────────────────┼──────────────┼──────────────┼──────────────┼───────┘ │
+│                     │              │              │              │          │
+│   ┌─────────────────┼──────────────┼──────────────┼──────────────┼───────┐ │
+│   │  Proyecto B     │   Empleado   │   Empleado   │   Empleado   │   Empleado │ │
+│   │  (Divisional)   │   (Mkt + B)  │   (Fin + B)  │   (Prod + B) │   (I+D+B) │ │
+│   └─────────────────┼──────────────┼──────────────┼──────────────┼───────┘ │
+│                     │              │              │              │          │
+│   ┌─────────────────┼──────────────┼──────────────┼──────────────┼───────┐ │
+│   │  Proyecto C     │   Empleado   │   Empleado   │   Empleado   │   Empleado │ │
+│   │  (Divisional)   │   (Mkt + C)  │   (Fin + C)  │   (Prod + C) │   (I+D+C) │ │
+│   └─────────────────┴──────────────┴──────────────┴──────────────┴───────┘ │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘</code></pre><hr id="3ce648ad-99fc-80d9-a6ad-ded0d7b37048" dir="auto"/><h2 id="3ce648ad-99fc-80b4-bc4e-e61d23b7c55f" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-80e4-9379-f9e70cd62be0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Compartir recursos</strong>: Permite que empleados especializados (ej: ingenieros) trabajen en múltiples proyectos, optimizando el uso del talento.</li></ul><ul id="3ce648ad-99fc-8058-9deb-d172e2407a1e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acelerar la innovación</strong>: Facilita la colaboración entre diferentes áreas funcionales (marketing, finanzas, producción, I+D) en un proyecto común.</li></ul><ul id="3ce648ad-99fc-8042-8a71-f81cbbf97569" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Responder a la complejidad</strong>: Es ideal para organizaciones con múltiples productos, mercados o proyectos simultáneos.</li></ul><ul id="3ce648ad-99fc-8038-857e-cf86e4e8ec73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la comunicación interdepartamental</strong>: Rompe los silos funcionales al obligar a los equipos a colaborar.</li></ul><ul id="3ce648ad-99fc-80f7-a009-d82f0a41e975" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Flexibilidad</strong>: Permite adaptarse rápidamente a cambios en el mercado o en los proyectos.</li></ul><hr id="3ce648ad-99fc-8021-9f8c-fb24abbda5eb" dir="auto"/><h2 id="3ce648ad-99fc-80c4-8220-e61adf92fdf9" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3ce648ad-99fc-80f5-8d2f-f6517fc062c9" class="" dir="auto">La estructura matricial se basa en una <strong>doble cadena de mando</strong>:</p><ol type="1" id="3ce648ad-99fc-80b3-98eb-c4ec1ffd5b34" class="numbered-list" start="1" dir="auto"><li><strong>Autoridad funcional (vertical)</strong>: Los empleados pertenecen a un departamento (ej: marketing, finanzas, I+D) y reportan a un jefe funcional. El jefe funcional es responsable del desarrollo profesional, la capacitación y la calidad técnica del trabajo de sus empleados.</li></ol><ol type="1" id="3ce648ad-99fc-8029-9795-ec3029a029d1" class="numbered-list" start="2" dir="auto"><li><strong>Autoridad divisional (horizontal)</strong>: Los empleados también reportan a un jefe de proyecto o producto. El jefe de proyecto es responsable de los objetivos del proyecto, el presupuesto y el cumplimiento de plazos.</li></ol><p id="3ce648ad-99fc-8083-932b-e5f4353fa553" class="" dir="auto"><strong>¿Cómo se toman las decisiones?</strong></p><ul id="3ce648ad-99fc-8006-aa26-c6d284e30a1c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Decisiones funcionales</strong>: El jefe funcional decide sobre la calidad técnica, la capacitación y el desarrollo profesional.</li></ul><ul id="3ce648ad-99fc-8013-b77e-d4104bc1f097" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Decisiones de proyecto</strong>: El jefe de proyecto decide sobre el alcance, el presupuesto y los plazos del proyecto.</li></ul><ul id="3ce648ad-99fc-803c-822e-dcafcbc689f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Decisiones compartidas</strong>: Muchas decisiones requieren la colaboración de ambos jefes (ej: asignación de recursos, priorización de tareas).</li></ul><hr id="3ce648ad-99fc-80bb-8a46-f6ebfd79d5ca" dir="auto"/><h2 id="3ce648ad-99fc-80c6-bac5-c8e20e53d07e" class="" dir="auto"><strong>📝 Ventajas y Desventajas</strong></h2><h3 id="3ce648ad-99fc-8046-869b-c24feee25e31" class="" dir="auto"><strong>✅ Ventajas</strong></h3><table id="3ce648ad-99fc-80d8-9dc6-c15a7960f414" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80f3-bf77-ea97ac87dac8" dir="ltr"><th id="U;X`" class="simple-table-header-color simple-table-header"><strong>Ventaja</strong></th><th id="om]v" class="simple-table-header-color simple-table-header" style="width:389px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80fc-984b-edbbc7ca6b6b" dir="ltr"><td id="U;X`" class=""><strong>Flexibilidad</strong></td><td id="om]v" class="" style="width:389px">La empresa puede adaptarse rápidamente a los cambios en el mercado y en los proyectos.</td></tr><tr id="3ce648ad-99fc-802a-ad27-e1b409a3a14b" dir="ltr"><td id="U;X`" class=""><strong>Colaboración interdisciplinaria</strong></td><td id="om]v" class="" style="width:389px">Fomenta la colaboración entre diferentes áreas funcionales.</td></tr><tr id="3ce648ad-99fc-80ce-9e7b-f2d7def1f5b9" dir="ltr"><td id="U;X`" class=""><strong>Eficiencia de recursos</strong></td><td id="om]v" class="" style="width:389px">Permite compartir empleados especializados entre proyectos.</td></tr><tr id="3ce648ad-99fc-80ec-85eb-c249f6cc1e12" dir="ltr"><td id="U;X`" class=""><strong>Respuesta rápida a los proyectos</strong></td><td id="om]v" class="" style="width:389px">Los equipos de proyecto tienen autonomía para tomar decisiones.</td></tr><tr id="3ce648ad-99fc-8075-aaf5-f78248bd322f" dir="ltr"><td id="U;X`" class=""><strong>Desarrollo de habilidades</strong></td><td id="om]v" class="" style="width:389px">Los empleados desarrollan habilidades tanto técnicas (funcionales) como de gestión de proyectos (divisionales).</td></tr><tr id="3ce648ad-99fc-802f-a45d-d77cc0604974" dir="ltr"><td id="U;X`" class=""><strong>Innovación</strong></td><td id="om]v" class="" style="width:389px">La colaboración entre diferentes áreas genera nuevas ideas.</td></tr></tbody></table><h3 id="3ce648ad-99fc-80b7-ab4a-c2d8e40b2c3d" class="" dir="auto"><strong>❌ Desventajas</strong></h3><table id="3ce648ad-99fc-8079-a702-ec1a1fcb95f4" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-807f-be93-e4d5760fd357" dir="ltr"><th id="}CZd" class="simple-table-header-color simple-table-header"><strong>Desventaja</strong></th><th id="XdfD" class="simple-table-header-color simple-table-header" style="width:375px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8022-83e4-dcaf010f4aa1" dir="ltr"><td id="}CZd" class=""><strong>Conflicto de autoridad (doble mando)</strong></td><td id="XdfD" class="" style="width:375px">Los empleados pueden recibir órdenes contradictorias de sus dos jefes.</td></tr><tr id="3ce648ad-99fc-80ee-bfdd-e192f2424930" dir="ltr"><td id="}CZd" class=""><strong>Complejidad en la comunicación</strong></td><td id="XdfD" class="" style="width:375px">La comunicación se vuelve más compleja debido a la doble cadena de mando.</td></tr><tr id="3ce648ad-99fc-8057-be5f-cff82d99ec81" dir="ltr"><td id="}CZd" class=""><strong>Lucha por el poder</strong></td><td id="XdfD" class="" style="width:375px">Los jefes funcionales y de proyecto pueden competir por recursos y prioridades.</td></tr><tr id="3ce648ad-99fc-8048-88da-f82bfd0689d0" dir="ltr"><td id="}CZd" class=""><strong>Mayor costo administrativo</strong></td><td id="XdfD" class="" style="width:375px">La gestión de la estructura matricial requiere más tiempo y recursos.</td></tr><tr id="3ce648ad-99fc-802c-a689-d34e8258404a" dir="ltr"><td id="}CZd" class=""><strong>Confusión de roles</strong></td><td id="XdfD" class="" style="width:375px">Los empleados pueden no saber a quién reportar o a quién priorizar.</td></tr><tr id="3ce648ad-99fc-801e-9b61-c04c91e52ade" dir="ltr"><td id="}CZd" class=""><strong>Riesgo de &quot;parálisis por análisis&quot;</strong></td><td id="XdfD" class="" style="width:375px">Las decisiones pueden retrasarse debido a la necesidad de consenso entre dos jefes.</td></tr></tbody></table><hr id="3ce648ad-99fc-80f8-b2df-c80953cb353e" dir="auto"/><h2 id="3ce648ad-99fc-807b-bf6a-f721aee260ee" class="" dir="auto"><strong>💡 Ejemplos de Empresas con Estructura Matricial</strong></h2><h3 id="3ce648ad-99fc-80b2-a134-eec14eec12df" class="" dir="auto"><strong>1️⃣ Empresa de Tecnología (Grande)</strong></h3><ul id="3ce648ad-99fc-802c-bd3e-c147649d3026" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: I+D, Marketing, Finanzas, Producción.</li></ul><ul id="3ce648ad-99fc-801e-963f-fb4e59445540" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proyectos</strong>: Proyecto A (nuevo producto), Proyecto B (mejora de producto existente), Proyecto C (internacionalización).</li></ul><ul id="3ce648ad-99fc-80a4-a6d4-cbd9ef414c40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: Un ingeniero de I+D reporta al director de I+D (funcional) y al líder del Proyecto A (divisional).</li></ul><h3 id="3ce648ad-99fc-807e-9159-edbeae60c3aa" class="" dir="auto"><strong>2️⃣ Empresa de Consultoría</strong></h3><ul id="3ce648ad-99fc-8084-b241-f9b7abf70ac2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Consultoría Estratégica, Consultoría Operativa, Finanzas, Recursos Humanos.</li></ul><ul id="3ce648ad-99fc-8087-a8e9-e9ec6892914f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proyectos</strong>: Cliente A, Cliente B, Cliente C.</li></ul><ul id="3ce648ad-99fc-807e-9945-dc80f0ffcc1d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: Un consultor estratégico reporta al director de Consultoría Estratégica (funcional) y al líder del proyecto del Cliente A (divisional).</li></ul><h3 id="3ce648ad-99fc-8023-9867-c5814ff33d48" class="" dir="auto"><strong>3️⃣ Empresa de Construcción</strong></h3><ul id="3ce648ad-99fc-807b-b996-e973864acea1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Departamentos</strong>: Ingeniería, Arquitectura, Finanzas, Logística.</li></ul><ul id="3ce648ad-99fc-8044-af72-cf4c4692d133" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proyectos</strong>: Proyecto 1 (edificio residencial), Proyecto 2 (centro comercial), Proyecto 3 (infraestructura).</li></ul><ul id="3ce648ad-99fc-8079-9b9a-c30cd6e9c943" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cómo funciona</strong>: Un ingeniero reporta al director de Ingeniería (funcional) y al jefe del Proyecto 1 (divisional).</li></ul><hr id="3ce648ad-99fc-8052-8eea-df0c7b2f0aa4" dir="auto"/><h2 id="3ce648ad-99fc-80cc-89cb-ec4191118119" class="" dir="auto"><strong>⚠️ Errores Comunes al Implementar una Estructura Matricial</strong></h2><table id="3ce648ad-99fc-8038-91cd-cb46cbb31a39" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8064-952a-eafce6814e4b" dir="ltr"><th id="mjJq" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id=":Yub" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="{pRB" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8050-8a42-e243af9e4313" dir="ltr"><td id="mjJq" class=""><strong>No definir claramente los roles</strong></td><td id=":Yub" class="">No especificar qué decisiones corresponden al jefe funcional y cuáles al jefe de proyecto.</td><td id="{pRB" class="">Confusión y conflictos constantes.</td></tr><tr id="3ce648ad-99fc-80d9-8e06-d69a26565ec9" dir="ltr"><td id="mjJq" class=""><strong>No resolver los conflictos de autoridad</strong></td><td id=":Yub" class="">No tener mecanismos para resolver conflictos entre los dos jefes.</td><td id="{pRB" class="">Parálisis en la toma de decisiones.</td></tr><tr id="3ce648ad-99fc-8057-a6d1-c4fe9474db58" dir="ltr"><td id="mjJq" class=""><strong>No invertir en comunicación</strong></td><td id=":Yub" class="">No establecer canales de comunicación claros entre los equipos funcionales y de proyecto.</td><td id="{pRB" class="">Falta de coordinación y duplicación de esfuerzos.</td></tr><tr id="3ce648ad-99fc-809a-b2f9-f2d16bcd858d" dir="ltr"><td id="mjJq" class=""><strong>No capacitar a los empleados</strong></td><td id=":Yub" class="">No preparar a los empleados para trabajar en una estructura de doble mando.</td><td id="{pRB" class="">Frustración y baja productividad.</td></tr><tr id="3ce648ad-99fc-8046-ba8c-fa7dcbfdad95" dir="ltr"><td id="mjJq" class=""><strong>No medir el desempeño correctamente</strong></td><td id=":Yub" class="">No evaluar el desempeño de los empleados en ambas dimensiones (funcional y de proyecto).</td><td id="{pRB" class="">Evaluaciones sesgadas y desmotivación.</td></tr><tr id="3ce648ad-99fc-80fe-844b-c7753574f2ee" dir="ltr"><td id="mjJq" class=""><strong>No elegir el contexto adecuado</strong></td><td id=":Yub" class="">Implantar una estructura matricial en una empresa que no maneja múltiples proyectos.</td><td id="{pRB" class="">Complejidad innecesaria y altos costos administrativos.</td></tr></tbody></table><hr id="3ce648ad-99fc-804a-8310-cde16131b30b" dir="auto"/><h2 id="3ce648ad-99fc-80a4-b947-da0ffca0ea4b" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-8072-8020-d27ea40b73d0" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-804e-bf26-fd7e8a7431ab" dir="ltr"><th id="wZd=" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="?aJ&lt;" class="simple-table-header-color simple-table-header" style="width:308px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80d5-978d-d10407655863" dir="ltr"><td id="wZd=" class=""><strong>Empresa de tecnología con múltiples productos</strong></td><td id="?aJ&lt;" class="" style="width:308px">Usar la estructura matricial para gestionar el desarrollo de varios productos simultáneamente.</td></tr><tr id="3ce648ad-99fc-8059-a572-f0950187044c" dir="ltr"><td id="wZd=" class=""><strong>Empresa de consultoría con múltiples clientes</strong></td><td id="?aJ&lt;" class="" style="width:308px">Usar la estructura matricial para asignar consultores a diferentes proyectos.</td></tr><tr id="3ce648ad-99fc-8047-92ee-eead44879852" dir="ltr"><td id="wZd=" class=""><strong>Empresa de construcción con múltiples proyectos</strong></td><td id="?aJ&lt;" class="" style="width:308px">Usar la estructura matricial para compartir ingenieros entre diferentes obras.</td></tr><tr id="3ce648ad-99fc-804f-bde0-d067d62523d4" dir="ltr"><td id="wZd=" class=""><strong>Organización de I+D</strong></td><td id="?aJ&lt;" class="" style="width:308px">Usar la estructura matricial para gestionar múltiples proyectos de investigación.</td></tr></tbody></table><hr id="3ce648ad-99fc-80c4-9689-c2bb1336b464" dir="auto"/><h2 id="3ce648ad-99fc-8016-bcd3-dbcbcad5f49e" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8051-9590-dbcfeb65d822" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8077-bb6c-e531c3583f89" dir="ltr"><th id="Csjx" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="tE^n" class="simple-table-header-color simple-table-header" style="width:352px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-800f-ac5a-ed316cebb798" dir="ltr"><td id="Csjx" class=""><strong>Estructura Funcional</strong></td><td id="tE^n" class="" style="width:352px">La estructura matricial combina la estructura funcional (departamentos) con la divisional (proyectos).</td></tr><tr id="3ce648ad-99fc-8053-9656-d94da5f702d0" dir="ltr"><td id="Csjx" class=""><strong>Estructura Divisional</strong></td><td id="tE^n" class="" style="width:352px">La estructura matricial es una evolución de la estructura divisional, añadiendo la dimensión funcional.</td></tr><tr id="3ce648ad-99fc-8060-9354-d00961060d35" dir="ltr"><td id="Csjx" class=""><strong>Estructura Horizontal</strong></td><td id="tE^n" class="" style="width:352px">La estructura matricial es más jerárquica que la horizontal, aunque tiene elementos de flexibilidad.</td></tr><tr id="3ce648ad-99fc-8050-bb8c-e00c39454b41" dir="ltr"><td id="Csjx" class=""><strong>Gestión de Proyectos</strong></td><td id="tE^n" class="" style="width:352px">La estructura matricial es común en empresas que gestionan múltiples proyectos.</td></tr><tr id="3ce648ad-99fc-8018-b047-fa0bbb6d11a4" dir="ltr"><td id="Csjx" class=""><strong>Liderazgo</strong></td><td id="tE^n" class="" style="width:352px">El liderazgo en una estructura matricial requiere habilidades de negociación y resolución de conflictos.</td></tr><tr id="3ce648ad-99fc-80ea-812b-d7ad4f649f5e" dir="ltr"><td id="Csjx" class=""><strong>Cultura Organizacional</strong></td><td id="tE^n" class="" style="width:352px">La cultura debe fomentar la colaboración y la comunicación para que la estructura matricial funcione.</td></tr></tbody></table><hr id="3ce648ad-99fc-8056-b4ef-c8e72cbe3b34" dir="auto"/><h2 id="3ce648ad-99fc-806a-8c5d-f3b21d8e5749" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-8030-b87d-ee2419fff1ab" class="" dir="auto">La estructura matricial es como <strong>un equipo de fútbol donde los jugadores tienen dos entrenadores</strong>: un entrenador de posición (ej: entrenador de delanteros) que se enfoca en las habilidades técnicas, y un entrenador del equipo (ej: entrenador de la selección) que se enfoca en la estrategia del partido. Los jugadores deben escuchar a ambos, pero a veces las instrucciones pueden ser contradictorias. La clave es que ambos entrenadores se comuniquen y colaboren para que el equipo funcione.</p><hr id="3ce648ad-99fc-8029-bfd4-e849eec47429" dir="auto"/><h2 id="3ce648ad-99fc-8059-8397-d7a015f35b6d" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-80d7-b94d-d64b6935e8ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Davis, S. M., &amp; Lawrence, P. R. (1977). <em>Matrix</em>. Addison-Wesley.</li></ul><ul id="3ce648ad-99fc-80f6-8d79-e7828c6ea88c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Galbraith, J. R. (1971). <em>Matrix Organization Designs</em>. Business Horizons.</li></ul><ul id="3ce648ad-99fc-8027-80bf-de4374c2b450" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mintzberg, H. (1979). <em>The Structuring of Organizations</em>. Prentice-Hall.</li></ul><ul id="3ce648ad-99fc-80f4-a464-ed4ed301ef33" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Robbins, S. P., &amp; Coulter, M. (2018). <em>Administración</em>. Pearson.</li></ul><ul id="3ce648ad-99fc-8069-8fa8-f9aeaaf83ff1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2003). <em>The Matrix Organization</em>.</li></ul><hr id="3ce648ad-99fc-8002-9d02-f0eaa0009682" dir="auto"/><h2 id="3ce648ad-99fc-8011-8b19-e2daa21a2b86" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-80b6-85c9-c027973791bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La estructura matricial no es para todas las empresas</strong>: Solo funciona bien en organizaciones que manejan múltiples proyectos complejos y que necesitan compartir recursos especializados.</li></ul><ul id="3ce648ad-99fc-805a-aa80-f6dd9a76fb07" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La comunicación es clave</strong>: Sin una comunicación clara y mecanismos de resolución de conflictos, la estructura matricial puede generar más problemas que beneficios.</li></ul><ul id="3ce648ad-99fc-803c-a611-c4079325c231" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La cultura organizacional importa</strong>: Una cultura de confianza, colaboración y comunicación abierta es esencial para que la estructura matricial funcione.</li></ul><ul id="3ce648ad-99fc-8047-a635-d8ff1a41fdeb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para implementar una estructura matricial</strong>:<ol type="1" id="3ce648ad-99fc-80ab-8a54-c2492bfc70e1" class="numbered-list" start="1" dir="auto"><li><strong>Define claramente los roles</strong>: Especifica qué decisiones corresponden al jefe funcional y cuáles al jefe de proyecto.</li></ol><ol type="1" id="3ce648ad-99fc-805e-817d-cb06e67e79ad" class="numbered-list" start="2" dir="auto"><li><strong>Invierte en comunicación</strong>: Establece canales de comunicación claros entre los equipos funcionales y de proyecto.</li></ol><ol type="1" id="3ce648ad-99fc-8021-9f69-f0927be9d28d" class="numbered-list" start="3" dir="auto"><li><strong>Capacita a los empleados</strong>: Prepara a los empleados para trabajar en una estructura de doble mando.</li></ol><ol type="1" id="3ce648ad-99fc-80fc-a277-d7f8c7052f9f" class="numbered-list" start="4" dir="auto"><li><strong>Resuelve los conflictos rápidamente</strong>: Establece mecanismos para resolver conflictos entre los dos jefes.</li></ol><ol type="1" id="3ce648ad-99fc-8061-bd97-d22af3eb39c6" class="numbered-list" start="5" dir="auto"><li><strong>Mide el desempeño de manera integral</strong>: Evalúa a los empleados tanto en su desempeño funcional como en su desempeño en proyectos.</li></ol><ol type="1" id="3ce648ad-99fc-8075-97da-e903242f0ac8" class="numbered-list" start="6" dir="auto"><li><strong>Evalúa periódicamente</strong>: Revisa periódicamente si la estructura matricial sigue siendo la más adecuada para la organización.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

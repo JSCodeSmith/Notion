@@ -1,0 +1,809 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estrategias Genéricas de Michael Porter</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c8648ad-99fc-8011-a424-ce1138abc14b" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Estrategias Genéricas de Michael Porter</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-8019-abe5-ca50e1d0cc36" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-806c-9bc6-e9e84296489e" class="" dir="auto"><strong>📄 Estrategias Genéricas de Michael Porter</strong></h1><hr id="3c9648ad-99fc-80f7-874f-f6da5fe6cc36" dir="auto"/><h2 id="3c9648ad-99fc-80ac-82b6-dc4f69a9d50b" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-80f5-b94c-caf483d6f644" class="" dir="auto">Las Estrategias Genéricas son un modelo de gestión estratégica desarrollado por <strong>Michael E. Porter</strong> en 1980. </p><p id="3c9648ad-99fc-80e8-a2ae-d26a03c71e25" class="" dir="auto">Proponen tres enfoques generales que una empresa puede seguir para lograr una <strong>ventaja competitiva sostenible</strong> en su industria: <strong>Liderazgo en Costos</strong>, <strong>Diferenciación</strong> y <strong>Enfoque (o Nicho)</strong>. </p><p id="3c9648ad-99fc-80b3-98ef-ec9bd1b26dba" class="" dir="auto">Porter argumenta que una empresa debe elegir una de estas estrategias para evitar &quot;quedar atrapada en el medio&quot; (stuck in the middle), una situación donde no es competitiva en ninguna de ellas.</p><hr id="3c9648ad-99fc-8073-9a7c-c9cc912869a2" dir="auto"/><h2 id="3c9648ad-99fc-800a-a540-f7d1b456c989" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80f4-a4b6-ec5717daf3ad" class="" dir="auto">Porter plantea que la ventaja competitiva surge de dos dimensiones básicas:</p><ol type="1" id="3c9648ad-99fc-80c0-a810-c5df468891f7" class="numbered-list" start="1" dir="auto"><li><strong>Ventaja en Costos</strong>: La capacidad de producir o entregar a un costo menor que los competidores.</li></ol><ol type="1" id="3c9648ad-99fc-8036-9c5f-e22f5f167b9f" class="numbered-list" start="2" dir="auto"><li><strong>Diferenciación</strong>: La capacidad de ofrecer algo único y valioso que los clientes estén dispuestos a pagar un precio superior.</li></ol><p id="3c9648ad-99fc-8088-a258-d674436761cc" class="" dir="auto">Estas dos dimensiones se combinan con el <strong>alcance del mercado</strong> (amplio o estrecho) para generar tres estrategias genéricas:</p><p id="3c9648ad-99fc-80b4-a891-fe7dc6c946fe" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3c9648ad-99fc-8097-b0eb-ede11f9a68f7" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">                     VENTAJA COMPETITIVA
+                 ┌─────────────────────────┐
+                 │  Costo Bajo  │   Diferenciación │
+    ┌────────────┼─────────────┼───────────────────┤
+    │   Amplio   │  LIDERAZGO  │   DIFERENCIACIÓN  │
+    │  (Todo el  │  EN COSTOS  │                   │
+    │  mercado)  │             │                   │
+    ├────────────┼─────────────┼───────────────────┤
+    │  Estrecho  │  ENFOQUE EN │   ENFOQUE EN      │
+    │  (Nicho)   │   COSTOS    │   DIFERENCIACIÓN  │
+    └────────────┴─────────────┴───────────────────┘</code></pre><hr id="3c9648ad-99fc-80f7-9e6c-e16a79508062" dir="auto"/><h2 id="3c9648ad-99fc-80a7-a904-ec697bbfc394" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-803a-a860-d97e59e77046" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definir la dirección estratégica</strong>: Ayuda a la empresa a decidir cómo va a competir.</li></ul><ul id="3c9648ad-99fc-802d-b47f-e55263cb7b2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Posicionamiento competitivo</strong>: Establece una posición defensible frente a las 5 Fuerzas de Porter.</li></ul><ul id="3c9648ad-99fc-8021-b23c-c2da1867f061" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asignación de recursos</strong>: Guía la inversión en áreas clave (I+D, marketing, operaciones).</li></ul><ul id="3c9648ad-99fc-80fc-9169-dbfbe94ff5b7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Claridad organizacional</strong>: Alinea a toda la organización en torno a una misma propuesta de valor y forma de competir.</li></ul><hr id="3c9648ad-99fc-80b5-b127-e2f4e3dea110" dir="auto"/><h2 id="3c9648ad-99fc-80c5-98fe-e050a2687219" class="" dir="auto"><strong>📝 Las 3 Estrategias Genéricas en Detalle</strong></h2><hr id="3c9648ad-99fc-8084-9d81-fc208cbd1691" dir="auto"/><h3 id="3c9648ad-99fc-8076-aca2-e2cfbeaf84ec" class="" dir="auto"><strong>1️⃣ Liderazgo en Costos (Cost Leadership)</strong></h3><p id="3c9648ad-99fc-803f-87e0-d29f9295ccb3" class="" dir="auto"><strong>Definición</strong>: Ser el <strong>productor de menor costo</strong> en la industria.</p><p id="3c9648ad-99fc-804b-a992-c7d982506315" class="" dir="auto">La empresa busca eficiencia extrema en todas sus operaciones para ofrecer el precio más bajo del mercado.</p><p id="3c9648ad-99fc-8029-ad2a-c013b5942396" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-802a-bf3f-cef678afb6ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Enfoque en la eficiencia operativa y la reducción de costos.</li></ul><ul id="3c9648ad-99fc-801e-ba17-d44644979c8d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Economías de escala y alcance.</li></ul><ul id="3c9648ad-99fc-8093-8d8e-d2bd52702c57" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Procesos altamente estandarizados.</li></ul><ul id="3c9648ad-99fc-800b-a1d7-fd1907edb281" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bajo gasto en I+D, marketing y publicidad.</li></ul><ul id="3c9648ad-99fc-80eb-9d0d-e2e27c646184" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Productos básicos o &quot;sin lujos&quot;.</li></ul><ul id="3c9648ad-99fc-8000-a349-fd26e0f5c3af" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Capacidad para soportar guerras de precios.</li></ul><p id="3c9648ad-99fc-8046-a7d2-cfc54b32a21e" class="" dir="auto"><strong>Cómo lograrlo</strong>:</p><ul id="3c9648ad-99fc-8080-ad9b-ce41d08e5701" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejora continua de procesos.</li></ul><ul id="3c9648ad-99fc-80f9-a46d-e09dcb4d2640" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Optimización de la cadena de suministro.</li></ul><ul id="3c9648ad-99fc-80f8-8262-e2be95ce2ea0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Uso de tecnología para automatizar.</li></ul><ul id="3c9648ad-99fc-802b-8413-d98fb4ef5cbc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estandarización de productos.</li></ul><ul id="3c9648ad-99fc-8012-82db-fd9cb57220d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Localización en zonas de bajo costo.</li></ul><p id="3c9648ad-99fc-803b-b2d1-ea4628e71bfd" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-80a1-995e-f165e39b2b04" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obsolescencia tecnológica.</li></ul><ul id="3c9648ad-99fc-80e6-bd58-ff7d1a97f09c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Competidores que copian la eficiencia.</li></ul><ul id="3c9648ad-99fc-80fa-83b6-f6c0025c4632" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios en los costos de los insumos.</li></ul><ul id="3c9648ad-99fc-80c8-9486-d189c12ab0c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pérdida de calidad percibida.</li></ul><p id="3c9648ad-99fc-80fb-9a6f-cdbf7d61bb77" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-8063-8a5a-d1f4ea8b3ecc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Walmart</strong>: Eficiencia en cadena de suministro y logística para ofrecer precios bajos.</li></ul><ul id="3c9648ad-99fc-801c-8993-c1dc66c2b195" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ryanair</strong>: Aerolínea de bajo costo que reduce costos al máximo (sin lujos, aeropuertos secundarios).</li></ul><ul id="3c9648ad-99fc-80c8-a68e-e60f2e2e380d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mercado Libre (en logística)</strong>: Optimización de envíos para reducir costos operativos.</li></ul><hr id="3c9648ad-99fc-80dc-afad-ee1f31d2aabf" dir="auto"/><h3 id="3c9648ad-99fc-80cc-8125-db9344362e3e" class="" dir="auto"><strong>2️⃣ Diferenciación (Differentiation)</strong></h3><p id="3c9648ad-99fc-80d1-af2c-d1553a1ef7de" class="" dir="auto"><strong>Definición</strong>: Crear un producto o servicio <strong>percibido como único</strong> en la industria, permitiendo cobrar un precio premium.</p><p id="3c9648ad-99fc-8061-85fe-eed667ff7d73" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-8086-a561-e4b46aac56ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Enfoque en atributos que los clientes valoran (calidad, diseño, marca, servicio).</li></ul><ul id="3c9648ad-99fc-8013-89a2-c397a5d7d189" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Inversión alta en I+D, diseño y marketing.</li></ul><ul id="3c9648ad-99fc-80af-bef3-ec403b96d078" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Menor sensibilidad al precio por parte del cliente.</li></ul><ul id="3c9648ad-99fc-8016-bc93-d1967856bf6b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fidelidad de marca y reputación.</li></ul><p id="3c9648ad-99fc-80a9-a9ab-f1fad32cf637" class="" dir="auto"><strong>Cómo lograrlo</strong>:</p><ul id="3c9648ad-99fc-8015-a42f-c873d41f300d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Calidad superior.</li></ul><ul id="3c9648ad-99fc-8014-ae59-ef434fc5e47c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Innovación constante.</li></ul><ul id="3c9648ad-99fc-8050-8bbd-eb3840e55f53" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseño y experiencia de usuario excepcionales.</li></ul><ul id="3c9648ad-99fc-80bb-8059-e0cfccd53606" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Marca fuerte y storytelling.</li></ul><ul id="3c9648ad-99fc-8037-89b9-f344d4834bd9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Servicio al cliente personalizado.</li></ul><p id="3c9648ad-99fc-8059-92ce-f57590f21a37" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-804c-addd-e1fbee1a79d1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Competidores que copian la diferenciación.</li></ul><ul id="3c9648ad-99fc-8095-bb24-c200bff20e4f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambios en las preferencias del cliente.</li></ul><ul id="3c9648ad-99fc-809d-812c-cbdeaec9e543" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El sobreprecio no es sostenible si el valor no se percibe.</li></ul><ul id="3c9648ad-99fc-80a7-a1c7-f5b6bb05b42d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los competidores de bajo costo ofrecen &quot;suficientemente bueno&quot;.</li></ul><p id="3c9648ad-99fc-8053-a990-df4d2bc9ea57" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-809b-8ec9-c0c0be9fe80e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Apple</strong>: Diseño, ecosistema integrado, experiencia de usuario y marca premium.</li></ul><ul id="3c9648ad-99fc-80b7-81cb-fdb2f1590df2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mercedes-Benz</strong>: Calidad, ingeniería, estatus y prestigio.</li></ul><ul id="3c9648ad-99fc-804e-a9b4-e12781e74e6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Starbucks</strong>: Experiencia de cafetería, ambiente y personalización.</li></ul><hr id="3c9648ad-99fc-8069-88a9-dd2c52b3b234" dir="auto"/><h3 id="3c9648ad-99fc-8090-8ced-e768adff742b" class="" dir="auto"><strong>3️⃣ Enfoque (Focus)</strong></h3><p id="3c9648ad-99fc-80dc-9875-d173e9706029" class="" dir="auto"><strong>Definición</strong>: La empresa se concentra en un <strong>segmento de mercado específico</strong> (nicho) en lugar de competir en todo el mercado. </p><p id="3c9648ad-99fc-80f1-bf68-d47c8a512470" class="" dir="auto">Puede hacerlo a través de <strong>liderazgo en costos</strong> (Enfoque en Costos) o <strong>diferenciación</strong> (Enfoque en Diferenciación) dentro de ese nicho.</p><p id="3c9648ad-99fc-80be-9f4f-e634e63e0eec" class="" dir="auto"><strong>Características</strong>:</p><ul id="3c9648ad-99fc-80d6-a5a4-f7bd04c558a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Especialización profunda en un segmento de clientes, producto o región.</li></ul><ul id="3c9648ad-99fc-8033-ad14-f885600ab87c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Conocimiento detallado de las necesidades del nicho.</li></ul><ul id="3c9648ad-99fc-809e-9810-fb811359cbbc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Adaptación de la oferta a las particularidades del nicho.</li></ul><ul id="3c9648ad-99fc-8015-b2de-d61e5f72d075" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Menor competencia directa.</li></ul><p id="3c9648ad-99fc-80a5-ab23-c96a333502cb" class="" dir="auto"><strong>Cómo lograrlo</strong>:</p><ul id="3c9648ad-99fc-8012-9631-f94e117afd18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identificar un nicho desatendido.</li></ul><ul id="3c9648ad-99fc-80f4-9056-ce27ce7e59d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Entender profundamente las necesidades y dolores de ese nicho.</li></ul><ul id="3c9648ad-99fc-801c-b057-f0b69f602cda" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseñar una oferta altamente especializada.</li></ul><ul id="3c9648ad-99fc-80bc-b96c-dc28490288c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir relaciones sólidas con los clientes del nicho.</li></ul><p id="3c9648ad-99fc-805f-92df-c50fdb20bf23" class="" dir="auto"><strong>Riesgos</strong>:</p><ul id="3c9648ad-99fc-80f2-bc7f-cd24541d7764" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El nicho puede desaparecer o reducirse.</li></ul><ul id="3c9648ad-99fc-802a-80c2-e3b51804d009" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Competidores más grandes entran al nicho.</li></ul><ul id="3c9648ad-99fc-808a-8e8d-e241dde07027" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El enfoque puede ser demasiado estrecho.</li></ul><p id="3c9648ad-99fc-8029-a236-f5c05fed9d10" class="" dir="auto"><strong>Ejemplos</strong>:</p><ul id="3c9648ad-99fc-80fc-b6d1-e003a9a63648" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque en Costos</strong>: <strong>Dollar Shave Club</strong>: Maquinillas de afeitar por suscripción a bajo costo para hombres jóvenes.</li></ul><ul id="3c9648ad-99fc-803e-8b86-dc0894db08c3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque en Diferenciación</strong>: <strong>Tesla (en sus inicios)</strong>: Coches eléctricos de lujo para un nicho de entusiastas y early adopters.</li></ul><ul id="3c9648ad-99fc-8002-bb00-d14cef8992cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Palacio de Hierro (México)</strong>: Tienda departamental de lujo enfocada en un nicho de alto poder adquisitivo.</li></ul><hr id="3c9648ad-99fc-8014-89dc-c24fc7f18331" dir="auto"/><h2 id="3c9648ad-99fc-8071-87c6-f4992c43a752" class="" dir="auto"><strong>⚠️ El Peligro de &quot;Quedarse Atrapado en el Medio&quot; (Stuck in the Middle)</strong></h2><p id="3c9648ad-99fc-8002-bb07-da01505994e6" class="" dir="auto">Porter advierte que las empresas que <strong>intentan ser líderes en costos y diferenciadores al mismo tiempo</strong> sin una estrategia clara suelen terminar &quot;atrapadas en el medio&quot;. </p><p id="3c9648ad-99fc-80b8-9d2b-c65e13d25ff0" class="" dir="auto">Son percibidas como mediocres, sin una ventaja competitiva clara y con una rentabilidad por debajo del promedio de la industria.</p><p id="3c9648ad-99fc-8049-a43b-d0c08f797fb1" class="" dir="auto"><strong>Síntomas de estar &quot;atrapado en el medio&quot;</strong>:</p><ul id="3c9648ad-99fc-8076-a2d6-c984288bbd96" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Precios más altos que los líderes en costos, pero sin la diferenciación que justifique el precio.</li></ul><ul id="3c9648ad-99fc-8092-ac80-e299d6189380" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Productos con características que no son lo suficientemente únicas para cobrar un premium.</li></ul><ul id="3c9648ad-99fc-80bf-9a38-f30581d4e77b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Confusión en la propuesta de valor.</li></ul><ul id="3c9648ad-99fc-8039-8a76-ed44c92d9edc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Rentabilidad baja o negativa.</li></ul><p id="3c9648ad-99fc-80b3-9304-e427270cf1e0" class="" dir="auto"><strong>¿Es posible combinar estrategias?</strong>:</p><ul id="3c9648ad-99fc-80d6-8519-deec618c132f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter sostiene que es muy difícil y arriesgado, pero el <strong>Océano Azul</strong> (Kim y Mauborgne) demuestra que sí es posible crear una nueva propuesta de valor que <strong>elimine el trade-off</strong> entre costo y diferenciación. </li></ul><ul id="3c9648ad-99fc-80df-ba8f-ee37308fb0e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Empresas como <strong>IKEA</strong> (diseño + precio bajo) y <strong>Southwest Airlines</strong> (bajo costo + servicio aceptable) logran combinar ambas, pero requieren un modelo de negocio radicalmente diferente.</li></ul><hr id="3c9648ad-99fc-80a7-866c-e8c054846aa4" dir="auto"/><h2 id="3c9648ad-99fc-80e2-ab71-f740217bc596" class="" dir="auto"><strong>💡 Ejemplos de Aplicación</strong></h2><table id="3c9648ad-99fc-8003-9410-cd59b1b4a8cd" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-805e-8b98-db96c08078b0" dir="ltr"><th id="t{L`" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="DmQG" class="simple-table-header-color simple-table-header"><strong>Industria</strong></th><th id="cbH}" class="simple-table-header-color simple-table-header"><strong>Estrategia Genérica</strong></th><th id="cizL" class="simple-table-header-color simple-table-header"><strong>Justificación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80a1-8113-ec6b485b40bf" dir="ltr"><td id="t{L`" class=""><strong>Walmart</strong></td><td id="DmQG" class="">Retail</td><td id="cbH}" class="">Liderazgo en Costos</td><td id="cizL" class="">Precios bajos a través de eficiencia logística y poder de negociación.</td></tr><tr id="3c9648ad-99fc-807d-8f21-e7f7b0d387c6" dir="ltr"><td id="t{L`" class=""><strong>Apple</strong></td><td id="DmQG" class="">Tecnología</td><td id="cbH}" class="">Diferenciación</td><td id="cizL" class="">Diseño premium, ecosistema integrado y marca aspiracional.</td></tr><tr id="3c9648ad-99fc-80b1-b875-f7e365b187f4" dir="ltr"><td id="t{L`" class=""><strong>IKEA</strong></td><td id="DmQG" class="">Retail/Muebles</td><td id="cbH}" class=""><strong>Diferenciación + Liderazgo</strong> (Océano Azul)</td><td id="cizL" class="">Diseño escandinavo a precios bajos (modelo de negocio único).</td></tr><tr id="3c9648ad-99fc-80ca-8992-caa75f65a3f7" dir="ltr"><td id="t{L`" class=""><strong>Tesla</strong></td><td id="DmQG" class="">Automotriz</td><td id="cbH}" class="">Enfoque en Diferenciación</td><td id="cizL" class="">Nicho de vehículos eléctricos de lujo con tecnología de punta.</td></tr><tr id="3c9648ad-99fc-80c8-a696-fdcbd1392858" dir="ltr"><td id="t{L`" class=""><strong>Airbnb</strong></td><td id="DmQG" class="">Turismo/Hospitalidad</td><td id="cbH}" class="">Enfoque en Diferenciación</td><td id="cizL" class="">Ofrece experiencias únicas y auténticas en alojamientos no tradicionales.</td></tr><tr id="3c9648ad-99fc-8028-9516-ee53a87dbbca" dir="ltr"><td id="t{L`" class=""><strong>Nubank</strong></td><td id="DmQG" class="">Fintech</td><td id="cbH}" class="">Enfoque en Costos + Diferenciación</td><td id="cizL" class="">Nicho de no bancarizados: sin comisiones + excelente UX.</td></tr></tbody></table><hr id="3c9648ad-99fc-80f4-884f-df5acfb84333" dir="auto"/><h2 id="3c9648ad-99fc-80eb-a5c1-f2626235e856" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-8078-ab64-d0de52aef11d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8076-8a98-d2671062fb21" dir="ltr"><th id="E[E{" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="lLWp" class="simple-table-header-color simple-table-header" style="width:545px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80e6-9358-f39b29581501" dir="ltr"><td id="E[E{" class=""><strong>5 Fuerzas de Porter</strong></td><td id="lLWp" class="" style="width:545px">Las estrategias genéricas son la respuesta competitiva a las 5 fuerzas.</td></tr><tr id="3c9648ad-99fc-80e7-b832-c5016a211b8c" dir="ltr"><td id="E[E{" class=""><strong>Ventaja Competitiva</strong></td><td id="lLWp" class="" style="width:545px">Las estrategias genéricas son los caminos para alcanzarla.</td></tr><tr id="3c9648ad-99fc-8005-a6a6-c871b69e87dc" dir="ltr"><td id="E[E{" class=""><strong>Cadena de Valor</strong></td><td id="lLWp" class="" style="width:545px">La estrategia elegida guía cómo se configuran las actividades de la cadena de valor.</td></tr><tr id="3c9648ad-99fc-8069-a989-ee54e30cabdb" dir="ltr"><td id="E[E{" class=""><strong>Océano Azul</strong></td><td id="lLWp" class="" style="width:545px">Propone una alternativa para escapar del trade-off entre costo y diferenciación.</td></tr><tr id="3c9648ad-99fc-8044-8a93-ec67bdf58e4b" dir="ltr"><td id="E[E{" class=""><strong>Estrategia de Nicho</strong></td><td id="lLWp" class="" style="width:545px">Similar al enfoque: especialización en un segmento específico.</td></tr><tr id="3c9648ad-99fc-809c-97b3-c880353f54f1" dir="ltr"><td id="E[E{" class=""><strong>ROE/ROA</strong></td><td id="lLWp" class="" style="width:545px">Se espera que empresas con estrategias claras tengan mejor rentabilidad (ROE/ROA).</td></tr></tbody></table><hr id="3c9648ad-99fc-8075-aae7-c62e96f44f71" dir="auto"/><h2 id="3c9648ad-99fc-80b2-8765-dc322d746752" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-80d1-b8af-ced498617ac8" class="" dir="auto">Las Estrategias Genéricas son como <strong>decidir qué tipo de carrera vas a correr</strong>:</p><ul id="3c9648ad-99fc-80c4-9933-e97ab7b8c4b6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Liderazgo en Costos</strong>: Eres el corredor de maratón más eficiente. No gastas energía innecesaria. Ganas por ser el más resistente y usar menos recursos.</li></ul><ul id="3c9648ad-99fc-80d5-b4f9-fecb8053cfe4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Diferenciación</strong>: Eres el atleta de élite con una técnica única. Tu estilo es impecable y la gente paga por verte. Ganas por el valor de tu marca y tu estilo propio.</li></ul><ul id="3c9648ad-99fc-8074-94b7-ed49d8982f24" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enfoque</strong>: Eres un especialista en una disciplina poco común (ej: salto de pértiga). Te concentras en ser el mejor en eso, aunque no compitas en otras disciplinas.</li></ul><hr id="3c9648ad-99fc-80e7-be9a-c376596372b8" dir="auto"/><h2 id="3c9648ad-99fc-809d-b907-e599400deb3a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-805a-a35f-c38d52966744" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1980). <em>Competitive Strategy: Techniques for Analyzing Industries and Competitors</em>. Free Press.</li></ul><ul id="3c9648ad-99fc-80f8-9663-d48fa8669802" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1985). <em>Competitive Advantage: Creating and Sustaining Superior Performance</em>. Free Press.</li></ul><ul id="3c9648ad-99fc-807e-988a-fa700dc829ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Porter, M. E. (1996). <em>What is Strategy?</em>. Harvard Business Review.</li></ul><ul id="3c9648ad-99fc-8079-9fe6-e83269954545" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kim, W. C., &amp; Mauborgne, R. (2005). <em>Blue Ocean Strategy</em>. Harvard Business Review Press.</li></ul><hr id="3c9648ad-99fc-8001-aa08-c5db351142c0" dir="auto"/><h2 id="3c9648ad-99fc-80d8-9e87-c184689aaa20" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-80c8-94ca-e5f49b87e5ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No hay una estrategia &quot;mejor&quot;</strong>: La mejor estrategia depende de la industria, los recursos de la empresa y su posición competitiva.</li></ul><ul id="3c9648ad-99fc-80ad-9f65-cf010646326d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La consistencia es clave</strong>: Una vez elegida la estrategia, todas las actividades de la empresa deben alinearse con ella. La incoherencia confunde a los clientes y diluye la ventaja.</li></ul><ul id="3c9648ad-99fc-80e6-995d-caa051f386d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La estrategia no es estática</strong>: Puede cambiar si el mercado cambia o la empresa desarrolla nuevas capacidades.</li></ul><ul id="3c9648ad-99fc-800a-bb9c-e48dcde113d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ser &quot;el mejor en algo&quot; es mejor que ser &quot;bueno en todo&quot;</strong>: La especialización (en costo o en diferenciación) genera ventaja sostenible.</li></ul><ul id="3c9648ad-99fc-80b1-bb0e-de10abe68785" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En la era digital, la combinación es posible</strong>: La tecnología (IA, automatización, plataformas) permite a algunas empresas ser al mismo tiempo líderes en costos y en diferenciación (ej: Amazon: precios bajos + experiencia de usuario excepcional). Sin embargo, sigue siendo un desafío.</li></ul><ul id="3c9648ad-99fc-80e7-a417-dbab1b2b499e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para elegir la estrategia</strong>:<ol type="1" id="3c9648ad-99fc-80bf-8e62-c9d51ecd3abd" class="numbered-list" start="1" dir="auto"><li><strong>Analiza a la competencia</strong>: ¿Dónde están ellos? ¿Qué están haciendo bien?</li></ol><ol type="1" id="3c9648ad-99fc-802f-964c-d95e839f6a88" class="numbered-list" start="2" dir="auto"><li><strong>Conoce a tus clientes</strong>: ¿Qué valoran más? ¿Están dispuestos a pagar un premium?</li></ol><ol type="1" id="3c9648ad-99fc-8090-95ba-cd729264f965" class="numbered-list" start="3" dir="auto"><li><strong>Evalúa tus recursos</strong>: ¿Tienes la capacidad para ser líder en costos (eficiencia) o en diferenciación (innovación)?</li></ol><ol type="1" id="3c9648ad-99fc-80ca-8379-e23068d2fd47" class="numbered-list" start="4" dir="auto"><li><strong>Sé consistente</strong>: Una vez elegido el camino, asegúrate de que todas las áreas de la empresa lo sigan.</li></ol><ol type="1" id="3c9648ad-99fc-8079-bb45-ff888639e69e" class="numbered-list" start="5" dir="auto"><li><strong>No tengas miedo de enfocarte</strong>: A veces, un nicho pequeño pero bien atendido genera más rentabilidad que un mercado masivo donde eres uno más.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

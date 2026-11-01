@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>B2B</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-807f-86d7-f7e9b8046a77" class="page sans"><header><h1 class="page-title" dir="auto">B2B</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3df648ad-99fc-80b7-b087-ce3f1c9ce833" class="" dir="auto"><strong>📄 B2B (Business-to-Business)</strong></h1><hr id="3df648ad-99fc-8004-8213-cdef242706ac" dir="auto"/><h2 id="3df648ad-99fc-8042-a8eb-f620a6044684" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-8072-8e1d-df66a8f2f6d7" class="" dir="auto"><strong>B2B</strong> (Business-to-Business) es un <strong>modelo de negocio</strong> en el que una empresa <strong>vende productos o servicios a otra empresa</strong>, en lugar de hacerlo directamente a un consumidor final. </p><p id="3e0648ad-99fc-80ea-8683-dd62fdae7b8b" class="" dir="auto">Las transacciones B2B suelen ser <strong>de mayor volumen, más complejas y con ciclos de venta más largos</strong> que las transacciones B2C (Business-to-Consumer). </p><p id="3e0648ad-99fc-80be-a9f0-d3012204f1c4" class="" dir="auto">En el mundo digital, el B2B ha evolucionado hacia modelos como <strong>SaaS B2B</strong>, <strong>marketplaces B2B</strong> y <strong>plataformas B2B</strong>.</p><hr id="3df648ad-99fc-8038-b3a6-c654cd1cb382" dir="auto"/><h2 id="3df648ad-99fc-8033-a0a9-d92c140ffbbb" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-8031-812c-f4d673faecd9" class="" dir="auto">En una transacción B2B, el cliente no es una persona que compra para consumo propio, sino una <strong>organización</strong> que compra para:</p><ul id="3df648ad-99fc-8078-a7ff-c4286d6df83e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Producir</strong> otros bienes o servicios (materias primas, componentes).</li></ul><ul id="3df648ad-99fc-8050-8551-d0ad16ad83c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Revender</strong> (mayoristas, distribuidores).</li></ul><ul id="3df648ad-99fc-80db-b7aa-e2b635f1abd0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Operar</strong> su negocio (software, servicios profesionales, suministros).</li></ul><ul id="3df648ad-99fc-80f8-a12a-d9a1fa84a850" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Revender</strong> o <strong>integrar</strong> en sus propios productos.</li></ul><p id="3df648ad-99fc-805b-b6d7-d7ce739a908c" class="" dir="auto"><strong>Características clave del B2B</strong>:</p><ul id="3df648ad-99fc-8001-ae5c-d2ed75aa6f36" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cliente = Empresa</strong>: El comprador es una organización, no un individuo.</li></ul><ul id="3df648ad-99fc-803f-8846-ef7001c473c3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Decisiones racionales</strong>: Las compras se basan en criterios objetivos (precio, calidad, ROI, cumplimiento).</li></ul><ul id="3df648ad-99fc-80c8-8136-fb977c0edc17" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ciclos de venta largos</strong>: Pueden durar semanas, meses o incluso años.</li></ul><ul id="3df648ad-99fc-8074-a28a-ea49db4f49a1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples decisores</strong>: La decisión de compra involucra a varios stakeholders (compras, finanzas, TI, operaciones, dirección).</li></ul><ul id="3df648ad-99fc-80be-aad9-d6efa14868e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mayor volumen</strong>: Los pedidos suelen ser más grandes que en B2C.</li></ul><ul id="3df648ad-99fc-809c-be20-daaed8d0da84" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Relaciones a largo plazo</strong>: El objetivo es construir relaciones duraderas, no transacciones puntuales.</li></ul><hr id="3df648ad-99fc-80b0-979e-e2e0ea006827" dir="auto"/><h2 id="3df648ad-99fc-805f-8ab1-cb72a358a9cc" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-80cd-9a27-e6962c75e380" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acceder a mercados más grandes</strong>: Las empresas B2B pueden vender a otras empresas, multiplicando su alcance.</li></ul><ul id="3df648ad-99fc-807f-9c66-dec8ebe05f59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar ingresos recurrentes</strong>: Muchos modelos B2B (SaaS, suministros) generan ingresos predecibles.</li></ul><ul id="3df648ad-99fc-8002-80e6-e47eac4548c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir costos de adquisición</strong>: Una vez que se cierra un cliente B2B, la relación suele ser duradera.</li></ul><ul id="3df648ad-99fc-8005-9b55-c004f8252a43" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Escalar sin depender del consumidor final</strong>: El B2B permite crecer sin depender de las tendencias de consumo masivo.</li></ul><ul id="3df648ad-99fc-803c-97fe-fa6cba11eb74" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ofrecer soluciones personalizadas</strong>: Las empresas B2B pueden adaptar sus productos a las necesidades específicas de cada cliente.</li></ul><hr id="3df648ad-99fc-80b7-a928-f496be3d0931" dir="auto"/><h2 id="3df648ad-99fc-8007-a070-cfbdb3987ded" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Proceso de Compra B2B</strong></h2><p id="3df648ad-99fc-80e0-8bb9-f66ad46c6dc8" class="" dir="auto">El proceso de compra B2B es más complejo que el B2C. Suele seguir estas etapas:</p><ol type="1" id="3df648ad-99fc-8076-9b81-f1cabdb0fd27" class="numbered-list" start="1" dir="auto"><li><strong>Identificación de la necesidad</strong>: La empresa detecta un problema o una oportunidad (ej: necesita un software para gestionar inventario).</li></ol><ol type="1" id="3df648ad-99fc-804d-b4a7-e743ac3517a1" class="numbered-list" start="2" dir="auto"><li><strong>Búsqueda de proveedores</strong>: Se investigan posibles proveedores (recomendaciones, ferias, búsquedas online).</li></ol><ol type="1" id="3df648ad-99fc-8008-bd50-c3ce023c688e" class="numbered-list" start="3" dir="auto"><li><strong>Solicitud de propuestas (RFP)</strong>: La empresa solicita propuestas formales a los proveedores.</li></ol><ol type="1" id="3df648ad-99fc-80f3-bac4-d0139b98cf7b" class="numbered-list" start="4" dir="auto"><li><strong>Evaluación</strong>: Se comparan las propuestas según criterios como precio, calidad, soporte, integración, etc.</li></ol><ol type="1" id="3df648ad-99fc-80ae-b37b-ff8310b690dd" class="numbered-list" start="5" dir="auto"><li><strong>Negociación</strong>: Se negocian los términos del contrato (precio, plazos, condiciones).</li></ol><ol type="1" id="3df648ad-99fc-8001-b3f1-eec27319c986" class="numbered-list" start="6" dir="auto"><li><strong>Decisión de compra</strong>: La decisión final la toma un comité (no una sola persona).</li></ol><ol type="1" id="3df648ad-99fc-805d-ab5f-c6b16feed8be" class="numbered-list" start="7" dir="auto"><li><strong>Implementación</strong>: Se integra el producto o servicio en la operación de la empresa.</li></ol><ol type="1" id="3df648ad-99fc-80d1-ae2e-d320aa508a1b" class="numbered-list" start="8" dir="auto"><li><strong>Relación a largo plazo</strong>: Se busca mantener la relación y ampliar la cuenta (upselling, cross-selling).</li></ol><hr id="3df648ad-99fc-80b7-ad57-c99ce22f4551" dir="auto"/><h2 id="3df648ad-99fc-808e-b3d3-e82a0bc9c7e1" class="" dir="auto"><strong>📝 Tipos de Modelos B2B</strong></h2><table id="3df648ad-99fc-80e2-bfa5-f4c28f381ee0" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-807c-abfe-fb4415297cd4" dir="ltr"><th id="z&gt;\|" class="simple-table-header-color simple-table-header" style="width:202.34375px"><strong>Modelo</strong></th><th id="EEqM" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="P`mm" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8050-b6ad-f23eeca766f2" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>SaaS B2B</strong></td><td id="EEqM" class="">Software en la nube por suscripción para empresas.</td><td id="P`mm" class="">Salesforce, HubSpot, Slack, Zoom.</td></tr><tr id="3df648ad-99fc-80ce-913e-dc6bacf7415e" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Marketplace B2B</strong></td><td id="EEqM" class="">Plataforma que conecta a compradores y vendedores empresariales.</td><td id="P`mm" class="">Alibaba, Mercado Libre (B2B), Amazon Business.</td></tr><tr id="3df648ad-99fc-8020-bbb7-d01406812c5d" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Mayorista / Distribuidor</strong></td><td id="EEqM" class="">Venta de productos al por mayor a otras empresas.</td><td id="P`mm" class="">Costco Business, Sysco (alimentos).</td></tr><tr id="3df648ad-99fc-80cb-a815-dacdc26d232c" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Servicios Profesionales</strong></td><td id="EEqM" class="">Consultoría, auditoría, desarrollo de software a medida.</td><td id="P`mm" class="">Deloitte, Accenture, Globant.</td></tr><tr id="3df648ad-99fc-80b3-a358-dd99ad1254eb" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Fabricante / Proveedor</strong></td><td id="EEqM" class="">Venta de componentes o materias primas a otras empresas.</td><td id="P`mm" class="">Intel (chips), TSMC (semiconductores).</td></tr><tr id="3df648ad-99fc-8016-a218-e525e64a32c5" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Fintech B2B</strong></td><td id="EEqM" class="">Servicios financieros para empresas (pagos, créditos, facturación).</td><td id="P`mm" class="">Stripe, Culqi, Mercado Pago (B2B).</td></tr><tr id="3df648ad-99fc-807c-9a83-c5d53554866b" dir="ltr"><td id="z&gt;\|" class="" style="width:202.34375px"><strong>Plataformas de Logística B2B</strong></td><td id="EEqM" class="">Servicios de envío y gestión de cadena de suministro para empresas.</td><td id="P`mm" class="">Uber Freight, Flexport.</td></tr></tbody></table><hr id="3df648ad-99fc-8085-b492-da3c0207a110" dir="auto"/><h2 id="3df648ad-99fc-8007-b8cc-c091e67a884e" class="" dir="auto"><strong>💡 Ejemplos de Empresas B2B</strong></h2><table id="3df648ad-99fc-8082-8886-daa0bedde27d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80dc-9476-eef773817b94" dir="ltr"><th id="?Qg~" class="simple-table-header-color simple-table-header"><strong>Empresa</strong></th><th id="ST[|" class="simple-table-header-color simple-table-header"><strong>Sector</strong></th><th id="WK@^" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80e5-bc97-f250bdecec05" dir="ltr"><td id="?Qg~" class=""><strong>Salesforce</strong></td><td id="ST[|" class="">SaaS (CRM)</td><td id="WK@^" class="">Plataforma de gestión de clientes para empresas.</td></tr><tr id="3df648ad-99fc-8044-a015-e3f8f4e00999" dir="ltr"><td id="?Qg~" class=""><strong>Slack</strong></td><td id="ST[|" class="">SaaS (Colaboración)</td><td id="WK@^" class="">Herramienta de comunicación para equipos de trabajo.</td></tr><tr id="3df648ad-99fc-80c2-9c09-f2893696801f" dir="ltr"><td id="?Qg~" class=""><strong>Zoom</strong></td><td id="ST[|" class="">SaaS (Videoconferencias)</td><td id="WK@^" class="">Plataforma de reuniones virtuales para empresas.</td></tr><tr id="3df648ad-99fc-8076-ad12-e4c5767080b1" dir="ltr"><td id="?Qg~" class=""><strong>Stripe</strong></td><td id="ST[|" class="">Fintech</td><td id="WK@^" class="">Procesamiento de pagos para negocios en línea.</td></tr><tr id="3df648ad-99fc-8015-8f43-c2770e33717e" dir="ltr"><td id="?Qg~" class=""><strong>Culqi</strong></td><td id="ST[|" class="">Fintech</td><td id="WK@^" class="">Pasarela de pagos para empresas en Perú y Latinoamérica.</td></tr><tr id="3df648ad-99fc-800b-a70b-de85d653f749" dir="ltr"><td id="?Qg~" class=""><strong>Mercado Libre (B2B)</strong></td><td id="ST[|" class="">Marketplace</td><td id="WK@^" class="">Venta al por mayor para empresas.</td></tr><tr id="3df648ad-99fc-80fe-8632-c908b69dd58b" dir="ltr"><td id="?Qg~" class=""><strong>Alibaba</strong></td><td id="ST[|" class="">Marketplace</td><td id="WK@^" class="">Plataforma global de comercio B2B.</td></tr><tr id="3df648ad-99fc-80a4-943d-e434c4fdeb87" dir="ltr"><td id="?Qg~" class=""><strong>Globant</strong></td><td id="ST[|" class="">Servicios TI</td><td id="WK@^" class="">Desarrollo de software y transformación digital para empresas.</td></tr><tr id="3df648ad-99fc-804d-ae99-da7366eabe40" dir="ltr"><td id="?Qg~" class=""><strong>Intel</strong></td><td id="ST[|" class="">Hardware</td><td id="WK@^" class="">Fabricación de chips para fabricantes de computadoras.</td></tr><tr id="3df648ad-99fc-806c-b36d-d75c3c2a986d" dir="ltr"><td id="?Qg~" class=""><strong>AWS (Amazon)</strong></td><td id="ST[|" class="">Cloud</td><td id="WK@^" class="">Servicios de infraestructura en la nube para empresas.</td></tr></tbody></table><hr id="3df648ad-99fc-8077-8d83-e0ce3379514c" dir="auto"/><h2 id="3df648ad-99fc-8022-824f-e79cd56a565e" class="" dir="auto"><strong>📊 Comparativa: B2B vs. B2C</strong></h2><table id="3df648ad-99fc-8044-bce9-f5ba37d2bf36" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80af-9afe-e166a16ee890" dir="ltr"><th id="z:aL" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="iwM@" class="simple-table-header-color simple-table-header"><strong>B2B</strong></th><th id="_cs~" class="simple-table-header-color simple-table-header"><strong>B2C</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8015-a605-e06eb8389310" dir="ltr"><td id="z:aL" class=""><strong>Cliente</strong></td><td id="iwM@" class="">Empresas.</td><td id="_cs~" class="">Consumidores individuales.</td></tr><tr id="3df648ad-99fc-80cb-98b9-c5d4b8eed1e4" dir="ltr"><td id="z:aL" class=""><strong>Volumen de compra</strong></td><td id="iwM@" class="">Alto.</td><td id="_cs~" class="">Bajo.</td></tr><tr id="3df648ad-99fc-8041-82d3-d595f62784c2" dir="ltr"><td id="z:aL" class=""><strong>Ciclo de venta</strong></td><td id="iwM@" class="">Largo (semanas/meses).</td><td id="_cs~" class="">Corto (minutos/días).</td></tr><tr id="3df648ad-99fc-8015-b13e-f6f639370001" dir="ltr"><td id="z:aL" class=""><strong>Decisores</strong></td><td id="iwM@" class="">Múltiples (comité de compras).</td><td id="_cs~" class="">Uno (el consumidor).</td></tr><tr id="3df648ad-99fc-80c6-b393-dbbb9ee8f445" dir="ltr"><td id="z:aL" class=""><strong>Motivación de compra</strong></td><td id="iwM@" class="">Racional (ROI, eficiencia, costo).</td><td id="_cs~" class="">Emocional (deseo, estatus, conveniencia).</td></tr><tr id="3df648ad-99fc-80b9-8a96-f32e038a4378" dir="ltr"><td id="z:aL" class=""><strong>Relación</strong></td><td id="iwM@" class="">A largo plazo, contractual.</td><td id="_cs~" class="">Transaccional, puntual.</td></tr><tr id="3df648ad-99fc-80fe-ad06-cffca513ebf1" dir="ltr"><td id="z:aL" class=""><strong>Marketing</strong></td><td id="iwM@" class="">Personalizado, basado en cuentas (ABM).</td><td id="_cs~" class="">Masivo, basado en audiencias.</td></tr><tr id="3df648ad-99fc-8013-9f7c-f1a384a17446" dir="ltr"><td id="z:aL" class=""><strong>Precio</strong></td><td id="iwM@" class="">Negociado, personalizado.</td><td id="_cs~" class="">Fijo, estandarizado.</td></tr><tr id="3df648ad-99fc-80ad-b734-c26e5fada2f4" dir="ltr"><td id="z:aL" class=""><strong>Ejemplo</strong></td><td id="iwM@" class="">Salesforce vende a una empresa.</td><td id="_cs~" class="">Apple vende un iPhone a un consumidor.</td></tr></tbody></table><hr id="3df648ad-99fc-8060-8a5a-c287c1eee8b4" dir="auto"/><h2 id="3df648ad-99fc-8069-a7de-dcd3f9a900ed" class="" dir="auto"><strong>⚠️ Errores Comunes en B2B</strong></h2><table id="3df648ad-99fc-80ce-91cd-dcbbf4cb2d71" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8018-86ca-e361dc2e86d1" dir="ltr"><th id="fbcw" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="MbfT" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="@~S\" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-801a-a334-e35121c6d411" dir="ltr"><td id="fbcw" class=""><strong>No identificar a todos los decisores</strong></td><td id="MbfT" class="">Vender solo a un departamento sin considerar a los demás stakeholders.</td><td id="@~S\" class="">La venta se bloquea en la última etapa.</td></tr><tr id="3df648ad-99fc-80cd-a065-ff7cf931633c" dir="ltr"><td id="fbcw" class=""><strong>Ciclo de venta demasiado largo</strong></td><td id="MbfT" class="">No optimizar el proceso de venta para acelerar la decisión.</td><td id="@~S\" class="">Pérdida de oportunidades, costos elevados.</td></tr><tr id="3df648ad-99fc-800a-aa92-f13c7f5ac4ff" dir="ltr"><td id="fbcw" class=""><strong>No personalizar la propuesta</strong></td><td id="MbfT" class="">Ofrecer una solución genérica sin adaptarla a las necesidades del cliente.</td><td id="@~S\" class="">Baja conversión, pérdida de credibilidad.</td></tr><tr id="3df648ad-99fc-801d-ad01-c454dba32f5d" dir="ltr"><td id="fbcw" class=""><strong>Descuidar el post-venta</strong></td><td id="MbfT" class="">No invertir en Customer Success.</td><td id="@~S\" class="">Alta tasa de abandono (churn), baja renovación.</td></tr><tr id="3df648ad-99fc-80ad-9a31-e417cfb16fa9" dir="ltr"><td id="fbcw" class=""><strong>No medir el ROI para el cliente</strong></td><td id="MbfT" class="">No demostrar el retorno de inversión de la solución.</td><td id="@~S\" class="">Dificultad para justificar la compra.</td></tr><tr id="3df648ad-99fc-8090-9563-d3918f7dd957" dir="ltr"><td id="fbcw" class=""><strong>Ignorar la competencia</strong></td><td id="MbfT" class="">No diferenciarse de otros proveedores B2B.</td><td id="@~S\" class="">El cliente elige a otro proveedor.</td></tr></tbody></table><hr id="3df648ad-99fc-80ed-940c-d0a51ca2cc89" dir="auto"/><h2 id="3df648ad-99fc-80e4-bf74-c71e12542a6f" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-80e8-b9c5-f3864ca5411e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80aa-a4ba-fd0137931c23" dir="ltr"><th id="UsCf" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="raZF" class="simple-table-header-color simple-table-header" style="width:509px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8056-aad7-c70ffae8548c" dir="ltr"><td id="UsCf" class=""><strong>Startup SaaS</strong></td><td id="raZF" class="" style="width:509px">Vender una plataforma de software a empresas (B2B).</td></tr><tr id="3df648ad-99fc-801e-84dc-e58a4b8e62d5" dir="ltr"><td id="UsCf" class=""><strong>Fintech</strong></td><td id="raZF" class="" style="width:509px">Ofrecer pasarelas de pago a comercios (B2B).</td></tr><tr id="3df648ad-99fc-80fa-a5b9-e4d3ce376b6a" dir="ltr"><td id="UsCf" class=""><strong>Consultoría</strong></td><td id="raZF" class="" style="width:509px">Vender servicios profesionales a otras empresas.</td></tr><tr id="3df648ad-99fc-80d3-a0a4-dbac53b0694c" dir="ltr"><td id="UsCf" class=""><strong>Fabricante</strong></td><td id="raZF" class="" style="width:509px">Vender componentes a empresas ensambladoras.</td></tr><tr id="3df648ad-99fc-8089-8d3c-f88eeefa663b" dir="ltr"><td id="UsCf" class=""><strong>Mayorista</strong></td><td id="raZF" class="" style="width:509px">Vender productos al por mayor a minoristas.</td></tr><tr id="3df648ad-99fc-80d2-a55b-ef650f153944" dir="ltr"><td id="UsCf" class=""><strong>Marketplace</strong></td><td id="raZF" class="" style="width:509px">Crear una plataforma que conecte a compradores y vendedores empresariales.</td></tr></tbody></table><hr id="3df648ad-99fc-8095-8354-cdc55721608b" dir="auto"/><h2 id="3df648ad-99fc-806d-b343-eac9eac6ffdf" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-80ac-a765-dd54bef321a8" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-807b-8381-e433bf587631" dir="ltr"><th id="mQOK" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="sZ@}" class="simple-table-header-color simple-table-header" style="width:358px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-802b-aa84-ccca1dabd432" dir="ltr"><td id="mQOK" class=""><strong>SaaS B2B</strong></td><td id="sZ@}" class="" style="width:358px">El modelo B2B más común en la era digital.</td></tr><tr id="3df648ad-99fc-804a-bdb7-fba99c43091f" dir="ltr"><td id="mQOK" class=""><strong>B2C</strong></td><td id="sZ@}" class="" style="width:358px">Modelo opuesto: venta directa al consumidor.</td></tr><tr id="3df648ad-99fc-8055-81e4-df10a61633f4" dir="ltr"><td id="mQOK" class=""><strong>B2B2C</strong></td><td id="sZ@}" class="" style="width:358px">Modelo híbrido: una empresa vende a otra, que luego vende al consumidor final.</td></tr><tr id="3df648ad-99fc-8050-b67e-f473a9598028" dir="ltr"><td id="mQOK" class=""><strong>Ciclo de Ventas</strong></td><td id="sZ@}" class="" style="width:358px">El ciclo de ventas B2B es más largo y complejo que el B2C.</td></tr><tr id="3df648ad-99fc-80e6-974e-eef78602665d" dir="ltr"><td id="mQOK" class=""><strong>Customer Success</strong></td><td id="sZ@}" class="" style="width:358px">En B2B, el éxito del cliente es clave para la retención y la renovación.</td></tr><tr id="3df648ad-99fc-808e-9ec1-d8abdf07748d" dir="ltr"><td id="mQOK" class=""><strong>Account-Based Marketing (ABM)</strong></td><td id="sZ@}" class="" style="width:358px">Estrategia de marketing B2B centrada en cuentas específicas.</td></tr><tr id="3df648ad-99fc-8009-ac4d-c53737220280" dir="ltr"><td id="mQOK" class=""><strong>Plataformas Multilaterales</strong></td><td id="sZ@}" class="" style="width:358px">Muchos marketplaces B2B son plataformas multilaterales.</td></tr></tbody></table><hr id="3df648ad-99fc-80cb-b2d5-d9e9245a5edf" dir="auto"/><h2 id="3df648ad-99fc-8044-a7a6-f1b76938974e" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-8065-8a7b-e66a2a344434" class="" dir="auto">El B2B es como <strong>una boda por conveniencia entre dos familias empresariales</strong>. No se trata de un amor a primera vista (como en B2C), sino de una relación estratégica a largo plazo, donde ambas partes evalúan si la unión les conviene. Hay múltiples personas involucradas en la decisión (los padres, los tíos, los abogados), el proceso es largo y formal, y el objetivo es que ambas familias se beneficien mutuamente. Una vez que se cierra el acuerdo, la relación suele ser duradera y fructífera.</p><hr id="3df648ad-99fc-8061-92f3-d036587eeda2" dir="auto"/><h2 id="3df648ad-99fc-8098-8e2a-c2a5b1453a3d" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-8051-81cc-db635f037f7e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The B2B Sales Playbook</em>.</li></ul><ul id="3df648ad-99fc-800d-b1b5-f6a45fc12b41" class="bulleted-list" dir="auto"><li style="list-style-type:disc">McKinsey &amp; Company, (2024). <em>The Future of B2B Sales</em>.</li></ul><ul id="3df648ad-99fc-808b-81bc-d193f4a99149" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Gartner, (2024). <em>B2B Buying Journey</em>.</li></ul><ul id="3df648ad-99fc-808b-b830-ebdc7dab8727" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forrester, (2023). <em>B2B Marketing Trends</em>.</li></ul><ul id="3df648ad-99fc-8014-8689-f16cc6325b15" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Salesforce, (2024). <em>State of B2B Sales</em>.</li></ul><hr id="3df648ad-99fc-80cb-a8f8-f8e2d85acb96" dir="auto"/><h2 id="3df648ad-99fc-80b6-8bd9-e4b11c036fe1" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-800e-8d1e-c8d15d1ea697" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El B2B no es &quot;vender a empresas&quot; y ya</strong>: Es un modelo con reglas, ciclos y dinámicas propias. Entender al cliente B2B (que es una organización con múltiples stakeholders) es clave para el éxito.</li></ul><ul id="3df648ad-99fc-807b-bd07-f497e62cd83e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El ciclo de venta B2B es más largo</strong>: No esperes resultados inmediatos. Invierte en relaciones y en educación del cliente.</li></ul><ul id="3df648ad-99fc-8089-baa5-ef02ca0eadd8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El Customer Success es clave</strong>: En B2B, retener a un cliente es más rentable que adquirir uno nuevo. Invierte en asegurar que el cliente tenga éxito con tu producto.</li></ul><ul id="3df648ad-99fc-802c-ac8d-d629d5fae317" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para vender B2B</strong>:<ol type="1" id="3df648ad-99fc-8092-989d-f9806926f036" class="numbered-list" start="1" dir="auto"><li><strong>Identifica a todos los decisores</strong>: No solo al usuario final, también al comprador, al que aprueba el presupuesto, al que influye técnicamente.</li></ol><ol type="1" id="3df648ad-99fc-8077-a85e-f3d50b4d95f6" class="numbered-list" start="2" dir="auto"><li><strong>Habla el lenguaje del negocio</strong>: No vendas características; vende ROI, ahorro de costos, eficiencia.</li></ol><ol type="1" id="3df648ad-99fc-8050-92bc-deaec507b130" class="numbered-list" start="3" dir="auto"><li><strong>Personaliza la propuesta</strong>: Cada empresa es diferente; adapta tu solución a sus necesidades.</li></ol><ol type="1" id="3df648ad-99fc-802b-bb1e-dfbce8c28493" class="numbered-list" start="4" dir="auto"><li><strong>Construye relaciones a largo plazo</strong>: El B2B no es una transacción puntual; es una relación.</li></ol><ol type="1" id="3df648ad-99fc-80f5-98c9-d57356d4bdb6" class="numbered-list" start="5" dir="auto"><li><strong>Mide el éxito del cliente</strong>: Asegúrate de que el cliente obtenga el valor prometido.</li></ol><ol type="1" id="3df648ad-99fc-80d1-9cd0-f87e46caaaf1" class="numbered-list" start="6" dir="auto"><li><strong>Usa el marketing de contenidos</strong>: Los compradores B2B investigan mucho antes de comprar. Ofrece contenido educativo (guías, casos de estudio, webinars).</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

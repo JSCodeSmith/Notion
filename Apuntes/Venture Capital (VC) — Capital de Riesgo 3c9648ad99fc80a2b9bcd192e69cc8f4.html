@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Venture Capital (VC) — Capital de Riesgo</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c9648ad-99fc-80a2-b9bc-d192e69cc8f4" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Venture Capital (VC) — Capital de Riesgo</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-808e-9f9e-e577a4c8675c" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-80d8-b8d4-cf6d5c13c310" class="" dir="auto"><strong>📄 Venture Capital (VC) - Capital de Riesgo</strong></h1><hr id="3c9648ad-99fc-80df-9355-ef7170c7b6bd" dir="auto"/><h2 id="3c9648ad-99fc-80ff-9254-dcad71065f3c" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-801e-99f5-d6faa1107239" class="" dir="auto">El Venture Capital (Capital de Riesgo) es una <strong>forma de financiamiento privado</strong> que proporciona <strong>capital a empresas emergentes (startups) y empresas en etapa temprana</strong> que tienen un <strong>alto potencial de crecimiento</strong> pero que, por su naturaleza (alto riesgo, falta de historial crediticio, modelos de negocio no probados), no pueden acceder a financiamiento tradicional (bancos, mercados de capitales). </p><p id="3c9648ad-99fc-806c-9c57-d6a5875c58c9" class="" dir="auto">A cambio del capital, los inversores (venture capitalists) reciben <strong>participación accionaria</strong> (equity) en la empresa.</p><hr id="3c9648ad-99fc-8034-b797-f072b5c39a11" dir="auto"/><h2 id="3c9648ad-99fc-8066-a291-f2d4c804dc6f" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80e7-80c7-f112374e0e40" class="" dir="auto">El Venture Capital es un <strong>ecosistema de inversión</strong> que conecta a <strong>fondos de inversión</strong> (que gestionan capital de grandes inversores institucionales, fondos de pensiones, family offices, etc.) con <strong>emprendedores</strong> que tienen ideas innovadoras y ambiciosas. </p><p id="3c9648ad-99fc-8016-a1d6-e67aca76f51a" class="" dir="auto">Es un motor clave de la innovación y el crecimiento económico, ya que financia empresas que, de otro modo, no podrían despegar.</p><p id="3c9648ad-99fc-8076-95ae-dc9fa96ba4b2" class="" dir="auto">A diferencia de un préstamo bancario, el VC no se devuelve con intereses. </p><p id="3c9648ad-99fc-8095-af44-f1dffa4b817b" class="" dir="auto">En su lugar, el inversor se convierte en <strong>socio de la empresa</strong>, asumiendo el riesgo y compartiendo el potencial de éxito. </p><p id="3c9648ad-99fc-8051-bbb2-e82caec5ec12" class="" dir="auto">Su objetivo es obtener un <strong>retorno elevado</strong> (típicamente 10x o más) cuando la empresa sale a bolsa (IPO) o es adquirida por otra compañía (exit).</p><hr id="3c9648ad-99fc-804e-a9b2-e95690f8e377" dir="auto"/><h2 id="3c9648ad-99fc-80a9-98a4-c09bae427260" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-80e2-a267-da9060d9ade4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Financiar la innovación</strong>: Proporciona capital a empresas que no pueden acceder a financiamiento tradicional.</li></ul><ul id="3c9648ad-99fc-805d-b979-f702274b8090" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acelerar el crecimiento</strong>: Permite a las startups escalar rápidamente (contratar talento, invertir en I+D, expandir geográficamente).</li></ul><ul id="3c9648ad-99fc-8011-9990-f982272adb43" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aportar experiencia y red</strong>: Los venture capitalists suelen ofrecer asesoramiento estratégico, contactos y acceso a clientes o socios potenciales.</li></ul><ul id="3c9648ad-99fc-80aa-8f8c-c4e0c02c3da5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Validar el modelo de negocio</strong>: La inversión de un fondo de VC reconocido es un sello de calidad que atrae a otros inversores y talento.</li></ul><ul id="3c9648ad-99fc-8086-8130-e6910bcfa1aa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear valor a largo plazo</strong>: A través de la salida (IPO o adquisición), el VC genera retornos para sus inversores y reinvierte en nuevas startups.</li></ul><hr id="3c9648ad-99fc-8090-a838-d543672c36bc" dir="auto"/><h2 id="3c9648ad-99fc-8073-a1d1-d093ef2b00bb" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Ciclo del Venture Capital</strong></h2><p id="3c9648ad-99fc-801a-8c4f-ca411ffdb99d" class="" dir="auto">El ciclo del Venture Capital sigue un proceso estructurado:</p><ol type="1" id="3c9648ad-99fc-80d2-b9bc-e4f0bca319db" class="numbered-list" start="1" dir="auto"><li><strong>Origen y Búsqueda</strong>: Los fondos de VC buscan startups prometedoras a través de redes, eventos, referencias y programas de aceleración.</li></ol><ol type="1" id="3c9648ad-99fc-804e-b227-c651d8120f20" class="numbered-list" start="2" dir="auto"><li><strong>Due Diligence</strong>: Se realiza un análisis profundo del equipo, mercado, producto, tracción y modelo de negocio.</li></ol><ol type="1" id="3c9648ad-99fc-80bc-a366-de67fb418366" class="numbered-list" start="3" dir="auto"><li><strong>Negociación e Inversión</strong>: Se acuerda la valoración de la empresa y la participación accionaria a cambio del capital. Se firman los documentos legales.</li></ol><ol type="1" id="3c9648ad-99fc-804f-9f4f-d40798c746b9" class="numbered-list" start="4" dir="auto"><li><strong>Monitoreo y Apoyo</strong>: El inversor se sienta en el consejo de administración y brinda apoyo estratégico, operativo y de networking.</li></ol><ol type="1" id="3c9648ad-99fc-80e9-8b38-eb593f2a717a" class="numbered-list" start="5" dir="auto"><li><strong>Salida (Exit)</strong>: Después de 5-10 años, el VC busca una salida rentable a través de:<ul id="3c9648ad-99fc-8039-bfd8-dfeb5c134dca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>IPO (Oferta Pública Inicial)</strong>: La empresa sale a bolsa.</li></ul><ul id="3c9648ad-99fc-8051-8eeb-e9192a8fc268" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adquisición (Trade Sale)</strong>: La empresa es comprada por otra compañía.</li></ul><ul id="3c9648ad-99fc-8022-ae5b-f52e33e8d298" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Venta secundaria</strong>: Las acciones se venden a otro inversor.</li></ul></li></ol><hr id="3c9648ad-99fc-8092-ac6a-c581d93895c7" dir="auto"/><h2 id="3c9648ad-99fc-80dc-a300-c75869b557ad" class="" dir="auto"><strong>📝 Etapas de Inversión de Venture Capital</strong></h2><table id="3c9648ad-99fc-8092-8ac6-cc5c5c5191e9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80e0-8b58-cd031a051c87" dir="ltr"><th id="|xQk" class="simple-table-header-color simple-table-header"><strong>Etapa</strong></th><th id="~F&gt;X" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="ogx]" class="simple-table-header-color simple-table-header"><strong>Inversión</strong></th><th id="mqMt" class="simple-table-header-color simple-table-header"><strong>Riesgo</strong></th><th id="brOu" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80c4-911b-f3b48ae994e6" dir="ltr"><td id="|xQk" class=""><strong>Pre-seed / Semilla</strong></td><td id="~F&gt;X" class="">Idea o prototipo inicial; equipo fundador.</td><td id="ogx]" class="">$50k - $500k</td><td id="mqMt" class="">Muy alto</td><td id="brOu" class="">Y Combinator, 500 Startups.</td></tr><tr id="3c9648ad-99fc-8015-a66a-dbe3434f5d2a" dir="ltr"><td id="|xQk" class=""><strong>Seed (Capital Semilla)</strong></td><td id="~F&gt;X" class="">Producto Mínimo Viable (MVP); primeras tracciones.</td><td id="ogx]" class="">$500k - $2M</td><td id="mqMt" class="">Alto</td><td id="brOu" class="">SVC, Kaszek.</td></tr><tr id="3c9648ad-99fc-805c-a24d-e5ccc7f3ef20" dir="ltr"><td id="|xQk" class=""><strong>Serie A</strong></td><td id="~F&gt;X" class="">Producto validado, modelo de negocio probado, crecimiento inicial.</td><td id="ogx]" class="">$2M - $15M</td><td id="mqMt" class="">Medio-Alto</td><td id="brOu" class="">SoftBank, Sequoia Capital.</td></tr><tr id="3c9648ad-99fc-80c2-a5fc-c1d421ae9497" dir="ltr"><td id="|xQk" class=""><strong>Serie B</strong></td><td id="~F&gt;X" class="">Crecimiento acelerado, expansión de mercado, escalado.</td><td id="ogx]" class="">$15M - $50M</td><td id="mqMt" class="">Medio</td><td id="brOu" class="">Sequoia Capital, Accel.</td></tr><tr id="3c9648ad-99fc-80a7-b36a-f6667d72f3bb" dir="ltr"><td id="|xQk" class=""><strong>Serie C y posteriores</strong></td><td id="~F&gt;X" class="">Expansión internacional, consolidación, preparación para IPO.</td><td id="ogx]" class="">$50M - $200M+</td><td id="mqMt" class="">Bajo-Medio</td><td id="brOu" class="">SoftBank, Andreessen Horowitz.</td></tr><tr id="3c9648ad-99fc-8059-824e-c9ddb4b71492" dir="ltr"><td id="|xQk" class=""><strong>Salida (IPO / M&amp;A)</strong></td><td id="~F&gt;X" class="">La empresa sale a bolsa o es adquirida.</td><td id="ogx]" class="">N/A</td><td id="mqMt" class="">N/A</td><td id="brOu" class="">Uber, Spotify, Mercado Libre.</td></tr></tbody></table><hr id="3c9648ad-99fc-8024-8112-f92952497f65" dir="auto"/><h2 id="3c9648ad-99fc-80b6-b9c7-f1d9c46b778e" class="" dir="auto"><strong>💡 Ejemplos de Venture Capital en Startups Famosas</strong></h2><table id="3c9648ad-99fc-807c-844a-d43d0f72d74e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80d2-9de7-cf1a90ed5282" dir="ltr"><th id="_IQ~" class="simple-table-header-color simple-table-header"><strong>Startup</strong></th><th id="MjIO" class="simple-table-header-color simple-table-header"><strong>Ronda de VC</strong></th><th id="AQ;D" class="simple-table-header-color simple-table-header"><strong>Inversionistas Clave</strong></th><th id="W`LB" class="simple-table-header-color simple-table-header"><strong>Impacto</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-806c-9bb0-ec7589e80abf" dir="ltr"><td id="_IQ~" class=""><strong>Uber</strong></td><td id="MjIO" class="">Serie A (2010)</td><td id="AQ;D" class="">Benchmark Capital, First Round Capital.</td><td id="W`LB" class="">Aceleró su expansión global antes de la IPO.</td></tr><tr id="3c9648ad-99fc-8036-9895-e9ff394c4a93" dir="ltr"><td id="_IQ~" class=""><strong>Airbnb</strong></td><td id="MjIO" class="">Serie A (2010)</td><td id="AQ;D" class="">Sequoia Capital, Greylock Partners.</td><td id="W`LB" class="">Financió la expansión internacional y la construcción de un ecosistema de confianza.</td></tr><tr id="3c9648ad-99fc-8045-a212-fa990d6fd3e4" dir="ltr"><td id="_IQ~" class=""><strong>Nubank</strong></td><td id="MjIO" class="">Serie A (2016)</td><td id="AQ;D" class="">Sequoia Capital, Kaszek Ventures.</td><td id="W`LB" class="">Le permitió escalar en Brasil y expandirse a México y Colombia.</td></tr><tr id="3c9648ad-99fc-8079-b534-eb728fd3c3c6" dir="ltr"><td id="_IQ~" class=""><strong>Mercado Libre</strong></td><td id="MjIO" class="">Serie A (2000)</td><td id="AQ;D" class="">Goldman Sachs, J.P. Morgan.</td><td id="W`LB" class="">Le dio capital para consolidar su liderazgo en Latinoamérica.</td></tr><tr id="3c9648ad-99fc-806a-93b2-d1f7a590d7a6" dir="ltr"><td id="_IQ~" class=""><strong>Rappi</strong></td><td id="MjIO" class="">Serie A (2016)</td><td id="AQ;D" class="">Andreessen Horowitz, Y Combinator, SoftBank.</td><td id="W`LB" class="">Financió su expansión agresiva a toda América Latina.</td></tr><tr id="3c9648ad-99fc-8098-b55e-f332ed04ea27" dir="ltr"><td id="_IQ~" class=""><strong>Spotify</strong></td><td id="MjIO" class="">Serie A (2008)</td><td id="AQ;D" class="">Creandum, Northzone.</td><td id="W`LB" class="">Le permitió asegurar acuerdos con discográficas y escalar globalmente.</td></tr><tr id="3c9648ad-99fc-80ff-8e92-cc2cfca5647e" dir="ltr"><td id="_IQ~" class=""><strong>Tesla</strong></td><td id="MjIO" class="">Serie A (2004)</td><td id="AQ;D" class="">Elon Musk (inversor ángel), VantagePoint Venture Partners.</td><td id="W`LB" class="">Financió el desarrollo del Tesla Roadster y la construcción de la primera fábrica.</td></tr></tbody></table><hr id="3c9648ad-99fc-8036-8c37-f7813d11f702" dir="auto"/><h2 id="3c9648ad-99fc-80b7-b2f8-c65e0c51e0d2" class="" dir="auto"><strong>⚠️ Errores Comunes en el Venture Capital</strong></h2><table id="3c9648ad-99fc-80e8-bb23-cb16f9fca14e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8003-ae43-c753187912b6" dir="ltr"><th id="UdlS" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="&lt;if&gt;" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="@oVv" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80c1-851e-f7eec5209e51" dir="ltr"><td id="UdlS" class=""><strong>No hacer el due diligence adecuado</strong></td><td id="&lt;if&gt;" class="">Invertir sin un análisis profundo del equipo, mercado o producto.</td><td id="@oVv" class="">Pérdida de capital, daño a la reputación.</td></tr><tr id="3c9648ad-99fc-808f-a0f6-e27d0e2fc147" dir="ltr"><td id="UdlS" class=""><strong>Sobrestimar la valoración</strong></td><td id="&lt;if&gt;" class="">Pagar demasiado por una participación.</td><td id="@oVv" class="">Menor retorno, dilución del capital.</td></tr><tr id="3c9648ad-99fc-8058-a3f4-f1aa80e9c702" dir="ltr"><td id="UdlS" class=""><strong>No tener un plan de salida claro</strong></td><td id="&lt;if&gt;" class="">No definir cómo se va a recuperar la inversión.</td><td id="@oVv" class="">Capital inmovilizado por años.</td></tr><tr id="3c9648ad-99fc-8072-b0be-c27ea04629ce" dir="ltr"><td id="UdlS" class=""><strong>Ignorar los factores humanos</strong></td><td id="&lt;if&gt;" class="">No evaluar al equipo fundador (cohesión, habilidades, motivación).</td><td id="@oVv" class="">Problemas de gestión, fracaso de la empresa.</td></tr><tr id="3c9648ad-99fc-8059-9dd2-fae6fba73005" dir="ltr"><td id="UdlS" class=""><strong>Invertir en un mercado demasiado nicho</strong></td><td id="&lt;if&gt;" class="">Financiar una startup que no puede crecer más allá de un segmento pequeño.</td><td id="@oVv" class="">Falta de escalabilidad, bajo retorno.</td></tr><tr id="3c9648ad-99fc-8019-8c52-f22d81f6be91" dir="ltr"><td id="UdlS" class=""><strong>No invertir en la cartera</strong></td><td id="&lt;if&gt;" class="">No proporcionar apoyo estratégico una vez realizada la inversión.</td><td id="@oVv" class="">La empresa no alcanza su potencial.</td></tr></tbody></table><hr id="3c9648ad-99fc-801d-91c6-ce342c0ae0cc" dir="auto"/><h2 id="3c9648ad-99fc-8045-bcc3-db136faaa97e" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-80ee-bf8c-c06a81350360" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-808a-9954-e101ff5e2c97" dir="ltr"><th id="~rd}" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="y]ez" class="simple-table-header-color simple-table-header" style="width:339px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-800b-99ba-e2c0930604b2" dir="ltr"><td id="~rd}" class=""><strong>Startup tecnológica</strong></td><td id="y]ez" class="" style="width:339px">Buscar VC para financiar desarrollo de producto, contratación de talento y expansión global.</td></tr><tr id="3c9648ad-99fc-8087-b2ca-cee0b0165ed0" dir="ltr"><td id="~rd}" class=""><strong>Fondo de inversión</strong></td><td id="y]ez" class="" style="width:339px">Invertir en startups prometedoras como parte de una estrategia de alto riesgo / alto retorno.</td></tr><tr id="3c9648ad-99fc-8096-a412-c427b3722e00" dir="ltr"><td id="~rd}" class=""><strong>Empresa con crecimiento exponencial</strong></td><td id="y]ez" class="" style="width:339px">Usar VC para escalar rápidamente y capturar el mercado.</td></tr><tr id="3c9648ad-99fc-8052-8089-d9f973bb3142" dir="ltr"><td id="~rd}" class=""><strong>Reestructuración de una empresa</strong></td><td id="y]ez" class="" style="width:339px">Usar VC para financiar un giro o pivot en el modelo de negocio.</td></tr><tr id="3c9648ad-99fc-80b5-a932-d39d92182634" dir="ltr"><td id="~rd}" class=""><strong>Entrada a nuevos mercados</strong></td><td id="y]ez" class="" style="width:339px">Financiar la expansión geográfica con capital de riesgo.</td></tr></tbody></table><hr id="3c9648ad-99fc-80c8-b4bd-d61842c19347" dir="auto"/><h2 id="3c9648ad-99fc-8007-9e7f-c1d9458a7ba2" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-80b2-8133-ec239a87cd25" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8091-a200-e03fcdfe7f38" dir="ltr"><th id="U@Ew" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="S^;O" class="simple-table-header-color simple-table-header" style="width:407px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8097-a030-d7ba769c0b82" dir="ltr"><td id="U@Ew" class=""><strong>Startup</strong></td><td id="S^;O" class="" style="width:407px">Las startups son los principales receptores de VC.</td></tr><tr id="3c9648ad-99fc-803d-9a1d-cf77434fe8f0" dir="ltr"><td id="U@Ew" class=""><strong>Business Angel</strong></td><td id="S^;O" class="" style="width:407px">Inversión inicial de individuos (ángeles) antes del VC formal.</td></tr><tr id="3c9648ad-99fc-8080-88f8-dc5d280a1174" dir="ltr"><td id="U@Ew" class=""><strong>IPO (Oferta Pública Inicial)</strong></td><td id="S^;O" class="" style="width:407px">La salida más común para los VCs.</td></tr><tr id="3c9648ad-99fc-8075-8655-fdebfff0d698" dir="ltr"><td id="U@Ew" class=""><strong>Due Diligence</strong></td><td id="S^;O" class="" style="width:407px">Proceso de evaluación previo a la inversión.</td></tr><tr id="3c9648ad-99fc-8031-a1ac-e694b72f13a0" dir="ltr"><td id="U@Ew" class=""><strong>Escalabilidad</strong></td><td id="S^;O" class="" style="width:407px">Los VCs buscan empresas con alto potencial de escalabilidad.</td></tr><tr id="3c9648ad-99fc-809b-8d2b-fb6cb42f112a" dir="ltr"><td id="U@Ew" class=""><strong>Unicornio</strong></td><td id="S^;O" class="" style="width:407px">Startup valorada en más de $1,000 millones, típicamente respaldada por VC.</td></tr><tr id="3c9648ad-99fc-80f0-b48c-c396db25b5ef" dir="ltr"><td id="U@Ew" class=""><strong>Fondo de Capital Riesgo</strong></td><td id="S^;O" class="" style="width:407px">Vehículo de inversión que gestiona el capital de los LP (Limited Partners) y lo invierte en startups.</td></tr><tr id="3c9648ad-99fc-80af-8620-f0a2bec684e0" dir="ltr"><td id="U@Ew" class=""><strong>Spin-off</strong></td><td id="S^;O" class="" style="width:407px">Empresa derivada de una institución académica o corporativa que a menudo busca VC para comercializar su tecnología.</td></tr></tbody></table><hr id="3c9648ad-99fc-801c-b5f9-f4bec3d2856d" dir="auto"/><h2 id="3c9648ad-99fc-8096-9591-ca1bb0ca6c18" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-80f1-b552-fc50686ad761" class="" dir="auto">El Venture Capital es como <strong>el patrocinio de un equipo de Fórmula 1</strong>. El VC no solo proporciona el dinero para comprar el coche y el equipo; también contrata a los mejores ingenieros (talentos), les da acceso a su red de contactos (patrocinadores, proveedores) y los ayuda a navegar en las curvas (estrategia). A cambio, si el equipo gana el campeonato (exit), el patrocinador obtiene una parte de las ganancias y una reputación que le permite invertir en el próximo equipo ganador (reinversión).</p><hr id="3c9648ad-99fc-8016-9c88-dcf399674bb3" dir="auto"/><h2 id="3c9648ad-99fc-8059-9e7e-faad104d89e4" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-8063-9003-e00c208b2a04" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Gompers, P. A., &amp; Lerner, J. (2001). <em>The Money of Invention</em>. Harvard Business School Press.</li></ul><ul id="3c9648ad-99fc-80b2-8825-db0ccdc1da81" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, S. N., &amp; Strömberg, P. (2003). <em>Financial Contracting Theory Meets the Real World</em>. Journal of Finance.</li></ul><ul id="3c9648ad-99fc-80ff-9b74-d792dbb628df" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Feld, B., &amp; Mendelson, J. (2019). <em>Venture Deals: Be Smarter Than Your Lawyer and Venture Capitalist</em>. Wiley.</li></ul><ul id="3c9648ad-99fc-80ac-8447-d1867c0751d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2011). <em>The Lean Startup</em>. Crown Business.</li></ul><ul id="3c9648ad-99fc-80b4-91c3-dedf1c6a77e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2017). <em>A Guide to Venture Capital</em>.</li></ul><ul id="3c9648ad-99fc-8076-9e93-ec27b49726ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Forbes, (2024). <em>Venture Capital Trends</em>.</li></ul><hr id="3c9648ad-99fc-801a-9917-c98554333cc4" dir="auto"/><h2 id="3c9648ad-99fc-801c-ae53-cb9559073b30" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-8044-a801-da8bd8c7c441" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El Venture Capital no es para todos</strong>: Solo una fracción de las startups reciben financiamiento de VC (menos del 1%). La mayoría de los emprendedores deben buscar alternativas como bootstrapping (autofinanciamiento) o inversión ángel.</li></ul><ul id="3c9648ad-99fc-80ff-ba4d-dd2ba212636c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El VC busca unicornios</strong>: Los fondos de VC buscan empresas que puedan llegar a ser &quot;unicornios&quot; (valor &gt; $1B). No les interesa invertir en negocios &quot;buenos pero no disruptivos&quot;.</li></ul><ul id="3c9648ad-99fc-80bd-b679-d41560557e12" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El VC es un juego de largo plazo</strong>: El ciclo típico de inversión es de 5 a 10 años. Los emprendedores deben estar preparados para un compromiso a largo plazo y para compartir el control de la empresa.</li></ul><ul id="3c9648ad-99fc-80b3-9fa4-e040c405fde3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El due diligence es clave</strong>: La mayoría de las inversiones fracasan (alrededor del 70-80%). El éxito de un fondo de VC depende de unas pocas inversiones que generen retornos excepcionales (la &quot;regla del poder&quot; o ley de potencia).</li></ul><ul id="3c9648ad-99fc-80f2-aaec-e576b16484b6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para emprendedores que buscan VC</strong>:<ol type="1" id="3c9648ad-99fc-808c-9176-c4d23bf6efc0" class="numbered-list" start="1" dir="auto"><li><strong>Valida tu modelo de negocio</strong>: Los VCs invierten en empresas con tracción real (clientes, ingresos, crecimiento), no en ideas no probadas. Ten un MVP validado.</li></ol><ol type="1" id="3c9648ad-99fc-80e4-b403-f426bc63930a" class="numbered-list" start="2" dir="auto"><li><strong>Construye un equipo fuerte</strong>: Los VCs invierten en equipos, no solo en ideas. Tener un equipo complementario (ej: CEO técnico + CEO comercial) es crucial.</li></ol><ol type="1" id="3c9648ad-99fc-808f-89e2-f855dfd63e79" class="numbered-list" start="3" dir="auto"><li><strong>Investiga al fondo</strong>: No todos los fondos son iguales. Busca VCs que tengan experiencia en tu sector y que puedan aportar valor más allá del capital (contactos, asesoría, estrategia).</li></ol><ol type="1" id="3c9648ad-99fc-8095-98de-d103ca0d1226" class="numbered-list" start="4" dir="auto"><li><strong>Prepárate para la due diligence</strong>: Ten tus finanzas, métricas y documentos legales en orden.</li></ol><ol type="1" id="3c9648ad-99fc-8099-9a70-f431906a7a70" class="numbered-list" start="5" dir="auto"><li><strong>No te obsesiones con la valoración</strong>: Es mejor tener un inversor de calidad a un precio ligeramente más bajo que un inversor mediocre a un precio alto. La red y el apoyo estratégico del VC pueden valer más que el capital adicional.</li></ol><ol type="1" id="3c9648ad-99fc-80cc-92d2-d3522182158f" class="numbered-list" start="6" dir="auto"><li><strong>Define un plan de salida claro</strong>: Los VCs quieren saber cómo van a recuperar su inversión. Tener una estrategia de salida (IPO o adquisición) es clave para atraer inversión.</li></ol><ol type="1" id="3c9648ad-99fc-8036-98bd-ee0d70d4c4f5" class="numbered-list" start="7" dir="auto"><li><strong>Mantén la transparencia y la comunicación</strong>: Los VCs son socios, no solo financiadores. Mantenerlos informados de los avances y desafíos construye confianza y abre puertas a futuras rondas de inversión.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

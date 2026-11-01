@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estándar ANSI</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-8083-afc2-d1e01cefd6ae" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estándar ANSI</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3ce648ad-99fc-8055-b50c-f155786f6eb2" class="" dir="auto"><strong>📄 Estándar ANSI (American National Standards Institute)</strong></h1><hr id="3ce648ad-99fc-80d1-b6b2-ee882754b4f4" dir="auto"/><h2 id="3ce648ad-99fc-8066-9fd6-ca03b1128335" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ce648ad-99fc-80a6-aebc-c0aac4a171d3" class="" dir="auto">El <strong>ANSI</strong> (American National Standards Institute) es una <strong>organización privada sin fines de lucro</strong> que <strong>administra y coordina</strong> el sistema de <strong>estandarización voluntaria</strong> en los Estados Unidos. </p><p id="3ce648ad-99fc-8026-af60-fdb04106260e" class="" dir="auto">Fue fundada en 1918 y tiene su sede en Washington D.C. </p><p id="3ce648ad-99fc-80e8-8676-f279a3e84e31" class="" dir="auto">Su misión es <strong>promover la competitividad de las empresas estadounidenses</strong> y mejorar la calidad de vida de los ciudadanos mediante la <strong>creación y promoción de normas</strong> que aseguren la seguridad, la calidad y la interoperabilidad de productos, servicios, procesos y sistemas.</p><hr id="3ce648ad-99fc-8026-97fb-ff858cc71746" dir="auto"/><h2 id="3ce648ad-99fc-8013-8b30-e671aed34210" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ce648ad-99fc-8078-a302-c83859bd2b1d" class="" dir="auto">ANSI no es una entidad gubernamental, sino una <strong>organización privada</strong> que actúa como el <strong>coordinador central</strong> del desarrollo de estándares en EE.UU. </p><p id="3ce648ad-99fc-80db-b164-d605c9143a15" class="" dir="auto">Representa a los intereses de Estados Unidos en las organizaciones internacionales de estandarización, como <strong>ISO</strong> (Organización Internacional de Normalización) e <strong>IEC</strong> (Comisión Electrotécnica Internacional).</p><p id="3ce648ad-99fc-80f1-9d7b-effdc5b7981d" class="" dir="auto"><strong>En resumen</strong>:</p><p id="3ce648ad-99fc-801b-992c-e7a1d498fc0c" class="" dir="auto">ANSI es el &quot;guardián&quot; de los estándares en EE.UU. </p><p id="3ce648ad-99fc-8038-834d-d78a8c674a07" class="" dir="auto">Su función principal es <strong>acreditar</strong> a las organizaciones que desarrollan estándares (como ASME, ASTM, IEEE) y <strong>aprobar</strong> los estándares que son desarrollados por estas entidades, asegurando que cumplan con los criterios de consenso, apertura y debido proceso.</p><hr id="3ce648ad-99fc-80aa-9199-d24bb1b274a4" dir="auto"/><h2 id="3ce648ad-99fc-8026-a0a2-ebbf1141c20c" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ce648ad-99fc-802f-a09f-d04e076086bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asegurar la seguridad y calidad</strong>: Los estándares ANSI garantizan que los productos y servicios cumplan con requisitos mínimos de seguridad y rendimiento.</li></ul><ul id="3ce648ad-99fc-8090-915c-d40254a1ab54" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar el comercio</strong>: Al estandarizar procesos y especificaciones, se reducen las barreras comerciales y se facilita el intercambio de productos y servicios a nivel nacional e internacional.</li></ul><ul id="3ce648ad-99fc-8054-ac55-e922dc066137" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Promover la innovación</strong>: Los estándares establecen un lenguaje común y bases técnicas que permiten a las empresas innovar sobre una plataforma estable.</li></ul><ul id="3ce648ad-99fc-800c-bedf-e7da0784f26e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proteger a los consumidores</strong>: Aseguran que los productos sean seguros, confiables y que cumplan con las expectativas de rendimiento.</li></ul><ul id="3ce648ad-99fc-8070-9840-cd92eff85901" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la interoperabilidad</strong>: Permiten que diferentes productos y sistemas funcionen juntos sin problemas (ej: cables USB, conectores eléctricos, lenguajes de programación).</li></ul><hr id="3ce648ad-99fc-80b3-9aba-d8589b3efb83" dir="auto"/><h2 id="3ce648ad-99fc-8075-aadc-c4518f479b6e" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Proceso de Estandarización ANSI</strong></h2><p id="3ce648ad-99fc-800f-99a9-f1029526603a" class="" dir="auto">El proceso de estandarización ANSI no es un proceso centralizado. </p><p id="3ce648ad-99fc-80cf-8ab2-d79a347a9313" class="" dir="auto">ANSI <strong>no desarrolla estándares directamente</strong>. </p><p id="3ce648ad-99fc-8075-8c14-f4e8b6bbbe86" class="" dir="auto">En su lugar:</p><ol type="1" id="3ce648ad-99fc-8012-b012-cf244dcacb9e" class="numbered-list" start="1" dir="auto"><li><strong>Organizaciones de Desarrollo de Estándares (SDOs)</strong>: ANSI acredita a organizaciones como <strong>IEEE, ASME, ASTM, UL, SAE</strong>, entre otras. </li></ol><ol type="1" id="3ce648ad-99fc-800b-9969-f4521a9339c1" class="numbered-list" start="2" dir="auto"><li>Estas organizaciones son las que realmente desarrollan los estándares, reuniendo a expertos de la industria, el gobierno, el mundo académico y los consumidores.</li></ol><ol type="1" id="3ce648ad-99fc-8066-ad06-e664750c0de9" class="numbered-list" start="3" dir="auto"><li><strong>Consenso</strong>: El desarrollo de un estándar ANSI se basa en el <strong>consenso</strong> de todas las partes interesadas (fabricantes, usuarios, reguladores, consumidores). </li></ol><ol type="1" id="3ce648ad-99fc-80a9-97f9-d0c7e9f1b1f8" class="numbered-list" start="4" dir="auto"><li>Se siguen procesos de transparencia y debido proceso (audiencias públicas, comentarios).</li></ol><ol type="1" id="3ce648ad-99fc-80fa-80c2-f7b02e3abd98" class="numbered-list" start="5" dir="auto"><li><strong>Aprobación</strong>: Una vez que una SDO ha desarrollado un estándar siguiendo los procesos de consenso, lo envía a ANSI para su <strong>aprobación</strong>. ANSI verifica que el proceso se haya seguido correctamente y aprueba el estándar, otorgándole el estatus de <strong>&quot;Estándar ANSI&quot;</strong>.</li></ol><ol type="1" id="3ce648ad-99fc-8009-956a-f577ca6697fb" class="numbered-list" start="6" dir="auto"><li><strong>Publicación y Mantenimiento</strong>: El estándar se publica y se revisa periódicamente para mantenerse actualizado con los avances tecnológicos y las necesidades del mercado.</li></ol><hr id="3ce648ad-99fc-808b-a09a-f20f7d8ba562" dir="auto"/><h2 id="3ce648ad-99fc-804b-8b2b-d5324727e528" class="" dir="auto"><strong>📝 Tipos de Estándares ANSI</strong></h2><table id="3ce648ad-99fc-80ed-9ecb-f61aaacecfe8" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80c6-836d-eeacd5d6fa38" dir="ltr"><th id="pkC_" class="simple-table-header-color simple-table-header"><strong>Tipo</strong></th><th id="Hclm" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="E:iJ" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80e4-80d1-cbcefa0f4f8d" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Seguridad</strong></td><td id="Hclm" class="">Aseguran que productos y procesos sean seguros para las personas y el medio ambiente.</td><td id="E:iJ" class="">ANSI Z87.1 (protección ocular), ANSI A14.1 (escaleras portátiles).</td></tr><tr id="3ce648ad-99fc-8042-8053-c66c4b798998" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Calidad</strong></td><td id="Hclm" class="">Definen requisitos para la gestión de la calidad y la mejora continua.</td><td id="E:iJ" class="">ANSI/ISO 9001 (Sistemas de Gestión de la Calidad).</td></tr><tr id="3ce648ad-99fc-8076-9447-fe618a08fd03" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Interoperabilidad</strong></td><td id="Hclm" class="">Aseguran que diferentes sistemas y dispositivos puedan comunicarse y funcionar juntos.</td><td id="E:iJ" class="">ANSI SQL (lenguaje de bases de datos), ANSI C (lenguaje de programación).</td></tr><tr id="3ce648ad-99fc-8073-8306-d4e6980e7822" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Rendimiento</strong></td><td id="Hclm" class="">Definen criterios de rendimiento para productos y materiales.</td><td id="E:iJ" class="">ANSI C78 (lámparas eléctricas), ANSI/ASHRAE (eficiencia energética).</td></tr><tr id="3ce648ad-99fc-805f-b5e7-d5e6926f116f" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Gestión Ambiental</strong></td><td id="Hclm" class="">Ayudan a las organizaciones a gestionar su impacto ambiental.</td><td id="E:iJ" class="">ANSI/ISO 14001 (Sistemas de Gestión Ambiental).</td></tr><tr id="3ce648ad-99fc-801c-a2c9-d1304d8276e6" dir="ltr"><td id="pkC_" class=""><strong>Estándares de Telecomunicaciones</strong></td><td id="Hclm" class="">Definen protocolos y especificaciones para redes y comunicaciones.</td><td id="E:iJ" class="">ANSI/TIA (cableado estructurado).</td></tr></tbody></table><hr id="3ce648ad-99fc-80d6-8b49-f81e7282bf19" dir="auto"/><h2 id="3ce648ad-99fc-8041-b413-de938ba52630" class="" dir="auto"><strong>💡 Ejemplos de Estándares ANSI Famosos</strong></h2><table id="3ce648ad-99fc-809c-adbe-fad80158041e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-807b-b579-ced973b620de" dir="ltr"><th id="nlYq" class="simple-table-header-color simple-table-header"><strong>Estándar</strong></th><th id="ry{r" class="simple-table-header-color simple-table-header"><strong>Área</strong></th><th id="hHI?" class="simple-table-header-color simple-table-header" style="width:413px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8060-8764-c340645eb369" dir="ltr"><td id="nlYq" class=""><strong>ANSI/ISO 9001</strong></td><td id="ry{r" class="">Calidad</td><td id="hHI?" class="" style="width:413px">Sistema de Gestión de Calidad (el estándar de calidad más reconocido a nivel mundial).</td></tr><tr id="3ce648ad-99fc-804f-8d84-f47acb81fbab" dir="ltr"><td id="nlYq" class=""><strong>ANSI/ISO 14001</strong></td><td id="ry{r" class="">Medio Ambiente</td><td id="hHI?" class="" style="width:413px">Sistema de Gestión Ambiental.</td></tr><tr id="3ce648ad-99fc-80fc-b519-ef679094712d" dir="ltr"><td id="nlYq" class=""><strong>ANSI SQL</strong></td><td id="ry{r" class="">Informática</td><td id="hHI?" class="" style="width:413px">Lenguaje de consulta estructurado para bases de datos relacionales.</td></tr><tr id="3ce648ad-99fc-8070-8cac-f3f850e58441" dir="ltr"><td id="nlYq" class=""><strong>ANSI C</strong></td><td id="ry{r" class="">Informática</td><td id="hHI?" class="" style="width:413px">Lenguaje de programación C (el estándar que define la sintaxis y semántica del lenguaje C).</td></tr><tr id="3ce648ad-99fc-8009-8cf2-dc2f4f5d4357" dir="ltr"><td id="nlYq" class=""><strong>ANSI Z87.1</strong></td><td id="ry{r" class="">Seguridad</td><td id="hHI?" class="" style="width:413px">Protección ocular (requisitos para gafas de seguridad).</td></tr><tr id="3ce648ad-99fc-80ef-8ec0-ebba6be1a449" dir="ltr"><td id="nlYq" class=""><strong>ANSI/ASHRAE 55</strong></td><td id="ry{r" class="">Calefacción/Ventilación</td><td id="hHI?" class="" style="width:413px">Condiciones ambientales para la comodidad humana.</td></tr><tr id="3ce648ad-99fc-809d-b236-dd1515aa6ba8" dir="ltr"><td id="nlYq" class=""><strong>ANSI A14.1</strong></td><td id="ry{r" class="">Seguridad</td><td id="hHI?" class="" style="width:413px">Escaleras portátiles (requisitos de diseño y seguridad).</td></tr><tr id="3ce648ad-99fc-800b-95c2-dcaf2c8726d6" dir="ltr"><td id="nlYq" class=""><strong>ANSI/UL 507</strong></td><td id="ry{r" class="">Seguridad Eléctrica</td><td id="hHI?" class="" style="width:413px">Ventiladores eléctricos (estándar de seguridad eléctrica).</td></tr></tbody></table><hr id="3ce648ad-99fc-80c6-88d3-d34746f5fd85" dir="auto"/><h2 id="3ce648ad-99fc-80f8-ba64-fbe8b20f5438" class="" dir="auto"><strong>⚠️ Errores Comunes y Malentendidos</strong></h2><table id="3ce648ad-99fc-803c-af68-c7c09eee25f2" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8084-bed1-c32ed9261061" dir="ltr"><th id="qK_Q" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="e=K^" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="G&gt;}J" class="simple-table-header-color simple-table-header"><strong>Realidad</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-806a-8b20-f72a4e912ed2" dir="ltr"><td id="qK_Q" class=""><strong>ANSI crea los estándares</strong></td><td id="e=K^" class="">Creer que ANSI desarrolla los estándares directamente.</td><td id="G&gt;}J" class="">ANSI <strong>coordina y aprueba</strong>, pero no los desarrolla.</td></tr><tr id="3ce648ad-99fc-808f-8a15-d41ebc49ba6e" dir="ltr"><td id="qK_Q" class=""><strong>Todos los estándares ANSI son obligatorios</strong></td><td id="e=K^" class="">Pensar que un estándar ANSI es una ley.</td><td id="G&gt;}J" class="">Los estándares ANSI son <strong>voluntarios</strong>, aunque pueden ser adoptados por regulaciones gubernamentales y convertirse en obligatorios.</td></tr><tr id="3ce648ad-99fc-808c-b6b5-ca0d795b0d71" dir="ltr"><td id="qK_Q" class=""><strong>ANSI es una agencia gubernamental</strong></td><td id="e=K^" class="">Creer que ANSI es parte del gobierno de EE.UU.</td><td id="G&gt;}J" class="">ANSI es una <strong>organización privada sin fines de lucro</strong>.</td></tr><tr id="3ce648ad-99fc-809e-89de-e907db48ed7d" dir="ltr"><td id="qK_Q" class=""><strong>ANSI es solo para EE.UU.</strong></td><td id="e=K^" class="">Pensar que los estándares ANSI solo aplican a EE.UU.</td><td id="G&gt;}J" class="">Muchos estándares ANSI son adoptados internacionalmente (ej: ANSI/ISO 9001).</td></tr></tbody></table><hr id="3ce648ad-99fc-80d5-9f83-d4f489b40bf2" dir="auto"/><h2 id="3ce648ad-99fc-80b0-8910-c802a86f491c" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-806b-947e-c850b9ffd699" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-804a-8d7d-ebe29eb4800f" dir="ltr"><th id="tdt^" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="kO_S" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80bc-9cc5-cb7ec49faf89" dir="ltr"><td id="tdt^" class=""><strong>Empresa de manufactura</strong></td><td id="kO_S" class="">Usar ANSI/ISO 9001 para certificar su sistema de gestión de calidad.</td></tr><tr id="3ce648ad-99fc-8092-b07e-d2c13bd02e82" dir="ltr"><td id="tdt^" class=""><strong>Empresa de tecnología</strong></td><td id="kO_S" class="">Seguir el estándar ANSI C o ANSI SQL para garantizar la interoperabilidad de su software.</td></tr><tr id="3ce648ad-99fc-80fd-9dc7-d257b68eb9ce" dir="ltr"><td id="tdt^" class=""><strong>Empresa de construcción</strong></td><td id="kO_S" class="">Cumplir con los estándares ANSI de seguridad (ej: ANSI A14.1 para escaleras).</td></tr><tr id="3ce648ad-99fc-805a-9350-e8b03a37535e" dir="ltr"><td id="tdt^" class=""><strong>Empresa de electrónica</strong></td><td id="kO_S" class="">Cumplir con estándares ANSI/UL para garantizar la seguridad eléctrica de sus productos.</td></tr><tr id="3ce648ad-99fc-80bb-9340-feebcd691632" dir="ltr"><td id="tdt^" class=""><strong>Organización ambiental</strong></td><td id="kO_S" class="">Usar ANSI/ISO 14001 para certificar su sistema de gestión ambiental.</td></tr></tbody></table><hr id="3ce648ad-99fc-80c4-b32f-f44f618502ea" dir="auto"/><h2 id="3ce648ad-99fc-8004-b556-ff9c3944d26b" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-8017-bc86-c1f078ec5366" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8034-b132-f0d37155086e" dir="ltr"><th id="yet{" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="``Tt" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80fa-a17d-ec48b90f1a9d" dir="ltr"><td id="yet{" class=""><strong>ISO (Organización Internacional de Normalización)</strong></td><td id="``Tt" class="">ANSI representa a EE.UU. en ISO y adopta muchos estándares ISO como estándares ANSI (ej: ANSI/ISO 9001).</td></tr><tr id="3ce648ad-99fc-804f-820b-de6fb5900e8b" dir="ltr"><td id="yet{" class=""><strong>IEC (Comisión Electrotécnica Internacional)</strong></td><td id="``Tt" class="">ANSI representa a EE.UU. en IEC para estándares eléctricos y electrónicos.</td></tr><tr id="3ce648ad-99fc-8065-9729-c6cfef3d50e5" dir="ltr"><td id="yet{" class=""><strong>ASTM (American Society for Testing and Materials)</strong></td><td id="``Tt" class="">Organización de desarrollo de estándares acreditada por ANSI (materiales, productos, sistemas).</td></tr><tr id="3ce648ad-99fc-80a4-80d2-ee9e2aaa5a79" dir="ltr"><td id="yet{" class=""><strong>IEEE (Institute of Electrical and Electronics Engineers)</strong></td><td id="``Tt" class="">Organización de desarrollo de estándares acreditada por ANSI (electrónica, informática, telecomunicaciones).</td></tr><tr id="3ce648ad-99fc-809d-8ea4-dde63ef00c40" dir="ltr"><td id="yet{" class=""><strong>UL (Underwriters Laboratories)</strong></td><td id="``Tt" class="">Organización de desarrollo de estándares acreditada por ANSI (seguridad eléctrica).</td></tr><tr id="3ce648ad-99fc-80cb-8b0a-e3213142b570" dir="ltr"><td id="yet{" class=""><strong>ASME (American Society of Mechanical Engineers)</strong></td><td id="``Tt" class="">Organización de desarrollo de estándares acreditada por ANSI (ingeniería mecánica).</td></tr><tr id="3ce648ad-99fc-80ea-a999-c4d1a12b9956" dir="ltr"><td id="yet{" class=""><strong>Sistema de Gestión de Calidad</strong></td><td id="``Tt" class="">Los estándares ANSI/ISO 9001 son la base de los sistemas de gestión de calidad.</td></tr></tbody></table><hr id="3ce648ad-99fc-801a-a8a4-dd5026f75a99" dir="auto"/><h2 id="3ce648ad-99fc-8051-a067-c7871ca9b94c" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ce648ad-99fc-801f-871b-eb5bb9c7ce74" class="" dir="auto">ANSI es como el <strong>árbitro de un partido de fútbol</strong>. No juega el partido (no desarrolla el estándar), pero asegura que el juego se juegue según las reglas (proceso de consenso, debido proceso), que los jugadores estén en condiciones (acreditación de las SDOs) y que el resultado sea justo (aprobación del estándar). El árbitro no marca los goles, pero garantiza que el partido se desarrolle de manera ordenada y conforme a las reglas.</p><hr id="3ce648ad-99fc-80b4-8669-d10d8ca2c46d" dir="auto"/><h2 id="3ce648ad-99fc-80bb-8fc0-ddf91139b049" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-80b1-a803-d8bd69921cf4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">ANSI, (2024). <em>Official Website &amp; Annual Report</em>.</li></ul><ul id="3ce648ad-99fc-80d8-a054-d6128e4adafb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">ISO, (2024). <em>ISO Standards and ANSI</em>.</li></ul><ul id="3ce648ad-99fc-80f9-b7e1-ecf537f0cb4a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">IEEE, (2024). <em>IEEE Standards Development</em>.</li></ul><ul id="3ce648ad-99fc-803d-a09d-c0fae9057584" class="bulleted-list" dir="auto"><li style="list-style-type:disc">ASME, (2024). <em>ASME Standards and Certification</em>.</li></ul><ul id="3ce648ad-99fc-8096-9034-e429cfd431b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">UL, (2024). <em>UL Standards and Safety</em>.</li></ul><ul id="3ce648ad-99fc-80b0-804b-d36eebea56fe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2023). <em>The Role of Standards in Business</em>.</li></ul><hr id="3ce648ad-99fc-80f2-973a-ec3cac59212d" dir="auto"/><h2 id="3ce648ad-99fc-80f5-9160-fe6671e3e087" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-8015-b263-eb328536a804" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El estándar ANSI es más relevante de lo que parece</strong>: Afecta casi todos los aspectos de la vida moderna, desde la seguridad de los productos que usamos hasta la interoperabilidad de los sistemas informáticos que utilizamos a diario.</li></ul><ul id="3ce648ad-99fc-80b0-a32a-d4e293dd20a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No todos los estándares son iguales</strong>: Un estándar ANSI puede ser un estándar de seguridad, un estándar de calidad, un estándar de rendimiento o un estándar de interoperabilidad. Cada uno tiene un propósito y un enfoque diferente.</li></ul><ul id="3ce648ad-99fc-806f-b4c4-fee365f1cfcf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El consenso es clave</strong>: El proceso de consenso asegura que todas las partes interesadas tengan voz, lo que aumenta la aceptación y la adopción del estándar.</li></ul><ul id="3ce648ad-99fc-8060-8db0-d9655091e887" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Lecciones clave sobre los estándares</strong>:<ol type="1" id="3ce648ad-99fc-8077-b744-e3b8c9fe4fbc" class="numbered-list" start="1" dir="auto"><li><strong>Los estándares no son leyes, pero pueden convertirse en ellas</strong>: Aunque los estándares ANSI son voluntarios, a menudo son adoptados por regulaciones gubernamentales, convirtiéndose en requisitos legales.</li></ol><ol type="1" id="3ce648ad-99fc-802c-96cc-c96fd43dd9a0" class="numbered-list" start="2" dir="auto"><li><strong>Los estándares son un lenguaje común</strong>: Facilitan la comunicación y la colaboración entre empresas, proveedores y clientes.</li></ol><ol type="1" id="3ce648ad-99fc-8004-a234-f995a8599de4" class="numbered-list" start="3" dir="auto"><li><strong>Invertir en estándares es invertir en calidad</strong>: Seguir estándares reconocidos puede mejorar la calidad, la seguridad y la eficiencia de los productos y procesos.</li></ol><ol type="1" id="3ce648ad-99fc-800f-bc55-c160984d4f46" class="numbered-list" start="4" dir="auto"><li><strong>Los estándares son un activo competitivo</strong>: Las empresas que adoptan estándares reconocidos pueden diferenciarse en el mercado y acceder a nuevos mercados.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

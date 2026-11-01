@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Estilos de Liderazgo: Transaccional, Transformacional y Servicial</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ce648ad-99fc-80d6-ab72-f8987d3ff421" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Estilos de Liderazgo: Transaccional, Transformacional y Servicial</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ce648ad-99fc-80fb-aa97-e8e9aebe22b8" class="" dir="auto">
+</p><h1 id="3ce648ad-99fc-801b-9a38-cc006b85237b" class="" dir="auto"><strong>📄 Estilos de Liderazgo: Transaccional, Transformacional y Servicial</strong></h1><p id="3ce648ad-99fc-803d-8ce0-cc0823697f34" class="" dir="auto">Estos tres estilos de liderazgo representan <strong>enfoques fundamentalmente diferentes</strong> para dirigir equipos y organizaciones. </p><p id="3ce648ad-99fc-80ff-8511-ec79148e2073" class="" dir="auto">Cada uno tiene sus propias bases teóricas, aplicaciones prácticas y contextos ideales. </p><p id="3ce648ad-99fc-80bb-8724-c2e6d8af1c6a" class="" dir="auto">Comprenderlos es esencial para cualquier líder que quiera adaptar su estilo a las necesidades de su equipo y organización.</p><hr id="3ce648ad-99fc-80b5-af81-cab2a53916d7" dir="auto"/><h2 id="3ce648ad-99fc-806c-97b6-fae91392ffd3" class="" dir="auto"><strong>📝 Definición General del Liderazgo</strong></h2><p id="3ce648ad-99fc-8094-acb1-e6b063eb343a" class="" dir="auto">El liderazgo es el <strong>proceso de influir en un grupo de personas</strong> para que trabajen juntas hacia el logro de <strong>objetivos comunes</strong>. </p><p id="3ce648ad-99fc-8057-8ec6-dab1594043c3" class="" dir="auto">No se trata de un título o una posición jerárquica, sino de una <strong>capacidad para inspirar, guiar y facilitar</strong> el desempeño de otros. </p><p id="3ce648ad-99fc-8019-9746-f788bfc0dcaf" class="" dir="auto">A lo largo de la historia y la teoría organizacional, han surgido diferentes enfoques sobre cómo debe ejercerse este liderazgo.</p><hr id="3ce648ad-99fc-804a-a5af-e985d59bdfba" dir="auto"/><h2 id="3ce648ad-99fc-808c-ae2d-d38f8126a512" class="" dir="auto"><strong>1️⃣ Liderazgo Transaccional</strong></h2><hr id="3ce648ad-99fc-802e-9dbf-f58dcc39b572" dir="auto"/><h3 id="3ce648ad-99fc-8090-b973-c64ff9158ec1" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3ce648ad-99fc-801e-8a9b-f949ad2b6b15" class="" dir="auto">El liderazgo transaccional es un estilo de liderazgo que se basa en <strong>intercambios</strong> entre el líder y los seguidores. </p><p id="3ce648ad-99fc-80a3-b199-e318811a3b1d" class="" dir="auto">Se fundamenta en la <strong>teoría del intercambio</strong>: el líder ofrece <strong>recompensas</strong> (salario, bonos, reconocimiento) a cambio del <strong>rendimiento y cumplimiento</strong> de los seguidores. </p><p id="3ce648ad-99fc-8057-ae7d-cec93957ac65" class="" dir="auto">Es un enfoque <strong>reactivo</strong>, que se centra en mantener el statu quo y asegurar que las tareas se completen según lo establecido.</p><h3 id="3ce648ad-99fc-8004-8d39-fcd25646f26c" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3ce648ad-99fc-80b2-bb3c-f493a416dc32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mantener la estabilidad</strong>: Garantiza que los procesos se sigan y que se cumplan los estándares.</li></ul><ul id="3ce648ad-99fc-80b6-882b-d01ec39c5fb8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Lograr objetivos a corto plazo</strong>: Es efectivo en entornos donde las tareas son repetitivas y bien definidas.</li></ul><ul id="3ce648ad-99fc-8077-b7fd-d1478b7b4f78" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestionar equipos grandes</strong>: Funciona bien en burocracias y organizaciones con estructuras jerárquicas claras.</li></ul><ul id="3ce648ad-99fc-808b-bd51-d372413a22d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Corregir desviaciones</strong>: Se enfoca en identificar y corregir errores (gestión por excepción).</li></ul><h3 id="3ce648ad-99fc-802e-8716-d5df773c3870" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ul id="3ce648ad-99fc-8054-93be-f087b2e3b0e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Intercambio explícito</strong>: El líder establece expectativas claras y ofrece recompensas contingentes al cumplimiento.</li></ul><ul id="3ce648ad-99fc-80ac-8777-ffea3c39cea3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Recompensas y castigos</strong>: Se utiliza un sistema de &quot;palo y zanahoria&quot; para motivar a los seguidores.</li></ul><ul id="3ce648ad-99fc-8036-8857-e6db4ce5968c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gestión por excepción</strong>: Se interviene solo cuando los estándares no se cumplen (gestión pasiva) o se monitorea activamente para prevenir desviaciones (gestión activa).</li></ul><h3 id="3ce648ad-99fc-809a-9c45-e123ae81770e" class="" dir="auto"><strong>📝 Características Clave</strong></h3><table id="3ce648ad-99fc-80b9-8d01-f31e6f191bf7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8068-aefe-c8ccaae693a1" dir="ltr"><th id="gzgi" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="&gt;qf@" class="simple-table-header-color simple-table-header" style="width:426.99998474121094px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-808d-b319-cbfd1431efe4" dir="ltr"><td id="gzgi" class=""><strong>Enfoque en el corto plazo</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">Prioriza metas inmediatas sobre la visión a largo plazo.</td></tr><tr id="3ce648ad-99fc-803d-8ea1-f01c902e021d" dir="ltr"><td id="gzgi" class=""><strong>Recompensas contingentes</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">Premia el buen desempeño, pero no inspira más allá de lo acordado.</td></tr><tr id="3ce648ad-99fc-8028-ad0d-f9a493643dfb" dir="ltr"><td id="gzgi" class=""><strong>Relación instrumental</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">La relación líder-seguidor se basa en un intercambio práctico.</td></tr><tr id="3ce648ad-99fc-80f6-a1be-e0c5ed39eb1a" dir="ltr"><td id="gzgi" class=""><strong>Mantiene el statu quo</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">Se centra en la eficiencia y el cumplimiento de reglas.</td></tr><tr id="3ce648ad-99fc-8032-8867-c95262e7109c" dir="ltr"><td id="gzgi" class=""><strong>Control y supervisión</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">El líder supervisa activamente para asegurar el cumplimiento.</td></tr><tr id="3ce648ad-99fc-8032-b5ed-e6c0ac0c1a0c" dir="ltr"><td id="gzgi" class=""><strong>Poder formal</strong></td><td id="&gt;qf@" class="" style="width:426.99998474121094px">Utiliza la autoridad otorgada por el puesto jerárquico.</td></tr></tbody></table><h3 id="3ce648ad-99fc-80eb-b7b4-ee6b272645de" class="" dir="auto"><strong>💡 Ejemplos</strong></h3><table id="3ce648ad-99fc-80eb-a4fe-f7924f1b1167" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-808e-aded-fd9c17a249dc" dir="ltr"><th id="`ZRv" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th><th id="f~=O" class="simple-table-header-color simple-table-header" style="width:420.99998474121094px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80ac-a5b0-f81e4b95ac80" dir="ltr"><td id="`ZRv" class=""><strong>Gerente de ventas</strong></td><td id="f~=O" class="" style="width:420.99998474121094px">Ofrece una comisión por cada venta y un bono anual si se alcanzan los objetivos.</td></tr><tr id="3ce648ad-99fc-80a8-ad65-f8778d13e0aa" dir="ltr"><td id="`ZRv" class=""><strong>Jefe de producción</strong></td><td id="f~=O" class="" style="width:420.99998474121094px">Establece cuotas diarias y sanciona a quienes no las cumplan.</td></tr><tr id="3ce648ad-99fc-80d3-a271-cc7f518e3862" dir="ltr"><td id="`ZRv" class=""><strong>Mando militar</strong></td><td id="f~=O" class="" style="width:420.99998474121094px">Da órdenes claras y evalúa el desempeño basado en el cumplimiento estricto de las mismas.</td></tr></tbody></table><hr id="3ce648ad-99fc-80f6-822e-e16c6de3d527" dir="auto"/><h2 id="3ce648ad-99fc-808f-b045-f5d10e205f50" class="" dir="auto"><strong>2️⃣ Liderazgo Transformacional</strong></h2><hr id="3ce648ad-99fc-80c7-8d1b-eb10cc60f1ec" dir="auto"/><h3 id="3ce648ad-99fc-80df-b5cb-ce95ac7d8dd0" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3ce648ad-99fc-802e-9b17-f900e389cc3b" class="" dir="auto">El liderazgo transformacional es un estilo de liderazgo que <strong>inspira y motiva</strong> a los seguidores a <strong>trascender sus propios intereses</strong> en favor del equipo u organización, y a <strong>alcanzar niveles extraordinarios de desempeño</strong>. </p><p id="3ce648ad-99fc-802a-b12a-eb4b8e2002ab" class="" dir="auto">Los líderes transformacionales crean una <strong>visión convincente del futuro</strong>, <strong>estimulan intelectualmente</strong> a sus equipos, y actúan como <strong>modelos a seguir</strong>.</p><h3 id="3ce648ad-99fc-804e-90f3-f7612ff11837" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3ce648ad-99fc-801f-a3f4-c76acb1f4f59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Impulsar el cambio</strong>: Es ideal para entornos dinámicos y organizaciones que necesitan reinventarse.</li></ul><ul id="3ce648ad-99fc-801e-b101-d2a109563961" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar la innovación</strong>: Estimula la creatividad y la toma de riesgos calculados.</li></ul><ul id="3ce648ad-99fc-809f-9e11-e9ac62db9411" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Desarrollar el talento</strong>: Se enfoca en el crecimiento y desarrollo de los seguidores.</li></ul><ul id="3ce648ad-99fc-80cb-b856-e5d47f85057b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear equipos de alto rendimiento</strong>: Alinea los intereses individuales con una misión colectiva inspiradora.</li></ul><h3 id="3ce648ad-99fc-801b-8d22-fd6329e9a019" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ul id="3ce648ad-99fc-8022-93aa-f0ea2cdf7fad" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Visión inspiradora</strong>: El líder articula un futuro deseable y una misión que da sentido al trabajo.</li></ul><ul id="3ce648ad-99fc-80e4-ae22-c8317e46112e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Influencia idealizada</strong>: El líder actúa como modelo a seguir, demostrando integridad y compromiso.</li></ul><ul id="3ce648ad-99fc-8008-99a5-cbf9cc633888" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estimulación intelectual</strong>: Desafía a los seguidores a pensar de manera innovadora y a cuestionar el statu quo.</li></ul><ul id="3ce648ad-99fc-8053-a82a-df12404ddced" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consideración individualizada</strong>: El líder se preocupa por el desarrollo personal y profesional de cada seguidor.</li></ul><h3 id="3ce648ad-99fc-800f-bf36-f3e890f78b85" class="" dir="auto"><strong>📝 Características Clave</strong></h3><table id="3ce648ad-99fc-806c-8a19-c0890fe829e5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8076-953d-e9f6aea9445a" dir="ltr"><th id="Ulyb" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="WHcL" class="simple-table-header-color simple-table-header" style="width:368px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80a7-814b-ef710e413016" dir="ltr"><td id="Ulyb" class=""><strong>Visión de largo plazo</strong></td><td id="WHcL" class="" style="width:368px">Orienta a la organización hacia el futuro, más allá de los resultados inmediatos.</td></tr><tr id="3ce648ad-99fc-80fc-9a3e-e5ba25ef3403" dir="ltr"><td id="Ulyb" class=""><strong>Inspiración</strong></td><td id="WHcL" class="" style="width:368px">Despierta pasión y compromiso a través de una narrativa compartida.</td></tr><tr id="3ce648ad-99fc-8055-a7d4-c9c6a526302d" dir="ltr"><td id="Ulyb" class=""><strong>Modelo a seguir</strong></td><td id="WHcL" class="" style="width:368px">Actúa con coherencia entre lo que dice y lo que hace, generando confianza.</td></tr><tr id="3ce648ad-99fc-8040-8da2-f39a53afa916" dir="ltr"><td id="Ulyb" class=""><strong>Empoderamiento</strong></td><td id="WHcL" class="" style="width:368px">Delega autoridad y fomenta la autonomía en los equipos.</td></tr><tr id="3ce648ad-99fc-80f5-851c-c80779055a12" dir="ltr"><td id="Ulyb" class=""><strong>Desarrollo de líderes</strong></td><td id="WHcL" class="" style="width:368px">No solo gestiona seguidores, sino que forma a otros líderes.</td></tr><tr id="3ce648ad-99fc-80c2-99e7-d26c22470bcc" dir="ltr"><td id="Ulyb" class=""><strong>Adaptabilidad</strong></td><td id="WHcL" class="" style="width:368px">Se ajusta a las necesidades del equipo y al contexto cambiante.</td></tr></tbody></table><h3 id="3ce648ad-99fc-8044-ae5e-f0c4a9782f11" class="" dir="auto"><strong>💡 Ejemplos</strong></h3><table id="3ce648ad-99fc-8027-b101-e7d556e077a3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8011-ae88-c77b4b2e42fc" dir="ltr"><th id="=ywr" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th><th id="t{TD" class="simple-table-header-color simple-table-header" style="width:418px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-806f-8215-cbca54ec99b4" dir="ltr"><td id="=ywr" class=""><strong>CEO de una startup</strong></td><td id="t{TD" class="" style="width:418px">Inspira a su equipo con la visión de revolucionar una industria, fomentando la creatividad y la experimentación.</td></tr><tr id="3ce648ad-99fc-80be-8ddd-c005ca8ef745" dir="ltr"><td id="=ywr" class=""><strong>Líder de innovación</strong></td><td id="t{TD" class="" style="width:418px">Desafía a su equipo a pensar &quot;fuera de la caja&quot; y a no conformarse con soluciones convencionales.</td></tr><tr id="3ce648ad-99fc-808c-aa67-facace3b5abd" dir="ltr"><td id="=ywr" class=""><strong>Director de una ONG</strong></td><td id="t{TD" class="" style="width:418px">Moviliza a voluntarios y empleados en torno a una causa social que trasciende los objetivos individuales.</td></tr></tbody></table><hr id="3ce648ad-99fc-8018-bcfc-c2b956450adb" dir="auto"/><h2 id="3ce648ad-99fc-80c8-a5a1-f349cb79c4b1" class="" dir="auto"><strong>3️⃣ Liderazgo Servicial (Servant Leadership)</strong></h2><hr id="3ce648ad-99fc-8074-b0fe-dc4ac7b34270" dir="auto"/><h3 id="3ce648ad-99fc-8067-b9bc-f31d75e7f439" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3ce648ad-99fc-80d8-9ee8-e03cf0728b28" class="" dir="auto">El liderazgo servicial es un estilo de liderazgo que se caracteriza por <strong>poner las necesidades de los demás en primer lugar</strong> y ayudar a las personas a <strong>desarrollarse y desempeñarse al máximo</strong> de sus capacidades. </p><p id="3ce648ad-99fc-808a-a740-ead9bc8f4bcd" class="" dir="auto">El líder sirviente actúa como un <strong>facilitador y mentor</strong>, que prioriza el bienestar y el crecimiento de su equipo por encima de sus propios intereses o del poder jerárquico.</p><h3 id="3ce648ad-99fc-8060-ba73-e45ed3783824" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3ce648ad-99fc-80c3-82e0-df62e87ebdfe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Construir equipos cohesionados</strong>: Fomenta un ambiente de confianza y colaboración.</li></ul><ul id="3ce648ad-99fc-8081-a803-c99ba50b5726" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Desarrollar el potencial humano</strong>: Se centra en el crecimiento personal y profesional de los seguidores.</li></ul><ul id="3ce648ad-99fc-8005-badc-c5c28f116c19" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fomentar una cultura de servicio</strong>: Crea organizaciones orientadas al cliente y a la comunidad.</li></ul><ul id="3ce648ad-99fc-80db-9a09-c136e420141a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Generar compromiso a largo plazo</strong>: Al priorizar el bienestar de las personas, se genera lealtad y retención del talento.</li></ul><h3 id="3ce648ad-99fc-8083-85ba-c5868936de95" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ul id="3ce648ad-99fc-803f-8c33-ef0a017dc589" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Escucha activa</strong>: El líder escucha genuinamente para entender las necesidades y preocupaciones de los demás.</li></ul><ul id="3ce648ad-99fc-80f2-a1bd-d1b966005fea" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Empatía y compasión</strong>: Se preocupa por el bienestar integral de los seguidores.</li></ul><ul id="3ce648ad-99fc-804b-b528-c1b933857dbb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Servicio como prioridad</strong>: El líder se ve a sí mismo como un sirviente de su equipo, no como un superior.</li></ul><ul id="3ce648ad-99fc-80ff-a0a7-e78a864ec5f1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Desarrollo del equipo</strong>: Invierte en el crecimiento y las habilidades de los demás, incluso si eso significa que ellos puedan superarlo a él.</li></ul><h3 id="3ce648ad-99fc-800b-9a2d-f8cae2b53a87" class="" dir="auto"><strong>📝 Características Clave</strong></h3><table id="3ce648ad-99fc-808e-8ec6-e6607d480cd7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-80b4-ad50-d9fc8dbc79a6" dir="ltr"><th id="s[cs" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="UY\E" class="simple-table-header-color simple-table-header" style="width:410px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-807a-b1ae-e630bce5753f" dir="ltr"><td id="s[cs" class=""><strong>Escucha activa</strong></td><td id="UY\E" class="" style="width:410px">Se enfoca en entender las necesidades y perspectivas de los demás.</td></tr><tr id="3ce648ad-99fc-80dc-b31a-d09995291bb9" dir="ltr"><td id="s[cs" class=""><strong>Empatía</strong></td><td id="UY\E" class="" style="width:410px">Se pone en el lugar de los seguidores para comprender sus emociones y circunstancias.</td></tr><tr id="3ce648ad-99fc-802e-89f7-c20aab699621" dir="ltr"><td id="s[cs" class=""><strong>Servicio</strong></td><td id="UY\E" class="" style="width:410px">Prioriza el bienestar del equipo por encima de la agenda personal del líder.</td></tr><tr id="3ce648ad-99fc-8092-a7cf-c4f5457e3ea3" dir="ltr"><td id="s[cs" class=""><strong>Desarrollo de otros</strong></td><td id="UY\E" class="" style="width:410px">Invierte en el crecimiento personal y profesional de los seguidores.</td></tr><tr id="3ce648ad-99fc-804c-b713-f5815482b166" dir="ltr"><td id="s[cs" class=""><strong>Comunidad</strong></td><td id="UY\E" class="" style="width:410px">Fomenta un sentido de pertenencia y colaboración en el equipo.</td></tr><tr id="3ce648ad-99fc-8067-9fc3-d98d902d8f62" dir="ltr"><td id="s[cs" class=""><strong>Persuasión</strong></td><td id="UY\E" class="" style="width:410px">Utiliza la influencia, no la autoridad coercitiva, para guiar a los demás.</td></tr></tbody></table><h3 id="3ce648ad-99fc-80f9-9a0a-e07362003990" class="" dir="auto"><strong>💡 Ejemplos</strong></h3><table id="3ce648ad-99fc-8098-b4ab-c90f20f69fd8" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8047-a7c3-d01082327779" dir="ltr"><th id="GV&lt;B" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th><th id="sTXN" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-806d-b016-c573819bbac6" dir="ltr"><td id="GV&lt;B" class=""><strong>Director de RRHH</strong></td><td id="sTXN" class="">Prioriza el bienestar de los empleados, implementando políticas de conciliación y desarrollo.</td></tr><tr id="3ce648ad-99fc-806e-9f05-d3fe5cacb574" dir="ltr"><td id="GV&lt;B" class=""><strong>Líder de un equipo de voluntarios</strong></td><td id="sTXN" class="">Se enfoca en escuchar las necesidades de los voluntarios y facilitar su trabajo, en lugar de dar órdenes.</td></tr><tr id="3ce648ad-99fc-809d-a3fb-d3632fa33b68" dir="ltr"><td id="GV&lt;B" class=""><strong>Gerente en una empresa familiar</strong></td><td id="sTXN" class="">Se preocupa por el desarrollo profesional de los empleados, incluso si eso significa que puedan buscar otras oportunidades.</td></tr></tbody></table><hr id="3ce648ad-99fc-80c5-9c21-db01723d6b1e" dir="auto"/><h2 id="3ce648ad-99fc-802e-9a88-f035f6fb7817" class="" dir="auto"><strong>📊 Comparativa: Transaccional vs. Transformacional vs. Servicial</strong></h2><table id="3ce648ad-99fc-8067-bf7f-d252af32391e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8044-bec0-f5f0239b540b" dir="ltr"><th id="PhK{" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="Mbin" class="simple-table-header-color simple-table-header"><strong>Liderazgo Transaccional</strong></th><th id="ziJc" class="simple-table-header-color simple-table-header"><strong>Liderazgo Transformacional</strong></th><th id="paFG" class="simple-table-header-color simple-table-header"><strong>Liderazgo Servicial</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80f2-9f67-ff41a0ede306" dir="ltr"><td id="PhK{" class=""><strong>Enfoque Principal</strong></td><td id="Mbin" class="">Intercambio (recompensa / castigo)</td><td id="ziJc" class="">Inspiración y cambio</td><td id="paFG" class="">Servicio y desarrollo de otros</td></tr><tr id="3ce648ad-99fc-8083-b83c-f33dddbabe2d" dir="ltr"><td id="PhK{" class=""><strong>Orientación Temporal</strong></td><td id="Mbin" class="">Corto plazo (metas inmediatas)</td><td id="ziJc" class="">Largo plazo (visión estratégica)</td><td id="paFG" class="">Largo plazo (crecimiento personal)</td></tr><tr id="3ce648ad-99fc-8010-b25a-f6f7be37f2c6" dir="ltr"><td id="PhK{" class=""><strong>Motivación</strong></td><td id="Mbin" class="">Extrínseca (incentivos)</td><td id="ziJc" class="">Intrínseca (propósito, misión)</td><td id="paFG" class="">Intrínseca (sentido de servicio)</td></tr><tr id="3ce648ad-99fc-80f9-a3d5-cf0fd4208ded" dir="ltr"><td id="PhK{" class=""><strong>Relación Líder-Seguidor</strong></td><td id="Mbin" class="">Transaccional (contractual)</td><td id="ziJc" class="">Transformadora (inspiracional)</td><td id="paFG" class="">De servicio (servicial)</td></tr><tr id="3ce648ad-99fc-8015-a37a-ef3fa7a5cfa3" dir="ltr"><td id="PhK{" class=""><strong>Autoridad</strong></td><td id="Mbin" class="">Basada en el puesto (formal)</td><td id="ziJc" class="">Basada en la influencia (carisma)</td><td id="paFG" class="">Basada en la confianza (servicio)</td></tr><tr id="3ce648ad-99fc-8084-a710-dd21bcbba8ed" dir="ltr"><td id="PhK{" class=""><strong>Toma de Decisiones</strong></td><td id="Mbin" class="">Centralizada en el líder</td><td id="ziJc" class="">Compartida, inspirada por el líder</td><td id="paFG" class="">Participativa, orientada al equipo</td></tr><tr id="3ce648ad-99fc-808f-8e01-ecf3c777f062" dir="ltr"><td id="PhK{" class=""><strong>Visión</strong></td><td id="Mbin" class="">Mantener el statu quo</td><td id="ziJc" class="">Crear cambio y reinventar</td><td id="paFG" class="">Servir al bien común</td></tr><tr id="3ce648ad-99fc-80cb-8d0e-da1155901187" dir="ltr"><td id="PhK{" class=""><strong>Enfoque en el Equipo</strong></td><td id="Mbin" class="">Cumplimiento de tareas</td><td id="ziJc" class="">Desarrollo de talento y empoderamiento</td><td id="paFG" class="">Bienestar y desarrollo integral</td></tr><tr id="3ce648ad-99fc-80b0-9ef7-ca2e695ab713" dir="ltr"><td id="PhK{" class=""><strong>Contexto Ideal</strong></td><td id="Mbin" class="">Estructuras estables, tareas rutinarias</td><td id="ziJc" class="">Entornos cambiantes, necesidad de innovación</td><td id="paFG" class="">Organizaciones centradas en personas y servicio</td></tr><tr id="3ce648ad-99fc-808a-b33c-cbad877718a5" dir="ltr"><td id="PhK{" class=""><strong>Ejemplo</strong></td><td id="Mbin" class="">Gerente de ventas con comisiones</td><td id="ziJc" class="">CEO de una startup disruptiva</td><td id="paFG" class="">Líder de una ONG o comunidad</td></tr></tbody></table><hr id="3ce648ad-99fc-8020-b394-da046fc510f7" dir="auto"/><h2 id="3ce648ad-99fc-80ca-82f2-c2796b51cc8f" class="" dir="auto"><strong>⚠️ Errores Comunes y Riesgos de Cada Estilo</strong></h2><table id="3ce648ad-99fc-80f5-8a5a-e78c39ddc8d4" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8016-9220-e7389ca1b321" dir="ltr"><th id="jtRp" class="simple-table-header-color simple-table-header"><strong>Estilo</strong></th><th id="XPwg" class="simple-table-header-color simple-table-header"><strong>Error Común</strong></th><th id="J&gt;F=" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80b5-8100-c582caf2ffdf" dir="ltr"><td id="jtRp" class=""><strong>Transaccional</strong></td><td id="XPwg" class="">Sobre-énfasis en el control y las recompensas materiales.</td><td id="J&gt;F=" class="">Desmotivación de los empleados, falta de compromiso, no se fomenta la innovación.</td></tr><tr id="3ce648ad-99fc-80cf-acfd-d87e4dafafd9" dir="ltr"><td id="jtRp" class=""><strong>Transformacional</strong></td><td id="XPwg" class="">El líder puede volverse carismático pero desconectado de las necesidades reales del equipo.</td><td id="J&gt;F=" class="">Los seguidores pueden sentirse presionados o quemados por altas expectativas.</td></tr><tr id="3ce648ad-99fc-80f8-b30b-de5d5eceb930" dir="ltr"><td id="jtRp" class=""><strong>Servicial</strong></td><td id="XPwg" class="">El líder puede ser percibido como &quot;débil&quot; o sin autoridad en entornos competitivos.</td><td id="J&gt;F=" class="">Puede no ser efectivo en crisis que requieren decisiones rápidas y autoritarias.</td></tr></tbody></table><hr id="3ce648ad-99fc-80af-a95b-ea9ab2df1f45" dir="auto"/><h2 id="3ce648ad-99fc-8083-9fc4-c5b76b2fc38a" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3ce648ad-99fc-8020-96a5-f636675da7fc" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8000-bc3b-ccbcef6e7da0" dir="ltr"><th id="?QBe" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="&lt;|OW" class="simple-table-header-color simple-table-header"><strong>Estilo Recomendado</strong></th><th id="fIZi" class="simple-table-header-color simple-table-header"><strong>Razón</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-80e7-9042-d4f9a391466e" dir="ltr"><td id="?QBe" class=""><strong>Organización madura con procesos estables</strong></td><td id="&lt;|OW" class="">Transaccional</td><td id="fIZi" class="">La estabilidad y el cumplimiento de estándares son prioritarios.</td></tr><tr id="3ce648ad-99fc-804b-be4d-e3a6e2d2ea58" dir="ltr"><td id="?QBe" class=""><strong>Startup en crecimiento o transformación</strong></td><td id="&lt;|OW" class="">Transformacional</td><td id="fIZi" class="">La inspiración y la visión son clave para atraer talento y guiar el cambio.</td></tr><tr id="3ce648ad-99fc-80c1-bc8c-cae475c2c8ac" dir="ltr"><td id="?QBe" class=""><strong>Organización sin fines de lucro o centrada en personas</strong></td><td id="&lt;|OW" class="">Servicial</td><td id="fIZi" class="">El bienestar de los empleados y la misión social son los principales motores.</td></tr><tr id="3ce648ad-99fc-8053-8a39-f824e40dfb51" dir="ltr"><td id="?QBe" class=""><strong>Crisis y entornos de alta presión</strong></td><td id="&lt;|OW" class="">Transaccional (en parte)</td><td id="fIZi" class="">La toma de decisiones rápida y el control pueden ser necesarios, pero idealmente combinado con liderazgo transformacional para mantener la moral.</td></tr><tr id="3ce648ad-99fc-80d5-99d8-c0b444d4514e" dir="ltr"><td id="?QBe" class=""><strong>Equipos de alto rendimiento y autónomos</strong></td><td id="&lt;|OW" class="">Servicial</td><td id="fIZi" class="">Los profesionales altamente cualificados necesitan apoyo y recursos, no control directo.</td></tr><tr id="3ce648ad-99fc-8062-ba98-e1d88b49361e" dir="ltr"><td id="?QBe" class=""><strong>Transformación digital profunda</strong></td><td id="&lt;|OW" class="">Transformacional</td><td id="fIZi" class="">Se necesita inspirar un cambio de mentalidad y una visión que justifique el esfuerzo.</td></tr></tbody></table><hr id="3ce648ad-99fc-80e9-9a13-ec65ce61ebd7" dir="auto"/><h2 id="3ce648ad-99fc-80dc-94db-c716a9131671" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3ce648ad-99fc-80e0-9b45-dcc23837ae5e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ce648ad-99fc-8077-8b24-d33991e7cc2b" dir="ltr"><th id="EyF}" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="k\Ie" class="simple-table-header-color simple-table-header" style="width:422px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3ce648ad-99fc-8065-b82a-d5f37dd7ad61" dir="ltr"><td id="EyF}" class=""><strong>Cultura Organizacional</strong></td><td id="k\Ie" class="" style="width:422px">El estilo de liderazgo moldea y refleja la cultura de la organización.</td></tr><tr id="3ce648ad-99fc-80a0-bcea-c19262bf5719" dir="ltr"><td id="EyF}" class=""><strong>Gestión del Cambio</strong></td><td id="k\Ie" class="" style="width:422px">El liderazgo transformacional y servicial son más efectivos para guiar procesos de cambio.</td></tr><tr id="3ce648ad-99fc-80a2-aa62-c73900313099" dir="ltr"><td id="EyF}" class=""><strong>Motivación</strong></td><td id="k\Ie" class="" style="width:422px">El liderazgo transaccional se basa en la motivación extrínseca; el transformacional y servicial en la intrínseca.</td></tr><tr id="3ce648ad-99fc-8054-a086-cf433840276b" dir="ltr"><td id="EyF}" class=""><strong>Teoría X y Y (McGregor)</strong></td><td id="k\Ie" class="" style="width:422px">El transaccional se asocia con la Teoría X (personas que evitan el trabajo); el transformacional y servicial con la Teoría Y (personas que buscan responsabilidad).</td></tr><tr id="3ce648ad-99fc-80b8-bbea-c13488e2b12a" dir="ltr"><td id="EyF}" class=""><strong>Poder y Autoridad</strong></td><td id="k\Ie" class="" style="width:422px">El transaccional se basa en el poder formal; el transformacional en el poder de referencia (carisma); el servicial en el poder de conexión (confianza).</td></tr></tbody></table><hr id="3ce648ad-99fc-80b6-9c57-f3aff11b4e5a" dir="auto"/><h2 id="3ce648ad-99fc-80ba-b1d6-cade85e35481" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ce648ad-99fc-807e-96a1-c481452b61ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Bass, B. M. (1985). <em>Leadership and Performance Beyond Expectations</em>. Free Press.</li></ul><ul id="3ce648ad-99fc-8016-85fb-e35d7b0302f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Burns, J. M. (1978). <em>Leadership</em>. Harper &amp; Row.</li></ul><ul id="3ce648ad-99fc-806b-a7f0-d49eabb9ab44" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Greenleaf, R. K. (1977). <em>Servant Leadership: A Journey into the Nature of Legitimate Power and Greatness</em>. Paulist Press.</li></ul><ul id="3ce648ad-99fc-80cc-8866-c78eb2d10b9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Goleman, D. (2000). <em>Leadership That Gets Results</em>. Harvard Business Review.</li></ul><ul id="3ce648ad-99fc-8061-af22-e56e8a52e79d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kotter, J. P. (1990). <em>A Force for Change: How Leadership Differs from Management</em>. Free Press.</li></ul><ul id="3ce648ad-99fc-80c4-b1c4-d2b508f7b488" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Northouse, P. G. (2018). <em>Leadership: Theory and Practice</em>. Sage Publications.</li></ul><hr id="3ce648ad-99fc-80aa-8813-d7aeab681b19" dir="auto"/><h2 id="3ce648ad-99fc-80a2-982e-ee94d6c3b96a" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ce648ad-99fc-80e3-bf00-dcc2831467ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La clave está en la flexibilidad</strong>: Ningún líder es puramente transaccional, transformacional o servicial. Los líderes más efectivos son <strong>adaptativos</strong>: combinan los tres estilos según el contexto, la situación y las necesidades del equipo.</li></ul><ul id="3ce648ad-99fc-800b-91f1-e4cfce651698" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El liderazgo no es un título, es una práctica</strong>: Puedes liderar desde cualquier posición jerárquica (o incluso sin una posición formal) si inspiras a otros a trabajar hacia un objetivo común.</li></ul><ul id="3ce648ad-99fc-8006-b73b-d62da33ccfee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El liderazgo servicial está en auge</strong>: En la era del conocimiento, donde el talento es el activo más valioso, el liderazgo servicial se ha vuelto cada vez más relevante. Las empresas que priorizan el bienestar de sus empleados son más resilientes y exitosas a largo plazo.</li></ul><ul id="3ce648ad-99fc-80bb-b1a5-ff92997bcdb2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para desarrollar tu estilo de liderazgo</strong>:<ol type="1" id="3ce648ad-99fc-808e-8978-efdbad46a9d3" class="numbered-list" start="1" dir="auto"><li><strong>Conoce tus fortalezas y debilidades</strong>: ¿Qué estilo te resulta más natural? ¿Cuáles son tus áreas de mejora?</li></ol><ol type="1" id="3ce648ad-99fc-8080-bdbf-e0b031e108bc" class="numbered-list" start="2" dir="auto"><li><strong>Adapta tu estilo al contexto</strong>: Una crisis requiere decisiones rápidas (más transaccional); un cambio organizacional requiere inspiración (más transformacional); el día a día con equipos consolidados se beneficia del liderazgo servicial.</li></ol><ol type="1" id="3ce648ad-99fc-8044-bfa9-f211d01ba171" class="numbered-list" start="3" dir="auto"><li><strong>Invierte en tu equipo</strong>: Todos los estilos se benefician de tener un equipo preparado y comprometido, pero el enfoque para lograrlo varía: el transaccional lo hace con incentivos, el transformacional con propósito y el servicial con apoyo.</li></ol><ol type="1" id="3ce648ad-99fc-80ea-b24b-d53dec2bee92" class="numbered-list" start="4" dir="auto"><li><strong>Pide feedback</strong>: Pregunta a tu equipo cómo te perciben. El autoconocimiento es la base de cualquier liderazgo efectivo.</li></ol><ol type="1" id="3ce648ad-99fc-80b8-a5e1-ea9a6c69a96a" class="numbered-list" start="5" dir="auto"><li><strong>La autenticidad es clave</strong>: Elige el estilo que te permita ser genuino. Los equipos perciben cuando un líder está &quot;actuando&quot; en lugar de liderando desde su esencia.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

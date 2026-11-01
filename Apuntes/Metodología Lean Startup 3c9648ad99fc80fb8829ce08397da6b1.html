@@ -1,0 +1,809 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Metodología Lean Startup</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c9648ad-99fc-80fb-8829-ce08397da6b1" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto">Metodología Lean Startup</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-80c8-bd49-c1097e73be49" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-80d7-992b-e000f6988062" class="" dir="auto"><strong>📄 Metodología Ágil de Lean Startup</strong></h1><hr id="3c9648ad-99fc-8044-a7df-f39b5a50d412" dir="auto"/><h2 id="3c9648ad-99fc-807e-8e0a-de6aba809d3c" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3c9648ad-99fc-80e8-8188-c6baff80cb6b" class="" dir="auto">La <strong>metodología Lean Startup</strong> es un <strong>enfoque para la creación y gestión de startups</strong> y el desarrollo de nuevos productos que prioriza el <strong>aprendizaje continuo</strong>, la <strong>experimentación rápida</strong> y la <strong>iteración basada en el feedback del cliente</strong>. </p><p id="3c9648ad-99fc-8007-9b30-ecead3442f0d" class="" dir="auto">Fue desarrollada por <strong>Eric Ries</strong> y popularizada en su libro <em>&quot;The Lean Startup&quot;</em> (2011). </p><p id="3c9648ad-99fc-8079-a94e-c35f7b3abfd0" class="" dir="auto">Su objetivo es reducir el riesgo de fracaso de los nuevos negocios, evitando el desarrollo de productos que nadie quiere, y optimizando el uso de recursos mediante ciclos de <strong>construir-medir-aprender</strong>.</p><hr id="3c9648ad-99fc-80ae-b63e-ea70e134b4eb" dir="auto"/><h2 id="3c9648ad-99fc-80d4-ab15-fffde4eec005" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3c9648ad-99fc-80d0-890c-fc13d5fa035c" class="" dir="auto">La metodología Lean Startup es una <strong>adaptación de los principios del Lean Manufacturing</strong> (producción ajustada) al mundo del emprendimiento y la innovación. </p><p id="3c9648ad-99fc-8098-960b-e5211ed830ea" class="" dir="auto">En lugar de seguir un plan de negocio rígido y desarrollar un producto en secreto durante meses o años, Lean Startup propone un <strong>ciclo iterativo</strong> que permite a los emprendedores <strong>validar sus hipótesis</strong> sobre el mercado y el cliente desde el primer día, con una inversión mínima.</p><p id="3c9648ad-99fc-8072-a214-f5fe8c0a834d" class="" dir="auto">El enfoque se basa en la idea de que <strong>el fracaso es parte del proceso de aprendizaje</strong> y que es mejor fallar rápido y barato que invertir grandes sumas en un producto que el mercado no quiere.</p><p id="3c9648ad-99fc-80d6-ba37-ea5a187befc0" class="" dir="auto"><strong>Los tres pilares de Lean Startup son:</strong></p><ol type="1" id="3c9648ad-99fc-8003-9ee5-c311a99a636b" class="numbered-list" start="1" dir="auto"><li><strong>Visión</strong>: Define la estrategia y el propósito del negocio.</li></ol><ol type="1" id="3c9648ad-99fc-80c6-9bb0-d455853b861c" class="numbered-list" start="2" dir="auto"><li><strong>Aprendizaje Validado</strong>: El objetivo no es solo construir productos, sino <strong>aprender</strong> qué es lo que los clientes realmente quieren y necesitan. Este aprendizaje se valida a través de experimentos y datos.</li></ol><ol type="1" id="3c9648ad-99fc-8079-8e43-c5baebc83910" class="numbered-list" start="3" dir="auto"><li><strong>Ciclo Construir-Medir-Aprender</strong>: Es el motor de la metodología. Se construye un producto mínimo viable (MVP), se mide la reacción de los clientes, y se aprende si se debe perseverar o pivotar.</li></ol><hr id="3c9648ad-99fc-804b-96cd-d4f9743e8e42" dir="auto"/><h2 id="3c9648ad-99fc-801c-a9a9-c943b977020a" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3c9648ad-99fc-80c4-a435-e4d3ecf4d498" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reducir el riesgo de fracaso</strong>: Validar las ideas de negocio antes de invertir grandes sumas de dinero y tiempo.</li></ul><ul id="3c9648ad-99fc-8070-a29f-c0a70679e486" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Acelerar el tiempo de salida al mercado</strong>: Lanzar un producto mínimo viable (MVP) rápidamente y mejorarlo con el feedback de los clientes.</li></ul><ul id="3c9648ad-99fc-800a-91dd-cc24fdeff2d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimizar el uso de recursos</strong>: Evitar construir funcionalidades que los clientes no quieren y centrar los esfuerzos en lo que realmente aporta valor.</li></ul><ul id="3c9648ad-99fc-80ad-a9f6-f6d2d6678f65" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Crear productos que los clientes realmente quieren</strong>: Al involucrar a los clientes en el proceso de desarrollo desde el principio.</li></ul><ul id="3c9648ad-99fc-80bb-be2a-e16803a8529d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Adaptarse al cambio</strong>: En entornos de alta incertidumbre, la metodología permite pivotar (cambiar de dirección) rápidamente si una hipótesis no se cumple.</li></ul><hr id="3c9648ad-99fc-80a9-b847-e418752f1a24" dir="auto"/><h2 id="3c9648ad-99fc-80cf-b11d-e36e7c321f48" class="" dir="auto"><strong>⚙️ ¿Cómo funciona? El Ciclo Construir-Medir-Aprender</strong></h2><p id="3c9648ad-99fc-801f-a45f-f55188c08571" class="" dir="auto">El corazón de la metodología Lean Startup es el ciclo de retroalimentación <strong>Construir-Medir-Aprender (Build-Measure-Learn)</strong>.</p><p id="3c9648ad-99fc-801d-b299-d6708c53ef97" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3c9648ad-99fc-800e-b57f-d033902d0fd4" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────────────────────────────┐
+│                                                     │
+│   ┌─────────────┐      ┌─────────────┐      ┌──────┴──────┐
+│   │  CONSTRUIR  │─────▶│   MEDIR     │─────▶│  APRENDER   │
+│   │  (Build)    │      │  (Measure)  │      │  (Learn)    │
+│   │             │◀─────│             │◀─────│             │
+│   └─────────────┘      └─────────────┘      └─────────────┘
+│          ▲                                          │
+│          └──────────────────────────────────────────┘
+│                     (Retroalimentación)
+└─────────────────────────────────────────────────────┘</code></pre><h3 id="3c9648ad-99fc-8002-88f1-c96e56f8c7bb" class="" dir="auto"><strong>1️⃣ CONSTRUIR (Build)</strong></h3><ul id="3c9648ad-99fc-805b-971c-cb146718e600" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Se construye un <strong>Producto Mínimo Viable (MVP)</strong>. El MVP es la versión más simple del producto que permite probar las hipótesis clave del negocio con el mínimo esfuerzo.</li></ul><ul id="3c9648ad-99fc-80fe-acfc-d83c1a5c7aa3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetivo</strong>: No es construir un producto perfecto, sino un producto que permita <strong>aprender</strong> lo más rápido posible.</li></ul><ul id="3c9648ad-99fc-800e-ba08-d42be932e49b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Crear una landing page con un video de demostración (como hizo Dropbox), un prototipo en papel, o un servicio manual (como el &quot;conserje&quot; de Zappos).</li></ul><h3 id="3c9648ad-99fc-8098-9e54-da7641833fef" class="" dir="auto"><strong>2️⃣ MEDIR (Measure)</strong></h3><ul id="3c9648ad-99fc-800e-a3f5-c74fed5f6429" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Se miden los datos y el comportamiento de los clientes para evaluar si el MVP está cumpliendo su objetivo.</li></ul><ul id="3c9648ad-99fc-80dd-8cab-c3040d66ebf3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetivo</strong>: Recopilar datos cuantitativos y cualitativos que permitan validar o invalidar las hipótesis iniciales. Se utilizan métricas accionables (como la tasa de conversión, la retención de usuarios, el Net Promoter Score).</li></ul><ul id="3c9648ad-99fc-80a9-a7f0-e96db65e8802" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Medir cuántos usuarios se registran en la landing page, cuántos hacen clic en &quot;Comprar&quot;, o cuánto tiempo pasan usando el producto.</li></ul><h3 id="3c9648ad-99fc-80f3-8908-ebb07430532e" class="" dir="auto"><strong>3️⃣ APRENDER (Learn)</strong></h3><ul id="3c9648ad-99fc-8046-bb5b-fecbd45e9b1d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definición</strong>: Se analizan los datos recopilados para extraer conclusiones y tomar decisiones.</li></ul><ul id="3c9648ad-99fc-80a6-b2cf-c292a255a064" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetivo</strong>: Decidir si <strong>perseverar</strong> (continuar con la misma estrategia) o <strong>pivotar</strong> (cambiar de dirección). El aprendizaje validado es la base de esta decisión.</li></ul><ul id="3c9648ad-99fc-8088-9496-c3ce8805bf59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo</strong>: Si la tasa de conversión es alta, se persevera y se mejora el producto. Si la tasa de conversión es baja, se pivota (ej: cambiar el mercado objetivo, la propuesta de valor, o el canal de distribución).</li></ul><hr id="3c9648ad-99fc-80a9-b018-da385df28c37" dir="auto"/><h2 id="3c9648ad-99fc-80ce-9836-cdf065fa0904" class="" dir="auto"><strong>📝 Conceptos Clave de Lean Startup</strong></h2><table id="3c9648ad-99fc-8059-b4a4-f733ba1e9504" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-804f-a76a-dcab533af9ce" dir="ltr"><th id="lC`&lt;" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="&lt;VHe" class="simple-table-header-color simple-table-header" style="width:318.00001525878906px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8016-98d2-e5407d7c8229" dir="ltr"><td id="lC`&lt;" class=""><strong>Producto Mínimo Viable (MVP)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">La versión más simple de un producto que permite aprender sobre el mercado con el mínimo esfuerzo. No es un producto final, sino un experimento.</td></tr><tr id="3c9648ad-99fc-806b-ada5-d7e9ec60ab76" dir="ltr"><td id="lC`&lt;" class=""><strong>Pivot (Pivote)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">Un cambio de dirección estratégica basado en lo que se ha aprendido del mercado. Puede ser un cambio en el producto, el mercado objetivo, el modelo de negocio, etc.</td></tr><tr id="3c9648ad-99fc-80f0-b30c-c09d3ca1e1a3" dir="ltr"><td id="lC`&lt;" class=""><strong>Perseverar (Persevere)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">La decisión de continuar con la misma estrategia porque los datos del mercado indican que la dirección es la correcta.</td></tr><tr id="3c9648ad-99fc-8000-84c6-d7b1f1dcdcb9" dir="ltr"><td id="lC`&lt;" class=""><strong>Aprendizaje Validado (Validated Learning)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">El proceso de demostrar empíricamente que un equipo ha descubierto verdades valiosas sobre el futuro de una startup. No se basa en opiniones, sino en datos y experimentos.</td></tr><tr id="3c9648ad-99fc-800d-8455-f31aaeff513b" dir="ltr"><td id="lC`&lt;" class=""><strong>Contabilidad de la Innovación (Innovation Accounting)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">Un enfoque para medir el progreso en entornos de alta incertidumbre, utilizando métricas accionables y un enfoque en el aprendizaje.</td></tr><tr id="3c9648ad-99fc-80b2-a8c5-dd581c00d8d0" dir="ltr"><td id="lC`&lt;" class=""><strong>Salto de Fe (Leap of Faith)</strong></td><td id="&lt;VHe" class="" style="width:318.00001525878906px">Las suposiciones más críticas y arriesgadas sobre el modelo de negocio (ej: &quot;los clientes quieren esto&quot; o &quot;están dispuestos a pagar por ello&quot;).</td></tr></tbody></table><hr id="3c9648ad-99fc-8065-ba82-f63a68108865" dir="auto"/><h2 id="3c9648ad-99fc-8003-a4b5-e7d33bb0c0d1" class="" dir="auto"><strong>💡 Ejemplos de Lean Startup en Acción</strong></h2><h3 id="3c9648ad-99fc-8014-8f02-f5ecc25fc847" class="" dir="auto"><strong>Ejemplo 1: Dropbox</strong></h3><table id="3c9648ad-99fc-80fc-9548-d15c4379f2fa" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8072-be30-e72194106189" dir="ltr"><th id="dnMz" class="simple-table-header-color simple-table-header"><strong>Paso</strong></th><th id="||?P" class="simple-table-header-color simple-table-header" style="width:402.00001525878906px"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8087-b2ff-c3c9d0f00d81" dir="ltr"><td id="dnMz" class=""><strong>Construir</strong></td><td id="||?P" class="" style="width:402.00001525878906px">Crearon un video de demostración de 3 minutos mostrando cómo funcionaría el producto (no construyeron el producto completo).</td></tr><tr id="3c9648ad-99fc-804b-84f5-f402191f1105" dir="ltr"><td id="dnMz" class=""><strong>Medir</strong></td><td id="||?P" class="" style="width:402.00001525878906px">Publicaron el video en un foro tecnológico y midieron el número de registros en su lista de espera.</td></tr><tr id="3c9648ad-99fc-8026-aedc-eeb84846d006" dir="ltr"><td id="dnMz" class=""><strong>Aprender</strong></td><td id="||?P" class="" style="width:402.00001525878906px">El video generó 75,000 registros en una noche, validando que había una gran demanda. Perseveraron y construyeron el producto.</td></tr></tbody></table><h3 id="3c9648ad-99fc-802b-857f-c1dac7ad402f" class="" dir="auto"><strong>Ejemplo 2: Zappos</strong></h3><table id="3c9648ad-99fc-80fe-8d87-c468117878ea" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8080-9393-c5787e333eba" dir="ltr"><th id="RC~t" class="simple-table-header-color simple-table-header"><strong>Paso</strong></th><th id=";i\~" class="simple-table-header-color simple-table-header" style="width:381.00001525878906px"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80dd-b6b1-e3f46ecb30e3" dir="ltr"><td id="RC~t" class=""><strong>Construir</strong></td><td id=";i\~" class="" style="width:381.00001525878906px">El fundador publicó fotos de zapatos en una web. Cuando alguien compraba, iba a la tienda, compraba los zapatos y los enviaba manualmente.</td></tr><tr id="3c9648ad-99fc-8030-a198-db6e1e4bd056" dir="ltr"><td id="RC~t" class=""><strong>Medir</strong></td><td id=";i\~" class="" style="width:381.00001525878906px">Midió las ventas y el interés de los clientes.</td></tr><tr id="3c9648ad-99fc-80d6-89b9-c82815980c74" dir="ltr"><td id="RC~t" class=""><strong>Aprender</strong></td><td id=";i\~" class="" style="width:381.00001525878906px">Confirmó que la gente estaba dispuesta a comprar zapatos por internet, validando el modelo de negocio. Luego, invirtió en inventario y logística.</td></tr></tbody></table><h3 id="3c9648ad-99fc-80d0-b30b-ccba6cfed0ee" class="" dir="auto"><strong>Ejemplo 3: Airbnb</strong></h3><table id="3c9648ad-99fc-80c0-ac75-ccd69a10bfc1" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-800e-a914-c0b223bb9a60" dir="ltr"><th id="`|ky" class="simple-table-header-color simple-table-header"><strong>Paso</strong></th><th id="D?]E" class="simple-table-header-color simple-table-header" style="width:409.00001525878906px"><strong>Acción</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-807e-acf3-d03c461e5dab" dir="ltr"><td id="`|ky" class=""><strong>Construir</strong></td><td id="D?]E" class="" style="width:409.00001525878906px">Los fundadores alquilaron colchones inflables en su propio apartamento durante una conferencia y crearon un sitio web simple.</td></tr><tr id="3c9648ad-99fc-8074-a5c7-ccd5e8ab62cd" dir="ltr"><td id="`|ky" class=""><strong>Medir</strong></td><td id="D?]E" class="" style="width:409.00001525878906px">Consiguieron 3 clientes en la primera noche.</td></tr><tr id="3c9648ad-99fc-80da-9e1e-ce77030d8ae8" dir="ltr"><td id="`|ky" class=""><strong>Aprender</strong></td><td id="D?]E" class="" style="width:409.00001525878906px">Validaron que la gente estaba dispuesta a alojarse en casa de desconocidos. Perseveraron y expandieron el modelo.</td></tr></tbody></table><hr id="3c9648ad-99fc-80ff-828e-cd858f45dfad" dir="auto"/><h2 id="3c9648ad-99fc-80f1-82ce-c1bbda697e53" class="" dir="auto"><strong>📊 Lean Startup vs. Modelos Tradicionales</strong></h2><table id="3c9648ad-99fc-80e8-a9d6-ef53df262be5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8068-923f-e7416e6a4db9" dir="ltr"><th id="n`kF" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="~DhH" class="simple-table-header-color simple-table-header"><strong>Modelo Tradicional (Waterfall)</strong></th><th id="d][D" class="simple-table-header-color simple-table-header"><strong>Lean Startup</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-808e-b8e1-d210d29e1d3e" dir="ltr"><td id="n`kF" class=""><strong>Enfoque</strong></td><td id="~DhH" class="">Planificación y ejecución lineal.</td><td id="d][D" class="">Experimentación y aprendizaje iterativo.</td></tr><tr id="3c9648ad-99fc-80be-9309-d35f33b952d2" dir="ltr"><td id="n`kF" class=""><strong>Producto</strong></td><td id="~DhH" class="">Se desarrolla en secreto durante meses/años.</td><td id="d][D" class="">Se lanza un MVP rápidamente y se mejora con feedback.</td></tr><tr id="3c9648ad-99fc-8048-bc1f-c188ca3f5e15" dir="ltr"><td id="n`kF" class=""><strong>Riesgo</strong></td><td id="~DhH" class="">Alto: se invierte mucho antes de saber si hay demanda.</td><td id="d][D" class="">Bajo: se valida la demanda antes de invertir.</td></tr><tr id="3c9648ad-99fc-8014-ad89-c53daa0eae9e" dir="ltr"><td id="n`kF" class=""><strong>Feedback del cliente</strong></td><td id="~DhH" class="">Tardío: después del lanzamiento.</td><td id="d][D" class="">Temprano y continuo: desde el MVP.</td></tr><tr id="3c9648ad-99fc-8016-bea4-f2598b48bbae" dir="ltr"><td id="n`kF" class=""><strong>Adaptación</strong></td><td id="~DhH" class="">Rígida: cambios difíciles y costosos.</td><td id="d][D" class="">Flexible: se pivota fácilmente si es necesario.</td></tr><tr id="3c9648ad-99fc-8011-a0aa-fa3ab67cfaab" dir="ltr"><td id="n`kF" class=""><strong>Métricas</strong></td><td id="~DhH" class="">Financieras (ventas, beneficios).</td><td id="d][D" class="">Aprendizaje (métricas accionables, retención).</td></tr></tbody></table><hr id="3c9648ad-99fc-80e7-a68b-d60c348057dd" dir="auto"/><h2 id="3c9648ad-99fc-80ed-88b7-d63016033dab" class="" dir="auto"><strong>⚠️ Errores Comunes al Aplicar Lean Startup</strong></h2><table id="3c9648ad-99fc-8066-a936-c90073d9e6c3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8025-9e88-fb42818f44e2" dir="ltr"><th id="^@Or" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="}RU[" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="mFJW" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8043-baad-e2b3fbd4fd0f" dir="ltr"><td id="^@Or" class=""><strong>Confundir MVP con producto final</strong></td><td id="}RU[" class="">Lanzar un MVP y pensar que es el producto terminado.</td><td id="mFJW" class="">El MVP no está diseñado para escalar, solo para aprender.</td></tr><tr id="3c9648ad-99fc-804f-9d72-c95df8aec266" dir="ltr"><td id="^@Or" class=""><strong>No definir métricas claras</strong></td><td id="}RU[" class="">No saber qué medir para validar las hipótesis.</td><td id="mFJW" class="">No se aprende, solo se construye.</td></tr><tr id="3c9648ad-99fc-8083-aab0-cb5f8118ce5f" dir="ltr"><td id="^@Or" class=""><strong>No validar con clientes reales</strong></td><td id="}RU[" class="">Probar el MVP solo con amigos o familiares.</td><td id="mFJW" class="">Feedback sesgado que no refleja el mercado real.</td></tr><tr id="3c9648ad-99fc-809a-afab-cdb435d47b1b" dir="ltr"><td id="^@Or" class=""><strong>No saber cuándo pivotar</strong></td><td id="}RU[" class="">Perseverar demasiado tiempo en una dirección equivocada.</td><td id="mFJW" class="">Se desperdicia tiempo y recursos.</td></tr><tr id="3c9648ad-99fc-805d-be1b-c96318977430" dir="ltr"><td id="^@Or" class=""><strong>Pivotar demasiado pronto</strong></td><td id="}RU[" class="">Cambiar de dirección sin haber recopilado suficientes datos.</td><td id="mFJW" class="">No se da tiempo a que el mercado responda.</td></tr><tr id="3c9648ad-99fc-806d-94ea-efced8576709" dir="ltr"><td id="^@Or" class=""><strong>No iterar lo suficiente</strong></td><td id="}RU[" class="">No mejorar el MVP basándose en el feedback.</td><td id="mFJW" class="">Se pierde la oportunidad de aprendizaje.</td></tr></tbody></table><hr id="3c9648ad-99fc-806f-a6e0-e5eb7f0695a9" dir="auto"/><h2 id="3c9648ad-99fc-80ae-9fa2-dc2d5d34842d" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3c9648ad-99fc-80a7-ab82-f87435367a05" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8005-be99-f26d83985cb5" dir="ltr"><th id="iWud" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="i[QJ" class="simple-table-header-color simple-table-header"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8043-8880-f66bf281f004" dir="ltr"><td id="iWud" class=""><strong>Startup en etapa temprana</strong></td><td id="i[QJ" class="">Validar la idea de negocio con un MVP antes de invertir.</td></tr><tr id="3c9648ad-99fc-8084-8797-f401255b677c" dir="ltr"><td id="iWud" class=""><strong>Nuevo producto en una empresa existente</strong></td><td id="i[QJ" class="">Usar Lean Startup para innovar dentro de una corporación.</td></tr><tr id="3c9648ad-99fc-806a-92a4-fb3cd5863555" dir="ltr"><td id="iWud" class=""><strong>Entrada a un nuevo mercado</strong></td><td id="i[QJ" class="">Validar la adaptación del producto a un nuevo mercado.</td></tr><tr id="3c9648ad-99fc-807e-a7c2-d24b78d7005e" dir="ltr"><td id="iWud" class=""><strong>Transformación digital</strong></td><td id="i[QJ" class="">Usar Lean Startup para experimentar con nuevos modelos de negocio.</td></tr><tr id="3c9648ad-99fc-8029-831e-f22343032226" dir="ltr"><td id="iWud" class=""><strong>Desarrollo de un nuevo servicio</strong></td><td id="i[QJ" class="">Validar el servicio con un MVP antes de lanzarlo a gran escala.</td></tr></tbody></table><hr id="3c9648ad-99fc-809f-b870-e86c60836449" dir="auto"/><h2 id="3c9648ad-99fc-8040-a7c0-f1a891f5cb06" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-8079-bf90-dcb8aaafa8de" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-8014-b021-fa199c1279e7" dir="ltr"><th id="b@ni" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="[sr{" class="simple-table-header-color simple-table-header"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-808a-aac3-d597a0a1ed73" dir="ltr"><td id="b@ni" class=""><strong>Metodologías Ágiles (Scrum, Kanban)</strong></td><td id="[sr{" class="">Lean Startup se centra en la estrategia y la validación de hipótesis; las metodologías ágiles se centran en la ejecución y el desarrollo de software. Se complementan.</td></tr><tr id="3c9648ad-99fc-80e6-afdc-eb6fc5b886e5" dir="ltr"><td id="b@ni" class=""><strong>Design Thinking</strong></td><td id="[sr{" class="">El Design Thinking se enfoca en entender al usuario y generar soluciones creativas; Lean Startup se enfoca en validar esas soluciones en el mercado.</td></tr><tr id="3c9648ad-99fc-8030-bbcb-fc4437898739" dir="ltr"><td id="b@ni" class=""><strong>Business Model Canvas</strong></td><td id="[sr{" class="">Herramienta para diseñar el modelo de negocio que Lean Startup utiliza para definir las hipótesis a validar.</td></tr><tr id="3c9648ad-99fc-80f3-af78-ed743f232c7c" dir="ltr"><td id="b@ni" class=""><strong>Value Proposition Canvas</strong></td><td id="[sr{" class="">Herramienta para definir la propuesta de valor, que se usa en Lean Startup para entender las necesidades del cliente.</td></tr><tr id="3c9648ad-99fc-80a9-985d-f200d313bfba" dir="ltr"><td id="b@ni" class=""><strong>Lean Manufacturing</strong></td><td id="[sr{" class="">Lean Startup adapta los principios de la producción ajustada (eliminar desperdicio, mejora continua) al desarrollo de productos.</td></tr><tr id="3c9648ad-99fc-8042-a177-f492cc40ff3c" dir="ltr"><td id="b@ni" class=""><strong>Product-Market Fit</strong></td><td id="[sr{" class="">El objetivo final de Lean Startup es lograr el ajuste producto-mercado, es decir, que el producto satisfaga las necesidades del mercado.</td></tr></tbody></table><hr id="3c9648ad-99fc-80a2-a7de-d773a4b8d2fa" dir="auto"/><h2 id="3c9648ad-99fc-80ef-a84f-e8e5b78cdd54" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3c9648ad-99fc-801d-91ea-ee0ad677f405" class="" dir="auto">Lean Startup es como <strong>la receta de un chef que prueba los ingredientes antes de cocinar</strong>. El chef no prepara el plato completo y espera a que los comensales lo prueben para saber si les gusta. En su lugar, prueba una pequeña muestra del plato (MVP), pide feedback, ajusta los ingredientes y cocina de nuevo, repitiendo el ciclo hasta que el plato es perfecto. Si el plato no funciona, no ha desperdiciado todos los ingredientes; solo ha perdido una pequeña muestra y ha aprendido qué no hacer.</p><hr id="3c9648ad-99fc-8094-bb04-f8705fe7b3e6" dir="auto"/><h2 id="3c9648ad-99fc-80c1-aabf-ca51fc13eed4" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-80e3-a94c-c4b2d73bf413" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2011). <em>The Lean Startup: How Today&#x27;s Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses</em>. Crown Business.</li></ul><ul id="3c9648ad-99fc-801a-9bdb-c1f5d5a772db" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Blank, S. (2013). <em>The Four Steps to the Epiphany</em>. K&amp;S Ranch.</li></ul><ul id="3c9648ad-99fc-80f5-b93d-fc1d52038a73" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Maurya, A. (2012). <em>Running Lean: Iterate from Plan A to a Plan That Works</em>. O&#x27;Reilly Media.</li></ul><ul id="3c9648ad-99fc-806f-bd4b-d72918be369a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation</em>. John Wiley &amp; Sons.</li></ul><ul id="3c9648ad-99fc-808d-8f6d-c48fd5033a8f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2013). <em>Why the Lean Start-Up Changes Everything</em>.</li></ul><ul id="3c9648ad-99fc-806a-a967-fe7bda15a2d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2012). <em>The Lean Startup</em> (Harvard Business Review Article).</li></ul><hr id="3c9648ad-99fc-80fb-969a-ef1a82851c8a" dir="auto"/><h2 id="3c9648ad-99fc-80df-a66f-f65d33aa1447" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-80b2-bfba-fe424ad55c49" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Lean Startup no es una metodología de desarrollo de software, sino de gestión de la innovación</strong>: Su aplicación va más allá del software. Se puede aplicar a cualquier tipo de negocio, producto o servicio donde haya incertidumbre sobre lo que el mercado quiere.</li></ul><ul id="3c9648ad-99fc-802a-b4ce-d3cb44395555" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El MVP no es un producto de baja calidad</strong>: Es un producto que permite aprender. Si el MVP es de baja calidad, la experiencia del usuario será mala y no se podrá aprender correctamente.</li></ul><ul id="3c9648ad-99fc-80a1-a6c0-e47b5bdddb8f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La clave de Lean Startup es el aprendizaje validado</strong>: No se trata de construir un producto, sino de aprender qué es lo que el cliente realmente necesita. El aprendizaje validado se basa en datos, no en opiniones.</li></ul><ul id="3c9648ad-99fc-80b8-b856-f88fcea2a659" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para aplicar Lean Startup</strong>:<ol type="1" id="3c9648ad-99fc-80fc-b050-c8868ed6901c" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con el &quot;Salto de Fe&quot; (Leap of Faith)</strong>: Identifica las hipótesis más críticas de tu modelo de negocio (ej: &quot;los clientes quieren esto&quot; o &quot;están dispuestos a pagar por ello&quot;) y diseña experimentos para validarlas.</li></ol><ol type="1" id="3c9648ad-99fc-8017-83bf-d8fc7df29a71" class="numbered-list" start="2" dir="auto"><li><strong>Construye un MVP rápido</strong>: No esperes a tener un producto perfecto. Lanza el MVP lo antes posible para empezar a aprender.</li></ol><ol type="1" id="3c9648ad-99fc-80c6-a411-c5c17d6f69ca" class="numbered-list" start="3" dir="auto"><li><strong>Mide las métricas correctas</strong>: No te centres en métricas vanidosas (ej: número de descargas). Utiliza métricas accionables (ej: tasa de conversión, retención, NPS) que te permitan tomar decisiones.</li></ol><ol type="1" id="3c9648ad-99fc-80a3-87da-fc31c568dd08" class="numbered-list" start="4" dir="auto"><li><strong>Aprende y decide</strong>: Basado en los datos, decide si perseverar (continuar con la misma estrategia) o pivotar (cambiar de dirección).</li></ol><ol type="1" id="3c9648ad-99fc-807f-a107-e73bb017767f" class="numbered-list" start="5" dir="auto"><li><strong>Itera rápidamente</strong>: El ciclo construir-medir-aprender debe ser rápido. Cuanto más rápido sea el ciclo, más rápido se aprende y se reduce el riesgo.</li></ol><ol type="1" id="3c9648ad-99fc-80f3-8353-e848c1859c93" class="numbered-list" start="6" dir="auto"><li><strong>Involucra a los clientes desde el principio</strong>: El feedback de los clientes es la base del aprendizaje. No desarrolles en aislamiento.</li></ol><ol type="1" id="3c9648ad-99fc-80fe-8c74-c9ccd5c9cea3" class="numbered-list" start="7" dir="auto"><li><strong>Sé humilde y flexible</strong>: El mercado tiene la razón. Si tus hipótesis no se cumplen, admítelo y pivota. La rigidez es el enemigo de la innovación.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

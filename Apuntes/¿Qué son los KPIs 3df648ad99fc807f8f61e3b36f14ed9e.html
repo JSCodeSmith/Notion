@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>¿Qué son los KPIs?</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3df648ad-99fc-807f-8f61-e3b36f14ed9e" class="page sans"><header><h1 class="page-title" dir="auto"><strong>¿Qué son los KPIs?</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3df648ad-99fc-8024-94d6-f36bda2249da" class="" dir="auto">
+</p><h1 id="3df648ad-99fc-8076-9397-d7e249ffbde9" class="" dir="auto"><strong>📄 ¿Qué son los KPIs?</strong></h1><hr id="3df648ad-99fc-8037-ac29-fc79bfdbaf9e" dir="auto"/><h2 id="3df648ad-99fc-807c-a8a3-c26b1fa6e4f7" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3df648ad-99fc-805e-b0b4-d6ddb1bf50b5" class="" dir="auto">KPI son las siglas de <strong>Key Performance Indicator</strong> (Indicador Clave de Desempeño). </p><p id="3e0648ad-99fc-8075-be6d-f4f7d6196ef6" class="" dir="auto">Es una <strong>medida cuantificable</strong> que se utiliza para evaluar el éxito de una organización, un equipo, un proceso o una persona en relación con sus <strong>objetivos estratégicos</strong>. </p><p id="3e0648ad-99fc-80f8-a055-ecaf9c71af3e" class="" dir="auto">Los KPIs ayudan a traducir la estrategia en acciones concretas y a medir el progreso hacia las metas establecidas.</p><hr id="3df648ad-99fc-8051-a94f-eb45e621af7b" dir="auto"/><h2 id="3df648ad-99fc-8080-bf55-ebb1837604e3" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3df648ad-99fc-8002-ba09-d7d5468ecf4a" class="" dir="auto">Un KPI no es cualquier métrica. </p><p id="3e0648ad-99fc-806f-9edf-ce667e45643a" class="" dir="auto">Es una <strong>métrica crítica</strong> que está directamente vinculada a los <strong>objetivos estratégicos</strong> de la organización. </p><p id="3e0648ad-99fc-807b-9773-ddbae92cc545" class="" dir="auto">Mientras que una métrica puede ser cualquier dato medible (ej: número de visitas a una web), un KPI es aquella métrica que realmente importa para evaluar el éxito del negocio (ej: tasa de conversión de visitantes a clientes).</p><p id="3df648ad-99fc-8064-b670-e96b87265479" class="" dir="auto"><strong>Características clave de un KPI</strong>:</p><ul id="3df648ad-99fc-800d-8050-f4257830cb54" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuantificable</strong>: Se puede medir con datos objetivos.</li></ul><ul id="3df648ad-99fc-80a9-906c-fb4793c38f8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Relevante</strong>: Está alineado con los objetivos estratégicos.</li></ul><ul id="3df648ad-99fc-8083-9bfc-d10d5f7d32d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Proactivo</strong>: Ayuda a predecir o tomar decisiones antes de que sea tarde.</li></ul><ul id="3df648ad-99fc-80b5-802b-ccada07043a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accionable</strong>: Permite tomar acciones concretas si se desvía.</li></ul><ul id="3df648ad-99fc-8016-9d05-f4eb5d6823fd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comprensible</strong>: Fácil de entender y comunicar.</li></ul><ul id="3df648ad-99fc-8002-a79a-e2d43cca5cf7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Oportuno</strong>: Se mide en el momento adecuado para tomar decisiones.</li></ul><hr id="3df648ad-99fc-8056-ab0b-d7131337dabc" dir="auto"/><h2 id="3df648ad-99fc-80cc-92d0-c0fa804eda2c" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3df648ad-99fc-80ee-bfbd-ca5a57778614" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Medir el progreso</strong>: Evaluar si se están alcanzando los objetivos estratégicos.</li></ul><ul id="3df648ad-99fc-8034-b4c4-f783a986098f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tomar decisiones basadas en datos</strong>: Proporcionar información objetiva para la toma de decisiones.</li></ul><ul id="3df648ad-99fc-80c7-bd6b-f64e1837517d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alinear equipos</strong>: Asegurar que todos los departamentos trabajen hacia los mismos objetivos.</li></ul><ul id="3df648ad-99fc-80bf-a079-cd13fd97ac72" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar problemas</strong>: Detectar desviaciones a tiempo para corregirlas.</li></ul><ul id="3df648ad-99fc-8013-befb-e5da008909ec" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Motivar equipos</strong>: Establecer metas claras y medibles que impulsen el desempeño.</li></ul><ul id="3df648ad-99fc-80eb-a593-f522c8fa7bc5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Comunicar resultados</strong>: Informar a stakeholders (inversores, junta directiva, empleados) sobre el desempeño de la organización.</li></ul><ul id="3df648ad-99fc-8028-bc52-d55b024b7df0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar continuamente</strong>: Usar los datos para iterar y optimizar procesos.</li></ul><hr id="3df648ad-99fc-80f2-a895-da18666cd29e" dir="auto"/><h2 id="3df648ad-99fc-80d8-9761-fe33293c3e92" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3df648ad-99fc-80c9-9cf1-d6c6f6e35c75" class="" dir="auto">El proceso de definición y uso de KPIs sigue estos pasos:</p><ol type="1" id="3df648ad-99fc-80df-bbb8-d9825846ffcf" class="numbered-list" start="1" dir="auto"><li><strong>Definir los objetivos estratégicos</strong>: ¿Qué queremos lograr como organización?</li></ol><ol type="1" id="3df648ad-99fc-80d2-8c1e-c818f292d669" class="numbered-list" start="2" dir="auto"><li><strong>Identificar las métricas clave</strong>: ¿Qué métricas nos indicarán si estamos avanzando hacia esos objetivos?</li></ol><ol type="1" id="3df648ad-99fc-80d5-9187-c212a8be0bf7" class="numbered-list" start="3" dir="auto"><li><strong>Establecer metas y umbrales</strong>: ¿Cuál es el valor objetivo? ¿Cuál es el mínimo aceptable?</li></ol><ol type="1" id="3df648ad-99fc-8086-93ba-de9519ce14e3" class="numbered-list" start="4" dir="auto"><li><strong>Recolectar datos</strong>: Implementar sistemas para medir los KPIs de manera continua.</li></ol><ol type="1" id="3df648ad-99fc-80b5-af7a-e06f4ac5f824" class="numbered-list" start="5" dir="auto"><li><strong>Analizar y reportar</strong>: Evaluar los resultados, identificar tendencias y desviaciones.</li></ol><ol type="1" id="3df648ad-99fc-80a7-8c15-dd3b140cf443" class="numbered-list" start="6" dir="auto"><li><strong>Tomar acciones</strong>: Si los KPIs se desvían, tomar acciones correctivas.</li></ol><ol type="1" id="3df648ad-99fc-8008-a3bb-e31188ac553f" class="numbered-list" start="7" dir="auto"><li><strong>Revisar y actualizar</strong>: Los KPIs deben evolucionar con la estrategia y el entorno.</li></ol><hr id="3df648ad-99fc-804d-a0fc-dc27e8c995ed" dir="auto"/><h2 id="3df648ad-99fc-8028-820e-e43eb84b68a4" class="" dir="auto"><strong>📝 Tipos de KPIs</strong></h2><table id="3df648ad-99fc-8061-9556-f7a68714af47" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80fb-97c4-d4ebfafa85ce" dir="ltr"><th id=":Mku" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="pnq:" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="COds" class="simple-table-header-color simple-table-header"><strong>Ejemplos</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8027-ae4d-c858f33e948d" dir="ltr"><td id=":Mku" class=""><strong>Estratégicos</strong></td><td id="pnq:" class="">Miden el desempeño general de la organización a largo plazo.</td><td id="COds" class="">ROI, crecimiento de ingresos, participación de mercado.</td></tr><tr id="3df648ad-99fc-80a4-959f-e51168041fd5" dir="ltr"><td id=":Mku" class=""><strong>Operativos</strong></td><td id="pnq:" class="">Miden la eficiencia de procesos y operaciones diarias.</td><td id="COds" class="">Tiempo de producción, tasa de defectos, ocupación de planta.</td></tr><tr id="3df648ad-99fc-806c-bdbc-edea4e0348fc" dir="ltr"><td id=":Mku" class=""><strong>Financieros</strong></td><td id="pnq:" class="">Miden la salud financiera de la organización.</td><td id="COds" class="">EBITDA, margen de beneficio, flujo de caja.</td></tr><tr id="3df648ad-99fc-8035-a66d-d4218f8527af" dir="ltr"><td id=":Mku" class=""><strong>De Cliente</strong></td><td id="pnq:" class="">Miden la satisfacción, retención y experiencia del cliente.</td><td id="COds" class="">NPS (Net Promoter Score), tasa de retención, CSAT.</td></tr><tr id="3df648ad-99fc-8050-8a64-f28e893eae4e" dir="ltr"><td id=":Mku" class=""><strong>De Procesos</strong></td><td id="pnq:" class="">Miden la eficiencia y eficacia de procesos internos.</td><td id="COds" class="">Tiempo de ciclo, tasa de error, productividad.</td></tr><tr id="3df648ad-99fc-805b-b86a-ecd481ff0636" dir="ltr"><td id=":Mku" class=""><strong>De Talento</strong></td><td id="pnq:" class="">Miden el desempeño y satisfacción de los empleados.</td><td id="COds" class="">Rotación de personal, engagement, absenteeismo.</td></tr><tr id="3df648ad-99fc-8022-97dc-c038f713760d" dir="ltr"><td id=":Mku" class=""><strong>De Innovación</strong></td><td id="pnq:" class="">Miden la capacidad de la organización para innovar.</td><td id="COds" class="">Inversión en I+D, nuevos productos lanzados, patentes.</td></tr><tr id="3df648ad-99fc-8088-bfa6-d80978591cdb" dir="ltr"><td id=":Mku" class=""><strong>Digitales</strong></td><td id="pnq:" class="">Miden el desempeño en canales digitales.</td><td id="COds" class="">Tasa de conversión, CTR (Click-Through Rate), visitas.</td></tr></tbody></table><hr id="3df648ad-99fc-80a6-9fa4-eeb2a3e8b028" dir="auto"/><h2 id="3df648ad-99fc-8002-a631-fdc911348247" class="" dir="auto"><strong>📊 Características de un Buen KPI (Criterios SMART)</strong></h2><p id="3df648ad-99fc-802d-ba5e-fce204b124cb" class="" dir="auto">Un KPI debe cumplir con los criterios <strong>SMART</strong> para ser efectivo:</p><table id="3df648ad-99fc-80cf-86b1-da90f9888c7b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-807a-99eb-dbb0a6edf515" dir="ltr"><th id="jW=]" class="simple-table-header-color simple-table-header"><strong>Criterio</strong></th><th id="R__M" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="zi&gt;i" class="simple-table-header-color simple-table-header"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-802b-8212-e0baa868228b" dir="ltr"><td id="jW=]" class=""><strong>S</strong>pecific (Específico)</td><td id="R__M" class="">Claro y concreto, sin ambigüedades.</td><td id="zi&gt;i" class="">&quot;Aumentar la retención de clientes&quot; vs. &quot;Mejorar la satisfacción&quot;.</td></tr><tr id="3df648ad-99fc-80a6-b372-ce76fd063aec" dir="ltr"><td id="jW=]" class=""><strong>M</strong>easurable (Medible)</td><td id="R__M" class="">Cuantificable con datos objetivos.</td><td id="zi&gt;i" class="">&quot;Aumentar la retención al 85%&quot;.</td></tr><tr id="3df648ad-99fc-8019-bcd1-fd2c2b64d98a" dir="ltr"><td id="jW=]" class=""><strong>A</strong>chievable (Alcanzable)</td><td id="R__M" class="">Realista y factible.</td><td id="zi&gt;i" class="">&quot;Aumentar retención en 5 puntos en 6 meses&quot; (si es realista).</td></tr><tr id="3df648ad-99fc-8087-9e83-d13099450abd" dir="ltr"><td id="jW=]" class=""><strong>R</strong>elevant (Relevante)</td><td id="R__M" class="">Alineado con los objetivos estratégicos.</td><td id="zi&gt;i" class="">La retención es clave para el crecimiento de ingresos.</td></tr><tr id="3df648ad-99fc-80b8-81c6-d7c5c47ac31f" dir="ltr"><td id="jW=]" class=""><strong>T</strong>ime-bound (Con plazo)</td><td id="R__M" class="">Definido en el tiempo.</td><td id="zi&gt;i" class="">&quot;Alcanzar 85% de retención en el Q4 2025&quot;.</td></tr></tbody></table><hr id="3df648ad-99fc-805c-af8f-d8dea33b579e" dir="auto"/><h2 id="3df648ad-99fc-805a-8e2d-f721a0ffbd8e" class="" dir="auto"><strong>💡 Ejemplos de KPIs por Sector</strong></h2><h3 id="3df648ad-99fc-805f-b770-ccfa6b431bd8" class="" dir="auto"><strong>📌 Sector Retail</strong></h3><table id="3df648ad-99fc-809d-92da-e751dba70a71" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8067-84a1-c5fc27a46632" dir="ltr"><th id="QW&lt;h" class="simple-table-header-color simple-table-header"><strong>KPI</strong></th><th id="|Wzr" class="simple-table-header-color simple-table-header" style="width:305px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8022-8a48-eef7146bdf27" dir="ltr"><td id="QW&lt;h" class=""><strong>Ventas por metro cuadrado</strong></td><td id="|Wzr" class="" style="width:305px">Mide la eficiencia del espacio de tienda.</td></tr><tr id="3df648ad-99fc-80f9-aacd-fd61308a65ce" dir="ltr"><td id="QW&lt;h" class=""><strong>Tasa de conversión</strong></td><td id="|Wzr" class="" style="width:305px">% de visitantes que compran.</td></tr><tr id="3df648ad-99fc-806f-9531-e0f082f65751" dir="ltr"><td id="QW&lt;h" class=""><strong>Valor promedio de compra</strong></td><td id="|Wzr" class="" style="width:305px">Ingreso promedio por transacción.</td></tr><tr id="3df648ad-99fc-80da-803e-ebd1d3e52247" dir="ltr"><td id="QW&lt;h" class=""><strong>Tasa de rotación de inventario</strong></td><td id="|Wzr" class="" style="width:305px">Frecuencia con la que se vende el inventario.</td></tr><tr id="3df648ad-99fc-80ab-8a78-f6d4a45f4435" dir="ltr"><td id="QW&lt;h" class=""><strong>Retención de clientes</strong></td><td id="|Wzr" class="" style="width:305px">% de clientes que compran nuevamente.</td></tr></tbody></table><h3 id="3df648ad-99fc-80fe-8b5b-d27362d5e8a5" class="" dir="auto"><strong>📌 Sector Fintech</strong></h3><table id="3df648ad-99fc-8020-a138-d1540f560915" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80c0-a17d-dfb639dd265d" dir="ltr"><th id="ntcK" class="simple-table-header-color simple-table-header"><strong>KPI</strong></th><th id="sHhC" class="simple-table-header-color simple-table-header" style="width:287px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8022-949e-dd5c6f50ca83" dir="ltr"><td id="ntcK" class=""><strong>Costo de adquisición de cliente (CAC)</strong></td><td id="sHhC" class="" style="width:287px">Costo de captar un nuevo cliente.</td></tr><tr id="3df648ad-99fc-80de-b28e-dc625dd11db5" dir="ltr"><td id="ntcK" class=""><strong>Lifetime Value (LTV)</strong></td><td id="sHhC" class="" style="width:287px">Ingreso total que genera un cliente a lo largo de su relación.</td></tr><tr id="3df648ad-99fc-8054-b067-ea841c06ef97" dir="ltr"><td id="ntcK" class=""><strong>Tasa de abandono (Churn Rate)</strong></td><td id="sHhC" class="" style="width:287px">% de clientes que cancelan su servicio.</td></tr><tr id="3df648ad-99fc-80d7-98f5-ff59680e7b90" dir="ltr"><td id="ntcK" class=""><strong>Usuarios activos mensuales (MAU)</strong></td><td id="sHhC" class="" style="width:287px">Número de usuarios que usan la app al mes.</td></tr><tr id="3df648ad-99fc-8030-8bfd-f26a6d59c82b" dir="ltr"><td id="ntcK" class=""><strong>Tasa de conversión de registro a transacción</strong></td><td id="sHhC" class="" style="width:287px">% de usuarios registrados que hacen su primera transacción.</td></tr></tbody></table><h3 id="3df648ad-99fc-80aa-956c-c4cd0807d3f5" class="" dir="auto"><strong>📌 Sector Tecnología (SaaS)</strong></h3><table id="3df648ad-99fc-805b-b7b2-f8b928531964" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80c5-a7e4-c91c2978ce75" dir="ltr"><th id="T|VM" class="simple-table-header-color simple-table-header"><strong>KPI</strong></th><th id="OZbw" class="simple-table-header-color simple-table-header" style="width:273px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8080-b418-dfe92a6ca80b" dir="ltr"><td id="T|VM" class=""><strong>Ingresos recurrentes mensuales (MRR)</strong></td><td id="OZbw" class="" style="width:273px">Ingresos predecibles por suscripciones.</td></tr><tr id="3df648ad-99fc-8055-9667-f4b73e924f2c" dir="ltr"><td id="T|VM" class=""><strong>Net Revenue Retention (NRR)</strong></td><td id="OZbw" class="" style="width:273px">Ingresos retenidos de clientes existentes (incluye expansiones).</td></tr><tr id="3df648ad-99fc-80e8-862b-efabf531dc71" dir="ltr"><td id="T|VM" class=""><strong>Tiempo de implementación</strong></td><td id="OZbw" class="" style="width:273px">Tiempo que tarda un cliente en comenzar a usar el producto.</td></tr><tr id="3df648ad-99fc-80f8-944f-ec514575de03" dir="ltr"><td id="T|VM" class=""><strong>Tasa de conversión de prueba gratuita</strong></td><td id="OZbw" class="" style="width:273px">% de usuarios que pasan de prueba a pago.</td></tr><tr id="3df648ad-99fc-805b-8eb5-e00a77a4c32d" dir="ltr"><td id="T|VM" class=""><strong>Tasa de renovación</strong></td><td id="OZbw" class="" style="width:273px">% de clientes que renuevan su suscripción.</td></tr></tbody></table><h3 id="3df648ad-99fc-8079-bef6-f8f5b6741614" class="" dir="auto"><strong>📌 Sector Marketing Digital</strong></h3><table id="3df648ad-99fc-808f-b516-c12def4fd182" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80de-89df-ef783a467796" dir="ltr"><th id="_=&lt;Z" class="simple-table-header-color simple-table-header"><strong>KPI</strong></th><th id=":QMm" class="simple-table-header-color simple-table-header" style="width:360px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80b9-a79c-ce6ec919fc15" dir="ltr"><td id="_=&lt;Z" class=""><strong>CTR (Click-Through Rate)</strong></td><td id=":QMm" class="" style="width:360px">% de personas que hacen clic en un anuncio.</td></tr><tr id="3df648ad-99fc-8000-8c91-f5a49a28082d" dir="ltr"><td id="_=&lt;Z" class=""><strong>CPC (Cost Per Click)</strong></td><td id=":QMm" class="" style="width:360px">Costo promedio por clic en anuncios.</td></tr><tr id="3df648ad-99fc-80d6-906e-edaac0f2de82" dir="ltr"><td id="_=&lt;Z" class=""><strong>ROAS (Return on Ad Spend)</strong></td><td id=":QMm" class="" style="width:360px">Retorno de inversión publicitaria.</td></tr><tr id="3df648ad-99fc-802d-81e7-f1e2a50fc9ff" dir="ltr"><td id="_=&lt;Z" class=""><strong>Tasa de rebote</strong></td><td id=":QMm" class="" style="width:360px">% de visitantes que abandonan el sitio sin interactuar.</td></tr><tr id="3df648ad-99fc-8038-96e4-d905bc646145" dir="ltr"><td id="_=&lt;Z" class=""><strong>Tasa de apertura de emails</strong></td><td id=":QMm" class="" style="width:360px">% de emails abiertos sobre los enviados.</td></tr></tbody></table><hr id="3df648ad-99fc-80c1-8838-e5b2226fe516" dir="auto"/><h2 id="3df648ad-99fc-805b-a31b-d14777f63b06" class="" dir="auto"><strong>⚠️ Errores Comunes al Usar KPIs</strong></h2><table id="3df648ad-99fc-807e-b294-c0c0457bc2e5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-8055-a358-dd366102c657" dir="ltr"><th id="Cyj=" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="ivVx" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="voV{" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8095-85a8-faf96e723e81" dir="ltr"><td id="Cyj=" class=""><strong>Demasiados KPIs</strong></td><td id="ivVx" class="">Medir demasiadas cosas, perdiendo enfoque en lo crítico.</td><td id="voV{" class="">Sobrecarga de información, falta de claridad.</td></tr><tr id="3df648ad-99fc-8008-8bb4-d66d6888ffb9" dir="ltr"><td id="Cyj=" class=""><strong>KPIs desconectados de la estrategia</strong></td><td id="ivVx" class="">Medir métricas que no impactan en los objetivos del negocio.</td><td id="voV{" class="">Esfuerzo desperdiciado, decisiones erróneas.</td></tr><tr id="3df648ad-99fc-8034-bde1-def7abdce094" dir="ltr"><td id="Cyj=" class=""><strong>Medir sin actuar</strong></td><td id="ivVx" class="">Recolectar datos sin tomar acciones.</td><td id="voV{" class="">Pérdida de tiempo, oportunidad perdida.</td></tr><tr id="3df648ad-99fc-8079-8b1a-c21e731f3af2" dir="ltr"><td id="Cyj=" class=""><strong>KPIs subjetivos</strong></td><td id="ivVx" class="">Basados en opiniones en lugar de datos objetivos.</td><td id="voV{" class="">Decisiones sesgadas.</td></tr><tr id="3df648ad-99fc-8021-9cf8-c5b9a43fd6f4" dir="ltr"><td id="Cyj=" class=""><strong>No actualizar los KPIs</strong></td><td id="ivVx" class="">Mantener KPIs obsoletos cuando cambia la estrategia o el entorno.</td><td id="voV{" class="">Desalineación estratégica.</td></tr><tr id="3df648ad-99fc-8051-abbd-fa9d7dfff67e" dir="ltr"><td id="Cyj=" class=""><strong>Falta de benchmarking</strong></td><td id="ivVx" class="">No comparar con estándares de la industria o con la competencia.</td><td id="voV{" class="">No saber si el desempeño es bueno o malo.</td></tr><tr id="3df648ad-99fc-80d8-9baa-deb812c4c766" dir="ltr"><td id="Cyj=" class=""><strong>Enfocarse solo en KPIs financieros</strong></td><td id="ivVx" class="">Ignorar KPIs de clientes, empleados o procesos.</td><td id="voV{" class="">Visión incompleta del negocio.</td></tr></tbody></table><hr id="3df648ad-99fc-800f-84b6-e1e5b4376221" dir="auto"/><h2 id="3df648ad-99fc-8021-b73a-fa2a287e1cbe" class="" dir="auto"><strong>💼 Casos de Uso</strong></h2><table id="3df648ad-99fc-809c-8f17-c1a565e05fa5" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80db-a66a-f52b26a85849" dir="ltr"><th id="r}rJ" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="kcr^" class="simple-table-header-color simple-table-header" style="width:355px"><strong>Aplicación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-802f-ad38-f6b91b727599" dir="ltr"><td id="r}rJ" class=""><strong>Planificación estratégica</strong></td><td id="kcr^" class="" style="width:355px">Definir KPIs que midan el avance de los objetivos estratégicos.</td></tr><tr id="3df648ad-99fc-80d8-a98d-f468fcc6b98a" dir="ltr"><td id="r}rJ" class=""><strong>Gestión de equipos</strong></td><td id="kcr^" class="" style="width:355px">Establecer KPIs individuales o de equipo para alinear el desempeño.</td></tr><tr id="3df648ad-99fc-8048-aa61-e43c2738f48a" dir="ltr"><td id="r}rJ" class=""><strong>Lanzamiento de producto</strong></td><td id="kcr^" class="" style="width:355px">Medir adopción, retención y satisfacción del producto.</td></tr><tr id="3df648ad-99fc-80ce-bb6a-d8086e1e786b" dir="ltr"><td id="r}rJ" class=""><strong>Mejora de procesos</strong></td><td id="kcr^" class="" style="width:355px">Identificar cuellos de botella y optimizar operaciones.</td></tr><tr id="3df648ad-99fc-80dc-95b5-dd7028b12e12" dir="ltr"><td id="r}rJ" class=""><strong>Inversiones</strong></td><td id="kcr^" class="" style="width:355px">Evaluar el retorno de inversiones publicitarias o de proyectos.</td></tr><tr id="3df648ad-99fc-805a-a775-efa1d563c2f4" dir="ltr"><td id="r}rJ" class=""><strong>Evaluación de desempeño</strong></td><td id="kcr^" class="" style="width:355px">Medir el rendimiento de empleados o departamentos.</td></tr><tr id="3df648ad-99fc-8052-88b8-dccf080b02e6" dir="ltr"><td id="r}rJ" class=""><strong>Reporte a inversores</strong></td><td id="kcr^" class="" style="width:355px">Comunicar el desempeño financiero y operativo a stakeholders.</td></tr></tbody></table><hr id="3df648ad-99fc-8026-a404-c79d5308de8c" dir="auto"/><h2 id="3df648ad-99fc-802e-8e30-d2049b78a5cf" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3df648ad-99fc-80b1-94c1-e8967a872ef3" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80dd-a573-f6b32ecedc5b" dir="ltr"><th id="cQ[H" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="KFe&gt;" class="simple-table-header-color simple-table-header" style="width:390px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-80fc-ae27-c088304d2cab" dir="ltr"><td id="cQ[H" class=""><strong>Métrica</strong></td><td id="KFe&gt;" class="" style="width:390px">Todas los KPIs son métricas, pero no todas las métricas son KPIs.</td></tr><tr id="3df648ad-99fc-8085-8b4f-c1acb5f1a963" dir="ltr"><td id="cQ[H" class=""><strong>Objetivos Estratégicos</strong></td><td id="KFe&gt;" class="" style="width:390px">Los KPIs miden el progreso hacia los objetivos.</td></tr><tr id="3df648ad-99fc-80bf-94ea-f86632a0eb65" dir="ltr"><td id="cQ[H" class=""><strong>OKR (Objectives and Key Results)</strong></td><td id="KFe&gt;" class="" style="width:390px">Metodología que utiliza objetivos y resultados clave (similares a KPIs).</td></tr><tr id="3df648ad-99fc-8008-bba8-d9f85e5154bd" dir="ltr"><td id="cQ[H" class=""><strong>Balanced Scorecard</strong></td><td id="KFe&gt;" class="" style="width:390px">Marco que integra KPIs financieros y no financieros.</td></tr><tr id="3df648ad-99fc-8018-a4a5-cc91bfe9f299" dir="ltr"><td id="cQ[H" class=""><strong>Benchmarking</strong></td><td id="KFe&gt;" class="" style="width:390px">Comparar KPIs con competidores o estándares de la industria.</td></tr><tr id="3df648ad-99fc-8088-8f5c-cf03e693dbb0" dir="ltr"><td id="cQ[H" class=""><strong>Business Intelligence (BI)</strong></td><td id="KFe&gt;" class="" style="width:390px">Herramientas y procesos para recolectar y analizar KPIs.</td></tr><tr id="3df648ad-99fc-8028-b028-c9b7d406c4a6" dir="ltr"><td id="cQ[H" class=""><strong>Data-Driven Decision Making</strong></td><td id="KFe&gt;" class="" style="width:390px">Tomar decisiones basadas en KPIs y datos objetivos.</td></tr><tr id="3df648ad-99fc-805e-a88d-e17e4022b77d" dir="ltr"><td id="cQ[H" class=""><strong>Dashboard</strong></td><td id="KFe&gt;" class="" style="width:390px">Visualización de KPIs en tiempo real.</td></tr></tbody></table><hr id="3df648ad-99fc-8015-bfd7-ce13eaa27125" dir="auto"/><h2 id="3df648ad-99fc-807b-8e99-e762bf4b8920" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3df648ad-99fc-801f-b974-fafd46d20017" class="" dir="auto">Los KPIs son como el <strong>tablero de instrumentos de un automóvil</strong>:</p><ul id="3df648ad-99fc-801c-b571-d6e0abd62d5b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>velocímetro</strong> te dice qué tan rápido vas (KPI de velocidad).</li></ul><ul id="3df648ad-99fc-8022-baec-f505094c8241" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>indicador de combustible</strong> te dice cuánta gasolina queda (KPI de recursos).</li></ul><ul id="3df648ad-99fc-80fa-b3f8-cc594cb21261" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El <strong>cuentakilómetros</strong> te dice cuánto has recorrido (KPI de progreso).</li></ul><p id="3df648ad-99fc-80fd-8329-f1bef4aa7454" class="" dir="auto">Un conductor eficiente no mira un solo indicador; mira todos para entender el estado del vehículo. De la misma manera, una organización necesita múltiples KPIs para tener una visión completa de su desempeño.</p><hr id="3df648ad-99fc-8097-a7cb-c9e8ba40ba6b" dir="auto"/><h2 id="3df648ad-99fc-808e-aded-e2669acd8b09" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3df648ad-99fc-806b-8043-eafd02b1f851" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Kaplan, R. S., &amp; Norton, D. P. (1996). <em>The Balanced Scorecard</em>. Harvard Business Review.</li></ul><ul id="3df648ad-99fc-80c0-b47f-f5882b1adaff" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Parmenter, D. (2015). <em>Key Performance Indicators: Developing, Implementing, and Using Winning KPIs</em>. Wiley.</li></ul><ul id="3df648ad-99fc-80cb-9137-d7095bf62e8d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2018). <em>The Right Way to Use KPIs</em>.</li></ul><ul id="3df648ad-99fc-8011-abd2-c58802f22453" class="bulleted-list" dir="auto"><li style="list-style-type:disc">McKinsey &amp; Company, (2023). <em>Key Performance Indicators: A Guide to Measuring Business Success</em>.</li></ul><ul id="3df648ad-99fc-806a-b104-d4d6d8e36b9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Gartner, (2024). <em>Key Performance Indicators (KPIs): Definition and Best Practices</em>.</li></ul><ul id="3df648ad-99fc-8045-baf3-e735e0a551d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">KPI Institute, (2023). <em>KPI Professional Certification</em>.</li></ul><hr id="3df648ad-99fc-8059-8f7e-f7d108b25484" dir="auto"/><h2 id="3df648ad-99fc-8059-b78f-f02218741d1f" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3df648ad-99fc-80e9-80a7-df76a51b5f59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>KPIs vs OKRs</strong>:<ul id="3df648ad-99fc-801d-a399-fe363f60016e" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>KPIs</strong>: Miden el desempeño continuo (ej: tasa de retención).</li></ul><ul id="3df648ad-99fc-8051-8d98-f3ed6e5d89bf" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>OKRs</strong>: Miden el progreso hacia objetivos específicos (ej: lanzar nueva funcionalidad). Suelen ser más ambiciosos y a corto plazo.</li></ul></li></ul><ul id="3df648ad-99fc-805c-beef-fe396421cc68" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>KPIs vs Métricas</strong>:<ul id="3df648ad-99fc-802f-b44d-f6cec520968c" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Métrica</strong>: &quot;Número de visitas a la web&quot; → es útil, pero no necesariamente estratégico.</li></ul><ul id="3df648ad-99fc-80b6-8d45-f2bad8e9ceab" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>KPI</strong>: &quot;Tasa de conversión de visitas a clientes&quot; → es crítico para el negocio.</li></ul></li></ul><ul id="3df648ad-99fc-80ad-a953-d1432775f191" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Frecuencia de revisión</strong>: Los KPIs deben revisarse con la frecuencia adecuada:<ul id="3df648ad-99fc-80e5-b911-fdf48203ff16" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Diaria</strong>: KPIs operativos críticos (ej: ventas del día).</li></ul><ul id="3df648ad-99fc-8043-8789-dd3b6531588b" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Semanal</strong>: KPIs de rendimiento (ej: productividad).</li></ul><ul id="3df648ad-99fc-8094-8b3a-d567996b0686" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Mensual</strong>: KPIs tácticos (ej: costos, eficiencia).</li></ul><ul id="3df648ad-99fc-8047-bf84-c6aafed9fa0f" class="bulleted-list" dir="auto"><li style="list-style-type:circle"><strong>Trimestral/Anual</strong>: KPIs estratégicos (ej: crecimiento de ingresos).</li></ul></li></ul><ul id="3df648ad-99fc-80fb-884a-f0fec940e92e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para definir KPIs efectivos</strong>:<ol type="1" id="3df648ad-99fc-80b8-b011-c5a53411baa9" class="numbered-list" start="1" dir="auto"><li><strong>Menos es más</strong>: Enfócate en 5-10 KPIs críticos.</li></ol><ol type="1" id="3df648ad-99fc-8027-8942-d73f50207e2d" class="numbered-list" start="2" dir="auto"><li><strong>Involucra a los equipos</strong>: Que los equipos participen en la definición de sus KPIs.</li></ol><ol type="1" id="3df648ad-99fc-80f4-80b2-de60f78f00c4" class="numbered-list" start="3" dir="auto"><li><strong>Asegura la calidad de los datos</strong>: Si los datos no son confiables, los KPIs no sirven.</li></ol><ol type="1" id="3df648ad-99fc-8069-bc35-db0408032747" class="numbered-list" start="4" dir="auto"><li><strong>Visualiza los datos</strong>: Usa dashboards para hacerlos accesibles y comprensibles.</li></ol><ol type="1" id="3df648ad-99fc-80ac-82f3-e6421201c78a" class="numbered-list" start="5" dir="auto"><li><strong>Revisa y ajusta</strong>: Los KPIs deben evolucionar con el negocio.</li></ol><ol type="1" id="3df648ad-99fc-8030-805f-e3a052782f3a" class="numbered-list" start="6" dir="auto"><li><strong>Conecta los KPIs con incentivos</strong>: Vincula KPIs con bonos o reconocimientos.</li></ol><ol type="1" id="3df648ad-99fc-804d-8715-f7bb805a8d7c" class="numbered-list" start="7" dir="auto"><li><strong>No castigues, mejora</strong>: Usa los KPIs para identificar oportunidades de mejora, no solo para penalizar.</li></ol></li></ul><ul id="3df648ad-99fc-80f6-a1e9-d566b0dfdd5c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>KPIs en la era digital</strong>:<ul id="3df648ad-99fc-804f-9ae5-e1ea1223b459" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Los KPIs digitales son cada vez más relevantes (ej: engagement en redes, tiempo en página, tasa de abandono).</li></ul><ul id="3df648ad-99fc-80ae-b988-e112e0cbef4f" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Las herramientas de BI (Power BI, Tableau, Looker) permiten visualizar KPIs en tiempo real.</li></ul><ul id="3df648ad-99fc-807a-b0b9-d7284764adf1" class="bulleted-list" dir="auto"><li style="list-style-type:circle">La IA y el machine learning están permitiendo KPIs predictivos (ej: predecir el churn antes de que ocurra).</li></ul></li></ul><ul id="3df648ad-99fc-8073-ac26-eb57870fc49f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ejemplo práctico de una empresa de e-commerce</strong>:<table id="3df648ad-99fc-80aa-8f2a-e7a0dc7704a2" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3df648ad-99fc-80c9-adca-df690071085e" dir="ltr"><th id="`qY&gt;" class="simple-table-header-color simple-table-header"><strong>KPI</strong></th><th id="]SOf" class="simple-table-header-color simple-table-header"><strong>Meta Actual</strong></th><th id="JNsR" class="simple-table-header-color simple-table-header"><strong>Meta Objetivo</strong></th><th id="g;tt" class="simple-table-header-color simple-table-header"><strong>Acción si se desvía</strong></th></tr></thead><tbody><tr id="3df648ad-99fc-8046-b180-c01977df64d5" dir="ltr"><td id="`qY&gt;" class="">Tasa de conversión</td><td id="]SOf" class="">2.5%</td><td id="JNsR" class="">3.0%</td><td id="g;tt" class="">Optimizar el checkout.</td></tr><tr id="3df648ad-99fc-8014-87db-d7ad62ba66a7" dir="ltr"><td id="`qY&gt;" class="">Valor promedio de compra</td><td id="]SOf" class="">$45</td><td id="JNsR" class="">$50</td><td id="g;tt" class="">Ofrecer upsell/cross-sell.</td></tr><tr id="3df648ad-99fc-8011-942c-f5d680519c64" dir="ltr"><td id="`qY&gt;" class="">Tasa de abandono de carrito</td><td id="]SOf" class="">70%</td><td id="JNsR" class="">60%</td><td id="g;tt" class="">Mejorar el flujo de compra.</td></tr><tr id="3df648ad-99fc-8044-99be-ea3857dba9a2" dir="ltr"><td id="`qY&gt;" class="">Tasa de retención (30 días)</td><td id="]SOf" class="">35%</td><td id="JNsR" class="">45%</td><td id="g;tt" class="">Programa de fidelización.</td></tr></tbody></table></li></ul><ul id="3df648ad-99fc-808e-a74f-ff1fda2b37f2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conclusión</strong>: Los KPIs son una herramienta poderosa para <strong>medir, gestionar y mejorar</strong> el desempeño organizacional. Pero son solo eso: una herramienta. Sin una estrategia clara, datos confiables y acciones concretas, los KPIs se convierten en números sin sentido. Úsalos con propósito y responsabilidad.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

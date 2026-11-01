@@ -1,0 +1,798 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Tipos de MVP: De Humo, Mago de Oz y Conserje</title><meta name="data-notion-page-icon" content="📄"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%84%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3c9648ad-99fc-804c-a802-d4931534e17d" class="page sans" data-notion-page-icon="📄"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📄"></span></div><h1 class="page-title" dir="auto"><strong>Tipos de MVP: De Humo, Mago de Oz y Conserje</strong></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3c9648ad-99fc-8087-8b51-e9e56cd808a7" class="" dir="auto">
+</p><h1 id="3c9648ad-99fc-8086-9441-e522bb92d302" class="" dir="auto"><strong>📄 Tipos de MVP: De Humo, Mago de Oz y Conserje</strong></h1><p id="3c9648ad-99fc-80db-b0cb-e73f5cd5eb6d" class="" dir="auto">Estos tres tipos de Producto Mínimo Viable (MVP) son <strong>estrategias de validación temprana</strong> que permiten probar una idea de negocio con el <strong>mínimo esfuerzo y costo</strong>, sin necesidad de construir el producto tecnológico completo. </p><p id="3c9648ad-99fc-806b-8a0c-c06e1fe73ed4" class="" dir="auto">Son herramientas fundamentales del enfoque <strong>Lean Startup</strong> para aprender del mercado antes de invertir grandes sumas en desarrollo.</p><hr id="3c9648ad-99fc-8030-9810-c318fc4fefcf" dir="auto"/><h2 id="3c9648ad-99fc-80cd-b8e2-d7c0f1d6eec3" class="" dir="auto"><strong>📝 Definición General</strong></h2><p id="3c9648ad-99fc-806e-a61c-e2d8d58ab7a5" class="" dir="auto">Un MVP (Producto Mínimo Viable) no es necesariamente un &quot;producto&quot; en el sentido tradicional. </p><p id="3c9648ad-99fc-80d3-9668-f2b3f2f24de4" class="" dir="auto">Es un <strong>experimento</strong> diseñado para validar si existe demanda real para una solución. </p><p id="3c9648ad-99fc-8087-b99f-c1bd226a25dc" class="" dir="auto">Cuando el producto es complejo o costoso de desarrollar, se pueden utilizar estas variantes del MVP para <strong>simular</strong> la experiencia del producto final y medir el interés del mercado con una inversión mínima.</p><hr id="3c9648ad-99fc-80c1-9077-c6d7181b943d" dir="auto"/><h2 id="3c9648ad-99fc-806f-8f3a-c61cf6f6f203" class="" dir="auto"><strong>1️⃣ MVP de Humo (Smoke Test MVP)</strong></h2><hr id="3c9648ad-99fc-800a-b740-e0f715664b3c" dir="auto"/><h3 id="3c9648ad-99fc-8014-803d-c3255b3d57a0" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3c9648ad-99fc-80a4-9e8a-ecfb807fcf73" class="" dir="auto">El MVP de Humo, también conocido como &quot;Smoke Test&quot;, es un <strong>anuncio o página de aterrizaje (landing page)</strong> que presenta un producto como si ya existiera, para <strong>medir el interés</strong> de los clientes potenciales. </p><p id="3c9648ad-99fc-8082-bb4a-fd1b9373edcb" class="" dir="auto">El &quot;humo&quot; es la promesa del producto; lo que se prueba es si hay suficiente &quot;fuego&quot; (interés real) para justificar la construcción del producto. </p><p id="3c9648ad-99fc-80d2-ac9b-f8e931514619" class="" dir="auto">El objetivo no es vender, sino <strong>validar la demanda</strong>.</p><h3 id="3c9648ad-99fc-806b-96c0-c9ad0b3c6b3f" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3c9648ad-99fc-80fe-827e-d3fbfb958398" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validar si existe demanda real antes de invertir en desarrollo.</li></ul><ul id="3c9648ad-99fc-8015-b5f6-c311fb35d1e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Medir el interés del mercado (ej: número de registros, clics en &quot;Comprar&quot;).</li></ul><ul id="3c9648ad-99fc-806e-b1b6-e39578f6cbb5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Recoger emails de clientes potenciales para futuras campañas.</li></ul><ul id="3c9648ad-99fc-802a-9419-ff43ee8ae7fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Probar diferentes propuestas de valor o precios (A/B testing).</li></ul><ul id="3c9648ad-99fc-8070-bba0-e6d9503e8773" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Generar una lista de early adopters.</li></ul><h3 id="3c9648ad-99fc-80e8-af1b-d4cdcd49c06e" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ol type="1" id="3c9648ad-99fc-800a-a2a0-e2a657357d39" class="numbered-list" start="1" dir="auto"><li>Se crea una landing page (página de aterrizaje) con la propuesta de valor, descripción del producto y un llamado a la acción (CTA) como &quot;Regístrate&quot;, &quot;Quiero saber más&quot; o &quot;Comprar ahora&quot;.</li></ol><ol type="1" id="3c9648ad-99fc-8012-a083-cf0d15bba818" class="numbered-list" start="2" dir="auto"><li>Se promociona la landing page (ej: anuncios en redes sociales, Google Ads).</li></ol><ol type="1" id="3c9648ad-99fc-8038-b4af-c1a5dc1af5c0" class="numbered-list" start="3" dir="auto"><li>Se mide la tasa de conversión: ¿cuántas personas se registran o hacen clic en &quot;Comprar&quot;?</li></ol><ol type="1" id="3c9648ad-99fc-8098-9955-f9817e4db0f6" class="numbered-list" start="4" dir="auto"><li>Si la conversión es alta (ej: &gt;20-30% de registros), se valida la demanda.</li></ol><ol type="1" id="3c9648ad-99fc-8061-9e7c-c3106fc64846" class="numbered-list" start="5" dir="auto"><li>Si la conversión es baja, se ajusta la propuesta de valor o se abandona la idea.</li></ol><h3 id="3c9648ad-99fc-8063-9acd-fec7b23d745f" class="" dir="auto"><strong>💡 Ejemplo</strong></h3><p id="3c9648ad-99fc-803d-9b88-deeb2068baa2" class="" dir="auto"><strong>Dropbox</strong>: Creó un video de demostración de 3 minutos mostrando cómo funcionaría el producto (sincronización de archivos en la nube). El video no era un producto funcional, pero generó <strong>75,000 registros</strong> en una noche, validando la demanda y atrayendo inversión.</p><h3 id="3c9648ad-99fc-8057-bd51-c1c52afa8ec1" class="" dir="auto"><strong>✅ Ventajas</strong></h3><ul id="3c9648ad-99fc-80d9-a986-dda2463d0343" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Muy económico</strong>: Cuesta apenas unos cientos de dólares (dominio + hosting + anuncios).</li></ul><ul id="3c9648ad-99fc-8044-8528-c0236100c2c9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rápido</strong>: Puede estar listo en días.</li></ul><ul id="3c9648ad-99fc-8019-aac0-e23282fcb1d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mide interés real</strong>: No es una encuesta; es comportamiento real de usuarios.</li></ul><h3 id="3c9648ad-99fc-8083-b25c-ed2a1f2efd38" class="" dir="auto"><strong>❌ Desventajas</strong></h3><ul id="3c9648ad-99fc-8032-91a9-d718c70e9fa1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo mide interés, no uso real</strong>: Una persona puede registrarse pero no usar el producto.</li></ul><ul id="3c9648ad-99fc-80ae-9d30-ce9195cc88cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Puede generar expectativas no cumplidas</strong>: Si no se entrega el producto, se puede dañar la reputación.</li></ul><hr id="3c9648ad-99fc-809c-8802-c378b135396a" dir="auto"/><h2 id="3c9648ad-99fc-8086-b5fe-e3a7d9fff2d0" class="" dir="auto"><strong>2️⃣ MVP del &quot;Mago de Oz&quot; (Wizard of Oz MVP)</strong></h2><hr id="3c9648ad-99fc-8051-929b-d65c067f4583" dir="auto"/><h3 id="3c9648ad-99fc-80a0-9e51-c59b7e77c91c" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3c9648ad-99fc-80a4-a9f4-cdc3cb9c0bec" class="" dir="auto">También conocido como <strong>MVP Falso</strong>, este tipo de MVP simula un producto automatizado cuando en realidad <strong>hay un humano operando detrás de escena</strong>. </p><p id="3c9648ad-99fc-8041-9c0c-c8a8a2c7865a" class="" dir="auto">El usuario cree que está interactuando con un software, pero un equipo manual ejecuta las tareas. </p><p id="3c9648ad-99fc-800f-9ce4-e5977c94dce6" class="" dir="auto">El nombre proviene de la película &quot;El Mago de Oz&quot;, donde un hombre detrás de una cortina controla la aparente magia.</p><h3 id="3c9648ad-99fc-8035-bfdb-d449a78d65bb" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3c9648ad-99fc-8063-9a80-daa9b5bb6901" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validar un proceso o servicio sin construir el sistema automatizado.</li></ul><ul id="3c9648ad-99fc-8088-9088-f3974c9d4645" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Probar el flujo completo del servicio (ej: desde el pedido hasta la entrega).</li></ul><ul id="3c9648ad-99fc-8071-b0d1-d2cf889c3cbd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Identificar cuellos de botella y puntos de fricción antes de automatizar.</li></ul><ul id="3c9648ad-99fc-8032-832d-da6708ced4ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aprender qué es lo que realmente valoran los usuarios.</li></ul><h3 id="3c9648ad-99fc-80f4-b871-c1ca8f1da1f2" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ol type="1" id="3c9648ad-99fc-8079-9ae5-f481a9eaba4c" class="numbered-list" start="1" dir="auto"><li>Se construye una interfaz (app, web, chatbot) que parece automatizada.</li></ol><ol type="1" id="3c9648ad-99fc-8075-96c4-e3dc24973dfc" class="numbered-list" start="2" dir="auto"><li>Cuando un usuario interactúa, un equipo humano realiza manualmente las tareas (ej: procesar pedidos, responder consultas).</li></ol><ol type="1" id="3c9648ad-99fc-8034-bb7f-e7fa8f8b0eb3" class="numbered-list" start="3" dir="auto"><li>Se observa el comportamiento de los usuarios y se recoge feedback.</li></ol><ol type="1" id="3c9648ad-99fc-808a-a57e-de4e167c4d7d" class="numbered-list" start="4" dir="auto"><li>Una vez validado el proceso, se construye la automatización.</li></ol><h3 id="3c9648ad-99fc-8070-b3c3-cfb60ec114a4" class="" dir="auto"><strong>💡 Ejemplo</strong></h3><p id="3c9648ad-99fc-800c-aa39-d5b02cbebd7d" class="" dir="auto"><strong>Zappos (inicios)</strong>: El fundador publicaba fotos de zapatos en una web. Cuando alguien compraba, iba a la tienda física, compraba los zapatos y los enviaba manualmente. Así validó que la gente estaba dispuesta a comprar zapatos por internet sin invertir en inventario.</p><h3 id="3c9648ad-99fc-804f-8125-f6c5140105f4" class="" dir="auto"><strong>✅ Ventajas</strong></h3><ul id="3c9648ad-99fc-80f7-bb50-d0c522071320" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valida el servicio completo</strong>, no solo el interés.</li></ul><ul id="3c9648ad-99fc-8029-9d34-e718d7ce6a79" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Permite aprender</strong> sobre las necesidades reales de los usuarios.</li></ul><ul id="3c9648ad-99fc-80d0-b486-e7be6ce9ca7f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Menor inversión</strong> que construir el sistema automatizado desde cero.</li></ul><h3 id="3c9648ad-99fc-8096-81a2-eccadc513485" class="" dir="auto"><strong>❌ Desventajas</strong></h3><ul id="3c9648ad-99fc-8038-8c31-c2d9f10782fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No escalable</strong>: Un equipo humano no puede atender a miles de usuarios.</li></ul><ul id="3c9648ad-99fc-80b3-908c-f45c1b8334ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Costos operativos</strong>: El trabajo manual puede ser costoso si se mantiene por mucho tiempo.</li></ul><ul id="3c9648ad-99fc-80eb-b9d5-fd44416bf7dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Puede generar insatisfacción</strong>: Si los usuarios descubren que no es automatizado, puede haber desconfianza.</li></ul><hr id="3c9648ad-99fc-8086-944f-e29672047ead" dir="auto"/><h2 id="3c9648ad-99fc-803a-87e1-c5a5e11a497c" class="" dir="auto"><strong>3️⃣ MVP &quot;Conserje&quot; (Concierge MVP)</strong></h2><hr id="3c9648ad-99fc-80a4-9216-ca4986c95c32" dir="auto"/><h3 id="3c9648ad-99fc-8092-a32d-dc665b6208ac" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h3><p id="3c9648ad-99fc-80df-9709-fdae59b02f16" class="" dir="auto">El MVP Conserje es una versión del MVP &quot;Mago de Oz&quot; donde el equipo fundador actúa como un <strong>asistente personal</strong> (conserje) que realiza manualmente todas las tareas del servicio, proporcionando una <strong>experiencia de alta calidad</strong> y <strong>personalizada</strong> a los primeros clientes. </p><p id="3c9648ad-99fc-80b0-98f5-e2dc8b7fbe1c" class="" dir="auto">A diferencia del Mago de Oz (que oculta la intervención humana), en el Conserje, los usuarios saben que están interactuando con un humano, lo que permite una <strong>relación más cercana</strong> y un <strong>aprendizaje más profundo</strong>.</p><h3 id="3c9648ad-99fc-8069-bd61-edab7bb54384" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h3><ul id="3c9648ad-99fc-8074-ae99-e5533c2f6eb1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Probar un servicio complejo donde la personalización es clave.</li></ul><ul id="3c9648ad-99fc-802d-97ce-f785aba63d6e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Entender profundamente las necesidades del cliente (a través de la interacción directa).</li></ul><ul id="3c9648ad-99fc-8059-b3ac-cb042005d657" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir una base de clientes leales que darán feedback detallado.</li></ul><ul id="3c9648ad-99fc-800c-9323-e1001fe83119" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Desarrollar el &quot;know-how&quot; del servicio antes de automatizarlo.</li></ul><h3 id="3c9648ad-99fc-808c-8756-c0227420751f" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h3><ol type="1" id="3c9648ad-99fc-80c9-8418-daf06cb17012" class="numbered-list" start="1" dir="auto"><li>El equipo fundador ofrece el servicio de manera manual y personalizada a los primeros clientes.</li></ol><ol type="1" id="3c9648ad-99fc-80e6-a068-f15b02b35210" class="numbered-list" start="2" dir="auto"><li>Realizan todas las tareas que luego automatizarán (ej: seleccionar productos, gestionar logística, dar soporte).</li></ol><ol type="1" id="3c9648ad-99fc-8063-a4c4-d5cbf4524597" class="numbered-list" start="3" dir="auto"><li>Aprenden de cada interacción: qué valoran los clientes, qué les frustra, qué esperan.</li></ol><ol type="1" id="3c9648ad-99fc-802a-89e0-f30bee946e34" class="numbered-list" start="4" dir="auto"><li>Una vez que el proceso está bien entendido, se construye la tecnología para automatizarlo.</li></ol><h3 id="3c9648ad-99fc-8079-a4ba-e3440d2c823a" class="" dir="auto"><strong>💡 Ejemplo</strong></h3><p id="3c9648ad-99fc-80e2-9906-caaaedf2a007" class="" dir="auto"><strong>Airbnb (inicios)</strong>: Los fundadores (Brian Chesky y Joe Gebbia) no solo alquilaron su propio apartamento; también ofrecieron un servicio personalizado a los huéspedes: les recomendaban restaurantes, les daban consejos sobre la ciudad, etc. Así aprendieron qué valoraban los viajeros.</p><h3 id="3c9648ad-99fc-8088-a7a3-e524c27c54de" class="" dir="auto"><strong>✅ Ventajas</strong></h3><ul id="3c9648ad-99fc-807e-9568-f12c53597572" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aprendizaje profundo</strong>: La interacción directa con los clientes es la mejor fuente de información.</li></ul><ul id="3c9648ad-99fc-8065-90c2-c9300905ca1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Construye relaciones</strong>: Los primeros clientes se convierten en embajadores de la marca.</li></ul><ul id="3c9648ad-99fc-8011-ad77-f840f68aeef8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Flexibilidad</strong>: Puedes ajustar el servicio en tiempo real sin tener que modificar software.</li></ul><h3 id="3c9648ad-99fc-8074-8ed9-dbb6c51da499" class="" dir="auto"><strong>❌ Desventajas</strong></h3><ul id="3c9648ad-99fc-803a-a649-fd3e14efe224" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No escalable</strong>: Solo puedes atender a unos pocos clientes manualmente.</li></ul><ul id="3c9648ad-99fc-808b-b91c-ffe4d3dc14d7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Costoso en tiempo</strong>: Requiere dedicación total del equipo fundador.</li></ul><ul id="3c9648ad-99fc-80ec-a963-e9e1132d0921" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Difícil de mantener por mucho tiempo</strong>: El objetivo es aprender y luego automatizar.</li></ul><hr id="3c9648ad-99fc-8072-9dba-d4c5d21a74a3" dir="auto"/><h2 id="3c9648ad-99fc-80a6-9a8a-dba08c7e0215" class="" dir="auto"><strong>📊 Comparativa de los Tres Tipos de MVP</strong></h2><table id="3c9648ad-99fc-8014-b2b7-fa84598bc426" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-805e-bc1e-f0daeea6642c" dir="ltr"><th id="yHU?" class="simple-table-header-color simple-table-header"><strong>Característica</strong></th><th id="K?kB" class="simple-table-header-color simple-table-header"><strong>MVP de Humo (Smoke)</strong></th><th id="}[il" class="simple-table-header-color simple-table-header"><strong>MVP del Mago de Oz</strong></th><th id="E;U]" class="simple-table-header-color simple-table-header"><strong>MVP Conserje (Concierge)</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8010-867c-fedbfd742365" dir="ltr"><td id="yHU?" class=""><strong>Qué se valida</strong></td><td id="K?kB" class="">Interés / Demanda</td><td id="}[il" class="">Proceso / Servicio</td><td id="E;U]" class="">Servicio personalizado y profundo</td></tr><tr id="3c9648ad-99fc-8005-aea9-d2b0ea9c9fc3" dir="ltr"><td id="yHU?" class=""><strong>Interacción con el usuario</strong></td><td id="K?kB" class="">Mínima (landing page)</td><td id="}[il" class="">Usuario cree que es automático</td><td id="E;U]" class="">Usuario sabe que es humano</td></tr><tr id="3c9648ad-99fc-80c1-8311-d51b202f4b37" dir="ltr"><td id="yHU?" class=""><strong>Inversión inicial</strong></td><td id="K?kB" class="">Muy baja (página web)</td><td id="}[il" class="">Baja (interfaz + trabajo manual)</td><td id="E;U]" class="">Media (tiempo del equipo)</td></tr><tr id="3c9648ad-99fc-800d-8f9c-c215adcba668" dir="ltr"><td id="yHU?" class=""><strong>Escalabilidad</strong></td><td id="K?kB" class="">Inmediata (puede probarse con miles)</td><td id="}[il" class="">No escalable (limitado por el equipo humano)</td><td id="E;U]" class="">No escalable (requiere atención personalizada)</td></tr><tr id="3c9648ad-99fc-80f8-9d83-c72c625cc295" dir="ltr"><td id="yHU?" class=""><strong>Aprendizaje</strong></td><td id="K?kB" class="">Superficial (tasa de conversión)</td><td id="}[il" class="">Medio (observación de uso)</td><td id="E;U]" class="">Profundo (interacción directa)</td></tr><tr id="3c9648ad-99fc-8083-9eb4-dee0f8c849dc" dir="ltr"><td id="yHU?" class=""><strong>Riesgo</strong></td><td id="K?kB" class="">Bajo (no hay producto)</td><td id="}[il" class="">Medio (expectativas del usuario)</td><td id="E;U]" class="">Bajo (relación directa)</td></tr><tr id="3c9648ad-99fc-807a-aacd-dc71fc846ac7" dir="ltr"><td id="yHU?" class=""><strong>Ejemplo famoso</strong></td><td id="K?kB" class="">Dropbox (video demostrativo)</td><td id="}[il" class="">Zappos (compra manual de zapatos)</td><td id="E;U]" class="">Airbnb (servicio personalizado a huéspedes)</td></tr></tbody></table><hr id="3c9648ad-99fc-800c-8c32-c1b537ce56bd" dir="auto"/><h2 id="3c9648ad-99fc-8031-a1ea-d2c18324455d" class="" dir="auto"><strong>⚠️ Errores Comunes en estos MVP</strong></h2><table id="3c9648ad-99fc-808c-85c3-e462a64e1823" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80d8-a6f3-e2e911a3dbe6" dir="ltr"><th id="{s?A" class="simple-table-header-color simple-table-header"><strong>Error</strong></th><th id="kVKQ" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="X{=E" class="simple-table-header-color simple-table-header"><strong>Consecuencia</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-8061-aaeb-ff89b47c7b79" dir="ltr"><td id="{s?A" class=""><strong>No tener un plan de salida</strong></td><td id="kVKQ" class="">Mantener el MVP demasiado tiempo sin avanzar a la automatización.</td><td id="X{=E" class="">Costos operativos crecen, no se escala.</td></tr><tr id="3c9648ad-99fc-80c4-9229-ead3782936e4" dir="ltr"><td id="{s?A" class=""><strong>No medir las métricas correctas</strong></td><td id="kVKQ" class="">Enfocarse en registros sin medir el compromiso real.</td><td id="X{=E" class="">Falsa validación del mercado.</td></tr><tr id="3c9648ad-99fc-803a-b36d-ea84a88dae33" dir="ltr"><td id="{s?A" class=""><strong>No iterar rápido</strong></td><td id="kVKQ" class="">Hacer el experimento y no cambiar nada.</td><td id="X{=E" class="">No se aprende, no se mejora.</td></tr><tr id="3c9648ad-99fc-80f4-96ff-d266d2577301" dir="ltr"><td id="{s?A" class=""><strong>No ser transparente (en el Mago de Oz)</strong></td><td id="kVKQ" class="">Ocultar la intervención humana y generar desconfianza.</td><td id="X{=E" class="">Daño a la reputación, pérdida de clientes.</td></tr><tr id="3c9648ad-99fc-80d6-a1da-ddf809a34083" dir="ltr"><td id="{s?A" class=""><strong>Confundir el MVP con el producto final</strong></td><td id="kVKQ" class="">Pensar que el MVP es el producto terminado.</td><td id="X{=E" class="">No se invierte en escalabilidad, se estanca el negocio.</td></tr></tbody></table><hr id="3c9648ad-99fc-8000-b570-df3c0bc45da2" dir="auto"/><h2 id="3c9648ad-99fc-80de-9422-f7f7493df8a1" class="" dir="auto"><strong>💼 Cuándo Usar Cada Tipo de MVP</strong></h2><table id="3c9648ad-99fc-80c5-a318-e8afe5ccca21" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-807a-8897-f6f6ea6caf07" dir="ltr"><th id="cmpb" class="simple-table-header-color simple-table-header"><strong>Situación</strong></th><th id="z;|e" class="simple-table-header-color simple-table-header"><strong>MVP Recomendado</strong></th><th id=";wY;" class="simple-table-header-color simple-table-header"><strong>Razón</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80be-95f5-e08e7354745f" dir="ltr"><td id="cmpb" class=""><strong>Ideas muy tempranas</strong></td><td id="z;|e" class="">MVP de Humo</td><td id=";wY;" class="">Valida interés con mínimo riesgo.</td></tr><tr id="3c9648ad-99fc-80c5-900d-e54b1ebe1f53" dir="ltr"><td id="cmpb" class=""><strong>Productos complejos</strong></td><td id="z;|e" class="">Mago de Oz</td><td id=";wY;" class="">Prueba el proceso sin construir tecnología.</td></tr><tr id="3c9648ad-99fc-8022-adec-c791b082b8d0" dir="ltr"><td id="cmpb" class=""><strong>Servicios personalizados</strong></td><td id="z;|e" class="">Conserje</td><td id=";wY;" class="">Aprende profundamente de los primeros clientes.</td></tr><tr id="3c9648ad-99fc-809d-a902-d08fd43fa444" dir="ltr"><td id="cmpb" class=""><strong>Alta incertidumbre sobre el problema</strong></td><td id="z;|e" class="">Conserje</td><td id=";wY;" class="">La interacción directa revela necesidades ocultas.</td></tr><tr id="3c9648ad-99fc-800c-b6e3-d434c98b5038" dir="ltr"><td id="cmpb" class=""><strong>Bajo presupuesto</strong></td><td id="z;|e" class="">MVP de Humo</td><td id=";wY;" class="">Muy económico de ejecutar.</td></tr><tr id="3c9648ad-99fc-8081-a26d-e7118ac9a4c7" dir="ltr"><td id="cmpb" class=""><strong>Validación de procesos B2B</strong></td><td id="z;|e" class="">Mago de Oz</td><td id=";wY;" class="">Prueba el flujo completo antes de la automatización.</td></tr></tbody></table><hr id="3c9648ad-99fc-80ea-ae03-dff80c2250a8" dir="auto"/><h2 id="3c9648ad-99fc-80dd-84c9-ec1319d058ea" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><table id="3c9648ad-99fc-802e-ad45-f42741c3a95c" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3c9648ad-99fc-80b2-a04d-fa81add6d9cb" dir="ltr"><th id=":XtU" class="simple-table-header-color simple-table-header"><strong>Concepto</strong></th><th id="[mhH" class="simple-table-header-color simple-table-header" style="width:380.00001525878906px"><strong>Relación</strong></th></tr></thead><tbody><tr id="3c9648ad-99fc-80e8-9e6e-ed3b2cb109d5" dir="ltr"><td id=":XtU" class=""><strong>Lean Startup</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">Estos MVPs son herramientas centrales del enfoque Lean Startup.</td></tr><tr id="3c9648ad-99fc-80dc-9b86-f682441ec860" dir="ltr"><td id=":XtU" class=""><strong>Build-Measure-Learn</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">El ciclo de experimentación que guía el uso de estos MVPs.</td></tr><tr id="3c9648ad-99fc-80f2-a500-eb634e696808" dir="ltr"><td id=":XtU" class=""><strong>Validación</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">Todos estos MVPs validan hipótesis de mercado con mínimo esfuerzo.</td></tr><tr id="3c9648ad-99fc-8095-be3b-fd8d6f20f799" dir="ltr"><td id=":XtU" class=""><strong>Product-Market Fit</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">El objetivo final de estos MVPs es alcanzar el ajuste producto-mercado.</td></tr><tr id="3c9648ad-99fc-8087-acb6-dfbda73d0ded" dir="ltr"><td id=":XtU" class=""><strong>Pivot</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">Si el MVP no valida la hipótesis, se pivota (cambio de dirección).</td></tr><tr id="3c9648ad-99fc-80d7-8411-e4469397ccf6" dir="ltr"><td id=":XtU" class=""><strong>Early Adopters</strong></td><td id="[mhH" class="" style="width:380.00001525878906px">Estos MVPs se dirigen a los primeros adoptantes (más tolerantes).</td></tr></tbody></table><hr id="3c9648ad-99fc-80a1-9ddc-f944ea158ec3" dir="auto"/><h2 id="3c9648ad-99fc-80f5-ad40-f984ddf3568e" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3c9648ad-99fc-8042-a95e-ed1b5d771060" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ries, E. (2011). <em>The Lean Startup</em>. Crown Business.</li></ul><ul id="3c9648ad-99fc-806c-b6c4-cf0f9a8f655a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Blank, S. (2013). <em>The Four Steps to the Epiphany</em>. K&amp;S Ranch.</li></ul><ul id="3c9648ad-99fc-80bc-990d-f3c3f0601c45" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Maurya, A. (2012). <em>Running Lean</em>. O&#x27;Reilly Media.</li></ul><ul id="3c9648ad-99fc-80f9-a6d0-d5e418647431" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Osterwalder, A., &amp; Pigneur, Y. (2010). <em>Business Model Generation</em>. John Wiley &amp; Sons.</li></ul><ul id="3c9648ad-99fc-8094-ad69-e5ff2b4958af" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Harvard Business Review, (2013). <em>Why the Lean Start-Up Changes Everything</em>.</li></ul><hr id="3c9648ad-99fc-80a6-8cc7-fb24393e940a" dir="auto"/><h2 id="3c9648ad-99fc-806f-8070-c53a32293df1" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3c9648ad-99fc-805c-901a-c3596cf0cff4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>La clave de estos MVPs es aprender rápido y barato</strong>: No necesitas construir el producto completo para saber si hay demanda. Estos MVPs te permiten validar la idea con el mínimo esfuerzo, reducir el riesgo y ahorrar tiempo.</li></ul><ul id="3c9648ad-99fc-807d-ab09-cf19d66c91eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El MVP de Humo es el más rápido y barato</strong>: Si no tienes presupuesto, empieza con una landing page y anúnciala. El feedback del mercado te dirá si vale la pena seguir.</li></ul><ul id="3c9648ad-99fc-80ed-813d-dc007f2bd354" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El Mago de Oz y el Conserje son más costosos, pero te dan un aprendizaje más profundo</strong>: Si tu producto es complejo o requiere un servicio personalizado, el Mago de Oz te permite probar el flujo completo sin invertir en tecnología que puede que nadie use. El Conserje, por su parte, te permite construir una relación con tus primeros clientes y entender sus necesidades a fondo.</li></ul><ul id="3c9648ad-99fc-8088-be3b-cbedf4f99370" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No te enamores del MVP</strong>: El MVP es una herramienta de aprendizaje, no el producto final. Cuando hayas validado la demanda y el proceso, <strong>escala la solución</strong> con tecnología y automatización. No te quedes atascado en la fase manual; es un medio, no un fin.</li></ul><ul id="3c9648ad-99fc-80cb-88c7-f31eb5eb7216" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Consejos para elegir el MVP adecuado</strong>:<ol type="1" id="3c9648ad-99fc-800b-b9b2-c09bb0f6395c" class="numbered-list" start="1" dir="auto"><li><strong>Empieza con el MVP de Humo</strong> si estás en una fase muy temprana y quieres validar interés con mínimo costo.</li></ol><ol type="1" id="3c9648ad-99fc-8095-9d9e-d693f8acc6e5" class="numbered-list" start="2" dir="auto"><li><strong>Pasa al Mago de Oz</strong> si necesitas probar el proceso completo del servicio y no puedes construir la tecnología aún.</li></ol><ol type="1" id="3c9648ad-99fc-804d-b948-f504cffd5d2b" class="numbered-list" start="3" dir="auto"><li><strong>Usa el Conserje</strong> si tu servicio requiere una alta personalización y quieres construir relaciones profundas con tus primeros clientes.</li></ol><ol type="1" id="3c9648ad-99fc-8091-beef-f8945a4aa74a" class="numbered-list" start="4" dir="auto"><li><strong>Mide, aprende, itera</strong>: No importa qué MVP uses, asegúrate de tener métricas claras y de aprender de cada experimento. El objetivo no es tener un producto perfecto, sino aprender lo más rápido posible.</li></ol></li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
