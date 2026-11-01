@@ -102,7 +102,7 @@ function Simulador({ metodo, simuladores = {} }) {
 }
 
 /* ---------- Texto con **negrita**, *cursiva* y `código` ---------- */
-function Inline({ text }) {
+export function Inline({ text }) {
   const partes = text.split(/(\*\*.+?\*\*|`[^`]+`|\*[^*]+\*)/g)
   return partes.map((p, i) => {
     if (p.startsWith('**') && p.endsWith('**')) return <strong key={i}><Inline text={p.slice(2, -2)} /></strong>
@@ -113,7 +113,7 @@ function Inline({ text }) {
 }
 
 /* ---------- Lista (items: string o { texto, code, nota }) ---------- */
-function Lista({ items, ordenada = false }) {
+export function Lista({ items, ordenada = false }) {
   const Tag = ordenada ? 'ol' : 'ul'
   return (
     <Tag>
@@ -131,11 +131,11 @@ function Lista({ items, ordenada = false }) {
   )
 }
 
-function Contenido({ data }) {
+export function Contenido({ data }) {
   return Array.isArray(data) ? <Lista items={data} /> : <p><Inline text={data} /></p>
 }
 
-function Quiz({ preguntas }) {
+export function Quiz({ preguntas }) {
   const [actual, setActual] = useState(0)
   const [respuestas, setRespuestas] = useState([])
   const [terminado, setTerminado] = useState(false)

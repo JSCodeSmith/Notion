@@ -1241,7 +1241,7 @@ export const ${exportDocs} = ${serialize(docsById)};
 /* 7. Ejecución                                                        */
 /* ------------------------------------------------------------------ */
 
-export { parseNote, tokenize, buildSections, parseListItems };
+export { parseNote, tokenize, buildSections, parseListItems, buildQuiz };
 
 const esEjecucionDirecta =
   process.argv[1] &&
