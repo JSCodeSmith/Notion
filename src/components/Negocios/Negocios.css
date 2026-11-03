@@ -1,0 +1,241 @@
+/* ---------- Curso de Administración y Negocios ---------- */
+
+.negocio-database {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.negocio-hero {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.negocio-hero__icon {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.negocio-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.negocio-hero__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.negocio-hero__desc {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.negocio-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.negocio-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.negocio-chip--nivel {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.negocio-viewbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+
+.negocio-hint {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.negocio-seccion-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+
+.negocio-caret {
+  display: inline-block;
+  transition: transform 0.18s ease;
+  color: var(--text-faint);
+}
+
+.negocio-caret.is-open {
+  transform: rotate(0deg);
+}
+
+.negocio-caret:not(.is-open) {
+  transform: rotate(-90deg);
+}
+
+.negocio-seccion-count {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+
+/* ---------- Apunte ---------- */
+
+.negocio-doc__header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.negocio-doc__icon {
+  font-size: 44px;
+  line-height: 1;
+}
+
+.negocio-doc__eyebrow {
+  font-size: 13px;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.negocio-doc__title {
+  font-family: var(--font-sans);
+  margin-bottom: 0;
+}
+
+.negocio-doc__lead {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding: 14px 16px;
+  margin: 16px 0 24px;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+.negocio-toggle {
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.negocio-toggle:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.negocio-como {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.negocio-bloque h4,
+.negocio-subseccion h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #e0e0e0;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Partes numeradas (estilos, tipos de MVP…) ---------- */
+
+.negocio-parte {
+  position: relative;
+}
+
+.negocio-codigo {
+  margin: 10px 0;
+  overflow-x: auto;
+}
+
+.negocio-parte__numero {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-size: 22px;
+}
+
+.negocio-parte__bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.negocio-subseccion {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.negocio-subseccion h4 {
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.negocio-fuente {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.negocio-fuente h3 {
+  margin: 0;
+}
+
+.negocio-fuente span {
+  color: var(--text-faint);
+}
+
+@media (max-width: 768px) {
+  .negocio-hero {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

@@ -10,7 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { parseNote, buildQuiz } from "./generate-apuntes.mjs";
+import { tokenize, buildQuiz } from "./generate-apuntes.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -430,7 +430,10 @@ const decodeEntities = (value = "") =>
 const limpiarTitulo = (value = "") =>
   collapse(
     decodeEntities(value.replace(/<[^>]+>/g, " "))
-      .replace(/^\s*[\p{Extended_Pictographic}\uFE0F\u200D\u20E3]+\s*/u, "")
+      .replace(
+      /^\s*(?:\p{Extended_Pictographic}(?:\uFE0F|\u200D|\u20E3)*)+\s*/u,
+      "",
+    )
       .replace(/\*\*/g, "")
       .trim(),
   );
@@ -462,7 +465,218 @@ const sinLineasDeTitulo = (items = []) => {
 };
 
 /* ------------------------------------------------------------------ */
-/* 3. Lectura de los HTML                                              */
+/* 3. Extracción de secciones                                          */
+/* ------------------------------------------------------------------ */
+
+/* Alias de encabezados (ya sin acentos ni puntuación) → clave interna. */
+const ALIAS = [
+  ["definicion", ["definicion"]],
+  ["queEs", ["que es"]],
+  ["paraQueSirve", ["para que sirve"]],
+  ["comoFunciona", ["como funciona"]],
+  ["ejemplos", ["ejemplos", "ejemplo"]],
+  ["errores", ["errores", "riesgos"]],
+  ["casos", ["casos de uso", "cuando usar", "casos praticos"]],
+  ["relacion", ["relacion con otros conceptos", "relacion"]],
+  ["analogia", ["analogia"]],
+  ["fuente", ["fuente"]],
+  ["notasPersonales", ["notas personales", "notas"]],
+  ["sintaxis", ["sintaxis"]],
+];
+
+/* Claves que el documento guarda en sus propias tarjetas. */
+const CAMPOS = new Set([
+  "definicion",
+  "queEs",
+  "paraQueSirve",
+  "comoFunciona",
+  "errores",
+  "casos",
+  "relacion",
+  "analogia",
+  "fuente",
+  "notasPersonales",
+]);
+
+const tituloNumerado = /^\**\s*\d\uFE0F?\u20E3/;
+
+const esTituloDeBloque = (b) =>
+  (b.type === "heading" && b.level <= 3) || (b.type === "p" && b.boldOnly);
+
+const esTituloParte = (b) =>
+  b.type === "heading" && b.level === 2 && tituloNumerado.test(b.text);
+
+/** 🔸/🔹/❌ marcan subapartados dentro de una sección, no secciones nuevas. */
+const esSubseccion = (text = "") => /^\s*\**\s*(?:🔸|🔹|❌)/u.test(text);
+
+const claveDe = (text = "") => {
+  const clean = norm(text);
+  for (const [key, aliases] of ALIAS) {
+    if (aliases.some((a) => clean === a || clean.startsWith(`${a} `))) {
+      return key;
+    }
+  }
+  return null;
+};
+
+/** Texto legible de un bloque (párrafo, cita, lista o tabla). */
+function textosDeBloques(blocks) {
+  const out = [];
+  for (const b of blocks) {
+    if (b.type === "list") {
+      for (const item of b.items) {
+        if (item.texto) out.push(item.texto);
+        if (item.code) out.push(item.code);
+      }
+    } else if (b.type === "table") {
+      for (const row of b.rows) {
+        const fila =
+          row.length >= 2
+            ? `${row[0]} → ${row.slice(1).join(" · ")}`
+            : row.join(" · ");
+        if (fila.trim()) out.push(fila);
+      }
+    } else if (b.type === "code") {
+      out.push("```\n" + b.code + "\n```");
+    } else if (b.type === "p" || b.type === "quote" || b.type === "heading") {
+      if (b.text) out.push(b.text);
+    }
+  }
+  return out;
+}
+
+/**
+ * Agrupa los bloques en secciones. Los encabezados conocidos abren una
+ * sección del documento; los h2 desconocidos abren una sección extra
+ * (por ejemplo "💡 Ejemplos" o "📊 Comparativa").
+ */
+function seccionar(blocks) {
+  const out = [];
+  let actual = { key: "intro", label: "", textos: [] };
+  out.push(actual);
+
+  for (const b of blocks) {
+    if (b.type === "heading" && b.level === 1) continue; // título de la página
+
+    if (!esTituloDeBloque(b)) {
+      actual.textos.push(...textosDeBloques([b]));
+      continue;
+    }
+
+    const key = claveDe(b.text);
+    if (key) {
+      actual = { key, label: b.text, textos: [] };
+      out.push(actual);
+      continue;
+    }
+    if (esSubseccion(b.text)) {
+      actual.textos.push(...textosDeBloques([b]));
+      continue;
+    }
+    if (b.type === "heading" && b.level === 2) {
+      actual = { key: "extra", label: b.text, textos: [] };
+      out.push(actual);
+      continue;
+    }
+    actual.textos.push(...textosDeBloques([b]));
+  }
+  return out;
+}
+
+/** Une listas de secciones concatenando las que comparten clave. */
+function combinar(...listas) {
+  const mapa = new Map();
+  const idDe = (s) => (s.key === "extra" ? `extra:${s.label}` : s.key);
+  for (const lista of listas) {
+    for (const s of lista) {
+      const id = idDe(s);
+      if (mapa.has(id)) mapa.get(id).textos.push(...s.textos);
+      else mapa.set(id, { ...s, textos: [...s.textos] });
+    }
+  }
+  return [...mapa.values()];
+}
+
+/** Separa los bloques en campos del documento y secciones extra. */
+function camposDe(secciones) {
+  const campos = { intro: [], extras: [] };
+  for (const s of secciones) {
+    if (s.key === "intro") {
+      campos.intro.push(...s.textos);
+    } else if (CAMPOS.has(s.key)) {
+      campos[s.key] = [...(campos[s.key] ?? []), ...s.textos];
+    } else {
+      campos.extras.push({
+        seccion: s.label || "💡 Ejemplos",
+        textos: s.textos,
+      });
+    }
+  }
+  return campos;
+}
+
+/** Agrupa los bloques numerados (1️⃣, 2️⃣…) en "partes" con sus subtemas. */
+function agruparPartes(blocks) {
+  const partes = [];
+  let parte = null;
+  let sub = null;
+
+  for (const b of blocks) {
+    if (esTituloParte(b)) {
+      parte = { titulo: b.text, bloques: [] };
+      partes.push(parte);
+      sub = null;
+      continue;
+    }
+    if (!parte) continue;
+    if (esTituloDeBloque(b)) {
+      sub = { seccion: b.text, textos: [] };
+      parte.bloques.push(sub);
+      continue;
+    }
+    if (!sub) {
+      sub = { seccion: "", textos: [] };
+      parte.bloques.push(sub);
+    }
+    sub.textos.push(...textosDeBloques([b]));
+  }
+  return partes;
+}
+
+/**
+ * Algunas notas (p. ej. "Estilos de Liderazgo") se organizan en partes
+ * numeradas de h2 con sus propios ¿Qué es? / ¿Cómo funciona?. Esas notas
+ * se separan en: intro + partes + cola (comparativa, errores, fuentes…).
+ */
+function extraer(html) {
+  const bodyStart = html.lastIndexOf('<div class="page-body">');
+  const body = (bodyStart >= 0 ? html.slice(bodyStart) : html)
+    .replace(/<script\b[\s\S]*?<\/script>/gi, "")
+    .replace(/<\/article>[\s\S]*$/i, "");
+
+  const blocks = tokenize(body);
+  const inicio = blocks.findIndex(esTituloParte);
+
+  if (inicio === -1) {
+    return { campos: camposDe(seccionar(blocks)), partes: [] };
+  }
+
+  const pre = seccionar(blocks.slice(0, inicio));
+  const resto = blocks.slice(inicio);
+  const fin = resto.findIndex(
+    (b, i) => i > 0 && b.type === "heading" && b.level === 2 && !esTituloParte(b),
+  );
+  const middle = fin === -1 ? resto : resto.slice(0, fin);
+  const tail = fin === -1 ? [] : seccionar(resto.slice(fin));
+
+  return {
+    campos: camposDe(combinar(pre, tail)),
+    partes: agruparPartes(middle),
+  };
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Lectura de los HTML                                              */
 /* ------------------------------------------------------------------ */
 
 const archivos = fs
@@ -508,23 +722,22 @@ function buscarNota(tituloEsperado) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 4. Construcción de documentos                                       */
+/* 5. Construcción de documentos                                       */
 /* ------------------------------------------------------------------ */
 
-const comoFunciona = (items) =>
-  items.map((item) => sinMarkdown(item)).filter(Boolean);
-
 function buildDoc(nota, curso, id, icon) {
-  const parsed = parseNote(nota.html);
+  const { campos, partes } = extraer(nota.html);
   const titulo = nota.h1 || nota.docTitle || id;
 
   const definicion = sinLineasDeTitulo(
-    parsed.definicion.length
-      ? parsed.definicion
-      : parsed.introText.length
-        ? parsed.introText
+    campos.definicion?.length
+      ? campos.definicion
+      : campos.intro?.length
+        ? campos.intro
         : [`**${titulo}** es un concepto clave de Administración y Negocios.`],
   );
+
+  const conTitulo = (items) => sinLineasDeTitulo(items ?? []);
 
   return {
     id,
@@ -534,26 +747,35 @@ function buildDoc(nota, curso, id, icon) {
     cursoLabel: curso.label,
     categoria: "Administración y Negocios",
     resumen: clip(definicion[0] ?? "", 110),
+
     definicion,
-    queEs: sinLineasDeTitulo(
-      parsed.queEs.length ? parsed.queEs : definicion,
-    ),
-    paraQueSirve: parsed.paraQueSirve,
-    comoFunciona: comoFunciona(parsed.comoFunciona),
+    queEs: conTitulo(campos.queEs?.length ? campos.queEs : definicion),
+    paraQueSirve: campos.paraQueSirve ?? [],
+    comoFunciona: campos.comoFunciona ?? [],
     comoFuncionaSinNumerar: true,
-    errores: parsed.errores,
-    casos: parsed.casos,
-    relacion: parsed.relacion.slice(0, 12),
+    errores: campos.errores ?? [],
+    casos: campos.casos ?? [],
+    relacion: (campos.relacion ?? []).slice(0, 12),
     analogia:
-      parsed.analogia ||
+      campos.analogia?.join(" ") ||
       `Piensa en ${titulo} como una pieza más del rompecabezas de la empresa: por sí sola no explica el resultado, pero sin ella el conjunto no funciona.`,
-    notasPersonales: parsed.notasPersonales,
-    fuente: parsed.fuente,
+    notasPersonales: campos.notasPersonales ?? [],
+    extras: (campos.extras ?? []).filter((s) => s.textos.length),
+    partes: partes.map((parte) => ({
+      titulo: parte.titulo,
+      bloques: parte.bloques
+        .map((bloque) => ({
+          seccion: bloque.seccion,
+          textos: bloque.textos.filter(Boolean),
+        }))
+        .filter((bloque) => bloque.textos.length),
+    })),
+    fuente: campos.fuente?.join(" ") || "Apuntes personales · Notion",
   };
 }
 
 /* ------------------------------------------------------------------ */
-/* 5. Serialización                                                    */
+/* 6. Serialización                                                    */
 /* ------------------------------------------------------------------ */
 
 function serialize(value, indent = 0) {
@@ -586,7 +808,7 @@ function serialize(value, indent = 0) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 6. Generación                                                       */
+/* 7. Generación                                                       */
 /* ------------------------------------------------------------------ */
 
 const usadas = new Set();
@@ -620,7 +842,7 @@ const modulos = CURSOS.map((curso) => {
     nivel: curso.nivel,
     titulo: curso.titulo,
     descripcion: curso.descripcion,
-    grupos: curso.grupos.map((grupo, index) => ({
+    grupos: curso.grupos.map((grupo) => ({
       seccion: grupo.seccion,
       metodos: grupo.notas.map(([id, , icon]) => {
         const doc = docsById[id];
@@ -629,7 +851,6 @@ const modulos = CURSOS.map((curso) => {
           nombre: doc.titulo,
           firma: doc.resumen,
           icon,
-          badge: index === 0 ? undefined : undefined,
         };
       }),
     })),

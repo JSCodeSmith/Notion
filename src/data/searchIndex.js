@@ -45,7 +45,10 @@ export function buildSearchIndex(
         title: metodo.nombre,
         subtitle: `${grupo.seccion} · ${grupo.subtitulo ?? "Lenguajes de Programación"}`,
         icon: metodo.icon,
-        keywords: `${metodo.firma} ${grupo.seccion} array arreglo metodo metodos method methods javascript js`,
+        keywords: `${metodo.firma ?? ""} ${grupo.seccion} ${
+          grupo.keywords ??
+          "array arreglo metodo metodos method methods javascript js"
+        }`,
         hasDoc: docIds.has(metodo.id),
       });
     }

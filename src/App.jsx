@@ -11,6 +11,10 @@ import { METODOS_STRINGS } from './data/metodosStrings'
 import { METODOS_NUMEROS } from './data/metodosNumeros'
 import { METODOS_FECHAS, METODOS_FECHAS_DOCS } from './data/metodosFechas'
 import { JS_CATEGORIAS, JS_APUNTES } from './data/jsApuntes'
+import {
+  NEGOCIOS_CURSOS,
+  NEGOCIOS_IDS,
+} from './data/negociosApuntes'
 
 // Fuera del componente: se crea una sola vez.
 // 'find' tiene componente propio (MetodoFindDoc), el resto vive en METODOS_DOCS.
@@ -20,7 +24,20 @@ const DOC_IDS = new Set([
   ...Object.keys(METODOS_FECHAS_DOCS),
   ...Object.keys(JS_APUNTES),
   ...Object.keys(CONSOLE_API_DOCS),
+  ...NEGOCIOS_IDS,
 ])
+
+/* Los apuntes de Administración y Negocios, agrupados por curso. */
+const NEGOCIOS_BUSCADOR = NEGOCIOS_CURSOS.flatMap((curso) =>
+  curso.grupos.map((grupo) => ({
+    ...grupo,
+    seccion: `${curso.label} · ${grupo.seccion}`,
+    subtitulo: 'Administración y Negocios',
+    careerId: 'administracion',
+    courseId: curso.id,
+    keywords: `negocios administracion empresa estrategia ${grupo.seccion}`,
+  })),
+)
 
 export default function App() {
   const [activeCareerId, setActiveCareerId] = useState(null)
@@ -57,6 +74,7 @@ export default function App() {
       courseId: 'lenguajes',
       metodos: CONSOLE_API_CONCEPTOS,
     },
+    ...NEGOCIOS_BUSCADOR,
   ]
 
 

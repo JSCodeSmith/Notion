@@ -9,10 +9,16 @@ import {
   JS_APUNTES,
   JS_APUNTE_CATEGORIA,
 } from '../../data/jsApuntes'
+import {
+  NEGOCIOS_CURSOS,
+  NEGOCIOS_APUNTES,
+} from '../../data/negociosApuntes'
 import APIs from '../../APIs/APIs'
 import { API_GRUPOS } from '../../APIs/registry'
 import MetodoFindDoc from './MetodoFindDoc'
 import MetodoDoc from './MetodoDoc'
+import NegocioCurso from '../Negocios/NegocioCurso'
+import NegocioDoc from '../Negocios/NegocioDoc'
 import './CareerDetail.css'
 import './LenguajeTabs.css'
 
@@ -69,6 +75,8 @@ export default function CareerDetail({
   breadcrumb,
 }) {
   const isLenguajes = carrera.id === 'lenguajes'
+  const negocioCurso =
+    NEGOCIOS_CURSOS.find((curso) => curso.id === carrera.id) ?? null
   const [subtab, setSubtab] = useState(() => {
     if (metodoActivo && JS_APUNTE_CATEGORIA[metodoActivo]) {
       return JS_APUNTE_CATEGORIA[metodoActivo]
@@ -110,12 +118,21 @@ export default function CareerDetail({
     id === 'find' ||
     Boolean(METODOS_DOCS[id]) ||
     Boolean(METODOS_FECHAS_DOCS[id]) ||
-    Boolean(JS_APUNTES[id])
+    Boolean(JS_APUNTES[id]) ||
+    Boolean(NEGOCIOS_APUNTES[id])
 
   const volverALista = () => onMetodoChange(null)
 
   if (metodoActivo === 'find') {
     return <MetodoFindDoc onBack={volverALista} />
+  }
+
+  const negocioActivo = metodoActivo
+    ? NEGOCIOS_APUNTES[metodoActivo] ?? null
+    : null
+
+  if (negocioActivo) {
+    return <NegocioDoc nota={negocioActivo} onBack={volverALista} />
   }
 
   const docActivo = metodoActivo
@@ -255,6 +272,11 @@ export default function CareerDetail({
           ))
           )}
         </div>
+      ) : negocioCurso ? (
+        <NegocioCurso
+          curso={negocioCurso}
+          onAbrir={(id) => onMetodoChange(id)}
+        />
       ) : (
         <div className="notion-database">
           <div className="notion-viewbar">
