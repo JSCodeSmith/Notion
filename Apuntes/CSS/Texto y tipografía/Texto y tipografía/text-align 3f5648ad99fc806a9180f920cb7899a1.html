@@ -1,0 +1,869 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>text-align</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-806a-9180-f920cb7899a1" class="page sans"><header><h1 class="page-title" dir="auto"><code>text-align</code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3f5648ad-99fc-80ea-8cf7-f33ec474500f" class="" dir="auto"><strong>📄 </strong><code><strong>text-align</strong></code></h1><h2 id="3f5648ad-99fc-805e-aa0a-dfe9cf079166" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-80c0-b37e-d8693cd292a4" class="" dir="auto"><code>text-align</code> es una <strong>propiedad CSS heredable</strong> que establece la <strong>alineación horizontal del contenido en línea</strong> (texto, imágenes inline, etc.) dentro de un elemento de bloque.</p><h2 id="3f5648ad-99fc-804c-a239-d9bd6d34d070" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80cc-8144-d5b939fe8299" class="" dir="auto">Forma parte de las <strong>propiedades de texto</strong> (junto con <code>text-decoration</code>, <code>text-transform</code>, <code>text-indent</code>, <code>text-shadow</code>, <code>letter-spacing</code>, etc.). </p><p id="3f5648ad-99fc-805c-9b62-d85f7db7e38b" class="" dir="auto">Es <strong>heredable</strong>: los hijos heredan la alineación del padre salvo que la sobrescriban.</p><p id="3f5648ad-99fc-80e1-9310-d776cfcb7f28" class="" dir="auto">Afecta al <strong>contenido inline</strong> (texto, <code>&lt;span&gt;</code>, <code>&lt;img&gt;</code>, etc.), no a los elementos de bloque hijos. </p><p id="3f5648ad-99fc-805e-bfd7-ed9bfd6e42b9" class="" dir="auto">Para alinear cajas, se usan <code>margin: auto</code>, flexbox o grid.</p><h2 id="3f5648ad-99fc-802e-9148-ca451fa49d83" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8009-b180-c15d95330de9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alinear <strong>texto</strong> a izquierda, derecha, centro o justificado.</li></ul><ul id="3f5648ad-99fc-8084-b594-f1ddb9a2e336" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Centrar títulos y encabezados.</li></ul><ul id="3f5648ad-99fc-8009-badd-f8245707b838" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alinear números en tablas a la derecha.</li></ul><ul id="3f5648ad-99fc-80c1-b03b-e133ef111d99" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Justificar párrafos largos (con criterio).</li></ul><ul id="3f5648ad-99fc-8059-b98a-c1cae126c522" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alinear contenido según la <strong>dirección del texto</strong> (RTL/LTR).</li></ul><ul id="3f5648ad-99fc-8048-b4a0-f436b0c9770b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear diseños editoriales (revistas, blogs).</li></ul><h2 id="3f5648ad-99fc-805f-9170-ff948ee4130b" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-80f9-8983-c15295294a15" class="" dir="auto">El navegador distribuye el contenido inline dentro de la <strong>caja de línea</strong> del elemento de bloque. Reglas clave:</p><ol type="1" id="3f5648ad-99fc-8082-87d3-dad48814c43b" class="numbered-list" start="1" dir="auto"><li><strong>Heredable</strong> → los hijos heredan la alineación.</li></ol><ol type="1" id="3f5648ad-99fc-805c-bdd0-e8b8254aeeae" class="numbered-list" start="2" dir="auto"><li><strong>Afecta solo al contenido inline</strong> → no a elementos de bloque hijos.</li></ol><ol type="1" id="3f5648ad-99fc-8086-800c-daa619c5c27c" class="numbered-list" start="3" dir="auto"><li><strong>Aplica al bloque contenedor</strong> → el texto se alinea dentro del ancho del bloque.</li></ol><ol type="1" id="3f5648ad-99fc-8025-b010-fcb85bd76276" class="numbered-list" start="4" dir="auto"><li><strong>Valores lógicos</strong> → <code>start</code> y <code>end</code> respetan la dirección del texto (<code>dir=&quot;rtl&quot;</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80ea-9aea-efec221c41e7" class="numbered-list" start="5" dir="auto"><li><code><strong>justify</strong></code> → distribuye el espacio entre palabras (y a veces letras).</li></ol><ol type="1" id="3f5648ad-99fc-80ad-b56a-dd650dcaae98" class="numbered-list" start="6" dir="auto"><li><code><strong>text-align-last</strong></code> → controla la alineación de la última línea (útil con <code>justify</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80d0-ba48-db197a73cc99" class="numbered-list" start="7" dir="auto"><li><strong>No funciona en elementos inline</strong> → necesita <code>display: block</code>, <code>inline-block</code>, <code>flex</code> (con matices), <code>grid</code>, <code>table-cell</code>.</li></ol><h2 id="3f5648ad-99fc-8088-a6f6-c76309bdf9a8" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8084-80cc-d7983409f896" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  text-align: valor;
+}</code></pre><h3 id="3f5648ad-99fc-8042-97dd-d5b5456d53e4" class="" dir="auto"><strong>Parámetros / Valores</strong></h3><table id="3f5648ad-99fc-80b6-a28e-c42962e23682" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8015-973b-e3a96b6c1cd9" dir="ltr"><th id="hDK|" class="simple-table-header-color simple-table-header"><strong>Valor</strong></th><th id="rXZq" class="simple-table-header-color simple-table-header" style="width:405px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-800b-9e67-ff31756fbc2b" dir="ltr"><td id="hDK|" class=""><code>left</code></td><td id="rXZq" class="" style="width:405px">Alinea a la izquierda (físico).</td></tr><tr id="3f5648ad-99fc-8016-84f2-d1e5c2009790" dir="ltr"><td id="hDK|" class=""><code>right</code></td><td id="rXZq" class="" style="width:405px">Alinea a la derecha (físico).</td></tr><tr id="3f5648ad-99fc-80d4-9e35-d81e1a91d14d" dir="ltr"><td id="hDK|" class=""><code>center</code></td><td id="rXZq" class="" style="width:405px">Centra el contenido.</td></tr><tr id="3f5648ad-99fc-80d5-aecf-fce9289101e7" dir="ltr"><td id="hDK|" class=""><code>justify</code></td><td id="rXZq" class="" style="width:405px">Justifica: estira las líneas para ocupar todo el ancho.</td></tr><tr id="3f5648ad-99fc-8070-b4c3-e15b180e5f96" dir="ltr"><td id="hDK|" class=""><code>start</code></td><td id="rXZq" class="" style="width:405px">Alinea al inicio según <code>direction</code> (lógico).</td></tr><tr id="3f5648ad-99fc-8032-9148-ed21321935cf" dir="ltr"><td id="hDK|" class=""><code>end</code></td><td id="rXZq" class="" style="width:405px">Alinea al final según <code>direction</code> (lógico).</td></tr><tr id="3f5648ad-99fc-8030-9ad5-f1d89102fcc0" dir="ltr"><td id="hDK|" class=""><code>match-parent</code></td><td id="rXZq" class="" style="width:405px">Hereda el <code>text-align</code> del padre, calculado con su <code>direction</code>.</td></tr><tr id="3f5648ad-99fc-8079-b256-f3c57683d81f" dir="ltr"><td id="hDK|" class=""><code>justify-all</code></td><td id="rXZq" class="" style="width:405px">Como <code>justify</code>, pero también la última línea (experimental).</td></tr><tr id="3f5648ad-99fc-80fd-8d68-e0644c738c25" dir="ltr"><td id="hDK|" class=""><code>inherit</code></td><td id="rXZq" class="" style="width:405px">Hereda del padre.</td></tr><tr id="3f5648ad-99fc-80fc-ae91-d14beb740b0b" dir="ltr"><td id="hDK|" class=""><code>initial</code></td><td id="rXZq" class="" style="width:405px">Valor por defecto (<code>start</code> en la mayoría de navegadores).</td></tr><tr id="3f5648ad-99fc-8089-ad2e-e4e49793d80e" dir="ltr"><td id="hDK|" class=""><code>unset</code></td><td id="rXZq" class="" style="width:405px">Hereda (porque es heredable).</td></tr></tbody></table><h2 id="3f5648ad-99fc-8039-8587-faccf3480ba0" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-80df-90c6-e8707c6a7e55" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Texto centrado */
+.titulo {
+  text-align: center;
+}
+
+/* 2. Párrafo justificado */
+.articulo p {
+  text-align: justify;
+  hyphens: auto; /* evita ríos de espacio */
+}
+
+/* 3. Números alineados a la derecha en tabla */
+td.numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 4. Alineación lógica (respeta RTL) */
+.texto {
+  text-align: start; /* izquierda en LTR, derecha en RTL */
+}
+
+/* 5. Última línea del párrafo justificado */
+p {
+  text-align: justify;
+  text-align-last: center;
+}
+
+/* 6. Centrar en un contenedor flex */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 7. Alinear según dirección del documento */
+:root {
+  direction: ltr;
+}
+.rtl {
+  direction: rtl;
+  text-align: start; /* se alinea a la derecha automáticamente */
+}
+
+/* 8. Reset útil */
+body {
+  text-align: start; /* más robusto que left */
+}</code></pre><h3 id="3f5648ad-99fc-80d4-9b06-e7a939f42bdb" class="" dir="auto"><strong>Diferencia entre valores físicos y lógicos</strong></h3><pre id="3f5648ad-99fc-80f6-9695-f9186b08c1e5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Físicos: siempre igual, sin importar direction */
+.izquierda { text-align: left; }   /* siempre izquierda */
+.derecha   { text-align: right; }  /* siempre derecha */
+
+/* Lógicos: se adaptan a direction */
+.inicio { text-align: start; }     /* izquierda en LTR, derecha en RTL */
+.fin    { text-align: end; }       /* derecha en LTR, izquierda en RTL */</code></pre><h3 id="3f5648ad-99fc-80f9-ba0a-f4f5440a59cb" class="" dir="auto"><strong>Justificado con control de la última línea</strong></h3><pre id="3f5648ad-99fc-80e0-9f69-d92dcbd1e02e" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">p {
+  text-align: justify;
+  text-align-last: left;   /* última línea a la izquierda */
+  hyphens: auto;           /* divide palabras para evitar huecos */
+}</code></pre><h2 id="3f5648ad-99fc-8025-94ee-f61d335a17e6" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-8064-b3b8-f3418565c776" class="numbered-list" start="1" dir="auto"><li><strong>Usar </strong><code><strong>text-align: center</strong></code><strong> para centrar un bloque</strong> → solo centra el <strong>contenido inline</strong>, no el bloque en sí. Para centrar una caja: <code>margin: 0 auto</code> o flex/grid.</li></ol><ol type="1" id="3f5648ad-99fc-8008-b9d3-e846aa2e2c1d" class="numbered-list" start="2" dir="auto"><li><strong>Justificar texto corto o en pantallas estrechas</strong> → genera &quot;ríos&quot; de espacio y problemas de legibilidad. Usar <code>hyphens: auto</code> y considerar evitar <code>justify</code> en móvil.</li></ol><ol type="1" id="3f5648ad-99fc-8080-a9fa-c5574bcd126e" class="numbered-list" start="3" dir="auto"><li><strong>Confundir </strong><code><strong>text-align</strong></code><strong> con </strong><code><strong>align-items</strong></code><strong> / </strong><code><strong>justify-content</strong></code> → en flex/grid, <code>text-align</code> no controla la posición de los ítems, solo el texto interno.</li></ol><ol type="1" id="3f5648ad-99fc-8039-b6e5-cf59df057ec6" class="numbered-list" start="4" dir="auto"><li><strong>Usar </strong><code><strong>left</strong></code><strong>/</strong><code><strong>right</strong></code><strong> en sitios multiidioma</strong> → rompe RTL. Preferir <code>start</code>/<code>end</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80e7-bc18-f6144e3a0b27" class="numbered-list" start="5" dir="auto"><li><strong>No aplicar </strong><code><strong>text-align</strong></code><strong> a un elemento inline</strong> → no tiene efecto visible porque los elementos inline no tienen &quot;caja de línea&quot; propia.</li></ol><ol type="1" id="3f5648ad-99fc-8054-9af6-ef8299f899f4" class="numbered-list" start="6" dir="auto"><li><strong>Justificar sin </strong><code><strong>hyphens</strong></code> → huecos enormes entre palabras en columnas estrechas.</li></ol><ol type="1" id="3f5648ad-99fc-80be-92f1-c476caa50d71" class="numbered-list" start="7" dir="auto"><li><strong>Olvidar </strong><code><strong>text-align-last</strong></code> → con <code>justify</code>, la última línea queda rara (justificada o estirada).</li></ol><ol type="1" id="3f5648ad-99fc-80ec-bca0-d4652826823b" class="numbered-list" start="8" dir="auto"><li><strong>Asumir que </strong><code><strong>text-align: center</strong></code><strong> centra imágenes</strong> → sí centra imágenes inline, pero si son <code>display: block</code> necesitan <code>margin: auto</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8027-a973-d89033a1b0d8" class="numbered-list" start="9" dir="auto"><li><strong>Usar </strong><code><strong>text-align: justify</strong></code><strong> en títulos</strong> → efecto raro y poco legible. Reservarlo para párrafos.</li></ol><h2 id="3f5648ad-99fc-8024-903e-f2d7d2ee4d91" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-8052-9342-c46cdcffac04" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8035-9d84-fcc48b23fa3d" dir="ltr"><th id="lvDt" class="simple-table-header-color simple-table-header" style="width:177.4875030517578px"><strong>Caso</strong></th><th id="OJDW" class="simple-table-header-color simple-table-header" style="width:408px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8014-8195-e8ee5fb6a226" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Títulos centrados</td><td id="OJDW" class="" style="width:408px"><code>h1 { text-align: center }</code></td></tr><tr id="3f5648ad-99fc-8020-a234-f48087450425" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Párrafos justificados</td><td id="OJDW" class="" style="width:408px">Artículos, blogs</td></tr><tr id="3f5648ad-99fc-800b-94a8-ece5fe7b53ca" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Números en tablas</td><td id="OJDW" class="" style="width:408px"><code>td { text-align: right }</code></td></tr><tr id="3f5648ad-99fc-80d7-aaac-f466b46bd0f7" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Precios / cantidades</td><td id="OJDW" class="" style="width:408px">Alineados a la derecha</td></tr><tr id="3f5648ad-99fc-8015-bc50-c34dcab21ca7" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Citas</td><td id="OJDW" class="" style="width:408px">Centradas o con indentación</td></tr><tr id="3f5648ad-99fc-8085-88b2-f37433079deb" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Botones</td><td id="OJDW" class="" style="width:408px">Hereda del padre, a veces centrado</td></tr><tr id="3f5648ad-99fc-8032-85be-e9a6b8d03b49" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Celdas de tabla</td><td id="OJDW" class="" style="width:408px">Alineación por columna</td></tr><tr id="3f5648ad-99fc-80f9-81b0-e3bda4266906" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Texto multiidioma</td><td id="OJDW" class="" style="width:408px"><code>start</code> / <code>end</code></td></tr><tr id="3f5648ad-99fc-80b1-b4c8-dcf5d63cfb83" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Hero / banners</td><td id="OJDW" class="" style="width:408px">Texto centrado</td></tr><tr id="3f5648ad-99fc-80a1-87fb-c99a2e68e710" dir="ltr"><td id="lvDt" class="" style="width:177.4875030517578px">Formularios</td><td id="OJDW" class="" style="width:408px">Labels a la izquierda, valores a la derecha</td></tr></tbody></table><h2 id="3f5648ad-99fc-807c-910d-c2bbafb0248f" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-80dc-86e4-c099005c12a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>direction</strong></code> → define si <code>start</code>/<code>end</code> es izquierda/derecha.</li></ul><ul id="3f5648ad-99fc-8080-bc73-c67d2f733e35" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-align-last</strong></code> → última línea en <code>justify</code>.</li></ul><ul id="3f5648ad-99fc-80d4-89cd-eaa137d28640" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>vertical-align</strong></code> → alineación <strong>vertical</strong> (inline/table-cell).</li></ul><ul id="3f5648ad-99fc-80f0-9ca9-c143e66a223a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-items</strong></code> → alineación vertical en flex/grid.</li></ul><ul id="3f5648ad-99fc-8035-96fe-d54bd89f44b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>justify-content</strong></code> → alineación horizontal en flex/grid.</li></ul><ul id="3f5648ad-99fc-80cf-b4ac-ff50c4e3e422" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>justify-items</strong></code> / <code><strong>justify-self</strong></code> → alineación horizontal en grid.</li></ul><ul id="3f5648ad-99fc-80e1-9811-db72b57220c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin: 0 auto</strong></code> → centrar un bloque, no texto.</li></ul><ul id="3f5648ad-99fc-8065-9ab2-ddfcbdcfc0c3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>hyphens</strong></code> → divide palabras al justificar.</li></ul><ul id="3f5648ad-99fc-808f-a995-c7b0d1cc2f15" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>word-spacing</strong></code> / <code><strong>letter-spacing</strong></code> → ajustes finos al justificar.</li></ul><ul id="3f5648ad-99fc-80fe-92c5-d3dd41d313e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-justify</strong></code> → controla el método de justificación (experimental).</li></ul><p id="3f5648ad-99fc-8059-8549-e394fd20c8b2" class="" dir="auto"><strong>Diferencia entre </strong><code><strong>text-align</strong></code><strong> y otras propiedades:</strong></p><pre id="3f5648ad-99fc-8009-8f37-c5f84ceeff33" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌──────────────────────────────┐
+│  text-align: center          │  ← centra el TEXTO dentro del bloque
+│  ┌────────────────────────┐  │
+│  │      Texto centrado    │  │
+│  └────────────────────────┘  │
+└──────────────────────────────┘
+
+┌──────────────────────────────┐
+│  margin: 0 auto              │  ← centra el BLOQUE en su contenedor
+│        ┌──────────────┐      │
+│        │   Bloque     │      │
+│        └──────────────┘      │
+└──────────────────────────────┘</code></pre><h2 id="3f5648ad-99fc-805c-a725-c26e212030ad" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-804b-bfc6-ffca3112129f" class="" dir="auto">Imagina una <strong>hoja de papel</strong> con líneas para escribir. El <code>text-align</code> es cómo decides escribir sobre esas líneas: pegado al margen izquierdo, al derecho, centrado en la página o estirando las palabras para que todas las líneas terminen igual (justificado). El papel (el bloque) no se mueve; solo cambias cómo escribes <strong>dentro</strong> de él.</p><h2 id="3f5648ad-99fc-80ce-b9f4-f86285bad91e" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-809d-9ba7-c35a5a0c2fe6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>text-align</em><p id="3f5648ad-99fc-802d-8b04-cab5e980c0aa" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-align">https://developer.mozilla.org/es/docs/Web/CSS/text-align</a></p></li></ul><ul id="3f5648ad-99fc-804b-9e60-e5d1804d545d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Text Module Level 3<p id="3f5648ad-99fc-8061-bd91-fe59cd2af759" class="" dir="auto"><a href="https://www.w3.org/TR/css-text-3/#text-align-property">https://www.w3.org/TR/css-text-3/#text-align-property</a></p></li></ul><ul id="3f5648ad-99fc-8090-8942-e4b3dd11880f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>text-align-last</em><p id="3f5648ad-99fc-80ed-b378-f911871d54bb" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/text-align-last">https://developer.mozilla.org/es/docs/Web/CSS/text-align-last</a></p></li></ul><ul id="3f5648ad-99fc-8090-a120-ec0801a1f966" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Typography</em><p id="3f5648ad-99fc-801f-9373-c1b34ff8e54a" class="" dir="auto"><a href="https://web.dev/learn/design/typography">https://web.dev/learn/design/typography</a></p></li></ul><h2 id="3f5648ad-99fc-80e5-ba46-e5c15ff8b39f" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-80d0-b5ab-d39743ec8f77" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-align</strong></code><strong> alinea texto, no cajas</strong> → para centrar un bloque: <code>margin: 0 auto</code> o flex/grid.</li></ul><ul id="3f5648ad-99fc-8011-920f-ecaf2d364645" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Preferir </strong><code><strong>start</strong></code><strong>/</strong><code><strong>end</strong></code><strong> sobre </strong><code><strong>left</strong></code><strong>/</strong><code><strong>right</strong></code> → soporta RTL automáticamente.</li></ul><ul id="3f5648ad-99fc-80bb-a387-e628b9b39848" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>justify</strong></code><strong> con moderación</strong> → solo en párrafos largos y con <code>hyphens: auto</code> + <code>text-align-last</code>.</li></ul><ul id="3f5648ad-99fc-8006-88a6-d1c8647c31c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En flex/grid</strong>, <code>text-align</code> no mueve los ítems → usar <code>align-items</code>, <code>justify-content</code>, <code>justify-items</code>.</li></ul><ul id="3f5648ad-99fc-8074-a300-f4e34cbbe114" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Heredable</strong> → definirla en <code>body</code> afecta a todo; sobrescribir donde haga falta.</li></ul><ul id="3f5648ad-99fc-8014-9a7e-e5bef60dfce6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En tablas</strong>, alinear números a la derecha mejora la comparación visual → combinar con <code>font-variant-numeric: tabular-nums</code>.</li></ul><ul id="3f5648ad-99fc-8014-ada1-cb412b63ab3e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-align: center</strong></code><strong> en botones</strong> → cuidado: el texto se centra pero el padding puede desequilibrar; a veces conviene flex.</li></ul><ul id="3f5648ad-99fc-800f-91a6-e663ee85f347" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No usar </strong><code><strong>justify</strong></code><strong> en la web sin necesidad</strong> → es más común en print; en pantalla, muchos usuarios prefieren texto alineado a la izquierda por legibilidad.</li></ul><ul id="3f5648ad-99fc-8013-9ee0-f03bc9942a82" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Con </strong><code><strong>direction: rtl</strong></code>, <code>text-align: start</code> se convierte automáticamente en derecha → ideal para i18n.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

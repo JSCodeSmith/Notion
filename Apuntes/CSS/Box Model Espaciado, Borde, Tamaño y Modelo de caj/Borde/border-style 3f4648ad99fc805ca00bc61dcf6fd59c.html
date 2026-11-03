@@ -1,0 +1,918 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>border-style</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f4648ad-99fc-805c-a00b-c61dcf6fd59c" class="page sans"><header><h1 class="page-title" dir="auto"><code>border-style</code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f4648ad-99fc-80bf-b32b-ca915447092f" class="" dir="auto">
+</p><h1 id="3f4648ad-99fc-80b8-83a8-e737eaab51b4" class="" dir="auto"><strong>📄 </strong><code><strong>border-style</strong></code></h1><h2 id="3f4648ad-99fc-80a5-9b57-e5e40ae5e058" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f4648ad-99fc-802e-87f2-d1af83971495" class="" dir="auto"><code>border-style</code> es una <strong>propiedad CSS</strong> que establece el <strong>estilo de la línea del borde</strong> de un elemento: sólido, discontinuo, punteado, doble, etc. </p><p id="3f5648ad-99fc-80a2-b86e-c2ad92d1d181" class="" dir="auto">Es la propiedad que <strong>hace visible el borde</strong>; sin ella, <code>border-width</code> y <code>border-color</code> no tienen efecto.</p><h2 id="3f4648ad-99fc-80ba-961b-c660538ee34a" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f4648ad-99fc-8085-9161-f5d98162fc85" class="" dir="auto">Forma parte de las <strong>propiedades de borde</strong> (junto con <code>border-width</code>, <code>border-color</code> y el shorthand <code>border</code>). </p><p id="3f5648ad-99fc-809e-95b1-c93955634bce" class="" dir="auto">Define <strong>cómo se dibuja</strong> la línea del borde.</p><p id="3f4648ad-99fc-80b8-9616-dbc4ba11f678" class="" dir="auto">Es la propiedad <strong>más importante</strong> de las tres: si <code>border-style</code> es <code>none</code> (valor por defecto), el borde <strong>no se renderiza</strong>, sin importar el grosor o el color que hayas definido.</p><h2 id="3f4648ad-99fc-803f-a3bf-f485422a7d20" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f4648ad-99fc-8021-9355-e2a81b71eee1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hacer <strong>visible</strong> el borde de un elemento.</li></ul><ul id="3f4648ad-99fc-80d1-9761-edf100cac550" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diferenciar visualmente componentes (sólido en tarjetas, discontinuo en zonas editables).</li></ul><ul id="3f4648ad-99fc-80e7-8066-e933cb350756" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Indicar <strong>estados</strong> (punteado en focus, sólido en error).</li></ul><ul id="3f4648ad-99fc-809a-b1ef-c3246de49caf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>separadores</strong> con distintos estilos.</li></ul><ul id="3f4648ad-99fc-804d-b5c0-f0eda28a747e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseñar efectos <strong>3D</strong> (<code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code>).</li></ul><ul id="3f4648ad-99fc-80b7-b64d-e306b0f5964d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>triángulos y formas</strong> con el truco del border.</li></ul><h2 id="3f4648ad-99fc-8028-afba-eaad55f661d6" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f4648ad-99fc-80af-b7f0-de589aa24f51" class="" dir="auto">El navegador dibuja el borde en el grosor indicado por <code>border-width</code> y con el color de <code>border-color</code>, usando el patrón del <code>border-style</code>. </p><p id="3f5648ad-99fc-809d-964a-ffbb84f9187c" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f4648ad-99fc-8013-b576-c355310e7d9b" class="numbered-list" start="1" dir="auto"><li><strong>Sin </strong><code><strong>border-style</strong></code><strong>, no hay borde visible</strong> → aunque definas <code>border-width: 10px; border-color: red</code>, si <code>border-style: none</code> (por defecto), no se ve nada.</li></ol><ol type="1" id="3f4648ad-99fc-80e5-8db9-e9c4dd3a2489" class="numbered-list" start="2" dir="auto"><li><strong>Acepta 1 a 4 valores</strong> → igual que <code>margin</code>/<code>padding</code>.</li></ol><ol type="1" id="3f4648ad-99fc-80e2-8215-c9ca539ede66" class="numbered-list" start="3" dir="auto"><li><strong>Afecta al tamaño total</strong> → con <code>box-sizing: content-box</code> (por defecto), el borde <strong>suma</strong> al <code>width</code>/<code>height</code>. Con <code>border-box</code>, se incluye.</li></ol><ol type="1" id="3f4648ad-99fc-80b1-978f-ea295a85776d" class="numbered-list" start="4" dir="auto"><li><strong>Propiedades individuales</strong> → <code>border-top-style</code>, <code>border-right-style</code>, etc.</li></ol><ol type="1" id="3f4648ad-99fc-8014-be4f-ceb7d2c1aa23" class="numbered-list" start="5" dir="auto"><li><strong>Propiedades lógicas</strong> → <code>border-inline-style</code>, <code>border-block-style</code> para i18n.</li></ol><ol type="1" id="3f4648ad-99fc-80a6-a3d5-c60261d56400" class="numbered-list" start="6" dir="auto"><li><strong>Estilos 3D dependen del </strong><code><strong>border-color</strong></code> → <code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code> generan sombras automáticas basadas en el color.</li></ol><ol type="1" id="3f4648ad-99fc-8036-ac83-ef3a88dc519e" class="numbered-list" start="7" dir="auto"><li><code><strong>hidden</strong></code><strong> vs </strong><code><strong>none</strong></code> → ambos ocultan el borde, pero <code>hidden</code> gana en conflictos de tablas con <code>border-collapse: collapse</code>.</li></ol><h2 id="3f4648ad-99fc-80bf-888f-ebbee40431bd" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f4648ad-99fc-8062-ab55-df35376968a6" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Un valor: todos los lados */
+border-style: solid;
+
+/* Dos valores: vertical | horizontal */
+border-style: solid dashed;
+
+/* Tres valores: top | horizontal | bottom */
+border-style: solid dashed dotted;
+
+/* Cuatro valores: top | right | bottom | left (horario) */
+border-style: solid dashed dotted double;</code></pre><h3 id="3f4648ad-99fc-8059-90ed-d35418443d26" class="" dir="auto"><strong>Propiedades individuales</strong></h3><pre id="3f4648ad-99fc-80bf-b857-fdf4fbe4ec9f" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-top-style: solid;
+border-right-style: dashed;
+border-bottom-style: dotted;
+border-left-style: double;</code></pre><h3 id="3f4648ad-99fc-801b-9510-f62c3a0502b1" class="" dir="auto"><strong>Propiedades lógicas (modernas)</strong></h3><pre id="3f4648ad-99fc-80f8-b640-d9f24685ef24" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-block-style: solid dashed;   /* top | bottom */
+border-inline-style: dotted double; /* left | right */
+border-block-start-style: solid;
+border-inline-end-style: dashed;</code></pre><h2 id="3f4648ad-99fc-80b9-ac5b-d15a383adf91" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><p id="3f4648ad-99fc-8058-b862-de0a4657802a" class="" dir="auto">
+</p><pre id="3f4648ad-99fc-8041-a270-d586d1bfaf20" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Borde sólido (el más común) */
+.card {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ddd;
+}
+
+/* 2. Borde discontinuo */
+.dashed {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #999;
+}
+
+/* 3. Borde punteado (focus o zona editable) */
+.dotted {
+  border-style: dotted;
+  border-width: 2px;
+  border-color: #3498db;
+}
+
+/* 4. Borde doble (requiere ≥3px para verse) */
+.double {
+  border-style: double;
+  border-width: 4px;
+  border-color: #333;
+}
+
+/* 5. Borde 3D */
+.tridimensional {
+  border-style: groove;
+  border-width: 6px;
+  border-color: #ccc;
+}
+
+/* 6. Estilos distintos por lado */
+.mixto {
+  border-style: solid dashed dotted double;
+  border-width: 2px;
+  border-color: #333;
+  /* top: solid | right: dashed | bottom: dotted | left: double */
+}
+
+/* 7. Solo borde abajo (divisor) */
+h2 {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #333;
+  padding-bottom: 8px;
+}
+
+/* 8. Shorthand completo */
+.btn {
+  border: 2px solid #3498db;
+}
+
+/* 9. Quitar borde */
+.sin-borde {
+  border-style: none;
+  /* Aunque haya border-width y border-color, no se ve */
+}
+
+/* 10. Propiedades lógicas */
+.logico {
+  border-inline-style: solid; /* left y right */
+  border-block-style: dashed; /* top y bottom */
+  border-width: 2px;
+  border-color: #333;
+}</code></pre><h3 id="3f4648ad-99fc-80d1-843c-f4541ab59563" class="" dir="auto"><strong>Los 4 estilos básicos comparados</strong></h3><pre id="3f4648ad-99fc-8089-b78c-de1b1814c77d" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.solid  { border: 3px solid #333; }   /* ───── */
+.dashed { border: 3px dashed #333; }  /* ─ ─ ─ */
+.dotted { border: 3px dotted #333; }  /* ····· */
+.double { border: 4px double #333; }  /* ═════ */</code></pre><h3 id="3f4648ad-99fc-8056-9fa9-ceff96d6ff38" class="" dir="auto"><strong>Los 4 estilos 3D comparados</strong></h3><pre id="3f4648ad-99fc-8009-9bb2-e567e91bca8d" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.groove { border: 6px groove #ccc; } /* hundido */
+.ridge  { border: 6px ridge #ccc; }  /* saliente */
+.inset  { border: 6px inset #ccc; }  /* interior */
+.outset { border: 6px outset #ccc; } /* exterior */</code></pre><h3 id="3f4648ad-99fc-8035-b064-ec558a4bc700" class="" dir="auto"><strong>Triángulo con </strong><code><strong>border-style</strong></code></h3><pre id="3f4648ad-99fc-8007-810a-e00169bdcd23" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.triangulo {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 30px 20px;
+  border-color: transparent transparent #333 transparent;
+  /* Triángulo apuntando hacia arriba */
+}</code></pre><h3 id="3f4648ad-99fc-8075-b144-c2a28fa9a21e" class="" dir="auto"><strong>Separador con </strong><code><strong>border-bottom-style</strong></code></h3><pre id="3f4648ad-99fc-8050-8b52-fad9ba7f891b" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">hr {
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #eee;
+  margin: 24px 0;
+}</code></pre><h3 id="3f4648ad-99fc-8016-941c-c3278a285539" class="" dir="auto"><strong>Input con borde punteado en focus</strong></h3><pre id="3f4648ad-99fc-8020-bda4-e8d780b41232" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">input {
+  border: 1px solid #ccc;
+}
+input:focus {
+  border-style: dashed;
+  border-color: #3498db;
+  outline: none;
+  /* Cambia a punteado al enfocar */
+}</code></pre><h2 id="3f4648ad-99fc-80d5-9149-fb7349e266aa" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f4648ad-99fc-8038-abb0-ffc430ce3340" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>border-style</strong></code> → <code>border-width: 2px; border-color: red</code> <strong>no muestra nada</strong> sin <code>border-style</code>. Error nº1 de principiante.</li></ol><ol type="1" id="3f4648ad-99fc-80ee-8610-d32f7a938ea1" class="numbered-list" start="2" dir="auto"><li><strong>Usar </strong><code><strong>border: 1px #333</strong></code> → inválido; falta el estilo. El shorthand requiere los tres valores (o al menos el estilo).</li></ol><ol type="1" id="3f4648ad-99fc-80d1-8029-d80a247690e7" class="numbered-list" start="3" dir="auto"><li><code><strong>double</strong></code><strong> con menos de 3px</strong> → no se ve el efecto doble; se renderiza como sólido o no se ve. Usar ≥3px.</li></ol><ol type="1" id="3f4648ad-99fc-8071-8dee-f709c81a1ec1" class="numbered-list" start="4" dir="auto"><li><strong>Confundir </strong><code><strong>none</strong></code><strong> con </strong><code><strong>hidden</strong></code> → ambos ocultan, pero <code>hidden</code> gana en conflictos de tablas.</li></ol><ol type="1" id="3f4648ad-99fc-803e-bb2a-e62716153f25" class="numbered-list" start="5" dir="auto"><li><strong>No usar </strong><code><strong>box-sizing: border-box</strong></code> → el borde suma al tamaño total.</li></ol><ol type="1" id="3f4648ad-99fc-8079-8580-f82bd156dae9" class="numbered-list" start="6" dir="auto"><li><strong>Asumir que los estilos 3D se ven igual en todos los navegadores</strong> → varían ligeramente; no son fiables para diseños precisos.</li></ol><ol type="1" id="3f4648ad-99fc-80c6-a881-e8b1881f176f" class="numbered-list" start="7" dir="auto"><li><strong>Animar </strong><code><strong>border-style</strong></code> → no es animable; el cambio es instantáneo. Para transiciones, usar <code>box-shadow</code> o <code>outline</code>.</li></ol><ol type="1" id="3f4648ad-99fc-807c-a271-e7aa8a6a6f0f" class="numbered-list" start="8" dir="auto"><li><code><strong>border-style: dashed</strong></code><strong> en textos largos</strong> → los guiones pueden no alinearse con el contenido.</li></ol><ol type="1" id="3f4648ad-99fc-8048-9a2e-fa018b2ad95f" class="numbered-list" start="9" dir="auto"><li><strong>Usar </strong><code><strong>border-style</strong></code><strong> para simular </strong><code><strong>outline</strong></code><strong> de focus</strong> → funciona, pero <code>outline</code> es más accesible y no rompe layout.</li></ol><ol type="1" id="3f4648ad-99fc-805f-90df-f6ed5f6593f0" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Estilos distintos por lado sin coherencia</strong> → <code>solid dashed dotted double</code> puede verse caótico. Usar con intención.</li></ol><ol type="1" id="3f4648ad-99fc-80e0-b229-fb4381e035b2" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Olvidar el orden</strong> → <code>top right bottom left</code> (horario). Fácil de equivocar.</li></ol><ol type="1" id="3f4648ad-99fc-804b-865a-cdf0e80ae8de" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><code><strong>border-style</strong></code><strong> en tablas con </strong><code><strong>border-collapse: collapse</strong></code> → los bordes se fusionan; el resultado puede sorprender.</li></ol><h2 id="3f4648ad-99fc-809d-a32c-ec58b52a687a" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f4648ad-99fc-808f-9174-c842ad62ff61" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f4648ad-99fc-80ae-954b-cec80cd2cbfe" dir="ltr"><th id="^X|_" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="WrD:" class="simple-table-header-color simple-table-header" style="width:355.5520935058594px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f4648ad-99fc-8085-9408-c6ece2e67ca3" dir="ltr"><td id="^X|_" class="">Borde de tarjeta</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code></td></tr><tr id="3f4648ad-99fc-8083-9f09-de200179bcbb" dir="ltr"><td id="^X|_" class="">Borde de input</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code></td></tr><tr id="3f4648ad-99fc-8099-a179-f59f2f677cb2" dir="ltr"><td id="^X|_" class="">Zona editable</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>dashed</code></td></tr><tr id="3f4648ad-99fc-8095-a652-d4ef8fb2f2b2" dir="ltr"><td id="^X|_" class="">Focus</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code> + <code>outline</code></td></tr><tr id="3f4648ad-99fc-80a0-9ee8-c04e558983e7" dir="ltr"><td id="^X|_" class="">Separador</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code> (solo abajo)</td></tr><tr id="3f4648ad-99fc-8081-8816-e0426159a55c" dir="ltr"><td id="^X|_" class="">Borde decorativo</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>double</code> o <code>groove</code></td></tr><tr id="3f4648ad-99fc-80e1-889d-c798a1bc1dba" dir="ltr"><td id="^X|_" class="">Triángulo (truco)</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code> + <code>transparent</code></td></tr><tr id="3f4648ad-99fc-80c1-8c3e-c3e2cb9d057f" dir="ltr"><td id="^X|_" class="">Borde de tabla</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code></td></tr><tr id="3f4648ad-99fc-8096-a906-d0aed3922e6f" dir="ltr"><td id="^X|_" class="">Borde de error</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>solid</code></td></tr><tr id="3f4648ad-99fc-80b9-ab50-f933cb7bd8c3" dir="ltr"><td id="^X|_" class="">Borde de drop zone</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>dashed</code></td></tr><tr id="3f4648ad-99fc-8006-8cff-ff1bb9d20578" dir="ltr"><td id="^X|_" class="">Borde 3D retro</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>groove</code> o <code>ridge</code></td></tr><tr id="3f4648ad-99fc-8011-a202-fe64e3aea612" dir="ltr"><td id="^X|_" class="">Borde punteado (ticket)</td><td id="WrD:" class="" style="width:355.5520935058594px"><code>dotted</code></td></tr></tbody></table><h2 id="3f4648ad-99fc-807c-a6d9-eb174127c7af" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f4648ad-99fc-80b7-b325-ed40afd2a25b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-width</strong></code> → grosor del borde (no se ve sin <code>border-style</code>).</li></ul><ul id="3f4648ad-99fc-80e4-8f5f-f29f99d80a41" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-color</strong></code> → color del borde.</li></ul><ul id="3f4648ad-99fc-80a4-9fca-eb4e6b4bc406" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → shorthand que incluye <code>border-style</code>.</li></ul><ul id="3f4648ad-99fc-8006-a276-f1a0dbe5c29a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → <code>border-box</code> incluye el borde en el tamaño.</li></ul><ul id="3f4648ad-99fc-80c3-a625-eb7e3f77e321" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>outline-style</strong></code> → equivalente para el outline.</li></ul><ul id="3f4648ad-99fc-80ce-8c25-fd64d4607614" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → el borde sigue la curva.</li></ul><ul id="3f4648ad-99fc-8060-bce0-e56e96189b57" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → alternativa para bordes sin afectar layout.</li></ul><ul id="3f4648ad-99fc-802c-913f-f120d288a965" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-collapse</strong></code> → en tablas, controla la fusión de bordes.</li></ul><ul id="3f4648ad-99fc-8090-afef-f397433a98a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-image</strong></code> → usa imágenes como borde.</li></ul><ul id="3f4648ad-99fc-8023-9f58-e54d64ce0552" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Propiedades lógicas</strong> → <code>border-inline-style</code>, <code>border-block-style</code>.</li></ul><ul id="3f4648ad-99fc-807f-b676-dab570afdfa9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → hasta dónde se pinta el fondo respecto al borde.</li></ul><p id="3f4648ad-99fc-80af-86dc-d3014cbd07ce" class="" dir="auto"><strong>Estilos visualizados:</strong></p><p id="3f4648ad-99fc-8096-b8f7-dea66eaeb8ac" class="" dir="auto">
+</p><pre id="3f4648ad-99fc-8097-bda3-e896d46dcb62" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">none        hidden      solid       dashed
+(nada)      (nada)      ─────       ─ ─ ─
+
+dotted      double      groove      ridge
+·····       ═════       ╲╱          ╱╲
+
+inset       outset
+╲╱          ╱╲</code></pre><h2 id="3f4648ad-99fc-8093-be80-e006cfb9f05b" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f4648ad-99fc-80be-95c3-dc503365e1a5" class="" dir="auto">Imagina que cada elemento es un <strong>cuadro enmarcado</strong>. <code>border-style</code> es el <strong>tipo de moldura</strong> que eliges:</p><ul id="3f4648ad-99fc-80b0-a979-e5f882366df4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>solid</code> → moldura lisa y continua.</li></ul><ul id="3f4648ad-99fc-803c-bdad-dc92dd204b85" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>dashed</code> → moldura a rayas.</li></ul><ul id="3f4648ad-99fc-8011-9ea6-cfc679463a62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>dotted</code> → moldura de puntos.</li></ul><ul id="3f4648ad-99fc-8024-9745-fd3405c23e30" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>double</code> → moldura doble.</li></ul><ul id="3f4648ad-99fc-8016-b232-db519b2ade3b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>groove</code> / <code>ridge</code> → moldura con relieve 3D.</li></ul><p id="3f4648ad-99fc-8062-9073-d80ce174eb47" class="" dir="auto">Si no eliges ninguna (<code>none</code>), el cuadro <strong>no tiene marco</strong>, aunque hayas definido su grosor y color.</p><h2 id="3f4648ad-99fc-80f0-83e7-eeef7a0dd48a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f4648ad-99fc-80b6-a01e-f0f9a405e855" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-style</em><p id="3f4648ad-99fc-80c5-a72b-d274e4021206" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-style">https://developer.mozilla.org/es/docs/Web/CSS/border-style</a></p></li></ul><ul id="3f4648ad-99fc-8062-bb3c-e80d9419b988" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f4648ad-99fc-80c1-90b9-ee8500a12068" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#border-style">https://www.w3.org/TR/css-backgrounds-3/#border-style</a></p></li></ul><ul id="3f4648ad-99fc-803a-9cee-fdd4710167cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>border-style</em><p id="3f4648ad-99fc-80a3-bcb1-d980a0e8b1a6" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/border-style/">https://css-tricks.com/almanac/properties/b/border-style/</a></p></li></ul><ul id="3f4648ad-99fc-8012-83b7-e2338604fc48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border</em><p id="3f4648ad-99fc-8075-ae69-f8f29e8632f5" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border">https://developer.mozilla.org/es/docs/Web/CSS/border</a></p></li></ul><h2 id="3f4648ad-99fc-8017-9ed8-d01d26d1eda8" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f4648ad-99fc-8022-8a6c-e777e3c6acbe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-style</strong></code><strong> es obligatorio</strong> → sin él, <code>border-width</code> y <code>border-color</code> no se ven. Error nº1 de principiante.</li></ul><ul id="3f4648ad-99fc-80b8-a876-e38e9f3183f5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border: 1px solid</strong></code> → el shorthand más usado; recordar el <code>solid</code>.</li></ul><ul id="3f4648ad-99fc-8056-9502-d51925cc7ba5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>solid</strong></code><strong> es el 95% de los casos</strong> → los demás estilos son para casos específicos.</li></ul><ul id="3f4648ad-99fc-80ae-87db-d2093d21d419" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>double</strong></code><strong> requiere ≥3px</strong> → con menos, no se aprecia el efecto.</li></ul><ul id="3f4648ad-99fc-8043-b305-f0427670329a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Estilos 3D (</strong><code><strong>groove</strong></code><strong>, </strong><code><strong>ridge</strong></code><strong>, </strong><code><strong>inset</strong></code><strong>, </strong><code><strong>outset</strong></code><strong>)</strong> → poco fiables para diseños precisos; varían entre navegadores.</li></ul><ul id="3f4648ad-99fc-808f-8699-ca83437c5216" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>none</strong></code><strong> vs </strong><code><strong>hidden</strong></code> → ambos ocultan, pero <code>hidden</code> gana en conflictos de tablas.</li></ul><ul id="3f4648ad-99fc-80d1-aa4e-e642cd2f2f07" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-style</strong></code><strong> no es animable</strong> → si necesitas transición, usar <code>box-shadow</code> o <code>outline</code>.</li></ul><ul id="3f4648ad-99fc-8077-b57e-fc3d798de896" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para focus accesible</strong> → preferir <code>outline</code> sobre cambiar <code>border-style</code> (no rompe layout).</li></ul><ul id="3f4648ad-99fc-8059-8e13-da0a9051072c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre </strong><code><strong>box-sizing: border-box</strong></code> → si no, el borde agranda el elemento.</li></ul><ul id="3f4648ad-99fc-8030-90b0-cb10e66ef4b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Triángulos con </strong><code><strong>border-style: solid</strong></code><strong> + </strong><code><strong>border-color: transparent</strong></code> → truco clásico; hoy <code>clip-path</code> es más flexible.</li></ul><ul id="3f4648ad-99fc-80cc-8633-e96b1c50c079" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Propiedades lógicas</strong> → preferir <code>border-inline-style</code> y <code>border-block-style</code> en proyectos multiidioma.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,920 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>border-image</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f4648ad-99fc-80ff-9491-c829c0a82c7a" class="page sans"><header><h1 class="page-title" dir="auto"><code>border-image</code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h1 id="3f4648ad-99fc-809b-8499-d9c78d6be237" class="" dir="auto"><strong>📄 </strong><code><strong>border-image</strong></code></h1><h2 id="3f4648ad-99fc-80d9-9b6f-ef5921a68de4" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f4648ad-99fc-80a0-a6a3-cea94be9e435" class="" dir="auto"><code>border-image</code> es una <strong>propiedad abreviada (shorthand) de CSS</strong> que permite usar una <strong>imagen</strong> (o un gradiente) como <strong>borde</strong> de un elemento, en lugar de un color o estilo sólido.</p><p id="3f5648ad-99fc-80fb-97fb-dacdf65cbdf5" class="" dir="auto">La imagen se divide en 9 regiones (4 esquinas, 4 lados y el centro) que se estiran, repiten o escalan para formar el borde.</p><h2 id="3f4648ad-99fc-808e-8d28-dca9dee28335" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f4648ad-99fc-8092-b88b-f9176e0af9fc" class="" dir="auto">Forma parte de las <strong>propiedades de borde</strong> (junto con <code>border</code>, <code>border-radius</code>, <code>border-color</code>, etc.). </p><p id="3f5648ad-99fc-80b7-a007-c8e880e26e22" class="" dir="auto">Es una técnica avanzada que permite bordes decorativos con texturas, patrones, gradientes o ilustraciones, sin necesidad de usar múltiples elementos o imágenes de fondo.</p><p id="3f4648ad-99fc-80ab-9095-c07f4932946f" class="" dir="auto">Reemplaza visualmente al borde normal: cuando <code>border-image</code> está activo, <strong>el </strong><code><strong>border-color</strong></code><strong> se ignora</strong> en las zonas donde se aplica la imagen.</p><p id="3f5648ad-99fc-8082-b296-e6dcf85ed595" class="" dir="auto">Pero <code>border-width</code> y <code>border-style</code> siguen siendo necesarios para reservar el espacio del borde.</p><h2 id="3f4648ad-99fc-80b7-b6b7-f29a416f78b6" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f4648ad-99fc-807b-9432-dc3dc3282ba8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>bordes decorativos</strong> con texturas, patrones o ilustraciones.</li></ul><ul id="3f4648ad-99fc-80dd-a9d4-d55f465c5ab7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aplicar <strong>bordes con gradiente</strong> (algo que <code>border-color</code> no permite).</li></ul><ul id="3f4648ad-99fc-80cc-81e5-f745d2dccd03" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseñar <strong>marcos ornamentados</strong> (estilo retro, vintage, art deco).</li></ul><ul id="3f4648ad-99fc-80b6-9293-df92d4e98273" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>bordes escalables</strong> que se adaptan al tamaño del elemento.</li></ul><ul id="3f4648ad-99fc-8093-b6c8-c7387068478b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir <strong>detalles visuales</strong> sin imágenes de fondo ni elementos extra.</li></ul><ul id="3f4648ad-99fc-8011-8eee-e989a5d3f59a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Simular <strong>bordes dibujados a mano</strong> o irregulares.</li></ul><h2 id="3f4648ad-99fc-802a-a0f9-d46b482d6069" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f4648ad-99fc-8008-9e82-fbd8549b5681" class="" dir="auto">La imagen de borde se <strong>corta en 9 regiones</strong> usando las líneas de corte (<code>border-image-slice</code>). </p><p id="3f5648ad-99fc-80a0-82b8-cd513349f6bb" class="" dir="auto">Luego cada región se aplica a una parte del borde:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f4648ad-99fc-803a-940a-c6d35197a7cc" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────┬─────────────┬─────┐
+│  1  │      2      │  3  │  ← esquinas (1, 3, 7, 9)
+├─────┼─────────────┼─────┤     lados (2, 4, 6, 8)
+│  4  │      5      │  6  │     centro (5)
+├─────┼─────────────┼─────┤
+│  7  │      8      │  9  │
+└─────┴─────────────┴─────┘</code></pre><ul id="3f4648ad-99fc-8059-a1e7-c1a9692d37f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Esquinas (1, 3, 7, 9)</strong> → se colocan tal cual, sin escalar.</li></ul><ul id="3f4648ad-99fc-80da-a60c-f4625532877c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Lados (2, 4, 6, 8)</strong> → se estiran, repiten o escalan según <code>border-image-repeat</code>.</li></ul><ul id="3f4648ad-99fc-80b7-a37f-fdcb87c52552" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Centro (5)</strong> → se descarta por defecto (o se usa con <code>fill</code>).</li></ul><p id="3f4648ad-99fc-8067-9640-e831d06c6506" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f4648ad-99fc-804a-8b37-e167c42b3b8b" class="numbered-list" start="1" dir="auto"><li><strong>Requiere </strong><code><strong>border-width</strong></code> → sin grosor de borde, <code>border-image</code> no tiene espacio para dibujarse.</li></ol><ol type="1" id="3f4648ad-99fc-806e-adac-db9614ba8af3" class="numbered-list" start="2" dir="auto"><li><strong>Requiere </strong><code><strong>border-style</strong></code> → al menos <code>solid</code>, para que el borde exista (aunque el estilo visual lo ponga la imagen).</li></ol><ol type="1" id="3f4648ad-99fc-8054-b21c-f165f89c750b" class="numbered-list" start="3" dir="auto"><li><code><strong>border-image-slice</strong></code><strong> es clave</strong> → define las líneas de corte de la imagen.</li></ol><ol type="1" id="3f4648ad-99fc-80fc-8dc6-f0f0817aba80" class="numbered-list" start="4" dir="auto"><li><code><strong>border-image-repeat</strong></code> → controla cómo se rellenan los lados (<code>stretch</code>, <code>repeat</code>, <code>round</code>, <code>space</code>).</li></ol><ol type="1" id="3f4648ad-99fc-8043-9af0-d5ef02f89d42" class="numbered-list" start="5" dir="auto"><li><code><strong>border-image-source</strong></code> → la imagen o gradiente.</li></ol><ol type="1" id="3f4648ad-99fc-80b1-885f-f7068885112c" class="numbered-list" start="6" dir="auto"><li><code><strong>border-image-width</strong></code> → grosor del borde (por defecto = <code>border-width</code>).</li></ol><ol type="1" id="3f4648ad-99fc-80e4-b092-fb5e8058c9fc" class="numbered-list" start="7" dir="auto"><li><code><strong>border-image-outset</strong></code> → cuánto sobresale el borde hacia fuera.</li></ol><ol type="1" id="3f4648ad-99fc-80d3-8922-f4e35135445f" class="numbered-list" start="8" dir="auto"><li><code><strong>fill</strong></code> → incluye la región central de la imagen como fondo.</li></ol><ol type="1" id="3f4648ad-99fc-8084-9483-c2e82d05af7c" class="numbered-list" start="9" dir="auto"><li><code><strong>border-radius</strong></code><strong> se ignora</strong> → cuando <code>border-image</code> está activo, el radio no se aplica.</li></ol><h2 id="3f4648ad-99fc-80cc-8624-d9168001cb68" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><pre id="3f4648ad-99fc-808e-922d-e0709c0f39d9" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  border-image: source slice / width / outset repeat;
+}</code></pre><h3 id="3f4648ad-99fc-80ea-9947-ee34708c6b9c" class="" dir="auto"><strong>Propiedades que agrupa</strong></h3><table id="3f4648ad-99fc-80e9-89e9-eee202421c3b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f4648ad-99fc-809e-93b8-db6c6468243f" dir="ltr"><th id="gR&lt;@" class="simple-table-header-color simple-table-header"><strong>Propiedad</strong></th><th id="B_~C" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="@u}q" class="simple-table-header-color simple-table-header" style="width:286.3854217529297px"><strong>Valor por defecto</strong></th></tr></thead><tbody><tr id="3f4648ad-99fc-80c5-8c31-d35e190e52ca" dir="ltr"><td id="gR&lt;@" class=""><code>border-image-source</code></td><td id="B_~C" class="">Imagen o gradiente</td><td id="@u}q" class="" style="width:286.3854217529297px"><code>none</code></td></tr><tr id="3f4648ad-99fc-8034-b774-c9de54429605" dir="ltr"><td id="gR&lt;@" class=""><code>border-image-slice</code></td><td id="B_~C" class="">Líneas de corte de la imagen</td><td id="@u}q" class="" style="width:286.3854217529297px"><code>100%</code></td></tr><tr id="3f4648ad-99fc-806d-8356-d9356dc5ce82" dir="ltr"><td id="gR&lt;@" class=""><code>border-image-width</code></td><td id="B_~C" class="">Grosor del borde</td><td id="@u}q" class="" style="width:286.3854217529297px"><code>1</code> (= <code>border-width</code>)</td></tr><tr id="3f4648ad-99fc-80bc-a254-dff6503e084b" dir="ltr"><td id="gR&lt;@" class=""><code>border-image-outset</code></td><td id="B_~C" class="">Cuánto sobresale</td><td id="@u}q" class="" style="width:286.3854217529297px"><code>0</code></td></tr><tr id="3f4648ad-99fc-80e5-85b3-d889245721c3" dir="ltr"><td id="gR&lt;@" class=""><code>border-image-repeat</code></td><td id="B_~C" class="">Cómo se rellenan los lados</td><td id="@u}q" class="" style="width:286.3854217529297px"><code>stretch</code></td></tr></tbody></table><p id="3f4648ad-99fc-806f-ad54-c1ce7563d50e" class="" dir="auto"><code><strong>border-image-source</strong></code></p><p id="3f4648ad-99fc-8059-a2d3-ff1d5733f645" class="" dir="auto">
+</p><pre id="3f4648ad-99fc-80ab-9e01-d1089d1ef075" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-image-source: url(&quot;border.png&quot;);
+border-image-source: linear-gradient(135deg, #667eea, #764ba2);
+border-image-source: none;</code></pre><p id="3f4648ad-99fc-8078-9221-e0f3c7b60470" class="" dir="auto"><code><strong>border-image-slice</strong></code></p><pre id="3f4648ad-99fc-8059-b882-ca7c9f1d0a5c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-image-slice: 30;                /* píxeles desde cada borde */
+border-image-slice: 30%;               /* porcentaje */
+border-image-slice: 30 40;             /* vertical | horizontal */
+border-image-slice: 30 40 50 60;       /* top | right | bottom | left */
+border-image-slice: 30 fill;           /* incluye el centro */</code></pre><p id="3f4648ad-99fc-8053-bf05-e40fd741b964" class="" dir="auto"><code><strong>border-image-width</strong></code></p><pre id="3f4648ad-99fc-8096-8d9f-e8e6461de592" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-image-width: 10px;              /* longitud */
+border-image-width: 1;                 /* múltiplo de border-width */
+border-image-width: 30%;               /* porcentaje del área */
+border-image-width: auto;              /* = border-image-slice */</code></pre><p id="3f4648ad-99fc-80ee-8690-e346267fca5b" class="" dir="auto"><code><strong>border-image-outset</strong></code></p><pre id="3f4648ad-99fc-80ae-b766-ee567622e018" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-image-outset: 10px;             /* hacia fuera */
+border-image-outset: 1;                /* múltiplo de border-width */</code></pre><p id="3f4648ad-99fc-80eb-a2c6-f4f4ba227198" class="" dir="auto"><code><strong>border-image-repeat</strong></code></p><pre id="3f4648ad-99fc-804f-b3a9-eb4e1fa31019" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-image-repeat: stretch;          /* estira (por defecto) */
+border-image-repeat: repeat;           /* repite */
+border-image-repeat: round;            /* repite escalando */
+border-image-repeat: space;            /* repite con espacio */
+border-image-repeat: stretch round;    /* horizontal | vertical */</code></pre><h2 id="3f4648ad-99fc-802e-86e1-ff4ba82187b3" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f4648ad-99fc-80fd-8110-f61de735402f" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Borde con gradiente (el uso más común) */
+.borde-gradiente {
+  border: 10px solid;
+  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+}
+
+/* 2. Borde con gradiente y slice */
+.borde-gradiente-2 {
+  border: 8px solid;
+  border-image: linear-gradient(90deg, #f39c12, #e74c3c) 1;
+}
+
+/* 3. Borde con imagen (marco decorativo) */
+.marco {
+  border: 30px solid transparent;
+  border-image: url(&quot;marco.png&quot;) 30 round;
+}
+
+/* 4. Borde con slice en píxeles */
+.borde-slice {
+  border: 20px solid transparent;
+  border-image: url(&quot;border.png&quot;) 30 / 20px / 0 repeat;
+}
+
+/* 5. Borde que sobresale (outset) */
+.borde-outset {
+  border: 10px solid transparent;
+  border-image: url(&quot;border.png&quot;) 20 / 10px / 5px stretch;
+}
+
+/* 6. Borde con gradiente cónico */
+.borde-conic {
+  border: 8px solid;
+  border-image: conic-gradient(red, yellow, lime, cyan, blue, magenta, red) 1;
+}
+
+/* 7. Borde con gradiente radial */
+.borde-radial {
+  border: 10px solid;
+  border-image: radial-gradient(circle, #f39c12, #e74c3c) 1;
+}
+
+/* 8. Borde con repetición */
+.borde-repeat {
+  border: 20px solid transparent;
+  border-image: url(&quot;pattern.png&quot;) 30 round;
+}
+
+/* 9. Borde con fill (incluye el centro) */
+.borde-fill {
+  border: 15px solid transparent;
+  border-image: url(&quot;border.png&quot;) 30 fill;
+}
+
+/* 10. Shorthand completo */
+.borde-completo {
+  border: 20px solid transparent;
+  border-image: url(&quot;border.png&quot;) 30 / 20px / 0 round;
+}</code></pre><h3 id="3f4648ad-99fc-8091-8919-dedcb4d17645" class="" dir="auto"><strong>Borde con gradiente (patrón más común)</strong></h3><pre id="3f4648ad-99fc-8025-8e90-f24c49a906b6" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.gradient-border {
+  border: 8px solid;
+  border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+  /* El &quot;1&quot; es el slice: toda la imagen se usa como borde */
+}</code></pre><h3 id="3f4648ad-99fc-8095-99c9-d99683b50c00" class="" dir="auto"><strong>Borde arcoíris con gradiente cónico</strong></h3><pre id="3f4648ad-99fc-8030-be20-e8cd10229617" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.rainbow-border {
+  border: 8px solid;
+  border-image: conic-gradient(
+    from 0deg,
+    red, orange, yellow, green, cyan, blue, magenta, red
+  ) 1;
+}</code></pre><h3 id="3f4648ad-99fc-80ad-91c4-e3fbe5208b12" class="" dir="auto"><strong>Marco decorativo con imagen</strong></h3><pre id="3f4648ad-99fc-805a-a076-d43fc78af224" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.marco-decorativo {
+  border: 30px solid transparent;
+  border-image: url(&quot;marco.png&quot;) 30 round;
+  /* El &quot;30&quot; es el slice: corta 30px desde cada borde */
+  /* &quot;round&quot; repite la imagen escalándola */
+}</code></pre><h3 id="3f4648ad-99fc-805f-90cc-c6d87b810373" class="" dir="auto"><strong>Borde que sobresale del elemento</strong></h3><pre id="3f4648ad-99fc-800d-982d-f05ac566fdb4" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.borde-outset {
+  border: 10px solid transparent;
+  border-image: url(&quot;border.png&quot;) 20 / 10px / 5px stretch;
+  /* outset: 5px → el borde sobresale 5px hacia fuera */
+}</code></pre><h3 id="3f4648ad-99fc-8089-b33a-e1fc77f65f9a" class="" dir="auto"><strong>Borde con gradiente en botón</strong></h3><pre id="3f4648ad-99fc-8053-917d-e3d7c259bf28" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.btn-gradiente {
+  border: 4px solid;
+  border-image: linear-gradient(90deg, #f39c12, #e74c3c) 1;
+  background: white;
+  padding: 12px 24px;
+  color: #333;
+}</code></pre><h3 id="3f4648ad-99fc-8071-bfa6-e0d71bc7815f" class="" dir="auto"><strong>Borde con patrón repetido</strong></h3><pre id="3f4648ad-99fc-80e1-a825-f022d3d181ad" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.borde-patron {
+  border: 20px solid transparent;
+  border-image: url(&quot;pattern.png&quot;) 30 round;
+  /* La imagen se corta a 30px y los lados se repiten escalando */
+}</code></pre><h3 id="3f4648ad-99fc-80e0-a8a0-d308cf972bd1" class="" dir="auto"><strong>Borde con fill (imagen cubre el centro)</strong></h3><pre id="3f4648ad-99fc-80e1-bac0-e6449465aa8f" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.borde-fill {
+  border: 15px solid transparent;
+  border-image: url(&quot;texture.png&quot;) 30 fill;
+  /* fill: la región central también se usa como fondo */
+}</code></pre><h2 id="3f4648ad-99fc-8087-8ed2-ef993c95d977" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f4648ad-99fc-8090-8212-ee9924249f4c" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>border-width</strong></code> → sin grosor de borde, <code>border-image</code> no tiene espacio para dibujarse.</li></ol><ol type="1" id="3f4648ad-99fc-8011-b81d-fad01460c583" class="numbered-list" start="2" dir="auto"><li><strong>Olvidar </strong><code><strong>border-style</strong></code> → al menos <code>solid</code> es necesario; sin estilo, no hay borde que pintar.</li></ol><ol type="1" id="3f4648ad-99fc-80ae-aee0-e3297c4f66f1" class="numbered-list" start="3" dir="auto"><li><strong>Confundir </strong><code><strong>border-image-slice</strong></code><strong> con </strong><code><strong>border-image-width</strong></code> → <code>slice</code> corta la <strong>imagen</strong>; <code>width</code> define el <strong>grosor del borde</strong> en el elemento.</li></ol><ol type="1" id="3f4648ad-99fc-8077-afda-cd0851252d78" class="numbered-list" start="4" dir="auto"><li><strong>Esperar que </strong><code><strong>border-radius</strong></code><strong> funcione</strong> → con <code>border-image</code> activo, <code><strong>border-radius</strong></code><strong> se ignora</strong>.</li></ol><ol type="1" id="3f4648ad-99fc-80ef-9b13-cbe7a62fbc05" class="numbered-list" start="5" dir="auto"><li><strong>Usar </strong><code><strong>border-color</strong></code><strong> junto con </strong><code><strong>border-image</strong></code> → el color se ignora en las zonas donde se aplica la imagen.</li></ol><ol type="1" id="3f4648ad-99fc-80b8-bb18-defd1de7c21f" class="numbered-list" start="6" dir="auto"><li><strong>No usar </strong><code><strong>transparent</strong></code><strong> en </strong><code><strong>border</strong></code> → si el borde tiene color sólido, puede verse detrás de la imagen. Usar <code>border: Xpx solid transparent</code>.</li></ol><ol type="1" id="3f4648ad-99fc-8065-ae3e-d48ea3c664df" class="numbered-list" start="7" dir="auto"><li><strong>Slice mal calculado</strong> → si el slice es mayor que la imagen, el resultado es impredecible. Verificar dimensiones.</li></ol><ol type="1" id="3f4648ad-99fc-8097-81c1-f426a3aa2cda" class="numbered-list" start="8" dir="auto"><li><strong>Olvidar </strong><code><strong>border-image-repeat</strong></code> → por defecto <code>stretch</code>, que puede deformar la imagen. Usar <code>round</code> o <code>repeat</code> según el caso.</li></ol><ol type="1" id="3f4648ad-99fc-8023-8bc7-d0b2cdfe740d" class="numbered-list" start="9" dir="auto"><li><strong>No considerar el rendimiento</strong> → las imágenes de borde pueden ser pesadas; optimizar.</li></ol><ol type="1" id="3f4648ad-99fc-8026-89e8-f95c0ed0eafc" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Esperar compatibilidad total</strong> → <code>border-image</code> tiene buen soporte, pero algunos valores (<code>space</code>, <code>round</code>) pueden variar.</li></ol><ol type="1" id="3f4648ad-99fc-809a-8d54-e3004eef01a4" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Usar </strong><code><strong>border-image</strong></code><strong> con </strong><code><strong>border-collapse: collapse</strong></code><strong> en tablas</strong> → el resultado es impredecible.</li></ol><ol type="1" id="3f4648ad-99fc-8089-b402-e13c85414732" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>No usar </strong><code><strong>webkit-</strong></code><strong> en navegadores antiguos</strong> → hoy ya no es necesario, pero verificar según el público objetivo.</li></ol><h2 id="3f4648ad-99fc-8069-bc4c-dd5d142f8447" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f4648ad-99fc-80a4-97ed-cb16673efd6a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f4648ad-99fc-80a8-912b-fbdf74fefddd" dir="ltr"><th id="virw" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="{;ot" class="simple-table-header-color simple-table-header" style="width:381.1770935058594px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f4648ad-99fc-8095-88b3-dc85f3cdd685" dir="ltr"><td id="virw" class="">Borde con gradiente</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>linear-gradient(...) 1</code></td></tr><tr id="3f4648ad-99fc-80ea-a7f7-f344601d0f6f" dir="ltr"><td id="virw" class="">Borde arcoíris</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>conic-gradient(...) 1</code></td></tr><tr id="3f4648ad-99fc-802a-9dfe-e70482ed0bc5" dir="ltr"><td id="virw" class="">Marco decorativo</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>url(&quot;marco.png&quot;) 30 round</code></td></tr><tr id="3f4648ad-99fc-808d-8809-ce94f2c436a7" dir="ltr"><td id="virw" class="">Borde con textura</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>url(&quot;texture.png&quot;) 30 repeat</code></td></tr><tr id="3f4648ad-99fc-80ef-b4e3-ef87bb09f0e4" dir="ltr"><td id="virw" class="">Borde retro/vintage</td><td id="{;ot" class="" style="width:381.1770935058594px">Imagen ornamentada con slice</td></tr><tr id="3f4648ad-99fc-80e2-8615-d2126cc6137f" dir="ltr"><td id="virw" class="">Borde que sobresale</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>outset</code> con imagen</td></tr><tr id="3f4648ad-99fc-807b-98d4-e541fc6f445f" dir="ltr"><td id="virw" class="">Borde con patrón</td><td id="{;ot" class="" style="width:381.1770935058594px"><code>url(&quot;pattern.png&quot;) 30 round</code></td></tr><tr id="3f4648ad-99fc-8058-8b3c-d625ecabc0c8" dir="ltr"><td id="virw" class="">Borde de tarjeta destacada</td><td id="{;ot" class="" style="width:381.1770935058594px">Gradiente + slice 1</td></tr><tr id="3f4648ad-99fc-8045-8b87-c5446891795b" dir="ltr"><td id="virw" class="">Borde de botón premium</td><td id="{;ot" class="" style="width:381.1770935058594px">Gradiente + border transparente</td></tr><tr id="3f4648ad-99fc-8088-b700-c00b0b656818" dir="ltr"><td id="virw" class="">Borde de alerta</td><td id="{;ot" class="" style="width:381.1770935058594px">Gradiente de color según estado</td></tr></tbody></table><h2 id="3f4648ad-99fc-8054-b80e-c3e886c1e1a0" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f4648ad-99fc-8016-98b4-ffcbc9b2509a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → reserva el espacio del borde (<code>width</code> + <code>style</code>).</li></ul><ul id="3f4648ad-99fc-8006-8277-cc5450fa6b12" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-width</strong></code> → grosor del borde; <code>border-image-width</code> puede sobrescribirlo.</li></ul><ul id="3f4648ad-99fc-8092-b61a-d5e7e7fdf2bb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-style</strong></code> → necesario para que el borde exista.</li></ul><ul id="3f4648ad-99fc-80ea-8db5-e4668c41151d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-color</strong></code> → ignorado cuando <code>border-image</code> está activo.</li></ul><ul id="3f4648ad-99fc-808f-9ff1-d36b8ddbe5ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → ignorado cuando <code>border-image</code> está activo.</li></ul><ul id="3f4648ad-99fc-800a-a764-d2b694a359d1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code> → alternativa para fondos, no bordes.</li></ul><ul id="3f4648ad-99fc-8056-8881-d3b7eb1d478a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → técnica alternativa para bordes con gradiente.</li></ul><ul id="3f4648ad-99fc-8041-bcdb-f6760ac6c33d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → alternativa para bordes sin afectar layout.</li></ul><ul id="3f4648ad-99fc-80ca-9e88-ec3729f7e47e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>outline</strong></code> → no acepta imágenes; <code>border-image</code> es más potente.</li></ul><ul id="3f4648ad-99fc-80e9-9409-da2c1fe2ea82" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>mask-image</strong></code> → alternativa moderna para formas complejas.</li></ul><ul id="3f4648ad-99fc-8078-82d3-c6222a87c006" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>clip-path</strong></code> → recorta el elemento a una forma; no es un borde.</li></ul><p id="3f4648ad-99fc-8034-a3d9-ce6021d27ecb" class="" dir="auto"><strong>Visualización de las 9 regiones:</strong></p><p id="3f4648ad-99fc-805c-ac3f-e8369f9cc978" class="" dir="auto">text</p><pre id="3f4648ad-99fc-8061-bdef-ca0de2af2861" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Imagen original:
+┌─────┬─────────────┬─────┐
+│  1  │      2      │  3  │  ← slice-top
+├─────┼─────────────┼─────┤
+│  4  │      5      │  6  │  ← slice-middle
+├─────┼─────────────┼─────┤
+│  7  │      8      │  9  │  ← slice-bottom
+└─────┴─────────────┴─────┘
+  ↑         ↑         ↑
+slice-left slice-right</code></pre><h2 id="3f4648ad-99fc-80d7-8fbc-f433a35b9c0f" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f4648ad-99fc-80a5-b9be-dcd593b09f6f" class="" dir="auto">Imagina que tienes una <strong>imagen de un marco ornamentado</strong> y quieres usarla como borde de una caja de cualquier tamaño. <code>border-image</code> corta esa imagen en <strong>9 trozos</strong> (4 esquinas, 4 lados, 1 centro) y los coloca alrededor de la caja: las esquinas se quedan tal cual, los lados se estiran o repiten para cubrir el largo, y el centro se descarta (o se usa con <code>fill</code>). Es como usar una <strong>plantilla de marcos escalable</strong>.</p><h2 id="3f4648ad-99fc-8013-b152-c42d11262247" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f4648ad-99fc-803f-9e01-c5b6dd1813e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-image</em><p id="3f4648ad-99fc-80bf-94c0-ffd90048dda3" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-image">https://developer.mozilla.org/es/docs/Web/CSS/border-image</a></p></li></ul><ul id="3f4648ad-99fc-8039-804d-ecd22e4860cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f4648ad-99fc-80a7-805a-e33e16357751" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#border-image">https://www.w3.org/TR/css-backgrounds-3/#border-image</a></p></li></ul><ul id="3f4648ad-99fc-8009-82d5-feaf4357ed18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>border-image</em><p id="3f4648ad-99fc-805c-b97a-e74ae3de581d" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/border-image/">https://css-tricks.com/almanac/properties/b/border-image/</a></p></li></ul><ul id="3f4648ad-99fc-8009-8993-e505e5b4203b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-image-slice</em><p id="3f4648ad-99fc-80f4-a8da-f18621b8f5b9" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-image-slice">https://developer.mozilla.org/es/docs/Web/CSS/border-image-slice</a></p></li></ul><h2 id="3f4648ad-99fc-801d-9802-fcfd509701d2" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f4648ad-99fc-806d-a3b9-f96085466e04" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Requiere </strong><code><strong>border-width</strong></code><strong> y </strong><code><strong>border-style</strong></code> → sin ellos, no hay espacio para la imagen.</li></ul><ul id="3f4648ad-99fc-803d-8008-c1e6b62d5e49" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-color</strong></code><strong> se ignora</strong> → usar <code>border: Xpx solid transparent</code> para reservar el espacio sin color.</li></ul><ul id="3f4648ad-99fc-80b0-9565-fbd6e9b00631" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code><strong> se ignora</strong> → si necesitas esquinas redondeadas con gradiente, usar <code>background-clip</code>.</li></ul><ul id="3f4648ad-99fc-80ec-95b1-c2619edbed16" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El patrón más usado</strong> → <code>border: 8px solid; border-image: linear-gradient(...) 1;</code> para bordes con gradiente.</li></ul><ul id="3f4648ad-99fc-8098-9688-fa14b16abe85" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>slice: 1</strong></code> → usa toda la imagen como borde (ideal para gradientes).</li></ul><ul id="3f4648ad-99fc-8083-b9ed-c398c4e6bfa2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>slice: 30</strong></code> → corta 30px desde cada borde (ideal para marcos decorativos).</li></ul><ul id="3f4648ad-99fc-809a-89a8-f4dc0e49ab8e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>repeat: round</strong></code> → repite la imagen escalándola para encajar sin cortes.</li></ul><ul id="3f4648ad-99fc-80cd-90b6-d9916905b3a9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>repeat: stretch</strong></code> (por defecto) → estira la imagen; puede deformarla.</li></ul><ul id="3f4648ad-99fc-80ac-8cc7-e0372cd51af1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>fill</strong></code> → incluye la región central como fondo.</li></ul><ul id="3f4648ad-99fc-8048-867e-d6035e8a9f6a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alternativa moderna</strong> → para bordes con gradiente, <code>background-clip: padding-box</code> + <code>background: linear-gradient(...)</code> es más simple y compatible.</li></ul><ul id="3f4648ad-99fc-8094-870b-fb94328ec7a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rendimiento</strong> → las imágenes de borde pueden ser pesadas; preferir gradientes cuando sea posible.</li></ul><ul id="3f4648ad-99fc-8033-ac85-f42649fac0bb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuándo usarlo</strong> → solo cuando <code>border-color</code> y <code>border-style</code> no bastan (gradientes, texturas, marcos decorativos).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

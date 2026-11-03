@@ -1,0 +1,928 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>background-origin</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f3648ad-99fc-8062-a506-daf627cfd4cf" class="page sans"><header><h1 class="page-title" dir="auto">background-origin</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f3648ad-99fc-80ed-a28d-c0e4a49e089d" class="" dir="auto">
+</p><h1 id="3f3648ad-99fc-8056-b570-c8bee5f1c2f5" class="" dir="auto"><strong>📄 </strong><code><strong>background-origin</strong></code></h1><h2 id="3f3648ad-99fc-8059-abc8-c976c9932f72" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f3648ad-99fc-8050-bbe8-db62d38f09ec" class="" dir="auto"><code>background-origin</code> es una <strong>propiedad CSS</strong> que establece <strong>desde dónde se posiciona</strong> una imagen de fondo (<code>background-image</code>): desde el borde exterior (<code>border-box</code>), desde el interior del borde (<code>padding-box</code>) o desde el contenido (<code>content-box</code>).</p><h2 id="3f3648ad-99fc-80f1-944b-e035fe40eacb" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f3648ad-99fc-80f9-a529-faad7ce88691" class="" dir="auto">Forma parte de las <strong>propiedades de fondo</strong> (junto con <code>background-image</code>, <code>background-position</code>, <code>background-size</code>, <code>background-clip</code>, etc.). </p><p id="3f4648ad-99fc-80ba-8e4f-cb37d841938e" class="" dir="auto">Controla el <strong>punto de referencia</strong> para calcular la posición del fondo.</p><p id="3f3648ad-99fc-80cb-a6da-fbc3406073ec" class="" dir="auto">Es fácil de confundir con <code>background-clip</code>, pero son complementarias:</p><ul id="3f3648ad-99fc-8083-a68c-d69fd9371967" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-origin</strong></code> → <strong>desde dónde</strong> se calcula la posición del fondo.</li></ul><ul id="3f3648ad-99fc-8014-8024-de5383ef05f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → <strong>hasta dónde</strong> se pinta el fondo.</li></ul><p id="3f3648ad-99fc-8039-bd94-c442135ecb3b" class="" dir="auto">Ambas pueden tener valores distintos, lo que permite efectos interesantes (por ejemplo, que el fondo empiece desde el borde pero se recorte al padding).</p><h2 id="3f3648ad-99fc-8026-8880-df3190acbe22" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f3648ad-99fc-8092-b5b2-cac529bd6c4a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Alinear patrones con el <strong>contenido</strong> en lugar del borde.</li></ul><ul id="3f3648ad-99fc-809a-94a4-fd097da4407d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar que el fondo se dibuje bajo el borde en cajas con bordes gruesos.</li></ul><ul id="3f3648ad-99fc-802b-928f-c042251318a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar la posición de gradientes respecto al padding o al contenido.</li></ul><ul id="3f3648ad-99fc-80c9-963b-feac5bc14bd7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear efectos donde el fondo empieza desde una zona concreta.</li></ul><ul id="3f3648ad-99fc-800b-88f5-c32ec2eb39a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ajustar el posicionamiento de <strong>múltiples capas</strong> de fondo.</li></ul><h2 id="3f3648ad-99fc-8073-9508-d1a082249ebd" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f3648ad-99fc-8016-80eb-ef5f74b5ffba" class="" dir="auto">El navegador calcula la posición de la imagen de fondo desde el área indicada por <code>background-origin</code>:</p><ol type="1" id="3f3648ad-99fc-80b3-aeab-fec4d3459bc2" class="numbered-list" start="1" dir="auto"><li><code><strong>padding-box</strong></code> (por defecto) → desde el <strong>interior del borde</strong> (incluye padding).</li></ol><ol type="1" id="3f3648ad-99fc-802d-b2e9-f4eae5c70fb0" class="numbered-list" start="2" dir="auto"><li><code><strong>border-box</strong></code> → desde el <strong>borde exterior</strong> (incluye border + padding).</li></ol><ol type="1" id="3f3648ad-99fc-8008-973c-ccdd043ecff2" class="numbered-list" start="3" dir="auto"><li><code><strong>content-box</strong></code> → desde el <strong>contenido</strong> (excluye padding y border).</li></ol><p id="3f3648ad-99fc-80d3-b924-e7e3ac85ca93" class="" dir="auto">Reglas clave:</p><ul id="3f3648ad-99fc-80c0-8cb2-c003261dc858" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Afecta a </strong><code><strong>background-position</strong></code> → el punto <code>0% 0%</code> cambia según el origen.</li></ul><ul id="3f3648ad-99fc-8081-9b23-f4f724b19334" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Afecta a </strong><code><strong>background-size</strong></code> → el porcentaje se calcula respecto al área del origen.</li></ul><ul id="3f3648ad-99fc-8048-978b-e8824d42d8c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No afecta a </strong><code><strong>background-clip</strong></code> → son independientes, pero se combinan.</li></ul><ul id="3f3648ad-99fc-804a-80ef-ebb8678ca62e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Por defecto </strong><code><strong>padding-box</strong></code> → la mayoría de las veces no se nota, porque los bordes suelen ser finos.</li></ul><ul id="3f3648ad-99fc-8033-8fd3-d498d0403a88" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo aplica a </strong><code><strong>background-image</strong></code> → no al color de fondo.</li></ul><ul id="3f3648ad-99fc-8020-ad3f-e5ce619ee0ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples capas</strong> → cada capa tiene su propio <code>background-origin</code>.</li></ul><p id="3f3648ad-99fc-804a-b7e9-d36abdac5fcc" class="" dir="auto">⚠️ Es especialmente visible cuando hay <strong>bordes gruesos</strong> o <strong>padding grande</strong>.</p><h2 id="3f3648ad-99fc-80dc-85ee-cf76628c5bbd" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f3648ad-99fc-8074-9138-d97b13b3b9fa" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  background-origin: valor;
+}</code></pre><h3 id="3f3648ad-99fc-80ce-9a05-d4d5b18aaf81" class="" dir="auto"><strong>Múltiples capas</strong></h3><pre id="3f3648ad-99fc-807d-8b4a-c2e3b1a22a3b" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-origin: content-box, padding-box, border-box;
+/* cada valor corresponde a la capa en la misma posición de background-image */</code></pre><h2 id="3f3648ad-99fc-801d-bd28-e05c026b09fe" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f3648ad-99fc-805a-b495-c610b96b7099" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">/* 1. Valor por defecto (padding-box) */
+.elemento {
+  background-image: url(&quot;pattern.png&quot;);
+  background-origin: padding-box;
+  /* La imagen empieza desde el interior del borde */
+}
+
+/* 2. Desde el borde exterior */
+.border-origin {
+  background-image: url(&quot;pattern.png&quot;);
+  background-origin: border-box;
+  /* La imagen empieza desde el borde exterior */
+}
+
+/* 3. Desde el contenido */
+.content-origin {
+  background-image: url(&quot;pattern.png&quot;);
+  background-origin: content-box;
+  /* La imagen empieza desde el contenido (excluye padding) */
+}
+
+/* 4. Combinado con background-clip */
+.combinado {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-origin: content-box;   /* posición desde el contenido */
+  background-clip: padding-box;     /* se pinta hasta el padding */
+  padding: 20px;
+  border: 10px solid #333;
+}
+
+/* 5. Múltiples capas con distintos orígenes */
+.layered {
+  background-image:
+    url(&quot;icon.png&quot;),
+    url(&quot;pattern.png&quot;);
+  background-origin: content-box, border-box;
+  background-repeat: no-repeat, repeat;
+}
+
+/* 6. Gradiente que empieza desde el contenido */
+.gradient-content {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  background-origin: content-box;
+  padding: 20px;
+}
+
+/* 7. Shorthand con background */
+.card {
+  background: url(&quot;bg.jpg&quot;) content-box / cover no-repeat;
+  /* origin se puede especificar en el shorthand */
+}
+
+/* 8. Diferencia visible con border grueso */
+.grueso {
+  background-image: url(&quot;pattern.png&quot;);
+  background-origin: padding-box; /* por defecto */
+  border: 20px solid transparent;
+  background-clip: padding-box;
+  /* El fondo NO se extiende bajo el borde */
+}</code></pre><h3 id="3f3648ad-99fc-80c8-ae9b-cad7dadba1e0" class="" dir="auto"><strong>Diferencia visual entre valores</strong></h3><pre id="3f3648ad-99fc-80b0-8850-fd2acd689b09" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;div class=&quot;caja&quot;&gt;Contenido&lt;/div&gt;</code></pre><pre id="3f3648ad-99fc-80c3-a4cb-d4b5a24cfca5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.caja {
+  width: 200px;
+  height: 100px;
+  padding: 20px;
+  border: 10px solid #333;
+  background-image: url(&quot;dot.png&quot;);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}
+
+/* padding-box (por defecto) */
+.origen-padding {
+  background-origin: padding-box;
+  /* El patrón empieza desde el interior del borde (incluye padding) */
+}
+
+/* border-box */
+.origen-border {
+  background-origin: border-box;
+  /* El patrón empieza desde el borde exterior */
+}
+
+/* content-box */
+.origen-content {
+  background-origin: content-box;
+  /* El patrón empieza desde el contenido (excluye padding) */
+}</code></pre><h3 id="3f3648ad-99fc-80fa-b98b-f3386a1b7ded" class="" dir="auto"><strong>Combinación con </strong><code><strong>background-clip</strong></code></h3><pre id="3f3648ad-99fc-80af-85aa-dfbbc14b8fb7" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* El fondo se posiciona desde el contenido pero se pinta hasta el borde */
+.combo-1 {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-origin: content-box;
+  background-clip: border-box;
+}
+
+/* El fondo se posiciona desde el borde pero se pinta solo en el padding */
+.combo-2 {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-origin: border-box;
+  background-clip: padding-box;
+}
+
+/* El fondo se posiciona y se pinta solo en el contenido */
+.combo-3 {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-origin: content-box;
+  background-clip: content-box;
+}</code></pre><h3 id="3f3648ad-99fc-80d7-a125-d7b9f6de9e35" class="" dir="auto"><strong>Patrón alineado con el contenido</strong></h3><pre id="3f3648ad-99fc-8070-af71-f41681208289" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.codigo {
+  background-image: linear-gradient(to bottom, #eee 1px, transparent 1px);
+  background-size: 100% 24px; /* alineado con line-height */
+  background-origin: content-box; /* desde el texto, no desde el padding */
+  padding: 20px;
+  line-height: 24px;
+  font-family: monospace;
+}</code></pre><h2 id="3f3648ad-99fc-80f4-9cab-fefb35439e5c" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f3648ad-99fc-80a2-912f-eca0deda3c50" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>background-origin</strong></code><strong> con </strong><code><strong>background-clip</strong></code> → <code>origin</code> = desde dónde se <strong>posiciona</strong>; <code>clip</code> = hasta dónde se <strong>pinta</strong>. Error muy común.</li></ol><ol type="1" id="3f3648ad-99fc-80d6-98d4-e066719ea0e2" class="numbered-list" start="2" dir="auto"><li><strong>Esperar que afecte al color de fondo</strong> → solo afecta a <code>background-image</code>. El color siempre cubre según <code>background-clip</code>.</li></ol><ol type="1" id="3f3648ad-99fc-807f-8adb-e6a49351fff0" class="numbered-list" start="3" dir="auto"><li><strong>Usarlo sin bordes gruesos</strong> → con bordes finos apenas se nota la diferencia. Es más relevante con <code>border</code> grande o <code>padding</code> grande.</li></ol><ol type="1" id="3f3648ad-99fc-8087-8a3b-cc09969a6d3b" class="numbered-list" start="4" dir="auto"><li><strong>Olvidar que el valor por defecto es </strong><code><strong>padding-box</strong></code> → si no lo cambias, no verás diferencia.</li></ol><ol type="1" id="3f3648ad-99fc-8023-968a-f589dfe2994e" class="numbered-list" start="5" dir="auto"><li><strong>Confundir con </strong><code><strong>background-position</strong></code> → <code>origin</code> define el <strong>punto de referencia</strong>; <code>position</code> define <strong>dónde</strong> se coloca dentro de ese origen.</li></ol><ol type="1" id="3f3648ad-99fc-807e-8b31-e101d694e07f" class="numbered-list" start="6" dir="auto"><li><strong>No considerar múltiples capas</strong> → cada capa tiene su propio <code>origin</code>, separado por comas.</li></ol><ol type="1" id="3f3648ad-99fc-801b-97d4-e96c5e6e5c9f" class="numbered-list" start="7" dir="auto"><li><strong>Usar </strong><code><strong>background</strong></code><strong> shorthand y perder el origin</strong> → el shorthand puede incluir <code>origin</code>, pero si no lo especificas, se resetea a <code>padding-box</code>.</li></ol><ol type="1" id="3f3648ad-99fc-8039-9b3d-e6ef1c7394ac" class="numbered-list" start="8" dir="auto"><li><strong>Pensar que afecta al tamaño de la caja</strong> → no, solo al posicionamiento del fondo.</li></ol><ol type="1" id="3f3648ad-99fc-80e5-9082-e138131c9f53" class="numbered-list" start="9" dir="auto"><li><strong>Usarlo con gradientes y esperar cambios grandes</strong> → los gradientes suelen cubrir toda la caja; el efecto es sutil.</li></ol><ol type="1" id="3f3648ad-99fc-8003-8bf4-c97a1f76dbd6" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Confundir </strong><code><strong>content-box</strong></code><strong> con &quot;solo el texto&quot;</strong> → <code>content-box</code> es el área de contenido de la caja, no el texto en sí.</li></ol><h2 id="3f3648ad-99fc-802b-8a57-f2b85d9e2ca8" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f3648ad-99fc-808d-ad49-c2b56721e7aa" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-80c2-80c8-f756c48d1b0e" dir="ltr"><th id="pwu~" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="D?k~" class="simple-table-header-color simple-table-header" style="width:481.1125030517578px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-80d1-b396-c26d7eddf304" dir="ltr"><td id="pwu~" class="">Patrón alineado con texto</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>content-box</code></td></tr><tr id="3f3648ad-99fc-80b5-a2c6-e178b6ea5dfc" dir="ltr"><td id="pwu~" class="">Fondo que empieza bajo el borde</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>border-box</code></td></tr><tr id="3f3648ad-99fc-8061-9eea-f355121c3482" dir="ltr"><td id="pwu~" class="">Fondo normal (por defecto)</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>padding-box</code></td></tr><tr id="3f3648ad-99fc-80d2-b776-e6ba70abc9aa" dir="ltr"><td id="pwu~" class="">Código con líneas guía</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>content-box</code> + <code>background-size</code></td></tr><tr id="3f3648ad-99fc-80fd-873b-dd548daff631" dir="ltr"><td id="pwu~" class="">Múltiples capas</td><td id="D?k~" class="" style="width:481.1125030517578px">Valores separados por comas</td></tr><tr id="3f3648ad-99fc-80df-bdb3-f52688c3a378" dir="ltr"><td id="pwu~" class="">Gradiente con padding</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>content-box</code></td></tr><tr id="3f3648ad-99fc-8067-9d43-e1d14db2e02b" dir="ltr"><td id="pwu~" class="">Fondo que evita el padding</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>border-box</code></td></tr><tr id="3f3648ad-99fc-80b5-9247-ff275462488a" dir="ltr"><td id="pwu~" class="">Input con icono</td><td id="D?k~" class="" style="width:481.1125030517578px"><code>padding-box</code> (por defecto)</td></tr></tbody></table><h2 id="3f3648ad-99fc-8089-9724-ce58d3878ec4" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f3648ad-99fc-800d-9f8e-e4d5f7516132" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → hasta dónde se <strong>pinta</strong> el fondo (complementaria).</li></ul><ul id="3f3648ad-99fc-8088-9838-fdad9ce8827a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-position</strong></code> → dónde se coloca la imagen <strong>dentro</strong> del origen.</li></ul><ul id="3f3648ad-99fc-8030-a303-d23cd9e9c855" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size</strong></code> → el porcentaje se calcula respecto al origen.</li></ul><ul id="3f3648ad-99fc-8044-9423-c701bcc9688f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code> → la imagen afectada.</li></ul><ul id="3f3648ad-99fc-8067-a97b-e74b3b6afa00" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-color</strong></code> → no le afecta <code>background-origin</code>.</li></ul><ul id="3f3648ad-99fc-807f-bdd7-c75ab91673ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background</strong></code> → shorthand que incluye <code>background-origin</code>.</li></ul><ul id="3f3648ad-99fc-807f-a926-c939bc867d88" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → define cómo se calculan las cajas, pero no afecta a <code>origin</code>.</li></ul><ul id="3f3648ad-99fc-80f7-bcc8-e205cffa4e75" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> / <code><strong>padding</strong></code> → cuanto más grandes, más visible es el efecto.</li></ul><ul id="3f3648ad-99fc-8095-9b65-c3c69c4565c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-repeat</strong></code> → el patrón se genera desde el origen.</li></ul><p id="3f3648ad-99fc-8082-931d-e50677f6b429" class="" dir="auto"><strong>Visualización de las áreas:</strong></p><p id="3f3648ad-99fc-809c-a7bf-f049f6ccd520" class="" dir="auto">
+</p><pre id="3f3648ad-99fc-8073-aa0e-daaee042b3dd" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────────┐
+│  border-box                 │  ← borde exterior
+│  ┌───────────────────────┐  │
+│  │  padding-box          │  │  ← interior del borde (incluye padding)
+│  │  ┌─────────────────┐  │  │
+│  │  │  content-box    │  │  │  ← solo el contenido
+│  │  │  ┌───────────┐  │  │  │
+│  │  │  │ contenido │  │  │  │
+│  │  │  └───────────┘  │  │  │
+│  │  └─────────────────┘  │  │
+│  └───────────────────────┘  │
+└─────────────────────────────┘
+
+background-origin: border-box  → posición calculada desde el borde
+background-origin: padding-box → posición calculada desde el padding (defecto)
+background-origin: content-box → posición calculada desde el contenido</code></pre><h2 id="3f3648ad-99fc-8009-a6b6-c1524d1b342d" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f3648ad-99fc-809d-a143-f51c7f5e86fe" class="" dir="auto">Imagina que la caja del elemento es un <strong>cuadro enmarcado</strong>:</p><ul id="3f3648ad-99fc-80d0-8831-c665e72cb07f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-box</strong></code> → empiezas a colocar el fondo desde el <strong>marco exterior</strong>.</li></ul><ul id="3f3648ad-99fc-80fb-a12a-fb4a074b4aff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>padding-box</strong></code> → empiezas desde el <strong>borde interior del marco</strong> (por defecto).</li></ul><ul id="3f3648ad-99fc-8041-b795-c1a7300ca766" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>content-box</strong></code> → empiezas desde la <strong>zona donde va la foto</strong>, sin contar el passe-partout.</li></ul><p id="3f3648ad-99fc-8096-abfa-e8283d1f86b6" class="" dir="auto"><code>background-position</code> sería <strong>dónde</strong> colocas la imagen dentro de esa zona, y <code>background-clip</code> sería <strong>hasta dónde</strong> dejas que se pinte el fondo.</p><h2 id="3f3648ad-99fc-80a4-b26d-d13bf4ba1318" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f3648ad-99fc-8077-a7c9-d4f61c466fe0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>background-origin</em><p id="3f3648ad-99fc-80c4-92e9-c0f3f73e3a0a" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-origin">https://developer.mozilla.org/es/docs/Web/CSS/background-origin</a></p></li></ul><ul id="3f3648ad-99fc-8085-a341-d1322caa08a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f3648ad-99fc-8093-b2ff-d54a78e3feec" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#background-origin">https://www.w3.org/TR/css-backgrounds-3/#background-origin</a></p></li></ul><ul id="3f3648ad-99fc-80ae-a122-f9068541ac66" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>background-origin</em><p id="3f3648ad-99fc-80d5-a27c-c2ee669e1773" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/background-origin/">https://css-tricks.com/almanac/properties/b/background-origin/</a></p></li></ul><ul id="3f3648ad-99fc-805c-93cd-f4f22640fede" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>background-clip</em><p id="3f3648ad-99fc-8035-bfb6-cd1e47735cb2" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-clip">https://developer.mozilla.org/es/docs/Web/CSS/background-clip</a></p></li></ul><h2 id="3f3648ad-99fc-80b8-9c73-e94dc50f0c9e" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f3648ad-99fc-80c5-a2b6-fb2994579b84" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regla mental</strong>: <code>origin</code> = <strong>desde dónde</strong> se posiciona; <code>clip</code> = <strong>hasta dónde</strong> se pinta.</li></ul><ul id="3f3648ad-99fc-8016-a007-daa610d5f626" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valor por defecto </strong><code><strong>padding-box</strong></code> → la mayoría de las veces no necesitas cambiarlo.</li></ul><ul id="3f3648ad-99fc-80ee-9d4a-e4692aa9d8bc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo afecta a </strong><code><strong>background-image</strong></code> → no al color de fondo.</li></ul><ul id="3f3648ad-99fc-80f8-b000-d2b011f52048" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Más visible con bordes gruesos</strong> → con <code>border: 20px solid</code> se nota claramente.</li></ul><ul id="3f3648ad-99fc-802b-bd72-c11b301e01f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Combinación útil</strong>: <code>background-origin: content-box</code> + <code>background-clip: border-box</code> → el fondo se posiciona desde el contenido pero se pinta hasta el borde.</li></ul><ul id="3f3648ad-99fc-80c3-8481-e1bcf07b17bb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Código con líneas guía</strong> → <code>background-origin: content-box</code> + <code>background-size: 100% &lt;line-height&gt;</code> alinea las líneas con el texto.</li></ul><ul id="3f3648ad-99fc-8061-99bd-ed803b231a55" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No confundir con </strong><code><strong>background-position</strong></code> → <code>origin</code> es el <strong>sistema de coordenadas</strong>; <code>position</code> es el <strong>punto</strong> dentro de él.</li></ul><ul id="3f3648ad-99fc-80ec-b36a-d9ad75cd9e29" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples capas</strong> → cada capa tiene su propio <code>origin</code>, separado por comas.</li></ul><ul id="3f3648ad-99fc-80ad-bb1c-e151587049d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En la práctica</strong>, se usa menos que <code>background-clip</code> o <code>background-size</code>; muchos desarrolladores ni lo tocan.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,892 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>object-fit</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-8013-b37d-c60472ccd21a" class="page sans"><header><h1 class="page-title" dir="auto"><code>object-fit</code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h1 id="3f5648ad-99fc-80f7-8e94-c90f8b77d968" class="" dir="auto"><strong>📄 </strong><code><strong>object-fit</strong></code></h1><h2 id="3f5648ad-99fc-8063-8993-f59c573df9ff" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-80e5-a830-f30869cd4e5a" class="" dir="auto"><code>object-fit</code> es una <strong>propiedad CSS</strong> que define <strong>cómo se ajusta el contenido de un elemento reemplazado</strong> (como <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;canvas&gt;</code>, <code>&lt;picture&gt;</code>) dentro de su caja, cuando el tamaño de la caja y el del contenido no coinciden.</p><h2 id="3f5648ad-99fc-800e-9d5a-c336ea2b10f7" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-806f-9fa8-db704cd88dcb" class="" dir="auto">Forma parte de las <strong>propiedades de medios reemplazados</strong> (junto con <code>object-position</code>). </p><p id="3f5648ad-99fc-8002-a45d-e31617340340" class="" dir="auto">Solo aplica a <strong>elementos reemplazados</strong>: imágenes, videos, iframes, canvas, etc.</p><p id="3f5648ad-99fc-8025-889b-dbbb5413fa32" class="" dir="auto">No funciona en <code>&lt;div&gt;</code> ni en elementos normales. </p><p id="3f5648ad-99fc-80a2-b979-ff478de4789b" class="" dir="auto">Para ellos se usa <code>background-size</code> si el contenido es una imagen de fondo.</p><p id="3f5648ad-99fc-8055-a5cb-f5c1b693a0e5" class="" dir="auto">El valor por defecto es <code>fill</code>, que <strong>deforma</strong> el contenido para ocupar toda la caja → por eso muchas imágenes se ven &quot;aplastadas&quot; cuando solo se define <code>width</code> y <code>height</code> sin <code>object-fit</code>.</p><h2 id="3f5648ad-99fc-806f-a047-eacf7ce68d1b" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8043-aa63-d285ecb48576" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar que las <strong>imágenes se deformen</strong> al fijar <code>width</code> y <code>height</code>.</li></ul><ul id="3f5648ad-99fc-8017-bff0-cdcc66bdd443" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Recortar imágenes para llenar una caja (tipo &quot;cover&quot; de fondo).</li></ul><ul id="3f5648ad-99fc-8072-b1f9-c6700f99b459" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ajustar videos a un contenedor sin deformarlos.</li></ul><ul id="3f5648ad-99fc-80e2-b057-f1198bf3b648" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>avatares cuadrados</strong> a partir de fotos rectangulares.</li></ul><ul id="3f5648ad-99fc-8010-bf59-e3ea88bcf29d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>galerías</strong> con miniaturas uniformes.</li></ul><ul id="3f5648ad-99fc-8052-ba82-cb9592fdc3a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar cómo se ve una imagen dentro de una tarjeta de tamaño fijo.</li></ul><h2 id="3f5648ad-99fc-8056-8bab-d3ab9f8b5802" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-804c-a134-c6442ed33752" class="" dir="auto">El navegador dibuja el contenido del elemento dentro de su caja siguiendo el valor de <code>object-fit</code>:</p><ol type="1" id="3f5648ad-99fc-80b1-8b90-ea997a0e50bf" class="numbered-list" start="1" dir="auto"><li>Se calcula la caja del elemento (<code>width</code> × <code>height</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80a6-b11d-e6686b9d98a1" class="numbered-list" start="2" dir="auto"><li>Se calcula el <strong>tamaño intrínseco</strong> del contenido (imagen/video).</li></ol><ol type="1" id="3f5648ad-99fc-803c-a953-dfea1ae78c99" class="numbered-list" start="3" dir="auto"><li>Según <code>object-fit</code>, el contenido se escala, recorta o ajusta dentro de la caja.</li></ol><ol type="1" id="3f5648ad-99fc-80ca-a83a-e8a79e97bd87" class="numbered-list" start="4" dir="auto"><li><code>object-position</code> controla la <strong>posición</strong> del contenido dentro de la caja (por defecto <code>50% 50%</code> = centro).</li></ol><p id="3f5648ad-99fc-80b0-a2f6-df5c92022499" class="" dir="auto">⚠️ <code>object-fit</code> <strong>no cambia el tamaño de la caja</strong>, solo cómo se pinta el contenido dentro de ella.</p><h2 id="3f5648ad-99fc-80ac-98d1-fff9d7b4c2db" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8022-a274-d6b7c04deca5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  object-fit: valor;
+  object-position: valor; /* opcional, controla la posición */
+}</code></pre><pre id="3f5648ad-99fc-802d-8290-e3850ba6fee1" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">object-position: center;         /* por defecto */
+object-position: top;            /* arriba centrado */
+object-position: bottom right;   /* abajo a la derecha */
+object-position: 50% 20%;        /* 50% horizontal, 20% vertical */
+object-position: 20px 40px;      /* desplazamiento en px */</code></pre><h2 id="3f5648ad-99fc-80d5-95c9-d5522f32d0e4" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8079-875a-fa30322a2d51" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Imagen que cubre su caja sin deformarse */
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* 2. Avatar cuadrado desde foto rectangular */
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 3. Imagen que cabe entera (con posible espacio) */
+.logo {
+  width: 200px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* 4. Video que llena su contenedor */
+video {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+/* 5. Control de posición del recorte */
+.hero-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: top; /* prioriza la parte superior */
+}
+
+/* 6. Miniatura de galería */
+.thumb {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 7. Imagen sin escalar */
+.icon {
+  width: 100px;
+  height: 100px;
+  object-fit: none;
+}
+
+/* 8. Imagen que se reduce solo si es necesario */
+.responsive-img {
+  width: 300px;
+  height: 200px;
+  object-fit: scale-down;
+}</code></pre><h3 id="3f5648ad-99fc-80ef-ae52-f0bb9e51af1a" class="" dir="auto"><strong>Comparativa visual de valores</strong></h3><pre id="3f5648ad-99fc-80b7-997f-f7e099a9af1b" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Imagen original: 800×600 (ratio 4:3) */
+/* Caja destino: 200×200 (ratio 1:1) */
+
+.fill       { object-fit: fill; }       /* ⚠️ deformada */
+.contain    { object-fit: contain; }    /* ✅ entera, con espacio arriba/abajo */
+.cover      { object-fit: cover; }      /* ✅ llena, recorta lados */
+.none       { object-fit: none; }       /* ⚠️ recortada, tamaño original */
+.scale-down { object-fit: scale-down; } /* como contain, pero solo si es más pequeña */</code></pre><h3 id="3f5648ad-99fc-8041-a158-c3d5f583fded" class="" dir="auto"><strong>Combinación con </strong><code><strong>object-position</strong></code></h3><pre id="3f5648ad-99fc-8034-a954-e5b93c96c405" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Foto de persona: queremos que se vea la cara (arriba) */
+.portrait {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Paisaje: queremos ver el horizonte (centro-abajo) */
+.landscape {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center 70%;
+}</code></pre><h2 id="3f5648ad-99fc-80a5-aebb-cf954348c647" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-802e-93b7-dc6f8baad106" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>object-fit</strong></code><strong> con </strong><code><strong>background-size</strong></code> → <code>object-fit</code> es para <strong>elementos reemplazados</strong> (img, video); <code>background-size</code> para <strong>imágenes de fondo</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8036-a650-e26da67c71af" class="numbered-list" start="2" dir="auto"><li><strong>Usarlo en elementos no reemplazados</strong> → no funciona en <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, etc. Para esos, usar <code>background-size</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80ee-9e1c-c2f664dfba30" class="numbered-list" start="3" dir="auto"><li><strong>Olvidar </strong><code><strong>object-position</strong></code> → por defecto recorta desde el centro; a veces la parte importante de la imagen está arriba o abajo.</li></ol><ol type="1" id="3f5648ad-99fc-8055-8323-e266141b112e" class="numbered-list" start="4" dir="auto"><li><strong>No definir </strong><code><strong>width</strong></code><strong> y </strong><code><strong>height</strong></code> → sin ambos, <code>object-fit</code> no tiene efecto (la caja se ajusta al contenido).</li></ol><ol type="1" id="3f5648ad-99fc-8098-b3f1-d90e38e91667" class="numbered-list" start="5" dir="auto"><li><strong>Usar </strong><code><strong>fill</strong></code><strong> sin saberlo</strong> → es el valor por defecto y <strong>deforma</strong> las imágenes. Muchos bugs visuales vienen de aquí.</li></ol><ol type="1" id="3f5648ad-99fc-80f6-9b8c-d63834e91b25" class="numbered-list" start="6" dir="auto"><li><strong>Confundir </strong><code><strong>cover</strong></code><strong> con </strong><code><strong>contain</strong></code> → <code>cover</code> llena la caja (recorta); <code>contain</code> muestra todo (deja espacio).</li></ol><ol type="1" id="3f5648ad-99fc-80b3-9d7c-fe737a4b439a" class="numbered-list" start="7" dir="auto"><li><strong>Aplicar </strong><code><strong>object-fit</strong></code><strong> a </strong><code><strong>&lt;iframe&gt;</strong></code> → funciona en teoría, pero pocos navegadores lo soportan correctamente.</li></ol><ol type="1" id="3f5648ad-99fc-80ec-a7e9-c00468c3e0bf" class="numbered-list" start="8" dir="auto"><li><strong>Olvidar el </strong><code><strong>aspect-ratio</strong></code> → a veces es mejor usar <code>aspect-ratio</code> + <code>object-fit: cover</code> que fijar <code>height</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8064-aef0-c4f47022cfe7" class="numbered-list" start="9" dir="auto"><li><strong>No considerar CLS</strong> → reservar el espacio con <code>width</code>/<code>height</code> o <code>aspect-ratio</code> evita saltos de layout.</li></ol><ol type="1" id="3f5648ad-99fc-80e0-85df-c06c2ae4b0c6" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Usarlo en SVG</strong> → los SVG tienen su propio sistema de <code>viewBox</code>; <code>object-fit</code> funciona de forma limitada.</li></ol><h2 id="3f5648ad-99fc-80bc-88c2-e8aeb74b1985" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-8096-a288-f6ecd5377289" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8089-aa4c-c22d024c2ff7" dir="ltr"><th id="TXNn" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="OXgD" class="simple-table-header-color simple-table-header" style="width:463.5749969482422px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8063-aa49-fc93dda45f9f" dir="ltr"><td id="TXNn" class="">Tarjeta con imagen</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code></td></tr><tr id="3f5648ad-99fc-8016-87d8-d54e9111c577" dir="ltr"><td id="TXNn" class="">Avatar circular</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code></td></tr><tr id="3f5648ad-99fc-801e-820c-f52e108d42b5" dir="ltr"><td id="TXNn" class="">Logo con transparencia</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>contain</code></td></tr><tr id="3f5648ad-99fc-8035-932b-c69ad86aab6e" dir="ltr"><td id="TXNn" class="">Video hero</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code></td></tr><tr id="3f5648ad-99fc-802a-91b7-f2facf192869" dir="ltr"><td id="TXNn" class="">Miniatura de galería</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code></td></tr><tr id="3f5648ad-99fc-8090-a7c5-d477a94e175f" dir="ltr"><td id="TXNn" class="">Icono decorativo</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>contain</code> o <code>none</code></td></tr><tr id="3f5648ad-99fc-8034-b0cb-cf446a9a1fa6" dir="ltr"><td id="TXNn" class="">Imagen de producto</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>contain</code> (no recortar)</td></tr><tr id="3f5648ad-99fc-80bc-a29f-fc7da1cd135b" dir="ltr"><td id="TXNn" class="">Banner publicitario</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code></td></tr><tr id="3f5648ad-99fc-8016-829b-e859fa5d3011" dir="ltr"><td id="TXNn" class="">Ilustración en tarjeta</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>contain</code></td></tr><tr id="3f5648ad-99fc-80e9-a37b-ca395f11c53f" dir="ltr"><td id="TXNn" class="">Foto de perfil rectangular</td><td id="OXgD" class="" style="width:463.5749969482422px"><code>cover</code> + <code>object-position: top</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-8078-8e9e-cc2da5b6657f" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-80d2-b50b-e99f20b74d04" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>object-position</strong></code> → controla la posición del contenido dentro de la caja.</li></ul><ul id="3f5648ad-99fc-8059-99d9-c60a842b7c26" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size</strong></code> → equivalente para imágenes de fondo.</li></ul><ul id="3f5648ad-99fc-805f-8d24-d77f9a316b33" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-position</strong></code> → equivalente para fondos.</li></ul><ul id="3f5648ad-99fc-80d8-9549-e68ae20e98ec" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>aspect-ratio</strong></code> → define la proporción de la caja; combinado con <code>object-fit: cover</code> es muy potente.</li></ul><ul id="3f5648ad-99fc-80b2-882a-d3eed0945909" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>width</strong></code><strong> / </strong><code><strong>height</strong></code> → deben estar definidos para que <code>object-fit</code> tenga efecto.</li></ul><ul id="3f5648ad-99fc-805f-8216-c5ce7eadc722" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>overflow</strong></code> → <code>object-fit</code> no genera scroll; el contenido se recorta o escala.</li></ul><ul id="3f5648ad-99fc-80c5-b969-dc4599083f02" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Elementos reemplazados</strong> → img, video, canvas, iframe, embed, object.</li></ul><ul id="3f5648ad-99fc-808d-912e-fe48ba3a83b7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;picture&gt;</strong></code><strong> y </strong><code><strong>srcset</strong></code> → combinar con <code>object-fit</code> para imágenes responsive.</li></ul><ul id="3f5648ad-99fc-807f-8885-fa2deb90f4d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CLS</strong> → reservar espacio con <code>aspect-ratio</code> evita saltos de layout.</li></ul><p id="3f5648ad-99fc-80cd-8aa4-dd54ac962c0f" class="" dir="auto"><strong>Comparativa visual:</strong></p><pre id="3f5648ad-99fc-8034-a298-f131c30c98d8" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Caja 200×200, imagen 800×600 (4:3)
+
+fill        contain      cover        none        scale-down
+┌──────┐    ┌──────┐    ┌──────┐    ┌──────┐    ┌──────┐
+│██████│    │      │    │██████│    │██████│    │      │
+│██████│    │██████│    │██████│    │██████│    │██████│
+│██████│    │██████│    │██████│    │██████│    │██████│
+│██████│    │      │    │██████│    │██████│    │      │
+└──────┘    └──────┘    └──────┘    └──────┘    └──────┘
+deformada   entera      recorta     original    como contain
+            con aire    los lados   recortada   (si es más pequeña)</code></pre><h2 id="3f5648ad-99fc-80c6-a689-e9ce77d7afe5" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-80ba-a40a-e7759c3e19a3" class="" dir="auto">Imagina que tienes una <strong>foto impresa</strong> y un <strong>marco</strong> de distinta proporción. <code>object-fit</code> decide cómo colocarla:</p><ul id="3f5648ad-99fc-80a5-ae02-f7b503895797" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>fill</code> → <strong>estiras</strong> la foto para que llene el marco (se deforma).</li></ul><ul id="3f5648ad-99fc-806a-aa10-feb08992dd5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>contain</code> → la <strong>encoges</strong> hasta que quepa entera (deja aire alrededor).</li></ul><ul id="3f5648ad-99fc-80bf-9a75-c1fca09973c6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>cover</code> → la <strong>agrandas</strong> hasta cubrir todo el marco y <strong>recortas</strong> lo que sobra.</li></ul><ul id="3f5648ad-99fc-803f-9274-f68b8f3d4249" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>none</code> → la dejas a su tamaño original, aunque no quepa.</li></ul><ul id="3f5648ad-99fc-80d7-8eed-cc68c4e9d5cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>scale-down</code> → como <code>contain</code>, pero solo si hay que encogerla.</li></ul><p id="3f5648ad-99fc-801c-a258-e45d9d0b29e8" class="" dir="auto">Y <code>object-position</code> decide <strong>dónde</strong> la colocas dentro del marco (centro, arriba, abajo…).</p><h2 id="3f5648ad-99fc-80c5-a3f6-f3d98898adc3" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-80dc-bf68-cc207b4aa8bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>object-fit</em><p id="3f5648ad-99fc-8070-8027-d347cc753187" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/object-fit">https://developer.mozilla.org/es/docs/Web/CSS/object-fit</a></p></li></ul><ul id="3f5648ad-99fc-80a7-8e63-c94c16ddc33b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>object-position</em><p id="3f5648ad-99fc-804a-97e1-fe657ec74895" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/object-position">https://developer.mozilla.org/es/docs/Web/CSS/object-position</a></p></li></ul><ul id="3f5648ad-99fc-800a-a3ce-c2aa5a07d6da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Images Module Level 3<p id="3f5648ad-99fc-80de-bb26-f2019b53d93b" class="" dir="auto"><a href="https://www.w3.org/TR/css-images-3/#the-object-fit">https://www.w3.org/TR/css-images-3/#the-object-fit</a></p></li></ul><ul id="3f5648ad-99fc-8014-9690-f0c2f0375106" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>object-fit</em><p id="3f5648ad-99fc-8083-9f70-f8cd1dc1ba52" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/o/object-fit/">https://css-tricks.com/almanac/properties/o/object-fit/</a></p></li></ul><ul id="3f5648ad-99fc-80bd-af65-f17c64982d09" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Optimize images</em><p id="3f5648ad-99fc-80f6-aa09-c80c60a3d3c0" class="" dir="auto"><a href="https://web.dev/learn/images/">https://web.dev/learn/images/</a></p></li></ul><h2 id="3f5648ad-99fc-8086-b8b2-f335e4909c68" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-80d9-86e0-e07ed759aca6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo funciona en elementos reemplazados</strong> → <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;canvas&gt;</code>, <code>&lt;iframe&gt;</code>. <strong>No</strong> en <code>&lt;div&gt;</code>.</li></ul><ul id="3f5648ad-99fc-8040-b3e7-fc8b6b0e12b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>cover</strong></code><strong> es el más usado</strong> → llena la caja sin deformar, recortando lo que sobra.</li></ul><ul id="3f5648ad-99fc-80a3-9b9b-ef7b09efe6e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>contain</strong></code><strong> para logos e iconos</strong> → no queremos recortar, queremos ver todo.</li></ul><ul id="3f5648ad-99fc-8034-bc96-e46b631baedb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>fill</strong></code><strong> (por defecto) deforma</strong> → por eso muchas imágenes se ven aplastadas si solo definimos <code>width</code> y <code>height</code>.</li></ul><ul id="3f5648ad-99fc-8046-9005-c0a4ccf32bc8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Combinar con </strong><code><strong>object-position</strong></code> → esencial para elegir qué parte de la imagen se ve (caras, horizontes, etc.).</li></ul><ul id="3f5648ad-99fc-8052-9edb-f6718254f8d9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Con </strong><code><strong>aspect-ratio</strong></code> → <code>aspect-ratio: 16/9; object-fit: cover</code> es el patrón moderno para imágenes responsive.</li></ul><ul id="3f5648ad-99fc-8082-a3aa-dc8b8cf14b0a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong> → no usar <code>object-fit: cover</code> para ocultar información relevante de la imagen (texto, datos).</li></ul><ul id="3f5648ad-99fc-8037-bc50-e258154c25fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CLS</strong> → reservar el espacio con <code>aspect-ratio</code> o <code>width</code>/<code>height</code> explícitos evita saltos de layout.</li></ul><ul id="3f5648ad-99fc-80db-8539-fcf6d6fb777f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>SVG</strong>: <code>object-fit</code> funciona pero con matices; a veces es mejor usar <code>preserveAspectRatio</code> dentro del SVG.</li></ul><ul id="3f5648ad-99fc-801c-b736-db328585d906" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;picture&gt;</strong></code><strong> + </strong><code><strong>srcset</strong></code> → combinar con <code>object-fit</code> para imágenes responsive que se adaptan al contenedor.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

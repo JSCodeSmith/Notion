@@ -17,24 +17,28 @@ export const NEGOCIO_OPERACIONES = {
           "nombre": "Cadena de Valor (Value Chain)",
           "firma": "La Cadena de Valor es un modelo de análisis estratégico desarrollado por Michael E. Porter en su libro…",
           "icon": "⛓️",
+          "lab": 2,
         },
         {
           "id": "va",
           "nombre": "VA (Value Added / Valor Agregado)",
           "firma": "VA son las siglas de Value Added (Valor Agregado).",
           "icon": "➕",
+          "lab": 2,
         },
         {
           "id": "nva",
           "nombre": "NVA (Non-Value Added) / Actividades Sin Valor Agregado",
           "firma": "NVA (Non-Value Added) se refiere a aquellas actividades, procesos o tareas que no añaden valor al producto o…",
           "icon": "🚫",
+          "lab": 2,
         },
         {
           "id": "nnva",
           "nombre": "NNVA (Necessary Non-Value Added / Necesario Sin Valor Agregado)",
           "firma": "NNVA son las siglas de Necessary Non-Value Added (Necesario Sin Valor Agregado).",
           "icon": "🔧",
+          "lab": 2,
         },
       ],
     },
@@ -46,6 +50,7 @@ export const NEGOCIO_OPERACIONES = {
           "nombre": "Los 7 Tipos de Desperdicios (MUDA) - Lean Manufacturing",
           "firma": "En el marco de la filosofía Lean (originada en el Sistema de Producción Toyota), un desperdicio (o MUDA en…",
           "icon": "🗑️",
+          "lab": 2,
         },
       ],
     },
@@ -57,12 +62,14 @@ export const NEGOCIO_OPERACIONES = {
           "nombre": "Proceso de Atención al Cliente (Soporte ITSM)",
           "firma": "El Proceso de Atención al Cliente, en el contexto de ITSM (Information Technology Service Management -…",
           "icon": "🎧",
+          "lab": 2,
         },
         {
           "id": "sdlc",
           "nombre": "SDLC (Software Development Life Cycle)",
           "firma": "El SDLC (Ciclo de Vida del Desarrollo de Software) es un marco de trabajo estructurado que describe las fases…",
           "icon": "🛠️",
+          "lab": 2,
         },
       ],
     },
@@ -218,6 +225,62 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "cadena-de-valor-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Análisis de competitividad",
+              "descripcion": "Identificar en qué actividades la empresa es superior a la competencia.",
+            },
+            {
+              "concepto": "Reducción de costos",
+              "descripcion": "Detectar ineficiencias en actividades específicas.",
+            },
+            {
+              "concepto": "Diferenciación",
+              "descripcion": "Identificar actividades que generan valor único.",
+            },
+            {
+              "concepto": "Decisiones de outsourcing",
+              "descripcion": "Decidir qué actividades externalizar.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Identificar actividades que pueden digitalizarse o automatizarse.",
+            },
+            {
+              "concepto": "Fusiones y adquisiciones",
+              "descripcion": "Evaluar la complementariedad de las cadenas de valor.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Análisis de competitividad → Identificar en qué actividades la empresa es superior a la competencia.  ·  Reducción de costos → Detectar ineficiencias en actividades específicas.  ·  Diferenciación → Identificar actividades que generan valor único.  ·  Decisiones de outsourcing → Decidir qué actividades externalizar.  ·  Transformación digital → Identificar actividades que pueden digitalizarse o automatizarse.  ·  Fus",
+        },
+        {
+          "id": "cadena-de-valor-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es un modelo de análisis estratégico desarrollado por Michael E. Porter en su libro \"Competitive Advantage\" (1985).",
+          "correcto": "Cadena de Valor",
+          "opciones": [
+            "actividades, procesos o tareas",
+            "Cadena de Valor",
+            "filosofía Lean",
+            "NNVA",
+          ],
+          "pista": "Empieza por la primera letra: «C…». Reta a Cadena de Valor con su definición.",
+          "solucion": "«Cadena de Valor»: La Cadena de Valor es un modelo de análisis estratégico desarrollado por Michael E. Porter en su libro \"Competitive Advantage\" (1985).",
+        },
+      ],
+    },
   },
   "va": {
     "id": "va",
@@ -371,6 +434,62 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "va-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Mejora de procesos (Lean)",
+              "descripcion": "Identificar y eliminar NVA para optimizar procesos.",
+            },
+            {
+              "concepto": "Diseño de productos",
+              "descripcion": "Enfocarse en características que el cliente valora.",
+            },
+            {
+              "concepto": "Marketing",
+              "descripcion": "Comunicar el valor agregado del producto.",
+            },
+            {
+              "concepto": "Precios",
+              "descripcion": "Justificar un precio premium si el valor agregado es alto.",
+            },
+            {
+              "concepto": "Innovación",
+              "descripcion": "Crear nuevas formas de agregar valor.",
+            },
+            {
+              "concepto": "Experiencia del cliente",
+              "descripcion": "Diseñar cada punto de contacto para agregar valor.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Mejora de procesos (Lean) → Identificar y eliminar NVA para optimizar procesos.  ·  Diseño de productos → Enfocarse en características que el cliente valora.  ·  Marketing → Comunicar el valor agregado del producto.  ·  Precios → Justificar un precio premium si el valor agregado es alto.  ·  Innovación → Crear nuevas formas de agregar valor.  ·  Experiencia del cliente → Diseñar cada punto de contacto para agregar va",
+        },
+        {
+          "id": "va-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ son las siglas de Value Added (Valor Agregado).",
+          "correcto": "VA",
+          "opciones": [
+            "NNVA",
+            "VA",
+            "actividades, procesos o tareas",
+            "Cadena de Valor",
+          ],
+          "pista": "Empieza por la primera letra: «V…». Reta a VA con su definición.",
+          "solucion": "«VA»: VA son las siglas de Value Added (Valor Agregado).",
+        },
+      ],
+    },
   },
   "nva": {
     "id": "nva",
@@ -524,6 +643,58 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "nva-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Transformación Digital",
+              "descripcion": "Identificar procesos manuales y repetitivos (NVA) para automatizarlos.",
+            },
+            {
+              "concepto": "Mejora de Procesos",
+              "descripcion": "Usar la metodología Lean para mapear el flujo de valor y eliminar NVA.",
+            },
+            {
+              "concepto": "Gestión de Proyectos",
+              "descripcion": "Identificar tareas en el proyecto que no agregan valor al objetivo final.",
+            },
+            {
+              "concepto": "Optimización de Costos",
+              "descripcion": "Reducir costos eliminando actividades que no son necesarias.",
+            },
+            {
+              "concepto": "Atención al Cliente",
+              "descripcion": "Eliminar pasos innecesarios en el proceso de atención al cliente.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Transformación Digital → Identificar procesos manuales y repetitivos (NVA) para automatizarlos.  ·  Mejora de Procesos → Usar la metodología Lean para mapear el flujo de valor y eliminar NVA.  ·  Gestión de Proyectos → Identificar tareas en el proyecto que no agregan valor al objetivo final.  ·  Optimización de Costos → Reducir costos eliminando actividades que no son necesarias.  ·  Atención al Cliente → Eliminar pa",
+        },
+        {
+          "id": "nva-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "NVA (Non-Value Added) se refiere a aquellas __________ que no añaden valor al producto o servicio desde la perspectiva del cliente.",
+          "correcto": "actividades, procesos o tareas",
+          "opciones": [
+            "NNVA",
+            "filosofía Lean",
+            "Cadena de Valor",
+            "actividades, procesos o tareas",
+          ],
+          "pista": "Empieza por la primera letra: «a…». Reta a actividades, procesos o tareas con su definición.",
+          "solucion": "«actividades, procesos o tareas»: NVA (Non-Value Added) se refiere a aquellas actividades, procesos o tareas que no añaden valor al producto o servicio desde la perspectiva del cliente.",
+        },
+      ],
+    },
   },
   "nnva": {
     "id": "nnva",
@@ -683,6 +854,58 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "nnva-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Mejora de procesos (Lean)",
+              "descripcion": "Identificar NNVA y optimizarlo para liberar tiempo para VA.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Automatizar actividades NNVA (ej → facturación, KYC).",
+            },
+            {
+              "concepto": "Diseño de servicios",
+              "descripcion": "Minimizar el NNVA para mejorar la experiencia del cliente.",
+            },
+            {
+              "concepto": "Gestión de calidad",
+              "descripcion": "Optimizar las inspecciones y auditorías (NNVA).",
+            },
+            {
+              "concepto": "Cumplimiento normativo",
+              "descripcion": "Asegurar que el NNVA se realice correctamente y de forma eficiente.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Mejora de procesos (Lean) → Identificar NNVA y optimizarlo para liberar tiempo para VA.  ·  Transformación digital → Automatizar actividades NNVA (ej → facturación, KYC).  ·  Diseño de servicios → Minimizar el NNVA para mejorar la experiencia del cliente.  ·  Gestión de calidad → Optimizar las inspecciones y auditorías (NNVA).  ·  Cumplimiento normativo → Asegurar que el NNVA se realice correctamente y de forma efici",
+        },
+        {
+          "id": "nnva-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ son las siglas de Necessary Non-Value Added (Necesario Sin Valor Agregado).",
+          "correcto": "NNVA",
+          "opciones": [
+            "NNVA",
+            "Cadena de Valor",
+            "filosofía Lean",
+            "actividades, procesos o tareas",
+          ],
+          "pista": "Empieza por la primera letra: «N…». Reta a NNVA con su definición.",
+          "solucion": "«NNVA»: NNVA son las siglas de Necessary Non-Value Added (Necesario Sin Valor Agregado).",
+        },
+      ],
+    },
   },
   "muda": {
     "id": "muda",
@@ -914,6 +1137,62 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "muda-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Transporte (Transportation)",
+              "descripcion": "Definición: Movimiento innecesario de productos, materiales, herramientas o información de un lugar a otro.",
+            },
+            {
+              "concepto": "Inventario (Inventory)",
+              "descripcion": "Definición: Exceso de productos, materiales, información o trabajo en proceso (WIP - Work In Progress) que no se está utilizando.",
+            },
+            {
+              "concepto": "Movimiento (Motion)",
+              "descripcion": "Definición: Movimientos innecesarios de personas o equipos dentro de un proceso.",
+            },
+            {
+              "concepto": "Espera (Waiting)",
+              "descripcion": "Definición: Tiempo muerto en el que personas, máquinas o procesos están inactivos porque están esperando algo (materiales, información, aprobaciones, etc.).",
+            },
+            {
+              "concepto": "Sobre-procesamiento (Over-processing)",
+              "descripcion": "Definición: Realizar más trabajo del necesario o utilizar herramientas, equipos o procedimientos más complejos de lo requerido.",
+            },
+            {
+              "concepto": "Sobre-producción (Over-production)",
+              "descripcion": "Definición: Producir más de lo que se necesita o producir antes de que se necesite.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Transporte (Transportation) → Definición: Movimiento innecesario de productos, materiales, herramientas o información de un lugar a otro.  ·  Inventario (Inventory) → Definición: Exceso de productos, materiales, información o trabajo en proceso (WIP - Work In Progress) que no se está utilizando.  ·  Movimiento (Motion) → Definición: Movimientos innecesarios de personas o equipos dentro de un proceso.  ·  Espera (Wait",
+        },
+        {
+          "id": "muda-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "En el marco de la __________ (originada en el Sistema de Producción Toyota), un desperdicio (o MUDA en japonés) es toda actividad que consume recursos pero que no agrega valor desde la perspectiva del cliente.",
+          "correcto": "filosofía Lean",
+          "opciones": [
+            "NNVA",
+            "filosofía Lean",
+            "Cadena de Valor",
+            "actividades, procesos o tareas",
+          ],
+          "pista": "Empieza por la primera letra: «f…». Reta a filosofía Lean con su definición.",
+          "solucion": "«filosofía Lean»: En el marco de la filosofía Lean (originada en el Sistema de Producción Toyota), un desperdicio (o MUDA en japonés) es toda actividad que consume recursos pero que no agrega valor desde la…",
+        },
+      ],
+    },
   },
   "atencion-cliente-itsm": {
     "id": "atencion-cliente-itsm",
@@ -1059,6 +1338,54 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "atencion-cliente-itsm-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Empresa con 500+ empleados",
+              "descripcion": "Implementar un Service Desk con Nivel 1, Nivel 2 y Nivel 3, con herramientas de ticketing y SLAs.",
+            },
+            {
+              "concepto": "Startup tecnológica",
+              "descripcion": "Usar una herramienta de ticketing simple (ej → Zendesk, Freshdesk) y un equipo de soporte multidisciplinario.",
+            },
+            {
+              "concepto": "Empresa de e-commerce",
+              "descripcion": "Priorizar incidentes críticos (problemas de pago, caídas de servidor) con un equipo de Nivel 2 y Nivel 3 24/7.",
+            },
+            {
+              "concepto": "Organización gubernamental",
+              "descripcion": "Establecer procesos formales de ITSM (basados en ITIL) con altos estándares de seguridad y control.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Empresa con 500+ empleados → Implementar un Service Desk con Nivel 1, Nivel 2 y Nivel 3, con herramientas de ticketing y SLAs.  ·  Startup tecnológica → Usar una herramienta de ticketing simple (ej → Zendesk, Freshdesk) y un equipo de soporte multidisciplinario.  ·  Empresa de e-commerce → Priorizar incidentes críticos (problemas de pago, caídas de servidor) con un equipo de Nivel 2 y Nivel 3 24/7.  ·  Organización g",
+        },
+        {
+          "id": "atencion-cliente-itsm-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El Proceso de Atención al Cliente, en el contexto de ITSM (Information Technology Service Management - Gestión de Servicios de TI), es el conjunto de __________ diseñadas para gestionar y resolver las solicitudes, incidentes y problemas de los usuarios de los servicios de TI.",
+          "correcto": "actividades, procedimientos y políticas",
+          "opciones": [
+            "VA",
+            "Cadena de Valor",
+            "actividades, procesos o tareas",
+            "actividades, procedimientos y políticas",
+          ],
+          "pista": "Empieza por la primera letra: «a…». Reta a actividades, procedimientos y políticas con su definición.",
+          "solucion": "«actividades, procedimientos y políticas»: El Proceso de Atención al Cliente, en el contexto de ITSM (Information Technology Service Management - Gestión de Servicios de TI), es el conjunto de actividades, procedimientos y políticas diseñadas…",
+        },
+      ],
+    },
   },
   "sdlc": {
     "id": "sdlc",
@@ -1207,5 +1534,61 @@ export const NEGOCIO_OPERACIONES_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "sdlc-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación (Planning)",
+              "descripcion": "Qué es: Se define el alcance del proyecto, los objetivos, los recursos necesarios y el presupuesto. Se evalúa la viabilidad del proyecto.",
+            },
+            {
+              "concepto": "Análisis de Requisitos (Requirements Analysis)",
+              "descripcion": "Qué es: Se recopilan y documentan las necesidades y expectativas de los usuarios y stakeholders. Se define qué debe hacer el software, no cómo lo hará.",
+            },
+            {
+              "concepto": "Diseño (Design)",
+              "descripcion": "Qué es: Se define la arquitectura del software, los componentes, la interfaz de usuario, la base de datos, y cómo interactuarán entre sí. Se pasa del \"qué\" al \"cómo\".",
+            },
+            {
+              "concepto": "Implementación (Implementation / Development)",
+              "descripcion": "Qué es: La fase de codificación. Los desarrolladores escriben el código fuente según los requisitos y el diseño establecidos.",
+            },
+            {
+              "concepto": "Pruebas (Testing)",
+              "descripcion": "Qué es: Se verifica que el software funciona correctamente, cumple con los requisitos y no tiene errores (bugs). Se realizan diferentes niveles de prueba.",
+            },
+            {
+              "concepto": "Implementación / Despliegue (Deployment)",
+              "descripcion": "Qué es: Se entrega el software al usuario final. Puede ser una implementación gradual (piloto) o completa (big bang).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación (Planning) → Qué es: Se define el alcance del proyecto, los objetivos, los recursos necesarios y el presupuesto. Se evalúa la viabilidad del proyecto.  ·  Análisis de Requisitos (Requirements Analysis) → Qué es: Se recopilan y documentan las necesidades y expectativas de los usuarios y stakeholders. Se define qué debe hacer el software, no cómo lo hará.  ·  Diseño (Design) → Qué es: Se define la arquite",
+        },
+        {
+          "id": "sdlc-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El SDLC (Ciclo de Vida del Desarrollo de Software) es un __________ que describe las fases y etapas por las que pasa un proyecto de software, desde su concepción hasta su retiro.",
+          "correcto": "marco de trabajo estructurado",
+          "opciones": [
+            "VA",
+            "Cadena de Valor",
+            "marco de trabajo estructurado",
+            "actividades, procesos o tareas",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a marco de trabajo estructurado con su definición.",
+          "solucion": "«marco de trabajo estructurado»: El SDLC (Ciclo de Vida del Desarrollo de Software) es un marco de trabajo estructurado que describe las fases y etapas por las que pasa un proyecto de software, desde su concepción hasta su retiro.",
+        },
+      ],
+    },
   },
 };

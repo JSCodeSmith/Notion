@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Lista, Quiz, Inline } from '../CareerDetail/MetodoDoc'
 import CodeBlock from '../CodeBlock/CodeBlock'
+import NegociosLab from './NegociosLab'
+import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
 
 const LARGO = 24
@@ -110,8 +112,15 @@ function Seccion({ titulo, items, full = false, ordenada = false }) {
 }
 
 export default function NegocioDoc({ nota, onBack }) {
+  const [labAbierto, setLabAbierto] = useState(false)
   const partes = nota.partes ?? []
   const extras = nota.extras ?? []
+  const misiones =
+    misionesDeNota(nota.id).length + (nota.lab?.misiones.length ?? 0)
+
+  if (labAbierto) {
+    return <NegociosLab nota={nota} onCerrar={() => setLabAbierto(false)} />
+  }
 
   return (
     <article className="notion-page detail-page negocio-doc">
@@ -132,6 +141,29 @@ export default function NegocioDoc({ nota, onBack }) {
       <p className="negocio-doc__lead">
         <Inline text={nota.resumen} />
       </p>
+
+      {misiones > 0 && (
+        <div className="negocio-lab">
+          <div className="negocio-lab__text">
+            <span className="negocio-lab__icono">🧪</span>
+            <div>
+              <strong>Laboratorio de este apunte</strong>
+              <p>
+                {misiones} misiones interactivas: emparejar conceptos,
+                completar definiciones, clasificar y ordenar. Gana XP, sube de
+                rango y guarda tu progreso.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="negocio-lab__btn"
+            onClick={() => setLabAbierto(true)}
+          >
+            🧪 Abrir laboratorio
+          </button>
+        </div>
+      )}
 
       <div className="doc-grid">
         <Seccion titulo="📝 Definición" items={nota.definicion} full />

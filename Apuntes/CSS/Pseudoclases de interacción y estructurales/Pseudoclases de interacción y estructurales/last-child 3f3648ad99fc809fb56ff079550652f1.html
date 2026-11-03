@@ -1,0 +1,829 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>:last-child</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f3648ad-99fc-809f-b56f-f079550652f1" class="page sans"><header><h1 class="page-title" dir="auto">:last-child</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f3648ad-99fc-8024-937f-d03fe6d74b21" class="" dir="auto">
+</p><h1 id="3f3648ad-99fc-801c-a7c6-d10cab462ee3" class="" dir="auto"><strong>📄 </strong><code><strong>:last-child</strong></code></h1><h2 id="3f3648ad-99fc-80d0-97ab-e60992f58aaa" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f3648ad-99fc-8060-9793-f5caaf853120" class="" dir="auto"><code>:last-child</code> es una <strong>pseudo-clase estructural de CSS</strong> que selecciona un elemento <strong>solo si es el último hijo</strong> de su elemento padre.</p><h2 id="3f3648ad-99fc-80be-b8fd-c24ccd59ecd9" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f3648ad-99fc-80e1-9c21-f94494a3bd64" class="" dir="auto">Forma parte de las <strong>pseudo-clases estructurales</strong> (junto con <code>:first-child</code>, <code>:nth-child()</code>, <code>:only-child</code>, etc.). </p><p id="3f3648ad-99fc-804c-9b17-de8b91f13898" class="" dir="auto">No depende de la interacción del usuario, sino de la <strong>posición del elemento dentro del árbol DOM</strong>.</p><p id="3f3648ad-99fc-8098-a325-e0895f92edd1" class="" dir="auto">Es la contraparte simétrica de <code>:first-child</code>. </p><p id="3f3648ad-99fc-8083-a8d8-f3b20ac17838" class="" dir="auto">Al igual que ella, se basa en la posición <strong>entre hermanos</strong>, no en el tipo de elemento.</p><h2 id="3f3648ad-99fc-809d-a422-dca1e430d197" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f3648ad-99fc-80df-9c02-d40928ad055f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aplicar estilos <strong>solo al último elemento</strong> de una lista, contenedor o grupo.</li></ul><ul id="3f3648ad-99fc-8047-8cc8-c1d475d875eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Eliminar márgenes/bordes inferiores del último ítem sin usar clases extra.</li></ul><ul id="3f3648ad-99fc-80db-a544-c6775ddc87ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear listas con separadores donde el último no lleva línea.</li></ul><ul id="3f3648ad-99fc-802f-b014-d16d764daa5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar añadir clases como <code>.last</code> en HTML.</li></ul><h2 id="3f3648ad-99fc-8017-8a43-e654fc48a595" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f3648ad-99fc-8052-a83d-ecc4022977b5" class="" dir="auto">El navegador evalúa la posición del elemento dentro de su padre:</p><ol type="1" id="3f3648ad-99fc-80ec-bcc4-c5a5950281f7" class="numbered-list" start="1" dir="auto"><li>Toma el elemento al que apunta el selector.</li></ol><ol type="1" id="3f3648ad-99fc-8096-a4bf-deb97e77c0cf" class="numbered-list" start="2" dir="auto"><li>Verifica si es el <strong>último hijo</strong> de su padre (contando cualquier tipo de nodo elemento).</li></ol><ol type="1" id="3f3648ad-99fc-807e-ae96-df54e7aee3d2" class="numbered-list" start="3" dir="auto"><li>Si lo es, aplica los estilos.</li></ol><p id="3f3648ad-99fc-8068-8a5d-e3edbe45fd06" class="" dir="auto">⚠️ <strong>No cuenta nodos de texto</strong> ni comentarios, solo <strong>elementos</strong>. </p><p id="3f3648ad-99fc-804e-b3dd-faed52d94a10" class="" dir="auto">Pero <strong>sí cuenta elementos de cualquier tipo</strong>, no solo del mismo tag.</p><h2 id="3f3648ad-99fc-805b-a98c-fb52f80a5e3b" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f3648ad-99fc-801d-9cb1-d2e01bb00322" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector:last-child {
+  propiedad: valor;
+}</code></pre><h3 id="3f3648ad-99fc-8045-af46-f88b4b679521" class="" dir="auto"><strong>Variantes relacionadas</strong></h3><p id="3f3648ad-99fc-80bb-affa-f11127ea70b2" class="" dir="auto">
+</p><pre id="3f3648ad-99fc-80a7-8ff8-c9f3055eb7fe" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">:last-child        /* último hijo de cualquier tipo */
+:last-of-type      /* último hijo de su mismo tipo */
+:nth-last-child(1) /* equivalente a :last-child */</code></pre><h2 id="3f3648ad-99fc-8003-9822-f21dfc4ab2eb" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f3648ad-99fc-8026-be5b-c4d45204157e" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Último párrafo de un artículo */
+article p:last-child {
+  margin-bottom: 0;
+}
+
+/* 2. Quitar borde inferior al último ítem */
+ul li:last-child {
+  border-bottom: none;
+}
+
+/* 3. Último hijo directo de una tarjeta */
+.card &gt; *:last-child {
+  margin-bottom: 0;
+}
+
+/* 4. Diferencia con :last-of-type */
+div p:last-child {
+  color: red;   /* solo si el &lt;p&gt; es el ÚLTIMO hijo del div */
+}
+div p:last-of-type {
+  color: blue;  /* el último &lt;p&gt; aunque no sea el último hijo */
+}</code></pre><h3 id="3f3648ad-99fc-8078-8a6c-f226a702fd6a" class="" dir="auto"><strong>Ejemplo comparativo clave</strong></h3><pre id="3f3648ad-99fc-80e1-8262-f2db2e7459d8" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;div&gt;
+  &lt;p&gt;Párrafo 1&lt;/p&gt;
+  &lt;p&gt;Párrafo 2&lt;/p&gt;
+  &lt;span&gt;Nota final&lt;/span&gt;
+&lt;/div&gt;</code></pre><pre id="3f3648ad-99fc-802b-8f0b-cc97e4911456" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">div p:last-child    { color: red; }   /* ❌ NO aplica: el &lt;span&gt; es el último */
+div p:last-of-type  { color: blue; }  /* ✅ Aplica a &lt;p&gt;Párrafo 2&lt;/p&gt; */</code></pre><h2 id="3f3648ad-99fc-805d-a9ae-ce4c59dc1aee" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f3648ad-99fc-80bd-93bb-fb9e4a6588c4" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>:last-child</strong></code><strong> con </strong><code><strong>:last-of-type</strong></code> → el más habitual. <code>:last-child</code> exige ser el <strong>último hijo absoluto</strong>; <code>:last-of-type</code> solo exige ser el último <strong>de su tipo</strong>.</li></ol><ol type="1" id="3f3648ad-99fc-80c4-b67e-d4ecfc03ab36" class="numbered-list" start="2" dir="auto"><li><strong>Ignorar nodos posteriores</strong> → un <code>&lt;span&gt;</code>, un <code>&lt;small&gt;</code> o incluso un <code>&lt;script&gt;</code> después rompe el <code>:last-child</code> del elemento deseado.</li></ol><ol type="1" id="3f3648ad-99fc-80d9-900d-c3c3afbfeb56" class="numbered-list" start="3" dir="auto"><li><strong>Olvidar el contexto del padre</strong> → <code>p:last-child</code> requiere que ese <code>&lt;p&gt;</code> sea hijo directo del mismo padre.</li></ol><ol type="1" id="3f3648ad-99fc-809f-93d4-fee64b330751" class="numbered-list" start="4" dir="auto"><li><strong>Usarlo dentro de </strong><code><strong>:not()</strong></code><strong> mal escrito</strong> → <code>:not(:last-child)</code> es válido y muy útil; olvidar los dos puntos rompe todo.</li></ol><ol type="1" id="3f3648ad-99fc-8055-8428-ca9c94497f28" class="numbered-list" start="5" dir="auto"><li><strong>Esperar que cuente texto</strong> → los nodos de texto <strong>no</strong> cuentan como hijos para esta pseudo-clase.</li></ol><ol type="1" id="3f3648ad-99fc-8091-9edc-c7c3551cd354" class="numbered-list" start="6" dir="auto"><li><strong>Problemas con </strong><code><strong>display: none</strong></code> → los elementos ocultos <strong>sí cuentan</strong> en la posición, salvo que se eliminen del DOM.</li></ol><h2 id="3f3648ad-99fc-807b-a986-ec775252bb4d" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f3648ad-99fc-806a-86f1-c2c55eb65179" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-809c-830a-ee4d6ab540f4" dir="ltr"><th id="&lt;sON" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="dnw?" class="simple-table-header-color simple-table-header" style="width:466px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-8037-94e3-cc23bd6d88c4" dir="ltr"><td id="&lt;sON" class="">Listas sin borde inferior</td><td id="dnw?" class="" style="width:466px"><code>li:last-child { border-bottom: 0; }</code></td></tr><tr id="3f3648ad-99fc-80d0-8ba8-c8fd08736636" dir="ltr"><td id="&lt;sON" class="">Limpiar márgenes en contenedores</td><td id="dnw?" class="" style="width:466px"><code>.container &gt; :last-child { margin-bottom: 0; }</code></td></tr><tr id="3f3648ad-99fc-8067-9536-d6b0997c94a8" dir="ltr"><td id="&lt;sON" class="">Menús de navegación</td><td id="dnw?" class="" style="width:466px">Quitar separador del último ítem</td></tr><tr id="3f3648ad-99fc-80e5-90bf-ce54f5683858" dir="ltr"><td id="&lt;sON" class="">Breadcrumbs</td><td id="dnw?" class="" style="width:466px">Separador solo entre ítems intermedios</td></tr><tr id="3f3648ad-99fc-80a3-92f0-f1fbd3b36337" dir="ltr"><td id="&lt;sON" class="">Formularios</td><td id="dnw?" class="" style="width:466px">Quitar margen al último <code>&lt;fieldset&gt;</code> o <code>&lt;label&gt;</code></td></tr><tr id="3f3648ad-99fc-80c6-ae31-d2aa22587f18" dir="ltr"><td id="&lt;sON" class="">Combinado con <code>:not()</code></td><td id="dnw?" class="" style="width:466px">Estilizar todos menos el último</td></tr><tr id="3f3648ad-99fc-8031-8eaa-f277ed0702aa" dir="ltr"><td id="&lt;sON" class="">Grids con separadores</td><td id="dnw?" class="" style="width:466px">Borde solo hasta el penúltimo ítem</td></tr></tbody></table><h2 id="3f3648ad-99fc-8086-8915-dbad45d91077" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f3648ad-99fc-80d8-aab9-d247cfeabe1f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:first-child</strong></code> → el primer hijo.</li></ul><ul id="3f3648ad-99fc-8026-862e-c93457f8a3c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:only-child</strong></code> → el único hijo.</li></ul><ul id="3f3648ad-99fc-804f-862d-e0ee1dc97593" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:nth-last-child(n)</strong></code> → posición contando desde el final.</li></ul><ul id="3f3648ad-99fc-8062-befa-fffa5e6fb09b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:last-of-type</strong></code> → último de su tipo (no confundir).</li></ul><ul id="3f3648ad-99fc-8066-b990-cc21fadc68a7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:not(:last-child)</strong></code> → todos menos el último (muy usado).</li></ul><ul id="3f3648ad-99fc-805d-8934-f0143de6b3b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:has()</strong></code> → permite condicionar según descendientes.</li></ul><ul id="3f3648ad-99fc-807c-a50c-c43953e9defb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Combinadores </strong><code><strong>&gt;</strong></code><strong> y </strong><code><strong>+</strong></code> → <code>+</code> (hermano adyacente) suele combinarse para separadores.</li></ul><p id="3f3648ad-99fc-8088-bd6c-e02faa874a1b" class="" dir="auto"><strong>Combinación típica:</strong></p><pre id="3f3648ad-99fc-8051-a9c0-e3a132800067" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">li:not(:last-child) { border-bottom: 1px solid #ddd; }</code></pre><p id="3f3648ad-99fc-8069-8e4b-f5e2e3a97fe6" class="" dir="auto">Alternativa al patrón <code>li + li</code> para separadores.</p><h2 id="3f3648ad-99fc-8023-b116-c280f5b9929e" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f3648ad-99fc-80e0-8222-fb8112643938" class="" dir="auto">Imagina una <strong>fila de personas esperando el autobús</strong>. <code>:last-child</code> señala únicamente a <strong>la última persona de la fila</strong>, sin importar quién sea (niño, adulto, anciano). En cambio, <code>:last-of-type</code> señalaría &quot;el último niño de la fila&quot;, aunque no esté al final.</p><h2 id="3f3648ad-99fc-80a1-b8af-e91329422d3d" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f3648ad-99fc-8058-80f8-d0a2875a8876" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>:last-child</em><p id="3f3648ad-99fc-807f-8d8e-d93c1647c315" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/:last-child">https://developer.mozilla.org/es/docs/Web/CSS/:last-child</a></p></li></ul><ul id="3f3648ad-99fc-80f4-b670-fc7d365438f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C Selectors Level 4<p id="3f3648ad-99fc-809e-9196-fc2b89762645" class="" dir="auto"><a href="https://www.w3.org/TR/selectors-4/#the-last-child-pseudo">https://www.w3.org/TR/selectors-4/#the-last-child-pseudo</a></p></li></ul><ul id="3f3648ad-99fc-80c3-bf96-c74ce6fde137" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>:last-child</em><p id="3f3648ad-99fc-800b-a25f-ee53a7174cf9" class="" dir="auto"><a href="https://css-tricks.com/almanac/selectors/l/last-child/">https://css-tricks.com/almanac/selectors/l/last-child/</a></p></li></ul><h2 id="3f3648ad-99fc-80ac-9301-d476ce662906" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f3648ad-99fc-803c-a0d7-eb1bb8de1536" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Regla de oro: <code><strong>:last-child</strong></code><strong> = posición absoluta; </strong><code><strong>:last-of-type</strong></code><strong> = posición relativa al tipo</strong>.</li></ul><ul id="3f3648ad-99fc-805a-be5f-c83cb6426c4c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Si algo no funciona, inspecciona el DOM: probablemente hay un nodo posterior (incluso un <code>&lt;script&gt;</code> o un <code>&lt;span&gt;</code> decorativo).</li></ul><ul id="3f3648ad-99fc-8099-b11d-d8ab9bd9f338" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>:not(:last-child)</code> es más limpio que añadir clases <code>.not-last</code> en HTML.</li></ul><ul id="3f3648ad-99fc-8014-b668-cbaf71bab91f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Muy útil en combinación con <code>:first-child</code> para limpiar márgenes/bordes del primer y último ítem.</li></ul><ul id="3f3648ad-99fc-806e-a7c5-c14208bb696c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No confundir con <code>:last-line</code>, que <strong>no existe</strong>; existen <code>::first-line</code> y <code>::first-letter</code> como pseudo-elementos.</li></ul><ul id="3f3648ad-99fc-80eb-903b-e694dc10746a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los elementos con <code>display: none</code> <strong>siguen contando</strong> en la posición → cuidado con menús colapsados.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

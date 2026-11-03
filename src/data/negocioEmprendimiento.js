@@ -17,36 +17,42 @@ export const NEGOCIO_EMPRENDIMIENTO = {
           "nombre": "Startup (Empresa Emergente)",
           "firma": "Una startup es una organización temporal diseñada para buscar un modelo de negocio escalable y repetible en…",
           "icon": "🚀",
+          "lab": 2,
         },
         {
           "id": "unicornio",
           "nombre": "Unicornio Empresarial (Unicorn Startup)",
           "firma": "Un unicornio empresarial es una startup privada que ha alcanzado una valoración de mercado de $1,000 millones…",
           "icon": "🦄",
+          "lab": 2,
         },
         {
           "id": "business-angel",
           "nombre": "Business Angel (Ángel Inversionista)",
           "firma": "Un Business Angel (o Ángel Inversionista) es una persona física que invierte su propio dinero, tiempo y…",
           "icon": "👼",
+          "lab": 2,
         },
         {
           "id": "venture-capital",
           "nombre": "Venture Capital (VC) - Capital de Riesgo",
           "firma": "El Venture Capital (Capital de Riesgo) es una forma de financiamiento privado que proporciona capital a…",
           "icon": "💰",
+          "lab": 2,
         },
         {
           "id": "fintech",
           "nombre": "Fintech (Financial Technology)",
           "firma": "Fintech es el término que describe la aplicación de tecnología innovadora para ofrecer servicios financieros…",
           "icon": "💳",
+          "lab": 2,
         },
         {
           "id": "ebt",
           "nombre": "Empresa de Base Tecnológica (EBT)",
           "firma": "Una Empresa de Base Tecnológica (EBT) es una organización que basa su ventaja competitiva en el desarrollo y…",
           "icon": "🔬",
+          "lab": 2,
         },
       ],
     },
@@ -58,18 +64,21 @@ export const NEGOCIO_EMPRENDIMIENTO = {
           "nombre": "Producto Mínimo Viable (MVP)",
           "firma": "Un Producto Mínimo Viable (MVP, por sus siglas en inglés) es la versión más simple de un producto que se…",
           "icon": "🧪",
+          "lab": 1,
         },
         {
           "id": "tipos-mvp",
           "nombre": "Tipos de MVP: De Humo, Mago de Oz y Conserje",
           "firma": "Un MVP (Producto Mínimo Viable) no es necesariamente un \"producto\" en el sentido tradicional.",
           "icon": "🧩",
+          "lab": 2,
         },
         {
           "id": "lean-startup",
           "nombre": "Metodología Ágil de Lean Startup",
           "firma": "La metodología Lean Startup es un enfoque para la creación y gestión de startups y el desarrollo de nuevos…",
           "icon": "🔁",
+          "lab": 2,
         },
       ],
     },
@@ -81,6 +90,7 @@ export const NEGOCIO_EMPRENDIMIENTO = {
           "nombre": "¿Qué es un Pitch?",
           "firma": "Un pitch es una presentación breve, clara y persuasiva diseñada para captar la atención de la audiencia y…",
           "icon": "🎤",
+          "lab": 2,
         },
       ],
     },
@@ -216,6 +226,58 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "startup-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Emprendimiento",
+              "descripcion": "Iniciar un negocio desde cero con visión de crecimiento global.",
+            },
+            {
+              "concepto": "Intrapreneurship",
+              "descripcion": "Crear \"startups internas\" dentro de grandes corporaciones.",
+            },
+            {
+              "concepto": "Innovación corporativa",
+              "descripcion": "Grandes empresas crean programas de aceleración para startups externas.",
+            },
+            {
+              "concepto": "Inversión",
+              "descripcion": "Fondos de capital de riesgo buscan startups con alto potencial.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Empresas tradicionales adoptan metodologías de startups para innovar.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Emprendimiento → Iniciar un negocio desde cero con visión de crecimiento global.  ·  Intrapreneurship → Crear \"startups internas\" dentro de grandes corporaciones.  ·  Innovación corporativa → Grandes empresas crean programas de aceleración para startups externas.  ·  Inversión → Fondos de capital de riesgo buscan startups con alto potencial.  ·  Transformación digital → Empresas tradicionales adoptan metodologías de ",
+        },
+        {
+          "id": "startup-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Una startup es una __________ diseñada para buscar un modelo de negocio escalable y repetible en un entorno de alta incertidumbre.",
+          "correcto": "organización temporal",
+          "opciones": [
+            "Business Angel",
+            "organización temporal",
+            "unicornio empresarial",
+            "forma de financiamiento privado",
+          ],
+          "pista": "Empieza por la primera letra: «o…». Reta a organización temporal con su definición.",
+          "solucion": "«organización temporal»: Una startup es una organización temporal diseñada para buscar un modelo de negocio escalable y repetible en un entorno de alta incertidumbre.",
+        },
+      ],
+    },
   },
   "unicornio": {
     "id": "unicornio",
@@ -377,6 +439,54 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "unicornio-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup en crecimiento",
+              "descripcion": "Aspirar a ser unicornio para atraer inversión y talento.",
+            },
+            {
+              "concepto": "Inversor",
+              "descripcion": "Buscar startups con potencial de convertirse en unicornio.",
+            },
+            {
+              "concepto": "Ecosistema emprendedor",
+              "descripcion": "Medir la salud del ecosistema (número de unicornios).",
+            },
+            {
+              "concepto": "Gobierno",
+              "descripcion": "Fomentar políticas que apoyen a startups de alto crecimiento.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup en crecimiento → Aspirar a ser unicornio para atraer inversión y talento.  ·  Inversor → Buscar startups con potencial de convertirse en unicornio.  ·  Ecosistema emprendedor → Medir la salud del ecosistema (número de unicornios).  ·  Gobierno → Fomentar políticas que apoyen a startups de alto crecimiento.",
+        },
+        {
+          "id": "unicornio-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Un __________ es una startup privada que ha alcanzado una valoración de mercado de $1,000 millones de dólares (mil millones) o más, sin haber salido a bolsa (IPO).",
+          "correcto": "unicornio empresarial",
+          "opciones": [
+            "Business Angel",
+            "forma de financiamiento privado",
+            "organización temporal",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «u…». Reta a unicornio empresarial con su definición.",
+          "solucion": "«unicornio empresarial»: Un unicornio empresarial es una startup privada que ha alcanzado una valoración de mercado de $1,000 millones de dólares (mil millones) o más, sin haber salido a bolsa (IPO).",
+        },
+      ],
+    },
   },
   "business-angel": {
     "id": "business-angel",
@@ -535,6 +645,58 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "business-angel-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup en etapa pre-semilla",
+              "descripcion": "El Business Angel es la única fuente de financiamiento disponible.",
+            },
+            {
+              "concepto": "Startup con producto pero sin tracción",
+              "descripcion": "El Angel aporta capital para validar el mercado.",
+            },
+            {
+              "concepto": "Startup que necesita mentoría",
+              "descripcion": "El Angel aporta experiencia y contactos.",
+            },
+            {
+              "concepto": "Startup en sector específico",
+              "descripcion": "El Angel con experiencia en el sector aporta conocimiento.",
+            },
+            {
+              "concepto": "Ronda de financiamiento temprana",
+              "descripcion": "Los Angels suelen participar junto a fondos de VC en rondas semilla.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup en etapa pre-semilla → El Business Angel es la única fuente de financiamiento disponible.  ·  Startup con producto pero sin tracción → El Angel aporta capital para validar el mercado.  ·  Startup que necesita mentoría → El Angel aporta experiencia y contactos.  ·  Startup en sector específico → El Angel con experiencia en el sector aporta conocimiento.  ·  Ronda de financiamiento temprana → Los Angels suelen ",
+        },
+        {
+          "id": "business-angel-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Un __________ (o Ángel Inversionista) es una persona física que invierte su propio dinero, tiempo y experiencia en startups y empresas emergentes en etapas muy tempranas (pre-semilla, semilla o arranque), a cambio de participación accionaria (equity).",
+          "correcto": "Business Angel",
+          "opciones": [
+            "Business Angel",
+            "forma de financiamiento privado",
+            "organización temporal",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «B…». Reta a Business Angel con su definición.",
+          "solucion": "«Business Angel»: Un Business Angel (o Ángel Inversionista) es una persona física que invierte su propio dinero, tiempo y experiencia en startups y empresas emergentes en etapas muy tempranas (pre-semilla, semilla o…",
+        },
+      ],
+    },
   },
   "venture-capital": {
     "id": "venture-capital",
@@ -666,6 +828,58 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "venture-capital-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup tecnológica",
+              "descripcion": "Buscar VC para financiar desarrollo de producto, contratación de talento y expansión global.",
+            },
+            {
+              "concepto": "Fondo de inversión",
+              "descripcion": "Invertir en startups prometedoras como parte de una estrategia de alto riesgo / alto retorno.",
+            },
+            {
+              "concepto": "Empresa con crecimiento exponencial",
+              "descripcion": "Usar VC para escalar rápidamente y capturar el mercado.",
+            },
+            {
+              "concepto": "Reestructuración de una empresa",
+              "descripcion": "Usar VC para financiar un giro o pivot en el modelo de negocio.",
+            },
+            {
+              "concepto": "Entrada a nuevos mercados",
+              "descripcion": "Financiar la expansión geográfica con capital de riesgo.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup tecnológica → Buscar VC para financiar desarrollo de producto, contratación de talento y expansión global.  ·  Fondo de inversión → Invertir en startups prometedoras como parte de una estrategia de alto riesgo / alto retorno.  ·  Empresa con crecimiento exponencial → Usar VC para escalar rápidamente y capturar el mercado.  ·  Reestructuración de una empresa → Usar VC para financiar un giro o pivot en el model",
+        },
+        {
+          "id": "venture-capital-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El Venture Capital (Capital de Riesgo) es una __________ que proporciona capital a empresas emergentes (startups) y empresas en etapa temprana que tienen un alto potencial de crecimiento pero que, por su naturaleza (alto riesgo, falta de historial crediticio, modelos de negocio no probados), no pueden acceder a financiamiento tradicional (bancos, mercados de capitales).",
+          "correcto": "forma de financiamiento privado",
+          "opciones": [
+            "unicornio empresarial",
+            "organización temporal",
+            "forma de financiamiento privado",
+            "Business Angel",
+          ],
+          "pista": "Empieza por la primera letra: «f…». Reta a forma de financiamiento privado con su definición.",
+          "solucion": "«forma de financiamiento privado»: El Venture Capital (Capital de Riesgo) es una forma de financiamiento privado que proporciona capital a empresas emergentes (startups) y empresas en etapa temprana que tienen un alto potencial de…",
+        },
+      ],
+    },
   },
   "fintech": {
     "id": "fintech",
@@ -839,6 +1053,62 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "fintech-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Inclusión financiera",
+              "descripcion": "Llevar servicios bancarios a zonas rurales sin sucursales.",
+            },
+            {
+              "concepto": "Pago de servicios",
+              "descripcion": "Pagar agua, luz, internet desde el celular.",
+            },
+            {
+              "concepto": "Préstamos rápidos",
+              "descripcion": "Obtener un crédito en minutos para emergencias.",
+            },
+            {
+              "concepto": "Inversiones para todos",
+              "descripcion": "Invertir desde $1 en acciones o cripto desde el celular.",
+            },
+            {
+              "concepto": "Transferencias internacionales",
+              "descripcion": "Enviar dinero a familiares en el extranjero con bajas comisiones.",
+            },
+            {
+              "concepto": "Financiamiento de PYMES",
+              "descripcion": "Acceso a crédito para pequeñas empresas.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Inclusión financiera → Llevar servicios bancarios a zonas rurales sin sucursales.  ·  Pago de servicios → Pagar agua, luz, internet desde el celular.  ·  Préstamos rápidos → Obtener un crédito en minutos para emergencias.  ·  Inversiones para todos → Invertir desde $1 en acciones o cripto desde el celular.  ·  Transferencias internacionales → Enviar dinero a familiares en el extranjero con bajas comisiones.  ·  Finan",
+        },
+        {
+          "id": "fintech-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Fintech es el término que describe la aplicación de __________ para ofrecer servicios financieros de manera más eficiente, accesible y personalizada.",
+          "correcto": "tecnología innovadora",
+          "opciones": [
+            "Business Angel",
+            "organización temporal",
+            "tecnología innovadora",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «t…». Reta a tecnología innovadora con su definición.",
+          "solucion": "«tecnología innovadora»: Fintech es el término que describe la aplicación de tecnología innovadora para ofrecer servicios financieros de manera más eficiente, accesible y personalizada.",
+        },
+      ],
+    },
   },
   "ebt": {
     "id": "ebt",
@@ -969,6 +1239,58 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "ebt-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Spin-off universitario",
+              "descripcion": "Crear una empresa a partir de una investigación desarrollada en una universidad.",
+            },
+            {
+              "concepto": "Innovación corporativa",
+              "descripcion": "Grandes empresas crean EBT para explorar nuevas tecnologías.",
+            },
+            {
+              "concepto": "Sustitución de importaciones",
+              "descripcion": "Desarrollar tecnología local que reemplace productos importados.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Incorporar tecnología de punta en procesos industriales tradicionales.",
+            },
+            {
+              "concepto": "Salud y Biotecnología",
+              "descripcion": "Desarrollar nuevos medicamentos o dispositivos médicos.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Spin-off universitario → Crear una empresa a partir de una investigación desarrollada en una universidad.  ·  Innovación corporativa → Grandes empresas crean EBT para explorar nuevas tecnologías.  ·  Sustitución de importaciones → Desarrollar tecnología local que reemplace productos importados.  ·  Transformación digital → Incorporar tecnología de punta en procesos industriales tradicionales.  ·  Salud y Biotecnologí",
+        },
+        {
+          "id": "ebt-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Una Empresa de Base Tecnológica (EBT) es una organización que basa su __________ en el desarrollo y aplicación intensiva de conocimiento científico y tecnológico para crear productos, servicios o procesos innovadores.",
+          "correcto": "ventaja competitiva",
+          "opciones": [
+            "Business Angel",
+            "organización temporal",
+            "unicornio empresarial",
+            "ventaja competitiva",
+          ],
+          "pista": "Empieza por la primera letra: «v…». Reta a ventaja competitiva con su definición.",
+          "solucion": "«ventaja competitiva»: Una Empresa de Base Tecnológica (EBT) es una organización que basa su ventaja competitiva en el desarrollo y aplicación intensiva de conocimiento científico y tecnológico para crear productos,…",
+        },
+      ],
+    },
   },
   "mvp": {
     "id": "mvp",
@@ -1131,6 +1453,45 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "mvp-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Dropbox",
+              "descripcion": "MVP: Un video explicativo de 3 minutos mostrando cómo funcionaría el producto.",
+            },
+            {
+              "concepto": "Zappos",
+              "descripcion": "MVP: El fundador publicaba fotos de zapatos en una web. Cuando alguien compraba, iba a la tienda, compraba los zapatos y los enviaba manualmente.",
+            },
+            {
+              "concepto": "Airbnb",
+              "descripcion": "MVP: Los fundadores alquilaron colchones inflables en su propio apartamento durante una conferencia.",
+            },
+            {
+              "concepto": "Groupon",
+              "descripcion": "MVP: Una simple página web con ofertas generadas manualmente usando WordPress.",
+            },
+            {
+              "concepto": "Instagram",
+              "descripcion": "MVP: Comenzó como \"Burbn\", una app de check-in con filtros de fotos. Pero notaron que la funcionalidad más usada era la de compartir fotos con filtros.",
+            },
+            {
+              "concepto": "Uber",
+              "descripcion": "MVP: Solo en San Francisco, con unos pocos conductores y una app simple. No tenía todas las funcionalidades actuales.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Dropbox → MVP: Un video explicativo de 3 minutos mostrando cómo funcionaría el producto.  ·  Zappos → MVP: El fundador publicaba fotos de zapatos en una web. Cuando alguien compraba, iba a la tienda, compraba los zapatos y los enviaba manualmente.  ·  Airbnb → MVP: Los fundadores alquilaron colchones inflables en su propio apartamento durante una conferencia.  ·  Groupon → MVP: Una simple página web con ofertas gener",
+        },
+      ],
+    },
   },
   "tipos-mvp": {
     "id": "tipos-mvp",
@@ -1384,6 +1745,62 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "tipos-mvp-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Ideas muy tempranas",
+              "descripcion": "MVP de Humo · Valida interés con mínimo riesgo.",
+            },
+            {
+              "concepto": "Productos complejos",
+              "descripcion": "Mago de Oz · Prueba el proceso sin construir tecnología.",
+            },
+            {
+              "concepto": "Servicios personalizados",
+              "descripcion": "Conserje · Aprende profundamente de los primeros clientes.",
+            },
+            {
+              "concepto": "Alta incertidumbre sobre el problema",
+              "descripcion": "Conserje · La interacción directa revela necesidades ocultas.",
+            },
+            {
+              "concepto": "Bajo presupuesto",
+              "descripcion": "MVP de Humo · Muy económico de ejecutar.",
+            },
+            {
+              "concepto": "Validación de procesos B2B",
+              "descripcion": "Mago de Oz · Prueba el flujo completo antes de la automatización.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Ideas muy tempranas → MVP de Humo · Valida interés con mínimo riesgo.  ·  Productos complejos → Mago de Oz · Prueba el proceso sin construir tecnología.  ·  Servicios personalizados → Conserje · Aprende profundamente de los primeros clientes.  ·  Alta incertidumbre sobre el problema → Conserje · La interacción directa revela necesidades ocultas.  ·  Bajo presupuesto → MVP de Humo · Muy económico de ejecutar.  ·  Vali",
+        },
+        {
+          "id": "tipos-mvp-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es un __________ diseñado para validar si existe demanda real para una solución.",
+          "correcto": "experimento",
+          "opciones": [
+            "Business Angel",
+            "experimento",
+            "organización temporal",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «e…». Reta a experimento con su definición.",
+          "solucion": "«experimento»: Es un experimento diseñado para validar si existe demanda real para una solución.",
+        },
+      ],
+    },
   },
   "lean-startup": {
     "id": "lean-startup",
@@ -1546,6 +1963,58 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "lean-startup-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup en etapa temprana",
+              "descripcion": "Validar la idea de negocio con un MVP antes de invertir.",
+            },
+            {
+              "concepto": "Nuevo producto en una empresa existente",
+              "descripcion": "Usar Lean Startup para innovar dentro de una corporación.",
+            },
+            {
+              "concepto": "Entrada a un nuevo mercado",
+              "descripcion": "Validar la adaptación del producto a un nuevo mercado.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Usar Lean Startup para experimentar con nuevos modelos de negocio.",
+            },
+            {
+              "concepto": "Desarrollo de un nuevo servicio",
+              "descripcion": "Validar el servicio con un MVP antes de lanzarlo a gran escala.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup en etapa temprana → Validar la idea de negocio con un MVP antes de invertir.  ·  Nuevo producto en una empresa existente → Usar Lean Startup para innovar dentro de una corporación.  ·  Entrada a un nuevo mercado → Validar la adaptación del producto a un nuevo mercado.  ·  Transformación digital → Usar Lean Startup para experimentar con nuevos modelos de negocio.  ·  Desarrollo de un nuevo servicio → Validar e",
+        },
+        {
+          "id": "lean-startup-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es un enfoque para la creación y gestión de startups y el desarrollo de nuevos productos que prioriza el aprendizaje continuo, la experimentación rápida y la iteración basada en el feedback del cliente.",
+          "correcto": "metodología Lean Startup",
+          "opciones": [
+            "Business Angel",
+            "metodología Lean Startup",
+            "organización temporal",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a metodología Lean Startup con su definición.",
+          "solucion": "«metodología Lean Startup»: La metodología Lean Startup es un enfoque para la creación y gestión de startups y el desarrollo de nuevos productos que prioriza el aprendizaje continuo, la experimentación rápida y la iteración…",
+        },
+      ],
+    },
   },
   "pitch": {
     "id": "pitch",
@@ -1706,5 +2175,61 @@ export const NEGOCIO_EMPRENDIMIENTO_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "pitch-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Reunión con inversores",
+              "descripcion": "Pitch de inversión para conseguir financiamiento.",
+            },
+            {
+              "concepto": "Reunión con clientes",
+              "descripcion": "Pitch de ventas para cerrar un contrato.",
+            },
+            {
+              "concepto": "Networking profesional",
+              "descripcion": "Elevator pitch para presentarte en un evento.",
+            },
+            {
+              "concepto": "Concursos de emprendimiento",
+              "descripcion": "Pitch de competencia para ganar visibilidad y premios.",
+            },
+            {
+              "concepto": "Internamente (dentro de la empresa)",
+              "descripcion": "Pitch para conseguir recursos o apoyo para un proyecto.",
+            },
+            {
+              "concepto": "Reclutamiento de talento",
+              "descripcion": "Pitch para atraer a un candidato (ej → explicar la misión y el impacto del equipo).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Reunión con inversores → Pitch de inversión para conseguir financiamiento.  ·  Reunión con clientes → Pitch de ventas para cerrar un contrato.  ·  Networking profesional → Elevator pitch para presentarte en un evento.  ·  Concursos de emprendimiento → Pitch de competencia para ganar visibilidad y premios.  ·  Internamente (dentro de la empresa) → Pitch para conseguir recursos o apoyo para un proyecto.  ·  Reclutamien",
+        },
+        {
+          "id": "pitch-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Un pitch es una __________ diseñada para captar la atención de la audiencia y lograr un objetivo específico, generalmente vender una idea, un producto, un proyecto o la propia empresa.",
+          "correcto": "presentación breve, clara y persuasiva",
+          "opciones": [
+            "Business Angel",
+            "organización temporal",
+            "presentación breve, clara y persuasiva",
+            "unicornio empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «p…». Reta a presentación breve, clara y persuasiva con su definición.",
+          "solucion": "«presentación breve, clara y persuasiva»: Un pitch es una presentación breve, clara y persuasiva diseñada para captar la atención de la audiencia y lograr un objetivo específico, generalmente vender una idea, un producto, un proyecto o la…",
+        },
+      ],
+    },
   },
 };

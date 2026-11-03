@@ -17,12 +17,14 @@ export const NEGOCIO_ADMIN_GESTION = {
           "nombre": "Proceso Administrativo",
           "firma": "El proceso administrativo es un conjunto de etapas o fases interrelacionadas que conforman el ciclo de la…",
           "icon": "🧭",
+          "lab": 2,
         },
         {
           "id": "teoria-sociotecnica",
           "nombre": "Teoría Sociotécnica",
           "firma": "La Teoría Sociotécnica es un enfoque de gestión y diseño organizacional que reconoce la interdependencia e…",
           "icon": "🔗",
+          "lab": 2,
         },
       ],
     },
@@ -34,18 +36,21 @@ export const NEGOCIO_ADMIN_GESTION = {
           "nombre": "¿Qué son los KPIs?",
           "firma": "KPI son las siglas de Key Performance Indicator (Indicador Clave de Desempeño).",
           "icon": "📊",
+          "lab": 2,
         },
         {
           "id": "okr",
           "nombre": "OKR (Objectives and Key Results)",
           "firma": "OKR son las siglas de Objectives and Key Results (Objetivos y Resultados Clave).",
           "icon": "🎯",
+          "lab": 2,
         },
         {
           "id": "smart",
           "nombre": "Metodología SMART para el Establecimiento de Objetivos",
           "firma": "SMART es un acrónimo que representa un conjunto de criterios para establecer objetivos efectivos y…",
           "icon": "✅",
+          "lab": 2,
         },
       ],
     },
@@ -57,18 +62,21 @@ export const NEGOCIO_ADMIN_GESTION = {
           "nombre": "Proceso de Transformación de Datos en Toma de Decisiones",
           "firma": "El Proceso de Transformación de Datos es el ciclo mediante el cual los datos crudos se convierten en…",
           "icon": "🔄",
+          "lab": 2,
         },
         {
           "id": "estandar-ansi",
           "nombre": "Estándar ANSI (American National Standards Institute)",
           "firma": "El ANSI (American National Standards Institute) es una organización privada sin fines de lucro que administra…",
           "icon": "📐",
+          "lab": 2,
         },
         {
           "id": "etica-responsabilidad",
           "nombre": "Ética y Responsabilidad de los Negocios",
           "firma": "La ética y responsabilidad de los negocios es una disciplina que estudia y aplica los principios morales y…",
           "icon": "⚖️",
+          "lab": 2,
         },
       ],
     },
@@ -80,6 +88,7 @@ export const NEGOCIO_ADMIN_GESTION = {
           "nombre": "ETPS (Estrategia, Tecnología, Personas, Sistemas) - Propuesta por Francis Aguilar en 1967",
           "firma": "El modelo ETPS (Estrategia, Tecnología, Personas, Sistemas) es un marco de gestión estratégica propuesto por…",
           "icon": "🧩",
+          "lab": 2,
         },
       ],
     },
@@ -275,6 +284,54 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "proceso-administrativo-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planeación (Planificación)",
+              "descripcion": "Definición: Es la fase donde se definen los objetivos y se establecen las estrategias para alcanzarlos.",
+            },
+            {
+              "concepto": "Organización",
+              "descripcion": "Definición: Es la fase donde se diseña la estructura de la organización y se asignan recursos y responsabilidades para ejecutar los planes.",
+            },
+            {
+              "concepto": "Dirección (Ejecución)",
+              "descripcion": "Definición: Es la fase donde se lidera, motiva y comunica para que los empleados ejecuten los planes.",
+            },
+            {
+              "concepto": "Control",
+              "descripcion": "Definición: Es la fase donde se mide y evalúa el desempeño para verificar si se están alcanzando los objetivos, y se corrigen desviaciones si es necesario.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planeación (Planificación) → Definición: Es la fase donde se definen los objetivos y se establecen las estrategias para alcanzarlos.  ·  Organización → Definición: Es la fase donde se diseña la estructura de la organización y se asignan recursos y responsabilidades para ejecutar los planes.  ·  Dirección (Ejecución) → Definición: Es la fase donde se lidera, motiva y comunica para que los empleados ejecuten los planes",
+        },
+        {
+          "id": "proceso-administrativo-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es el __________ que describe lo que hacen los administradores y cómo lo hacen.",
+          "correcto": "marco conceptual",
+          "opciones": [
+            "OKR",
+            "interdependencia e interacción",
+            "Key Performance Indicator",
+            "marco conceptual",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a marco conceptual con su definición.",
+          "solucion": "«marco conceptual»: Es el marco conceptual que describe lo que hacen los administradores y cómo lo hacen.",
+        },
+      ],
+    },
   },
   "teoria-sociotecnica": {
     "id": "teoria-sociotecnica",
@@ -430,6 +487,62 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "teoria-sociotecnica-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Asegurar que la adopción de nuevas tecnologías se acompañe de un cambio cultural y organizativo.",
+            },
+            {
+              "concepto": "Implementación de un nuevo sistema de gestión (ERP)",
+              "descripcion": "Involucrar a los empleados en el diseño y adaptación del sistema.",
+            },
+            {
+              "concepto": "Rediseño de procesos de trabajo",
+              "descripcion": "Optimizar la interacción entre personas y tecnología.",
+            },
+            {
+              "concepto": "Desarrollo de equipos ágiles",
+              "descripcion": "Crear equipos autónomos con las herramientas y el apoyo necesarios.",
+            },
+            {
+              "concepto": "Gestión del cambio organizacional",
+              "descripcion": "Asegurar que los cambios tecnológicos se acompañen de cambios sociales.",
+            },
+            {
+              "concepto": "Lanzamiento de un nuevo producto",
+              "descripcion": "Diseñar equipos y procesos que integren desarrollo, operaciones y negocio.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Transformación digital → Asegurar que la adopción de nuevas tecnologías se acompañe de un cambio cultural y organizativo.  ·  Implementación de un nuevo sistema de gestión (ERP) → Involucrar a los empleados en el diseño y adaptación del sistema.  ·  Rediseño de procesos de trabajo → Optimizar la interacción entre personas y tecnología.  ·  Desarrollo de equipos ágiles → Crear equipos autónomos con las herramientas y ",
+        },
+        {
+          "id": "teoria-sociotecnica-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La Teoría Sociotécnica es un enfoque de gestión y diseño organizacional que reconoce la __________ entre los sistemas sociales (personas, cultura, estructuras) y los sistemas técnicos (tecnología, procesos, herramientas) dentro de una organización.",
+          "correcto": "interdependencia e interacción",
+          "opciones": [
+            "interdependencia e interacción",
+            "Key Performance Indicator",
+            "OKR",
+            "SMART",
+          ],
+          "pista": "Empieza por la primera letra: «i…». Reta a interdependencia e interacción con su definición.",
+          "solucion": "«interdependencia e interacción»: La Teoría Sociotécnica es un enfoque de gestión y diseño organizacional que reconoce la interdependencia e interacción entre los sistemas sociales (personas, cultura, estructuras) y los sistemas…",
+        },
+      ],
+    },
   },
   "kpis": {
     "id": "kpis",
@@ -605,6 +718,62 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "kpis-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Definir KPIs que midan el avance de los objetivos estratégicos.",
+            },
+            {
+              "concepto": "Gestión de equipos",
+              "descripcion": "Establecer KPIs individuales o de equipo para alinear el desempeño.",
+            },
+            {
+              "concepto": "Lanzamiento de producto",
+              "descripcion": "Medir adopción, retención y satisfacción del producto.",
+            },
+            {
+              "concepto": "Mejora de procesos",
+              "descripcion": "Identificar cuellos de botella y optimizar operaciones.",
+            },
+            {
+              "concepto": "Inversiones",
+              "descripcion": "Evaluar el retorno de inversiones publicitarias o de proyectos.",
+            },
+            {
+              "concepto": "Evaluación de desempeño",
+              "descripcion": "Medir el rendimiento de empleados o departamentos.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación estratégica → Definir KPIs que midan el avance de los objetivos estratégicos.  ·  Gestión de equipos → Establecer KPIs individuales o de equipo para alinear el desempeño.  ·  Lanzamiento de producto → Medir adopción, retención y satisfacción del producto.  ·  Mejora de procesos → Identificar cuellos de botella y optimizar operaciones.  ·  Inversiones → Evaluar el retorno de inversiones publicitarias o d",
+        },
+        {
+          "id": "kpis-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "KPI son las siglas de __________ (Indicador Clave de Desempeño).",
+          "correcto": "Key Performance Indicator",
+          "opciones": [
+            "interdependencia e interacción",
+            "Key Performance Indicator",
+            "OKR",
+            "SMART",
+          ],
+          "pista": "Empieza por la primera letra: «K…». Reta a Key Performance Indicator con su definición.",
+          "solucion": "«Key Performance Indicator»: KPI son las siglas de Key Performance Indicator (Indicador Clave de Desempeño).",
+        },
+      ],
+    },
   },
   "okr": {
     "id": "okr",
@@ -773,6 +942,58 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "okr-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup en crecimiento",
+              "descripcion": "Alinear a todos los equipos hacia los objetivos del trimestre.",
+            },
+            {
+              "concepto": "Empresa en transformación digital",
+              "descripcion": "Enfocar los esfuerzos en la digitalización.",
+            },
+            {
+              "concepto": "Equipo de producto",
+              "descripcion": "Definir objetivos claros para el lanzamiento de nuevas funcionalidades.",
+            },
+            {
+              "concepto": "Desarrollo personal",
+              "descripcion": "Establecer metas de aprendizaje y crecimiento profesional.",
+            },
+            {
+              "concepto": "Organización sin fines de lucro",
+              "descripcion": "Medir el impacto social de los proyectos.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup en crecimiento → Alinear a todos los equipos hacia los objetivos del trimestre.  ·  Empresa en transformación digital → Enfocar los esfuerzos en la digitalización.  ·  Equipo de producto → Definir objetivos claros para el lanzamiento de nuevas funcionalidades.  ·  Desarrollo personal → Establecer metas de aprendizaje y crecimiento profesional.  ·  Organización sin fines de lucro → Medir el impacto social de l",
+        },
+        {
+          "id": "okr-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ son las siglas de Objectives and Key Results (Objetivos y Resultados Clave).",
+          "correcto": "OKR",
+          "opciones": [
+            "OKR",
+            "SMART",
+            "Key Performance Indicator",
+            "interdependencia e interacción",
+          ],
+          "pista": "Empieza por la primera letra: «O…». Reta a OKR con su definición.",
+          "solucion": "«OKR»: OKR son las siglas de Objectives and Key Results (Objetivos y Resultados Clave).",
+        },
+      ],
+    },
   },
   "smart": {
     "id": "smart",
@@ -951,6 +1172,58 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "smart-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "S - Específico (Specific)",
+              "descripcion": "Un objetivo específico responde a las preguntas:",
+            },
+            {
+              "concepto": "M - Medible (Measurable)",
+              "descripcion": "Un objetivo medible incluye criterios cuantificables para evaluar el progreso.",
+            },
+            {
+              "concepto": "A - Alcanzable (Achievable)",
+              "descripcion": "Un objetivo alcanzable es realista y factible dados los recursos disponibles.",
+            },
+            {
+              "concepto": "R - Relevante (Relevant)",
+              "descripcion": "Un objetivo relevante está alineado con los objetivos generales de la persona, el equipo o la organización.",
+            },
+            {
+              "concepto": "T - Temporal (Time-bound)",
+              "descripcion": "Un objetivo temporal tiene un plazo o fecha límite definida.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "S - Específico (Specific) → Un objetivo específico responde a las preguntas:  ·  M - Medible (Measurable) → Un objetivo medible incluye criterios cuantificables para evaluar el progreso.  ·  A - Alcanzable (Achievable) → Un objetivo alcanzable es realista y factible dados los recursos disponibles.  ·  R - Relevante (Relevant) → Un objetivo relevante está alineado con los objetivos generales de la persona, el equipo o",
+        },
+        {
+          "id": "smart-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ es un acrónimo que representa un conjunto de criterios para establecer objetivos efectivos y alcanzables.",
+          "correcto": "SMART",
+          "opciones": [
+            "OKR",
+            "SMART",
+            "Key Performance Indicator",
+            "interdependencia e interacción",
+          ],
+          "pista": "Empieza por la primera letra: «S…». Reta a SMART con su definición.",
+          "solucion": "«SMART»: SMART es un acrónimo que representa un conjunto de criterios para establecer objetivos efectivos y alcanzables.",
+        },
+      ],
+    },
   },
   "transformacion-datos-decisiones": {
     "id": "transformacion-datos-decisiones",
@@ -1157,6 +1430,62 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "transformacion-datos-decisiones-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Marketing",
+              "descripcion": "Datos de campañas → análisis de ROI → optimización de inversión.",
+            },
+            {
+              "concepto": "Finanzas",
+              "descripcion": "Transacciones → detección de fraude → prevención de riesgos.",
+            },
+            {
+              "concepto": "Operaciones",
+              "descripcion": "Datos de producción → identificación de cuellos de botella → mejora de eficiencia.",
+            },
+            {
+              "concepto": "Recursos Humanos",
+              "descripcion": "Encuestas de clima → identificación de problemas → plan de retención.",
+            },
+            {
+              "concepto": "Ventas",
+              "descripcion": "Historial de compras → segmentación de clientes → campañas personalizadas.",
+            },
+            {
+              "concepto": "Cadena de Suministro",
+              "descripcion": "Datos de inventario → previsión de demanda → optimización de stock.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Marketing → Datos de campañas → análisis de ROI → optimización de inversión.  ·  Finanzas → Transacciones → detección de fraude → prevención de riesgos.  ·  Operaciones → Datos de producción → identificación de cuellos de botella → mejora de eficiencia.  ·  Recursos Humanos → Encuestas de clima → identificación de problemas → plan de retención.  ·  Ventas → Historial de compras → segmentación de clientes → campañas p",
+        },
+        {
+          "id": "transformacion-datos-decisiones-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es el puente entre la recolección de datos y la acción empresarial, y constituye el corazón de la __________ (basada en datos) en las organizaciones modernas.",
+          "correcto": "cultura data-driven",
+          "opciones": [
+            "OKR",
+            "cultura data-driven",
+            "Key Performance Indicator",
+            "interdependencia e interacción",
+          ],
+          "pista": "Empieza por la primera letra: «c…». Reta a cultura data-driven con su definición.",
+          "solucion": "«cultura data-driven»: Es el puente entre la recolección de datos y la acción empresarial, y constituye el corazón de la cultura data-driven (basada en datos) en las organizaciones modernas.",
+        },
+      ],
+    },
   },
   "estandar-ansi": {
     "id": "estandar-ansi",
@@ -1289,6 +1618,58 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estandar-ansi-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Empresa de manufactura",
+              "descripcion": "Usar ANSI/ISO 9001 para certificar su sistema de gestión de calidad.",
+            },
+            {
+              "concepto": "Empresa de tecnología",
+              "descripcion": "Seguir el estándar ANSI C o ANSI SQL para garantizar la interoperabilidad de su software.",
+            },
+            {
+              "concepto": "Empresa de construcción",
+              "descripcion": "Cumplir con los estándares ANSI de seguridad (ej → ANSI A14.1 para escaleras).",
+            },
+            {
+              "concepto": "Empresa de electrónica",
+              "descripcion": "Cumplir con estándares ANSI/UL para garantizar la seguridad eléctrica de sus productos.",
+            },
+            {
+              "concepto": "Organización ambiental",
+              "descripcion": "Usar ANSI/ISO 14001 para certificar su sistema de gestión ambiental.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Empresa de manufactura → Usar ANSI/ISO 9001 para certificar su sistema de gestión de calidad.  ·  Empresa de tecnología → Seguir el estándar ANSI C o ANSI SQL para garantizar la interoperabilidad de su software.  ·  Empresa de construcción → Cumplir con los estándares ANSI de seguridad (ej → ANSI A14.1 para escaleras).  ·  Empresa de electrónica → Cumplir con estándares ANSI/UL para garantizar la seguridad eléctrica ",
+        },
+        {
+          "id": "estandar-ansi-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El __________ (American National Standards Institute) es una organización privada sin fines de lucro que administra y coordina el sistema de estandarización voluntaria en los Estados Unidos.",
+          "correcto": "ANSI",
+          "opciones": [
+            "ANSI",
+            "OKR",
+            "interdependencia e interacción",
+            "Key Performance Indicator",
+          ],
+          "pista": "Empieza por la primera letra: «A…». Reta a ANSI con su definición.",
+          "solucion": "«ANSI»: El ANSI (American National Standards Institute) es una organización privada sin fines de lucro que administra y coordina el sistema de estandarización voluntaria en los Estados Unidos.",
+        },
+      ],
+    },
   },
   "etica-responsabilidad": {
     "id": "etica-responsabilidad",
@@ -1437,6 +1818,62 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "etica-responsabilidad-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Lanzamiento de producto",
+              "descripcion": "Evaluar si el producto es seguro, accesible y no tiene impactos negativos.",
+            },
+            {
+              "concepto": "Despidos masivos",
+              "descripcion": "Ofrecer indemnizaciones justas, apoyo en recolocación y comunicación transparente.",
+            },
+            {
+              "concepto": "Proveedores",
+              "descripcion": "Asegurar que los proveedores respeten derechos laborales y normas ambientales.",
+            },
+            {
+              "concepto": "Marketing",
+              "descripcion": "No engañar a los consumidores; ser claro en precios, condiciones y beneficios.",
+            },
+            {
+              "concepto": "Inteligencia Artificial",
+              "descripcion": "Asegurar que los algoritmos no tengan sesgos discriminatorios y sean transparentes.",
+            },
+            {
+              "concepto": "Política de precios",
+              "descripcion": "Evitar abusos (precios predatorios, colusión) y garantizar accesibilidad.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Lanzamiento de producto → Evaluar si el producto es seguro, accesible y no tiene impactos negativos.  ·  Despidos masivos → Ofrecer indemnizaciones justas, apoyo en recolocación y comunicación transparente.  ·  Proveedores → Asegurar que los proveedores respeten derechos laborales y normas ambientales.  ·  Marketing → No engañar a los consumidores; ser claro en precios, condiciones y beneficios.  ·  Inteligencia Arti",
+        },
+        {
+          "id": "etica-responsabilidad-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La ética y responsabilidad de los negocios es una disciplina que estudia y aplica los __________ en el ámbito empresarial.",
+          "correcto": "principios morales y valores",
+          "opciones": [
+            "OKR",
+            "Key Performance Indicator",
+            "principios morales y valores",
+            "interdependencia e interacción",
+          ],
+          "pista": "Empieza por la primera letra: «p…». Reta a principios morales y valores con su definición.",
+          "solucion": "«principios morales y valores»: La ética y responsabilidad de los negocios es una disciplina que estudia y aplica los principios morales y valores en el ámbito empresarial.",
+        },
+      ],
+    },
   },
   "etps": {
     "id": "etps",
@@ -1610,5 +2047,61 @@ export const NEGOCIO_ADMIN_GESTION_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "etps-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Balanced Scorecard (Kaplan & Norton)",
+              "descripcion": "El modelo ETPS es un precursor del Balanced Scorecard, que también integra perspectiva financiera, de clientes, procesos y aprendizaje.",
+            },
+            {
+              "concepto": "McKinsey 7S",
+              "descripcion": "Modelo similar que incluye estrategia, estructura, sistemas, habilidades, staff, estilo y valores compartidos.",
+            },
+            {
+              "concepto": "Transformación Digital",
+              "descripcion": "El ETPS es un marco útil para guiar la transformación digital, ya que aborda la alineación entre estrategia, tecnología, personas y sistemas.",
+            },
+            {
+              "concepto": "Gestión del Cambio",
+              "descripcion": "El ETPS es una herramienta para gestionar el cambio organizacional, ya que permite identificar qué pilares deben ajustarse.",
+            },
+            {
+              "concepto": "Escaneo del Entorno (Environmental Scanning)",
+              "descripcion": "La obra original de Aguilar se centra en el monitoreo del entorno externo; el ETPS es su marco para gestionar la respuesta interna a esos cambios.",
+            },
+            {
+              "concepto": "Ventaja Competitiva",
+              "descripcion": "La alineación de los cuatro pilares del ETPS es necesaria para sostener una ventaja competitiva en el tiempo.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Balanced Scorecard (Kaplan & Norton) → El modelo ETPS es un precursor del Balanced Scorecard, que también integra perspectiva financiera, de clientes, procesos y aprendizaje.  ·  McKinsey 7S → Modelo similar que incluye estrategia, estructura, sistemas, habilidades, staff, estilo y valores compartidos.  ·  Transformación Digital → El ETPS es un marco útil para guiar la transformación digital, ya que aborda la alineac",
+        },
+        {
+          "id": "etps-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El modelo __________ (Estrategia, Tecnología, Personas, Sistemas) es un marco de gestión estratégica propuesto por Francis Aguilar en 1967 en su obra \"Scanning the Business Environment\".",
+          "correcto": "ETPS",
+          "opciones": [
+            "OKR",
+            "ETPS",
+            "Key Performance Indicator",
+            "interdependencia e interacción",
+          ],
+          "pista": "Empieza por la primera letra: «E…». Reta a ETPS con su definición.",
+          "solucion": "«ETPS»: El modelo ETPS (Estrategia, Tecnología, Personas, Sistemas) es un marco de gestión estratégica propuesto por Francis Aguilar en 1967 en su obra \"Scanning the Business Environment\".",
+        },
+      ],
+    },
   },
 };

@@ -1,0 +1,935 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>border-spacing</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-8073-b39a-feb88bd4b737" class="page sans"><header><h1 class="page-title" dir="auto"><code>border-spacing</code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h1 id="3f5648ad-99fc-8095-b659-d811f533513c" class="" dir="auto"><strong>📄 </strong><code><strong>border-spacing</strong></code></h1><h2 id="3f5648ad-99fc-8001-a83b-c227374995c6" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-80ce-8507-eba5f0296082" class="" dir="auto"><code>border-spacing</code> es una <strong>propiedad CSS</strong> que establece la <strong>distancia entre los bordes de celdas adyacentes</strong> en una tabla. </p><p id="3f5648ad-99fc-8025-a55f-e9604b33b2b2" class="" dir="auto">Solo funciona cuando <code>border-collapse</code> está en <code>separate</code>.</p><h2 id="3f5648ad-99fc-8018-9dda-fcfb1bd1aaea" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-808a-a6fa-cb814b9ee322" class="" dir="auto">Forma parte de las <strong>propiedades de tablas</strong> (junto con <code>border-collapse</code>, <code>caption-side</code>, <code>empty-cells</code>, <code>table-layout</code>). </p><p id="3f5648ad-99fc-80ef-8a1c-d1489f0d1529" class="" dir="auto">Controla el espacio que separa las celdas entre sí (horizontal y vertical).</p><p id="3f5648ad-99fc-8011-9837-fd6d79b1c81a" class="" dir="auto">Es la contraparte de <code>border-collapse: collapse</code>: mientras <code>collapse</code> fusiona los bordes eliminando espacio, <code>border-spacing</code> define <strong>cuánto espacio</strong> hay entre celdas cuando están separadas.</p><p id="3f5648ad-99fc-800b-b6cb-cb53067ca2b7" class="" dir="auto">⚠️ <strong>Solo aplica a tablas</strong> (<code>&lt;table&gt;</code> o <code>display: table</code>) y <strong>solo cuando </strong><code><strong>border-collapse: separate</strong></code> (el valor por defecto). </p><p id="3f5648ad-99fc-809b-acf8-f4638139724c" class="" dir="auto">Si usas <code>border-collapse: collapse</code>, <code>border-spacing</code> se <strong>ignora por completo</strong>.</p><h2 id="3f5648ad-99fc-80d2-9f6a-fc97c6d6d325" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-80b6-ab37-c6dbd19079ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>espacio entre celdas</strong> de una tabla.</li></ul><ul id="3f5648ad-99fc-8073-8e87-df0b965cb084" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseñar tablas tipo &quot;tarjeta&quot; con celdas independientes.</li></ul><ul id="3f5648ad-99fc-80f1-bf51-e79dad19740f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Separar visualmente filas o columnas.</li></ul><ul id="3f5648ad-99fc-8032-be31-ed27aa58ee38" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ajustar el espaciado en tablas de precios, comparativas, dashboards.</li></ul><ul id="3f5648ad-99fc-8027-a129-f90b3ec47d70" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar el espacio horizontal y vertical por separado.</li></ul><ul id="3f5648ad-99fc-800f-8a9f-cc5f3f06298b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir &quot;aire&quot; entre celdas sin usar padding.</li></ul><h2 id="3f5648ad-99fc-807e-8ae8-e9944255bead" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-8085-a52e-d3889d47f832" class="" dir="auto">El navegador aplica el espacio indicado entre los bordes de celdas adyacentes. </p><p id="3f5648ad-99fc-80ff-96a8-f8120b9b677e" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f5648ad-99fc-8054-a148-f104579bacf4" class="numbered-list" start="1" dir="auto"><li><strong>Solo con </strong><code><strong>border-collapse: separate</strong></code> → con <code>collapse</code>, se ignora.</li></ol><ol type="1" id="3f5648ad-99fc-802f-9cf7-ce6986305304" class="numbered-list" start="2" dir="auto"><li><strong>Acepta uno o dos valores</strong> → horizontal y vertical.</li></ol><ol type="1" id="3f5648ad-99fc-8069-b4e2-dd1f54987b64" class="numbered-list" start="3" dir="auto"><li><strong>Un valor</strong> → mismo espacio en ambas direcciones.</li></ol><ol type="1" id="3f5648ad-99fc-8044-a063-dcaa3ce255f2" class="numbered-list" start="4" dir="auto"><li><strong>Dos valores</strong> → primero horizontal, segundo vertical.</li></ol><ol type="1" id="3f5648ad-99fc-8098-9ad2-c2362ccef68e" class="numbered-list" start="5" dir="auto"><li><strong>Se aplica entre celdas y entre celdas y el borde de la tabla</strong> → el espacio también rodea la tabla.</li></ol><ol type="1" id="3f5648ad-99fc-8027-a2f6-f91128db18a7" class="numbered-list" start="6" dir="auto"><li><strong>No colapsa</strong> → es un espacio fijo, no se fusiona con márgenes.</li></ol><ol type="1" id="3f5648ad-99fc-8085-a176-e622d645d89f" class="numbered-list" start="7" dir="auto"><li><strong>Afecta al tamaño total de la tabla</strong> → el espacio suma al ancho/alto.</li></ol><ol type="1" id="3f5648ad-99fc-8031-8e7a-e05feb884e10" class="numbered-list" start="8" dir="auto"><li><strong>No acepta negativos</strong> → solo valores ≥ 0.</li></ol><ol type="1" id="3f5648ad-99fc-8013-863f-e9d5623544bb" class="numbered-list" start="9" dir="auto"><li><strong>Se hereda</strong> → se puede definir en <code>&lt;table&gt;</code> y aplica a todas las celdas.</li></ol><h2 id="3f5648ad-99fc-805b-936f-f4ccd431db65" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8097-af6b-c5fb980af7d0" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  border-spacing: valor;
+}</code></pre><h3 id="3f5648ad-99fc-801c-9999-e83cd77d6697" class="" dir="auto"><strong>Sintaxis de uno o dos valores</strong></h3><p id="3f5648ad-99fc-8067-bf05-eff751043b89" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-807a-b2b5-d925940c5c97" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Un valor: horizontal y vertical iguales */
+border-spacing: 8px;
+
+/* Dos valores: horizontal | vertical */
+border-spacing: 16px 4px;</code></pre><h2 id="3f5648ad-99fc-808d-be99-ded162164730" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8006-897e-ed5d4e856902" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Espacio uniforme entre celdas */
+table {
+  border-collapse: separate;
+  border-spacing: 8px;
+}
+
+/* 2. Espacio horizontal y vertical distinto */
+table {
+  border-collapse: separate;
+  border-spacing: 16px 4px;
+  /* 16px entre columnas, 4px entre filas */
+}
+
+/* 3. Tabla tipo &quot;tarjeta&quot; con celdas separadas */
+table {
+  border-collapse: separate;
+  border-spacing: 8px;
+}
+td {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* 4. Tabla de precios con columnas separadas */
+table {
+  border-collapse: separate;
+  border-spacing: 12px 0;
+  /* 12px entre columnas, 0 entre filas */
+}
+
+/* 5. Tabla sin espacio (equivalente a collapse visual) */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* 6. Tabla con celdas muy separadas */
+table {
+  border-collapse: separate;
+  border-spacing: 24px;
+}
+
+/* 7. Espacio solo vertical */
+table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  /* 0 horizontal, 8px vertical */
+}
+
+/* 8. Tabla dashboard con celdas tipo widget */
+table {
+  border-collapse: separate;
+  border-spacing: 16px;
+}
+td {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* 9. Espacio en unidades relativas */
+table {
+  border-collapse: separate;
+  border-spacing: 0.5rem 0.25rem;
+}
+
+/* 10. Tabla con espacio y caption */
+table {
+  border-collapse: separate;
+  border-spacing: 4px;
+  caption-side: bottom;
+}</code></pre><h3 id="3f5648ad-99fc-8080-bffa-f28bb4b86631" class="" dir="auto"><strong>Tabla tipo &quot;tarjeta&quot; con celdas separadas</strong></h3><pre id="3f5648ad-99fc-808b-8e2f-d851137d069b" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">table {
+  border-collapse: separate;
+  border-spacing: 8px;
+}
+td {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}</code></pre><h3 id="3f5648ad-99fc-801a-866c-f48751b9c752" class="" dir="auto"><strong>Tabla de precios con columnas separadas</strong></h3><pre id="3f5648ad-99fc-80bd-8fc6-d5ec60ec251f" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">table {
+  border-collapse: separate;
+  border-spacing: 16px 0;
+  /* Separación entre columnas, sin espacio entre filas */
+}
+th, td {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}</code></pre><h3 id="3f5648ad-99fc-80e2-9e45-e716cecd3544" class="" dir="auto"><strong>Tabla dashboard con celdas tipo widget</strong></h3><pre id="3f5648ad-99fc-803f-a60d-dcae12173fee" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">table {
+  border-collapse: separate;
+  border-spacing: 20px;
+}
+td {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  vertical-align: top;
+}</code></pre><h3 id="3f5648ad-99fc-805a-9afe-ebb0c39e6b0b" class="" dir="auto"><strong>Espacio solo vertical (filas separadas)</strong></h3><pre id="3f5648ad-99fc-80a0-acf8-cba5dd18ef8e" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  /* Columnas pegadas, filas separadas */
+}
+tr {
+  background: #f5f5f5;
+}</code></pre><h3 id="3f5648ad-99fc-808c-9a7e-c6a45b1d3448" class="" dir="auto"><strong>Diferencia visual</strong></h3><pre id="3f5648ad-99fc-8062-9f4f-efba2a7d9294" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">border-spacing: 0           border-spacing: 8px
+┌─────┬─────┬─────┐         ┌─────┐ ┌─────┐ ┌─────┐
+│  A  │  B  │  C  │         │  A  │ │  B  │ │  C  │
+├─────┼─────┼─────┤         └─────┘ └─────┘ └─────┘
+│  D  │  E  │  F  │         ┌─────┐ ┌─────┐ ┌─────┐
+└─────┴─────┴─────┘         │  D  │ │  E  │ │  F  │
+                            └─────┘ └─────┘ └─────┘
+  celdas pegadas              celdas separadas</code></pre><h2 id="3f5648ad-99fc-801d-adce-f75c91422b03" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-80f0-b390-e940d693b634" class="numbered-list" start="1" dir="auto"><li><strong>Usar </strong><code><strong>border-spacing</strong></code><strong> con </strong><code><strong>border-collapse: collapse</strong></code> → se <strong>ignora por completo</strong>. Error muy común.</li></ol><ol type="1" id="3f5648ad-99fc-8027-8c35-e840be49081d" class="numbered-list" start="2" dir="auto"><li><strong>Olvidar que </strong><code><strong>separate</strong></code><strong> es el valor por defecto</strong> → si no defines <code>border-collapse</code>, <code>border-spacing</code> sí funciona (pero muchos desarrolladores asumen <code>collapse</code>).</li></ol><ol type="1" id="3f5648ad-99fc-8058-b024-ff17b6dbbc68" class="numbered-list" start="3" dir="auto"><li><strong>Esperar que </strong><code><strong>border-spacing</strong></code><strong> funcione en elementos que no son tablas</strong> → solo aplica a <code>&lt;table&gt;</code> o <code>display: table</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80e0-958b-e0c6f1259af8" class="numbered-list" start="4" dir="auto"><li><strong>Confundir </strong><code><strong>border-spacing</strong></code><strong> con </strong><code><strong>padding</strong></code> → <code>padding</code> es espacio <strong>dentro</strong> de la celda; <code>border-spacing</code> es espacio <strong>entre</strong> celdas.</li></ol><ol type="1" id="3f5648ad-99fc-80ca-9574-c0dc979d7ae1" class="numbered-list" start="5" dir="auto"><li><strong>Usar valores negativos</strong> → no permitidos. Solo ≥ 0.</li></ol><ol type="1" id="3f5648ad-99fc-80b0-a199-ead9165d9ec9" class="numbered-list" start="6" dir="auto"><li><strong>Olvidar que el espacio también rodea la tabla</strong> → el <code>border-spacing</code> se aplica entre celdas <strong>y</strong> entre celdas y el borde exterior de la tabla.</li></ol><ol type="1" id="3f5648ad-99fc-80ed-a1de-e3ad0cc4dfe8" class="numbered-list" start="7" dir="auto"><li><strong>Esperar que </strong><code><strong>border-radius</strong></code><strong> funcione con </strong><code><strong>collapse</strong></code> → si quieres celdas redondeadas, necesitas <code>separate</code> + <code>border-spacing</code>.</li></ol><ol type="1" id="3f5648ad-99fc-809f-960e-d5868c93dbb4" class="numbered-list" start="8" dir="auto"><li><strong>Confundir el orden de los dos valores</strong> → primero <strong>horizontal</strong>, luego <strong>vertical</strong> (<code>border-spacing: 16px 4px</code>).</li></ol><ol type="1" id="3f5648ad-99fc-8007-87cc-e34e51f3637f" class="numbered-list" start="9" dir="auto"><li><strong>No considerar </strong><code><strong>empty-cells</strong></code> → con <code>separate</code>, las celdas vacías muestran su borde y fondo por defecto; usar <code>empty-cells: hide</code> si no se quieren.</li></ol><ol type="1" id="3f5648ad-99fc-80df-bba4-e4447b9cadb7" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>border-spacing</strong></code><strong> en tablas responsive</strong> → el espacio suma al ancho total; puede causar desbordes. Considerar <code>overflow-x: auto</code> en el contenedor.</li></ol><ol type="1" id="3f5648ad-99fc-8007-8774-cb4d238e8c14" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Combinar con </strong><code><strong>border-collapse: collapse</strong></code><strong> y esperar que se sumen</strong> → son mutuamente excluyentes; solo uno tiene efecto.</li></ol><ol type="1" id="3f5648ad-99fc-8048-9c32-e12d180764dc" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>Usar </strong><code><strong>%</strong></code><strong> sin entender el contexto</strong> → el porcentaje se calcula respecto al ancho/alto del contenedor de la tabla; puede ser impredecible.</li></ol><h2 id="3f5648ad-99fc-80d6-81f0-d4e563ced7cf" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-80e5-bde0-e91e8c3de0c0" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8035-b58a-fbf6009ee1a4" dir="ltr"><th id="p_qV" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="@DX}" class="simple-table-header-color simple-table-header" style="width:463.6125030517578px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8010-a6a5-e73c76d5ad95" dir="ltr"><td id="p_qV" class="">Tabla clásica compacta</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>0</code> (o <code>collapse</code>)</td></tr><tr id="3f5648ad-99fc-8093-b3f7-f61721884f36" dir="ltr"><td id="p_qV" class="">Tabla tipo &quot;tarjeta&quot;</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>8px</code> – <code>16px</code></td></tr><tr id="3f5648ad-99fc-800c-9c39-c3f253bb54f2" dir="ltr"><td id="p_qV" class="">Tabla de precios</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>12px 0</code> (columnas separadas)</td></tr><tr id="3f5648ad-99fc-80cd-890e-c6838ebcd96e" dir="ltr"><td id="p_qV" class="">Tabla dashboard</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>16px</code> – <code>24px</code></td></tr><tr id="3f5648ad-99fc-80a5-92f5-e1c59d8d9ab2" dir="ltr"><td id="p_qV" class="">Filas separadas</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>0 8px</code></td></tr><tr id="3f5648ad-99fc-800f-99d6-c3d04c457516" dir="ltr"><td id="p_qV" class="">Columnas separadas</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>16px 0</code></td></tr><tr id="3f5648ad-99fc-80d2-a79f-f20957e0e46d" dir="ltr"><td id="p_qV" class="">Celdas con sombra</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>8px</code> + <code>border-radius</code></td></tr><tr id="3f5648ad-99fc-80b6-8edc-d9674ee01a37" dir="ltr"><td id="p_qV" class="">Tabla espaciosa</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>12px</code> – <code>20px</code></td></tr><tr id="3f5648ad-99fc-806e-b0d7-c8d4d406f702" dir="ltr"><td id="p_qV" class="">Tabla minimalista</td><td id="@DX}" class="" style="width:463.6125030517578px"><code>0 4px</code> (solo vertical)</td></tr><tr id="3f5648ad-99fc-806d-a975-fa628b1c37fe" dir="ltr"><td id="p_qV" class="">Tabla con <code>empty-cells: hide</code></td><td id="@DX}" class="" style="width:463.6125030517578px"><code>4px</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80c1-b019-f8995a6d11cb" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-80c5-a22c-c2f682cd0f74" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-collapse</strong></code> → <code>collapse</code> ignora <code>border-spacing</code>; <code>separate</code> lo activa.</li></ul><ul id="3f5648ad-99fc-8027-b304-ffd376e06c3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>empty-cells</strong></code> → solo aplica con <code>separate</code>; controla celdas vacías.</li></ul><ul id="3f5648ad-99fc-8040-bd1c-da23431e7ab8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>padding</strong></code> → espacio <strong>dentro</strong> de la celda; <code>border-spacing</code> es espacio <strong>entre</strong> celdas.</li></ul><ul id="3f5648ad-99fc-80f9-b9b7-f66f918d4238" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → solo funciona con <code>separate</code>.</li></ul><ul id="3f5648ad-99fc-80e7-8d96-e89daca4b22e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → solo funciona bien con <code>separate</code>.</li></ul><ul id="3f5648ad-99fc-8053-a1a8-c26cbbb47512" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>table-layout</strong></code> → algoritmo de layout de la tabla.</li></ul><ul id="3f5648ad-99fc-80a9-982b-cd46ab63727a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>caption-side</strong></code> → posición del título de la tabla.</li></ul><ul id="3f5648ad-99fc-80d9-8dd5-c72f8c2fe2a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → los bordes de las celdas que se separan.</li></ul><ul id="3f5648ad-99fc-80b9-8010-fd67f0b393a9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;table&gt;</strong></code><strong>, </strong><code><strong>&lt;tr&gt;</strong></code><strong>, </strong><code><strong>&lt;td&gt;</strong></code><strong>, </strong><code><strong>&lt;th&gt;</strong></code> → elementos HTML afectados.</li></ul><ul id="3f5648ad-99fc-80d4-a35e-c71359b7d137" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>grid</strong></code> → alternativa moderna para layouts tabulares.</li></ul><p id="3f5648ad-99fc-804b-8fb5-d98646f4f8a2" class="" dir="auto"><strong>Visualización del espacio:</strong></p><p id="3f5648ad-99fc-80b5-8652-da3317726c62" class="" dir="auto">text</p><pre id="3f5648ad-99fc-80bd-90bb-dd8b4544960a" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">border-spacing: 8px
+
+┌───────────────────────────────────┐
+│  ┌─────┐  ┌─────┐  ┌─────┐        │
+│  │  A  │  │  B  │  │  C  │        │
+│  └─────┘  └─────┘  └─────┘        │
+│     ↑        ↑        ↑           │
+│   8px      8px      8px           │
+│  ┌─────┐  ┌─────┐  ┌─────┐        │
+│  │  D  │  │  E  │  │  F  │        │
+│  └─────┘  └─────┘  └─────┘        │
+└───────────────────────────────────┘
+  ↑ el espacio también rodea la tabla</code></pre><h2 id="3f5648ad-99fc-8072-a2b2-ff924086cdf9" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-80da-9886-f45d2fd88835" class="" dir="auto">Imagina que las celdas de la tabla son <strong>azulejos</strong> en una pared:</p><ul id="3f5648ad-99fc-805d-877a-f724e011afc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-collapse: collapse</strong></code> → azulejos pegados, sin junta.</li></ul><ul id="3f5648ad-99fc-80f0-9208-ee1f20fe72a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-collapse: separate</strong></code><strong> + </strong><code><strong>border-spacing: 0</strong></code> → azulejos pegados pero con borde propio (junta invisible).</li></ul><ul id="3f5648ad-99fc-80ec-a6a6-dff1aa3f9ce1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-collapse: separate</strong></code><strong> + </strong><code><strong>border-spacing: 8px</strong></code> → azulejos separados con una <strong>junta visible</strong> de 8px entre ellos.</li></ul><p id="3f5648ad-99fc-8047-bab2-dbfd263d62f0" class="" dir="auto"><code>border-spacing</code> es el <strong>ancho de la junta</strong>: cuánto espacio hay entre azulejo y azulejo.</p><h2 id="3f5648ad-99fc-809f-bafb-e66e9fbbadaf" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-80e3-88fe-ffdc5b84bbd1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-spacing</em><p id="3f5648ad-99fc-803e-87ed-c6fd7c8767ba" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-spacing">https://developer.mozilla.org/es/docs/Web/CSS/border-spacing</a></p></li></ul><ul id="3f5648ad-99fc-8096-81d4-ee194dd4a6b6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Table Module Level 3<p id="3f5648ad-99fc-806a-bc5b-e059b95d7e89" class="" dir="auto"><a href="https://www.w3.org/TR/css-tables-3/#border-spacing-property">https://www.w3.org/TR/css-tables-3/#border-spacing-property</a></p></li></ul><ul id="3f5648ad-99fc-8011-a5b5-e33dafdd3a7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>border-spacing</em><p id="3f5648ad-99fc-80a2-b75c-ebda74fcfa25" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/border-spacing/">https://css-tricks.com/almanac/properties/b/border-spacing/</a></p></li></ul><ul id="3f5648ad-99fc-800e-8110-e8bb70353b76" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-collapse</em><p id="3f5648ad-99fc-8003-9518-ede964046109" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-collapse">https://developer.mozilla.org/es/docs/Web/CSS/border-collapse</a></p></li></ul><h2 id="3f5648ad-99fc-8036-bbe2-ff484865c92b" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-802d-9a22-ed084ad82054" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo funciona con </strong><code><strong>border-collapse: separate</strong></code> → con <code>collapse</code> se ignora. Error nº1.</li></ul><ul id="3f5648ad-99fc-8070-8e51-e2cd85f29969" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>separate</strong></code><strong> es el valor por defecto</strong> → si no defines <code>border-collapse</code>, <code>border-spacing</code> sí funciona.</li></ul><ul id="3f5648ad-99fc-8080-8982-c3bb3167de75" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Orden de valores</strong> → primero <strong>horizontal</strong>, luego <strong>vertical</strong> (<code>16px 4px</code>).</li></ul><ul id="3f5648ad-99fc-80ac-936d-fc9e38f134b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No acepta negativos</strong> → solo valores ≥ 0.</li></ul><ul id="3f5648ad-99fc-803e-992c-ec00bcc222fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-spacing</strong></code><strong> ≠ </strong><code><strong>padding</strong></code> → <code>padding</code> es espacio dentro de la celda; <code>border-spacing</code> es espacio entre celdas.</li></ul><ul id="3f5648ad-99fc-80f5-ae8d-f63051b6d7e6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para tablas tipo &quot;card&quot;</strong> → <code>separate</code> + <code>border-spacing</code> + <code>border-radius</code> + <code>box-shadow</code> en celdas.</li></ul><ul id="3f5648ad-99fc-80f1-9a1c-fd35ded7bd99" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para tablas compactas</strong> → <code>collapse</code> (ignora <code>border-spacing</code>).</li></ul><ul id="3f5648ad-99fc-8051-a7ff-dc6a7dc7e639" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El espacio también rodea la tabla</strong> → no solo entre celdas; el borde exterior de la tabla también se separa del contenido.</li></ul><ul id="3f5648ad-99fc-802b-a286-c7fbcf4e60da" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Con </strong><code><strong>empty-cells: hide</strong></code> → las celdas vacías no muestran borde ni fondo, pero el espacio de <code>border-spacing</code> sigue ahí.</li></ul><ul id="3f5648ad-99fc-80cc-b4eb-d0ca9e092f32" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En tablas responsive</strong> → el espacio suma al ancho; considerar <code>overflow-x: auto</code> en el contenedor.</li></ul><ul id="3f5648ad-99fc-8083-a176-ca93b17b1bad" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alternativa moderna</strong> → <code>display: grid</code> con <code>gap</code> es más flexible, pero <code>&lt;table&gt;</code> sigue siendo lo correcto para <strong>datos tabulares</strong> (accesibilidad).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

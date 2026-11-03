@@ -1,0 +1,889 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>box-shadow</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-80c5-8e48-d28710cbb05e" class="page sans"><header><h1 class="page-title" dir="auto"><code>box-shadow</code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h1 id="3f5648ad-99fc-8094-a65a-e104c909205b" class="" dir="auto"><strong>📄 </strong><code><strong>box-shadow</strong></code></h1><h2 id="3f5648ad-99fc-80d2-ae80-d1e3303b6cf7" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-802d-805a-c913d756de2f" class="" dir="auto"><code>box-shadow</code> es una <strong>propiedad CSS</strong> que añade <strong>una o más sombras</strong> alrededor de la caja de un elemento. </p><p id="3f5648ad-99fc-80bb-840c-d2dce18c56c2" class="" dir="auto">Cada sombra se define por desplazamiento horizontal, desplazamiento vertical, difuminado, expansión y color.</p><h2 id="3f5648ad-99fc-8067-81a4-c8b508be91ff" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80fc-be43-d82e49400fd0" class="" dir="auto">Forma parte de las <strong>propiedades de efectos visuales</strong> (junto con <code>filter</code>, <code>text-shadow</code>, <code>mix-blend-mode</code>). </p><p id="3f5648ad-99fc-8065-bd09-ff5caa6c6b89" class="" dir="auto">Dibuja sombras <strong>fuera o dentro</strong> de la caja (con <code>inset</code>), sin afectar al layout → la sombra <strong>no ocupa espacio</strong> ni desplaza a otros elementos.</p><p id="3f5648ad-99fc-80aa-9c83-cae1732f569d" class="" dir="auto">Es una de las herramientas más usadas para dar <strong>profundidad, jerarquía y elevación</strong> a interfaces.</p><h2 id="3f5648ad-99fc-8092-9f5d-f93858e491b7" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-80a4-96d3-d413ce4644ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear sensación de <strong>profundidad</strong> y elevación (tarjetas, modales, dropdowns).</li></ul><ul id="3f5648ad-99fc-8047-a64f-c8dd00283a54" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Destacar elementos interactivos (botones, cards con hover).</li></ul><ul id="3f5648ad-99fc-80de-a456-e104e639ee53" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Simular <strong>bordes</strong> sin afectar al layout (a diferencia de <code>border</code>).</li></ul><ul id="3f5648ad-99fc-804e-b2c1-f51f1c81cda6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Indicar <strong>estados</strong> (focus, error, selección).</li></ul><ul id="3f5648ad-99fc-80f0-9af1-c376e638eb7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Diseñar <strong>neumorfismo</strong> (sombras claras y oscuras).</li></ul><ul id="3f5648ad-99fc-80d9-8f99-d44755ecc430" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear efectos de <strong>glow</strong> (resplandor) con colores vivos.</li></ul><ul id="3f5648ad-99fc-8081-a6d7-ccc59c678ad2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir <strong>capas</strong> visuales sin usar imágenes.</li></ul><h2 id="3f5648ad-99fc-8058-92ea-ec64513e8171" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-807d-a8d6-ce2bcb068e8b" class="" dir="auto">El navegador dibuja una o más sombras detrás (o dentro) de la caja, siguiendo la forma del <code>border-radius</code>. </p><p id="3f5648ad-99fc-8095-bcd5-e052358726a1" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f5648ad-99fc-808e-a24e-de256ea3ae29" class="numbered-list" start="1" dir="auto"><li><strong>No afecta al layout</strong> → la sombra es puramente visual, no empuja elementos.</li></ol><ol type="1" id="3f5648ad-99fc-80fa-b640-d2646924426d" class="numbered-list" start="2" dir="auto"><li><strong>Respeta </strong><code><strong>border-radius</strong></code> → la sombra se curva con las esquinas.</li></ol><ol type="1" id="3f5648ad-99fc-80cc-aef9-d4958e564d1e" class="numbered-list" start="3" dir="auto"><li><strong>Se puede apilar</strong> → varias sombras separadas por comas.</li></ol><ol type="1" id="3f5648ad-99fc-80a9-8366-e04b0bb1946b" class="numbered-list" start="4" dir="auto"><li><code><strong>inset</strong></code> → dibuja la sombra <strong>dentro</strong> de la caja.</li></ol><ol type="1" id="3f5648ad-99fc-80cf-9a3f-f9fa88a3ec31" class="numbered-list" start="5" dir="auto"><li><code><strong>spread</strong></code> → expande o contrae la sombra.</li></ol><ol type="1" id="3f5648ad-99fc-80e3-b678-f989463e8742" class="numbered-list" start="6" dir="auto"><li><code><strong>blur</strong></code> → difumina la sombra (0 = borde duro).</li></ol><ol type="1" id="3f5648ad-99fc-80fd-8c34-d36653586929" class="numbered-list" start="7" dir="auto"><li><code><strong>currentColor</strong></code> → usa el color del texto.</li></ol><ol type="1" id="3f5648ad-99fc-8065-a1cc-fb8af5b9be68" class="numbered-list" start="8" dir="auto"><li><strong>Se puede animar</strong> → transiciones suaves entre sombras.</li></ol><h2 id="3f5648ad-99fc-802a-a1f5-fdf92fcbd617" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-800c-bf8e-e95b427d7afb" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  box-shadow: offset-x offset-y blur spread color;
+}</code></pre><h3 id="3f5648ad-99fc-806a-bc45-ee982844b39d" class="" dir="auto"><strong>Múltiples sombras</strong></h3><pre id="3f5648ad-99fc-80d2-8f1f-ef3bd6cc2476" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">box-shadow:
+  0 1px 2px rgba(0, 0, 0, 0.1),
+  0 4px 8px rgba(0, 0, 0, 0.1),
+  0 8px 16px rgba(0, 0, 0, 0.1);</code></pre><h2 id="3f5648ad-99fc-80bd-b9e9-d95255274b99" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8090-b954-e003b0ad32a2" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Sombra sutil (tarjeta) */
+.card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* 2. Sombra elevada (hover) */
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. Sombra con spread */
+.btn {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* 4. Sombra interna (inset) */
+.input {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Sombra como borde (sin afectar layout) */
+.elemento {
+  box-shadow: 0 0 0 2px #3498db;
+}
+
+/* 6. Focus accesible */
+button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+  outline: none;
+}
+
+/* 7. Glow de color */
+.btn-glow {
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.6);
+}
+
+/* 8. Múltiples sombras (elevación realista) */
+.elevated {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.07),
+    0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07),
+    0 8px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* 9. Neumorfismo */
+.neumorph {
+  background: #e0e0e0;
+  box-shadow:
+    8px 8px 16px #bebebe,
+    -8px -8px 16px #ffffff;
+}
+
+/* 10. Sombra con transición */
+.btn {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+.btn:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}</code></pre><h3 id="3f5648ad-99fc-8017-9118-cc53d27f305e" class="" dir="auto"><strong>Sistema de elevación (Material Design style)</strong></h3><pre id="3f5648ad-99fc-8080-80cc-c0e97f1b52f8" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">:root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card   { box-shadow: var(--shadow-sm); }
+.card:hover { box-shadow: var(--shadow-lg); }
+.modal  { box-shadow: var(--shadow-xl); }</code></pre><h3 id="3f5648ad-99fc-801b-8119-c6bf49aa20dc" class="" dir="auto"><strong>Sombra como borde (sin romper layout)</strong></h3><pre id="3f5648ad-99fc-8019-a9c5-c6432f002938" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* En lugar de border: 2px solid blue; */
+.elemento {
+  box-shadow: 0 0 0 2px blue;
+  /* No ocupa espacio, no desplaza elementos */
+}</code></pre><h2 id="3f5648ad-99fc-80a4-b4ba-c160bd7eba10" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-805b-b9a3-d6eef79c4d07" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>border</strong></code><strong> con </strong><code><strong>box-shadow</strong></code> → <code>border</code> ocupa espacio y puede romper el layout; <code>box-shadow</code> no. Usar <code>box-shadow: 0 0 0 2px color</code> para simular bordes.</li></ol><ol type="1" id="3f5648ad-99fc-804f-8389-c75f9c3b44d9" class="numbered-list" start="2" dir="auto"><li><strong>Olvidar los dos offsets</strong> → <code>box-shadow: 5px red</code> es inválido. Siempre <code>offset-x</code> y <code>offset-y</code> (aunque sean <code>0</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80e1-a161-c30ef7b8eabb" class="numbered-list" start="3" dir="auto"><li><strong>Abusar de sombras muy oscuras</strong> → sombras negras puras (<code>#000</code>) se ven artificiales. Usar <code>rgba(0, 0, 0, 0.1)</code> con opacidad baja.</li></ol><ol type="1" id="3f5648ad-99fc-8016-92f1-cd6c39bb93a1" class="numbered-list" start="4" dir="auto"><li><strong>No considerar el modo oscuro</strong> → las sombras oscuras no funcionan en fondos oscuros. Usar sombras claras o cambiarlas con <code>prefers-color-scheme</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8039-a515-cb151ac3c100" class="numbered-list" start="5" dir="auto"><li><strong>Sombra en todos los elementos</strong> → sobrecarga visual. Reservar sombras para elementos que flotan o destacan.</li></ol><ol type="1" id="3f5648ad-99fc-8083-aa4e-c5ef52b282d9" class="numbered-list" start="6" dir="auto"><li><strong>Animar </strong><code><strong>box-shadow</strong></code><strong> sin transición</strong> → el cambio es brusco. Añadir <code>transition: box-shadow 0.3s</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8079-80ce-f0b7c4235393" class="numbered-list" start="7" dir="auto"><li><strong>Usar </strong><code><strong>box-shadow</strong></code><strong> para simular </strong><code><strong>outline</strong></code><strong> de focus</strong> → funciona, pero verificar accesibilidad (contraste, grosor).</li></ol><ol type="1" id="3f5648ad-99fc-8083-a1c0-c36931dc7f99" class="numbered-list" start="8" dir="auto"><li><strong>Sombras en </strong><code><strong>position: static</strong></code> → la sombra se dibuja, pero el elemento no se eleva visualmente respecto a otros. Para un efecto real, considerar <code>position: relative</code> o <code>z-index</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8054-a447-ea752308b141" class="numbered-list" start="9" dir="auto"><li><code><strong>inset</strong></code><strong> mal entendido</strong> → <code>inset</code> dibuja la sombra <strong>dentro</strong> de la caja, no fuera.</li></ol><ol type="1" id="3f5648ad-99fc-80c8-a526-c761909409c2" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>No usar variables CSS</strong> → definir un sistema de sombras (<code>-shadow-sm</code>, <code>-shadow-md</code>) hace el código mantenible.</li></ol><h2 id="3f5648ad-99fc-8070-9edd-dbd7833b5b97" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-8036-8f28-cb93540daaec" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-800b-8e44-fff3f5968d46" dir="ltr"><th id="qkNb" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="{S^G" class="simple-table-header-color simple-table-header" style="width:521.1000061035156px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8042-89b8-e31bb066f0a5" dir="ltr"><td id="qkNb" class="">Tarjetas</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>0 1px 3px rgba(0,0,0,0.12)</code></td></tr><tr id="3f5648ad-99fc-80ee-85f5-d493e332833c" dir="ltr"><td id="qkNb" class="">Hover de tarjeta</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>0 8px 24px rgba(0,0,0,0.15)</code></td></tr><tr id="3f5648ad-99fc-8083-82c2-d3232e5634dc" dir="ltr"><td id="qkNb" class="">Botones</td><td id="{S^G" class="" style="width:521.1000061035156px">Sombra sutil + hover más marcado</td></tr><tr id="3f5648ad-99fc-8089-bc23-e4990e8e489a" dir="ltr"><td id="qkNb" class="">Modales</td><td id="{S^G" class="" style="width:521.1000061035156px">Sombra grande para destacar</td></tr><tr id="3f5648ad-99fc-8078-aa39-f635ca2363e0" dir="ltr"><td id="qkNb" class="">Dropdowns</td><td id="{S^G" class="" style="width:521.1000061035156px">Sombra media para flotar</td></tr><tr id="3f5648ad-99fc-8006-9780-ef985d11a79d" dir="ltr"><td id="qkNb" class="">Focus accesible</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>0 0 0 3px rgba(52,152,219,0.4)</code></td></tr><tr id="3f5648ad-99fc-80f5-bae0-f6ff112ae1ef" dir="ltr"><td id="qkNb" class="">Inputs internos</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>inset 0 1px 3px rgba(0,0,0,0.1)</code></td></tr><tr id="3f5648ad-99fc-8038-bec3-e486cadaf960" dir="ltr"><td id="qkNb" class="">Neumorfismo</td><td id="{S^G" class="" style="width:521.1000061035156px">Sombras claras + oscuras</td></tr><tr id="3f5648ad-99fc-8090-9a3f-d9b46811327e" dir="ltr"><td id="qkNb" class="">Glow</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>0 0 20px color</code></td></tr><tr id="3f5648ad-99fc-803f-af88-fca0b780ebe3" dir="ltr"><td id="qkNb" class="">Borde simulado</td><td id="{S^G" class="" style="width:521.1000061035156px"><code>0 0 0 2px color</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80fa-88bd-f47659ce9681" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-8007-a64d-d9717598a064" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → ocupa espacio; <code>box-shadow</code> no.</li></ul><ul id="3f5648ad-99fc-8047-82f8-e00218ec1a31" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>outline</strong></code> → no ocupa espacio, pero no respeta <code>border-radius</code> (hasta hace poco).</li></ul><ul id="3f5648ad-99fc-8085-8a23-d24dd3111f4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-shadow</strong></code> → sombra para <strong>texto</strong>.</li></ul><ul id="3f5648ad-99fc-8045-a63d-e52b981b4042" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>filter: drop-shadow()</strong></code> → sombra que respeta la forma <strong>real</strong> del contenido (PNG con transparencia).</li></ul><ul id="3f5648ad-99fc-80db-8503-e8a752564a16" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → la sombra se curva con las esquinas.</li></ul><ul id="3f5648ad-99fc-80cf-8d0b-e23469dde535" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>overflow</strong></code> → no afecta a la sombra (se dibuja fuera).</li></ul><ul id="3f5648ad-99fc-8008-bc7a-e4c4a959b4b0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>z-index</strong></code> → controla el orden de apilado, no la sombra.</li></ul><ul id="3f5648ad-99fc-8087-9f2f-f3a49957be56" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>prefers-color-scheme</strong></code> → adaptar sombras al modo oscuro.</li></ul><ul id="3f5648ad-99fc-8006-9f9a-c1f688fa38e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>currentColor</strong></code> → valor por defecto del color de la sombra.</li></ul><ul id="3f5648ad-99fc-801e-ab24-cb5ce03112a2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CLS</strong> → <code>box-shadow</code> no genera layout shift (no ocupa espacio).</li></ul><p id="3f5648ad-99fc-8019-94c4-c8506a564834" class="" dir="auto"><strong>Visualización:</strong></p><pre id="3f5648ad-99fc-80dc-8e23-c2948c6e9b9f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">box-shadow: 4px 4px 8px 0 rgba(0,0,0,0.3);
+
+        offset-x (4px)
+        ────────────►
+       ┌─────────────┐
+       │   Elemento  │
+       └─────────────┘
+              │
+              ▼
+        offset-y (4px)
+              │
+       ┌─────────────┐
+       │  ▓▓▓▓▓▓▓▓▓  │  ← blur (8px)
+       │  ▓▓▓▓▓▓▓▓▓  │
+       └─────────────┘</code></pre><h2 id="3f5648ad-99fc-8075-9032-e89c19e7fed6" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-801c-80ea-d2d2fd0ab41b" class="" dir="auto">Imagina que cada elemento es una <strong>hoja de papel</strong> sobre una mesa. <code>box-shadow</code> es la <strong>sombra que proyecta</strong> según la luz. Si acercas la hoja a la mesa (offset pequeño, blur pequeño), la sombra es nítida y pegada. Si la levantas (offset grande, blur grande), la sombra es difusa y lejana → sensación de <strong>elevación</strong>. <code>inset</code> sería como si la hoja estuviera <strong>hundida</strong> en la mesa y la sombra estuviera dentro.</p><h2 id="3f5648ad-99fc-8080-9ae4-c4a62cbbfe73" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-805b-b83e-d3113a20f752" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>box-shadow</em><p id="3f5648ad-99fc-8015-a336-f5ea3191ed0d" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/box-shadow">https://developer.mozilla.org/es/docs/Web/CSS/box-shadow</a></p></li></ul><ul id="3f5648ad-99fc-8070-bc72-fe6f4395064b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f5648ad-99fc-8006-afe7-f89a6203d0a4" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#box-shadow">https://www.w3.org/TR/css-backgrounds-3/#box-shadow</a></p></li></ul><ul id="3f5648ad-99fc-808d-8f72-ca36d3df0ec6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>box-shadow</em><p id="3f5648ad-99fc-80f2-9409-cbcd2f533e1c" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/box-shadow/">https://css-tricks.com/almanac/properties/b/box-shadow/</a></p></li></ul><ul id="3f5648ad-99fc-8045-81d1-e4d737a98ba0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Material Design — <em>Elevation</em><p id="3f5648ad-99fc-80fb-9926-e193076c41e2" class="" dir="auto"><a href="https://m2.material.io/design/environment/elevation.html">https://m2.material.io/design/environment/elevation.html</a></p></li></ul><ul id="3f5648ad-99fc-80a5-85df-c2c9b5d3a1c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Josh Comeau — <em>Designing Beautiful Shadows in CSS</em><p id="3f5648ad-99fc-80f9-be05-fe74fa811b33" class="" dir="auto"><a href="https://www.joshwcomeau.com/css/designing-shadows/">https://www.joshwcomeau.com/css/designing-shadows/</a></p></li></ul><h2 id="3f5648ad-99fc-808d-8c5e-f147d39ce535" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-8034-b6ac-c6d1a6bd30ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sombra ≠ borde</strong> → <code>box-shadow: 0 0 0 2px color</code> es un borde que <strong>no ocupa espacio</strong> ni rompe layout.</li></ul><ul id="3f5648ad-99fc-8052-840a-c050fe907baf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sombras realistas</strong> → usar <code>rgba(0,0,0,0.05-0.15)</code>, no negro puro. Y apilar varias sombras para profundidad.</li></ul><ul id="3f5648ad-99fc-8052-a399-c7ca91ca5d61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sistema de elevación</strong> → definir variables (<code>-shadow-sm</code>, <code>-shadow-md</code>, <code>-shadow-lg</code>) para consistencia.</li></ul><ul id="3f5648ad-99fc-8043-bacb-e42f5949cb62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Hover con transición</strong> → <code>transition: box-shadow 0.3s ease</code> para cambios suaves.</li></ul><ul id="3f5648ad-99fc-8064-be1d-d40901436ae2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Modo oscuro</strong> → las sombras oscuras no funcionan en fondos oscuros. Usar sombras claras, colores, o <code>filter</code>.</li></ul><ul id="3f5648ad-99fc-80d8-a4bb-e2043ca4bbee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>inset</strong></code> → ideal para inputs hundidos o efectos de profundidad interna.</li></ul><ul id="3f5648ad-99fc-8026-848a-fce20425601b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Focus accesible</strong> → <code>box-shadow: 0 0 0 3px rgba(...)</code> es una alternativa moderna a <code>outline</code>, pero verificar contraste.</li></ul><ul id="3f5648ad-99fc-80fe-b284-d2d282b7178f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>filter: drop-shadow()</strong></code> → usar cuando el elemento tenga <strong>transparencia</strong> (PNG, SVG); <code>box-shadow</code> dibuja un rectángulo.</li></ul><ul id="3f5648ad-99fc-8061-94bd-f8faea42d7ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Neumorfismo</strong> → requiere fondo del mismo color que el contenedor + dos sombras opuestas.</li></ul><ul id="3f5648ad-99fc-8078-a301-c0064937d3d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rendimiento</strong> → <code>box-shadow</code> es GPU-friendly, pero muchas sombras grandes pueden afectar. Preferir <code>will-change</code> con moderación.</li></ul><ul id="3f5648ad-99fc-80a0-855e-d58c8641de02" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Josh Comeau</strong> tiene un artículo excelente sobre cómo diseñar sombras bonitas → muy recomendado.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

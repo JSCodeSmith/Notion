@@ -15,6 +15,7 @@ import {
   NEGOCIOS_CURSOS,
   NEGOCIOS_IDS,
 } from './data/negociosApuntes'
+import { CSS_CATEGORIAS, CSS_IDS } from './data/cssApuntes'
 
 // Fuera del componente: se crea una sola vez.
 // 'find' tiene componente propio (MetodoFindDoc), el resto vive en METODOS_DOCS.
@@ -25,6 +26,7 @@ const DOC_IDS = new Set([
   ...Object.keys(JS_APUNTES),
   ...Object.keys(CONSOLE_API_DOCS),
   ...NEGOCIOS_IDS,
+  ...CSS_IDS,
 ])
 
 /* Los apuntes de Administración y Negocios, agrupados por curso. */
@@ -74,6 +76,16 @@ export default function App() {
       courseId: 'lenguajes',
       metodos: CONSOLE_API_CONCEPTOS,
     },
+    ...CSS_CATEGORIAS.flatMap((categoria) =>
+      categoria.grupos.map((grupo) => ({
+        ...grupo,
+        seccion: `${categoria.label} · ${grupo.seccion}`,
+        subtitulo: `${categoria.titulo} · Desarrollo Web`,
+        careerId: 'programacion',
+        courseId: 'web',
+        keywords: `css desarrollo web estilos hoja de estilos ${categoria.label} ${categoria.id} ${grupo.seccion}`,
+      })),
+    ),
     ...NEGOCIOS_BUSCADOR,
   ]
 

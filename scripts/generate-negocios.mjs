@@ -679,12 +679,31 @@ function extraer(html) {
 /* 4. Lectura de los HTML                                              */
 /* ------------------------------------------------------------------ */
 
-const archivos = fs
-  .readdirSync(HTML_DIR)
-  .filter((file) => file.endsWith(".html"));
+/* Busca los HTML también dentro de subcarpetas (Notion puede exportarlos
+   anidados por tema). */
+function listarHtml(dir) {
+  const salida = [];
+  for (const entrada of fs.readdirSync(dir, { withFileTypes: true })) {
+    const completa = path.join(dir, entrada.name);
+    if (entrada.isDirectory()) salida.push(...listarHtml(completa));
+    else if (entrada.name.endsWith(".html")) salida.push(completa);
+  }
+  return salida;
+}
 
-const notas = archivos.map((archivo) => {
-  const html = fs.readFileSync(path.join(HTML_DIR, archivo), "utf8");
+const rutas = listarHtml(HTML_DIR);
+
+if (!rutas.length) {
+  throw new Error(
+    "No se encontró ningún HTML en Apuntes/. " +
+      "Coloca ahí los apuntes exportados de Notion y vuelve a ejecutar: " +
+      "node scripts/generate-negocios.mjs",
+  );
+}
+
+const notas = rutas.map((ruta) => {
+  const archivo = path.relative(HTML_DIR, ruta);
+  const html = fs.readFileSync(ruta, "utf8");
   const docTitle = (html.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] ?? "";
   const body = html.slice(html.indexOf('<div class="page-body">'));
   const h1Html = (body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i) || [])[1] ?? "";
@@ -717,7 +736,9 @@ function buscarNota(tituloEsperado) {
   });
   if (candidatas.length === 1) return candidatas[0];
   throw new Error(
-    `No se pudo identificar el HTML de "${tituloEsperado}" (${candidatas.length} coincidencias)`,
+    `No se pudo identificar el HTML de "${tituloEsperado}" ` +
+      `(${candidatas.length} coincidencias entre ${notas.length} HTML de Apuntes/). ` +
+      "¿Se movieron o renombraron los apuntes?",
   );
 }
 
@@ -775,7 +796,190 @@ function buildDoc(nota, curso, id, icon) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 6. Serialización                                                    */
+/* 6. Laboratorio: misiones automáticas                                */
+/* ------------------------------------------------------------------ */
+
+const XP_DIFICULTAD = { "Fácil": 60, "Medio": 90, "Difícil": 120 };
+const NUMERADO = /^\**\s*\d\uFE0F?\u20E3\s*/;
+const ES_NUMERADO = (texto) => /^\**\s*\d\uFE0F?\u20E3/.test(texto);
+
+const limpiar = (texto) => sinMarkdown(texto).trim();
+const recortar = (texto, max = 170) => {
+  const t = limpiar(texto);
+  if (t.length <= max) return t;
+  const corte = t.slice(0, max);
+  const espacio = corte.lastIndexOf(" ");
+  return `${corte.slice(0, espacio > 60 ? espacio : max).trim()}…`;
+};
+
+/** Divide "Concepto → descripción" o "Concepto: descripción". */
+function parDeTexto(texto) {
+  const t = limpiar(texto);
+  const corte = t.split(/\s*[→:：]\s/);
+  if (corte.length < 2) return null;
+  const concepto = corte[0].trim();
+  const descripcion = corte.slice(1).join(" → ").trim();
+  if (concepto.length < 3 || concepto.length > 60) return null;
+  if (descripcion.length < 30) return null;
+  if (concepto.length > descripcion.length) return null;
+  return { concepto, descripcion: recortar(descripcion) };
+}
+
+/** Parejas concepto↔descripción que ya contienen los apuntes. */
+function paresDeEmparejar(doc) {
+  /* Cada sección de la nota es una "fuente" distinta de parejas. */
+  const fuentes = [];
+
+  /* Notas anidadas por partes: cada parte es un concepto con su descripción. */
+  const partes = [];
+  for (const parte of doc.partes ?? []) {
+    const desc = parte.bloques
+      .flatMap((b) => b.textos)
+      .find((t) => limpiar(t).length > 45 && !t.startsWith("```"));
+    if (desc) {
+      partes.push({
+        concepto: limpiar(parte.titulo.replace(NUMERADO, "")),
+        descripcion: recortar(desc),
+      });
+    }
+  }
+  if (partes.length) fuentes.push(partes);
+
+  /* Títulos numerados (1️⃣, 2️⃣…) seguidos de su descripción. */
+  const grupos = [];
+  const recolectar = (items = []) => {
+    let actual = null;
+    for (const item of items) {
+      if (ES_NUMERADO(item)) {
+        actual = { concepto: limpiar(item.replace(NUMERADO, "")), textos: [] };
+        grupos.push(actual);
+      } else if (actual && !item.startsWith("```")) {
+        actual.textos.push(item);
+      }
+    }
+  };
+  recolectar(doc.comoFunciona);
+  for (const extra of doc.extras ?? []) recolectar(extra.textos);
+
+  const numerados = [];
+  for (const grupo of grupos) {
+    const desc = grupo.textos.find((t) => limpiar(t).length > 45);
+    if (desc && grupo.concepto.length <= 60) {
+      numerados.push({ concepto: grupo.concepto, descripcion: recortar(desc) });
+    }
+  }
+  if (numerados.length) fuentes.push(numerados);
+
+  /* Listas con formato "Concepto → descripción". */
+  for (const lista of [doc.casos, doc.relacion, doc.errores]) {
+    const pares = (lista ?? []).map(parDeTexto).filter(Boolean);
+    if (pares.length >= 4) fuentes.push(pares);
+  }
+
+  /* Primera fuente que aporte 4 o más parejas: mezclar secciones de la
+     nota no suele dar un emparejamiento coherente. */
+  const fuente = fuentes.find((lista) => lista.length >= 4) ?? [];
+  const usadas = [];
+  const claves = new Set();
+  for (const par of fuente) {
+    const clave = norm(par.concepto);
+    if (claves.has(clave)) continue;
+    claves.add(clave);
+    usadas.push(par);
+    if (usadas.length === 6) break;
+  }
+  return usadas;
+}
+
+/** Primera palabra en negrita de un texto. */
+const primerNegrita = (texto = "") => {
+  const match = texto.match(/\*\*([^*]{2,40})\*\*/);
+  return match ? match[1].trim() : "";
+};
+
+/** "Completa la definición": la frase con el término clave borrado. */
+function misionCompletar(doc, hermanos) {
+  const fuente =
+    (doc.definicion ?? []).map(primerNegrita).find((t) => t) ||
+    (doc.queEs ?? []).map(primerNegrita).find((t) => t);
+  if (!fuente) return null;
+
+  const original =
+    (doc.definicion ?? []).find((t) => t.includes(`**${fuente}**`)) ??
+    (doc.queEs ?? []).find((t) => t.includes(`**${fuente}**`));
+  if (!original) return null;
+
+  const frase = sinMarkdown(original).replace(fuente, "__________");
+  if (frase === original) return null;
+
+  const distractores = [];
+  for (const hermano of hermanos) {
+    if (hermano.id === doc.id || distractores.length === 3) continue;
+    const termino = primerNegrita(hermano.definicion?.[0] ?? hermano.queEs?.[0] ?? "");
+    if (!termino) continue;
+    if (termino === fuente) continue;
+    if (frase.toLowerCase().includes(termino.toLowerCase())) continue;
+    if (distractores.includes(termino)) continue;
+    distractores.push(termino);
+  }
+  if (distractores.length < 3) return null;
+
+  const semilla = [...doc.id].reduce((acc, ch) => acc * 31 + ch.charCodeAt(0), 7);
+  const opciones = [fuente, ...distractores].sort(
+    (a, b) => a.localeCompare(b) || 0,
+  );
+  const mezcladas = [...opciones].sort(
+    (a, b) =>
+      (norm(a).length * (semilla % 17)) - (norm(b).length * (semilla % 13)) ||
+      (norm(a) > norm(b) ? 1 : -1),
+  );
+
+  return {
+    id: `${doc.id}-completar`,
+    tipo: "completar",
+    titulo: "Completa la definición",
+    dificultad: "Fácil",
+    xp: XP_DIFICULTAD["Fácil"],
+    frase,
+    correcto: fuente,
+    opciones: mezcladas,
+    pista: `Empieza por la primera letra: «${fuente.charAt(0)}…». Reta a ${fuente} con su definición.`,
+    solucion: `«${fuente}»: ${recortar(original.replace(/\*\*/g, ""), 200)}`,
+  };
+}
+
+/**
+ * Misiones automáticas de cada apunte: emparejar conceptos con su
+ * descripción y completar la definición clave.
+ */
+function construirLab(doc, hermanos) {
+  const misiones = [];
+
+  const pares = paresDeEmparejar(doc);
+  if (pares.length >= 4) {
+    misiones.push({
+      id: `${doc.id}-emparejar`,
+      tipo: "emparejar",
+      titulo: "Une concepto y descripción",
+      dificultad: "Medio",
+      xp: XP_DIFICULTAD["Medio"],
+      pares,
+      pista: "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+      solucion: pares
+        .map((p) => `${p.concepto} → ${p.descripcion}`)
+        .join("  ·  ")
+        .slice(0, 420),
+    });
+  }
+
+  const completar = misionCompletar(doc, hermanos);
+  if (completar) misiones.push(completar);
+
+  return { misiones };
+}
+
+/* ------------------------------------------------------------------ */
+/* 7. Serialización                                                    */
 /* ------------------------------------------------------------------ */
 
 function serialize(value, indent = 0) {
@@ -808,7 +1012,7 @@ function serialize(value, indent = 0) {
 }
 
 /* ------------------------------------------------------------------ */
-/* 7. Generación                                                       */
+/* 8. Generación                                                       */
 /* ------------------------------------------------------------------ */
 
 const usadas = new Set();
@@ -828,9 +1032,10 @@ const modulos = CURSOS.map((curso) => {
     }
   }
 
-  // Quiz: cada apunte se apoya en los demás de su curso.
+  // Quiz y laboratorio: cada apunte se apoya en los demás de su curso.
   for (const doc of docs) {
     doc.quiz = buildQuiz(doc, docs);
+    doc.lab = construirLab(doc, docs);
   }
 
   const docsById = Object.fromEntries(docs.map((doc) => [doc.id, doc]));
@@ -851,6 +1056,7 @@ const modulos = CURSOS.map((curso) => {
           nombre: doc.titulo,
           firma: doc.resumen,
           icon,
+          lab: doc.lab.misiones.length,
         };
       }),
     })),

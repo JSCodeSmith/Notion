@@ -1,0 +1,972 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>display</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-8093-a668-d93559aca1a5" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>display</strong></code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><p id="3f5648ad-99fc-80e6-9752-cd6bcc19de5a" class="" dir="auto">
+</p><h1 id="3f5648ad-99fc-80fe-b7c9-c19db74d0aa9" class="" dir="auto"><strong>📄 </strong><code><strong>display</strong></code></h1><h2 id="3f5648ad-99fc-804c-8b00-f6e847bc98f8" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-80f7-aad6-c0ad43824cd6" class="" dir="auto"><code>display</code> es una <strong>propiedad CSS</strong> que define <strong>cómo se comporta un elemento</strong> en el flujo del documento: si genera una caja de bloque, en línea, flex, grid, tabla, etc., y cómo se comportan sus hijos.</p><h2 id="3f5648ad-99fc-80c0-96a8-ec7be9631e28" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80a7-bb44-f7202fabd912" class="" dir="auto">Es una de las propiedades <strong>más importantes y fundamentales</strong> de CSS. </p><p id="3f5648ad-99fc-80a9-af33-fd6d5c144a3e" class="" dir="auto">Determina el <strong>tipo de caja</strong> que genera un elemento y, por tanto, cómo se posiciona, cómo se dimensiona y cómo se relaciona con los elementos vecinos.</p><p id="3f5648ad-99fc-805d-a59f-cb478e578eed" class="" dir="auto"><code>display</code> es un <strong>shorthand</strong> moderno que puede definir dos cosas a la vez:</p><ul id="3f5648ad-99fc-8020-b955-ceda6a5bd74b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tipo de display exterior</strong> → cómo se comporta el elemento hacia fuera (<code>block</code>, <code>inline</code>).</li></ul><ul id="3f5648ad-99fc-8088-93cf-db8146bdacf0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tipo de display interior</strong> → cómo se organizan sus hijos (<code>flow</code>, <code>flex</code>, <code>grid</code>).</li></ul><h2 id="3f5648ad-99fc-807c-808b-e38ccb09b8c6" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-80d0-8ba8-de31efb48c92" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Definir si un elemento es <strong>bloque</strong> o <strong>en línea</strong>.</li></ul><ul id="3f5648ad-99fc-8090-9492-efa7ff38f584" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Activar <strong>flexbox</strong> o <strong>grid</strong> para layouts modernos.</li></ul><ul id="3f5648ad-99fc-8072-b8f2-e358d5f60271" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ocultar elementos (<code>display: none</code>).</li></ul><ul id="3f5648ad-99fc-80f0-8b49-e57385c87c58" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambiar el comportamiento de elementos HTML (ej. <code>&lt;a&gt;</code> como bloque).</li></ul><ul id="3f5648ad-99fc-8040-a472-f32f3eecdf61" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>tablas</strong> con CSS sin usar <code>&lt;table&gt;</code>.</li></ul><ul id="3f5648ad-99fc-80f0-9fce-dc6a0e5cffe7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar el flujo de <strong>contenido interno</strong>.</li></ul><ul id="3f5648ad-99fc-80cd-9c80-fd0b5bfc7027" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>layouts complejos</strong> sin modificar el HTML.</li></ul><h2 id="3f5648ad-99fc-80b4-83f4-e80a46c2b590" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-8048-9aba-eb43c087539d" class="" dir="auto">El navegador asigna un tipo de caja según el valor de <code>display</code>. </p><p id="3f5648ad-99fc-80df-8e17-f4d1cbfdb4a5" class="" dir="auto">Este tipo afecta a:</p><ol type="1" id="3f5648ad-99fc-80e9-9489-d0d9549d93f0" class="numbered-list" start="1" dir="auto"><li><strong>Cómo se posiciona</strong> → bloque (nueva línea) o inline (en la misma línea).</li></ol><ol type="1" id="3f5648ad-99fc-8068-871a-e41eaa08c441" class="numbered-list" start="2" dir="auto"><li><strong>Cómo se dimensiona</strong> → bloque (ocupa el 100% del padre), inline (se ajusta al contenido).</li></ol><ol type="1" id="3f5648ad-99fc-8091-9c0b-d92c72b6e9a6" class="numbered-list" start="3" dir="auto"><li><strong>Cómo se organizan sus hijos</strong> → flujo normal, flex, grid, tabla.</li></ol><ol type="1" id="3f5648ad-99fc-80e8-9be3-dfc70db897e9" class="numbered-list" start="4" dir="auto"><li><strong>Si aparece en el árbol de accesibilidad</strong> → <code>none</code> lo elimina; <code>contents</code> lo disuelve.</li></ol><h3 id="3f5648ad-99fc-8028-b03f-d2dc3d9328bc" class="" dir="auto"><strong>Categorías principales</strong></h3><table id="3f5648ad-99fc-8094-bc86-efb4c43bf3ad" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-802a-9b63-d6404022bea4" dir="ltr"><th id="xEf_" class="simple-table-header-color simple-table-header"><strong>Categoría</strong></th><th id="qA?I" class="simple-table-header-color simple-table-header" style="width:460px"><strong>Valores</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8087-bac6-ef4639344226" dir="ltr"><td id="xEf_" class=""><strong>Exterior</strong></td><td id="qA?I" class="" style="width:460px"><code>block</code>, <code>inline</code>, <code>run-in</code></td></tr><tr id="3f5648ad-99fc-8018-a451-d0e4da82035e" dir="ltr"><td id="xEf_" class=""><strong>Interior</strong></td><td id="qA?I" class="" style="width:460px"><code>flow</code>, <code>flow-root</code>, <code>table</code>, <code>flex</code>, <code>grid</code></td></tr><tr id="3f5648ad-99fc-8022-b898-cc7ea858bcb4" dir="ltr"><td id="xEf_" class=""><strong>Ítem interno</strong></td><td id="qA?I" class="" style="width:460px"><code>table-row</code>, <code>table-cell</code>, <code>list-item</code>, <code>flex-item</code>, <code>grid-item</code></td></tr><tr id="3f5648ad-99fc-8005-9446-c94e6349c78d" dir="ltr"><td id="xEf_" class=""><strong>Especiales</strong></td><td id="qA?I" class="" style="width:460px"><code>none</code>, <code>contents</code></td></tr><tr id="3f5648ad-99fc-80d9-bb7b-fcf5af4a342d" dir="ltr"><td id="xEf_" class=""><strong>Shorthand de 2 valores</strong></td><td id="qA?I" class="" style="width:460px"><code>inline flex</code>, <code>block flow</code>, etc.</td></tr></tbody></table><h2 id="3f5648ad-99fc-8008-9abf-d07c0b169799" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8057-a846-ddbd500aa213" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  display: valor;
+}</code></pre><p id="3f5648ad-99fc-80e1-ba50-ed313c7590cb" class="" dir="auto"><strong>Valores clásicos</strong></p><table id="3f5648ad-99fc-808d-aadf-e75bee49b1c7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-80c9-b468-f36733541e06" dir="ltr"><th id="l`M]" class="simple-table-header-color simple-table-header"><strong>Valor</strong></th><th id="P|jy" class="simple-table-header-color simple-table-header" style="width:488px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8051-8e4b-d289a9616798" dir="ltr"><td id="l`M]" class=""><code>block</code></td><td id="P|jy" class="" style="width:488px">Caja de bloque (nueva línea, ocupa todo el ancho).</td></tr><tr id="3f5648ad-99fc-806e-9d94-e24187d8a3fa" dir="ltr"><td id="l`M]" class=""><code>inline</code></td><td id="P|jy" class="" style="width:488px">Caja en línea (misma línea, se ajusta al contenido).</td></tr><tr id="3f5648ad-99fc-80d3-9947-e86bc1a36cba" dir="ltr"><td id="l`M]" class=""><code>inline-block</code></td><td id="P|jy" class="" style="width:488px">Híbrido: en línea por fuera, bloque por dentro.</td></tr><tr id="3f5648ad-99fc-80ce-81ea-fc75adaf5684" dir="ltr"><td id="l`M]" class=""><code>none</code></td><td id="P|jy" class="" style="width:488px">El elemento no se muestra (eliminado del flujo).</td></tr><tr id="3f5648ad-99fc-8052-a1a0-db2f9942c9a5" dir="ltr"><td id="l`M]" class=""><code>list-item</code></td><td id="P|jy" class="" style="width:488px">Como <code>block</code> + marcador de lista.</td></tr><tr id="3f5648ad-99fc-8097-9525-ee2cea085739" dir="ltr"><td id="l`M]" class=""><code>table</code></td><td id="P|jy" class="" style="width:488px">Comportamiento de tabla.</td></tr><tr id="3f5648ad-99fc-8055-8307-ce24cd12600e" dir="ltr"><td id="l`M]" class=""><code>flex</code></td><td id="P|jy" class="" style="width:488px">Contenedor flexbox.</td></tr><tr id="3f5648ad-99fc-802e-9a16-c901b9fdd02f" dir="ltr"><td id="l`M]" class=""><code>grid</code></td><td id="P|jy" class="" style="width:488px">Contenedor grid.</td></tr><tr id="3f5648ad-99fc-8077-b418-fbcde5578de9" dir="ltr"><td id="l`M]" class=""><code>inline-flex</code></td><td id="P|jy" class="" style="width:488px">Flex en línea.</td></tr><tr id="3f5648ad-99fc-806b-a192-c0b7d9f86ce5" dir="ltr"><td id="l`M]" class=""><code>inline-grid</code></td><td id="P|jy" class="" style="width:488px">Grid en línea.</td></tr><tr id="3f5648ad-99fc-80c9-821e-ef92c06bc785" dir="ltr"><td id="l`M]" class=""><code>flow-root</code></td><td id="P|jy" class="" style="width:488px">Bloque que establece un nuevo contexto de formato.</td></tr><tr id="3f5648ad-99fc-80a6-a10f-d39aae61883b" dir="ltr"><td id="l`M]" class=""><code>contents</code></td><td id="P|jy" class="" style="width:488px">El elemento desaparece, sus hijos se elevan al padre.</td></tr></tbody></table><p id="3f5648ad-99fc-808f-add7-c3217096f5bb" class="" dir="auto"><strong>Valores de tabla</strong></p><table id="3f5648ad-99fc-80e6-9fed-d2a6fd762a3d" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-80f0-b274-d03a3d38c95e" dir="ltr"><th id="{uTv" class="simple-table-header-color simple-table-header"><strong>Valor</strong></th><th id="EWen" class="simple-table-header-color simple-table-header" style="width:354.90000915527344px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8056-ba11-cddfd44e6ea4" dir="ltr"><td id="{uTv" class=""><code>table</code></td><td id="EWen" class="" style="width:354.90000915527344px">Tabla</td></tr><tr id="3f5648ad-99fc-80e6-b30a-fef40c877efc" dir="ltr"><td id="{uTv" class=""><code>table-row</code></td><td id="EWen" class="" style="width:354.90000915527344px">Fila</td></tr><tr id="3f5648ad-99fc-8015-a5c2-cacc0c45d3b7" dir="ltr"><td id="{uTv" class=""><code>table-cell</code></td><td id="EWen" class="" style="width:354.90000915527344px">Celda</td></tr><tr id="3f5648ad-99fc-8055-bf15-e3a2d391b59f" dir="ltr"><td id="{uTv" class=""><code>table-header-group</code></td><td id="EWen" class="" style="width:354.90000915527344px"><code>&lt;thead&gt;</code></td></tr><tr id="3f5648ad-99fc-80d8-96ae-c742fb63313c" dir="ltr"><td id="{uTv" class=""><code>table-footer-group</code></td><td id="EWen" class="" style="width:354.90000915527344px"><code>&lt;tfoot&gt;</code></td></tr><tr id="3f5648ad-99fc-805d-963d-eace0b4828d5" dir="ltr"><td id="{uTv" class=""><code>table-row-group</code></td><td id="EWen" class="" style="width:354.90000915527344px"><code>&lt;tbody&gt;</code></td></tr><tr id="3f5648ad-99fc-80d1-8794-cb0f8d6d8931" dir="ltr"><td id="{uTv" class=""><code>table-column</code></td><td id="EWen" class="" style="width:354.90000915527344px">Columna</td></tr><tr id="3f5648ad-99fc-80be-9890-d637b9127521" dir="ltr"><td id="{uTv" class=""><code>table-column-group</code></td><td id="EWen" class="" style="width:354.90000915527344px">Grupo de columnas</td></tr><tr id="3f5648ad-99fc-8091-872c-d4ba8c98f938" dir="ltr"><td id="{uTv" class=""><code>table-caption</code></td><td id="EWen" class="" style="width:354.90000915527344px">Título de tabla</td></tr></tbody></table><p id="3f5648ad-99fc-80e1-8dab-f8f388dafba2" class="" dir="auto"><strong>Valores modernos (shorthand de 2 valores)</strong></p><pre id="3f5648ad-99fc-80e9-9259-f8a819a6f2fe" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">display: inline flex;   /* inline por fuera, flex por dentro */
+display: block grid;    /* block por fuera, grid por dentro */
+display: block flow;    /* equivale a block */
+display: inline flow;   /* equivale a inline */
+display: block flow-root; /* equivale a flow-root */</code></pre><h2 id="3f5648ad-99fc-8018-ad28-dd4d461e9915" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-805f-a779-f5a0a5b65682" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Bloque vs en línea */
+div {
+  display: block;      /* ocupa todo el ancho, nueva línea */
+}
+span {
+  display: inline;     /* en la misma línea, se ajusta al contenido */
+}
+
+/* 2. Enlace como botón de bloque */
+a.btn {
+  display: block;
+  padding: 12px 24px;
+  background: #3498db;
+  color: white;
+  text-align: center;
+}
+
+/* 3. Enlace como bloque en línea */
+a.btn-inline {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #3498db;
+  color: white;
+}
+
+/* 4. Ocultar elemento */
+.oculto {
+  display: none;
+  /* El elemento desaparece del flujo y del árbol de accesibilidad */
+}
+
+/* 5. Flexbox */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 6. Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* 7. Layout de tabla sin &lt;table&gt; */
+.tabla {
+  display: table;
+  width: 100%;
+}
+.fila {
+  display: table-row;
+}
+.celda {
+  display: table-cell;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* 8. Flow-root: contiene márgenes flotantes */
+.contenedor {
+  display: flow-root;
+  /* Establece un nuevo contexto de formato */
+  /* Evita que los márgenes de los hijos escapen */
+}
+
+/* 9. Lista con display */
+.lista {
+  display: list-item;
+  list-style: disc inside;
+}
+
+/* 10. Contents: el elemento desaparece, los hijos suben */
+.wrapper {
+  display: contents;
+  /* El wrapper no genera caja; sus hijos se comportan como si fueran del padre */
+}
+
+/* 11. Shorthand moderno de 2 valores */
+.inline-flex {
+  display: inline flex;
+  /* Equivale a display: inline-flex */
+}</code></pre><h3 id="3f5648ad-99fc-807f-823e-d5d7a8a797b5" class="" dir="auto"><code><strong>block</strong></code><strong> vs </strong><code><strong>inline</strong></code><strong> vs </strong><code><strong>inline-block</strong></code></h3><pre id="3f5648ad-99fc-808a-9ae1-ea193873efc7" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.block {
+  display: block;
+  /* Nueva línea, ocupa 100% del padre, acepta width/height/margin/padding */
+}
+
+.inline {
+  display: inline;
+  /* Misma línea, se ajusta al contenido, NO acepta width/height */
+  /* Padding horizontal sí, vertical se dibuja pero no empuja líneas */
+}
+
+.inline-block {
+  display: inline-block;
+  /* Misma línea, se ajusta al contenido, SÍ acepta width/height/margin/padding */
+}</code></pre><h3 id="3f5648ad-99fc-805d-a43e-ee40751975d8" class="" dir="auto"><strong>Diferencia visual</strong></h3><p id="3f5648ad-99fc-8067-b9ab-df8f0933faa2" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-80d3-b149-cbe0544ecdea" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">block
+┌───────────────────────────┐
+│  Elemento 1               │
+└───────────────────────────┘
+┌───────────────────────────┐
+│  Elemento 2               │
+└───────────────────────────┘
+
+inline
+[Elemento 1] [Elemento 2] [Elemento 3]
+
+inline-block
+┌─────────┐ ┌─────────┐ ┌─────────┐
+│  Elem 1 │ │  Elem 2 │ │  Elem 3 │
+└─────────┘ └─────────┘ └─────────┘</code></pre><h3 id="3f5648ad-99fc-803c-be43-da973f5c0905" class="" dir="auto"><strong>Centrar con flexbox</strong></h3><pre id="3f5648ad-99fc-801f-a056-ef446475a5c9" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.centrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}</code></pre><h3 id="3f5648ad-99fc-80f5-94c4-fd7050b9b971" class="" dir="auto"><strong>Grid responsive sin media queries</strong></h3><pre id="3f5648ad-99fc-8076-8bb4-e0ef73f9625e" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}</code></pre><h3 id="3f5648ad-99fc-809b-8849-dc3596d9453e" class="" dir="auto"><strong>Tabla con CSS (sin </strong><code><strong>&lt;table&gt;</strong></code><strong>)</strong></h3><pre id="3f5648ad-99fc-80d7-a323-cac9b6fe1f96" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tabla {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+.fila {
+  display: table-row;
+}
+.celda {
+  display: table-cell;
+  padding: 12px;
+  border: 1px solid #ddd;
+}</code></pre><h3 id="3f5648ad-99fc-80d5-b283-fd7fd7998339" class="" dir="auto"><code><strong>display: contents</strong></code><strong> (útil con grid/flex)</strong></h3><pre id="3f5648ad-99fc-8055-a2ad-ed38af360fb2" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* HTML:
+&lt;div class=&quot;grid&quot;&gt;
+  &lt;div class=&quot;wrapper&quot;&gt;
+    &lt;div class=&quot;item&quot;&gt;A&lt;/div&gt;
+    &lt;div class=&quot;item&quot;&gt;B&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+*/
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.wrapper {
+  display: contents;
+  /* El wrapper desaparece; los items se comportan como hijos directos del grid */
+}</code></pre><h3 id="3f5648ad-99fc-80c3-a437-dc933533e546" class="" dir="auto"><code><strong>display: flow-root</strong></code><strong> (contener floats)</strong></h3><pre id="3f5648ad-99fc-801c-90b3-cd0e60213703" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.contenedor {
+  display: flow-root;
+  /* Crea un nuevo contexto de formato de bloque */
+  /* Contiene los hijos flotantes y evita que los márgenes escapen */
+}</code></pre><h2 id="3f5648ad-99fc-80da-863b-d5825140829d" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-8052-8bd2-c61625ea90eb" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>display: none</strong></code><strong> con </strong><code><strong>visibility: hidden</strong></code> → <code>none</code> elimina el elemento del flujo <strong>y</strong> del árbol de accesibilidad; <code>hidden</code> lo oculta pero sigue ocupando espacio.</li></ol><ol type="1" id="3f5648ad-99fc-80f2-8c0b-d252910b8073" class="numbered-list" start="2" dir="auto"><li><strong>Usar </strong><code><strong>display: none</strong></code><strong> para contenido importante</strong> → es invisible para lectores de pantalla. Usar <code>visibility</code>, <code>opacity</code> o <code>sr-only</code> según el caso.</li></ol><ol type="1" id="3f5648ad-99fc-80bd-a244-c9c8810810b1" class="numbered-list" start="3" dir="auto"><li><strong>Pensar que </strong><code><strong>inline</strong></code><strong> acepta </strong><code><strong>width</strong></code><strong>/</strong><code><strong>height</strong></code> → no; se ajusta al contenido. Usar <code>inline-block</code> o <code>block</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8048-9b0a-ebdfd50703ce" class="numbered-list" start="4" dir="auto"><li><strong>Aplicar márgenes verticales a </strong><code><strong>inline</strong></code> → no empujan líneas; solo el horizontal afecta al flujo.</li></ol><ol type="1" id="3f5648ad-99fc-806b-abdf-ce5a515b31f1" class="numbered-list" start="5" dir="auto"><li><strong>Usar </strong><code><strong>display: table</strong></code><strong> para layouts</strong> → fue un hack en los 2000; hoy usar flex/grid.</li></ol><ol type="1" id="3f5648ad-99fc-804e-97d4-fa32d8e213cc" class="numbered-list" start="6" dir="auto"><li><strong>Cambiar </strong><code><strong>display</strong></code><strong> y romper el layout</strong> → algunos elementos (ej. <code>&lt;li&gt;</code>) dependen de su display para el marcador.</li></ol><ol type="1" id="3f5648ad-99fc-8078-b386-eaac96bad429" class="numbered-list" start="7" dir="auto"><li><code><strong>display: contents</strong></code><strong> en elementos con rol semántico</strong> → puede eliminar el rol del elemento en accesibilidad (bug histórico; ya corregido en navegadores modernos).</li></ol><ol type="1" id="3f5648ad-99fc-80b6-bb4d-c8906f59f029" class="numbered-list" start="8" dir="auto"><li><strong>Animar </strong><code><strong>display</strong></code> → no es animable directamente. Usar <code>@starting-style</code>, <code>opacity</code>, <code>visibility</code> o <code>transition-behavior: allow-discrete</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80b6-a23e-f38e76fb95ef" class="numbered-list" start="9" dir="auto"><li><strong>Usar </strong><code><strong>display: inline-block</strong></code><strong> para todo</strong> → no es la solución universal; flex/grid son mejores para layouts.</li></ol><ol type="1" id="3f5648ad-99fc-8048-ba8f-da8c7f255863" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Confundir </strong><code><strong>display: flex</strong></code><strong> con </strong><code><strong>flex: 1</strong></code> → uno es el contenedor; el otro es el ítem.</li></ol><ol type="1" id="3f5648ad-99fc-80ef-a6ce-f3b463744fa9" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Olvidar que </strong><code><strong>display</strong></code><strong> afecta al árbol de accesibilidad</strong> → <code>none</code> lo elimina; <code>contents</code> puede cambiar roles.</li></ol><ol type="1" id="3f5648ad-99fc-8057-a3d8-e452f8a40639" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>Usar </strong><code><strong>!important</strong></code><strong> para sobrescribir </strong><code><strong>display</strong></code> → suele indicar un problema de estructura CSS.</li></ol><h2 id="3f5648ad-99fc-80e0-8a30-e275796dff9a" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-80f6-bbf8-fa03509b7c44" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8053-b7a0-ed03a947a78c" dir="ltr"><th id="D|Xy" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="H=c[" class="simple-table-header-color simple-table-header" style="width:493px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8038-9c58-c42bc1935b02" dir="ltr"><td id="D|Xy" class="">Contenedor de layout</td><td id="H=c[" class="" style="width:493px"><code>flex</code> o <code>grid</code></td></tr><tr id="3f5648ad-99fc-8084-9411-f3756ca3f65a" dir="ltr"><td id="D|Xy" class="">Elemento oculto</td><td id="H=c[" class="" style="width:493px"><code>none</code></td></tr><tr id="3f5648ad-99fc-80e1-be10-e4cd9d87a56b" dir="ltr"><td id="D|Xy" class="">Enlace como botón</td><td id="H=c[" class="" style="width:493px"><code>inline-block</code> o <code>block</code></td></tr><tr id="3f5648ad-99fc-80ab-a12a-efeb16678a6a" dir="ltr"><td id="D|Xy" class="">Contener floats</td><td id="H=c[" class="" style="width:493px"><code>flow-root</code></td></tr><tr id="3f5648ad-99fc-80e0-9a25-c9b56ede88ab" dir="ltr"><td id="D|Xy" class="">Layout de tabla</td><td id="H=c[" class="" style="width:493px"><code>grid</code> (moderno)</td></tr><tr id="3f5648ad-99fc-80e2-b998-dc285176231f" dir="ltr"><td id="D|Xy" class="">Grid responsive</td><td id="H=c[" class="" style="width:493px"><code>grid</code> con <code>auto-fit</code></td></tr><tr id="3f5648ad-99fc-80aa-a071-d888292a0575" dir="ltr"><td id="D|Xy" class="">Centrar contenido</td><td id="H=c[" class="" style="width:493px"><code>flex</code> + <code>justify-content</code>/<code>align-items</code></td></tr><tr id="3f5648ad-99fc-80d0-88aa-f84a4397efd3" dir="ltr"><td id="D|Xy" class="">Wrapper transparente</td><td id="H=c[" class="" style="width:493px"><code>contents</code></td></tr><tr id="3f5648ad-99fc-805a-bb4a-ce11bf03688b" dir="ltr"><td id="D|Xy" class="">Lista personalizada</td><td id="H=c[" class="" style="width:493px"><code>list-item</code></td></tr><tr id="3f5648ad-99fc-8015-8714-fd261dbecbf8" dir="ltr"><td id="D|Xy" class="">Sidebar + main</td><td id="H=c[" class="" style="width:493px"><code>grid</code> o <code>flex</code></td></tr><tr id="3f5648ad-99fc-804c-8ac1-ebaab9497fda" dir="ltr"><td id="D|Xy" class="">Tabla de datos</td><td id="H=c[" class="" style="width:493px"><code>&lt;table&gt;</code> nativo</td></tr><tr id="3f5648ad-99fc-8074-8ee7-eeac8e4ad826" dir="ltr"><td id="D|Xy" class="">Badge/chip</td><td id="H=c[" class="" style="width:493px"><code>inline-block</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80f4-b8e9-c9e63a733c8a" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-8070-8c7e-f3b8b478176d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>position</strong></code> → <code>display</code> y <code>position</code> juntos definen el comportamiento del elemento.</li></ul><ul id="3f5648ad-99fc-8094-84fc-e34899f659ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>float</strong></code> → <code>float</code> cambia el display computado a <code>block</code>.</li></ul><ul id="3f5648ad-99fc-8047-9e01-f8bd89ae72e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex</strong></code> → propiedad de los ítems flex; <code>display: flex</code> es del contenedor.</li></ul><ul id="3f5648ad-99fc-80cd-92ad-e1e4f449fc9e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>grid</strong></code> → propiedad de los ítems grid; <code>display: grid</code> es del contenedor.</li></ul><ul id="3f5648ad-99fc-8058-ac25-f7c32ff61df1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>visibility</strong></code> → oculta pero mantiene el espacio.</li></ul><ul id="3f5648ad-99fc-8094-818f-de22f37cff8a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>opacity</strong></code> → oculta visualmente pero mantiene el espacio y la accesibilidad.</li></ul><ul id="3f5648ad-99fc-8002-a61b-c44a8a9a1616" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>gap</strong></code> → funciona en flex y grid.</li></ul><ul id="3f5648ad-99fc-8036-ac4c-dc69dfbd259b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-items</strong></code><strong> / </strong><code><strong>justify-content</strong></code> → dependen del tipo de display.</li></ul><ul id="3f5648ad-99fc-80d1-bb71-d9694c3d9612" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flow-root</strong></code> → crea un contexto de formato de bloque (contiene floats).</li></ul><ul id="3f5648ad-99fc-803d-bc3c-ec3c150d6ad4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>contents</strong></code> → disuelve el elemento; sus hijos suben al padre.</li></ul><ul id="3f5648ad-99fc-8034-951f-dd1ca2e57591" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → afecta a cómo se calculan los tamaños, independientemente de <code>display</code>.</li></ul><ul id="3f5648ad-99fc-80c6-a9a2-cc879773c008" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Árbol de accesibilidad</strong> → <code>display: none</code> y <code>display: contents</code> lo afectan.</li></ul><p id="3f5648ad-99fc-803d-ad9b-ea7e609d57bd" class="" dir="auto"><strong>Categorías visualizadas:</strong></p><p id="3f5648ad-99fc-809d-bb16-e94675cfbd37" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-800a-a330-e1b6edbacd4c" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Exterior:
+  block  → ocupa 100%, nueva línea
+  inline → se ajusta al contenido, misma línea
+
+Interior:
+  flow       → flujo normal
+  flow-root  → flujo + nuevo contexto de formato
+  flex       → flexbox
+  grid       → grid
+  table      → tabla
+
+Especiales:
+  none     → eliminado del flujo
+  contents → el elemento desaparece, hijos suben</code></pre><h2 id="3f5648ad-99fc-8068-bec1-ce85e11c7608" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-8005-b797-e1bd1b06b1da" class="" dir="auto">Imagina que cada elemento es una <strong>caja</strong> en un almacén:</p><ul id="3f5648ad-99fc-802f-886a-e4bca76ce2da" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>block</strong></code> → una caja grande que ocupa <strong>toda la estantería</strong> (nueva línea).</li></ul><ul id="3f5648ad-99fc-80b1-bbc2-ff8b2597e46a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>inline</strong></code> → un objeto pequeño que se coloca <strong>en la misma estantería</strong> junto a otros.</li></ul><ul id="3f5648ad-99fc-8033-b66c-dba4843ca926" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>inline-block</strong></code> → una caja mediana que se coloca <strong>en la estantería</strong> pero puede tener tamaño propio.</li></ul><ul id="3f5648ad-99fc-804a-9f85-fd2eefbfd8d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex</strong></code> → una <strong>estantería organizadora</strong> que coloca sus cajas en fila o columna.</li></ul><ul id="3f5648ad-99fc-8044-ab19-c50f9bee1a59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>grid</strong></code> → una <strong>estantería con cuadrícula</strong> que coloca sus cajas en celdas.</li></ul><ul id="3f5648ad-99fc-807b-93d3-d3f791e5500c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>none</strong></code> → la caja <strong>no existe</strong> en el almacén.</li></ul><ul id="3f5648ad-99fc-8069-bc43-d726e7387161" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>contents</strong></code> → la caja <strong>se disuelve</strong> y sus objetos se colocan directamente en el estante del padre.</li></ul><h2 id="3f5648ad-99fc-805b-9372-e5b84f6e79ad" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-80f8-8f94-cde47953c531" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>display</em><p id="3f5648ad-99fc-800a-bdd2-c5aa081009df" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/display">https://developer.mozilla.org/es/docs/Web/CSS/display</a></p></li></ul><ul id="3f5648ad-99fc-8072-b04a-f2a45a70f858" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Display Module Level 3<p id="3f5648ad-99fc-80bc-9e7d-f4d86d6b8c80" class="" dir="auto"><a href="https://www.w3.org/TR/css-display-3/">https://www.w3.org/TR/css-display-3/</a></p></li></ul><ul id="3f5648ad-99fc-8051-bbc3-c119d00cc7a7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>display</em><p id="3f5648ad-99fc-806d-a7d5-d94e8bb1e9cb" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/d/display/">https://css-tricks.com/almanac/properties/d/display/</a></p></li></ul><ul id="3f5648ad-99fc-8036-b622-c79fbc2cef73" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>display: contents</em><p id="3f5648ad-99fc-8034-a1c2-cd2d78e5391f" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/display#contents">https://developer.mozilla.org/es/docs/Web/CSS/display#contents</a></p></li></ul><ul id="3f5648ad-99fc-8018-9f3a-d3fee0f318ec" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Learn CSS: Display</em><p id="3f5648ad-99fc-80b5-8c0c-e40d06a6a75c" class="" dir="auto"><a href="https://web.dev/learn/css/display">https://web.dev/learn/css/display</a></p></li></ul><h2 id="3f5648ad-99fc-8030-9474-d09f40e7b129" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-805f-9156-f60386094dc8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display</strong></code><strong> es la propiedad más fundamental de CSS</strong> → define el comportamiento del elemento.</li></ul><ul id="3f5648ad-99fc-80ff-8d27-c872945e87fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display: none</strong></code><strong> ≠ </strong><code><strong>visibility: hidden</strong></code> → <code>none</code> elimina del flujo y de accesibilidad; <code>hidden</code> mantiene el espacio.</li></ul><ul id="3f5648ad-99fc-8098-9e44-fb3fcb89165c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex</strong></code><strong> y </strong><code><strong>grid</strong></code><strong> son los reyes del layout moderno</strong> → olvidar <code>float</code> y <code>display: table</code> para layouts.</li></ul><ul id="3f5648ad-99fc-80a2-9c2c-e73da63bd3a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>inline-block</strong></code><strong> es útil para botones y badges</strong> → pero flex/grid suelen ser mejores para contenedores.</li></ul><ul id="3f5648ad-99fc-80ef-b274-e03ac6a92181" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flow-root</strong></code><strong> es el &quot;clearfix&quot; moderno</strong> → contiene floats y márgenes sin hacks.</li></ul><ul id="3f5648ad-99fc-80d3-803d-fdcbb96a10dc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>contents</strong></code><strong> es útil con grid/flex</strong> → permite que un wrapper no interfiera en el layout.</li></ul><ul id="3f5648ad-99fc-80bc-9471-e501d2523292" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display</strong></code><strong> no es animable directamente</strong> → usar <code>@starting-style</code> o transiciones con <code>opacity</code>/<code>visibility</code> + <code>transition-behavior: allow-discrete</code>.</li></ul><ul id="3f5648ad-99fc-805d-93b2-eeeecb29b382" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reset</strong>: en 2025, muchos proyectos usan <code>display: block</code> para imágenes, o normalizan <code>button</code>/<code>input</code> con <code>display: inline-block</code>.</li></ul><ul id="3f5648ad-99fc-80e6-a9b0-f3073f0697cd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong>: <code>display: none</code> elimina del árbol de accesibilidad; usar <code>.sr-only</code> (con <code>clip-path</code> o <code>position: absolute</code>) para contenido solo para lectores de pantalla.</li></ul><ul id="3f5648ad-99fc-8053-b69e-c9bf33d6e35e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display: contents</strong></code><strong> y accesibilidad</strong> → hubo bugs históricos en navegadores; hoy está corregido, pero verificar en casos concretos.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

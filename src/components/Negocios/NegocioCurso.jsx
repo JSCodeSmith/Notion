@@ -10,6 +10,16 @@ export default function NegocioCurso({ curso, onAbrir }) {
     [curso]
   )
 
+  const laboratorio = useMemo(
+    () =>
+      curso.grupos.reduce(
+        (acc, g) =>
+          acc + g.metodos.reduce((suma, m) => suma + (m.lab ?? 0), 0),
+        0
+      ),
+    [curso]
+  )
+
   const toggle = (seccion) =>
     setAbiertos((prev) => ({ ...prev, [seccion]: !prev[seccion] }))
 
@@ -26,6 +36,11 @@ export default function NegocioCurso({ curso, onAbrir }) {
               {curso.nivel}
             </span>
             <span className="negocio-chip">{CUANTOS(total)}</span>
+            {laboratorio > 0 && (
+              <span className="negocio-chip negocio-chip--lab">
+                {`🧪 ${laboratorio} misiones`}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -73,6 +88,14 @@ export default function NegocioCurso({ curso, onAbrir }) {
                         <td className="notion-cell-title">
                           <span className="notion-cell-icon">{metodo.icon}</span>
                           <span className="notion-cell-name">{metodo.nombre}</span>
+                          {metodo.lab > 0 && (
+                            <span
+                              className="negocio-lab-chip"
+                              title={`${metodo.lab} misiones de laboratorio`}
+                            >
+                              {`🧪 ${metodo.lab}`}
+                            </span>
+                          )}
                           <button
                             type="button"
                             className="notion-open-btn"

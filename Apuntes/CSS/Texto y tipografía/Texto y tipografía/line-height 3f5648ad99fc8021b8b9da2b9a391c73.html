@@ -1,0 +1,886 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>line-height</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-8021-b8b9-da2b9a391c73" class="page sans"><header><h1 class="page-title" dir="auto"><code>line-height</code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f5648ad-99fc-8082-89a8-e46a512916de" class="" dir="auto">
+</p><h1 id="3f5648ad-99fc-802a-a12f-f3b3c058d8a2" class="" dir="auto"><strong>📄 </strong><code><strong>line-height</strong></code></h1><h2 id="3f5648ad-99fc-80ee-b3ef-f3c3e21b85d6" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-8007-84c3-dfe753d7e481" class="" dir="auto"><code>line-height</code> es una <strong>propiedad CSS heredable</strong> que establece la <strong>altura de cada línea de texto</strong> dentro de un elemento. </p><p id="3f5648ad-99fc-80db-9beb-c67ea6b58f67" class="" dir="auto">Es la distancia vertical entre las líneas base de dos líneas consecutivas.</p><h2 id="3f5648ad-99fc-801d-811c-edd0ac6267eb" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80b7-9440-cc4c1d5368c4" class="" dir="auto">Forma parte de las <strong>propiedades de tipografía</strong> (junto con <code>font-size</code>, <code>font-family</code>, <code>font-weight</code>, etc.). </p><p id="3f5648ad-99fc-80a3-9531-ef58956d599f" class="" dir="auto">Es <strong>heredable</strong>, pero con un matiz importante: cuando se define <strong>sin unidad</strong>, los hijos heredan el <strong>factor</strong> (no el valor calculado); cuando se define <strong>con unidad</strong>, los hijos heredan el <strong>valor computado</strong>.</p><p id="3f5648ad-99fc-80de-bad2-dfd513aea6a7" class="" dir="auto">Es una de las propiedades más importantes para la <strong>legibilidad</strong> del texto, más incluso que el tamaño o la fuente.</p><h2 id="3f5648ad-99fc-8002-b50c-fa52afbbfe18" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-80f8-baa3-cab3140e61c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejorar la <strong>legibilidad</strong> del texto (ni muy apretado ni muy suelto).</li></ul><ul id="3f5648ad-99fc-8010-aafb-c55dd07eb97b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>ritmo vertical</strong> en el diseño.</li></ul><ul id="3f5648ad-99fc-8047-8883-d8d008d66470" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Centrar verticalmente texto en una caja de altura fija.</li></ul><ul id="3f5648ad-99fc-807b-bea4-dc5998c6cc0d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar el espaciado entre líneas de títulos, párrafos, listas.</li></ul><ul id="3f5648ad-99fc-8010-9d37-d34a6e75e9b5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ajustar texto en botones, badges, inputs.</li></ul><ul id="3f5648ad-99fc-80d5-8a8e-cbce0156ae1a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar el &quot;salto&quot; del texto al cargar fuentes web (evitar CLS).</li></ul><h2 id="3f5648ad-99fc-804b-a38d-f24dccf3e5cd" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-809d-9c0f-cb6d9b782fa6" class="" dir="auto">El navegador calcula la altura de línea y distribuye el espacio extra <strong>mitad arriba, mitad abajo</strong> del texto (leading). </p><p id="3f5648ad-99fc-8075-8c63-f77b480a7b17" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f5648ad-99fc-806a-94d9-e8df330ef4bb" class="numbered-list" start="1" dir="auto"><li><strong>Sin unidad (</strong><code><strong>1.5</strong></code><strong>)</strong> → se multiplica por el <code>font-size</code> <strong>del propio elemento</strong>. <strong>Recomendado</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8054-b69f-d3d8e2ba65e5" class="numbered-list" start="2" dir="auto"><li><strong>Con longitud (</strong><code><strong>24px</strong></code><strong>)</strong> → valor fijo, no escala.</li></ol><ol type="1" id="3f5648ad-99fc-80b3-9c53-f29866dcc95d" class="numbered-list" start="3" dir="auto"><li><strong>Con porcentaje (</strong><code><strong>150%</strong></code><strong>)</strong> → se calcula al <strong>heredar</strong>, no al usar.</li></ol><ol type="1" id="3f5648ad-99fc-805d-93b6-e42c8ec54fe0" class="numbered-list" start="4" dir="auto"><li><strong>Número (</strong><code><strong>1.5</strong></code><strong>)</strong> → se calcula al <strong>usar</strong>, no al heredar → <strong>mejor herencia</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8074-a948-d8c0e52f8521" class="numbered-list" start="5" dir="auto"><li><strong>Afecta al espaciado vertical</strong> entre líneas dentro del mismo bloque.</li></ol><ol type="1" id="3f5648ad-99fc-8022-826b-f5c2f705215a" class="numbered-list" start="6" dir="auto"><li><strong>No afecta al margen entre párrafos</strong> → eso es <code>margin</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80a8-bfd1-f67644eb4c1a" class="numbered-list" start="7" dir="auto"><li><strong>En elementos vacíos o inline</strong> → puede no notarse; requiere contenido.</li></ol><ol type="1" id="3f5648ad-99fc-80c1-9608-dc676cbb44bc" class="numbered-list" start="8" dir="auto"><li><strong>Afecta a la altura de la caja</strong> → si el bloque tiene texto, la altura mínima es <code>line-height * número de líneas</code>.</li></ol><h2 id="3f5648ad-99fc-8054-be88-edfa3b8bcf94" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8004-85e9-f414126ca99c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  line-height: valor;
+}</code></pre><h2 id="3f5648ad-99fc-808d-ab87-cc423d096fee" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-80dd-b3b3-d76db030adc7" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Recomendado: sin unidad */
+body {
+  font-size: 16px;
+  line-height: 1.5; /* 24px efectivos */
+}
+
+/* 2. Títulos más apretados */
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+/* 3. Párrafos largos, más aire */
+p {
+  line-height: 1.6;
+}
+
+/* 4. Texto pequeño, más apretado */
+small {
+  line-height: 1.4;
+}
+
+/* 5. Centrar verticalmente texto */
+.boton {
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+}
+
+/* 6. Botón moderno con flex (mejor práctica) */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+/* 7. Valor fijo (usar con cuidado) */
+.input {
+  line-height: 24px;
+}
+
+/* 8. Reset universal recomendado */
+:root {
+  line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}</code></pre><h3 id="3f5648ad-99fc-8085-8d8b-f91ec332a445" class="" dir="auto"><strong>Diferencia entre </strong><code><strong>1.5</strong></code><strong>, </strong><code><strong>150%</strong></code><strong> y </strong><code><strong>24px</strong></code></h3><pre id="3f5648ad-99fc-80c4-b8f6-c1f7a8cee169" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Caso 1: sin unidad (recomendado) */
+.padre {
+  font-size: 16px;
+  line-height: 1.5; /* 24px */
+}
+.hijo {
+  font-size: 32px;
+  /* line-height heredado = 1.5 → 48px ✅ escala */
+}
+
+/* Caso 2: porcentaje (problemático al heredar) */
+.padre {
+  font-size: 16px;
+  line-height: 150%; /* 24px computado */
+}
+.hijo {
+  font-size: 32px;
+  /* line-height heredado = 24px (fijo) ⚠️ NO escala */
+}
+
+/* Caso 3: valor fijo (no escala nunca) */
+.padre {
+  font-size: 16px;
+  line-height: 24px;
+}
+.hijo {
+  font-size: 32px;
+  /* line-height heredado = 24px ⚠️ texto puede solaparse */
+}</code></pre><h2 id="3f5648ad-99fc-80ef-a653-dc6f0c5b368f" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-8016-bf66-f9b1accf7a74" class="numbered-list" start="1" dir="auto"><li><strong>Usar </strong><code><strong>px</strong></code><strong> o </strong><code><strong>%</strong></code><strong> en </strong><code><strong>line-height</strong></code> → al heredar, los hijos reciben el valor <strong>computado</strong> (fijo), no el factor. Usar <strong>sin unidad</strong> siempre que sea posible.</li></ol><ol type="1" id="3f5648ad-99fc-80dc-a90e-d1022326fef4" class="numbered-list" start="2" dir="auto"><li><strong>Aplicar </strong><code><strong>line-height</strong></code><strong> demasiado pequeño</strong> → las líneas se solapan y el texto es ilegible. Mínimo ~1.2.</li></ol><ol type="1" id="3f5648ad-99fc-8075-a34f-f75d56362a2c" class="numbered-list" start="3" dir="auto"><li><strong>Aplicar </strong><code><strong>line-height</strong></code><strong> demasiado grande</strong> → las líneas se separan demasiado y el texto pierde cohesión. Máximo ~1.8 para párrafos.</li></ol><ol type="1" id="3f5648ad-99fc-8046-b7dc-d65067913fe0" class="numbered-list" start="4" dir="auto"><li><strong>Usar </strong><code><strong>line-height</strong></code><strong> para centrar en botones modernos</strong> → truco antiguo; mejor flex con <code>align-items: center</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80a1-ae16-de717679755d" class="numbered-list" start="5" dir="auto"><li><strong>Confundir </strong><code><strong>line-height</strong></code><strong> con </strong><code><strong>margin</strong></code> → <code>line-height</code> espacia <strong>líneas dentro de un bloque</strong>; <code>margin</code> espacia <strong>bloques entre sí</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8043-ab63-ec8187e55545" class="numbered-list" start="6" dir="auto"><li><strong>Aplicar </strong><code><strong>line-height</strong></code><strong> a un elemento sin texto</strong> → no tiene efecto visible.</li></ol><ol type="1" id="3f5648ad-99fc-80b3-83b5-c4d4ed92cb5b" class="numbered-list" start="7" dir="auto"><li><strong>No ajustar </strong><code><strong>line-height</strong></code><strong> al cambiar </strong><code><strong>font-size</strong></code> → si aumentas el tamaño de fuente, probablemente debas ajustar <code>line-height</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8080-b214-e65205ea4083" class="numbered-list" start="8" dir="auto"><li><strong>Olvidar los títulos</strong> → los títulos necesitan <code>line-height</code> menor (~1.1–1.2) para verse compactos y potentes.</li></ol><ol type="1" id="3f5648ad-99fc-8094-bd1b-eee5eb11ecd4" class="numbered-list" start="9" dir="auto"><li><strong>Usar </strong><code><strong>line-height: 0</strong></code> → colapsa el texto; solo útil en trucos muy concretos (iconos, sprites).</li></ol><ol type="1" id="3f5648ad-99fc-80cc-88e2-fd6d4113b7c2" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>No considerar el idioma</strong> → textos en chino/japonés/coreano suelen necesitar más <code>line-height</code> (1.7–2) por la densidad de glifos.</li></ol><h2 id="3f5648ad-99fc-8030-9234-ef722c7e935b" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-8053-b692-f2dd5baa4804" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-809d-a91f-e82aa0232c44" dir="ltr"><th id="pvq:" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="BtZc" class="simple-table-header-color simple-table-header" style="width:392.9479217529297px"><code><strong>line-height</strong></code><strong> recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-80b9-bb33-c63e1bf99453" dir="ltr"><td id="pvq:" class="">Texto base</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.5</code></td></tr><tr id="3f5648ad-99fc-8076-90fa-f8931113098a" dir="ltr"><td id="pvq:" class="">Párrafos largos</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.6</code> – <code>1.7</code></td></tr><tr id="3f5648ad-99fc-80fb-9caa-e9ffee3e9102" dir="ltr"><td id="pvq:" class="">Títulos grandes</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.1</code> – <code>1.2</code></td></tr><tr id="3f5648ad-99fc-8049-a08d-d362258a8a37" dir="ltr"><td id="pvq:" class="">Títulos pequeños</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.2</code> – <code>1.3</code></td></tr><tr id="3f5648ad-99fc-8021-a28d-d6682f4e97c0" dir="ltr"><td id="pvq:" class="">Texto pequeño</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.4</code></td></tr><tr id="3f5648ad-99fc-809f-b21c-cc49365b67d4" dir="ltr"><td id="pvq:" class="">Botones</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1</code> – <code>1.2</code></td></tr><tr id="3f5648ad-99fc-805f-a6b6-dc880307297d" dir="ltr"><td id="pvq:" class="">Inputs</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.2</code> – <code>1.4</code></td></tr><tr id="3f5648ad-99fc-8015-8ca2-fc5b883a31f5" dir="ltr"><td id="pvq:" class="">Código</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.4</code> – <code>1.5</code></td></tr><tr id="3f5648ad-99fc-8037-b6a2-e97e9bbd21b8" dir="ltr"><td id="pvq:" class="">CJK (chino, japonés)</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.7</code> – <code>2</code></td></tr><tr id="3f5648ad-99fc-8055-88ff-ce807987bc56" dir="ltr"><td id="pvq:" class="">Texto en tablas</td><td id="BtZc" class="" style="width:392.9479217529297px"><code>1.3</code> – <code>1.4</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80ba-a919-e2a2930c8075" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-804a-bc98-f442bfb2d1c4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>font-size</strong></code> → el <code>line-height</code> sin unidad se multiplica por este valor.</li></ul><ul id="3f5648ad-99fc-8076-a1c1-d1ebb7997b7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>font</strong></code> → shorthand que puede incluir <code>line-height</code> (ej. <code>font: 16px/1.5 sans-serif</code>).</li></ul><ul id="3f5648ad-99fc-8061-be08-d7ad143186d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin</strong></code> → espacia <strong>bloques</strong>, no líneas.</li></ul><ul id="3f5648ad-99fc-8089-937f-c5fb6a5c815f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>padding</strong></code> → espacia contenido del borde, no líneas.</li></ul><ul id="3f5648ad-99fc-80e9-90f9-dbfb7626791b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>vertical-align</strong></code> → alineación dentro de la línea.</li></ul><ul id="3f5648ad-99fc-8069-a9d8-c056a73d21b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>height</strong></code> → si se fija, puede entrar en conflicto con <code>line-height</code>.</li></ul><ul id="3f5648ad-99fc-8001-87fa-eef46bba0150" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display: flex</strong></code> → <code>align-items: center</code> sustituye al truco <code>line-height</code> para centrar.</li></ul><ul id="3f5648ad-99fc-809a-b037-f2201aa435ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-box-trim</strong></code> → propiedad experimental que recorta el espacio extra arriba/abajo.</li></ul><ul id="3f5648ad-99fc-80cf-990c-e6649fc33cc7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CLS (Cumulative Layout Shift)</strong> → <code>line-height</code> bien definido reduce saltos al cargar fuentes.</li></ul><p id="3f5648ad-99fc-806a-a4b6-ccecd6fad661" class="" dir="auto"><strong>Visualización del line-height:</strong></p><pre id="3f5648ad-99fc-809a-a537-d15878983d0e" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">font-size: 16px, line-height: 1.5 → 24px
+
+┌────────────────────────┐  ← top de la línea
+│      (espacio)         │
+│  ──────────────────    │  ← línea base anterior
+│                        │
+│      TEXTO             │  ← 16px
+│                        │
+│  ──────────────────    │  ← línea base
+│      (espacio)         │
+└────────────────────────┘  ← bottom de la línea
+     ↑ 24px en total ↑</code></pre><h2 id="3f5648ad-99fc-805e-9af1-c0b5ff76b552" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-80ac-a566-da7548422b43" class="" dir="auto">Imagina un <strong>cuaderno con renglones</strong>. El <code>font-size</code> es el tamaño de tu letra; el <code>line-height</code> es la <strong>separación entre renglones</strong>. Si los renglones están muy juntos, tu letra se solapa con la de arriba y abajo (ilegible). Si están muy separados, cuesta seguir la línea con la vista. El punto ideal es cuando la letra respira sin perderse.</p><h2 id="3f5648ad-99fc-80cf-92a5-d85fbcece93a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-8075-93eb-c24f849bf2c0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>line-height</em><p id="3f5648ad-99fc-80e6-bcd4-c1244ded88e3" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/line-height">https://developer.mozilla.org/es/docs/Web/CSS/line-height</a></p></li></ul><ul id="3f5648ad-99fc-80ae-b9ca-ef752cccd1b7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Inline Layout Module Level 3<p id="3f5648ad-99fc-8014-b1a2-cfa8e8967100" class="" dir="auto"><a href="https://www.w3.org/TR/css-inline-3/#line-height-property">https://www.w3.org/TR/css-inline-3/#line-height-property</a></p></li></ul><ul id="3f5648ad-99fc-8010-b3ef-d2a61d1baccf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Typography</em><p id="3f5648ad-99fc-80f1-80d2-c2924dcddf46" class="" dir="auto"><a href="https://web.dev/learn/design/typography">https://web.dev/learn/design/typography</a></p></li></ul><ul id="3f5648ad-99fc-803d-aa31-faa70af8b858" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Practical Typography — <em>Line spacing</em><p id="3f5648ad-99fc-8038-a038-cdd30a271570" class="" dir="auto"><a href="https://practicaltypography.com/line-spacing.html">https://practicaltypography.com/line-spacing.html</a></p></li></ul><ul id="3f5648ad-99fc-8072-9673-cc49b4a48271" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Butterick&#x27;s Typography — <em>Line Spacing</em><p id="3f5648ad-99fc-80ac-a877-d2897ebb3ee4" class="" dir="auto"><a href="https://practicaltypography.com/line-spacing.html">https://practicaltypography.com/line-spacing.html</a></p></li></ul><h2 id="3f5648ad-99fc-8092-8d95-ef703a8adbfb" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-8073-b4c1-ddcea92b6689" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regla de oro</strong>: usar <code>line-height</code> <strong>sin unidad</strong> (<code>1.5</code>, <code>1.2</code>) → hereda el factor, no el valor computado.</li></ul><ul id="3f5648ad-99fc-80d5-96fd-dbd88799c7e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Nunca </strong><code><strong>px</strong></code><strong> ni </strong><code><strong>%</strong></code> para <code>line-height</code> general → problemático al heredar en hijos con distinto <code>font-size</code>.</li></ul><ul id="3f5648ad-99fc-8016-9d11-ffec4773a7cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valores recomendados</strong>:<ul id="3f5648ad-99fc-80a6-a552-ce780106333b" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Texto base: <code>1.5</code></li></ul><ul id="3f5648ad-99fc-80b6-b588-f9e2fd13f4f2" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Párrafos largos: <code>1.6</code></li></ul><ul id="3f5648ad-99fc-8005-824b-cc5f3caab507" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Títulos grandes: <code>1.1</code></li></ul><ul id="3f5648ad-99fc-80b4-917e-ed290217fcc8" class="bulleted-list" dir="auto"><li style="list-style-type:circle">Títulos pequeños: <code>1.3</code></li></ul></li></ul><ul id="3f5648ad-99fc-80d4-a50f-c28281336459" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definir </strong><code><strong>line-height</strong></code><strong> en </strong><code><strong>:root</strong></code> (o <code>body</code>) y ajustar solo en títulos.</li></ul><ul id="3f5648ad-99fc-801d-9654-c3a6cb128a10" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El truco </strong><code><strong>line-height</strong></code><strong> + </strong><code><strong>height</strong></code> para centrar vertical es antiguo → hoy usar flex con <code>align-items: center</code>.</li></ul><ul id="3f5648ad-99fc-802c-be86-fa6d1fe55f62" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Idiomas CJK</strong> → necesitan <code>line-height</code> mayor (~1.7–2) por la densidad de glifos.</li></ul><ul id="3f5648ad-99fc-8078-b76f-cac5099e2f5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-box-trim</strong></code> → propiedad experimental que elimina el espacio extra arriba/abajo, ideal para alinear títulos con otros elementos.</li></ul><ul id="3f5648ad-99fc-8002-8fa0-f95ba1319547" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reduce CLS</strong> → definir <code>line-height</code> estable evita saltos cuando carga una fuente web.</li></ul><ul id="3f5648ad-99fc-8097-bfbf-f9997eb41cb3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>font: 16px/1.5 sans-serif</strong></code> → shorthand útil, pero resetea otras propiedades de <code>font</code> → usar con cuidado.</li></ul><ul id="3f5648ad-99fc-807a-b7f9-c64465d4d09a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No confundir con </strong><code><strong>margin</strong></code> → <code>line-height</code> = espacio entre líneas; <code>margin</code> = espacio entre bloques.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

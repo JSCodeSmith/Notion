@@ -1,0 +1,946 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>background-image</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f3648ad-99fc-8058-8b94-c04a0a4d161e" class="page sans"><header><h1 class="page-title" dir="auto">background-image</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f3648ad-99fc-80c9-aed1-d4b48d80f652" class="" dir="auto">
+</p><h1 id="3f3648ad-99fc-80a7-9bc4-eed67832e7dd" class="" dir="auto"><strong>📄 </strong><code><strong>background-image</strong></code></h1><h2 id="3f3648ad-99fc-80c3-9e1f-c6d3ad5b223a" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f3648ad-99fc-80d2-bd7b-dfde002f3732" class="" dir="auto"><code>background-image</code> es una <strong>propiedad CSS</strong> que establece una o varias <strong>imágenes de fondo</strong> para un elemento, ya sean archivos de imagen (<code>url()</code>) o <strong>gradientes</strong> generados por CSS (<code>linear-gradient()</code>, <code>radial-gradient()</code>, <code>conic-gradient()</code>).</p><h2 id="3f3648ad-99fc-80e6-96f0-d4075ac757b5" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f3648ad-99fc-80e3-bb78-f80d93f6aec0" class="" dir="auto">Forma parte de las <strong>propiedades de fondo</strong> (junto con <code>background-color</code>, <code>background-position</code>, <code>background-size</code>, <code>background-repeat</code>, etc.). </p><p id="3f3648ad-99fc-80e2-b5de-f9dd984001f7" class="" dir="auto">Es una de las propiedades más versátiles de CSS porque acepta no solo imágenes externas, sino también <strong>gradientes</strong>, que son imágenes generadas por el navegador sin necesidad de archivos.</p><p id="3f3648ad-99fc-8091-953a-d6dd17408677" class="" dir="auto">Es la <strong>capa superior</strong> del fondo: se dibuja <strong>encima</strong> de <code>background-color</code>, pero <strong>debajo</strong> del contenido y del padding (aunque el fondo se extienda hasta el borde con <code>background-clip: border-box</code>).</p><h2 id="3f3648ad-99fc-80c0-a0e4-f7373f352626" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f3648ad-99fc-80ed-9b1f-d10a601be3d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir <strong>imágenes decorativas</strong> a secciones, tarjetas, botones.</li></ul><ul id="3f3648ad-99fc-80e1-a9c0-d15fabc5e44a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>gradientes</strong> de color sin usar imágenes.</li></ul><ul id="3f3648ad-99fc-80ef-8f89-e839f7f0c3d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>patrones repetidos</strong> con gradientes.</li></ul><ul id="3f3648ad-99fc-8002-bb31-e7f8dbc8eb8f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aplicar <strong>múltiples capas</strong> de imagen/gradiente.</li></ul><ul id="3f3648ad-99fc-804b-bb24-e86f32ad20ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>overlays</strong> sobre imágenes (gradiente + foto).</li></ul><ul id="3f3648ad-99fc-8079-b136-c2b22972255a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Generar <strong>texturas</strong> y efectos visuales sin archivos externos.</li></ul><ul id="3f3648ad-99fc-80a9-b456-f8f420d3fcfb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Sustituir imágenes pesadas por gradientes ligeros.</li></ul><h2 id="3f3648ad-99fc-805a-b183-c8143fc61069" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f3648ad-99fc-80fe-8e64-f269c2c31126" class="" dir="auto">El navegador dibuja las capas de fondo <strong>de arriba a abajo</strong> (la primera es la más cercana al usuario). Reglas clave:</p><ol type="1" id="3f3648ad-99fc-80e5-a4b8-c188d00d50e3" class="numbered-list" start="1" dir="auto"><li><strong>Múltiples capas</strong> → separadas por comas; la primera se dibuja <strong>encima</strong>.</li></ol><ol type="1" id="3f3648ad-99fc-80d8-a963-c0972b5cb80f" class="numbered-list" start="2" dir="auto"><li><code><strong>background-color</strong></code> → siempre se dibuja <strong>debajo</strong> de todas las imágenes.</li></ol><ol type="1" id="3f3648ad-99fc-80c2-b24e-f8f12008bd67" class="numbered-list" start="3" dir="auto"><li><strong>Por defecto</strong> → la imagen se repite (<code>repeat</code>) y se posiciona en <code>0% 0%</code> (arriba a la izquierda).</li></ol><ol type="1" id="3f3648ad-99fc-806e-9149-f8ef26ac3245" class="numbered-list" start="4" dir="auto"><li><code><strong>background-size</strong></code> → controla el tamaño (<code>auto</code> por defecto = tamaño intrínseco).</li></ol><ol type="1" id="3f3648ad-99fc-8047-ab2e-e58f849632c9" class="numbered-list" start="5" dir="auto"><li><code><strong>background-position</strong></code> → controla la posición.</li></ol><ol type="1" id="3f3648ad-99fc-80e4-b14e-f2084bae5594" class="numbered-list" start="6" dir="auto"><li><code><strong>background-repeat</strong></code> → controla la repetición.</li></ol><ol type="1" id="3f3648ad-99fc-8007-acf4-d8a4524bc5f6" class="numbered-list" start="7" dir="auto"><li><code><strong>background-clip</strong></code> → controla hasta dónde se pinta.</li></ol><ol type="1" id="3f3648ad-99fc-806f-983a-d93b1e478e9f" class="numbered-list" start="8" dir="auto"><li><strong>Gradientes</strong> → son funciones que generan una imagen; se comportan como cualquier imagen.</li></ol><ol type="1" id="3f3648ad-99fc-80db-b4ab-ca53d4c6c982" class="numbered-list" start="9" dir="auto"><li><code><strong>image-set()</strong></code> → permite imágenes responsive para fondos.</li></ol><ol type="1" id="3f3648ad-99fc-80d0-a2f7-dd527935171c" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>url()</strong></code><strong> con comillas</strong> → recomendado para rutas con espacios o caracteres especiales.</li></ol><h2 id="3f3648ad-99fc-804f-81e7-d0a396956907" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f3648ad-99fc-8057-a7a4-c30af03532aa" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  background-image: url(&quot;imagen.jpg&quot;);
+  background-image: linear-gradient(135deg, #f39c12, #e74c3c);
+  background-image: url(&quot;a.png&quot;), url(&quot;b.png&quot;), linear-gradient(...);
+  background-image: none;
+}</code></pre><h3 id="3f3648ad-99fc-8087-b510-cfbb12bc755c" class="" dir="auto"><strong>Funciones de gradiente</strong></h3><pre id="3f3648ad-99fc-80d3-af9e-d0e7769d8d75" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Lineal */
+linear-gradient(dirección, color1, color2, ...)
+linear-gradient(135deg, #f39c12, #e74c3c)
+linear-gradient(to right, red, blue)
+linear-gradient(90deg, red 0%, yellow 50%, blue 100%)
+
+/* Radial */
+radial-gradient(forma tamaño at posición, color1, color2, ...)
+radial-gradient(circle, #fff, #000)
+radial-gradient(ellipse at top left, red, blue)
+
+/* Cónico */
+conic-gradient(from ángulo at posición, color1, color2, ...)
+conic-gradient(from 0deg, red, yellow, green, blue, red)
+
+/* Repetidos */
+repeating-linear-gradient(45deg, #eee 0 10px, #fff 10px 20px)
+repeating-radial-gradient(circle, #eee 0 10px, #fff 10px 20px).</code></pre><h2 id="3f3648ad-99fc-80c5-a306-c49543fb457c" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f3648ad-99fc-807c-9ed0-fd97f2ab9773" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Imagen simple */
+.hero {
+  background-image: url(&quot;hero.jpg&quot;);
+}
+
+/* 2. Imagen que cubre */
+.hero {
+  background-image: url(&quot;hero.jpg&quot;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 3. Gradiente lineal */
+.gradient {
+  background-image: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* 4. Gradiente radial */
+.radial {
+  background-image: radial-gradient(circle at center, #fff, #000);
+}
+
+/* 5. Gradiente cónico (rueda de color) */
+.conic {
+  background-image: conic-gradient(from 0deg, red, yellow, lime, cyan, blue, magenta, red);
+  border-radius: 50%;
+}
+
+/* 6. Múltiples capas: overlay + imagen */
+.hero-overlay {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url(&quot;hero.jpg&quot;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 7. Patrón repetido con gradiente */
+.stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    #eee 0 10px,
+    #fff 10px 20px
+  );
+}
+
+/* 8. Cuadrícula con gradientes */
+.grid {
+  background-image:
+    linear-gradient(#ddd 1px, transparent 1px),
+    linear-gradient(90deg, #ddd 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 9. Texto con gradiente */
+.gradient-text {
+  background-image: linear-gradient(90deg, #f39c12, #e74c3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 10. Imagen responsive con image-set() */
+.responsive-bg {
+  background-image: image-set(
+    url(&quot;bg-1x.jpg&quot;) 1x,
+    url(&quot;bg-2x.jpg&quot;) 2x,
+    url(&quot;bg.avif&quot;) type(&quot;image/avif&quot;)
+  );
+}
+
+/* 11. Múltiples capas con posiciones distintas */
+.layered {
+  background-image:
+    url(&quot;icon.png&quot;),
+    linear-gradient(135deg, #667eea, #764ba2);
+  background-position: top right, center;
+  background-size: 50px, cover;
+  background-repeat: no-repeat, no-repeat;
+}</code></pre><h3 id="3f3648ad-99fc-8059-b911-f72588ce6614" class="" dir="auto"><strong>Overlay sobre imagen (patrón muy común)</strong></h3><pre id="3f3648ad-99fc-8077-91f2-e5beada6f9ec" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">.hero {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.7)
+    ),
+    url(&quot;hero.jpg&quot;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}</code></pre><h3 id="3f3648ad-99fc-80a7-8544-d4d4f00f4a27" class="" dir="auto"><strong>Patrón de cuadrícula (grid pattern)</strong></h3><pre id="3f3648ad-99fc-80a3-a8b8-f0634b05d222" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">.grid-bg {
+  background-image:
+    linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+    linear-gradient(to bottom, #e0e0e0 1px, transparent 1px);
+  background-size: 20px 20px;
+}</code></pre><h3 id="3f3648ad-99fc-8014-b552-cc8a215bd6c5" class="" dir="auto"><strong>Gradiente de texto (efecto popular)</strong></h3><pre id="3f3648ad-99fc-807c-8bfe-f80544dfd337" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.gradient-text {
+  background-image: linear-gradient(90deg, #f39c12, #e74c3c, #9b59b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* El texto se ve con el gradiente */
+}</code></pre><h3 id="3f3648ad-99fc-802d-81a7-d40392006b4e" class="" dir="auto"><strong>Múltiples capas con shorthand</strong></h3><pre id="3f3648ad-99fc-807c-ab39-de905ef4f9bd" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.multi {
+  background:
+    url(&quot;capa-superior.png&quot;) center / 50px no-repeat,
+    url(&quot;capa-media.png&quot;) top right / 100px no-repeat,
+    linear-gradient(135deg, #667eea, #764ba2);
+}</code></pre><h2 id="3f3648ad-99fc-8074-a5a3-c8d1f7d5ee6f" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f3648ad-99fc-8067-88eb-eb04f0781e78" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>background-size: cover</strong></code> → la imagen se muestra a su tamaño original y se repite.</li></ol><ol type="1" id="3f3648ad-99fc-8077-a157-c963d2f503a3" class="numbered-list" start="2" dir="auto"><li><strong>Olvidar </strong><code><strong>background-repeat: no-repeat</strong></code> → la imagen se repite como patrón no deseado.</li></ol><ol type="1" id="3f3648ad-99fc-8070-8fc9-d9369d84046d" class="numbered-list" start="3" dir="auto"><li><strong>Usar </strong><code><strong>background</strong></code><strong> en lugar de </strong><code><strong>background-image</strong></code> → el shorthand <strong>resetea</strong> todas las propiedades de fondo (color, size, position…).</li></ol><ol type="1" id="3f3648ad-99fc-805e-b124-ddc3afad9725" class="numbered-list" start="4" dir="auto"><li><strong>No definir un </strong><code><strong>background-color</strong></code><strong> de fallback</strong> → si la imagen no carga, el elemento queda transparente.</li></ol><ol type="1" id="3f3648ad-99fc-80b1-aae7-fc341359be7f" class="numbered-list" start="5" dir="auto"><li><strong>Imágenes muy pesadas</strong> → afectan al rendimiento. Optimizar con WebP/AVIF y usar <code>image-set()</code>.</li></ol><ol type="1" id="3f3648ad-99fc-80c6-9791-e1d1ad0b6c43" class="numbered-list" start="6" dir="auto"><li><strong>Confundir </strong><code><strong>background-image</strong></code><strong> con </strong><code><strong>background</strong></code> → <code>background-image</code> solo define la imagen; el resto de propiedades se mantienen.</li></ol><ol type="1" id="3f3648ad-99fc-80a0-8a25-d6d1b8230bfe" class="numbered-list" start="7" dir="auto"><li><strong>Olvidar </strong><code><strong>webkit-background-clip: text</strong></code> → Safari requiere el prefijo para el gradiente en texto.</li></ol><ol type="1" id="3f3648ad-99fc-8097-a466-da8d15642e32" class="numbered-list" start="8" dir="auto"><li><strong>Múltiples capas mal ordenadas</strong> → el primer valor se dibuja <strong>encima</strong>. Si quieres la imagen arriba y el gradiente debajo, la imagen va primero.</li></ol><ol type="1" id="3f3648ad-99fc-8019-837d-da78dd4a1158" class="numbered-list" start="9" dir="auto"><li><code><strong>url()</strong></code><strong> sin comillas con espacios</strong> → puede fallar. Usar <code>url(&quot;mi imagen.jpg&quot;)</code>.</li></ol><ol type="1" id="3f3648ad-99fc-80be-acb0-e61c1ac63858" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Gradientes sin dirección</strong> → <code>linear-gradient(red, blue)</code> funciona (por defecto <code>to bottom</code>), pero es mejor ser explícito.</li></ol><ol type="1" id="3f3648ad-99fc-8018-ad38-f57e105db4a7" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>No usar </strong><code><strong>background-attachment</strong></code><strong> para parallax</strong> → sin él, la imagen se desplaza con el contenido.</li></ol><ol type="1" id="3f3648ad-99fc-8033-ad38-c163be64696c" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>Usar </strong><code><strong>background-image</strong></code><strong> en </strong><code><strong>body</strong></code><strong> sin </strong><code><strong>height</strong></code> → el fondo cubre solo el área de contenido. Usar <code>min-height: 100vh</code>.</li></ol><h2 id="3f3648ad-99fc-80c2-ad38-d58e1b709a74" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f3648ad-99fc-8057-953a-c0006716cb8b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-80e7-9d34-ed90c371e800" dir="ltr"><th id="kWXK" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="{NaX" class="simple-table-header-color simple-table-header" style="width:552.1125030517578px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-8023-ab03-e3b937b9d7ef" dir="ltr"><td id="kWXK" class="">Hero con imagen</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>url(&quot;hero.jpg&quot;)</code> + <code>cover</code></td></tr><tr id="3f3648ad-99fc-80e5-bf28-d1e6314c9dfd" dir="ltr"><td id="kWXK" class="">Overlay sobre foto</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>linear-gradient + url()</code></td></tr><tr id="3f3648ad-99fc-80f0-a30e-f1f4096c2cce" dir="ltr"><td id="kWXK" class="">Gradiente de marca</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>linear-gradient(135deg, ...)</code></td></tr><tr id="3f3648ad-99fc-80f0-b0ff-c5fd25e512c6" dir="ltr"><td id="kWXK" class="">Patrón de rayas</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>repeating-linear-gradient(...)</code></td></tr><tr id="3f3648ad-99fc-800a-979e-e2d1a190dfef" dir="ltr"><td id="kWXK" class="">Cuadrícula</td><td id="{NaX" class="" style="width:552.1125030517578px">Dos <code>linear-gradient</code> cruzados</td></tr><tr id="3f3648ad-99fc-8090-9ef7-e562009df83a" dir="ltr"><td id="kWXK" class="">Texto con gradiente</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>background-clip: text</code></td></tr><tr id="3f3648ad-99fc-8085-bc80-d36a92349612" dir="ltr"><td id="kWXK" class="">Fondo con patrón SVG</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>url(&quot;data:image/svg+xml,...&quot;)</code></td></tr><tr id="3f3648ad-99fc-8071-a99a-d97e575683fa" dir="ltr"><td id="kWXK" class="">Imagen responsive</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>image-set()</code></td></tr><tr id="3f3648ad-99fc-80f4-aa52-d078e3972a5f" dir="ltr"><td id="kWXK" class="">Rueda de color</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>conic-gradient(...)</code></td></tr><tr id="3f3648ad-99fc-8078-8fca-eeee0cd64dc5" dir="ltr"><td id="kWXK" class="">Skeleton loader</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>linear-gradient</code> animado</td></tr><tr id="3f3648ad-99fc-8029-adba-d22df150c4e7" dir="ltr"><td id="kWXK" class="">Borde con gradiente</td><td id="{NaX" class="" style="width:552.1125030517578px"><code>background-clip</code> + <code>padding-box</code></td></tr><tr id="3f3648ad-99fc-80da-bb2e-ca76e020df88" dir="ltr"><td id="kWXK" class="">Fondo de tarjeta</td><td id="{NaX" class="" style="width:552.1125030517578px">Gradiente sutil</td></tr></tbody></table><h2 id="3f3648ad-99fc-802a-84bf-eb99851cfdc9" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f3648ad-99fc-8053-b122-d0794b22e943" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-color</strong></code> → se dibuja <strong>debajo</strong> de <code>background-image</code>.</li></ul><ul id="3f3648ad-99fc-80f2-861d-c1ac363d9b0d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background</strong></code> → shorthand que incluye <code>background-image</code>.</li></ul><ul id="3f3648ad-99fc-8017-b37c-d88372b9ee36" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size</strong></code> → controla el tamaño (<code>cover</code>, <code>contain</code>).</li></ul><ul id="3f3648ad-99fc-8031-901f-d2b50127bcd6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-position</strong></code> → posición de la imagen.</li></ul><ul id="3f3648ad-99fc-8077-91dc-cc4851e286b8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-repeat</strong></code> → repetición.</li></ul><ul id="3f3648ad-99fc-806a-b1f2-f28d20f6b1ab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-attachment</strong></code> → scroll, fixed, local.</li></ul><ul id="3f3648ad-99fc-8034-bdab-d5afe81cb747" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → hasta dónde se pinta (<code>text</code> para gradiente en texto).</li></ul><ul id="3f3648ad-99fc-8041-a266-fdac25f184c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-origin</strong></code> → desde dónde se posiciona.</li></ul><ul id="3f3648ad-99fc-805d-af63-ebc5662f2212" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-blend-mode</strong></code> → mezcla capas.</li></ul><ul id="3f3648ad-99fc-80ba-af7c-faf552b3b84a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → el fondo se recorta con las esquinas.</li></ul><ul id="3f3648ad-99fc-804a-907b-c2ed42394049" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>image-set()</strong></code> → imágenes responsive.</li></ul><ul id="3f3648ad-99fc-808a-9649-cd1c305180e4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>prefers-color-scheme</strong></code> → adaptar gradientes a modo oscuro.</li></ul><ul id="3f3648ad-99fc-8092-a9fd-c6355d6423f5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>filter: blur()</strong></code> → desenfocar el fondo con <code>::before</code>.</li></ul><p id="3f3648ad-99fc-800c-87ac-f489900be4a7" class="" dir="auto"><strong>Orden de las capas:</strong></p><pre id="3f3648ad-99fc-80e6-b8ef-d7935c8540f5" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">background-image:
+  url(&quot;capa-1.png&quot;),      ← arriba (más cercana al usuario)
+  url(&quot;capa-2.png&quot;),      ← media
+  linear-gradient(...);   ← abajo
+
+background-color: #fff;   ← debajo de todo
+
+┌─────────────────────────┐
+│  capa-1 (encima)        │
+│  ┌───────────────────┐  │
+│  │  capa-2           │  │
+│  │  ┌─────────────┐  │  │
+│  │  │ gradiente   │  │  │
+│  │  │ ┌─────────┐ │  │  │
+│  │  │ │ color   │ │  │  │
+│  │  │ └─────────┘ │  │  │
+│  │  └─────────────┘  │  │
+│  └───────────────────┘  │
+└─────────────────────────┘</code></pre><h2 id="3f3648ad-99fc-8052-a6a1-d1e68cdc857c" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f3648ad-99fc-803e-a7fb-f25694e15662" class="" dir="auto">Imagina que cada elemento es una <strong>vitrina de cristal</strong> con varias capas de decoración. <code>background-image</code> es lo que colocas dentro: puedes poner un <strong>póster</strong> (imagen <code>url()</code>), una <strong>pintura degradada</strong> (gradiente), o varias capas superpuestas (una foto con un filtro oscuro encima). El <strong>color de fondo</strong> (<code>background-color</code>) es la pared del fondo, siempre detrás de todo. Y las capas se apilan como <strong>transparencias</strong>: la primera que pones es la que se ve encima.</p><h2 id="3f3648ad-99fc-804b-a4eb-e9cdf61945fd" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f3648ad-99fc-80eb-944f-fd5cf95c0dc8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>background-image</em><p id="3f3648ad-99fc-805d-a7a4-fac47230e03a" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-image">https://developer.mozilla.org/es/docs/Web/CSS/background-image</a></p></li></ul><ul id="3f3648ad-99fc-8067-8cec-ec75d1bfd58b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>Using CSS gradients</em><p id="3f3648ad-99fc-80d8-ab9a-f30cd14cc333" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Images/Using_CSS_gradients">https://developer.mozilla.org/es/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a></p></li></ul><ul id="3f3648ad-99fc-8043-beb7-e39a0fe7f34d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Images Module Level 3<p id="3f3648ad-99fc-8074-b931-f5191c1dd71e" class="" dir="auto"><a href="https://www.w3.org/TR/css-images-3/">https://www.w3.org/TR/css-images-3/</a></p></li></ul><ul id="3f3648ad-99fc-80d2-80bc-fcd5d03b6f47" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>background-image</em><p id="3f3648ad-99fc-80a9-ab6f-ce65806a2099" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/background-image/">https://css-tricks.com/almanac/properties/b/background-image/</a></p></li></ul><ul id="3f3648ad-99fc-80b3-8065-e1822515b27a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Optimize images</em><p id="3f3648ad-99fc-803b-9e8a-cc892038658e" class="" dir="auto"><a href="https://web.dev/learn/images/">https://web.dev/learn/images/</a></p></li></ul><ul id="3f3648ad-99fc-80a7-8f87-d8ec983c4ad8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS Gradient Generator<p id="3f3648ad-99fc-80ec-8579-ed4badda1930" class="" dir="auto"><a href="https://cssgradient.io/">https://cssgradient.io/</a></p></li></ul><h2 id="3f3648ad-99fc-8090-b290-ce4f63589b1c" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f3648ad-99fc-80b3-a331-cd3f86bf501a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code><strong> solo define la imagen</strong> → el resto de propiedades (<code>size</code>, <code>position</code>, <code>repeat</code>) se mantienen. A diferencia del shorthand <code>background</code>, que resetea todo.</li></ul><ul id="3f3648ad-99fc-8080-bc80-ce6511d76efa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre definir un </strong><code><strong>background-color</strong></code><strong> de fallback</strong> → por si la imagen no carga.</li></ul><ul id="3f3648ad-99fc-8071-8ffe-d2a9df451d70" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples capas</strong> → separadas por comas; la primera se dibuja <strong>encima</strong>.</li></ul><ul id="3f3648ad-99fc-806c-9cdd-c0b94f88b8ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Overlay clásico</strong> → <code>linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(...)</code> es el patrón para oscurecer una imagen de fondo.</li></ul><ul id="3f3648ad-99fc-8042-9d52-fad32b814618" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gradiente en texto</strong> → <code>background-clip: text</code> + <code>color: transparent</code> + prefijo <code>webkit-</code>.</li></ul><ul id="3f3648ad-99fc-804a-9faf-ee1c774e6bf4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>image-set()</strong></code> → imágenes responsive sin media queries.</li></ul><ul id="3f3648ad-99fc-8065-b52d-c2bd7d0d9473" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimización</strong> → usar WebP/AVIF, comprimir imágenes, y preferir gradientes a imágenes cuando sea posible.</li></ul><ul id="3f3648ad-99fc-80ed-9e26-e2c0df1ab910" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Patrones con gradientes</strong> → <code>repeating-linear-gradient</code> y <code>repeating-radial-gradient</code> permiten crear texturas sin archivos.</li></ul><ul id="3f3648ad-99fc-804b-9613-d47e33d1022f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Data URIs</strong> → <code>url(&quot;data:image/svg+xml,...&quot;)</code> permite incrustar SVG pequeños directamente en CSS.</li></ul><ul id="3f3648ad-99fc-8007-8a6b-cb4ee0c05bd9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>conic-gradient</strong></code> → ideal para gráficos circulares, ruedas de color y efectos modernos.</li></ul><ul id="3f3648ad-99fc-80b1-991a-c6ca490aac84" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>prefers-color-scheme</strong></code> → adaptar gradientes e imágenes a modo oscuro.</li></ul><ul id="3f3648ad-99fc-8010-9d69-d154f47b6efe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Cuidado con </strong><code><strong>background-attachment: fixed</strong></code> → problemas en móvil; considerar alternativas con <code>position: fixed</code> y <code>::before</code>.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

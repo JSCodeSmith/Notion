@@ -17,6 +17,7 @@ export const NEGOCIO_LIDERAZGO = {
           "nombre": "Estilos de Liderazgo: Transaccional, Transformacional y Servicial",
           "firma": "El liderazgo es el proceso de influir en un grupo de personas para que trabajen juntas hacia el logro de…",
           "icon": "🗣️",
+          "lab": 2,
         },
       ],
     },
@@ -28,30 +29,35 @@ export const NEGOCIO_LIDERAZGO = {
           "nombre": "Estructura Funcional",
           "firma": "La estructura funcional es un modelo de organización empresarial que agrupa a los empleados según su…",
           "icon": "🏛️",
+          "lab": 2,
         },
         {
           "id": "estructura-divisional",
           "nombre": "Estructura Divisional",
           "firma": "La estructura divisional es un modelo de organización empresarial que agrupa a los empleados y recursos en…",
           "icon": "🏬",
+          "lab": 2,
         },
         {
           "id": "estructura-matricial",
           "nombre": "Estructura Matricial",
           "firma": "La estructura matricial es un modelo de organización empresarial que combina dos dimensiones de autoridad…",
           "icon": "🕸️",
+          "lab": 2,
         },
         {
           "id": "estructura-horizontal",
           "nombre": "Estructura Horizontal (Plana)",
           "firma": "La estructura horizontal, también conocida como estructura plana, es un modelo organizacional caracterizado…",
           "icon": "🧑‍🤝‍🧑",
+          "lab": 2,
         },
         {
           "id": "holocracia",
           "nombre": "Holocracia",
           "firma": "La Holocracia es un sistema de gobierno y gestión organizacional en el que la autoridad y la toma de…",
           "icon": "🕊️",
+          "lab": 2,
         },
       ],
     },
@@ -298,6 +304,62 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estilos-liderazgo-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Organización madura con procesos estables",
+              "descripcion": "Transaccional · La estabilidad y el cumplimiento de estándares son prioritarios.",
+            },
+            {
+              "concepto": "Startup en crecimiento o transformación",
+              "descripcion": "Transformacional · La inspiración y la visión son clave para atraer talento y guiar el cambio.",
+            },
+            {
+              "concepto": "Organización sin fines de lucro o centrada en personas",
+              "descripcion": "Servicial · El bienestar de los empleados y la misión social son los principales motores.",
+            },
+            {
+              "concepto": "Crisis y entornos de alta presión",
+              "descripcion": "Transaccional (en parte) · La toma de decisiones rápida y el control pueden ser necesarios, pero idealmente combinado con liderazgo transformacional para mantener la…",
+            },
+            {
+              "concepto": "Equipos de alto rendimiento y autónomos",
+              "descripcion": "Servicial · Los profesionales altamente cualificados necesitan apoyo y recursos, no control directo.",
+            },
+            {
+              "concepto": "Transformación digital profunda",
+              "descripcion": "Transformacional · Se necesita inspirar un cambio de mentalidad y una visión que justifique el esfuerzo.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Organización madura con procesos estables → Transaccional · La estabilidad y el cumplimiento de estándares son prioritarios.  ·  Startup en crecimiento o transformación → Transformacional · La inspiración y la visión son clave para atraer talento y guiar el cambio.  ·  Organización sin fines de lucro o centrada en personas → Servicial · El bienestar de los empleados y la misión social son los principales motores.  · ",
+        },
+        {
+          "id": "estilos-liderazgo-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El liderazgo es el proceso de influir en un grupo de personas para que trabajen juntas hacia el logro de __________.",
+          "correcto": "objetivos comunes",
+          "opciones": [
+            "Holocracia",
+            "objetivos comunes",
+            "estructura plana",
+            "modelo de organización empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «o…». Reta a objetivos comunes con su definición.",
+          "solucion": "«objetivos comunes»: El liderazgo es el proceso de influir en un grupo de personas para que trabajen juntas hacia el logro de objetivos comunes.",
+        },
+      ],
+    },
   },
   "estructura-funcional": {
     "id": "estructura-funcional",
@@ -458,6 +520,58 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estructura-funcional-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Empresa mediana/grande",
+              "descripcion": "La estructura funcional es ideal para organizaciones con operaciones estables.",
+            },
+            {
+              "concepto": "Industrias tradicionales",
+              "descripcion": "Manufactura, retail, servicios financieros, consultoría.",
+            },
+            {
+              "concepto": "Empresas con productos estandarizados",
+              "descripcion": "Donde la eficiencia y la especialización son clave.",
+            },
+            {
+              "concepto": "Organizaciones con presupuesto limitado",
+              "descripcion": "La estructura funcional es menos costosa que otras estructuras más complejas.",
+            },
+            {
+              "concepto": "Empresas en crecimiento",
+              "descripcion": "Muchas startups adoptan esta estructura al crecer, para manejar la complejidad.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Empresa mediana/grande → La estructura funcional es ideal para organizaciones con operaciones estables.  ·  Industrias tradicionales → Manufactura, retail, servicios financieros, consultoría.  ·  Empresas con productos estandarizados → Donde la eficiencia y la especialización son clave.  ·  Organizaciones con presupuesto limitado → La estructura funcional es menos costosa que otras estructuras más complejas.  ·  Empr",
+        },
+        {
+          "id": "estructura-funcional-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La estructura funcional es un __________ que agrupa a los empleados según su especialidad o función (como marketing, finanzas, recursos humanos, producción, etc.).",
+          "correcto": "modelo de organización empresarial",
+          "opciones": [
+            "estructura plana",
+            "Holocracia",
+            "modelo de organización empresarial",
+            "objetivos comunes",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a modelo de organización empresarial con su definición.",
+          "solucion": "«modelo de organización empresarial»: La estructura funcional es un modelo de organización empresarial que agrupa a los empleados según su especialidad o función (como marketing, finanzas, recursos humanos, producción, etc.).",
+        },
+      ],
+    },
   },
   "estructura-divisional": {
     "id": "estructura-divisional",
@@ -605,6 +719,58 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estructura-divisional-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Procter & Gamble (P&G) - División por Producto",
+              "descripcion": "Divisiones: Cuidado Personal, Cuidado del Hogar, Cuidado de la Salud, etc.",
+            },
+            {
+              "concepto": "Coca-Cola - División por Región",
+              "descripcion": "Divisiones: América del Norte, Europa, América Latina, Asia-Pacífico, etc.",
+            },
+            {
+              "concepto": "Unilever - División por Producto y Región",
+              "descripcion": "Divisiones: Alimentos, Cuidado Personal, Limpieza.",
+            },
+            {
+              "concepto": "McDonald's - División por Región",
+              "descripcion": "Divisiones: EE.UU., Europa, Asia-Pacífico, Medio Oriente, etc.",
+            },
+            {
+              "concepto": "Google (Alphabet) - División por Producto",
+              "descripcion": "Divisiones: Google (búsqueda, publicidad), YouTube, Waymo (vehículos autónomos), Verily (ciencias de la vida), etc.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Procter & Gamble (P&G) - División por Producto → Divisiones: Cuidado Personal, Cuidado del Hogar, Cuidado de la Salud, etc.  ·  Coca-Cola - División por Región → Divisiones: América del Norte, Europa, América Latina, Asia-Pacífico, etc.  ·  Unilever - División por Producto y Región → Divisiones: Alimentos, Cuidado Personal, Limpieza.  ·  McDonald's - División por Región → Divisiones: EE.UU., Europa, Asia-Pacífico, Me",
+        },
+        {
+          "id": "estructura-divisional-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La estructura divisional es un __________ que agrupa a los empleados y recursos en unidades de negocio semiautónomas (divisiones) basadas en productos, servicios, mercados geográficos o segmentos de clientes.",
+          "correcto": "modelo de organización empresarial",
+          "opciones": [
+            "objetivos comunes",
+            "modelo de organización empresarial",
+            "Holocracia",
+            "estructura plana",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a modelo de organización empresarial con su definición.",
+          "solucion": "«modelo de organización empresarial»: La estructura divisional es un modelo de organización empresarial que agrupa a los empleados y recursos en unidades de negocio semiautónomas (divisiones) basadas en productos, servicios, mercados…",
+        },
+      ],
+    },
   },
   "estructura-matricial": {
     "id": "estructura-matricial",
@@ -751,6 +917,54 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estructura-matricial-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Empresa de tecnología con múltiples productos",
+              "descripcion": "Usar la estructura matricial para gestionar el desarrollo de varios productos simultáneamente.",
+            },
+            {
+              "concepto": "Empresa de consultoría con múltiples clientes",
+              "descripcion": "Usar la estructura matricial para asignar consultores a diferentes proyectos.",
+            },
+            {
+              "concepto": "Empresa de construcción con múltiples proyectos",
+              "descripcion": "Usar la estructura matricial para compartir ingenieros entre diferentes obras.",
+            },
+            {
+              "concepto": "Organización de I+D",
+              "descripcion": "Usar la estructura matricial para gestionar múltiples proyectos de investigación.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Empresa de tecnología con múltiples productos → Usar la estructura matricial para gestionar el desarrollo de varios productos simultáneamente.  ·  Empresa de consultoría con múltiples clientes → Usar la estructura matricial para asignar consultores a diferentes proyectos.  ·  Empresa de construcción con múltiples proyectos → Usar la estructura matricial para compartir ingenieros entre diferentes obras.  ·  Organizaci",
+        },
+        {
+          "id": "estructura-matricial-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La estructura matricial es un __________ que combina dos dimensiones de autoridad simultáneamente: la funcional (por especialidad) y la divisional (por producto, proyecto o región).",
+          "correcto": "modelo de organización empresarial",
+          "opciones": [
+            "estructura plana",
+            "Holocracia",
+            "modelo de organización empresarial",
+            "objetivos comunes",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a modelo de organización empresarial con su definición.",
+          "solucion": "«modelo de organización empresarial»: La estructura matricial es un modelo de organización empresarial que combina dos dimensiones de autoridad simultáneamente: la funcional (por especialidad) y la divisional (por producto, proyecto o…",
+        },
+      ],
+    },
   },
   "estructura-horizontal": {
     "id": "estructura-horizontal",
@@ -926,6 +1140,58 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estructura-horizontal-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Valve (Empresa de Videojuegos)",
+              "descripcion": "Estructura: Sin gerentes. Los empleados eligen en qué proyectos trabajar.",
+            },
+            {
+              "concepto": "Spotify (Modelo \"Squad\")",
+              "descripcion": "Estructura: Organización en \"Squads\" (equipos autónomos) con líderes de producto, no jefes.",
+            },
+            {
+              "concepto": "Zappos (Tienda de Zapatos Online)",
+              "descripcion": "Estructura: Holocracia (sin títulos, sin jefes, roles flexibles).",
+            },
+            {
+              "concepto": "Basecamp (Software de Gestión de Proyectos)",
+              "descripcion": "Estructura: Plana, con equipos pequeños y autónomos.",
+            },
+            {
+              "concepto": "Morning Star (Procesamiento de Tomates)",
+              "descripcion": "Estructura: Organización sin jefes, los empleados negocian sus propias responsabilidades.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Valve (Empresa de Videojuegos) → Estructura: Sin gerentes. Los empleados eligen en qué proyectos trabajar.  ·  Spotify (Modelo \"Squad\") → Estructura: Organización en \"Squads\" (equipos autónomos) con líderes de producto, no jefes.  ·  Zappos (Tienda de Zapatos Online) → Estructura: Holocracia (sin títulos, sin jefes, roles flexibles).  ·  Basecamp (Software de Gestión de Proyectos) → Estructura: Plana, con equipos peq",
+        },
+        {
+          "id": "estructura-horizontal-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La estructura horizontal, también conocida como __________, es un modelo organizacional caracterizado por tener pocos o ningún nivel jerárquico entre la alta dirección y los empleados operativos.",
+          "correcto": "estructura plana",
+          "opciones": [
+            "objetivos comunes",
+            "modelo de organización empresarial",
+            "Holocracia",
+            "estructura plana",
+          ],
+          "pista": "Empieza por la primera letra: «e…». Reta a estructura plana con su definición.",
+          "solucion": "«estructura plana»: La estructura horizontal, también conocida como estructura plana, es un modelo organizacional caracterizado por tener pocos o ningún nivel jerárquico entre la alta dirección y los empleados…",
+        },
+      ],
+    },
   },
   "holocracia": {
     "id": "holocracia",
@@ -1090,5 +1356,57 @@ export const NEGOCIO_LIDERAZGO_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "holocracia-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Círculos",
+              "descripcion": "Definición: Un grupo de roles que trabajan juntos hacia un propósito común.",
+            },
+            {
+              "concepto": "Roles",
+              "descripcion": "Definición: Una función con responsabilidades y autoridad específicas.",
+            },
+            {
+              "concepto": "Reuniones de Gobernanza",
+              "descripcion": "Definición: Reuniones periódicas para evolucionar los roles y los círculos.",
+            },
+            {
+              "concepto": "Reuniones Tácticas",
+              "descripcion": "Definición: Reuniones periódicas para coordinar el trabajo diario.",
+            },
+            {
+              "concepto": "Líderes de Círculo y Enlaces",
+              "descripcion": "Líder de Círculo: Rol que se encarga de facilitar las reuniones de gobernanza y asegurar que el círculo cumpla su propósito.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Círculos → Definición: Un grupo de roles que trabajan juntos hacia un propósito común.  ·  Roles → Definición: Una función con responsabilidades y autoridad específicas.  ·  Reuniones de Gobernanza → Definición: Reuniones periódicas para evolucionar los roles y los círculos.  ·  Reuniones Tácticas → Definición: Reuniones periódicas para coordinar el trabajo diario.  ·  Líderes de Círculo y Enlaces → Líder de Círculo:",
+        },
+        {
+          "id": "holocracia-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es un sistema de gobierno y gestión organizacional en el que la autoridad y la toma de decisiones se distribuyen en lugar de concentrarse en una jerarquía tradicional.",
+          "correcto": "Holocracia",
+          "opciones": [
+            "Holocracia",
+            "estructura plana",
+            "objetivos comunes",
+            "modelo de organización empresarial",
+          ],
+          "pista": "Empieza por la primera letra: «H…». Reta a Holocracia con su definición.",
+          "solucion": "«Holocracia»: La Holocracia es un sistema de gobierno y gestión organizacional en el que la autoridad y la toma de decisiones se distribuyen en lugar de concentrarse en una jerarquía tradicional.",
+        },
+      ],
+    },
   },
 };

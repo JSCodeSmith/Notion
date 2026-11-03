@@ -17,24 +17,28 @@ export const NEGOCIO_ESTRATEGIA = {
           "nombre": "FODA (Fortalezas, Oportunidades, Debilidades y Amenazas)",
           "firma": "El FODA (también conocido como SWOT en inglés: Strengths, Weaknesses, Opportunities, Threats) es una…",
           "icon": "🟦",
+          "lab": 2,
         },
         {
           "id": "pestel",
           "nombre": "PESTEL Analysis",
           "firma": "PESTEL es un marco de análisis estratégico que se utiliza para evaluar el entorno macro externo en el que…",
           "icon": "🌍",
+          "lab": 2,
         },
         {
           "id": "cinco-fuerzas-porter",
           "nombre": "Las 5 Fuerzas de Porter",
           "firma": "Es un modelo estratégico desarrollado por el profesor Michael E. Porter de la Harvard Business School en 1979.",
           "icon": "✋",
+          "lab": 2,
         },
         {
           "id": "vuca",
           "nombre": "VUCA (Volátil, Incierto, Complejo, Ambiguo)",
           "firma": "VUCA es un acrónimo que describe un entorno o contexto caracterizado por la Volatilidad, la Incertidumbre, la…",
           "icon": "🌪️",
+          "lab": 2,
         },
       ],
     },
@@ -46,30 +50,35 @@ export const NEGOCIO_ESTRATEGIA = {
           "nombre": "Ventaja Competitiva",
           "firma": "La ventaja competitiva es la capacidad de una empresa para superar a sus rivales generando mayor valor para…",
           "icon": "🏆",
+          "lab": 2,
         },
         {
           "id": "vrio",
           "nombre": "VRIO",
           "firma": "El marco VRIO es un modelo de análisis estratégico que evalúa los recursos y capacidades de una organización…",
           "icon": "✅",
+          "lab": 2,
         },
         {
           "id": "rbv",
           "nombre": "RBV (Resource-Based View) - Visión Basada en Recursos",
           "firma": "La Visión Basada en Recursos (RBV) es un marco teórico de estrategia empresarial que sostiene que la ventaja…",
           "icon": "🗃️",
+          "lab": 2,
         },
         {
           "id": "recursos-estrategicos",
           "nombre": "Recursos Estratégicos (o Recursos Clave)",
           "firma": "Los recursos estratégicos son aquellos activos tangibles e intangibles que una organización posee, controla o…",
           "icon": "🧰",
+          "lab": 2,
         },
         {
           "id": "diferenciacion-mercado",
           "nombre": "Diferenciación del Mercado",
           "firma": "La diferenciación del mercado es una estrategia competitiva que consiste en crear un producto o servicio…",
           "icon": "🏷️",
+          "lab": 2,
         },
       ],
     },
@@ -81,24 +90,28 @@ export const NEGOCIO_ESTRATEGIA = {
           "nombre": "Estrategias Genéricas de Michael Porter",
           "firma": "Las Estrategias Genéricas son un modelo de gestión estratégica desarrollado por Michael E. Porter en 1980.",
           "icon": "🧱",
+          "lab": 2,
         },
         {
           "id": "oceanos-azules",
           "nombre": "Estrategia del Océano Azul",
           "firma": "La Estrategia del Océano Azul es un enfoque de gestión estratégica que propone crear nuevos espacios de…",
           "icon": "🌊",
+          "lab": 2,
         },
         {
           "id": "marco-errc",
           "nombre": "Marco ERRC (Eliminar, Reducir, Incrementar, Crear)",
           "firma": "El Marco ERRC (Eliminate, Reduce, Raise, Create) es una herramienta de innovación en valor desarrollada por W.",
           "icon": "♻️",
+          "lab": 2,
         },
         {
           "id": "matriz-bcg",
           "nombre": "Matriz BCG (Boston Consulting Group)",
           "firma": "La Matriz BCG es una herramienta de análisis de portafolio de productos desarrollada por la Boston Consulting…",
           "icon": "📈",
+          "lab": 2,
         },
       ],
     },
@@ -110,24 +123,28 @@ export const NEGOCIO_ESTRATEGIA = {
           "nombre": "¿Qué es un Modelo de Negocio?",
           "firma": "Un modelo de negocio es la representación conceptual de cómo una organización crea, entrega y captura valor.",
           "icon": "🏗️",
+          "lab": 2,
         },
         {
           "id": "business-model-canvas",
           "nombre": "Business Model Canvas (Lienzo de Modelo de Negocio)",
           "firma": "El Business Model Canvas (BMC) es una herramienta de gestión estratégica creada por Alexander Osterwalder e…",
           "icon": "🗺️",
+          "lab": 2,
         },
         {
           "id": "propuesta-de-valor",
           "nombre": "Propuesta de Valor (Value Proposition)",
           "firma": "La Propuesta de Valor es una declaración clara y concisa que describe el beneficio único que una empresa…",
           "icon": "💎",
+          "lab": 2,
         },
         {
           "id": "canvas-propuesta-valor",
           "nombre": "Canvas de la Propuesta de Valor (Value Proposition Canvas)",
           "firma": "El Canvas de la Propuesta de Valor es una herramienta de gestión estratégica diseñada por Alexander…",
           "icon": "🎨",
+          "lab": 2,
         },
       ],
     },
@@ -139,24 +156,28 @@ export const NEGOCIO_ESTRATEGIA = {
           "nombre": "B2B (Business-to-Business)",
           "firma": "B2B (Business-to-Business) es un modelo de negocio en el que una empresa vende productos o servicios a otra…",
           "icon": "🤝",
+          "lab": 2,
         },
         {
           "id": "b2c",
           "nombre": "B2C (Business-to-Consumer)",
           "firma": "B2C (Business-to-Consumer) es un modelo de negocio en el que una empresa vende productos o servicios…",
           "icon": "🛍️",
+          "lab": 2,
         },
         {
           "id": "saas-b2b",
           "nombre": "SaaS B2B (Business-to-Business Software as a Service)",
           "firma": "El SaaS B2B es un modelo de negocio y distribución de software donde una empresa (el proveedor) ofrece una…",
           "icon": "☁️",
+          "lab": 2,
         },
         {
           "id": "plataformas-multilaterales",
           "nombre": "Plataformas Multilaterales (Multisided Platforms - MSPs)",
           "firma": "Una plataforma multilateral es un modelo de negocio que crea valor al conectar e interactuar a dos o más…",
           "icon": "🔀",
+          "lab": 2,
         },
       ],
     },
@@ -360,6 +381,54 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "foda-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Fortalezas (Strengths) - Interno / Positivo",
+              "descripcion": "Definición: Son los recursos, capacidades o atributos internos que la organización posee y que le dan una ventaja competitiva.",
+            },
+            {
+              "concepto": "Debilidades (Weaknesses) - Interno / Negativo",
+              "descripcion": "Definición: Son los recursos, capacidades o atributos internos que la organización carece o que la ponen en desventaja frente a la competencia.",
+            },
+            {
+              "concepto": "Oportunidades (Opportunities) - Externo / Positivo",
+              "descripcion": "Definición: Son las circunstancias, tendencias o cambios en el entorno externo que la organización puede aprovechar para crecer, mejorar o expandirse.",
+            },
+            {
+              "concepto": "Amenazas (Threats) - Externo / Negativo",
+              "descripcion": "Definición: Son las circunstancias, tendencias o cambios en el entorno externo que pueden perjudicar a la organización.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Fortalezas (Strengths) - Interno / Positivo → Definición: Son los recursos, capacidades o atributos internos que la organización posee y que le dan una ventaja competitiva.  ·  Debilidades (Weaknesses) - Interno / Negativo → Definición: Son los recursos, capacidades o atributos internos que la organización carece o que la ponen en desventaja frente a la competencia.  ·  Oportunidades (Opportunities) - Externo / Posit",
+        },
+        {
+          "id": "foda-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El __________ (también conocido como SWOT en inglés: Strengths, Weaknesses, Opportunities, Threats) es una herramienta de análisis estratégico que permite evaluar la situación actual de una empresa, proyecto o persona, identificando sus factores internos (Fortalezas y Debilidades) y factores externos (Oportunidades y Amenazas).",
+          "correcto": "FODA",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "modelo de análisis estratégico",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «F…». Reta a FODA con su definición.",
+          "solucion": "«FODA»: El FODA (también conocido como SWOT en inglés: Strengths, Weaknesses, Opportunities, Threats) es una herramienta de análisis estratégico que permite evaluar la situación actual de una empresa,…",
+        },
+      ],
+    },
   },
   "pestel": {
     "id": "pestel",
@@ -580,6 +649,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "pestel-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Político (Political)",
+              "descripcion": "Definición: Factores relacionados con la estabilidad, políticas y acciones del gobierno, así como el clima político general.",
+            },
+            {
+              "concepto": "Económico (Economic)",
+              "descripcion": "Definición: Factores que afectan el rendimiento económico de un país o región y, por ende, el poder adquisitivo y el comportamiento de los consumidores.",
+            },
+            {
+              "concepto": "Social (Social)",
+              "descripcion": "Definición: Factores relacionados con la demografía, cultura, valores y tendencias sociales de la población.",
+            },
+            {
+              "concepto": "Tecnológico (Technological)",
+              "descripcion": "Definición: Factores relacionados con la innovación, desarrollo y adopción de tecnologías en el entorno.",
+            },
+            {
+              "concepto": "Ecológico (Environmental)",
+              "descripcion": "Definición: Factores relacionados con el medio ambiente, recursos naturales y sostenibilidad. A veces se denomina \"Ambiental\" o \"Ecológico\".",
+            },
+            {
+              "concepto": "Legal (Legal)",
+              "descripcion": "Definición: Factores relacionados con el marco jurídico y regulatorio que afecta a la empresa.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Político (Political) → Definición: Factores relacionados con la estabilidad, políticas y acciones del gobierno, así como el clima político general.  ·  Económico (Economic) → Definición: Factores que afectan el rendimiento económico de un país o región y, por ende, el poder adquisitivo y el comportamiento de los consumidores.  ·  Social (Social) → Definición: Factores relacionados con la demografía, cultura, valores ",
+        },
+        {
+          "id": "pestel-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "PESTEL es un __________ que se utiliza para evaluar el entorno macro externo en el que opera una organización.",
+          "correcto": "marco de análisis estratégico",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "marco de análisis estratégico",
+            "modelo de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a marco de análisis estratégico con su definición.",
+          "solucion": "«marco de análisis estratégico»: PESTEL es un marco de análisis estratégico que se utiliza para evaluar el entorno macro externo en el que opera una organización.",
+        },
+      ],
+    },
   },
   "cinco-fuerzas-porter": {
     "id": "cinco-fuerzas-porter",
@@ -793,6 +918,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "cinco-fuerzas-porter-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Rivalidad entre Competidores Existentes",
+              "descripcion": "Definición: Grado de competencia entre las empresas que ya operan en la industria.",
+            },
+            {
+              "concepto": "Amenaza de Nuevos Entrantes",
+              "descripcion": "Definición: Probabilidad de que nuevas empresas ingresen a la industria y aumenten la competencia.",
+            },
+            {
+              "concepto": "Poder de Negociación de los Proveedores",
+              "descripcion": "Definición: Capacidad de los proveedores para influir en los precios y condiciones de la industria.",
+            },
+            {
+              "concepto": "Poder de Negociación de los Clientes",
+              "descripcion": "Definición: Capacidad de los compradores para influir en precios y condiciones de la industria.",
+            },
+            {
+              "concepto": "Amenaza de Productos Sustitutos",
+              "descripcion": "Definición: Probabilidad de que productos o servicios de otras industrias reemplacen a los de la industria analizada.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Rivalidad entre Competidores Existentes → Definición: Grado de competencia entre las empresas que ya operan en la industria.  ·  Amenaza de Nuevos Entrantes → Definición: Probabilidad de que nuevas empresas ingresen a la industria y aumenten la competencia.  ·  Poder de Negociación de los Proveedores → Definición: Capacidad de los proveedores para influir en los precios y condiciones de la industria.  ·  Poder de Neg",
+        },
+        {
+          "id": "cinco-fuerzas-porter-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Permite analizar el __________ de una industria o sector, identificando cinco fuerzas que determinan su atractivo y rentabilidad a largo plazo.",
+          "correcto": "nivel de competitividad",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "nivel de competitividad",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «n…». Reta a nivel de competitividad con su definición.",
+          "solucion": "«nivel de competitividad»: Permite analizar el nivel de competitividad de una industria o sector, identificando cinco fuerzas que determinan su atractivo y rentabilidad a largo plazo.",
+        },
+      ],
+    },
   },
   "vuca": {
     "id": "vuca",
@@ -934,6 +1111,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "vuca-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Analizar el entorno VUCA para definir la estrategia.",
+            },
+            {
+              "concepto": "Liderazgo",
+              "descripcion": "Desarrollar habilidades de liderazgo para entornos VUCA.",
+            },
+            {
+              "concepto": "Gestión del cambio",
+              "descripcion": "Preparar a la organización para el cambio constante.",
+            },
+            {
+              "concepto": "Innovación",
+              "descripcion": "Fomentar la experimentación y la agilidad.",
+            },
+            {
+              "concepto": "Toma de decisiones",
+              "descripcion": "Tomar decisiones en contextos de incertidumbre.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Navegar la disrupción tecnológica.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación estratégica → Analizar el entorno VUCA para definir la estrategia.  ·  Liderazgo → Desarrollar habilidades de liderazgo para entornos VUCA.  ·  Gestión del cambio → Preparar a la organización para el cambio constante.  ·  Innovación → Fomentar la experimentación y la agilidad.  ·  Toma de decisiones → Tomar decisiones en contextos de incertidumbre.  ·  Transformación digital → Navegar la disrupción tecn",
+        },
+        {
+          "id": "vuca-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ es un acrónimo que describe un entorno o contexto caracterizado por la Volatilidad, la Incertidumbre, la Complejidad y la Ambigüedad.",
+          "correcto": "VUCA",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "modelo de análisis estratégico",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «V…». Reta a VUCA con su definición.",
+          "solucion": "«VUCA»: VUCA es un acrónimo que describe un entorno o contexto caracterizado por la Volatilidad, la Incertidumbre, la Complejidad y la Ambigüedad.",
+        },
+      ],
+    },
   },
   "ventaja-competitiva": {
     "id": "ventaja-competitiva",
@@ -1097,6 +1330,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "ventaja-competitiva-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Entrar a un nuevo mercado",
+              "descripcion": "Identificar qué ventaja competitiva se puede explotar en ese mercado (ej → costo, diferenciación, nicho).",
+            },
+            {
+              "concepto": "Desarrollar un nuevo producto",
+              "descripcion": "Diseñar el producto para que sea difícil de imitar (barreras de entrada).",
+            },
+            {
+              "concepto": "Defender la posición de mercado",
+              "descripcion": "Reforzar la ventaja existente invirtiendo en I+D, marketing o eficiencia operativa.",
+            },
+            {
+              "concepto": "Responder a un competidor",
+              "descripcion": "Usar la ventaja competitiva para neutralizar los movimientos del competidor (ej → guerra de precios si se es líder en costos).",
+            },
+            {
+              "concepto": "Atraer inversión",
+              "descripcion": "Comunicar la ventaja competitiva de manera clara y convincente.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Entrar a un nuevo mercado → Identificar qué ventaja competitiva se puede explotar en ese mercado (ej → costo, diferenciación, nicho).  ·  Desarrollar un nuevo producto → Diseñar el producto para que sea difícil de imitar (barreras de entrada).  ·  Defender la posición de mercado → Reforzar la ventaja existente invirtiendo en I+D, marketing o eficiencia operativa.  ·  Responder a un competidor → Usar la ventaja compet",
+        },
+        {
+          "id": "ventaja-competitiva-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es el conjunto de atributos, recursos o capacidades que permiten a una organización __________ en el mercado y obtener resultados superiores de manera sostenible en el tiempo.",
+          "correcto": "diferenciarse positivamente",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "diferenciarse positivamente",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «d…». Reta a diferenciarse positivamente con su definición.",
+          "solucion": "«diferenciarse positivamente»: Es el conjunto de atributos, recursos o capacidades que permiten a una organización diferenciarse positivamente en el mercado y obtener resultados superiores de manera sostenible en el tiempo.",
+        },
+      ],
+    },
   },
   "vrio": {
     "id": "vrio",
@@ -1236,6 +1521,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "vrio-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Evaluar qué recursos pueden convertirse en ventajas competitivas.",
+            },
+            {
+              "concepto": "Análisis de competencia",
+              "descripcion": "Comparar los recursos de la empresa con los de los competidores.",
+            },
+            {
+              "concepto": "Fusión y adquisición",
+              "descripcion": "Evaluar los recursos de la empresa objetivo.",
+            },
+            {
+              "concepto": "Gestión del cambio",
+              "descripcion": "Identificar qué recursos necesitan fortalecerse.",
+            },
+            {
+              "concepto": "Innovación",
+              "descripcion": "Identificar recursos que pueden ser la base de nuevas ofertas.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación estratégica → Evaluar qué recursos pueden convertirse en ventajas competitivas.  ·  Análisis de competencia → Comparar los recursos de la empresa con los de los competidores.  ·  Fusión y adquisición → Evaluar los recursos de la empresa objetivo.  ·  Gestión del cambio → Identificar qué recursos necesitan fortalecerse.  ·  Innovación → Identificar recursos que pueden ser la base de nuevas ofertas.",
+        },
+        {
+          "id": "vrio-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El marco VRIO es un __________ que evalúa los recursos y capacidades de una organización para determinar si pueden ser fuente de ventaja competitiva sostenible.",
+          "correcto": "modelo de análisis estratégico",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "marco de análisis estratégico",
+            "modelo de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «m…». Reta a modelo de análisis estratégico con su definición.",
+          "solucion": "«modelo de análisis estratégico»: El marco VRIO es un modelo de análisis estratégico que evalúa los recursos y capacidades de una organización para determinar si pueden ser fuente de ventaja competitiva sostenible.",
+        },
+      ],
+    },
   },
   "rbv": {
     "id": "rbv",
@@ -1391,6 +1728,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "rbv-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Identificar en qué recursos basar la estrategia de la empresa.",
+            },
+            {
+              "concepto": "Evaluación de inversiones",
+              "descripcion": "Decidir qué recursos necesitan más inversión (ej → I+D, talento).",
+            },
+            {
+              "concepto": "Fusiones y adquisiciones",
+              "descripcion": "Analizar qué recursos estratégicos tiene la empresa objetivo.",
+            },
+            {
+              "concepto": "Gestión de riesgos",
+              "descripcion": "Identificar recursos críticos que podrían perderse.",
+            },
+            {
+              "concepto": "Innovación",
+              "descripcion": "Combinar recursos existentes para crear nuevas ofertas de valor.",
+            },
+            {
+              "concepto": "Competitividad",
+              "descripcion": "Comparar recursos con los de los competidores.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación estratégica → Identificar en qué recursos basar la estrategia de la empresa.  ·  Evaluación de inversiones → Decidir qué recursos necesitan más inversión (ej → I+D, talento).  ·  Fusiones y adquisiciones → Analizar qué recursos estratégicos tiene la empresa objetivo.  ·  Gestión de riesgos → Identificar recursos críticos que podrían perderse.  ·  Innovación → Combinar recursos existentes para crear nuev",
+        },
+        {
+          "id": "rbv-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es un marco teórico de estrategia empresarial que sostiene que la ventaja competitiva de una empresa reside principalmente en sus recursos y capacidades internas, más que en su posición en el mercado o en las condiciones externas de la industria.",
+          "correcto": "Visión Basada en Recursos (RBV)",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "marco de análisis estratégico",
+            "Visión Basada en Recursos (RBV)",
+          ],
+          "pista": "Empieza por la primera letra: «V…». Reta a Visión Basada en Recursos (RBV) con su definición.",
+          "solucion": "«Visión Basada en Recursos (RBV)»: La Visión Basada en Recursos (RBV) es un marco teórico de estrategia empresarial que sostiene que la ventaja competitiva de una empresa reside principalmente en sus recursos y capacidades internas,…",
+        },
+      ],
+    },
   },
   "recursos-estrategicos": {
     "id": "recursos-estrategicos",
@@ -1560,6 +1953,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "recursos-estrategicos-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Identificar en qué recursos basar la estrategia de la empresa.",
+            },
+            {
+              "concepto": "Evaluación de inversiones",
+              "descripcion": "Decidir qué recursos necesitan más inversión (ej → I+D, talento).",
+            },
+            {
+              "concepto": "Fusiones y adquisiciones",
+              "descripcion": "Analizar qué recursos estratégicos tiene la empresa objetivo.",
+            },
+            {
+              "concepto": "Gestión de riesgos",
+              "descripcion": "Identificar recursos críticos que podrían perderse (ej → dependencia de un proveedor).",
+            },
+            {
+              "concepto": "Innovación",
+              "descripcion": "Combinar recursos existentes para crear nuevas ofertas de valor.",
+            },
+            {
+              "concepto": "Competitividad",
+              "descripcion": "Comparar recursos con los de los competidores.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Planificación estratégica → Identificar en qué recursos basar la estrategia de la empresa.  ·  Evaluación de inversiones → Decidir qué recursos necesitan más inversión (ej → I+D, talento).  ·  Fusiones y adquisiciones → Analizar qué recursos estratégicos tiene la empresa objetivo.  ·  Gestión de riesgos → Identificar recursos críticos que podrían perderse (ej → dependencia de un proveedor).  ·  Innovación → Combinar ",
+        },
+        {
+          "id": "recursos-estrategicos-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Los recursos estratégicos son aquellos __________ que una organización posee, controla o utiliza para diseñar e implementar estrategias que le permitan alcanzar una ventaja competitiva sostenible.",
+          "correcto": "activos tangibles e intangibles",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "activos tangibles e intangibles",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «a…». Reta a activos tangibles e intangibles con su definición.",
+          "solucion": "«activos tangibles e intangibles»: Los recursos estratégicos son aquellos activos tangibles e intangibles que una organización posee, controla o utiliza para diseñar e implementar estrategias que le permitan alcanzar una ventaja…",
+        },
+      ],
+    },
   },
   "diferenciacion-mercado": {
     "id": "diferenciacion-mercado",
@@ -1698,6 +2147,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "diferenciacion-mercado-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Lanzamiento de un nuevo producto",
+              "descripcion": "Diseñar una diferenciación clara para destacar en el mercado.",
+            },
+            {
+              "concepto": "Entrada a un mercado saturado",
+              "descripcion": "La diferenciación es clave para abrirse paso.",
+            },
+            {
+              "concepto": "Aumento de precios",
+              "descripcion": "La diferenciación permite justificar un precio más alto.",
+            },
+            {
+              "concepto": "Defensa frente a competidores de bajo costo",
+              "descripcion": "La diferenciación reduce la competencia en precio.",
+            },
+            {
+              "concepto": "Atracción de un nicho de mercado",
+              "descripcion": "La diferenciación permite apuntar a un segmento específico.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Lanzamiento de un nuevo producto → Diseñar una diferenciación clara para destacar en el mercado.  ·  Entrada a un mercado saturado → La diferenciación es clave para abrirse paso.  ·  Aumento de precios → La diferenciación permite justificar un precio más alto.  ·  Defensa frente a competidores de bajo costo → La diferenciación reduce la competencia en precio.  ·  Atracción de un nicho de mercado → La diferenciación p",
+        },
+        {
+          "id": "diferenciacion-mercado-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La diferenciación del mercado es una __________ que consiste en crear un producto o servicio percibido como único por los clientes, de manera que se distinga de la competencia y justifique un precio superior o una preferencia sostenida.",
+          "correcto": "estrategia competitiva",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "estrategia competitiva",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «e…». Reta a estrategia competitiva con su definición.",
+          "solucion": "«estrategia competitiva»: La diferenciación del mercado es una estrategia competitiva que consiste en crear un producto o servicio percibido como único por los clientes, de manera que se distinga de la competencia y…",
+        },
+      ],
+    },
   },
   "estrategias-genericas-porter": {
     "id": "estrategias-genericas-porter",
@@ -1873,6 +2374,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "estrategias-genericas-porter-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "5 Fuerzas de Porter",
+              "descripcion": "Las estrategias genéricas son la respuesta competitiva a las 5 fuerzas.",
+            },
+            {
+              "concepto": "Ventaja Competitiva",
+              "descripcion": "Las estrategias genéricas son los caminos para alcanzarla.",
+            },
+            {
+              "concepto": "Cadena de Valor",
+              "descripcion": "La estrategia elegida guía cómo se configuran las actividades de la cadena de valor.",
+            },
+            {
+              "concepto": "Océano Azul",
+              "descripcion": "Propone una alternativa para escapar del trade-off entre costo y diferenciación.",
+            },
+            {
+              "concepto": "Estrategia de Nicho",
+              "descripcion": "Similar al enfoque → especialización en un segmento específico.",
+            },
+            {
+              "concepto": "ROE/ROA",
+              "descripcion": "Se espera que empresas con estrategias claras tengan mejor rentabilidad (ROE/ROA).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "5 Fuerzas de Porter → Las estrategias genéricas son la respuesta competitiva a las 5 fuerzas.  ·  Ventaja Competitiva → Las estrategias genéricas son los caminos para alcanzarla.  ·  Cadena de Valor → La estrategia elegida guía cómo se configuran las actividades de la cadena de valor.  ·  Océano Azul → Propone una alternativa para escapar del trade-off entre costo y diferenciación.  ·  Estrategia de Nicho → Similar a",
+        },
+        {
+          "id": "estrategias-genericas-porter-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Las Estrategias Genéricas son un modelo de gestión estratégica desarrollado por __________ en 1980.",
+          "correcto": "Michael E. Porter",
+          "opciones": [
+            "FODA",
+            "marco de análisis estratégico",
+            "Michael E. Porter",
+            "VUCA",
+          ],
+          "pista": "Empieza por la primera letra: «M…». Reta a Michael E. Porter con su definición.",
+          "solucion": "«Michael E. Porter»: Las Estrategias Genéricas son un modelo de gestión estratégica desarrollado por Michael E. Porter en 1980.",
+        },
+      ],
+    },
   },
   "oceanos-azules": {
     "id": "oceanos-azules",
@@ -2027,6 +2584,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "oceanos-azules-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Cirque du Soleil",
+              "descripcion": "Problemas: Competencia feroz, costos altos (animales, artistas), declive de la audiencia.",
+            },
+            {
+              "concepto": "Netflix",
+              "descripcion": "Industria tradicional: Alquiler de videos (Blockbuster, tiendas físicas).",
+            },
+            {
+              "concepto": "Uber",
+              "descripcion": "Problemas: Dificultad para encontrar taxi, pagos en efectivo, falta de transparencia.",
+            },
+            {
+              "concepto": "Nintendo Wii",
+              "descripcion": "Industria tradicional: Consolas de videojuegos (PS3, Xbox 360).",
+            },
+            {
+              "concepto": "Yellow Tail (Vino)",
+              "descripcion": "Industria tradicional: Vinos (complejos, elitistas, lenguaje técnico).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Cirque du Soleil → Problemas: Competencia feroz, costos altos (animales, artistas), declive de la audiencia.  ·  Netflix → Industria tradicional: Alquiler de videos (Blockbuster, tiendas físicas).  ·  Uber → Problemas: Dificultad para encontrar taxi, pagos en efectivo, falta de transparencia.  ·  Nintendo Wii → Industria tradicional: Consolas de videojuegos (PS3, Xbox 360).  ·  Yellow Tail (Vino) → Industria tradicio",
+        },
+        {
+          "id": "oceanos-azules-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La Estrategia del Océano Azul es un enfoque de gestión estratégica que propone __________ (océanos azules) en lugar de competir en mercados existentes y saturados (océanos rojos).",
+          "correcto": "crear nuevos espacios de mercado",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "marco de análisis estratégico",
+            "crear nuevos espacios de mercado",
+          ],
+          "pista": "Empieza por la primera letra: «c…». Reta a crear nuevos espacios de mercado con su definición.",
+          "solucion": "«crear nuevos espacios de mercado»: La Estrategia del Océano Azul es un enfoque de gestión estratégica que propone crear nuevos espacios de mercado (océanos azules) en lugar de competir en mercados existentes y saturados (océanos…",
+        },
+      ],
+    },
   },
   "marco-errc": {
     "id": "marco-errc",
@@ -2201,6 +2810,54 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "marco-errc-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Eliminar (Eliminate)",
+              "descripcion": "Definición: ¿Qué factores que la industria da por sentado se pueden eliminar?",
+            },
+            {
+              "concepto": "Reducir (Reduce)",
+              "descripcion": "Definición: ¿Qué factores se pueden reducir muy por debajo del estándar de la industria?",
+            },
+            {
+              "concepto": "Incrementar (Raise)",
+              "descripcion": "Definición: ¿Qué factores se pueden incrementar muy por encima del estándar de la industria?",
+            },
+            {
+              "concepto": "Crear (Create)",
+              "descripcion": "Definición: ¿Qué factores que la industria nunca ha ofrecido se pueden crear?",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Eliminar (Eliminate) → Definición: ¿Qué factores que la industria da por sentado se pueden eliminar?  ·  Reducir (Reduce) → Definición: ¿Qué factores se pueden reducir muy por debajo del estándar de la industria?  ·  Incrementar (Raise) → Definición: ¿Qué factores se pueden incrementar muy por encima del estándar de la industria?  ·  Crear (Create) → Definición: ¿Qué factores que la industria nunca ha ofrecido se pue",
+        },
+        {
+          "id": "marco-errc-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El __________ (Eliminate, Reduce, Raise, Create) es una herramienta de innovación en valor desarrollada por W.",
+          "correcto": "Marco ERRC",
+          "opciones": [
+            "FODA",
+            "Marco ERRC",
+            "VUCA",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «M…». Reta a Marco ERRC con su definición.",
+          "solucion": "«Marco ERRC»: El Marco ERRC (Eliminate, Reduce, Raise, Create) es una herramienta de innovación en valor desarrollada por W.",
+        },
+      ],
+    },
   },
   "matriz-bcg": {
     "id": "matriz-bcg",
@@ -2343,6 +3000,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "matriz-bcg-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Gestión de portafolio",
+              "descripcion": "Decidir en qué productos invertir y cuáles descontinuar.",
+            },
+            {
+              "concepto": "Planificación estratégica",
+              "descripcion": "Equilibrar el portafolio de productos.",
+            },
+            {
+              "concepto": "Asignación de recursos",
+              "descripcion": "Distribuir el presupuesto entre productos.",
+            },
+            {
+              "concepto": "Análisis de competencia",
+              "descripcion": "Comparar la posición de la empresa con la competencia.",
+            },
+            {
+              "concepto": "Evaluación de adquisiciones",
+              "descripcion": "Analizar el portafolio de una empresa objetivo.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Gestión de portafolio → Decidir en qué productos invertir y cuáles descontinuar.  ·  Planificación estratégica → Equilibrar el portafolio de productos.  ·  Asignación de recursos → Distribuir el presupuesto entre productos.  ·  Análisis de competencia → Comparar la posición de la empresa con la competencia.  ·  Evaluación de adquisiciones → Analizar el portafolio de una empresa objetivo.",
+        },
+        {
+          "id": "matriz-bcg-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es una herramienta de análisis de portafolio de productos desarrollada por la Boston Consulting Group (BCG) en la década de 1970.",
+          "correcto": "Matriz BCG",
+          "opciones": [
+            "FODA",
+            "Matriz BCG",
+            "VUCA",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «M…». Reta a Matriz BCG con su definición.",
+          "solucion": "«Matriz BCG»: La Matriz BCG es una herramienta de análisis de portafolio de productos desarrollada por la Boston Consulting Group (BCG) en la década de 1970.",
+        },
+      ],
+    },
   },
   "modelo-de-negocio": {
     "id": "modelo-de-negocio",
@@ -2492,6 +3201,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "modelo-de-negocio-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Emprender un nuevo negocio",
+              "descripcion": "Diseñar el modelo de negocio desde cero con el Business Model Canvas.",
+            },
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Adaptar el modelo de negocio a un entorno digital (ej → de venta física a e-commerce).",
+            },
+            {
+              "concepto": "Innovación en el modelo de negocio",
+              "descripcion": "Explorar nuevas formas de generar ingresos (ej → pasar de venta de productos a suscripción).",
+            },
+            {
+              "concepto": "Reunión con inversores",
+              "descripcion": "Presentar el modelo de negocio para explicar cómo genera valor y ganancias.",
+            },
+            {
+              "concepto": "Análisis de la competencia",
+              "descripcion": "Comparar modelos de negocio para identificar ventajas y oportunidades.",
+            },
+            {
+              "concepto": "Escalamiento",
+              "descripcion": "Evaluar si el modelo de negocio es escalable y replicable.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Emprender un nuevo negocio → Diseñar el modelo de negocio desde cero con el Business Model Canvas.  ·  Transformación digital → Adaptar el modelo de negocio a un entorno digital (ej → de venta física a e-commerce).  ·  Innovación en el modelo de negocio → Explorar nuevas formas de generar ingresos (ej → pasar de venta de productos a suscripción).  ·  Reunión con inversores → Presentar el modelo de negocio para explic",
+        },
+        {
+          "id": "modelo-de-negocio-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es el __________ que describe la forma en que una empresa genera ingresos, satisface las necesidades de sus clientes y se mantiene competitiva en el mercado.",
+          "correcto": "plan lógico",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "plan lógico",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «p…». Reta a plan lógico con su definición.",
+          "solucion": "«plan lógico»: Es el plan lógico que describe la forma en que una empresa genera ingresos, satisface las necesidades de sus clientes y se mantiene competitiva en el mercado.",
+        },
+      ],
+    },
   },
   "business-model-canvas": {
     "id": "business-model-canvas",
@@ -2750,6 +3515,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "business-model-canvas-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Segmentos de Clientes (Customer Segments)",
+              "descripcion": "Definición: Los grupos de personas u organizaciones a los que la empresa dirige su propuesta de valor.",
+            },
+            {
+              "concepto": "Propuesta de Valor (Value Proposition)",
+              "descripcion": "Definición: El conjunto de productos y servicios que crean valor para un segmento de clientes específico.",
+            },
+            {
+              "concepto": "Canales (Channels)",
+              "descripcion": "Definición: Cómo la empresa se comunica y llega a sus clientes para entregar la propuesta de valor.",
+            },
+            {
+              "concepto": "Relaciones con Clientes (Customer Relationships)",
+              "descripcion": "Definición: El tipo de relación que la empresa establece con cada segmento de clientes.",
+            },
+            {
+              "concepto": "Fuentes de Ingreso (Revenue Streams)",
+              "descripcion": "Definición: Cómo la empresa genera ingresos a partir de cada segmento de clientes.",
+            },
+            {
+              "concepto": "Recursos Clave (Key Resources)",
+              "descripcion": "Definición: Los activos más importantes para que el modelo de negocio funcione.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Segmentos de Clientes (Customer Segments) → Definición: Los grupos de personas u organizaciones a los que la empresa dirige su propuesta de valor.  ·  Propuesta de Valor (Value Proposition) → Definición: El conjunto de productos y servicios que crean valor para un segmento de clientes específico.  ·  Canales (Channels) → Definición: Cómo la empresa se comunica y llega a sus clientes para entregar la propuesta de valo",
+        },
+        {
+          "id": "business-model-canvas-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El __________ es una herramienta de gestión estratégica creada por Alexander Osterwalder e Yves Pigneur en su libro \"Business Model Generation\" (2010).",
+          "correcto": "Business Model Canvas (BMC)",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "Business Model Canvas (BMC)",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «B…». Reta a Business Model Canvas (BMC) con su definición.",
+          "solucion": "«Business Model Canvas (BMC)»: El Business Model Canvas (BMC) es una herramienta de gestión estratégica creada por Alexander Osterwalder e Yves Pigneur en su libro \"Business Model Generation\" (2010).",
+        },
+      ],
+    },
   },
   "propuesta-de-valor": {
     "id": "propuesta-de-valor",
@@ -2898,6 +3719,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "propuesta-de-valor-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Lanzamiento de nuevo producto",
+              "descripcion": "Definir la propuesta de valor para comunicar el beneficio a los clientes.",
+            },
+            {
+              "concepto": "Mejora de producto existente",
+              "descripcion": "Ajustar la propuesta de valor para reflejar los nuevos beneficios.",
+            },
+            {
+              "concepto": "Entrada a un nuevo mercado",
+              "descripcion": "Adaptar la propuesta de valor a las necesidades del nuevo segmento.",
+            },
+            {
+              "concepto": "Marketing y ventas",
+              "descripcion": "Usar la propuesta de valor como base para campañas, páginas web y argumentos de venta.",
+            },
+            {
+              "concepto": "Reunión con inversores",
+              "descripcion": "Presentar la propuesta de valor como parte del modelo de negocio.",
+            },
+            {
+              "concepto": "Alineación interna",
+              "descripcion": "Asegurar que todos los equipos entiendan y comuniquen el mismo mensaje.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Lanzamiento de nuevo producto → Definir la propuesta de valor para comunicar el beneficio a los clientes.  ·  Mejora de producto existente → Ajustar la propuesta de valor para reflejar los nuevos beneficios.  ·  Entrada a un nuevo mercado → Adaptar la propuesta de valor a las necesidades del nuevo segmento.  ·  Marketing y ventas → Usar la propuesta de valor como base para campañas, páginas web y argumentos de venta.",
+        },
+        {
+          "id": "propuesta-de-valor-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La Propuesta de Valor es una __________ que describe el beneficio único que una empresa ofrece a sus clientes, explicando por qué deberían elegir su producto o servicio en lugar de la competencia.",
+          "correcto": "declaración clara y concisa",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "marco de análisis estratégico",
+            "declaración clara y concisa",
+          ],
+          "pista": "Empieza por la primera letra: «d…». Reta a declaración clara y concisa con su definición.",
+          "solucion": "«declaración clara y concisa»: La Propuesta de Valor es una declaración clara y concisa que describe el beneficio único que una empresa ofrece a sus clientes, explicando por qué deberían elegir su producto o servicio en lugar de…",
+        },
+      ],
+    },
   },
   "canvas-propuesta-valor": {
     "id": "canvas-propuesta-valor",
@@ -3036,6 +3913,58 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "canvas-propuesta-valor-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Desarrollo de nuevo producto",
+              "descripcion": "Validar ideas antes de invertir en desarrollo.",
+            },
+            {
+              "concepto": "Mejora de producto existente",
+              "descripcion": "Identificar qué frustraciones no se están aliviando.",
+            },
+            {
+              "concepto": "Lanzamiento al mercado",
+              "descripcion": "Definir el mensaje de marketing y el posicionamiento.",
+            },
+            {
+              "concepto": "Pivot (cambio de estrategia)",
+              "descripcion": "Redefinir la propuesta de valor para un nuevo segmento de clientes.",
+            },
+            {
+              "concepto": "Análisis de competencia",
+              "descripcion": "Mapear las propuestas de valor de los competidores para encontrar oportunidades.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Desarrollo de nuevo producto → Validar ideas antes de invertir en desarrollo.  ·  Mejora de producto existente → Identificar qué frustraciones no se están aliviando.  ·  Lanzamiento al mercado → Definir el mensaje de marketing y el posicionamiento.  ·  Pivot (cambio de estrategia) → Redefinir la propuesta de valor para un nuevo segmento de clientes.  ·  Análisis de competencia → Mapear las propuestas de valor de los ",
+        },
+        {
+          "id": "canvas-propuesta-valor-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El Canvas de la Propuesta de Valor es una herramienta de gestión estratégica diseñada por __________ (creadores del Business Model Canvas).",
+          "correcto": "Alexander Osterwalder y Yves Pigneur",
+          "opciones": [
+            "FODA",
+            "VUCA",
+            "Alexander Osterwalder y Yves Pigneur",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «A…». Reta a Alexander Osterwalder y Yves Pigneur con su definición.",
+          "solucion": "«Alexander Osterwalder y Yves Pigneur»: El Canvas de la Propuesta de Valor es una herramienta de gestión estratégica diseñada por Alexander Osterwalder y Yves Pigneur (creadores del Business Model Canvas).",
+        },
+      ],
+    },
   },
   "b2b": {
     "id": "b2b",
@@ -3195,6 +4124,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "b2b-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup SaaS",
+              "descripcion": "Vender una plataforma de software a empresas (B2B).",
+            },
+            {
+              "concepto": "Fintech",
+              "descripcion": "Ofrecer pasarelas de pago a comercios (B2B).",
+            },
+            {
+              "concepto": "Consultoría",
+              "descripcion": "Vender servicios profesionales a otras empresas.",
+            },
+            {
+              "concepto": "Fabricante",
+              "descripcion": "Vender componentes a empresas ensambladoras.",
+            },
+            {
+              "concepto": "Mayorista",
+              "descripcion": "Vender productos al por mayor a minoristas.",
+            },
+            {
+              "concepto": "Marketplace",
+              "descripcion": "Crear una plataforma que conecte a compradores y vendedores empresariales.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup SaaS → Vender una plataforma de software a empresas (B2B).  ·  Fintech → Ofrecer pasarelas de pago a comercios (B2B).  ·  Consultoría → Vender servicios profesionales a otras empresas.  ·  Fabricante → Vender componentes a empresas ensambladoras.  ·  Mayorista → Vender productos al por mayor a minoristas.  ·  Marketplace → Crear una plataforma que conecte a compradores y vendedores empresariales.",
+        },
+        {
+          "id": "b2b-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ (Business-to-Business) es un modelo de negocio en el que una empresa vende productos o servicios a otra empresa, en lugar de hacerlo directamente a un consumidor final.",
+          "correcto": "B2B",
+          "opciones": [
+            "B2B",
+            "FODA",
+            "VUCA",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «B…». Reta a B2B con su definición.",
+          "solucion": "«B2B»: B2B (Business-to-Business) es un modelo de negocio en el que una empresa vende productos o servicios a otra empresa, en lugar de hacerlo directamente a un consumidor final.",
+        },
+      ],
+    },
   },
   "b2c": {
     "id": "b2c",
@@ -3359,6 +4344,62 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "b2c-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "E-commerce",
+              "descripcion": "Vender productos online a consumidores.",
+            },
+            {
+              "concepto": "SaaS B2C",
+              "descripcion": "Suscripciones para consumidores (Netflix, Spotify).",
+            },
+            {
+              "concepto": "D2C",
+              "descripcion": "Marca que vende directamente al consumidor sin intermediarios.",
+            },
+            {
+              "concepto": "Retail",
+              "descripcion": "Tiendas físicas que venden al consumidor final.",
+            },
+            {
+              "concepto": "Servicios",
+              "descripcion": "Apps de transporte, delivery, alojamiento.",
+            },
+            {
+              "concepto": "Publicidad",
+              "descripcion": "Plataformas gratuitas monetizadas con anuncios.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "E-commerce → Vender productos online a consumidores.  ·  SaaS B2C → Suscripciones para consumidores (Netflix, Spotify).  ·  D2C → Marca que vende directamente al consumidor sin intermediarios.  ·  Retail → Tiendas físicas que venden al consumidor final.  ·  Servicios → Apps de transporte, delivery, alojamiento.  ·  Publicidad → Plataformas gratuitas monetizadas con anuncios.",
+        },
+        {
+          "id": "b2c-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ (Business-to-Consumer) es un modelo de negocio en el que una empresa vende productos o servicios directamente al consumidor final, es decir, a una persona que los utiliza para su consumo personal, no para revenderlos o usarlos en un proceso productivo.",
+          "correcto": "B2C",
+          "opciones": [
+            "B2C",
+            "FODA",
+            "VUCA",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «B…». Reta a B2C con su definición.",
+          "solucion": "«B2C»: B2C (Business-to-Consumer) es un modelo de negocio en el que una empresa vende productos o servicios directamente al consumidor final, es decir, a una persona que los utiliza para su consumo…",
+        },
+      ],
+    },
   },
   "saas-b2b": {
     "id": "saas-b2b",
@@ -3513,6 +4554,54 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "saas-b2b-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup de Tecnología",
+              "descripcion": "Crear un producto SaaS (ej → una herramienta de análisis) y venderlo a agencias de marketing.",
+            },
+            {
+              "concepto": "Empresa Tradicional",
+              "descripcion": "Digitalizar un servicio (ej → gestión de flotas) y ofrecerlo como SaaS a otras empresas de logística.",
+            },
+            {
+              "concepto": "Empresa con Producto Físico",
+              "descripcion": "Crear un SaaS para gestionar el ciclo de vida del producto (PLM) y venderlo a fabricantes.",
+            },
+            {
+              "concepto": "Consultora",
+              "descripcion": "Desarrollar un SaaS para automatizar las tareas de la consultora y ofrecerlo como licencia a otras consultoras (B2B).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup de Tecnología → Crear un producto SaaS (ej → una herramienta de análisis) y venderlo a agencias de marketing.  ·  Empresa Tradicional → Digitalizar un servicio (ej → gestión de flotas) y ofrecerlo como SaaS a otras empresas de logística.  ·  Empresa con Producto Físico → Crear un SaaS para gestionar el ciclo de vida del producto (PLM) y venderlo a fabricantes.  ·  Consultora → Desarrollar un SaaS para automat",
+        },
+        {
+          "id": "saas-b2b-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El __________ es un modelo de negocio y distribución de software donde una empresa (el proveedor) ofrece una aplicación o plataforma alojada en la nube a otras empresas (los clientes) a cambio de una suscripción recurrente.",
+          "correcto": "SaaS B2B",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "SaaS B2B",
+            "marco de análisis estratégico",
+          ],
+          "pista": "Empieza por la primera letra: «S…». Reta a SaaS B2B con su definición.",
+          "solucion": "«SaaS B2B»: El SaaS B2B es un modelo de negocio y distribución de software donde una empresa (el proveedor) ofrece una aplicación o plataforma alojada en la nube a otras empresas (los clientes) a cambio de una…",
+        },
+      ],
+    },
   },
   "plataformas-multilaterales": {
     "id": "plataformas-multilaterales",
@@ -3667,5 +4756,53 @@ export const NEGOCIO_ESTRATEGIA_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "plataformas-multilaterales-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup de e-commerce",
+              "descripcion": "Crear un marketplace para conectar a artesanos locales con compradores urbanos.",
+            },
+            {
+              "concepto": "Empresa de tecnología",
+              "descripcion": "Lanzar una plataforma de APIs para que desarrolladores creen aplicaciones sobre su infraestructura.",
+            },
+            {
+              "concepto": "Negocio de servicios",
+              "descripcion": "Crear una plataforma para conectar a profesionales (ej → abogados, contadores) con clientes.",
+            },
+            {
+              "concepto": "Medios de comunicación",
+              "descripcion": "Lanzar una plataforma de contenido donde los creadores suban videos y los usuarios los consuman (ej → una versión local de YouTube).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup de e-commerce → Crear un marketplace para conectar a artesanos locales con compradores urbanos.  ·  Empresa de tecnología → Lanzar una plataforma de APIs para que desarrolladores creen aplicaciones sobre su infraestructura.  ·  Negocio de servicios → Crear una plataforma para conectar a profesionales (ej → abogados, contadores) con clientes.  ·  Medios de comunicación → Lanzar una plataforma de contenido dond",
+        },
+        {
+          "id": "plataformas-multilaterales-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "El valor de la plataforma crece exponencialmente a medida que cada grupo de usuarios se suma, gracias a los __________.",
+          "correcto": "efectos de red",
+          "opciones": [
+            "VUCA",
+            "FODA",
+            "marco de análisis estratégico",
+            "efectos de red",
+          ],
+          "pista": "Empieza por la primera letra: «e…». Reta a efectos de red con su definición.",
+          "solucion": "«efectos de red»: El valor de la plataforma crece exponencialmente a medida que cada grupo de usuarios se suma, gracias a los efectos de red.",
+        },
+      ],
+    },
   },
 };

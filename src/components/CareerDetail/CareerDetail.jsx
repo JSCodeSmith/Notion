@@ -13,12 +13,19 @@ import {
   NEGOCIOS_CURSOS,
   NEGOCIOS_APUNTES,
 } from '../../data/negociosApuntes'
+import {
+  CSS_CATEGORIAS,
+  CSS_APUNTES,
+  CSS_APUNTE_CATEGORIA,
+} from '../../data/cssApuntes'
 import APIs from '../../APIs/APIs'
 import { API_GRUPOS } from '../../APIs/registry'
 import MetodoFindDoc from './MetodoFindDoc'
 import MetodoDoc from './MetodoDoc'
 import NegocioCurso from '../Negocios/NegocioCurso'
 import NegocioDoc from '../Negocios/NegocioDoc'
+import CssCurso from '../CSS/CssCurso'
+import { CSS_SIMULADORES } from '../SimuladoresCSS/registro'
 import './CareerDetail.css'
 import './LenguajeTabs.css'
 
@@ -75,6 +82,7 @@ export default function CareerDetail({
   breadcrumb,
 }) {
   const isLenguajes = carrera.id === 'lenguajes'
+  const isWeb = carrera.id === 'web'
   const negocioCurso =
     NEGOCIOS_CURSOS.find((curso) => curso.id === carrera.id) ?? null
   const [subtab, setSubtab] = useState(() => {
@@ -86,6 +94,9 @@ export default function CareerDetail({
     if (metodoActivo && NUMERO_IDS.has(metodoActivo)) return 'numeros'
     return metodoActivo && STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays'
   })
+  const [cssTab, setCssTab] = useState(
+    () => CSS_APUNTE_CATEGORIA[metodoActivo] ?? CSS_CATEGORIAS[0].id
+  )
   const [apiGrupoId, setApiGrupoId] = useState(() =>
     metodoActivo && API_IDS.has(metodoActivo)
       ? (apiGrupoDe(metodoActivo)?.id ?? null)
@@ -94,6 +105,10 @@ export default function CareerDetail({
 
   useEffect(() => {
     if (!metodoActivo) return
+    if (CSS_APUNTE_CATEGORIA[metodoActivo]) {
+      setCssTab(CSS_APUNTE_CATEGORIA[metodoActivo])
+      return
+    }
     if (JS_APUNTE_CATEGORIA[metodoActivo]) {
       setSubtab(JS_APUNTE_CATEGORIA[metodoActivo])
       return
@@ -119,7 +134,8 @@ export default function CareerDetail({
     Boolean(METODOS_DOCS[id]) ||
     Boolean(METODOS_FECHAS_DOCS[id]) ||
     Boolean(JS_APUNTES[id]) ||
-    Boolean(NEGOCIOS_APUNTES[id])
+    Boolean(NEGOCIOS_APUNTES[id]) ||
+    Boolean(CSS_APUNTES[id])
 
   const volverALista = () => onMetodoChange(null)
 
@@ -138,11 +154,18 @@ export default function CareerDetail({
   const docActivo = metodoActivo
     ? METODOS_DOCS[metodoActivo] ??
       METODOS_FECHAS_DOCS[metodoActivo] ??
-      JS_APUNTES[metodoActivo]
+      JS_APUNTES[metodoActivo] ??
+      CSS_APUNTES[metodoActivo]
     : null
 
   if (docActivo) {
-    return <MetodoDoc metodo={docActivo} onBack={volverALista} />
+    return (
+      <MetodoDoc
+        metodo={docActivo}
+        onBack={volverALista}
+        simuladores={CSS_SIMULADORES}
+      />
+    )
   }
 
   const crumbs = breadcrumb ?? [{ label: '← Volver', onClick: onBack }]
@@ -272,6 +295,13 @@ export default function CareerDetail({
           ))
           )}
         </div>
+      ) : isWeb ? (
+        <CssCurso
+          categorias={CSS_CATEGORIAS}
+          categoriaActiva={cssTab}
+          onCategoriaChange={setCssTab}
+          onAbrir={onMetodoChange}
+        />
       ) : negocioCurso ? (
         <NegocioCurso
           curso={negocioCurso}

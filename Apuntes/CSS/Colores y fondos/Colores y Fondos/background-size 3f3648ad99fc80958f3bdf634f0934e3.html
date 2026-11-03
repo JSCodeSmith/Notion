@@ -1,0 +1,930 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>background-size</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f3648ad-99fc-8095-8f3b-df634f0934e3" class="page sans"><header><h1 class="page-title" dir="auto">background-size</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f3648ad-99fc-8050-88ab-e91caeb48431" class="" dir="auto">
+</p><h1 id="3f3648ad-99fc-8027-9e4f-e61bcfedf030" class="" dir="auto"><strong>📄 </strong><code><strong>background-size</strong></code></h1><h2 id="3f3648ad-99fc-8011-9d72-c0699157f8b2" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f3648ad-99fc-80f2-a529-d1e994b7d015" class="" dir="auto"><code>background-size</code> es una <strong>propiedad CSS</strong> que establece el <strong>tamaño</strong> de las imágenes de fondo (<code>background-image</code>) dentro de la caja de un elemento.</p><h2 id="3f3648ad-99fc-8057-8473-f4ca7f57ae71" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f3648ad-99fc-8089-9647-ffe778c1906c" class="" dir="auto">Forma parte de las <strong>propiedades de fondo</strong> (junto con <code>background-image</code>, <code>background-position</code>, <code>background-repeat</code>, <code>background-attachment</code>, <code>background-clip</code>, etc.).</p><p id="3f3648ad-99fc-808b-b2f4-eb2c3f7f788b" class="" dir="auto">Controla cuánto ocupa la imagen de fondo, independientemente de su tamaño intrínseco.</p><p id="3f3648ad-99fc-8024-9c61-c2713b34d649" class="" dir="auto">Es una de las propiedades más importantes para fondos responsive: permite que una imagen se adapte al contenedor sin deformarse ni repetirse.</p><h2 id="3f3648ad-99fc-80a0-8101-f5389ce03a60" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f3648ad-99fc-8046-971c-e3b9f2bcda78" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hacer que una imagen de fondo <strong>cubra</strong> toda la caja (<code>cover</code>).</li></ul><ul id="3f3648ad-99fc-8089-9476-ee535f403c49" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mostrar la imagen <strong>entera</strong> sin recortarla (<code>contain</code>).</li></ul><ul id="3f3648ad-99fc-80ca-b60f-d5e796cb18dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ajustar una imagen a un <strong>tamaño exacto</strong> (<code>100% auto</code>, <code>200px 100px</code>).</li></ul><ul id="3f3648ad-99fc-804e-9a02-eebe1ab81ced" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>patrones</strong> con tamaño controlado.</li></ul><ul id="3f3648ad-99fc-80af-ac52-c7ed3a4e0b60" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Hacer <strong>responsive</strong> una imagen de fondo sin media queries.</li></ul><ul id="3f3648ad-99fc-8066-80e2-e43c7a2f2927" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar el tamaño de <strong>múltiples capas</strong> de fondo.</li></ul><h2 id="3f3648ad-99fc-8036-8dde-ff6eee577717" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f3648ad-99fc-801d-a278-fb0c3227a045" class="" dir="auto">El navegador escala la imagen según el valor y el tamaño de la caja del elemento. </p><p id="3f3648ad-99fc-80a4-9b3b-eafe46b66ef6" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f3648ad-99fc-8087-ab36-faa163bd80ef" class="numbered-list" start="1" dir="auto"><li><strong>Un valor</strong> → se aplica al ancho; la altura se calcula automáticamente para mantener la proporción (<code>auto</code>).</li></ol><ol type="1" id="3f3648ad-99fc-8035-807c-e435d097df0e" class="numbered-list" start="2" dir="auto"><li><strong>Dos valores</strong> → ancho y alto explícitos.</li></ol><ol type="1" id="3f3648ad-99fc-80ba-8441-c0f49de2eb69" class="numbered-list" start="3" dir="auto"><li><code><strong>cover</strong></code> → la imagen cubre toda la caja, <strong>recortando</strong> lo que sobra. Mantiene proporción.</li></ol><ol type="1" id="3f3648ad-99fc-8037-986c-eca6538fb6f8" class="numbered-list" start="4" dir="auto"><li><code><strong>contain</strong></code> → la imagen cabe entera dentro de la caja, <strong>dejando espacio</strong> vacío. Mantiene proporción.</li></ol><ol type="1" id="3f3648ad-99fc-8029-b772-f80b14c12d4e" class="numbered-list" start="5" dir="auto"><li><code><strong>auto</strong></code> → usa el tamaño intrínseco de la imagen.</li></ol><ol type="1" id="3f3648ad-99fc-80eb-9d83-ec26b72c3cd9" class="numbered-list" start="6" dir="auto"><li><code><strong>%</strong></code> → porcentaje del tamaño de la caja.</li></ol><ol type="1" id="3f3648ad-99fc-8051-b4e4-d3446ed3f181" class="numbered-list" start="7" dir="auto"><li><strong>Interactúa con </strong><code><strong>background-repeat</strong></code> → si la imagen es más pequeña que la caja, se repite (salvo <code>no-repeat</code>).</li></ol><ol type="1" id="3f3648ad-99fc-8049-98a6-d1299cfa60d7" class="numbered-list" start="8" dir="auto"><li><strong>Interactúa con </strong><code><strong>background-position</strong></code> → la posición decide <strong>qué parte</strong> de la imagen se ve cuando <code>cover</code> recorta.</li></ol><ol type="1" id="3f3648ad-99fc-8096-a4e7-d8c38b717383" class="numbered-list" start="9" dir="auto"><li><strong>Múltiples capas</strong> → cada valor corresponde a la capa en la misma posición de <code>background-image</code>.</li></ol><ol type="1" id="3f3648ad-99fc-80e6-bc02-d07cfd16c330" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>background-origin</strong></code> → define desde dónde se calcula el tamaño.</li></ol><h2 id="3f3648ad-99fc-8056-a4a7-fe2a187f6943" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f3648ad-99fc-8067-89ef-f8833d5fd546" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  background-size: valor;
+}</code></pre><h3 id="3f3648ad-99fc-80a2-8b41-dbb146f9289d" class="" dir="auto"><strong>Sintaxis de uno o dos valores</strong></h3><pre id="3f3648ad-99fc-80ec-80f3-fed14f8fd080" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Un valor: ancho (alto = auto) */
+background-size: 200px;      /* ancho 200px, alto proporcional */
+background-size: 50%;        /* 50% del ancho, alto proporcional */
+background-size: cover;      /* palabra clave */
+
+/* Dos valores: ancho | alto */
+background-size: 200px 100px;
+background-size: 100% auto;
+background-size: auto 100%;
+background-size: 50% 50%;</code></pre><h3 id="3f3648ad-99fc-805e-9bfa-e224b8cb92bf" class="" dir="auto"><strong>Múltiples capas</strong></h3><pre id="3f3648ad-99fc-8082-8db9-cca6a3646fe5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-size: cover, 50px 50px, auto;
+/* cada valor corresponde a la capa en la misma posición de background-image */</code></pre><h2 id="3f3648ad-99fc-8096-8a90-c52241373bc8" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f3648ad-99fc-805a-86cd-c611d78ac172" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Imagen que cubre toda la caja (hero) */
+.hero {
+  background-image: url(&quot;hero.jpg&quot;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 2. Imagen entera sin recortar (logo) */
+.logo {
+  background-image: url(&quot;logo.png&quot;);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 3. Ancho completo, alto automático */
+.banner {
+  background-image: url(&quot;banner.jpg&quot;);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+/* 4. Tamaño fijo */
+.icon {
+  background-image: url(&quot;icon.png&quot;);
+  background-size: 32px 32px;
+  background-repeat: no-repeat;
+}
+
+/* 5. Patrón con tamaño controlado */
+.pattern {
+  background-image: url(&quot;dot.png&quot;);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+}
+
+/* 6. Fondo responsive con porcentaje */
+.fluid {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-size: 100% 100%; /* ⚠️ puede deformar */
+}
+
+/* 7. Imagen responsive manteniendo proporción */
+.responsive {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+/* 8. Múltiples capas con distintos tamaños */
+.layered {
+  background-image:
+    url(&quot;icon.png&quot;),
+    url(&quot;pattern.png&quot;);
+  background-size: 32px 32px, 20px 20px;
+  background-repeat: no-repeat, repeat;
+}
+
+/* 9. Shorthand (position / size) */
+.card {
+  background: #fff url(&quot;bg.jpg&quot;) center / cover no-repeat;
+}
+
+/* 10. Fondo con degradado (los gradientes ignoran background-size) */
+.gradient {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  /* background-size no aplica a gradientes */
+}</code></pre><h3 id="3f3648ad-99fc-8075-940f-e20622b1c4ca" class="" dir="auto"><strong>Comparativa visual</strong></h3><p id="3f3648ad-99fc-8021-b418-fbbd2969f6aa" class="" dir="auto">
+</p><pre id="3f3648ad-99fc-80a2-82da-ea35af2b0d27" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Imagen 800×600 en caja 300×300:
+
+auto          cover         contain       100% 100%
+┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+│          │  │██████████│  │          │  │██████████│
+│          │  │██████████│  │ ████████ │  │██████████│
+│          │  │██████████│  │ ████████ │  │██████████│
+│          │  │██████████│  │          │  │██████████│
+└──────────┘  └──────────┘  └──────────┘  └──────────┘
+tamaño        cubre,        cabe,         deforma
+original      recorta       deja aire</code></pre><h3 id="3f3648ad-99fc-80cd-89c1-d473bfdc4c4c" class="" dir="auto"><strong>Diferencia entre </strong><code><strong>cover</strong></code><strong> y </strong><code><strong>contain</strong></code></h3><pre id="3f3648ad-99fc-80f3-9d9c-cf7f88118ed0" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* cover: llena toda la caja, recorta lo que sobra */
+.cover {
+  background-image: url(&quot;foto.jpg&quot;);
+  background-size: cover;
+  /* ✅ Llena todo, ⚠️ puede recortar partes de la imagen */
+}
+
+/* contain: muestra la imagen entera, deja espacio */
+.contain {
+  background-image: url(&quot;logo.png&quot;);
+  background-size: contain;
+  /* ✅ Muestra todo, ⚠️ puede dejar espacio vacío */
+}</code></pre><h3 id="3f3648ad-99fc-803c-a591-d44abc3a1f6d" class="" dir="auto"><strong>Controlar qué parte se ve con </strong><code><strong>cover</strong></code></h3><pre id="3f3648ad-99fc-80f3-9d06-fb10876f84c3" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Imagen de persona: mostrar la cara (arriba) */
+.portrait {
+  background-image: url(&quot;persona.jpg&quot;);
+  background-size: cover;
+  background-position: top center;
+}
+
+/* Paisaje: mostrar el horizonte (centro-abajo) */
+.landscape {
+  background-image: url(&quot;paisaje.jpg&quot;);
+  background-size: cover;
+  background-position: center 70%;
+}</code></pre><h3 id="3f3648ad-99fc-8083-9bf1-ec7ecfac29f8" class="" dir="auto"><strong>Fondo responsive con porcentaje</strong></h3><pre id="3f3648ad-99fc-80ad-b608-c57c4e831f34" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* ✅ Mantiene proporción */
+.responsive {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+/* ⚠️ Puede deformar si la proporción no coincide */
+.deformed {
+  background-image: url(&quot;bg.jpg&quot;);
+  background-size: 100% 100%;
+}</code></pre><h2 id="3f3648ad-99fc-80bf-bbb8-f3affe7fed3d" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f3648ad-99fc-8075-8b3d-f194c60fd845" class="numbered-list" start="1" dir="auto"><li><strong>Usar </strong><code><strong>100% 100%</strong></code><strong> sin pensar</strong> → deforma la imagen si la proporción no coincide con la caja.</li></ol><ol type="1" id="3f3648ad-99fc-8097-aa3e-d9ebdfd0e633" class="numbered-list" start="2" dir="auto"><li><strong>Olvidar </strong><code><strong>background-repeat: no-repeat</strong></code> → con <code>contain</code>, la imagen se repite si no cubre toda la caja.</li></ol><ol type="1" id="3f3648ad-99fc-806c-ad19-eabce0af3602" class="numbered-list" start="3" dir="auto"><li><strong>Confundir </strong><code><strong>cover</strong></code><strong> con </strong><code><strong>contain</strong></code> → <code>cover</code> llena (recorta); <code>contain</code> cabe entero (deja aire).</li></ol><ol type="1" id="3f3648ad-99fc-808f-9070-ee4632ebde9b" class="numbered-list" start="4" dir="auto"><li><strong>No combinar </strong><code><strong>cover</strong></code><strong> con </strong><code><strong>background-position</strong></code> → por defecto recorta desde el centro; a veces la parte importante está arriba o abajo.</li></ol><ol type="1" id="3f3648ad-99fc-809b-81eb-e989c49cf2b2" class="numbered-list" start="5" dir="auto"><li><strong>Usar </strong><code><strong>background-size</strong></code><strong> sin </strong><code><strong>background-image</strong></code> → no tiene efecto.</li></ol><ol type="1" id="3f3648ad-99fc-807b-8237-c2e1e7d9dd90" class="numbered-list" start="6" dir="auto"><li><strong>Confundir </strong><code><strong>background-size</strong></code><strong> con </strong><code><strong>width</strong></code><strong>/</strong><code><strong>height</strong></code> → <code>background-size</code> no cambia el tamaño de la caja, solo de la imagen de fondo.</li></ol><ol type="1" id="3f3648ad-99fc-8052-ac2d-e3feb22651da" class="numbered-list" start="7" dir="auto"><li><strong>Usar </strong><code><strong>background</strong></code><strong> en lugar de </strong><code><strong>background-size</strong></code> → el shorthand resetea todo.</li></ol><ol type="1" id="3f3648ad-99fc-809a-8869-dae31b4ab62d" class="numbered-list" start="8" dir="auto"><li><strong>Aplicar </strong><code><strong>background-size</strong></code><strong> a gradientes</strong> → los gradientes se generan al tamaño de la caja; <code>background-size</code> no los afecta (salvo con <code>repeating-*</code>).</li></ol><ol type="1" id="3f3648ad-99fc-80e3-af74-d1fdd2881430" class="numbered-list" start="9" dir="auto"><li><strong>Olvidar el orden en múltiples capas</strong> → cada valor corresponde a la capa en la misma posición de <code>background-image</code>.</li></ol><ol type="1" id="3f3648ad-99fc-80f8-8ad0-e9c7f4a401c3" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Usar </strong><code><strong>cover</strong></code><strong> con imágenes muy grandes</strong> → pueden afectar al rendimiento. Optimizar con WebP/AVIF.</li></ol><ol type="1" id="3f3648ad-99fc-808b-9e11-e3e4e6c89d2e" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>No usar </strong><code><strong>image-set()</strong></code> → para imágenes responsive, <code>image-set()</code> es más eficiente que <code>background-size</code>.</li></ol><ol type="1" id="3f3648ad-99fc-805f-9528-fa62ea394bfe" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>Confundir </strong><code><strong>background-size: cover</strong></code><strong> con </strong><code><strong>object-fit: cover</strong></code> → el primero es para fondos; el segundo para <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, etc.</li></ol><h2 id="3f3648ad-99fc-80fa-8ed7-c61514391cf1" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f3648ad-99fc-803d-a7b7-d7241a50e331" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-80e4-a2a6-e6c46637f6a3" dir="ltr"><th id="G&gt;_A" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="];;n" class="simple-table-header-color simple-table-header" style="width:411.2875061035156px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-8085-8ec6-ee4ca9f0ff92" dir="ltr"><td id="G&gt;_A" class="">Hero a pantalla completa</td><td id="];;n" class="" style="width:411.2875061035156px"><code>cover</code></td></tr><tr id="3f3648ad-99fc-800f-9716-e02016c500eb" dir="ltr"><td id="G&gt;_A" class="">Logo con transparencia</td><td id="];;n" class="" style="width:411.2875061035156px"><code>contain</code></td></tr><tr id="3f3648ad-99fc-8011-b2f2-df22154efb4f" dir="ltr"><td id="G&gt;_A" class="">Banner ancho completo</td><td id="];;n" class="" style="width:411.2875061035156px"><code>100% auto</code></td></tr><tr id="3f3648ad-99fc-8080-9f05-da2a1a6f08f1" dir="ltr"><td id="G&gt;_A" class="">Icono decorativo</td><td id="];;n" class="" style="width:411.2875061035156px"><code>32px 32px</code></td></tr><tr id="3f3648ad-99fc-809e-a0ae-d6fec6f1233c" dir="ltr"><td id="G&gt;_A" class="">Patrón repetido</td><td id="];;n" class="" style="width:411.2875061035156px"><code>20px 20px</code> + <code>repeat</code></td></tr><tr id="3f3648ad-99fc-80ed-9183-d650efac9f42" dir="ltr"><td id="G&gt;_A" class="">Foto de perfil (fondo)</td><td id="];;n" class="" style="width:411.2875061035156px"><code>cover</code> + <code>position: top</code></td></tr><tr id="3f3648ad-99fc-8047-b6a6-c3f07590778b" dir="ltr"><td id="G&gt;_A" class="">Fondo responsive</td><td id="];;n" class="" style="width:411.2875061035156px"><code>cover</code> o <code>100% auto</code></td></tr><tr id="3f3648ad-99fc-80a3-b328-eda4c33c3d7d" dir="ltr"><td id="G&gt;_A" class="">Múltiples capas</td><td id="];;n" class="" style="width:411.2875061035156px">Valores separados por comas</td></tr><tr id="3f3648ad-99fc-8038-b7b7-dc7b0b899073" dir="ltr"><td id="G&gt;_A" class="">Tarjeta con imagen</td><td id="];;n" class="" style="width:411.2875061035156px"><code>cover</code></td></tr><tr id="3f3648ad-99fc-80fa-abeb-c33a95b34eab" dir="ltr"><td id="G&gt;_A" class="">Fondo con textura</td><td id="];;n" class="" style="width:411.2875061035156px"><code>auto</code> (tamaño original) + <code>repeat</code></td></tr></tbody></table><h2 id="3f3648ad-99fc-80ea-a8d0-f828290ef075" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f3648ad-99fc-8099-bd15-d1b898c734d0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code> → define la imagen a escalar.</li></ul><ul id="3f3648ad-99fc-805f-b254-f1a274529daf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-position</strong></code> → decide qué parte se ve con <code>cover</code>.</li></ul><ul id="3f3648ad-99fc-807e-b559-ddb2e99907af" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-repeat</strong></code> → controla la repetición si la imagen no cubre.</li></ul><ul id="3f3648ad-99fc-8019-ac46-fabecc93f639" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-attachment</strong></code> → si se desplaza con el scroll.</li></ul><ul id="3f3648ad-99fc-8040-b78a-e4008219158a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-origin</strong></code> → desde dónde se calcula el tamaño.</li></ul><ul id="3f3648ad-99fc-80d7-a882-f6bece28a1e6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → hasta dónde se pinta.</li></ul><ul id="3f3648ad-99fc-808a-ab65-f34f7f92b7d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background</strong></code> → shorthand que incluye <code>background-size</code> (con <code>position / size</code>).</li></ul><ul id="3f3648ad-99fc-8082-b034-dfc752403baf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>object-fit</strong></code> → equivalente para <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, etc.</li></ul><ul id="3f3648ad-99fc-802b-9d1d-ddbbf0b49d00" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>image-set()</strong></code> → imágenes responsive para fondos.</li></ul><ul id="3f3648ad-99fc-80b3-a91e-e39aad4a7aac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>aspect-ratio</strong></code> → ayuda a mantener proporciones en la caja.</li></ul><p id="3f3648ad-99fc-800f-b4ef-fae12723535a" class="" dir="auto"><strong>Interacción </strong><code><strong>size</strong></code><strong> + </strong><code><strong>repeat</strong></code><strong> + </strong><code><strong>position</strong></code><strong>:</strong></p><p id="3f3648ad-99fc-80cf-8a69-cf31b4c5daae" class="" dir="auto">
+</p><pre id="3f3648ad-99fc-805d-87d4-cca07af0555c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-size: cover          → repeat no se nota (cubre todo)
+background-size: contain        → repeat se nota si no cubre todo
+background-size: 50% 50%        → repeat forma patrón 2x2
+background-size: 200px 200px    → repeat forma patrón de 200px
+background-repeat: no-repeat    → solo una copia, position decide dónde</code></pre><h2 id="3f3648ad-99fc-80cb-8496-db8c8f11e390" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f3648ad-99fc-803b-bdda-cabd5527e87d" class="" dir="auto">Imagina que la caja del elemento es una <strong>pared</strong> y la imagen de fondo es un <strong>póster</strong>. <code>background-size</code> decide <strong>cómo de grande</strong> es el póster:</p><ul id="3f3648ad-99fc-80fd-9635-c0305d4c082f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>auto</code> → tamaño original del póster.</li></ul><ul id="3f3648ad-99fc-80c7-bc4c-ffaa74ba8502" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>cover</code> → agrandas el póster hasta que <strong>cubra toda la pared</strong> (recortas lo que sobra).</li></ul><ul id="3f3648ad-99fc-802a-a9de-ca790ebeee49" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>contain</code> → encoges el póster hasta que <strong>quepa entero</strong> (deja pared vacía alrededor).</li></ul><ul id="3f3648ad-99fc-804d-8270-e8c420324c25" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>100% 100%</code> → estiras el póster para llenar la pared → <strong>se deforma</strong> si no coincide la proporción.</li></ul><ul id="3f3648ad-99fc-80ab-a7d8-c4cb9530c9f6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>200px 100px</code> → póster de tamaño exacto.</li></ul><p id="3f3648ad-99fc-801d-b9f6-cff4a15b9644" class="" dir="auto">Y <code>background-position</code> decide <strong>dónde</strong> lo cuelgas (centro, esquina, etc.).</p><h2 id="3f3648ad-99fc-801e-9fc4-f40da36f9b12" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f3648ad-99fc-8007-86f9-ff11aff4b870" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>background-size</em><p id="3f3648ad-99fc-80c1-972f-e9996dcecee5" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/background-size">https://developer.mozilla.org/es/docs/Web/CSS/background-size</a></p></li></ul><ul id="3f3648ad-99fc-803b-ace1-f22dfdbbb86d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f3648ad-99fc-8092-98c1-defc4fa00809" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#background-size">https://www.w3.org/TR/css-backgrounds-3/#background-size</a></p></li></ul><ul id="3f3648ad-99fc-8054-87d2-f518b1005efb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>background-size</em><p id="3f3648ad-99fc-802b-bb2b-d84134804f60" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/background-size/">https://css-tricks.com/almanac/properties/b/background-size/</a></p></li></ul><ul id="3f3648ad-99fc-80f5-8c82-f3b7f9e71c7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>Scaling background images</em><p id="3f3648ad-99fc-8003-b4e1-ecccfa0a60cf" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Backgrounds_and_Borders/Scaling_background_images">https://developer.mozilla.org/es/docs/Web/CSS/CSS_Backgrounds_and_Borders/Scaling_background_images</a></p></li></ul><ul id="3f3648ad-99fc-804e-b6c3-e90bee180fd5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Optimize images</em><p id="3f3648ad-99fc-8028-a7ab-c600ec69769b" class="" dir="auto"><a href="https://web.dev/learn/images/">https://web.dev/learn/images/</a></p></li></ul><h2 id="3f3648ad-99fc-8052-bb30-f5aaad128444" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f3648ad-99fc-80ca-945a-f75823351cef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>cover</strong></code><strong> es el más usado</strong> → llena la caja sin deformar, recortando lo que sobra.</li></ul><ul id="3f3648ad-99fc-80e7-89c0-dcc531f11e6f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>contain</strong></code><strong> para logos e iconos</strong> → muestra la imagen entera sin recortar.</li></ul><ul id="3f3648ad-99fc-8016-bc12-d031d0a8c998" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>100% 100%</strong></code><strong> deforma</strong> → evitar salvo que la proporción coincida.</li></ul><ul id="3f3648ad-99fc-8081-890d-dc973b5f8a2f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>100% auto</strong></code> → mantiene proporción, ancho completo, alto automático.</li></ul><ul id="3f3648ad-99fc-806b-a203-ec8927dfccc9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre combinar </strong><code><strong>cover</strong></code><strong> con </strong><code><strong>background-position</strong></code> → para elegir qué parte se ve (caras, horizontes).</li></ul><ul id="3f3648ad-99fc-80ea-a7e9-c580cf872aa3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Añadir </strong><code><strong>no-repeat</strong></code> → casi siempre quieres una sola copia.</li></ul><ul id="3f3648ad-99fc-802e-a1cd-c1731c272297" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples capas</strong> → cada valor corresponde a la capa en la misma posición de <code>background-image</code>.</li></ul><ul id="3f3648ad-99fc-8046-8bf1-cf472bd692ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size</strong></code><strong> no afecta a gradientes</strong> → los gradientes se generan al tamaño de la caja.</li></ul><ul id="3f3648ad-99fc-80e3-a956-ea7f79d2f751" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>image-set()</strong></code> → mejor opción para imágenes responsive que <code>background-size</code> + media queries.</li></ul><ul id="3f3648ad-99fc-80ec-8dc0-db84321ff61f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimización</strong> → usar WebP/AVIF, comprimir imágenes, y considerar SVG para patrones e iconos.</li></ul><ul id="3f3648ad-99fc-802f-9233-f498f9431ea0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>object-fit</strong></code> → el equivalente para <code>&lt;img&gt;</code> y <code>&lt;video&gt;</code>, no confundir.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

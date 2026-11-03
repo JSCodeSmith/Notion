@@ -1,0 +1,966 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>border-bottom</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-8014-b142-fe3a22200be1" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>border-bottom</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f5648ad-99fc-803c-a599-f526983f9b39" class="" dir="auto">
+</p><h1 id="3f5648ad-99fc-8031-8bb3-eb1a5388748f" class="" dir="auto"><strong>📄 </strong><code><strong>border-bottom</strong></code></h1><h2 id="3f5648ad-99fc-80b8-8512-d4aba1c82c0c" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-809c-852f-d9b10b0a4560" class="" dir="auto"><code>border-bottom</code> es una <strong>propiedad abreviada (shorthand) de CSS</strong> que establece en una sola declaración el <strong>borde inferior</strong> de un elemento: grosor (<code>border-bottom-width</code>), estilo (<code>border-bottom-style</code>) y color (<code>border-bottom-color</code>).</p><h2 id="3f5648ad-99fc-80be-8454-e8b9581da957" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-8003-95db-c4f107b46a0d" class="" dir="auto">Forma parte de las <strong>propiedades de borde</strong> (junto con <code>border-top</code>, <code>border-right</code>, <code>border-left</code> y el shorthand general <code>border</code>). </p><p id="3f5648ad-99fc-80e6-af14-f419268ebbf0" class="" dir="auto">Es un atajo para definir los tres aspectos del borde <strong>solo en el lado inferior</strong>.</p><p id="3f5648ad-99fc-8010-b511-d738c51f4dd4" class="" dir="auto">Es la propiedad <strong>más usada para separadores horizontales</strong> debajo de títulos, secciones, filas de tabla, ítems de lista y enlaces.</p><h2 id="3f5648ad-99fc-801d-aba8-ddab0e435ffb" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8079-911d-e9e09fef34f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>separadores inferiores</strong> (debajo de títulos, secciones, filas).</li></ul><ul id="3f5648ad-99fc-800e-9120-ddffa0992517" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Definir el borde inferior de tarjetas, modales, alertas.</li></ul><ul id="3f5648ad-99fc-80ae-838b-d4afe657095b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Indicar <strong>estados</strong> con un borde inferior de color (error, éxito, tab activo).</li></ul><ul id="3f5648ad-99fc-80cc-8db7-e4f451cf3d48" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>triángulos y flechas</strong> con el truco del border.</li></ul><ul id="3f5648ad-99fc-8053-b6c9-e9d14a082782" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>subrayados personalizados</strong> en enlaces (más control que <code>text-decoration</code>).</li></ul><ul id="3f5648ad-99fc-80a8-b15b-d1fa41d461ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir <strong>decoración</strong> sin afectar a los otros lados.</li></ul><h2 id="3f5648ad-99fc-80e8-91bf-ca97bc805889" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-80ea-af1a-ccffd36e3e8d" class="" dir="auto">El navegador dibuja el borde inferior con los valores indicados. </p><p id="3f5648ad-99fc-809b-9189-c971b81c27f0" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f5648ad-99fc-809c-a1f1-e57d4517004c" class="numbered-list" start="1" dir="auto"><li><strong>Requiere </strong><code><strong>border-bottom-style</strong></code> → sin estilo, no se ve nada (aunque definas grosor y color).</li></ol><ol type="1" id="3f5648ad-99fc-8057-b919-f208e4aa0a08" class="numbered-list" start="2" dir="auto"><li><strong>Afecta solo al lado inferior</strong> → los otros lados no se tocan.</li></ol><ol type="1" id="3f5648ad-99fc-801a-89c0-ef1a8b5c9159" class="numbered-list" start="3" dir="auto"><li><strong>Afecta al tamaño total</strong> → con <code>box-sizing: content-box</code> (por defecto), el borde <strong>suma</strong> a la altura. Con <code>border-box</code>, se incluye.</li></ol><ol type="1" id="3f5648ad-99fc-8030-905c-f3963dd70993" class="numbered-list" start="4" dir="auto"><li><strong>Orden flexible en el shorthand</strong> → puedes escribir <code>1px solid red</code> o <code>solid 1px red</code>; el navegador reconoce cada valor.</li></ol><ol type="1" id="3f5648ad-99fc-80b3-8c95-f5ad46354dff" class="numbered-list" start="5" dir="auto"><li><strong>Valores por defecto</strong> → si omites alguno, se usan los iniciales: <code>medium none currentColor</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8029-a6bc-df9d22fb1d80" class="numbered-list" start="6" dir="auto"><li><strong>No afecta a </strong><code><strong>border-top</strong></code><strong>, </strong><code><strong>border-right</strong></code><strong>, </strong><code><strong>border-left</strong></code> → cada lado es independiente.</li></ol><ol type="1" id="3f5648ad-99fc-8080-bd35-e321f79cd8a1" class="numbered-list" start="7" dir="auto"><li><strong>Se combina con </strong><code><strong>border-radius</strong></code> → el borde sigue la curva en las esquinas inferiores.</li></ol><h2 id="3f5648ad-99fc-80f7-89cf-dcd9e68c6bae" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-8044-97d6-d967b188592d" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  border-bottom: width style color;
+}</code></pre><h3 id="3f5648ad-99fc-80c3-9b72-fbbce22fe076" class="" dir="auto"><strong>Propiedades que agrupa</strong></h3><table id="3f5648ad-99fc-8035-86a4-d463c22dbe19" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-808e-89f0-e387c04a7b90" dir="ltr"><th id="hnvs" class="simple-table-header-color simple-table-header"><strong>Propiedad</strong></th><th id="\Uj}" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="lNFb" class="simple-table-header-color simple-table-header"><strong>Valor por defecto</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-80ce-b366-ed3522c52d78" dir="ltr"><td id="hnvs" class=""><code>border-bottom-width</code></td><td id="\Uj}" class="">Grosor del borde inferior</td><td id="lNFb" class=""><code>medium</code></td></tr><tr id="3f5648ad-99fc-803c-a403-e1c847057c9d" dir="ltr"><td id="hnvs" class=""><code>border-bottom-style</code></td><td id="\Uj}" class="">Estilo del borde inferior</td><td id="lNFb" class=""><code>none</code></td></tr><tr id="3f5648ad-99fc-801d-a645-f17d9c6358d6" dir="ltr"><td id="hnvs" class=""><code>border-bottom-color</code></td><td id="\Uj}" class="">Color del borde inferior</td><td id="lNFb" class=""><code>currentColor</code></td></tr></tbody></table><pre id="3f5648ad-99fc-8054-928b-cae0b64cad59" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Orden flexible */
+border-bottom: 2px solid #333;
+border-bottom: solid 2px #333;
+border-bottom: #333 solid 2px;
+
+/* Solo algunos valores */
+border-bottom: 2px solid;         /* color por defecto (currentColor) */
+border-bottom: solid;             /* grosor y color por defecto */
+border-bottom: 2px;               /* ⚠️ no se ve sin estilo */</code></pre><h3 id="3f5648ad-99fc-8082-82e5-f3547a9fca50" class="" dir="auto"><strong>Propiedades individuales</strong></h3><pre id="3f5648ad-99fc-809a-9f4b-d69d723d840d" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-bottom-width: 2px;
+border-bottom-style: solid;
+border-bottom-color: #333;</code></pre><h3 id="3f5648ad-99fc-8003-a3e7-d9d081724345" class="" dir="auto"><strong>Propiedades lógicas equivalentes</strong></h3><pre id="3f5648ad-99fc-802e-bd7a-ead1d0848c4a" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* En writing-mode horizontal LTR, equivale a border-bottom */
+border-block-end: 2px solid #333;
+border-block-end-width: 2px;
+border-block-end-style: solid;
+border-block-end-color: #333;</code></pre><h2 id="3f5648ad-99fc-80fd-b722-e0f0e8c41ded" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8052-8d7f-fabaad2168b3" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Separador inferior en un título */
+h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 8px;
+}
+
+/* 2. Enlace con subrayado personalizado */
+a {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* 3. Ítem de lista con separador */
+li {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+li:last-child {
+  border-bottom: none;
+}
+
+/* 4. Tab activo con borde inferior */
+.tab {
+  border-bottom: 3px solid transparent;
+  padding: 12px 20px;
+}
+.tab.active {
+  border-bottom-color: #3498db;
+}
+
+/* 5. Fila de tabla con separador */
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+/* 6. Input con borde solo inferior (estilo minimalista) */
+.input-minimal {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background: transparent;
+}
+.input-minimal:focus {
+  border-bottom-color: #3498db;
+  outline: none;
+}
+
+/* 7. Triángulo apuntando hacia arriba (usa border-bottom) */
+.triangulo-arriba {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid #333;
+  /* El border-bottom es el visible */
+}
+
+/* 8. Shorthand general vs border-bottom */
+.btn {
+  border: 1px solid #ccc;           /* los 4 lados */
+  border-bottom: 3px solid #3498db; /* sobrescribe solo el inferior */
+}
+
+/* 9. Propiedades lógicas */
+.logico {
+  border-block-end: 2px solid #333;
+  /* Equivale a border-bottom en LTR horizontal */
+}
+
+/* 10. Cita con barra inferior */
+blockquote {
+  border-bottom: 4px solid #3498db;
+  padding-bottom: 16px;
+  font-style: italic;
+}</code></pre><h3 id="3f5648ad-99fc-805b-9f39-f3ca7d5c1927" class="" dir="auto"><strong>Separador inferior en títulos</strong></h3><pre id="3f5648ad-99fc-80e8-aaa6-daa56f7278ae" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">h2 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}</code></pre><h3 id="3f5648ad-99fc-809a-88e6-d548a379c7f4" class="" dir="auto"><strong>Enlace con subrayado personalizado</strong></h3><pre id="3f5648ad-99fc-805c-b6e3-e9c7e85a44c6" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">a {
+  color: #3498db;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  transition: border-bottom-color 0.2s;
+}
+a:hover {
+  border-bottom-color: #2980b9;
+}</code></pre><h3 id="3f5648ad-99fc-80f7-9083-cdf4ccc2111a" class="" dir="auto"><strong>Tabs con borde inferior activo (patrón clásico)</strong></h3><pre id="3f5648ad-99fc-80b4-aba3-c3d68327c2d5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #eee;
+}
+.tab {
+  padding: 12px 20px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px; /* alinea con el borde del contenedor */
+  cursor: pointer;
+}
+.tab.active {
+  border-bottom-color: #3498db;
+  color: #3498db;
+}</code></pre><h3 id="3f5648ad-99fc-80b3-917d-dfbee93bf936" class="" dir="auto"><strong>Input minimalista con borde inferior</strong></h3><pre id="3f5648ad-99fc-809b-93a2-f45c3a4e0e53" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.input-minimal {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 0;
+  transition: border-bottom-color 0.2s;
+}
+.input-minimal:focus {
+  border-bottom-color: #3498db;
+  outline: none;
+}</code></pre><h3 id="3f5648ad-99fc-8088-addd-d7154194296c" class="" dir="auto"><strong>Lista con separadores (sin el último)</strong></h3><pre id="3f5648ad-99fc-808e-a44f-e828e39f38a7" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+li:last-child {
+  border-bottom: none;
+}</code></pre><h3 id="3f5648ad-99fc-8042-99c3-e9a8fd9d630f" class="" dir="auto"><strong>Triángulo apuntando hacia arriba</strong></h3><pre id="3f5648ad-99fc-80ed-b3f3-f042535d1bec" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tooltip::before {
+  content: &quot;&quot;;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #333;
+  /* El border-bottom forma el triángulo hacia arriba */
+}</code></pre><h3 id="3f5648ad-99fc-800b-9bbd-f13693fef191" class="" dir="auto"><strong>Sobrescribir solo el borde inferior</strong></h3><pre id="3f5648ad-99fc-80fc-9969-fde846e85e63" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.btn {
+  border: 1px solid #ccc;
+  /* Los 4 lados con el mismo estilo */
+}
+.btn-destacado {
+  border-bottom: 3px solid #3498db;
+  /* Solo el inferior cambia; los demás siguen igual */
+}</code></pre><h2 id="3f5648ad-99fc-8053-a126-d3de4ac2baf4" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-80f8-b8f3-d1b16b5ab078" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>border-bottom-style</strong></code> → <code>border-bottom: 2px #333</code> <strong>no se ve</strong> sin estilo. Error clásico.</li></ol><ol type="1" id="3f5648ad-99fc-8070-b503-ccf62267f89e" class="numbered-list" start="2" dir="auto"><li><strong>Confundir </strong><code><strong>border-bottom</strong></code><strong> con </strong><code><strong>border</strong></code> → <code>border</code> afecta a los 4 lados; <code>border-bottom</code> solo al inferior.</li></ol><ol type="1" id="3f5648ad-99fc-80ec-9eee-c6b266a86727" class="numbered-list" start="3" dir="auto"><li><strong>No usar </strong><code><strong>box-sizing: border-box</strong></code> → el borde inferior <strong>suma</strong> a la altura total.</li></ol><ol type="1" id="3f5648ad-99fc-8048-94b5-ef0b8a52f6ac" class="numbered-list" start="4" dir="auto"><li><strong>Esperar que </strong><code><strong>border-bottom</strong></code><strong> herede el estilo de </strong><code><strong>border</strong></code> → no; son independientes. Si defines <code>border: 1px solid</code> y luego <code>border-bottom: 3px</code>, el inferior se sobrescribe pero los demás mantienen <code>border</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80a4-b1eb-fe4f03af28bb" class="numbered-list" start="5" dir="auto"><li><strong>Animar </strong><code><strong>border-bottom</strong></code><strong> sin transición</strong> → el cambio es brusco. Añadir <code>transition: border-bottom-color 0.2s</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8068-9303-cc9be7a05c46" class="numbered-list" start="6" dir="auto"><li><strong>Usar </strong><code><strong>border-bottom</strong></code><strong> para separadores verticales</strong> → es horizontal, no vertical. Usar <code>border-left</code> o <code>border-right</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80c4-baf0-d018a28ff22a" class="numbered-list" start="7" dir="auto"><li><strong>Bordes inferiores en </strong><code><strong>display: inline</strong></code> → se dibujan pero no empujan líneas. Usar <code>inline-block</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8005-9caa-fc53b2057161" class="numbered-list" start="8" dir="auto"><li><strong>Triángulos con </strong><code><strong>border-bottom</strong></code><strong> en 2025</strong> → truco clásico; hoy <code>clip-path</code> o SVG son más flexibles.</li></ol><ol type="1" id="3f5648ad-99fc-8062-af51-c9b7de1be349" class="numbered-list" start="9" dir="auto"><li><strong>No considerar </strong><code><strong>border-radius</strong></code> → si hay esquinas redondeadas, el borde inferior se curva en los extremos.</li></ol><ol type="1" id="3f5648ad-99fc-806a-acd4-f38fe3e98cb9" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>border-bottom</strong></code><strong> con </strong><code><strong>border-collapse: collapse</strong></code><strong> en tablas</strong> → los bordes se fusionan; el resultado puede sorprender.</li></ol><ol type="1" id="3f5648ad-99fc-8007-b2d3-ebb78667a458" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>No usar </strong><code><strong>:last-child</strong></code> → olvidar quitar el separador del último ítem es un error estético muy común.</li></ol><ol type="1" id="3f5648ad-99fc-8065-bce8-f42b6f99e1de" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><strong>Usar </strong><code><strong>border-bottom</strong></code><strong> para subrayar texto</strong> → funciona, pero <code>text-decoration</code> es más semántico. Combinar ambos con <code>text-decoration-color</code> y <code>text-underline-offset</code> si es necesario.</li></ol><h2 id="3f5648ad-99fc-809d-a601-ef183c9a6183" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-808a-bc2f-e90a3a2b0b9a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-807a-b515-c90e23ab9af3" dir="ltr"><th id="eJ|p" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="[lRV" class="simple-table-header-color simple-table-header" style="width:413px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-800d-b8ad-d375081e4a23" dir="ltr"><td id="eJ|p" class="">Separador de título</td><td id="[lRV" class="" style="width:413px"><code>2px solid #333</code></td></tr><tr id="3f5648ad-99fc-8061-89b5-cb38341e7f19" dir="ltr"><td id="eJ|p" class="">Enlace subrayado</td><td id="[lRV" class="" style="width:413px"><code>1px solid currentColor</code></td></tr><tr id="3f5648ad-99fc-8090-9a38-c484e506c731" dir="ltr"><td id="eJ|p" class="">Lista con separadores</td><td id="[lRV" class="" style="width:413px"><code>1px solid #eee</code></td></tr><tr id="3f5648ad-99fc-8082-a8e6-ff69852136e9" dir="ltr"><td id="eJ|p" class="">Tab activo</td><td id="[lRV" class="" style="width:413px"><code>3px solid #3498db</code></td></tr><tr id="3f5648ad-99fc-80d4-ac9d-f1a58082a2d4" dir="ltr"><td id="eJ|p" class="">Fila de tabla</td><td id="[lRV" class="" style="width:413px"><code>1px solid #ddd</code></td></tr><tr id="3f5648ad-99fc-8069-b2cc-e40ec950a73a" dir="ltr"><td id="eJ|p" class="">Input minimalista</td><td id="[lRV" class="" style="width:413px"><code>2px solid #ccc</code></td></tr><tr id="3f5648ad-99fc-8092-973d-f82b3591cb54" dir="ltr"><td id="eJ|p" class="">Triángulo hacia arriba</td><td id="[lRV" class="" style="width:413px"><code>8px solid #333</code> (con laterales transparentes)</td></tr><tr id="3f5648ad-99fc-80cb-b791-c3f3318dcb09" dir="ltr"><td id="eJ|p" class="">Alerta de error</td><td id="[lRV" class="" style="width:413px"><code>4px solid crimson</code></td></tr><tr id="3f5648ad-99fc-8050-9a2e-cffa4e5b8224" dir="ltr"><td id="eJ|p" class="">Separador sutil</td><td id="[lRV" class="" style="width:413px"><code>1px solid rgba(0,0,0,0.1)</code></td></tr><tr id="3f5648ad-99fc-80b3-89b9-f1f34ef9a412" dir="ltr"><td id="eJ|p" class="">Borde de card destacada</td><td id="[lRV" class="" style="width:413px"><code>3px solid #3498db</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80d8-9687-c2e1589a5c61" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-80eb-ac96-edbffda923f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → shorthand de los 4 lados.</li></ul><ul id="3f5648ad-99fc-8052-961a-ced9fcf71257" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-top</strong></code> → borde superior.</li></ul><ul id="3f5648ad-99fc-80c9-848c-f5cb6ee07e02" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-right</strong></code> → borde derecho.</li></ul><ul id="3f5648ad-99fc-8099-8f16-d366f5987b0c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-left</strong></code> → borde izquierdo.</li></ul><ul id="3f5648ad-99fc-807d-a306-c602bbdafeee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-bottom-width</strong></code> → grosor del borde inferior.</li></ul><ul id="3f5648ad-99fc-8070-90c0-c39dc08469f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-bottom-style</strong></code> → estilo del borde inferior.</li></ul><ul id="3f5648ad-99fc-801c-bd25-f30f5512fa44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-bottom-color</strong></code> → color del borde inferior.</li></ul><ul id="3f5648ad-99fc-8031-9f7d-da039613953c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-block-end</strong></code> → equivalente lógico (i18n).</li></ul><ul id="3f5648ad-99fc-800e-87ea-d98e29866c35" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → el borde inferior se curva en las esquinas.</li></ul><ul id="3f5648ad-99fc-8057-bd65-e77af4563cf0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → <code>border-box</code> incluye el borde en el tamaño.</li></ul><ul id="3f5648ad-99fc-8045-bd97-f0cf356583bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>padding-bottom</strong></code> → espacio interior sobre el borde inferior.</li></ul><ul id="3f5648ad-99fc-8004-86ae-ebe34a9cd4cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin-bottom</strong></code> → espacio exterior bajo el borde inferior.</li></ul><ul id="3f5648ad-99fc-807c-ba76-d3375f70e736" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-decoration</strong></code> → subrayado semántico de texto.</li></ul><ul id="3f5648ad-99fc-8073-847c-edb3cddd8987" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:last-child</strong></code> → patrón para quitar el separador del último ítem.</li></ul><ul id="3f5648ad-99fc-805b-9fc3-d1a673ad4003" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → alternativa para bordes sin afectar layout.</li></ul><p id="3f5648ad-99fc-80bc-9691-d759d9cffd26" class="" dir="auto"><strong>Modelo visual:</strong></p><p id="3f5648ad-99fc-80e3-9faa-ec1c96a73ac0" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-803b-96b3-d0033750df0b" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────┐
+│        border-top       │
+│  ┌───────────────────┐  │
+│  │      border       │  │
+│  │  ┌─────────────┐  │  │
+│  │  │  padding    │  │  │
+│  │  │  ┌───────┐  │  │  │
+│  │  │  │content│  │  │  │
+│  │  │  └───────┘  │  │  │
+│  │  └─────────────┘  │  │
+│  └───────────────────┘  │
+│  border-bottom ← este   │
+└─────────────────────────┘</code></pre><h2 id="3f5648ad-99fc-80af-b28e-efb517ae145c" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-80ed-aaaf-ec4e1b62913c" class="" dir="auto">Imagina que cada elemento es un <strong>cuadro enmarcado</strong>. <code>border-bottom</code> es la <strong>moldura solo del lado inferior</strong>: puedes ponerle un grosor, un estilo y un color distintos a los otros tres lados. Es como decir &quot;solo quiero decorar la base del cuadro&quot; sin tocar los laterales ni la parte superior. Es la propiedad perfecta para <strong>separar visualmente</strong> un elemento del que viene debajo.</p><h2 id="3f5648ad-99fc-802f-ba11-f3e888cacf64" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-80a0-a709-f4210763242a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-bottom</em><p id="3f5648ad-99fc-8038-b353-c4cdbffbaccc" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-bottom">https://developer.mozilla.org/es/docs/Web/CSS/border-bottom</a></p></li></ul><ul id="3f5648ad-99fc-80f8-80ef-d8fa9b445f25" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f5648ad-99fc-80a8-9022-f13a657dfb87" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#border-bottom">https://www.w3.org/TR/css-backgrounds-3/#border-bottom</a></p></li></ul><ul id="3f5648ad-99fc-8009-9b38-c21d7091488e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>border-bottom</em><p id="3f5648ad-99fc-80da-ab85-c8ab1673d766" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/border-bottom/">https://css-tricks.com/almanac/properties/b/border-bottom/</a></p></li></ul><ul id="3f5648ad-99fc-80e0-9214-f356ed5dc3eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border</em><p id="3f5648ad-99fc-8033-8c56-c8530762b0fb" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border">https://developer.mozilla.org/es/docs/Web/CSS/border</a></p></li></ul><h2 id="3f5648ad-99fc-8015-9ad8-d70f09ba09f9" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-8027-b730-d769a3e5bf5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-bottom-style</strong></code><strong> es obligatorio</strong> → sin él, no se ve. Error nº1.</li></ul><ul id="3f5648ad-99fc-8008-97f1-c4d28a971d7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo afecta al lado inferior</strong> → los otros lados no se tocan. Útil para sobrescribir un lado concreto.</li></ul><ul id="3f5648ad-99fc-80b3-878d-ccc41b5b01a1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre </strong><code><strong>box-sizing: border-box</strong></code> → si no, el borde inferior agranda el elemento.</li></ul><ul id="3f5648ad-99fc-8091-854a-e74854fa4e2c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El separador más usado</strong> → <code>border-bottom: 1px solid #eee</code> es el patrón más común para separar ítems de lista y secciones.</li></ul><ul id="3f5648ad-99fc-8070-8f2a-df02503cedf9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>:last-child { border-bottom: none }</strong></code> → recordar quitar el separador del último ítem.</li></ul><ul id="3f5648ad-99fc-8030-b694-cee9b9ffe7a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tabs activos</strong> → <code>border-bottom: 3px solid transparent</code> + <code>:hover/:focus { border-bottom-color: ... }</code> + <code>margin-bottom: -1px</code> para alinear con el borde del contenedor.</li></ul><ul id="3f5648ad-99fc-8038-bb23-ee7648d825f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Input minimalista</strong> → <code>border: none; border-bottom: 2px solid</code> es un patrón muy usado en diseño moderno.</li></ul><ul id="3f5648ad-99fc-80ed-a680-d73db139e2f9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Triángulos</strong> → <code>border-bottom</code> con laterales transparentes crea triángulos hacia arriba.</li></ul><ul id="3f5648ad-99fc-808d-b093-d82de05e3280" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Añadir transición</strong> → <code>transition: border-bottom-color 0.2s</code> para cambios suaves.</li></ul><ul id="3f5648ad-99fc-80e7-9a59-e19b115ced21" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Propiedades lógicas</strong> → <code>border-block-end</code> es el equivalente i18n; preferirlo en proyectos multiidioma.</li></ul><ul id="3f5648ad-99fc-809a-90e0-f2eabbfdab60" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Subrayado de enlaces</strong> → <code>border-bottom: 1px solid currentColor</code> es más controlable que <code>text-decoration</code>, pero <code>text-decoration</code> con <code>text-underline-offset</code> y <code>text-decoration-thickness</code> es hoy la opción más moderna y semántica.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

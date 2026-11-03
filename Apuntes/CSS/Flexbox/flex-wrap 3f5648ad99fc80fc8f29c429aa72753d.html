@@ -1,0 +1,984 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>flex-wrap</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-80fc-8f29-c429aa72753d" class="page sans"><header><h1 class="page-title" dir="auto"><code>flex-wrap</code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><h1 id="3f5648ad-99fc-80a2-aa8d-ef57dfd880e7" class="" dir="auto"><strong>📄 </strong><code><strong>flex-wrap</strong></code></h1><h2 id="3f5648ad-99fc-8044-8fe4-f13bdfc191b9" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-8086-9001-ce8c7b49412e" class="" dir="auto"><code>flex-wrap</code> es una <strong>propiedad CSS</strong> que define si los ítems de un <strong>contenedor flex</strong> se colocan en <strong>una sola línea</strong> o se <strong>envuelven en varias líneas</strong> cuando no caben en el eje principal.</p><h2 id="3f5648ad-99fc-8008-8f0d-d1ba85989a3b" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80d4-858c-e974eeaa0d28" class="" dir="auto">Forma parte de las <strong>propiedades de flexbox</strong> (junto con <code>flex-direction</code>, <code>justify-content</code>, <code>align-items</code>, <code>align-content</code>, <code>flex</code>, <code>gap</code>). </p><p id="3f5648ad-99fc-80a9-b906-c7ffdfb2a04b" class="" dir="auto">Solo aplica a <strong>contenedores flex</strong> (<code>display: flex</code> o <code>display: inline-flex</code>).</p><p id="3f5648ad-99fc-806c-b191-cb3e0ee0ad07" class="" dir="auto">Por defecto, los ítems flex <strong>no se envuelven</strong> (<code>nowrap</code>): intentan caber todos en una línea, encogiéndose si es necesario. </p><p id="3f5648ad-99fc-80f3-a87e-e45b161cdece" class="" dir="auto"><code>flex-wrap</code> permite que salten a la siguiente línea cuando no hay espacio.</p><h2 id="3f5648ad-99fc-80ef-9642-dd2759492b15" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8098-85c2-f3150c0b4a84" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permitir que los ítems <strong>salten a la siguiente línea</strong> cuando no caben.</li></ul><ul id="3f5648ad-99fc-8012-a8f4-e838f50ada7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>galerías</strong> y <strong>grids</strong> con flexbox.</li></ul><ul id="3f5648ad-99fc-800a-89d9-c006ae7729ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar que los ítems se <strong>encojan</strong> demasiado.</li></ul><ul id="3f5648ad-99fc-8074-9267-ff64190f4b4d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>layouts responsive</strong> sin media queries.</li></ul><ul id="3f5648ad-99fc-8080-b8f0-dc76ca2cc176" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>menús</strong> que se adaptan a distintos tamaños.</li></ul><ul id="3f5648ad-99fc-80fc-877d-ed4ee2f77dea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Activar <code>align-content</code> (que requiere múltiples líneas).</li></ul><h2 id="3f5648ad-99fc-8081-adcf-fb3679479bb3" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-80a6-90e6-d32b5ed97b30" class="" dir="auto">El navegador decide si los ítems se colocan en una sola línea o se envuelven:</p><ol type="1" id="3f5648ad-99fc-80c5-9a70-cc4e2f9c3cf2" class="numbered-list" start="1" dir="auto"><li><code><strong>nowrap</strong></code> (por defecto) → todos los ítems en <strong>una sola línea</strong>. Si no caben, se encogen (<code>flex-shrink</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80eb-8a2c-d229745fa2ea" class="numbered-list" start="2" dir="auto"><li><code><strong>wrap</strong></code> → los ítems se <strong>envuelven</strong> en varias líneas cuando no caben.</li></ol><ol type="1" id="3f5648ad-99fc-8023-9768-d7ac68e12ffb" class="numbered-list" start="3" dir="auto"><li><code><strong>wrap-reverse</strong></code> → como <code>wrap</code>, pero las líneas se invierten en el <strong>eje transversal</strong>.</li></ol><p id="3f5648ad-99fc-801b-a1a5-eddef3b6d964" class="" dir="auto">Reglas clave:</p><ul id="3f5648ad-99fc-805f-a0f0-e4bbdfd6db3b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Afecta al eje transversal</strong> → las líneas se apilan perpendicularmente al eje principal.</li></ul><ul id="3f5648ad-99fc-8009-82b9-ca77ae5acfb6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Activa </strong><code><strong>align-content</strong></code> → sin <code>wrap</code>, <code>align-content</code> se ignora.</li></ul><ul id="3f5648ad-99fc-8038-8b66-e605eb11f612" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>nowrap</strong></code><strong> es el valor por defecto</strong> → por eso los ítems se encogen en lugar de saltar de línea.</li></ul><ul id="3f5648ad-99fc-809a-b70e-f879496a0dce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Con </strong><code><strong>wrap</strong></code> → los ítems mantienen su tamaño y saltan de línea.</li></ul><ul id="3f5648ad-99fc-805b-84cb-c4bbb042f804" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap-reverse</strong></code> → la primera línea queda abajo (con <code>row</code>) o a la derecha (con <code>column</code>).</li></ul><ul id="3f5648ad-99fc-806a-b628-d3608b4a29b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No cambia el orden del DOM</strong> → solo el orden visual de las líneas.</li></ul><h2 id="3f5648ad-99fc-809f-9d22-eda60460aeb2" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><p id="3f5648ad-99fc-8098-8f42-e82780244e68" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-802b-8dfa-f0f41d1411fc" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  display: flex;
+  flex-wrap: valor;
+}</code></pre><table id="3f5648ad-99fc-808c-8772-d0e698e6c2d7" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-80e9-b5de-f9bf5850537d" dir="ltr"><th id="d|WA" class="simple-table-header-color simple-table-header"><strong>Valor</strong></th><th id="E~bB" class="simple-table-header-color simple-table-header" style="width:510px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-802b-b9d5-e264b8bba664" dir="ltr"><td id="d|WA" class=""><code>nowrap</code></td><td id="E~bB" class="" style="width:510px">Por defecto. Todos los ítems en una sola línea (se encogen si no caben).</td></tr><tr id="3f5648ad-99fc-8052-bdff-f3a20a2f65aa" dir="ltr"><td id="d|WA" class=""><code>wrap</code></td><td id="E~bB" class="" style="width:510px">Los ítems se envuelven en varias líneas.</td></tr><tr id="3f5648ad-99fc-806f-8b8a-ec30f324a518" dir="ltr"><td id="d|WA" class=""><code>wrap-reverse</code></td><td id="E~bB" class="" style="width:510px">Como <code>wrap</code>, pero las líneas se invierten en el eje transversal.</td></tr></tbody></table><h2 id="3f5648ad-99fc-80dd-86a7-d4cbb357e199" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8085-988a-d51bab0940ab" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Nowrap (por defecto) */
+.nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+  /* Todos en una línea, se encogen si no caben */
+}
+
+/* 2. Wrap (múltiples líneas) */
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  /* Los ítems saltan a la siguiente línea cuando no caben */
+}
+
+/* 3. Wrap-reverse (líneas invertidas) */
+.wrap-reverse {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  /* La primera línea queda abajo */
+}
+
+/* 4. Galería de tarjetas */
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.card {
+  flex: 1 1 250px;
+  /* Crece, se encoge y parte de 250px */
+}
+
+/* 5. Tags que se envuelven */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag {
+  padding: 4px 12px;
+  background: #f0f0f0;
+  border-radius: 12px;
+}
+
+/* 6. Menú responsive sin media queries */
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  /* Los ítems se envuelven si no caben */
+}
+
+/* 7. Combinado con align-content */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 16px;
+  height: 400px;
+}
+
+/* 8. Grid de productos */
+.productos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.producto {
+  flex: 1 1 200px;
+  max-width: 300px;
+}
+
+/* 9. Wrap-reverse con column */
+.column-reverse {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  height: 400px;
+  /* Las columnas se invierten (primera a la derecha) */
+}
+
+/* 10. Shorthand de flex-flow */
+.flow {
+  display: flex;
+  flex-flow: row wrap;
+  /* flex-flow: flex-direction + flex-wrap */
+}</code></pre><h3 id="3f5648ad-99fc-80ff-b5c6-e6aebce33343" class="" dir="auto"><strong>Comparativa visual</strong></h3><pre id="3f5648ad-99fc-803a-84ff-ec84a0e0d036" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Contenedor 400px, 6 ítems de 150px:
+
+flex-wrap: nowrap
+┌─────────────────────────────┐
+│ [1][2][3][4][5][6]          │  ← todos en una línea
+└─────────────────────────────┘     (encogidos)
+
+flex-wrap: wrap
+┌─────────────────────────────┐
+│ [1] [2] [3]                 │  ← línea 1
+│ [4] [5] [6]                 │  ← línea 2
+└─────────────────────────────┘
+
+flex-wrap: wrap-reverse
+┌─────────────────────────────┐
+│ [4] [5] [6]                 │  ← línea 2 (arriba)
+│ [1] [2] [3]                 │  ← línea 1 (abajo)
+└─────────────────────────────┘</code></pre><h3 id="3f5648ad-99fc-8097-a4b2-c2d31e920283" class="" dir="auto"><strong>Galería de tarjetas responsive</strong></h3><pre id="3f5648ad-99fc-8034-b060-f48d40cf8fc3" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.card {
+  flex: 1 1 250px;
+  /* Crece, se encoge, parte de 250px */
+  /* Se envuelve cuando no cabe */
+}</code></pre><h3 id="3f5648ad-99fc-80cd-a9fe-c50f49aae90f" class="" dir="auto"><strong>Tags que se envuelven</strong></h3><pre id="3f5648ad-99fc-8023-8004-efdbecc9c95e" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag {
+  padding: 6px 12px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}</code></pre><h3 id="3f5648ad-99fc-8062-8288-daafd9e790f9" class="" dir="auto"><strong>Menú responsive sin media queries</strong></h3><pre id="3f5648ad-99fc-8077-a8f2-d8692ef53a81" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+}
+.menu a {
+  padding: 8px 16px;
+  text-decoration: none;
+}
+/* Los enlaces se envuelven si no caben */</code></pre><h3 id="3f5648ad-99fc-80bb-aa75-dfc4faf1e450" class="" dir="auto"><strong>Combinado con </strong><code><strong>align-content</strong></code></h3><pre id="3f5648ad-99fc-8006-9c22-d79d274d73aa" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 16px;
+  height: 500px;
+  border: 1px solid #ddd;
+}
+/* Las líneas se centran verticalmente */</code></pre><h3 id="3f5648ad-99fc-8013-9883-cf6359f877df" class="" dir="auto"><strong>Grid de productos con ancho máximo</strong></h3><pre id="3f5648ad-99fc-8026-a26b-f2c22de20a0c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.productos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.producto {
+  flex: 1 1 200px;
+  max-width: 300px;
+  /* Se envuelve pero no crece más de 300px */
+}</code></pre><h3 id="3f5648ad-99fc-808e-b628-f1df2d18167f" class="" dir="auto"><code><strong>wrap-reverse</strong></code><strong> con column</strong></h3><pre id="3f5648ad-99fc-807e-b1d2-fe59690c93d7" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.column-reverse {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap-reverse;
+  height: 400px;
+  gap: 8px;
+  /* Las columnas se llenan de derecha a izquierda */
+}</code></pre><h3 id="3f5648ad-99fc-8078-828d-caee1c32acfe" class="" dir="auto"><strong>Shorthand </strong><code><strong>flex-flow</strong></code></h3><pre id="3f5648ad-99fc-802b-b999-deaf32103b47" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.flow {
+  display: flex;
+  flex-flow: row wrap;
+  /* Equivale a: flex-direction: row; flex-wrap: wrap; */
+}
+.flow-column {
+  display: flex;
+  flex-flow: column wrap-reverse;
+  /* flex-direction: column; flex-wrap: wrap-reverse; */
+}</code></pre><h2 id="3f5648ad-99fc-8088-aeb0-df17f0e9680a" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-8081-a6cc-f64f16eaf54a" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>flex-wrap</strong></code><strong> con </strong><code><strong>flex-direction</strong></code> → <code>direction</code> es el eje; <code>wrap</code> es si los ítems se envuelven.</li></ol><ol type="1" id="3f5648ad-99fc-80de-ab08-f88c485a43e0" class="numbered-list" start="2" dir="auto"><li><strong>Esperar que </strong><code><strong>flex-wrap: wrap</strong></code><strong> funcione sin </strong><code><strong>display: flex</strong></code> → no tiene efecto.</li></ol><ol type="1" id="3f5648ad-99fc-80be-8db5-f12b36bbd6e2" class="numbered-list" start="3" dir="auto"><li><strong>Olvidar que </strong><code><strong>nowrap</strong></code><strong> es el valor por defecto</strong> → los ítems se encogen en lugar de saltar de línea.</li></ol><ol type="1" id="3f5648ad-99fc-8027-909e-c5c7a5e3d72d" class="numbered-list" start="4" dir="auto"><li><strong>Usar </strong><code><strong>align-content</strong></code><strong> sin </strong><code><strong>flex-wrap: wrap</strong></code> → se ignora.</li></ol><ol type="1" id="3f5648ad-99fc-80e5-a6bc-dce02ed87913" class="numbered-list" start="5" dir="auto"><li><strong>Confundir </strong><code><strong>wrap-reverse</strong></code><strong> con </strong><code><strong>row-reverse</strong></code> → <code>wrap-reverse</code> invierte las <strong>líneas</strong>; <code>row-reverse</code> invierte los <strong>ítems</strong> dentro de la línea.</li></ol><ol type="1" id="3f5648ad-99fc-80d9-84ee-ea6206fde6d6" class="numbered-list" start="6" dir="auto"><li><strong>Esperar que los ítems mantengan su tamaño con </strong><code><strong>nowrap</strong></code> → se encogen (<code>flex-shrink</code>) para caber.</li></ol><ol type="1" id="3f5648ad-99fc-80f7-871b-e83c1b20f165" class="numbered-list" start="7" dir="auto"><li><strong>No usar </strong><code><strong>gap</strong></code> → sin <code>gap</code>, los ítems envueltos quedan pegados. Añadir <code>gap</code> para espaciado.</li></ol><ol type="1" id="3f5648ad-99fc-80c8-b800-ff2122506c58" class="numbered-list" start="8" dir="auto"><li><code><strong>flex-wrap: wrap</strong></code><strong> con </strong><code><strong>height</strong></code><strong> fija</strong> → las líneas pueden desbordarse si no caben.</li></ol><ol type="1" id="3f5648ad-99fc-80cc-b023-c582ec6d4bb2" class="numbered-list" start="9" dir="auto"><li><code><strong>wrap-reverse</strong></code><strong> con </strong><code><strong>align-content</strong></code> → la alineación se invierte; verificar el resultado.</li></ol><ol type="1" id="3f5648ad-99fc-805c-8238-e741a6ced551" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><strong>Confundir </strong><code><strong>flex-wrap</strong></code><strong> con </strong><code><strong>white-space</strong></code> → <code>flex-wrap</code> afecta a los ítems flex; <code>white-space</code> al texto.</li></ol><ol type="1" id="3f5648ad-99fc-8007-803f-ccb0553a1902" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Usar </strong><code><strong>flex-wrap</strong></code><strong> en un ítem flex</strong> → solo aplica al <strong>contenedor</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-80d6-87e7-e64aba214dbf" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><code><strong>flex-wrap: wrap</strong></code><strong> con ítems sin </strong><code><strong>flex-basis</strong></code> → los ítems se encogen o crecen según <code>flex</code>; puede sorprender.</li></ol><h2 id="3f5648ad-99fc-80e6-8560-c3911d2922b3" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-804c-a103-cc384181cadf" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-80fa-8b60-f523162360d6" dir="ltr"><th id="se}Z" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="u&gt;JU" class="simple-table-header-color simple-table-header" style="width:319.6625061035156px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-80ff-8fe6-d7404c0e04b7" dir="ltr"><td id="se}Z" class="">Galería de tarjetas</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-80e5-8251-ecf1fc0ef089" dir="ltr"><td id="se}Z" class="">Tags/chips</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-80a9-ad17-dded7cea1454" dir="ltr"><td id="se}Z" class="">Menú responsive</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-80d7-816a-f42f2a1a5fc3" dir="ltr"><td id="se}Z" class="">Grid de productos</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-8009-acee-f2449703d689" dir="ltr"><td id="se}Z" class="">Ítems en una sola línea</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>nowrap</code> (por defecto)</td></tr><tr id="3f5648ad-99fc-80a9-b9d0-c583421b802d" dir="ltr"><td id="se}Z" class="">Líneas invertidas</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap-reverse</code></td></tr><tr id="3f5648ad-99fc-8033-a47c-fa0150b03182" dir="ltr"><td id="se}Z" class="">Combinado con <code>align-content</code></td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-800b-bcfd-ca9038c848f1" dir="ltr"><td id="se}Z" class="">Barra de herramientas</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-806e-87b3-e1ef4d7574de" dir="ltr"><td id="se}Z" class="">Footer con secciones</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-8017-b840-edb489fa60a6" dir="ltr"><td id="se}Z" class="">Navegación con muchos enlaces</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-80e4-8e3e-f01edb589fca" dir="ltr"><td id="se}Z" class="">Galería de imágenes</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr><tr id="3f5648ad-99fc-800e-94d5-f1ae4f93493b" dir="ltr"><td id="se}Z" class="">Layout tipo mosaico</td><td id="u&gt;JU" class="" style="width:319.6625061035156px"><code>wrap</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-80bb-8281-c05a178a2865" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-8089-b1e6-e59bc019736c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display: flex</strong></code> → activa el contenedor flex.</li></ul><ul id="3f5648ad-99fc-808a-b2d1-d9de1ab089f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-direction</strong></code> → define el eje principal.</li></ul><ul id="3f5648ad-99fc-8088-85a9-d12955382895" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-flow</strong></code> → shorthand de <code>flex-direction</code> + <code>flex-wrap</code>.</li></ul><ul id="3f5648ad-99fc-80df-99a9-d4fcb53c5bdc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>justify-content</strong></code> → alinea ítems en el eje principal (dentro de cada línea).</li></ul><ul id="3f5648ad-99fc-80c9-b7b4-eec0f7a463ac" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-items</strong></code> → alinea ítems en el eje transversal (dentro de cada línea).</li></ul><ul id="3f5648ad-99fc-805e-b781-c859fdd661cb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-content</strong></code> → distribuye <strong>líneas</strong> (requiere <code>flex-wrap: wrap</code>).</li></ul><ul id="3f5648ad-99fc-803e-84ac-ec2a2bf80c84" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex</strong></code> → shorthand de <code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>.</li></ul><ul id="3f5648ad-99fc-808e-9bbb-f6838373dd61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-shrink</strong></code> → controla cómo se encogen los ítems con <code>nowrap</code>.</li></ul><ul id="3f5648ad-99fc-8077-8306-ef6fa897d23b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>gap</strong></code> → espacio entre ítems y entre líneas.</li></ul><ul id="3f5648ad-99fc-80e6-97d8-ee6eb42ad5da" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Grid</strong> → <code>grid-template-columns</code> con <code>auto-fit</code>/<code>minmax</code> es una alternativa moderna.</li></ul><p id="3f5648ad-99fc-80ca-89b9-df94719e707b" class="" dir="auto"><strong>Comparativa visual:</strong></p><p id="3f5648ad-99fc-804f-ba41-efab6eb0f254" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-805a-9f36-e3238249d328" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">flex-wrap: nowrap
+┌─────────────────────────────────────┐
+│ [1][2][3][4][5][6]                  │  ← todos en una línea
+└─────────────────────────────────────┘     (encogidos si no caben)
+
+flex-wrap: wrap
+┌─────────────────────────────────────┐
+│ [1] [2] [3]                         │  ← línea 1
+│ [4] [5] [6]                         │  ← línea 2
+└─────────────────────────────────────┘
+
+flex-wrap: wrap-reverse
+┌─────────────────────────────────────┐
+│ [4] [5] [6]                         │  ← línea 2 (arriba)
+│ [1] [2] [3]                         │  ← línea 1 (abajo)
+└─────────────────────────────────────┘</code></pre><h2 id="3f5648ad-99fc-802f-8e95-c372eac2ff05" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-8059-bbb2-fe4400b21c2c" class="" dir="auto">Imagina que los ítems flex son <strong>libros en un estante</strong>:</p><ul id="3f5648ad-99fc-8033-a50b-fcad90c47f01" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>nowrap</strong></code> → intentas meter <strong>todos en una sola fila</strong>; si no caben, los aprietas (se encogen).</li></ul><ul id="3f5648ad-99fc-80d8-bd82-e7ba0c056346" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap</strong></code> → cuando ya no caben más en la fila, empiezas una <strong>nueva fila</strong> debajo.</li></ul><ul id="3f5648ad-99fc-802b-bd50-dd5958aea436" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap-reverse</strong></code> → como <code>wrap</code>, pero las filas se apilan <strong>de abajo a arriba</strong> (la primera fila queda abajo).</li></ul><p id="3f5648ad-99fc-802a-a0ea-e3d51ea1d40d" class="" dir="auto">Es como organizar libros en una estantería: o los aprietas todos en un estante, o los repartes en varios estantes.</p><h2 id="3f5648ad-99fc-80b2-af5d-e37fa429c82a" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-80cd-a0c3-e0d80035fb86" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>flex-wrap</em><p id="3f5648ad-99fc-8045-b7fe-f088dbac5b88" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/flex-wrap">https://developer.mozilla.org/es/docs/Web/CSS/flex-wrap</a></p></li></ul><ul id="3f5648ad-99fc-8082-b6c5-d8cc01d80b90" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Flexible Box Layout Module Level 1<p id="3f5648ad-99fc-80bb-9c39-f133a9848828" class="" dir="auto"><a href="https://www.w3.org/TR/css-flexbox-1/#flex-wrap-property">https://www.w3.org/TR/css-flexbox-1/#flex-wrap-property</a></p></li></ul><ul id="3f5648ad-99fc-808b-adf5-e1071babfff1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>A Complete Guide to Flexbox</em><p id="3f5648ad-99fc-806d-b383-fbbcae56c1a3" class="" dir="auto"><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a></p></li></ul><ul id="3f5648ad-99fc-80a1-970a-f819c8f4188b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Learn CSS: Flexbox</em><p id="3f5648ad-99fc-803e-b1f9-c01d116d7417" class="" dir="auto"><a href="https://web.dev/learn/css/flexbox">https://web.dev/learn/css/flexbox</a></p></li></ul><h2 id="3f5648ad-99fc-8095-945c-c738d5e6cab7" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-80d9-958a-e93a0ecaf0a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>nowrap</strong></code><strong> es el valor por defecto</strong> → los ítems se encogen en lugar de saltar de línea.</li></ul><ul id="3f5648ad-99fc-8005-8df2-d21f45774594" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap</strong></code><strong> es esencial para galerías y grids</strong> → permite que los ítems se adapten al ancho disponible.</li></ul><ul id="3f5648ad-99fc-8075-8ab9-c9e2890f559e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap</strong></code><strong> activa </strong><code><strong>align-content</strong></code> → sin <code>wrap</code>, <code>align-content</code> se ignora.</li></ul><ul id="3f5648ad-99fc-80ad-9a47-fbecaf8a7ef0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>wrap-reverse</strong></code> → invierte las <strong>líneas</strong>, no los ítems. No confundir con <code>row-reverse</code>.</li></ul><ul id="3f5648ad-99fc-8071-a3fb-e4bd267a3a5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Combinar con </strong><code><strong>gap</strong></code> → sin <code>gap</code>, los ítems envueltos quedan pegados.</li></ul><ul id="3f5648ad-99fc-80e8-898d-d6815b1241eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Combinar con </strong><code><strong>flex: 1 1 &lt;base&gt;</strong></code> → patrón clásico para grids responsive: los ítems crecen, se encogen y parten de un tamaño base.</li></ul><ul id="3f5648ad-99fc-80b8-b1eb-e2d815e72404" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-flow</strong></code> → shorthand útil: <code>flex-flow: row wrap</code>.</li></ul><ul id="3f5648ad-99fc-80ae-bb9a-c238988bbf9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Alternativa moderna</strong> → <code>display: grid</code> con <code>grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))</code> es más limpio para grids responsive.</li></ul><ul id="3f5648ad-99fc-80f8-891c-f4b9fefd1d80" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>nowrap</strong></code><strong> con </strong><code><strong>flex-shrink</strong></code> → controla cuánto se encogen los ítems; <code>flex-shrink: 0</code> evita que se encojan.</li></ul><ul id="3f5648ad-99fc-802b-b7f4-f959b31c42ba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>En RTL</strong>, <code>wrap-reverse</code> se comporta según <code>direction</code>; verificar el resultado.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

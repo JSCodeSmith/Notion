@@ -1,0 +1,883 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>padding</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f4648ad-99fc-8012-b242-fa0aeffb2845" class="page sans"><header><h1 class="page-title" dir="auto">padding</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f4648ad-99fc-8053-9d45-f97f3b23d72d" class="" dir="auto">
+</p><h1 id="3f4648ad-99fc-80ed-84ae-f9c35ba89c4f" class="" dir="auto"><strong>📄 </strong><code><strong>padding</strong></code></h1><h2 id="3f4648ad-99fc-8062-9136-c4e244286aa4" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f4648ad-99fc-80cc-8909-d514bcd72781" class="" dir="auto"><code>padding</code> es una <strong>propiedad CSS de la caja (box model)</strong> que define el <strong>espacio interior</strong> de un elemento, es decir, la distancia entre el <strong>contenido</strong> y su <strong>borde</strong>.</p><h2 id="3f4648ad-99fc-8007-bb49-eab85f9d678a" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f4648ad-99fc-8009-b29e-eabdbbb6c3c1" class="" dir="auto">Forma parte del <strong>modelo de caja</strong> (box model) junto con <code>margin</code>, <code>border</code> y <code>content</code>. </p><p id="3f4648ad-99fc-8067-b714-c273a06bf264" class="" dir="auto">Es el espacio <strong>dentro del borde</strong>, que separa el contenido (texto, imágenes, hijos) del borde del elemento.</p><p id="3f4648ad-99fc-80ca-8e80-e2734207f327" class="" dir="auto">A diferencia de <code>margin</code>, <code>padding</code> <strong>sí tiene fondo</strong> y color:  si aplicas <code>background-color</code>, el fondo cubre también el padding. </p><p id="3f4648ad-99fc-805a-9008-c2b2ff968bfc" class="" dir="auto">Y <strong>no colapsa</strong> como los márgenes.</p><h2 id="3f4648ad-99fc-80fb-850f-cd53e3d6d8b6" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f4648ad-99fc-8016-bbd8-f3894fab8eba" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Dar <strong>aire interior</strong> a botones, tarjetas, inputs y contenedores.</li></ul><ul id="3f4648ad-99fc-80f7-a2d2-dfdb88393150" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aumentar el <strong>área clicable</strong> de un elemento sin usar <code>width</code> extra.</li></ul><ul id="3f4648ad-99fc-8082-bfb5-e53d9c4a5041" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear separación entre el borde y el contenido.</li></ul><ul id="3f4648ad-99fc-8091-a480-ec98604fd053" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar el tamaño visual de elementos con fondo o borde.</li></ul><ul id="3f4648ad-99fc-809a-b9f6-f3c401f08af4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Estilizar celdas de tabla, badges, chips, tooltips, etc.</li></ul><h2 id="3f4648ad-99fc-808a-b380-f7a1b1518ad0" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f4648ad-99fc-8087-952f-e3f3fc689e04" class="" dir="auto">Cada elemento de bloque tiene 4 paddings: <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>. </p><p id="3f4648ad-99fc-808a-95fc-c05e094dc878" class="" dir="auto">Se aplican <strong>dentro del borde</strong> y forman parte del área de fondo del elemento.</p><p id="3f4648ad-99fc-80d8-a0ea-ebc17c2c9df9" class="" dir="auto">Conceptos clave:</p><ol type="1" id="3f4648ad-99fc-80dc-8293-c87bea2aa272" class="numbered-list" start="1" dir="auto"><li><strong>No colapsa</strong> → a diferencia de <code>margin</code>, el padding nunca se fusiona con el de otros elementos.</li></ol><ol type="1" id="3f4648ad-99fc-8003-a417-d09d652d3534" class="numbered-list" start="2" dir="auto"><li><strong>Sí acepta </strong><code><strong>%</strong></code> → y, curiosamente, el porcentaje se calcula respecto al <strong>ancho</strong> del contenedor, incluso en <code>padding-top</code>/<code>padding-bottom</code>.</li></ol><ol type="1" id="3f4648ad-99fc-8078-8460-db6c45f8aa82" class="numbered-list" start="3" dir="auto"><li><strong>No acepta negativos</strong> → valores negativos son inválidos.</li></ol><ol type="1" id="3f4648ad-99fc-8094-bfed-e8da00179e2f" class="numbered-list" start="4" dir="auto"><li><strong>Afecta al tamaño total</strong> → con <code>box-sizing: content-box</code> (por defecto), el padding se <strong>suma</strong> al <code>width</code>/<code>height</code>. Con <code>border-box</code>, se incluye dentro.</li></ol><ol type="1" id="3f4648ad-99fc-80cc-bc90-c56ca851ec34" class="numbered-list" start="5" dir="auto"><li><strong>En </strong><code><strong>display: inline</strong></code> → el padding vertical <strong>no afecta</strong> al flujo de línea (no empuja líneas), pero sí se dibuja. El horizontal sí afecta.</li></ol><ol type="1" id="3f4648ad-99fc-8010-b415-e018313c0126" class="numbered-list" start="6" dir="auto"><li><strong>En flex/grid</strong> → funciona igual, sin colapso.</li></ol><h2 id="3f4648ad-99fc-809c-82f0-e09647a8bafd" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f4648ad-99fc-8031-94b3-d6cced778a3c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Un valor: todos los lados */
+padding: 10px;
+
+/* Dos valores: vertical | horizontal */
+padding: 10px 20px;
+
+/* Tres valores: top | horizontal | bottom */
+padding: 10px 20px 30px;
+
+/* Cuatro valores: top | right | bottom | left (sentido horario) */
+padding: 10px 20px 30px 40px;</code></pre><h3 id="3f4648ad-99fc-8095-b82b-cd830f0fa88e" class="" dir="auto"><strong>Propiedades individuales</strong></h3><pre id="3f4648ad-99fc-8015-802f-e9bd09459046" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">padding-top: 10px;
+padding-right: 20px;
+padding-bottom: 30px;
+padding-left: 40px;</code></pre><h3 id="3f4648ad-99fc-8022-8637-e85e270c4b9e" class="" dir="auto"><strong>Propiedades lógicas (modernas)</strong></h3><pre id="3f4648ad-99fc-8032-ba47-c4c35e62a163" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">padding-block: 10px 20px;   /* top | bottom */
+padding-inline: 20px 30px;  /* left | right */
+padding-block-start: 10px;
+padding-inline-end: 20px;</code></pre><h2 id="3f4648ad-99fc-80e9-86eb-dc8dadd5ae2f" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f4648ad-99fc-80e6-8330-c3018b149da9" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Botón con aire interior */
+.btn {
+  padding: 12px 24px;
+}
+
+/* 2. Tarjeta */
+.card {
+  padding: 16px 20px;
+}
+
+/* 3. Input cómodo */
+input {
+  padding: 10px 14px;
+}
+
+/* 4. Celda de tabla */
+td {
+  padding: 8px 12px;
+}
+
+/* 5. Contenedor con padding uniforme */
+.section {
+  padding: 4rem 2rem;
+}
+
+/* 6. Aspect ratio con padding % */
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+  height: 0;
+}
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 7. Propiedades lógicas */
+.box {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+}
+
+/* 8. box-sizing recomendado */
+*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre><h3 id="3f4648ad-99fc-8054-adc5-dd8c41752455" class="" dir="auto"><strong>Diferencia con y sin </strong><code><strong>border-box</strong></code></h3><pre id="3f4648ad-99fc-8098-ad59-d2c42b771c41" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.a {
+  width: 200px;
+  padding: 20px;
+  /* box-sizing: content-box (por defecto) → ancho total = 240px */
+}
+.b {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 20px;
+  /* ancho total = 200px (padding incluido) */
+}</code></pre><h2 id="3f4648ad-99fc-8047-89e2-e9a01f554296" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f4648ad-99fc-8070-bcda-e210cf5a01fa" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>box-sizing: border-box</strong></code> → el padding <strong>suma</strong> al <code>width</code>/<code>height</code> y rompe layouts. Resetear siempre.</li></ol><ol type="1" id="3f4648ad-99fc-8016-b691-e7a1fc99948b" class="numbered-list" start="2" dir="auto"><li><strong>Esperar que el padding acepte negativos</strong> → no se puede. Usar <code>margin</code> negativo si es necesario.</li></ol><ol type="1" id="3f4648ad-99fc-8082-9824-edf311f8c855" class="numbered-list" start="3" dir="auto"><li><strong>Confundir </strong><code><strong>%</strong></code><strong> en padding-top/bottom</strong> → el porcentaje se calcula sobre el <strong>ancho</strong>, no la altura → base del truco de aspect ratio.</li></ol><ol type="1" id="3f4648ad-99fc-8048-93c8-c509fcefcb7f" class="numbered-list" start="4" dir="auto"><li><strong>Aplicar padding vertical a </strong><code><strong>display: inline</strong></code> → se dibuja pero <strong>no empuja</strong> líneas, produciendo solapamientos visuales. Usar <code>inline-block</code> o <code>block</code>.</li></ol><ol type="1" id="3f4648ad-99fc-803f-9b77-fbc281066e75" class="numbered-list" start="5" dir="auto"><li><strong>Usar padding para separar elementos</strong> → para eso es <code>margin</code> o <code>gap</code>. El padding separa <strong>contenido del borde</strong>, no elementos entre sí.</li></ol><ol type="1" id="3f4648ad-99fc-8025-8cd5-ebe5f1ec339d" class="numbered-list" start="6" dir="auto"><li><strong>Padding en tablas sin control</strong> → <code>border-collapse: collapse</code> cambia cómo se comporta el padding de las celdas.</li></ol><ol type="1" id="3f4648ad-99fc-8097-be87-eb5a12477a2b" class="numbered-list" start="7" dir="auto"><li><strong>Padding excesivo en móvil</strong> → reduce el espacio útil. Usar unidades relativas (<code>rem</code>, <code>%</code>) o media queries.</li></ol><ol type="1" id="3f4648ad-99fc-8059-8ad0-f6fea21ce548" class="numbered-list" start="8" dir="auto"><li><strong>Confundir padding con </strong><code><strong>gap</strong></code> → en flex/grid, <code>gap</code> es lo correcto para separar ítems, no padding.</li></ol><h2 id="3f4648ad-99fc-8073-a9ec-db294668e0f9" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f4648ad-99fc-80dc-ae67-f72084440209" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f4648ad-99fc-8034-88f4-dcff7cf77262" dir="ltr"><th id="YVV]" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="wce@" class="simple-table-header-color simple-table-header" style="width:427.625px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f4648ad-99fc-8064-9a90-d3ddd68361a7" dir="ltr"><td id="YVV]" class="">Botones</td><td id="wce@" class="" style="width:427.625px"><code>padding: 12px 24px</code></td></tr><tr id="3f4648ad-99fc-8008-837d-c18ff766fa3b" dir="ltr"><td id="YVV]" class="">Tarjetas</td><td id="wce@" class="" style="width:427.625px"><code>padding: 1.5rem</code></td></tr><tr id="3f4648ad-99fc-803b-912f-c5fae4b9eecd" dir="ltr"><td id="YVV]" class="">Inputs</td><td id="wce@" class="" style="width:427.625px"><code>padding: 10px 14px</code></td></tr><tr id="3f4648ad-99fc-808f-b91e-c8ec93085c4c" dir="ltr"><td id="YVV]" class="">Celdas de tabla</td><td id="wce@" class="" style="width:427.625px"><code>padding: 8px 12px</code></td></tr><tr id="3f4648ad-99fc-8034-b156-c94f3edfb672" dir="ltr"><td id="YVV]" class="">Contenedores de sección</td><td id="wce@" class="" style="width:427.625px"><code>padding: 4rem 2rem</code></td></tr><tr id="3f4648ad-99fc-806d-9e10-c69a9d468b72" dir="ltr"><td id="YVV]" class="">Aspect ratio (16:9)</td><td id="wce@" class="" style="width:427.625px"><code>padding-top: 56.25%</code></td></tr><tr id="3f4648ad-99fc-8081-abcb-ffef2f492fbe" dir="ltr"><td id="YVV]" class="">Badges / chips</td><td id="wce@" class="" style="width:427.625px"><code>padding: 4px 10px</code></td></tr><tr id="3f4648ad-99fc-808f-bfd7-feb63794d527" dir="ltr"><td id="YVV]" class="">Área clicable mayor</td><td id="wce@" class="" style="width:427.625px">Padding en enlaces/botones</td></tr><tr id="3f4648ad-99fc-8013-8aef-d74431af191b" dir="ltr"><td id="YVV]" class="">Tooltips</td><td id="wce@" class="" style="width:427.625px"><code>padding: 6px 10px</code></td></tr></tbody></table><h2 id="3f4648ad-99fc-801f-8de1-d60251f9e493" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f4648ad-99fc-80e5-b08c-eb377004b42d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin</strong></code> → espacio <strong>exterior</strong> (fuera del borde).</li></ul><ul id="3f4648ad-99fc-806a-8498-c75bc5f4de86" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → línea entre padding y margin.</li></ul><ul id="3f4648ad-99fc-8043-9d78-c9196d6afbbe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → <code>border-box</code> incluye padding y border en el <code>width</code>.</li></ul><ul id="3f4648ad-99fc-8094-b5af-d8e510b1b4e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>gap</strong></code> → alternativa moderna para separar ítems en flex/grid.</li></ul><ul id="3f4648ad-99fc-8053-b412-c6d79b26a028" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → controla si el fondo cubre el padding (<code>padding-box</code>) o el border (<code>border-box</code>).</li></ul><ul id="3f4648ad-99fc-8029-b766-c421ee5c89b9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>inline-block</strong></code> → hace que el padding vertical sí empuje líneas.</li></ul><ul id="3f4648ad-99fc-8017-b2a7-ebe1091c409a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>aspect-ratio</strong></code> → alternativa moderna al truco de padding-top para ratios.</li></ul><ul id="3f4648ad-99fc-80b2-86a8-daf298b1555d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Propiedades lógicas</strong> → <code>padding-inline</code>, <code>padding-block</code> para i18n.</li></ul><p id="3f4648ad-99fc-80eb-bfc3-eb7a0d3f89e4" class="" dir="auto"><strong>Modelo de caja visual:</strong></p><p id="3f4648ad-99fc-804f-b9b4-fb42f51b8815" class="" dir="auto">
+</p><pre id="3f4648ad-99fc-808b-9b99-ec5ae0b7640f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────┐
+│        margin           │
+│  ┌───────────────────┐  │
+│  │      border       │  │
+│  │  ┌─────────────┐  │  │
+│  │  │  padding    │  │  │  ← padding = espacio interior
+│  │  │  ┌───────┐  │  │  │
+│  │  │  │content│  │  │  │
+│  │  │  └───────┘  │  │  │
+│  │  └─────────────┘  │  │
+│  └───────────────────┘  │
+└─────────────────────────┘</code></pre><h2 id="3f4648ad-99fc-802d-90f8-d0bd4e5b39ea" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f4648ad-99fc-80a6-ab87-d9f1df477992" class="" dir="auto">Imagina que cada elemento es una <strong>caja de cartón</strong> con un objeto dentro. El <code>padding</code> es el <strong>relleno de espuma</strong> que pones entre el objeto y las paredes de la caja: separa el contenido del borde. Si pintas la caja de color, el relleno también se pinta. Y si compras la caja de un tamaño fijo (<code>border-box</code>), el relleno va <strong>dentro</strong> de ese tamaño; si no (<code>content-box</code>), el relleno <strong>agranda</strong> la caja.</p><h2 id="3f4648ad-99fc-80ef-8d0c-ec3e26b62926" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f4648ad-99fc-80e4-a50f-e4ed07a24f5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>padding</em><p id="3f4648ad-99fc-8049-bbc7-c21f695d46b5" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/padding">https://developer.mozilla.org/es/docs/Web/CSS/padding</a></p></li></ul><ul id="3f4648ad-99fc-80c9-8327-d5a31ff77a29" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>CSS Box Model</em><p id="3f4648ad-99fc-80a4-a295-d72c5b881876" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model">https://developer.mozilla.org/es/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model</a></p></li></ul><ul id="3f4648ad-99fc-8085-8daa-f8517fcabacb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Box Model<p id="3f4648ad-99fc-80c4-acb1-ef416e21fb7d" class="" dir="auto"><a href="https://www.w3.org/TR/css-box-3/">https://www.w3.org/TR/css-box-3/</a></p></li></ul><ul id="3f4648ad-99fc-8058-92c0-c9c99defdd35" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>The CSS Box Model</em><p id="3f4648ad-99fc-80d7-b9e4-cf784b281879" class="" dir="auto"><a href="https://css-tricks.com/the-css-box-model/">https://css-tricks.com/the-css-box-model/</a></p></li></ul><h2 id="3f4648ad-99fc-8082-a9bb-f03907a59571" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f4648ad-99fc-807f-91a0-d246a255d3ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regla mental</strong>: <code>padding</code> = espacio <strong>dentro</strong>; <code>margin</code> = espacio <strong>fuera</strong>.</li></ul><ul id="3f4648ad-99fc-8078-9cc2-fff719cc2b7e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre</strong> usar <code>box-sizing: border-box</code> → evita cálculos mentales y layouts rotos.</li></ul><ul id="3f4648ad-99fc-8049-a1bc-c67ce8e187df" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El padding <strong>no colapsa</strong> ni acepta negativos → es &quot;seguro&quot; comparado con margin.</li></ul><ul id="3f4648ad-99fc-801e-b834-c7e734249796" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El truco de <code>padding-top: 56.25%</code> para aspect ratio 16:9 sigue siendo útil, aunque <code>aspect-ratio</code> es la alternativa moderna.</li></ul><ul id="3f4648ad-99fc-8016-8344-ca332b2fc97f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En <code>display: inline</code>, el padding vertical se dibuja pero no empuja → usar <code>inline-block</code> si necesitas que afecte al flujo.</li></ul><ul id="3f4648ad-99fc-8059-a8d9-c1f0d11c2448" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para separar <strong>elementos</strong> entre sí, usar <code>margin</code> o <code>gap</code>, <strong>no</strong> padding.</li></ul><ul id="3f4648ad-99fc-804b-9c00-e9a6430a0684" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El padding <strong>aumenta el área clicable</strong> de botones y enlaces → mejora la accesibilidad táctil (mínimo 44x44px recomendado por WCAG).</li></ul><ul id="3f4648ad-99fc-80f1-9c4b-ed7ba392607e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Preferir <strong>propiedades lógicas</strong> (<code>padding-inline</code>, <code>padding-block</code>) para soportar RTL/LTR sin cambios.</li></ul><ul id="3f4648ad-99fc-80b9-bca5-dc929a5194fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En tablas con <code>border-collapse: collapse</code>, el padding de las celdas se respeta pero el borde se fusiona.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

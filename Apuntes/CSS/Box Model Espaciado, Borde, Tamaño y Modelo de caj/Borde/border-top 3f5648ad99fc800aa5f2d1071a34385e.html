@@ -1,0 +1,946 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>border-top</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-800a-a5f2-d1071a34385e" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>border-top</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f5648ad-99fc-8085-b9ed-d586a4a0fec9" class="" dir="auto">
+</p><h1 id="3f5648ad-99fc-8062-8a2a-e1b61c650025" class="" dir="auto"><strong>📄 </strong><code><strong>border-top</strong></code></h1><h2 id="3f5648ad-99fc-80c9-a870-e30db2173886" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-802c-9923-fedbe1c126e6" class="" dir="auto"><code>border-top</code> es una <strong>propiedad abreviada (shorthand) de CSS</strong> que establece en una sola declaración el <strong>borde superior</strong> de un elemento: grosor (<code>border-top-width</code>), estilo (<code>border-top-style</code>) y color (<code>border-top-color</code>).</p><h2 id="3f5648ad-99fc-800e-afe5-d8694e3b7142" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-80b1-b5ab-d7cf3f0f22a3" class="" dir="auto">Forma parte de las <strong>propiedades de borde</strong> (junto con <code>border-right</code>, <code>border-bottom</code>, <code>border-left</code> y el shorthand general <code>border</code>). </p><p id="3f5648ad-99fc-8043-8a03-eef1cd106103" class="" dir="auto">Es un atajo para definir los tres aspectos del borde <strong>solo en el lado superior</strong>.</p><p id="3f5648ad-99fc-806d-8703-dec90e9d2ac2" class="" dir="auto">Es la propiedad más usada para crear <strong>separadores horizontales</strong> encima de secciones, títulos o filas de tabla.</p><h2 id="3f5648ad-99fc-80a6-aedc-c7cbe7397414" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8021-9639-c73a39d31d45" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>separadores superiores</strong> (encima de títulos, secciones, filas).</li></ul><ul id="3f5648ad-99fc-8046-b263-c02394508f3e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Definir el borde superior de tarjetas, modales, alertas.</li></ul><ul id="3f5648ad-99fc-80ab-93d6-fd2ba3b3230e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Indicar <strong>estados</strong> con un borde superior de color (error, éxito).</li></ul><ul id="3f5648ad-99fc-8054-8b21-c708ba2faf7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>triángulos y flechas</strong> con el truco del border.</li></ul><ul id="3f5648ad-99fc-809e-bc86-d2152d11fec8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>efectos de &quot;tab&quot; activo&quot;</strong> (borde superior de color).</li></ul><ul id="3f5648ad-99fc-80f5-b766-c43b2986019e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir <strong>decoración</strong> sin afectar a los otros lados.</li></ul><h2 id="3f5648ad-99fc-8020-bd34-eac072351e63" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-803d-828e-fa3d89ef8919" class="" dir="auto">El navegador dibuja el borde superior con los valores indicados. </p><p id="3f5648ad-99fc-803a-b883-f5051bc18519" class="" dir="auto">Reglas clave:</p><ol type="1" id="3f5648ad-99fc-8032-bd72-e2e710980168" class="numbered-list" start="1" dir="auto"><li><strong>Requiere </strong><code><strong>border-top-style</strong></code> → sin estilo, no se ve nada (aunque definas grosor y color).</li></ol><ol type="1" id="3f5648ad-99fc-809a-ac17-f144b18af3cf" class="numbered-list" start="2" dir="auto"><li><strong>Afecta solo al lado superior</strong> → los otros lados no se tocan.</li></ol><ol type="1" id="3f5648ad-99fc-80cf-876b-d429df529735" class="numbered-list" start="3" dir="auto"><li><strong>Afecta al tamaño total</strong> → con <code>box-sizing: content-box</code> (por defecto), el borde <strong>suma</strong> al <code>height</code>. Con <code>border-box</code>, se incluye.</li></ol><ol type="1" id="3f5648ad-99fc-8074-9d30-fde1562a09ba" class="numbered-list" start="4" dir="auto"><li><strong>Orden flexible en el shorthand</strong> → puedes escribir <code>1px solid red</code> o <code>solid 1px red</code>; el navegador reconoce cada valor.</li></ol><ol type="1" id="3f5648ad-99fc-808f-a016-f5b13781681d" class="numbered-list" start="5" dir="auto"><li><strong>Valores por defecto</strong> → si omites alguno, se usan los iniciales: <code>medium none currentColor</code>.</li></ol><ol type="1" id="3f5648ad-99fc-804f-af86-e2dd7d77d09a" class="numbered-list" start="6" dir="auto"><li><strong>No afecta a </strong><code><strong>border-right</strong></code><strong>, </strong><code><strong>border-bottom</strong></code><strong>, </strong><code><strong>border-left</strong></code> → cada lado es independiente.</li></ol><ol type="1" id="3f5648ad-99fc-8045-91a8-f47de5680440" class="numbered-list" start="7" dir="auto"><li><strong>Se combina con </strong><code><strong>border-radius</strong></code> → el borde sigue la curva en las esquinas superiores.</li></ol><h2 id="3f5648ad-99fc-8008-8706-fa7e9d197a43" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-80a0-8bba-cc01a97ea74b" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  border-top: width style color;
+}</code></pre><h3 id="3f5648ad-99fc-8090-9ee8-f6e693c04ecd" class="" dir="auto"><strong>Propiedades que agrupa</strong></h3><table id="3f5648ad-99fc-8098-8e3e-f95b8bf1c133" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-807b-8f7b-ec7387932f03" dir="ltr"><th id="YmPx" class="simple-table-header-color simple-table-header"><strong>Propiedad</strong></th><th id="z{hs" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="=JE}" class="simple-table-header-color simple-table-header" style="width:309.8645935058594px"><strong>Valor por defecto</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-809d-b5de-f5b577eff1f7" dir="ltr"><td id="YmPx" class=""><code>border-top-width</code></td><td id="z{hs" class="">Grosor del borde superior</td><td id="=JE}" class="" style="width:309.8645935058594px"><code>medium</code></td></tr><tr id="3f5648ad-99fc-8057-af9e-ce7e3a249010" dir="ltr"><td id="YmPx" class=""><code>border-top-style</code></td><td id="z{hs" class="">Estilo del borde superior</td><td id="=JE}" class="" style="width:309.8645935058594px"><code>none</code></td></tr><tr id="3f5648ad-99fc-8083-962b-d2a92e00ced8" dir="ltr"><td id="YmPx" class=""><code>border-top-color</code></td><td id="z{hs" class="">Color del borde superior</td><td id="=JE}" class="" style="width:309.8645935058594px"><code>currentColor</code></td></tr></tbody></table><pre id="3f5648ad-99fc-809d-b6f7-f0e0b5458209" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* Orden flexible */
+border-top: 2px solid #333;
+border-top: solid 2px #333;
+border-top: #333 solid 2px;
+
+/* Solo algunos valores */
+border-top: 2px solid;         /* color por defecto (currentColor) */
+border-top: solid;             /* grosor y color por defecto */
+border-top: 2px;               /* ⚠️ no se ve sin estilo */</code></pre><h3 id="3f5648ad-99fc-8064-93f5-f98b28db4b8d" class="" dir="auto"><strong>Propiedades individuales</strong></h3><pre id="3f5648ad-99fc-80c6-8873-fa79f7677f33" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">border-top-width: 2px;
+border-top-style: solid;
+border-top-color: #333;</code></pre><h3 id="3f5648ad-99fc-80e8-98b8-c1690566de96" class="" dir="auto"><strong>Propiedades lógicas equivalentes</strong></h3><pre id="3f5648ad-99fc-80ae-8a70-c1678cee0c27" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* En writing-mode horizontal LTR, equivalen a border-top */
+border-block-start: 2px solid #333;
+border-block-start-width: 2px;
+border-block-start-style: solid;
+border-block-start-color: #333;</code></pre><h2 id="3f5648ad-99fc-8012-ab98-df7a696645b5" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-8063-8545-c9eaa98c0ff5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Separador superior en un título */
+h2 {
+  border-top: 2px solid #333;
+  padding-top: 12px;
+}
+
+/* 2. Borde superior en tarjeta */
+.card {
+  border-top: 3px solid #3498db;
+}
+
+/* 3. Alertas con borde superior de color */
+.alert-error {
+  border-top: 4px solid crimson;
+  background: #fdf2f2;
+}
+.alert-success {
+  border-top: 4px solid seagreen;
+  background: #f0fdf4;
+}
+
+/* 4. Tab activo con borde superior */
+.tab {
+  border-top: 3px solid transparent;
+  padding: 12px 20px;
+}
+.tab.active {
+  border-top-color: #3498db;
+}
+
+/* 5. Solo borde superior (sin los demás lados) */
+.solo-arriba {
+  border-top: 1px solid #eee;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+/* 6. Triángulo apuntando hacia arriba */
+.triangulo-arriba {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid #333;
+  /* El border-bottom es el visible */
+}
+
+/* 7. Triángulo apuntando hacia abajo (usa border-top) */
+.triangulo-abajo {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 30px solid #333;
+  /* El border-top es el visible */
+}
+
+/* 8. Shorthand general vs border-top */
+.btn {
+  border: 1px solid #ccc;       /* los 4 lados */
+  border-top: 3px solid #3498db; /* sobrescribe solo el superior */
+}
+
+/* 9. Propiedades lógicas */
+.logico {
+  border-block-start: 2px solid #333;
+  /* Equivale a border-top en LTR horizontal */
+}
+
+/* 10. Borde superior con gradiente (técnica) */
+.borde-gradiente-arriba {
+  border-top: 4px solid transparent;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(90deg, #667eea, #764ba2) border-box;
+}</code></pre><h3 id="3f5648ad-99fc-8091-acd8-e2dd57ce36a1" class="" dir="auto"><strong>Separador superior en títulos</strong></h3><pre id="3f5648ad-99fc-800d-afe2-d3c64b143fbe" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">h2 {
+  border-top: 2px solid #333;
+  padding-top: 12px;
+  margin-top: 32px;
+}</code></pre><h3 id="3f5648ad-99fc-80b8-a648-c2c3ca0947b9" class="" dir="auto"><strong>Alertas con borde superior de color</strong></h3><pre id="3f5648ad-99fc-808d-bfe5-d7eedb6da351" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.alert {
+  padding: 16px;
+  background: #f9f9f9;
+  border-top: 4px solid;
+}
+.alert-error   { border-top-color: crimson; }
+.alert-warning { border-top-color: darkorange; }
+.alert-success { border-top-color: seagreen; }
+.alert-info    { border-top-color: #3498db; }</code></pre><h3 id="3f5648ad-99fc-800a-860c-e457b883aaab" class="" dir="auto"><strong>Tabs con borde superior activo</strong></h3><pre id="3f5648ad-99fc-80f2-bc50-de5aed4d81af" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tabs {
+  display: flex;
+  gap: 4px;
+}
+.tab {
+  padding: 12px 20px;
+  border-top: 3px solid transparent;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+.tab.active {
+  border-top-color: #3498db;
+  background: #fff;
+}</code></pre><h3 id="3f5648ad-99fc-80a2-84a3-f060dba0454d" class="" dir="auto"><strong>Triángulo apuntando hacia abajo</strong></h3><pre id="3f5648ad-99fc-800d-b932-fd690bb71a4a" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.tooltip::after {
+  content: &quot;&quot;;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #333;
+  /* El border-top forma el triángulo hacia abajo */
+}</code></pre><h3 id="3f5648ad-99fc-8092-a2f3-e060794a3050" class="" dir="auto"><strong>Sobrescribir solo el borde superior</strong></h3><pre id="3f5648ad-99fc-8002-8c4e-dbc4fdde98c6" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.btn {
+  border: 1px solid #ccc;
+  /* Los 4 lados con el mismo estilo */
+}
+.btn-destacado {
+  border-top: 3px solid #3498db;
+  /* Solo el superior cambia; los demás siguen igual */
+}</code></pre><h2 id="3f5648ad-99fc-8075-8c8a-fc156dd6dd19" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-80b9-9fee-cc806dcd2054" class="numbered-list" start="1" dir="auto"><li><strong>Olvidar </strong><code><strong>border-top-style</strong></code> → <code>border-top: 2px #333</code> <strong>no se ve</strong> sin estilo. Error clásico.</li></ol><ol type="1" id="3f5648ad-99fc-8067-aa6b-f7bc2b8b0bef" class="numbered-list" start="2" dir="auto"><li><strong>Confundir </strong><code><strong>border-top</strong></code><strong> con </strong><code><strong>border</strong></code> → <code>border</code> afecta a los 4 lados; <code>border-top</code> solo al superior.</li></ol><ol type="1" id="3f5648ad-99fc-808e-945f-ff3e3592db53" class="numbered-list" start="3" dir="auto"><li><strong>No usar </strong><code><strong>box-sizing: border-box</strong></code> → el borde superior <strong>suma</strong> a la altura total.</li></ol><ol type="1" id="3f5648ad-99fc-8030-b415-dc0cfad0c9ba" class="numbered-list" start="4" dir="auto"><li><strong>Esperar que </strong><code><strong>border-top</strong></code><strong> herede el estilo de </strong><code><strong>border</strong></code> → no; son independientes. Si defines <code>border: 1px solid</code> y luego <code>border-top: 3px</code>, el superior se sobrescribe pero los demás mantienen <code>border</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80cb-a01b-f64b12f7f374" class="numbered-list" start="5" dir="auto"><li><strong>Animar </strong><code><strong>border-top</strong></code><strong> sin transición</strong> → el cambio es brusco. Añadir <code>transition: border-top-color 0.2s</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80ec-aa70-d928882cb91b" class="numbered-list" start="6" dir="auto"><li><strong>Usar </strong><code><strong>border-top</strong></code><strong> para separadores verticales</strong> → es horizontal, no vertical. Usar <code>border-left</code> o <code>border-right</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80df-a740-ded24008f95c" class="numbered-list" start="7" dir="auto"><li><strong>Bordes superiores en </strong><code><strong>display: inline</strong></code> → se dibujan pero no empujan líneas. Usar <code>inline-block</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80be-beea-eed428f2a5cb" class="numbered-list" start="8" dir="auto"><li><strong>Triángulos con </strong><code><strong>border-top</strong></code><strong> en 2025</strong> → truco clásico; hoy <code>clip-path</code> o SVG son más flexibles.</li></ol><ol type="1" id="3f5648ad-99fc-800c-b252-d165146cf09a" class="numbered-list" start="9" dir="auto"><li><strong>No considerar </strong><code><strong>border-radius</strong></code> → si hay esquinas redondeadas, el borde superior se curva en los extremos.</li></ol><ol type="1" id="3f5648ad-99fc-8039-a970-e46d67602bf7" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>border-top</strong></code><strong> con </strong><code><strong>border-collapse: collapse</strong></code><strong> en tablas</strong> → los bordes se fusionan; el resultado puede sorprender.</li></ol><h2 id="3f5648ad-99fc-80f0-a3d7-d0ec601392d7" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-801d-88c3-d30a55f2d1c6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8035-a5a8-c9e47ed7ad80" dir="ltr"><th id="=boz" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="XHpd" class="simple-table-header-color simple-table-header" style="width:440px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-80cb-b4e6-eeb444fdc05e" dir="ltr"><td id="=boz" class="">Separador de título</td><td id="XHpd" class="" style="width:440px"><code>2px solid #333</code></td></tr><tr id="3f5648ad-99fc-805e-a4cb-cc0773184027" dir="ltr"><td id="=boz" class="">Borde de tarjeta destacada</td><td id="XHpd" class="" style="width:440px"><code>3px solid #3498db</code></td></tr><tr id="3f5648ad-99fc-806d-acd8-e534fcd47308" dir="ltr"><td id="=boz" class="">Alerta de error</td><td id="XHpd" class="" style="width:440px"><code>4px solid crimson</code></td></tr><tr id="3f5648ad-99fc-807e-afdf-f8cd753f890d" dir="ltr"><td id="=boz" class="">Alerta de éxito</td><td id="XHpd" class="" style="width:440px"><code>4px solid seagreen</code></td></tr><tr id="3f5648ad-99fc-80c7-8750-de66859e0d28" dir="ltr"><td id="=boz" class="">Tab activo</td><td id="XHpd" class="" style="width:440px"><code>3px solid #3498db</code></td></tr><tr id="3f5648ad-99fc-8006-b89a-e372b64527e2" dir="ltr"><td id="=boz" class="">Triángulo hacia abajo</td><td id="XHpd" class="" style="width:440px"><code>8px solid #333</code> (con laterales transparentes)</td></tr><tr id="3f5648ad-99fc-8020-b409-c91fce05a621" dir="ltr"><td id="=boz" class="">Separador sutil</td><td id="XHpd" class="" style="width:440px"><code>1px solid #eee</code></td></tr><tr id="3f5648ad-99fc-8026-8820-c6bafa58eea3" dir="ltr"><td id="=boz" class="">Borde de sección</td><td id="XHpd" class="" style="width:440px"><code>1px solid rgba(0,0,0,0.1)</code></td></tr><tr id="3f5648ad-99fc-8049-943b-e9e0d12a4d12" dir="ltr"><td id="=boz" class="">Borde de tabla (fila)</td><td id="XHpd" class="" style="width:440px"><code>1px solid #ddd</code></td></tr><tr id="3f5648ad-99fc-809b-890f-eb28a4303e89" dir="ltr"><td id="=boz" class="">Borde decorativo</td><td id="XHpd" class="" style="width:440px">Variable CSS</td></tr></tbody></table><h2 id="3f5648ad-99fc-8007-b393-e84cf4b20262" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-803b-ad31-d16cfe5b56f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border</strong></code> → shorthand de los 4 lados.</li></ul><ul id="3f5648ad-99fc-80fe-ac81-c5da7b703227" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-right</strong></code> → borde derecho.</li></ul><ul id="3f5648ad-99fc-806c-a4d4-fcf74a51d627" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-bottom</strong></code> → borde inferior.</li></ul><ul id="3f5648ad-99fc-80c1-8d2b-d126397514f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-left</strong></code> → borde izquierdo.</li></ul><ul id="3f5648ad-99fc-80c7-bfb5-d3f28faf626b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-top-width</strong></code> → grosor del borde superior.</li></ul><ul id="3f5648ad-99fc-8088-81d7-ed9538ce4c7c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-top-style</strong></code> → estilo del borde superior.</li></ul><ul id="3f5648ad-99fc-802b-a2cd-e8e320d176b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-top-color</strong></code> → color del borde superior.</li></ul><ul id="3f5648ad-99fc-8019-8af7-d2a6d2175bbb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-block-start</strong></code> → equivalente lógico (i18n).</li></ul><ul id="3f5648ad-99fc-8014-8ee5-f7a3ed52a6ff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → el borde superior se curva en las esquinas.</li></ul><ul id="3f5648ad-99fc-8061-97ef-e59c74a2a041" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-sizing</strong></code> → <code>border-box</code> incluye el borde en el tamaño.</li></ul><ul id="3f5648ad-99fc-8020-baef-cc3ea3ef4fbe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>padding-top</strong></code> → espacio interior bajo el borde superior.</li></ul><ul id="3f5648ad-99fc-8022-a58d-e15537eb5081" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin-top</strong></code> → espacio exterior sobre el borde superior.</li></ul><ul id="3f5648ad-99fc-80a2-896d-fcab5295df4b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → alternativa para bordes sin afectar layout.</li></ul><ul id="3f5648ad-99fc-803a-95a1-f3faf612f49b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → técnica para bordes con gradiente.</li></ul><p id="3f5648ad-99fc-809c-b8e7-ff2f78f9c552" class="" dir="auto"><strong>Modelo visual:</strong></p><p id="3f5648ad-99fc-8054-99ee-e46c4a5f6f06" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-8081-bc48-faf1058d8bf3" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">┌─────────────────────────┐
+│  border-top ← este      │
+│  ┌───────────────────┐  │
+│  │      border       │  │
+│  │  ┌─────────────┐  │  │
+│  │  │  padding    │  │  │
+│  │  │  ┌───────┐  │  │  │
+│  │  │  │content│  │  │  │
+│  │  │  └───────┘  │  │  │
+│  │  └─────────────┘  │  │
+│  └───────────────────┘  │
+└─────────────────────────┘</code></pre><h2 id="3f5648ad-99fc-8076-8c41-fa266a9249ef" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-809b-97c5-d4c8d86367b8" class="" dir="auto">Imagina que cada elemento es un <strong>cuadro enmarcado</strong>. <code>border-top</code> es la <strong>moldura solo del lado superior</strong>: puedes ponerle un grosor, un estilo y un color distintos a los otros tres lados. Es como decir &quot;solo quiero decorar la parte de arriba del cuadro&quot; sin tocar los laterales ni la base.</p><h2 id="3f5648ad-99fc-8029-965e-ce4c40abc6ff" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-8039-855b-ed929080b4a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border-top</em><p id="3f5648ad-99fc-80c0-8e4f-e5ea2c75aaf1" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border-top">https://developer.mozilla.org/es/docs/Web/CSS/border-top</a></p></li></ul><ul id="3f5648ad-99fc-8008-9282-c52912cd7751" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f5648ad-99fc-80e0-ac44-d154561a5abb" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/#border-top">https://www.w3.org/TR/css-backgrounds-3/#border-top</a></p></li></ul><ul id="3f5648ad-99fc-80d2-858a-c2de7ef479e5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>border-top</em><p id="3f5648ad-99fc-804c-ac74-d1e4ce876841" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/border-top/">https://css-tricks.com/almanac/properties/b/border-top/</a></p></li></ul><ul id="3f5648ad-99fc-8033-bc23-e516a0fe90bb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>border</em><p id="3f5648ad-99fc-807c-8e90-c9c326ef3b3f" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/border">https://developer.mozilla.org/es/docs/Web/CSS/border</a></p></li></ul><h2 id="3f5648ad-99fc-807d-a58e-cfec2f1218c4" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-8017-8ef6-dc9c19b9067e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-top-style</strong></code><strong> es obligatorio</strong> → sin él, no se ve. Error nº1.</li></ul><ul id="3f5648ad-99fc-806f-853b-d6a3cd64aa61" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo afecta al lado superior</strong> → los otros lados no se tocan. Útil para sobrescribir un lado concreto.</li></ul><ul id="3f5648ad-99fc-807b-9346-d9cef686cc73" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre </strong><code><strong>box-sizing: border-box</strong></code> → si no, el borde superior agranda el elemento.</li></ul><ul id="3f5648ad-99fc-8046-ada5-dbd3202e5387" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para separadores de título</strong> → <code>border-top: 2px solid #333</code> + <code>padding-top</code> es el patrón clásico.</li></ul><ul id="3f5648ad-99fc-802d-a432-f9206475f8b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Tabs activos</strong> → <code>border-top: 3px solid transparent</code> + <code>:hover/:focus { border-top-color: ... }</code> evita layout shift.</li></ul><ul id="3f5648ad-99fc-80f4-a26a-fa0f85980070" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Triángulos</strong> → <code>border-top</code> con laterales transparentes crea triángulos hacia abajo.</li></ul><ul id="3f5648ad-99fc-80ff-a72e-fb784080a681" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Añadir transición</strong> → <code>transition: border-top-color 0.2s</code> para cambios suaves.</li></ul><ul id="3f5648ad-99fc-8028-a71d-f3efe197e0b4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Propiedades lógicas</strong> → <code>border-block-start</code> es el equivalente i18n; preferirlo en proyectos multiidioma.</li></ul><ul id="3f5648ad-99fc-8067-8b5d-fd9192fe8c20" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No confundir con </strong><code><strong>border</strong></code> → <code>border</code> afecta a los 4 lados; <code>border-top</code> solo al superior.</li></ul><ul id="3f5648ad-99fc-805c-a0be-d18cf47039ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para bordes con gradiente</strong> → usar <code>background-clip</code> o <code>border-image</code>, no <code>border-top-color</code> (no acepta gradientes).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

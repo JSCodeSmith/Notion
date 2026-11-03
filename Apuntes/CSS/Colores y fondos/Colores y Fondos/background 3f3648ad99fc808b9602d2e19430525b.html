@@ -1,0 +1,915 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>background</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f3648ad-99fc-808b-9602-d2e19430525b" class="page sans"><header><h1 class="page-title" dir="auto">background</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3f3648ad-99fc-80f5-88ca-fe017b4b92cc" class="" dir="auto">
+</p><h1 id="3f3648ad-99fc-809a-8227-e0547c0c2e1c" class="" dir="auto"><strong>📄 </strong><code><strong>background</strong></code></h1><h2 id="3f3648ad-99fc-8089-a5d4-e4aeabb62372" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f3648ad-99fc-802d-9681-eb48594d6326" class="" dir="auto"><code>background</code> es una <strong>propiedad abreviada (shorthand) de CSS</strong> que agrupa todas las propiedades de fondo de un elemento en una sola declaración: color, imagen, posición, tamaño, repetición, origen, recorte, adhesión y modo de fusión.</p><h2 id="3f3648ad-99fc-802e-b3cc-e12be63198aa" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f3648ad-99fc-8035-a251-d7e8e01324f0" class="" dir="auto">Forma parte de las <strong>propiedades de fondo</strong> y es el shorthand de:</p><ul id="3f3648ad-99fc-8009-ad6c-d3af3b7b6ae1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-color</code></li></ul><ul id="3f3648ad-99fc-8097-969f-c48ceade31f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-image</code></li></ul><ul id="3f3648ad-99fc-8099-bfbe-cc16b0f74b7b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-position</code></li></ul><ul id="3f3648ad-99fc-80a2-8ab0-d0d2e0c6b90b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-size</code></li></ul><ul id="3f3648ad-99fc-80de-9c8c-ceae9812dab2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-repeat</code></li></ul><ul id="3f3648ad-99fc-8051-bd28-ccf6b0a6dc35" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-origin</code></li></ul><ul id="3f3648ad-99fc-8022-a4ea-c3a9bd144ca4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-clip</code></li></ul><ul id="3f3648ad-99fc-80e3-88e2-d13b59a7f922" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-attachment</code></li></ul><ul id="3f3648ad-99fc-80bc-9409-e29a39ae55d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>background-blend-mode</code></li></ul><p id="3f3648ad-99fc-802e-8064-db60a990d10f" class="" dir="auto">⚠️ <strong>Importante</strong>: al usar <code>background</code>, <strong>todas las propiedades no especificadas se resetean a sus valores por defecto</strong>. </p><p id="3f3648ad-99fc-808a-9aab-c6ffa04a2f21" class="" dir="auto">Esto es la causa nº1 de bugs al cambiar solo un aspecto del fondo.</p><h2 id="3f3648ad-99fc-8088-93e3-e4629f1b682e" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f3648ad-99fc-8077-8471-e73b6432e3c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Definir fondos complejos en una sola línea.</li></ul><ul id="3f3648ad-99fc-80a2-affb-d6c08d714df8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Combinar <strong>color + imagen + gradiente</strong>.</li></ul><ul id="3f3648ad-99fc-80ad-9853-c6a017df54d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear <strong>patrones repetidos</strong>.</li></ul><ul id="3f3648ad-99fc-800f-a86d-e10565b04813" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Aplicar <strong>múltiples fondos en capas</strong>.</li></ul><ul id="3f3648ad-99fc-8062-81e8-e7fbc73d0c5e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Establecer fondos fijos (parallax) o que se desplazan con el scroll.</li></ul><ul id="3f3648ad-99fc-8046-84e4-e8cd0850eef0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Recortar fondos a texto o padding.</li></ul><h2 id="3f3648ad-99fc-80cd-abcb-d861cbbc5667" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f3648ad-99fc-80c1-aabb-c6e6ed54bec8" class="" dir="auto">El navegador aplica las capas de fondo <strong>de arriba a abajo</strong> (la primera es la más cercana al usuario). Reglas clave:</p><ol type="1" id="3f3648ad-99fc-8032-93af-c1526ffe5399" class="numbered-list" start="1" dir="auto"><li><strong>Shorthand resetea todo</strong> → si solo pones <code>background: red</code>, borras cualquier imagen previa.</li></ol><ol type="1" id="3f3648ad-99fc-801a-abe6-fb0fb6062511" class="numbered-list" start="2" dir="auto"><li><strong>Múltiples fondos</strong> → separados por comas, el primero se dibuja <strong>encima</strong>.</li></ol><ol type="1" id="3f3648ad-99fc-806e-8a80-ccb3b78d5942" class="numbered-list" start="3" dir="auto"><li><strong>Orden flexible</strong> → el navegador distingue <code>color</code>, <code>image</code>, <code>position/size</code>, etc.</li></ol><ol type="1" id="3f3648ad-99fc-80b7-8dce-f265d13a846b" class="numbered-list" start="4" dir="auto"><li><code><strong>position</strong></code><strong> y </strong><code><strong>size</strong></code><strong> juntos</strong> → se escriben <code>position / size</code> (ej. <code>center / cover</code>).</li></ol><ol type="1" id="3f3648ad-99fc-8052-b5ac-c86a9e1c49cf" class="numbered-list" start="5" dir="auto"><li><code><strong>background-clip: text</strong></code> → recorta el fondo al texto (efecto gradiente en texto).</li></ol><ol type="1" id="3f3648ad-99fc-8087-86ac-dfa096126173" class="numbered-list" start="6" dir="auto"><li><code><strong>background-attachment: fixed</strong></code> → efecto parallax (cuidado en móvil).</li></ol><ol type="1" id="3f3648ad-99fc-8099-a052-dd663f4dff93" class="numbered-list" start="7" dir="auto"><li><strong>El color siempre va al final</strong> → si se especifica, es la última capa.</li></ol><h2 id="3f3648ad-99fc-801d-875f-c3c97c43dd53" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f3648ad-99fc-8000-8fed-c1ea125e6b25" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  background: [color] [image] [position] / [size] [repeat] [attachment] [origin] [clip] [blend-mode];
+}</code></pre><h3 id="3f3648ad-99fc-8049-b641-ccd801dbbd04" class="" dir="auto"><strong>Propiedades que agrupa</strong></h3><table id="3f3648ad-99fc-8070-953a-e1498aa36285" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-8078-af23-c44638a001d3" dir="ltr"><th id="~uIc" class="simple-table-header-color simple-table-header"><strong>Propiedad</strong></th><th id="F=hE" class="simple-table-header-color simple-table-header"><strong>Descripción</strong></th><th id="drc;" class="simple-table-header-color simple-table-header"><strong>Valor por defecto</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-801c-829c-f5a989ac9d6c" dir="ltr"><td id="~uIc" class=""><code>background-color</code></td><td id="F=hE" class="">Color de fondo</td><td id="drc;" class=""><code>transparent</code></td></tr><tr id="3f3648ad-99fc-8075-a51e-c3ee50965902" dir="ltr"><td id="~uIc" class=""><code>background-image</code></td><td id="F=hE" class="">Imagen o gradiente</td><td id="drc;" class=""><code>none</code></td></tr><tr id="3f3648ad-99fc-8070-a243-dea4123714be" dir="ltr"><td id="~uIc" class=""><code>background-position</code></td><td id="F=hE" class="">Posición de la imagen</td><td id="drc;" class=""><code>0% 0%</code></td></tr><tr id="3f3648ad-99fc-8061-a91d-da5604594c5f" dir="ltr"><td id="~uIc" class=""><code>background-size</code></td><td id="F=hE" class="">Tamaño de la imagen</td><td id="drc;" class=""><code>auto auto</code></td></tr><tr id="3f3648ad-99fc-8067-8dc0-ceacac3e7564" dir="ltr"><td id="~uIc" class=""><code>background-repeat</code></td><td id="F=hE" class="">Repetición</td><td id="drc;" class=""><code>repeat</code></td></tr><tr id="3f3648ad-99fc-80e8-8c24-c7ec9cde90eb" dir="ltr"><td id="~uIc" class=""><code>background-origin</code></td><td id="F=hE" class="">Desde dónde se posiciona</td><td id="drc;" class=""><code>padding-box</code></td></tr><tr id="3f3648ad-99fc-800d-996d-f190fbf4ed21" dir="ltr"><td id="~uIc" class=""><code>background-clip</code></td><td id="F=hE" class="">Hasta dónde se pinta</td><td id="drc;" class=""><code>border-box</code></td></tr><tr id="3f3648ad-99fc-8060-96c2-e0d8190bdde2" dir="ltr"><td id="~uIc" class=""><code>background-attachment</code></td><td id="F=hE" class="">Scroll o fijo</td><td id="drc;" class=""><code>scroll</code></td></tr><tr id="3f3648ad-99fc-806c-916d-d597808715a6" dir="ltr"><td id="~uIc" class=""><code>background-blend-mode</code></td><td id="F=hE" class="">Modo de fusión</td><td id="drc;" class=""><code>normal</code></td></tr></tbody></table><h3 id="3f3648ad-99fc-804e-98c8-ed6290ddee11" class="" dir="auto"><strong>Parámetros / Valores comunes</strong></h3><p id="3f3648ad-99fc-80a2-b180-f8cbaab264fb" class="" dir="auto"><code><strong>background-image</strong></code></p><pre id="3f3648ad-99fc-809c-bfcd-c215622b5435" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-image: url(&quot;imagen.jpg&quot;);
+background-image: linear-gradient(135deg, #f39c12, #e74c3c);
+background-image: radial-gradient(circle, #fff, #000);
+background-image: repeating-linear-gradient(45deg, #eee 0 10px, #fff 10px 20px);
+background-image: none;</code></pre><p id="3f3648ad-99fc-80d7-8316-cffad92d8b15" class="" dir="auto"><code><strong>background-position</strong></code></p><pre id="3f3648ad-99fc-804d-8e10-d36a9c1dd039" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-position: center;
+background-position: top right;
+background-position: 50% 20%;
+background-position: 20px 40px;</code></pre><p id="3f3648ad-99fc-8034-a479-fef755e851ef" class="" dir="auto"><code><strong>background-size</strong></code></p><pre id="3f3648ad-99fc-8016-ac40-d03e0a59b8e5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-size: cover;      /* cubre todo, recorta */
+background-size: contain;    /* cabe entero, deja aire */
+background-size: 100% auto;
+background-size: 200px 100px;</code></pre><p id="3f3648ad-99fc-80c3-a1a3-d158a0776e46" class="" dir="auto"><code><strong>background-repeat</strong></code></p><pre id="3f3648ad-99fc-8062-93a1-cbabe609a99c" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-repeat: repeat;
+background-repeat: no-repeat;
+background-repeat: repeat-x;
+background-repeat: repeat-y;
+background-repeat: space;    /* distribuye sin recortar */
+background-repeat: round;    /* escala para encajar */</code></pre><p id="3f3648ad-99fc-80d3-ab8b-e7de1b84842d" class="" dir="auto"><code><strong>background-attachment</strong></code></p><pre id="3f3648ad-99fc-8030-a842-d2586d1acb12" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">background-attachment: scroll;  /* por defecto */
+background-attachment: fixed;   /* fijo al viewport (parallax) */
+background-attachment: local;   /* scroll con el contenido */</code></pre><p id="3f3648ad-99fc-8095-a71c-f3fbe866ecbd" class="" dir="auto"><code><strong>background-clip</strong></code></p><pre id="3f3648ad-99fc-80c6-b370-d5928dcb8560" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">background-clip: border-box;   /* por defecto */
+background-clip: padding-box;
+background-clip: content-box;
+background-clip: text;         /* recorta al texto */</code></pre><h2 id="3f3648ad-99fc-80af-93f2-db9018f6c145" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f3648ad-99fc-800e-902c-fb8c2030b5c6" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Color simple (¡resetea todo!) */
+.elemento {
+  background: #f5f5f5;
+}
+
+/* 2. Imagen que cubre */
+.hero {
+  background: url(&quot;hero.jpg&quot;) center / cover no-repeat;
+}
+
+/* 3. Gradiente lineal */
+.gradient {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* 4. Gradiente radial */
+.radial {
+  background: radial-gradient(circle at center, #fff, #000);
+}
+
+/* 5. Múltiples fondos en capas */
+.layered {
+  background:
+    url(&quot;overlay.png&quot;) center / cover no-repeat,
+    linear-gradient(135deg, #f39c12, #e74c3c);
+}
+
+/* 6. Patrón repetido */
+.pattern {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #eee 0 10px,
+      #fff 10px 20px
+    );
+}
+
+/* 7. Texto con gradiente */
+.gradient-text {
+  background: linear-gradient(90deg, #f39c12, #e74c3c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 8. Fondo fijo (parallax) */
+.parallax {
+  background: url(&quot;bg.jpg&quot;) center / cover no-repeat fixed;
+}
+
+/* 9. Color + imagen */
+.card {
+  background: #fff url(&quot;pattern.png&quot;) top right / 100px no-repeat;
+}
+
+/* 10. Variables CSS para fondos */
+:root {
+  --bg-primary: linear-gradient(135deg, #667eea, #764ba2);
+}
+.hero {
+  background: var(--bg-primary);
+}</code></pre><h3 id="3f3648ad-99fc-80b8-adeb-e1c1f9744dfe" class="" dir="auto"><strong>Diferencia crítica: </strong><code><strong>background</strong></code><strong> vs </strong><code><strong>background-color</strong></code></h3><pre id="3f3648ad-99fc-8081-be76-c9db5ea66905" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* ❌ Peligroso: resetea la imagen */
+.elemento {
+  background: #fff;
+  /* Si tenía una imagen, se pierde */
+}
+
+/* ✅ Seguro: solo cambia el color */
+.elemento {
+  background-color: #fff;
+  /* La imagen previa se mantiene */
+}</code></pre><h3 id="3f3648ad-99fc-808e-8c8f-cdb40cea1837" class="" dir="auto"><strong>Orden de las capas</strong></h3><pre id="3f3648ad-99fc-808f-8ae5-f483fb9626e2" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.layered {
+  background:
+    url(&quot;capa-superior.png&quot;) center / cover no-repeat,  /* ← arriba */
+    url(&quot;capa-media.png&quot;) center / cover no-repeat,
+    linear-gradient(#000, #333);                        /* ← abajo */
+}</code></pre><h3 id="3f3648ad-99fc-80c5-8e09-f322635f6493" class="" dir="auto"><code><strong>background-clip: text</strong></code><strong> para gradiente en texto</strong></h3><pre id="3f3648ad-99fc-8095-aee2-ee4609504f09" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.gradient-text {
+  background: linear-gradient(90deg, #f39c12, #e74c3c);
+  -webkit-background-clip: text;  /* Safari */
+  background-clip: text;
+  color: transparent;             /* el texto se vuelve transparente */
+  /* El fondo se ve solo a través del texto */
+}</code></pre><h2 id="3f3648ad-99fc-8002-81cd-e0eb4940f844" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f3648ad-99fc-80c1-9263-c406e257a6c1" class="numbered-list" start="1" dir="auto"><li><strong>Usar </strong><code><strong>background</strong></code><strong> en lugar de </strong><code><strong>background-color</strong></code> → el shorthand <strong>resetea</strong> todas las propiedades de fondo. Si solo quieres cambiar el color, usar <code>background-color</code>.</li></ol><ol type="1" id="3f3648ad-99fc-806a-a732-fefd1853f6a4" class="numbered-list" start="2" dir="auto"><li><strong>No definir </strong><code><strong>background-size</strong></code><strong> después de </strong><code><strong>position</strong></code> → la sintaxis es <code>position / size</code>, con barra. <code>center cover</code> es inválido; <code>center / cover</code> es correcto.</li></ol><ol type="1" id="3f3648ad-99fc-80e6-8497-db9b772e66a3" class="numbered-list" start="3" dir="auto"><li><strong>Olvidar </strong><code><strong>no-repeat</strong></code> → por defecto la imagen se repite y puede verse como patrón no deseado.</li></ol><ol type="1" id="3f3648ad-99fc-8005-95b8-fec4b524f3b0" class="numbered-list" start="4" dir="auto"><li><strong>Usar </strong><code><strong>background-attachment: fixed</strong></code><strong> en móvil</strong> → algunos navegadores móviles lo ignoran o causan problemas de rendimiento.</li></ol><ol type="1" id="3f3648ad-99fc-80dc-a459-e0f18b60c61c" class="numbered-list" start="5" dir="auto"><li><strong>Confundir </strong><code><strong>background-clip</strong></code><strong> con </strong><code><strong>background-origin</strong></code> → <code>clip</code> = hasta dónde se <strong>pinta</strong>; <code>origin</code> = desde dónde se <strong>posiciona</strong>.</li></ol><ol type="1" id="3f3648ad-99fc-80e0-b48a-cc5cd346d58d" class="numbered-list" start="6" dir="auto"><li><strong>No usar </strong><code><strong>webkit-background-clip: text</strong></code> → Safari aún requiere el prefijo.</li></ol><ol type="1" id="3f3648ad-99fc-8059-83c2-d75576faf1f5" class="numbered-list" start="7" dir="auto"><li><strong>Olvidar el color de fallback</strong> → si la imagen no carga, el elemento queda transparente. Definir un <code>background-color</code> de respaldo.</li></ol><ol type="1" id="3f3648ad-99fc-8035-a409-cc9d3c249361" class="numbered-list" start="8" dir="auto"><li><strong>Imágenes muy pesadas</strong> → afectan al rendimiento. Optimizar con WebP/AVIF y usar <code>image-set()</code>.</li></ol><ol type="1" id="3f3648ad-99fc-809e-ab90-df950e948535" class="numbered-list" start="9" dir="auto"><li><strong>Múltiples fondos mal ordenados</strong> → el primero se dibuja <strong>encima</strong>; el último, <strong>debajo</strong>. Invertir el orden es un error frecuente.</li></ol><ol type="1" id="3f3648ad-99fc-8094-a30f-f05ad156b954" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>background</strong></code><strong> en </strong><code><strong>body</strong></code><strong> sin </strong><code><strong>height</strong></code> → el fondo cubre solo el área de contenido, no toda la pantalla. Usar <code>min-height: 100vh</code>.</li></ol><h2 id="3f3648ad-99fc-8036-96bb-dbbee0edbc83" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f3648ad-99fc-8068-9c52-ef05b11ba4a6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f3648ad-99fc-806c-b2aa-cadec36feab9" dir="ltr"><th id="Vz@S" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="WOE?" class="simple-table-header-color simple-table-header" style="width:431px"><strong>Ejemplo</strong></th></tr></thead><tbody><tr id="3f3648ad-99fc-80b1-b858-f02ed5140601" dir="ltr"><td id="Vz@S" class="">Hero con imagen</td><td id="WOE?" class="" style="width:431px"><code>url(...) center / cover no-repeat</code></td></tr><tr id="3f3648ad-99fc-8036-a051-fac2bf714613" dir="ltr"><td id="Vz@S" class="">Gradiente de marca</td><td id="WOE?" class="" style="width:431px"><code>linear-gradient(135deg, ...)</code></td></tr><tr id="3f3648ad-99fc-8089-bf15-e8906ef94c7e" dir="ltr"><td id="Vz@S" class="">Patrón repetido</td><td id="WOE?" class="" style="width:431px"><code>repeating-linear-gradient(...)</code></td></tr><tr id="3f3648ad-99fc-80c5-994a-ee185ae25508" dir="ltr"><td id="Vz@S" class="">Texto con gradiente</td><td id="WOE?" class="" style="width:431px"><code>background-clip: text</code></td></tr><tr id="3f3648ad-99fc-80e5-b2a6-d072b6b0bc66" dir="ltr"><td id="Vz@S" class="">Múltiples capas</td><td id="WOE?" class="" style="width:431px">Imagen + gradiente</td></tr><tr id="3f3648ad-99fc-8050-a853-c10ae9c5898c" dir="ltr"><td id="Vz@S" class="">Fondo fijo (parallax)</td><td id="WOE?" class="" style="width:431px"><code>background-attachment: fixed</code></td></tr><tr id="3f3648ad-99fc-80c9-a0eb-c095b8e284c9" dir="ltr"><td id="Vz@S" class="">Card con imagen</td><td id="WOE?" class="" style="width:431px"><code>background-color</code> + <code>background-image</code></td></tr><tr id="3f3648ad-99fc-8017-83e5-e77635d65a81" dir="ltr"><td id="Vz@S" class="">Overlay</td><td id="WOE?" class="" style="width:431px"><code>linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))</code></td></tr><tr id="3f3648ad-99fc-80dd-8b54-ffc93e035535" dir="ltr"><td id="Vz@S" class="">Borde con gradiente</td><td id="WOE?" class="" style="width:431px"><code>background-clip: padding-box</code></td></tr><tr id="3f3648ad-99fc-8072-94f6-f4ecd178481e" dir="ltr"><td id="Vz@S" class="">Skeleton loader</td><td id="WOE?" class="" style="width:431px"><code>linear-gradient</code> animado</td></tr></tbody></table><h2 id="3f3648ad-99fc-80a2-8d20-f0c69e7b534b" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f3648ad-99fc-8093-bb06-d3eb57b2bc4e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-color</strong></code> → solo el color (no resetea nada).</li></ul><ul id="3f3648ad-99fc-804c-b3ed-ecc90ed980b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code> → imagen o gradiente.</li></ul><ul id="3f3648ad-99fc-80ba-ab26-f630ed8cd815" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size</strong></code> → <code>cover</code> / <code>contain</code>.</li></ul><ul id="3f3648ad-99fc-8054-968a-c77689e09381" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-position</strong></code> → posición de la imagen.</li></ul><ul id="3f3648ad-99fc-80ca-90e9-e5ba302dabab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip</strong></code> → hasta dónde se pinta el fondo.</li></ul><ul id="3f3648ad-99fc-8021-94b2-c340f83faa20" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-origin</strong></code> → desde dónde se posiciona.</li></ul><ul id="3f3648ad-99fc-807e-bb81-c38a0ad8e749" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-blend-mode</strong></code> → mezcla capas.</li></ul><ul id="3f3648ad-99fc-805d-84cd-d73d697ae997" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>border-radius</strong></code> → el fondo se recorta con las esquinas.</li></ul><ul id="3f3648ad-99fc-8073-8f5e-ff183a010398" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>box-shadow</strong></code> → sombra de la caja, no del fondo.</li></ul><ul id="3f3648ad-99fc-80cf-9a17-fb2090391b7e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>filter: blur()</strong></code> → desenfoca el fondo (con <code>::before</code> para no afectar al contenido).</li></ul><ul id="3f3648ad-99fc-80f1-997e-f00b4a3aad3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>image-set()</strong></code> → imágenes responsive para fondos.</li></ul><ul id="3f3648ad-99fc-806e-bd30-e240adb63a0d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>prefers-color-scheme</strong></code> → adaptar fondos a modo oscuro.</li></ul><p id="3f3648ad-99fc-80b5-b5df-cc7767a97be0" class="" dir="auto"><strong>Orden de las capas visualizado:</strong></p><pre id="3f3648ad-99fc-80d3-8ed3-d73ae2bb92c4" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">background:
+  url(&quot;capa-1.png&quot;),      ← arriba
+  url(&quot;capa-2.png&quot;),      ← media
+  linear-gradient(...);   ← abajo
+
+┌─────────────────────┐
+│  capa-1 (encima)    │
+│  ┌───────────────┐  │
+│  │  capa-2       │  │
+│  │  ┌─────────┐  │  │
+│  │  │gradiente│  │  │
+│  │  └─────────┘  │  │
+│  └───────────────┘  │
+└─────────────────────┘</code></pre><h2 id="3f3648ad-99fc-8003-9ef1-ce31a9bcc15a" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f3648ad-99fc-80f4-ae51-d01c60da99d9" class="" dir="auto">Imagina que cada elemento es una <strong>vitrina de cristal</strong>. El <code>background</code> es todo lo que colocas dentro: el color de la pared (<code>background-color</code>), un póster (<code>background-image</code>), cómo lo colocas (<code>position</code>), de qué tamaño (<code>size</code>), si se repite (<code>repeat</code>), etc. Si usas el <strong>shorthand</strong>, es como vaciar la vitrina y volver a decorarla desde cero. Si solo usas <code>background-color</code>, cambias solo el color de la pared sin tocar el póster.</p><h2 id="3f3648ad-99fc-806c-9065-d877ee7f0adf" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f3648ad-99fc-802c-80b8-c8368c7fdab7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>background</em><p id="3f3648ad-99fc-8048-9b26-f3ae05e1921d" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/background">https://developer.mozilla.org/es/docs/Web/CSS/background</a></p></li></ul><ul id="3f3648ad-99fc-808b-819c-eb533eedc6c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Backgrounds and Borders Module Level 3<p id="3f3648ad-99fc-8078-818a-fbbba4102b50" class="" dir="auto"><a href="https://www.w3.org/TR/css-backgrounds-3/">https://www.w3.org/TR/css-backgrounds-3/</a></p></li></ul><ul id="3f3648ad-99fc-8009-855b-c0157e4a642c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>background</em><p id="3f3648ad-99fc-806f-93b6-de606c8c1b71" class="" dir="auto"><a href="https://css-tricks.com/almanac/properties/b/background/">https://css-tricks.com/almanac/properties/b/background/</a></p></li></ul><ul id="3f3648ad-99fc-80ce-895f-e6c78acb9a86" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>Using CSS gradients</em><p id="3f3648ad-99fc-8087-895c-edd9a28e674e" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_Images/Using_CSS_gradients">https://developer.mozilla.org/es/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a></p></li></ul><ul id="3f3648ad-99fc-80e1-b520-e6dfa9bc820f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Optimize images</em><p id="3f3648ad-99fc-8037-b332-ddda9ff7b72b" class="" dir="auto"><a href="https://web.dev/learn/images/">https://web.dev/learn/images/</a></p></li></ul><h2 id="3f3648ad-99fc-8081-8e20-d91a6baa142c" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f3648ad-99fc-806c-9223-e418c7ee4998" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Regla de oro</strong>: si solo quieres cambiar el <strong>color</strong>, usar <code>background-color</code>; si quieres definir <strong>todo el fondo</strong>, usar <code>background</code>.</li></ul><ul id="3f3648ad-99fc-80ee-81e0-d6f2ea9ac352" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>El shorthand resetea</strong> → causa nº1 de bugs de fondo. Tenerlo siempre presente.</li></ul><ul id="3f3648ad-99fc-80c6-85f7-ebd65c938490" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Sintaxis </strong><code><strong>position / size</strong></code> → <code>center / cover</code> es el patrón más usado.</li></ul><ul id="3f3648ad-99fc-8087-9cde-d788f6e2771f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Múltiples capas</strong> → separadas por comas, la primera se dibuja <strong>encima</strong>.</li></ul><ul id="3f3648ad-99fc-8085-9583-df4bcaaef282" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-clip: text</strong></code> → gradiente en texto; requiere <code>webkit-background-clip</code> en Safari.</li></ul><ul id="3f3648ad-99fc-8002-8071-ff384ea5e06f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-attachment: fixed</strong></code> → cuidado en móvil; algunos navegadores lo ignoran.</li></ul><ul id="3f3648ad-99fc-8050-80cf-dae63176223e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fallback de color</strong> → siempre definir un <code>background-color</code> de respaldo por si la imagen falla.</li></ul><ul id="3f3648ad-99fc-806b-9e79-ed7548869163" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Optimización</strong> → usar WebP/AVIF, <code>image-set()</code>, y evitar imágenes muy pesadas en fondos.</li></ul><ul id="3f3648ad-99fc-8038-85c0-da78747bc848" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-size: cover</strong></code> vs <code><strong>contain</strong></code> → <code>cover</code> llena (recorta), <code>contain</code> muestra todo (deja aire).</li></ul><ul id="3f3648ad-99fc-8042-899a-e54f2a07b440" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Variables CSS</strong> → definir gradientes de marca como variables para consistencia.</li></ul><ul id="3f3648ad-99fc-8097-919d-cca4b848d4e2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>prefers-color-scheme</strong></code> → adaptar fondos a modo oscuro (gradientes y colores).</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

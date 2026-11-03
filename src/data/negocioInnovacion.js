@@ -17,12 +17,14 @@ export const NEGOCIO_INNOVACION = {
           "nombre": "Innovación y sus Tipos",
           "firma": "La innovación es el proceso de introducir algo nuevo (un producto, servicio, proceso, método o modelo de…",
           "icon": "💡",
+          "lab": 2,
         },
         {
           "id": "innovacion-disruptiva",
           "nombre": "La Teoría de la Innovación Disruptiva (Clayton Christensen)",
           "firma": "La Innovación Disruptiva es un concepto acuñado por el profesor Clayton M.",
           "icon": "⚡",
+          "lab": 2,
         },
       ],
     },
@@ -34,18 +36,21 @@ export const NEGOCIO_INNOVACION = {
           "nombre": "Transformación Digital",
           "firma": "La transformación digital es el proceso mediante el cual una organización integra tecnologías digitales en…",
           "icon": "📲",
+          "lab": 2,
         },
         {
           "id": "transformacion-digital-transfronteriza",
           "nombre": "Transformación Digital Transfronteriza (Cross-Border Digital Transformation)",
           "firma": "La Transformación Digital Transfronteriza es el proceso mediante el cual las organizaciones integran…",
           "icon": "🌐",
+          "lab": 2,
         },
         {
           "id": "escalabilidad-digital",
           "nombre": "Escalabilidad Operativa Digital",
           "firma": "La Escalabilidad Operativa Digital es la capacidad de una organización para aumentar su volumen de…",
           "icon": "📶",
+          "lab": 2,
         },
       ],
     },
@@ -57,30 +62,35 @@ export const NEGOCIO_INNOVACION = {
           "nombre": "Filosofía ExO (Organización Exponencial)",
           "firma": "La Filosofía ExO (Exponential Organization / Organización Exponencial) es un marco organizacional y de…",
           "icon": "🧬",
+          "lab": 2,
         },
         {
           "id": "empresas-tecnologicas",
           "nombre": "Empresas Tecnológicas (Tech Companies)",
           "firma": "Una empresa tecnológica es una organización que utiliza la tecnología como su principal herramienta de…",
           "icon": "💻",
+          "lab": 1,
         },
         {
           "id": "software-empresarial",
           "nombre": "Software Empresarial (Enterprise Software)",
           "firma": "El software empresarial es un conjunto de programas, aplicaciones y plataformas informáticas diseñados para…",
           "icon": "🖥️",
+          "lab": 1,
         },
         {
           "id": "business-ai",
           "nombre": "Business AI / Enterprise AI",
           "firma": "Business AI (o Enterprise AI) se refiere a la aplicación de inteligencia artificial (IA) en entornos…",
           "icon": "🧠",
+          "lab": 2,
         },
         {
           "id": "automatizacion-empresarial",
           "nombre": "Automatización Empresarial (Business Automation)",
           "firma": "La automatización empresarial es el uso de tecnología, software y sistemas para ejecutar tareas y procesos…",
           "icon": "🤖",
+          "lab": 2,
         },
       ],
     },
@@ -296,6 +306,54 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "tipos-innovacion-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Innovación Incremental",
+              "descripcion": "Definición: Es un tipo de innovación que introduce mejoras graduales y continuas en productos, servicios o procesos existentes.",
+            },
+            {
+              "concepto": "Innovación Disruptiva",
+              "descripcion": "Definición: Acuñado por Clayton Christensen, describe una innovación que crea un nuevo mercado y eventualmente desplaza a los líderes establecidos.",
+            },
+            {
+              "concepto": "Innovación Radical",
+              "descripcion": "Definición: Es una innovación que introduce cambios fundamentales y revolucionarios en la tecnología, los procesos o los modelos de negocio.",
+            },
+            {
+              "concepto": "Innovación Tecnológica",
+              "descripcion": "Definición: Se refiere específicamente a la aplicación de nuevos conocimientos tecnológicos para crear productos, procesos o servicios que antes no existían, o para…",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Innovación Incremental → Definición: Es un tipo de innovación que introduce mejoras graduales y continuas en productos, servicios o procesos existentes.  ·  Innovación Disruptiva → Definición: Acuñado por Clayton Christensen, describe una innovación que crea un nuevo mercado y eventualmente desplaza a los líderes establecidos.  ·  Innovación Radical → Definición: Es una innovación que introduce cambios fundamentales ",
+        },
+        {
+          "id": "tipos-innovacion-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La innovación es el __________ (un producto, servicio, proceso, método o modelo de negocio) que genera valor para la organización, sus clientes y la sociedad.",
+          "correcto": "proceso de introducir algo nuevo",
+          "opciones": [
+            "Innovación Disruptiva",
+            "proceso de introducir algo nuevo",
+            "integran tecnologías digitales",
+            "integra tecnologías digitales",
+          ],
+          "pista": "Empieza por la primera letra: «p…». Reta a proceso de introducir algo nuevo con su definición.",
+          "solucion": "«proceso de introducir algo nuevo»: La innovación es el proceso de introducir algo nuevo (un producto, servicio, proceso, método o modelo de negocio) que genera valor para la organización, sus clientes y la sociedad.",
+        },
+      ],
+    },
   },
   "innovacion-disruptiva": {
     "id": "innovacion-disruptiva",
@@ -432,6 +490,58 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "innovacion-disruptiva-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Análisis de la competencia",
+              "descripcion": "Identificar posibles disruptores en la industria.",
+            },
+            {
+              "concepto": "Estrategia de startups",
+              "descripcion": "Diseñar una estrategia de entrada al mercado desde la \"gama baja\" o creando un nuevo mercado.",
+            },
+            {
+              "concepto": "Estrategia de grandes empresas",
+              "descripcion": "Crear unidades de negocio independientes para explorar innovaciones disruptivas.",
+            },
+            {
+              "concepto": "Inversión en I+D",
+              "descripcion": "Decidir si invertir en innovación sostenida o disruptiva.",
+            },
+            {
+              "concepto": "Gestión del cambio",
+              "descripcion": "Preparar a la organización para una posible disrupción.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Análisis de la competencia → Identificar posibles disruptores en la industria.  ·  Estrategia de startups → Diseñar una estrategia de entrada al mercado desde la \"gama baja\" o creando un nuevo mercado.  ·  Estrategia de grandes empresas → Crear unidades de negocio independientes para explorar innovaciones disruptivas.  ·  Inversión en I+D → Decidir si invertir en innovación sostenida o disruptiva.  ·  Gestión del cam",
+        },
+        {
+          "id": "innovacion-disruptiva-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ es un concepto acuñado por el profesor Clayton M.",
+          "correcto": "Innovación Disruptiva",
+          "opciones": [
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "integran tecnologías digitales",
+            "proceso de introducir algo nuevo",
+          ],
+          "pista": "Empieza por la primera letra: «I…». Reta a Innovación Disruptiva con su definición.",
+          "solucion": "«Innovación Disruptiva»: La Innovación Disruptiva es un concepto acuñado por el profesor Clayton M.",
+        },
+      ],
+    },
   },
   "transformacion-digital": {
     "id": "transformacion-digital",
@@ -599,6 +709,62 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 2,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "transformacion-digital-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Retail",
+              "descripcion": "Tienda física + e-commerce + app + personalización en tiempo real.",
+            },
+            {
+              "concepto": "Manufactura",
+              "descripcion": "Industria 4.0 → sensores IoT, mantenimiento predictivo, gemelos digitales.",
+            },
+            {
+              "concepto": "Salud (HealthTech)",
+              "descripcion": "Telemedicina, historia clínica digital, monitoreo remoto de pacientes.",
+            },
+            {
+              "concepto": "Educación (EdTech)",
+              "descripcion": "Plataformas de aprendizaje, clases híbridas, IA para personalización.",
+            },
+            {
+              "concepto": "Banca y Finanzas",
+              "descripcion": "Banca móvil, asesores financieros virtuales, detección de fraudes.",
+            },
+            {
+              "concepto": "Agroindustria (AgTech)",
+              "descripcion": "Sensores en el campo, drones, análisis de suelo, optimización de riego.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Retail → Tienda física + e-commerce + app + personalización en tiempo real.  ·  Manufactura → Industria 4.0 → sensores IoT, mantenimiento predictivo, gemelos digitales.  ·  Salud (HealthTech) → Telemedicina, historia clínica digital, monitoreo remoto de pacientes.  ·  Educación (EdTech) → Plataformas de aprendizaje, clases híbridas, IA para personalización.  ·  Banca y Finanzas → Banca móvil, asesores financieros vir",
+        },
+        {
+          "id": "transformacion-digital-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La transformación digital es el proceso mediante el cual una organización __________ en todas sus áreas operativas, cambiando fundamentalmente cómo opera y cómo entrega valor a sus clientes.",
+          "correcto": "integra tecnologías digitales",
+          "opciones": [
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "integran tecnologías digitales",
+            "proceso de introducir algo nuevo",
+          ],
+          "pista": "Empieza por la primera letra: «i…». Reta a integra tecnologías digitales con su definición.",
+          "solucion": "«integra tecnologías digitales»: La transformación digital es el proceso mediante el cual una organización integra tecnologías digitales en todas sus áreas operativas, cambiando fundamentalmente cómo opera y cómo entrega valor a sus…",
+        },
+      ],
+    },
   },
   "transformacion-digital-transfronteriza": {
     "id": "transformacion-digital-transfronteriza",
@@ -759,6 +925,62 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "transformacion-digital-transfronteriza-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Expansión internacional",
+              "descripcion": "Empresa local que quiere vender en otros países sin abrir oficinas físicas.",
+            },
+            {
+              "concepto": "Ecommerce global",
+              "descripcion": "Tienda online que vende a clientes en múltiples países.",
+            },
+            {
+              "concepto": "SaaS global",
+              "descripcion": "Software como servicio con clientes en todo el mundo.",
+            },
+            {
+              "concepto": "Marketplaces regionales",
+              "descripcion": "Plataformas que conectan a compradores y vendedores en varios países.",
+            },
+            {
+              "concepto": "Logística internacional",
+              "descripcion": "Empresas que gestionan envíos y aduanas digitalmente.",
+            },
+            {
+              "concepto": "Talento global",
+              "descripcion": "Equipos remotos distribuidos en varios países.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Expansión internacional → Empresa local que quiere vender en otros países sin abrir oficinas físicas.  ·  Ecommerce global → Tienda online que vende a clientes en múltiples países.  ·  SaaS global → Software como servicio con clientes en todo el mundo.  ·  Marketplaces regionales → Plataformas que conectan a compradores y vendedores en varios países.  ·  Logística internacional → Empresas que gestionan envíos y aduan",
+        },
+        {
+          "id": "transformacion-digital-transfronteriza-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La Transformación Digital Transfronteriza es el proceso mediante el cual las organizaciones __________ para operar, competir y crear valor a través de fronteras geográficas, culturales y regulatorias.",
+          "correcto": "integran tecnologías digitales",
+          "opciones": [
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "integran tecnologías digitales",
+            "proceso de introducir algo nuevo",
+          ],
+          "pista": "Empieza por la primera letra: «i…». Reta a integran tecnologías digitales con su definición.",
+          "solucion": "«integran tecnologías digitales»: La Transformación Digital Transfronteriza es el proceso mediante el cual las organizaciones integran tecnologías digitales para operar, competir y crear valor a través de fronteras geográficas,…",
+        },
+      ],
+    },
   },
   "escalabilidad-digital": {
     "id": "escalabilidad-digital",
@@ -933,6 +1155,62 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "escalabilidad-digital-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Picos estacionales",
+              "descripcion": "Escalar infraestructura para Black Friday, Hot Sale, navidad.",
+            },
+            {
+              "concepto": "Lanzamiento de producto",
+              "descripcion": "Preparar la operación para el aumento de demanda.",
+            },
+            {
+              "concepto": "Entrada a nuevos mercados",
+              "descripcion": "Replicar operaciones en nuevos países.",
+            },
+            {
+              "concepto": "Crecimiento orgánico",
+              "descripcion": "Escalar a medida que crece la base de clientes.",
+            },
+            {
+              "concepto": "Adquisiciones",
+              "descripcion": "Integrar y escalar operaciones de empresas adquiridas.",
+            },
+            {
+              "concepto": "Automatización",
+              "descripcion": "Reducir costos operativos manuales.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Picos estacionales → Escalar infraestructura para Black Friday, Hot Sale, navidad.  ·  Lanzamiento de producto → Preparar la operación para el aumento de demanda.  ·  Entrada a nuevos mercados → Replicar operaciones en nuevos países.  ·  Crecimiento orgánico → Escalar a medida que crece la base de clientes.  ·  Adquisiciones → Integrar y escalar operaciones de empresas adquiridas.  ·  Automatización → Reducir costos ",
+        },
+        {
+          "id": "escalabilidad-digital-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "Es crecer de manera __________.",
+          "correcto": "inteligente y sostenible",
+          "opciones": [
+            "proceso de introducir algo nuevo",
+            "inteligente y sostenible",
+            "integra tecnologías digitales",
+            "Innovación Disruptiva",
+          ],
+          "pista": "Empieza por la primera letra: «i…». Reta a inteligente y sostenible con su definición.",
+          "solucion": "«inteligente y sostenible»: Es crecer de manera inteligente y sostenible.",
+        },
+      ],
+    },
   },
   "filosofia-exo": {
     "id": "filosofia-exo",
@@ -1081,6 +1359,54 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "filosofia-exo-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Startup en crecimiento",
+              "descripcion": "Adoptar los principios ExO para escalar rápidamente con recursos limitados.",
+            },
+            {
+              "concepto": "Empresa tradicional en transformación",
+              "descripcion": "Incorporar atributos ExO (experimentación, algoritmos, plataformas) para competir en la era digital.",
+            },
+            {
+              "concepto": "Organización sin fines de lucro",
+              "descripcion": "Usar el modelo ExO para amplificar su impacto social con recursos limitados.",
+            },
+            {
+              "concepto": "Gobierno",
+              "descripcion": "Aplicar principios ExO para mejorar la eficiencia y la transparencia de los servicios públicos.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Startup en crecimiento → Adoptar los principios ExO para escalar rápidamente con recursos limitados.  ·  Empresa tradicional en transformación → Incorporar atributos ExO (experimentación, algoritmos, plataformas) para competir en la era digital.  ·  Organización sin fines de lucro → Usar el modelo ExO para amplificar su impacto social con recursos limitados.  ·  Gobierno → Aplicar principios ExO para mejorar la efici",
+        },
+        {
+          "id": "filosofia-exo-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La __________ (Exponential Organization / Organización Exponencial) es un marco organizacional y de gestión desarrollado por Salim Ismail, junto con Michael S. Malone y Yuri van Geest, en su libro \"Organizaciones Exponenciales\" (2014).",
+          "correcto": "Filosofía ExO",
+          "opciones": [
+            "Filosofía ExO",
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "proceso de introducir algo nuevo",
+          ],
+          "pista": "Empieza por la primera letra: «F…». Reta a Filosofía ExO con su definición.",
+          "solucion": "«Filosofía ExO»: La Filosofía ExO (Exponential Organization / Organización Exponencial) es un marco organizacional y de gestión desarrollado por Salim Ismail, junto con Michael S. Malone y Yuri van Geest, en su libro…",
+        },
+      ],
+    },
   },
   "empresas-tecnologicas": {
     "id": "empresas-tecnologicas",
@@ -1243,6 +1569,41 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 3,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "empresas-tecnologicas-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Transformación digital",
+              "descripcion": "Empresas tradicionales adoptan tecnología para modernizar sus procesos.",
+            },
+            {
+              "concepto": "Nuevas startups",
+              "descripcion": "Creación de empresas con base en IA, fintech o SaaS.",
+            },
+            {
+              "concepto": "Inversión",
+              "descripcion": "Fondos de capital riesgo buscan empresas tecnológicas escalables.",
+            },
+            {
+              "concepto": "Innovación abierta",
+              "descripcion": "Grandes empresas colaboran con startups tecnológicas.",
+            },
+            {
+              "concepto": "Talento digital",
+              "descripcion": "Atraer y retener perfiles técnicos (desarrolladores, científicos de datos).",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Transformación digital → Empresas tradicionales adoptan tecnología para modernizar sus procesos.  ·  Nuevas startups → Creación de empresas con base en IA, fintech o SaaS.  ·  Inversión → Fondos de capital riesgo buscan empresas tecnológicas escalables.  ·  Innovación abierta → Grandes empresas colaboran con startups tecnológicas.  ·  Talento digital → Atraer y retener perfiles técnicos (desarrolladores, científicos ",
+        },
+      ],
+    },
   },
   "software-empresarial": {
     "id": "software-empresarial",
@@ -1405,6 +1766,41 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "software-empresarial-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Crecimiento rápido (startup)",
+              "descripcion": "Implementar un ERP en la nube (como Odoo) para centralizar finanzas y operaciones.",
+            },
+            {
+              "concepto": "Expansión internacional",
+              "descripcion": "Usar un software de RRHH (ej → Workday) para gestionar nóminas en múltiples países.",
+            },
+            {
+              "concepto": "Venta online",
+              "descripcion": "Implementar una plataforma de e-commerce (ej → VTEX) que integre inventario, pagos y logística.",
+            },
+            {
+              "concepto": "Mejora de la experiencia del cliente",
+              "descripcion": "Usar un CRM (ej → Salesforce) para unificar el historial del cliente y personalizar el servicio.",
+            },
+            {
+              "concepto": "Toma de decisiones",
+              "descripcion": "Implementar BI (ej → Power BI) para dashboards en tiempo real.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Crecimiento rápido (startup) → Implementar un ERP en la nube (como Odoo) para centralizar finanzas y operaciones.  ·  Expansión internacional → Usar un software de RRHH (ej → Workday) para gestionar nóminas en múltiples países.  ·  Venta online → Implementar una plataforma de e-commerce (ej → VTEX) que integre inventario, pagos y logística.  ·  Mejora de la experiencia del cliente → Usar un CRM (ej → Salesforce) para",
+        },
+      ],
+    },
   },
   "business-ai": {
     "id": "business-ai",
@@ -1557,6 +1953,58 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 1,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "business-ai-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Netflix (IA en Recomendación)",
+              "descripcion": "Problema: ¿Cómo mantener a los usuarios viendo contenido?",
+            },
+            {
+              "concepto": "Amazon (IA en Logística y E-commerce)",
+              "descripcion": "Problema: Optimizar entregas y personalizar la experiencia de compra.",
+            },
+            {
+              "concepto": "Mercado Libre (IA en Fintech y Logística)",
+              "descripcion": "Problema: Evaluar riesgos crediticios para millones de usuarios no bancarizados.",
+            },
+            {
+              "concepto": "Rappi (IA en Delivery y SuperApp)",
+              "descripcion": "Problema: Asignar repartidores de manera eficiente en tiempo real.",
+            },
+            {
+              "concepto": "Nubank (IA en Banca Digital)",
+              "descripcion": "Problema: Detectar fraudes y evaluar riesgos crediticios en tiempo real.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Netflix (IA en Recomendación) → Problema: ¿Cómo mantener a los usuarios viendo contenido?  ·  Amazon (IA en Logística y E-commerce) → Problema: Optimizar entregas y personalizar la experiencia de compra.  ·  Mercado Libre (IA en Fintech y Logística) → Problema: Evaluar riesgos crediticios para millones de usuarios no bancarizados.  ·  Rappi (IA en Delivery y SuperApp) → Problema: Asignar repartidores de manera eficie",
+        },
+        {
+          "id": "business-ai-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "__________ se refiere a la aplicación de inteligencia artificial (IA) en entornos corporativos para optimizar procesos, mejorar la toma de decisiones, automatizar tareas y crear nuevo valor a escala.",
+          "correcto": "Business AI (o Enterprise AI)",
+          "opciones": [
+            "Business AI (o Enterprise AI)",
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "proceso de introducir algo nuevo",
+          ],
+          "pista": "Empieza por la primera letra: «B…». Reta a Business AI (o Enterprise AI) con su definición.",
+          "solucion": "«Business AI (o Enterprise AI)»: Business AI (o Enterprise AI) se refiere a la aplicación de inteligencia artificial (IA) en entornos corporativos para optimizar procesos, mejorar la toma de decisiones, automatizar tareas y crear…",
+        },
+      ],
+    },
   },
   "automatizacion-empresarial": {
     "id": "automatizacion-empresarial",
@@ -1711,5 +2159,61 @@ export const NEGOCIO_INNOVACION_DOCS = {
         "correcta": 0,
       },
     ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "automatizacion-empresarial-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une concepto y descripción",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pares": [
+            {
+              "concepto": "Empresa de e-commerce",
+              "descripcion": "Automatizar la gestión de inventario, el envío de confirmaciones de pedidos y la actualización de tracking.",
+            },
+            {
+              "concepto": "Fintech",
+              "descripcion": "Automatizar la verificación de identidad (KYC), la evaluación crediticia y la detección de fraudes.",
+            },
+            {
+              "concepto": "Logística",
+              "descripcion": "Automatizar la asignación de pedidos a transportistas y la generación de guías de despacho.",
+            },
+            {
+              "concepto": "Recursos Humanos",
+              "descripcion": "Automatizar la gestión de vacaciones, la nómina y el onboarding de empleados.",
+            },
+            {
+              "concepto": "Marketing",
+              "descripcion": "Automatizar campañas de email, publicación en redes sociales y segmentación de audiencias.",
+            },
+            {
+              "concepto": "Operaciones",
+              "descripcion": "Automatizar la generación de reportes y dashboards.",
+            },
+          ],
+          "pista": "Selecciona un concepto de la izquierda y luego su descripción a la derecha.",
+          "solucion": "Empresa de e-commerce → Automatizar la gestión de inventario, el envío de confirmaciones de pedidos y la actualización de tracking.  ·  Fintech → Automatizar la verificación de identidad (KYC), la evaluación crediticia y la detección de fraudes.  ·  Logística → Automatizar la asignación de pedidos a transportistas y la generación de guías de despacho.  ·  Recursos Humanos → Automatizar la gestión de vacaciones, la nó",
+        },
+        {
+          "id": "automatizacion-empresarial-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "frase": "La automatización empresarial es el uso de __________ para ejecutar tareas y procesos repetitivos con mínima intervención humana.",
+          "correcto": "tecnología, software y sistemas",
+          "opciones": [
+            "Innovación Disruptiva",
+            "integra tecnologías digitales",
+            "proceso de introducir algo nuevo",
+            "tecnología, software y sistemas",
+          ],
+          "pista": "Empieza por la primera letra: «t…». Reta a tecnología, software y sistemas con su definición.",
+          "solucion": "«tecnología, software y sistemas»: La automatización empresarial es el uso de tecnología, software y sistemas para ejecutar tareas y procesos repetitivos con mínima intervención humana.",
+        },
+      ],
+    },
   },
 };

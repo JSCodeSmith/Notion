@@ -1,0 +1,957 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>justify-content</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3f5648ad-99fc-803d-8499-d59cbfb6840b" class="page sans"><header><h1 class="page-title" dir="auto"><code>justify-content</code></h1><p class="page-description" dir="auto"></p></header><div class="page-body"><p id="3f5648ad-99fc-8097-bfd7-d853175b656d" class="" dir="auto">
+</p><h1 id="3f5648ad-99fc-8008-925d-e7e6f73414a9" class="" dir="auto"><strong>📄 </strong><code><strong>justify-content</strong></code></h1><h2 id="3f5648ad-99fc-802b-800f-dd8169d15059" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3f5648ad-99fc-8017-8b21-e7409e64879e" class="" dir="auto"><code>justify-content</code> es una <strong>propiedad CSS</strong> que alinea y distribuye los ítems de un <strong>contenedor flex</strong> (o grid) a lo largo del <strong>eje principal</strong>, controlando cómo se reparte el espacio libre entre ellos.</p><h2 id="3f5648ad-99fc-80ec-ae32-cce964c7e65a" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3f5648ad-99fc-8091-9bee-d9b25ee7ef8d" class="" dir="auto">Forma parte de las <strong>propiedades de alineación de flexbox</strong> (junto con <code>align-items</code>, <code>align-self</code>, <code>align-content</code>, <code>place-content</code>). </p><p id="3f5648ad-99fc-8036-9965-e4570a76c21e" class="" dir="auto">Es una de las propiedades más usadas para centrar y distribuir ítems.</p><p id="3f5648ad-99fc-80bb-8856-c59e5c573a67" class="" dir="auto">Actúa sobre el <strong>eje principal</strong>, que depende de <code>flex-direction</code>:</p><ul id="3f5648ad-99fc-802b-961f-c4c979a1c57d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Con <code>flex-direction: row</code> → eje principal <strong>horizontal</strong>.</li></ul><ul id="3f5648ad-99fc-804d-8ae3-df1456dae0d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Con <code>flex-direction: column</code> → eje principal <strong>vertical</strong>.</li></ul><p id="3f5648ad-99fc-800c-937f-faef7cd7ceb5" class="" dir="auto">⚠️ <strong>No confundir con </strong><code><strong>align-items</strong></code> → <code>justify-content</code> alinea en el <strong>eje principal</strong>; <code>align-items</code>, en el <strong>eje transversal</strong>.</p><h2 id="3f5648ad-99fc-8068-9bd7-cf0d782fb036" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3f5648ad-99fc-8020-a335-de1a7dfbd48e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Centrar</strong> ítems horizontal o verticalmente.</li></ul><ul id="3f5648ad-99fc-8085-be2c-c1a433ce79d1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Distribuir ítems con <strong>espacio entre ellos</strong>.</li></ul><ul id="3f5648ad-99fc-8041-aed1-e37846f7c0ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Agrupar ítems al <strong>inicio</strong>, <strong>final</strong> o <strong>centro</strong>.</li></ul><ul id="3f5648ad-99fc-801e-b61f-fd1c754332c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Repartir el espacio libre de forma <strong>uniforme</strong>.</li></ul><ul id="3f5648ad-99fc-80bc-837a-d2faa3660269" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir <strong>menús de navegación</strong>, <strong>barras de acciones</strong>, <strong>grids</strong>.</li></ul><ul id="3f5648ad-99fc-8061-a76c-f0e0fcd81c7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear layouts con <strong>espaciado consistente</strong> sin márgenes.</li></ul><h2 id="3f5648ad-99fc-80a9-baf8-e69dd7e0fb1b" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><p id="3f5648ad-99fc-8048-b53a-f4748154de42" class="" dir="auto">El navegador distribuye los ítems flex a lo largo del eje principal según el valor:</p><ol type="1" id="3f5648ad-99fc-80f8-96ed-da652874125a" class="numbered-list" start="1" dir="auto"><li><code><strong>flex-start</strong></code> (por defecto) → los ítems se agrupan al <strong>inicio</strong> del eje.</li></ol><ol type="1" id="3f5648ad-99fc-80da-a532-c1bbe8e19d47" class="numbered-list" start="2" dir="auto"><li><code><strong>flex-end</strong></code> → al <strong>final</strong> del eje.</li></ol><ol type="1" id="3f5648ad-99fc-80c8-bfbb-ceda737bec4b" class="numbered-list" start="3" dir="auto"><li><code><strong>center</strong></code> → al <strong>centro</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8072-a003-f7368d73916b" class="numbered-list" start="4" dir="auto"><li><code><strong>space-between</strong></code> → el primer ítem al inicio, el último al final, y el espacio se reparte <strong>entre</strong> ellos.</li></ol><ol type="1" id="3f5648ad-99fc-80dc-a87d-e05ff66891bb" class="numbered-list" start="5" dir="auto"><li><code><strong>space-around</strong></code> → cada ítem tiene el mismo espacio <strong>alrededor</strong>; los extremos tienen la mitad.</li></ol><ol type="1" id="3f5648ad-99fc-8047-afd7-f481ccdfee5f" class="numbered-list" start="6" dir="auto"><li><code><strong>space-evenly</strong></code> → el espacio <strong>entre todos</strong> los ítems (incluidos los extremos) es <strong>igual</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-8075-89fe-ff3aecf4f5bd" class="numbered-list" start="7" dir="auto"><li><code><strong>start</strong></code>, <code><strong>end</strong></code> → valores lógicos (respetan <code>writing-mode</code> y <code>direction</code>).</li></ol><ol type="1" id="3f5648ad-99fc-8095-961b-f366db75b2b2" class="numbered-list" start="8" dir="auto"><li><code><strong>left</strong></code>, <code><strong>right</strong></code> → valores físicos (ignoran <code>direction</code>).</li></ol><ol type="1" id="3f5648ad-99fc-80c3-b8c6-df16dd167ae7" class="numbered-list" start="9" dir="auto"><li><code><strong>stretch</strong></code> → estira los ítems (solo en grid, no en flex).</li></ol><p id="3f5648ad-99fc-808a-9131-fcaa4aa41308" class="" dir="auto">Reglas clave:</p><ul id="3f5648ad-99fc-80d0-8540-cd524a15486e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo aplica si hay espacio libre</strong> → si los ítems llenan el contenedor, no se nota.</li></ul><ul id="3f5648ad-99fc-80f0-9ed0-c327a265bb3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Depende de </strong><code><strong>flex-direction</strong></code> → con <code>column</code>, <code>flex-start</code> es arriba.</li></ul><ul id="3f5648ad-99fc-806c-8f6f-f521874b393a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Afecta a los ítems en conjunto</strong> → no a uno individual (eso es <code>align-self</code> o márgenes).</li></ul><ul id="3f5648ad-99fc-8065-94d0-ffb927780fd4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Funciona con flex y grid</strong> → en grid alinea las columnas (eje inline).</li></ul><ul id="3f5648ad-99fc-8039-8dbe-e81397fc6c52" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No confundir con </strong><code><strong>align-content</strong></code> → <code>align-content</code> distribuye <strong>líneas</strong> de ítems (con <code>flex-wrap</code>).</li></ul><h2 id="3f5648ad-99fc-80f7-9332-db66a97b06ee" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><p id="3f5648ad-99fc-807e-81dd-edafd2d05ae2" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3f5648ad-99fc-807c-8cd4-cc74d6c370f9" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">selector {
+  display: flex;
+  justify-content: valor;
+}</code></pre><table id="3f5648ad-99fc-803b-9ce8-d426c8d3704b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-8057-8f77-e96722d6a8d7" dir="ltr"><th id="w&gt;H~" class="simple-table-header-color simple-table-header" style="width:240px"><strong>Valor</strong></th><th id="RxHW" class="simple-table-header-color simple-table-header" style="width:435px"><strong>Descripción</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-80dc-8b78-f67451571762" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>flex-start</code></td><td id="RxHW" class="" style="width:435px">Por defecto. Ítems al inicio del eje principal.</td></tr><tr id="3f5648ad-99fc-808e-ad16-d3208b256b25" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>flex-end</code></td><td id="RxHW" class="" style="width:435px">Ítems al final del eje principal.</td></tr><tr id="3f5648ad-99fc-80a2-b331-ee6346652376" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>center</code></td><td id="RxHW" class="" style="width:435px">Ítems centrados en el eje principal.</td></tr><tr id="3f5648ad-99fc-801e-81e1-cb06a17d8eba" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>space-between</code></td><td id="RxHW" class="" style="width:435px">Primer ítem al inicio, último al final, espacio entre ellos.</td></tr><tr id="3f5648ad-99fc-80d2-89d3-cf3f19b0cdc4" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>space-around</code></td><td id="RxHW" class="" style="width:435px">Espacio uniforme alrededor de cada ítem (extremos con la mitad).</td></tr><tr id="3f5648ad-99fc-800c-a44d-fac48301063d" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>space-evenly</code></td><td id="RxHW" class="" style="width:435px">Espacio uniforme entre todos los ítems (incluidos los extremos).</td></tr><tr id="3f5648ad-99fc-807a-8eda-e0c29b82e4ec" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>start</code></td><td id="RxHW" class="" style="width:435px">Lógico. Inicio según <code>writing-mode</code>/<code>direction</code>.</td></tr><tr id="3f5648ad-99fc-8051-8f0e-fab99730736b" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>end</code></td><td id="RxHW" class="" style="width:435px">Lógico. Final según <code>writing-mode</code>/<code>direction</code>.</td></tr><tr id="3f5648ad-99fc-8096-8919-db4e3a8cca4b" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>left</code></td><td id="RxHW" class="" style="width:435px">Físico. Izquierda (ignora <code>direction</code>).</td></tr><tr id="3f5648ad-99fc-800f-a2e6-e422937d121e" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>right</code></td><td id="RxHW" class="" style="width:435px">Físico. Derecha (ignora <code>direction</code>).</td></tr><tr id="3f5648ad-99fc-80bd-933f-ec3feb1cb439" dir="ltr"><td id="w&gt;H~" class="" style="width:240px"><code>stretch</code></td><td id="RxHW" class="" style="width:435px">Estira los ítems (solo grid).</td></tr></tbody></table><h2 id="3f5648ad-99fc-80fd-8f82-d3f9db6b7b61" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><pre id="3f5648ad-99fc-80a2-8989-e62d48dbf68a" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">/* 1. Centrar horizontalmente */
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+/* 2. Ítems al final */
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* 3. Espacio entre ítems (menú clásico) */
+.menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 4. Espacio uniforme alrededor */
+.around {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 5. Espacio uniforme entre todos */
+.evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* 6. Centrar horizontal y verticalmente */
+.centrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 7. Con flex-direction: column */
+.column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  /* Centra verticalmente porque el eje principal es vertical */
+}
+
+/* 8. Header con logo a la izquierda y nav a la derecha */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+/* 9. Grid con columnas centradas */
+.grid-center {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  justify-content: center;
+  /* Centra las columnas horizontalmente */
+}
+
+/* 10. Valores lógicos (i18n) */
+.logico {
+  display: flex;
+  justify-content: start; /* respeta direction */
+}</code></pre><h3 id="3f5648ad-99fc-80f4-bcf3-fe4aed260e8b" class="" dir="auto"><strong>Comparativa visual de valores</strong></h3><pre id="3f5648ad-99fc-8077-ac62-fcbd979dc1fa" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">flex-start
+┌─────────────────────────────┐
+│ [1][2][3]                   │
+└─────────────────────────────┘
+
+flex-end
+┌─────────────────────────────┐
+│                   [1][2][3] │
+└─────────────────────────────┘
+
+center
+┌─────────────────────────────┐
+│        [1][2][3]            │
+└─────────────────────────────┘
+
+space-between
+┌─────────────────────────────┐
+│ [1]      [2]      [3]       │
+└─────────────────────────────┘
+
+space-around
+┌─────────────────────────────┐
+│  [1]    [2]    [3]          │
+└─────────────────────────────┘
+  ↑ espacio doble en extremos
+
+space-evenly
+┌─────────────────────────────┐
+│   [1]   [2]   [3]           │
+└─────────────────────────────┘
+  ↑ espacio igual en todos</code></pre><h3 id="3f5648ad-99fc-803a-97fb-d1dcb13b7677" class="" dir="auto"><strong>Menú de navegación (logo + links)</strong></h3><pre id="3f5648ad-99fc-80b6-9b22-dc696ec5f9a4" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: white;
+}
+.logo { font-weight: bold; }
+.nav { display: flex; gap: 16px; }</code></pre><h3 id="3f5648ad-99fc-8038-ac45-def3a2d5ec9c" class="" dir="auto"><strong>Centrar contenido en pantalla completa</strong></h3><pre id="3f5648ad-99fc-8047-aaa6-cb9a31653723" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+}</code></pre><h3 id="3f5648ad-99fc-80b1-854d-fd8394a69fc2" class="" dir="auto"><strong>Botones de acción alineados a la derecha</strong></h3><pre id="3f5648ad-99fc-8079-b05f-cfc31f6e1697" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}</code></pre><h3 id="3f5648ad-99fc-807f-9a29-e5fb52e86a6a" class="" dir="auto"><strong>Columna centrada verticalmente</strong></h3><pre id="3f5648ad-99fc-80ce-b13d-e8982ed053b9" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+}</code></pre><h3 id="3f5648ad-99fc-80ef-9013-d2030a391d14" class="" dir="auto"><strong>Grid con columnas centradas</strong></h3><pre id="3f5648ad-99fc-805a-9532-d228b40e0802" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.grid-center {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: center;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}</code></pre><h3 id="3f5648ad-99fc-80b1-9170-c5437320fe24" class="" dir="auto"><strong>Espaciado uniforme sin márgenes</strong></h3><pre id="3f5648ad-99fc-801c-9cd5-cc0176766538" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.nav {
+  display: flex;
+  justify-content: space-evenly;
+  /* Alternativa moderna: gap */
+}
+/* Equivalente moderno */
+.nav-gap {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}</code></pre><h2 id="3f5648ad-99fc-801e-8efb-eccd08bcfd47" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ol type="1" id="3f5648ad-99fc-8005-9baa-ccc7308e5131" class="numbered-list" start="1" dir="auto"><li><strong>Confundir </strong><code><strong>justify-content</strong></code><strong> con </strong><code><strong>align-items</strong></code> → <code>justify-content</code> = eje principal; <code>align-items</code> = eje transversal. Error nº1.</li></ol><ol type="1" id="3f5648ad-99fc-8056-827c-cc60aaff7fc1" class="numbered-list" start="2" dir="auto"><li><strong>Esperar que funcione sin </strong><code><strong>display: flex</strong></code> → no tiene efecto si el padre no es flex/grid.</li></ol><ol type="1" id="3f5648ad-99fc-80da-b89e-dbc20613ee64" class="numbered-list" start="3" dir="auto"><li><strong>Confundir </strong><code><strong>space-around</strong></code><strong> con </strong><code><strong>space-evenly</strong></code> → <code>around</code> da la mitad de espacio en los extremos; <code>evenly</code> da el mismo espacio en todos.</li></ol><ol type="1" id="3f5648ad-99fc-8076-9ad5-f49bf97c7b8d" class="numbered-list" start="4" dir="auto"><li><strong>Usarlo para alinear un solo ítem</strong> → <code>justify-content</code> alinea el <strong>conjunto</strong>. Para un ítem individual, usar <code>margin: auto</code> o <code>align-self</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8073-b053-c75c3883d398" class="numbered-list" start="5" dir="auto"><li><strong>Olvidar que depende de </strong><code><strong>flex-direction</strong></code> → con <code>column</code>, <code>justify-content</code> alinea <strong>verticalmente</strong>.</li></ol><ol type="1" id="3f5648ad-99fc-80ff-b29c-dd5210097e81" class="numbered-list" start="6" dir="auto"><li><strong>Confundir </strong><code><strong>justify-content</strong></code><strong> con </strong><code><strong>align-content</strong></code> → <code>align-content</code> distribuye <strong>líneas</strong> cuando hay <code>flex-wrap</code>.</li></ol><ol type="1" id="3f5648ad-99fc-80a7-86a5-c86d560c7bdc" class="numbered-list" start="7" dir="auto"><li><strong>Usar </strong><code><strong>justify-content</strong></code><strong> en grid sin entender el eje</strong> → en grid, <code>justify-content</code> alinea las <strong>columnas</strong> (eje inline) dentro del contenedor.</li></ol><ol type="1" id="3f5648ad-99fc-80f5-9107-c1ef730ca30b" class="numbered-list" start="8" dir="auto"><li><strong>No considerar </strong><code><strong>gap</strong></code> → hoy <code>gap</code> es más limpio que <code>space-between</code> para espaciado uniforme entre ítems.</li></ol><ol type="1" id="3f5648ad-99fc-80b7-89f0-cffa24e3c787" class="numbered-list" start="9" dir="auto"><li><code><strong>space-between</strong></code><strong> con un solo ítem</strong> → no hace nada visible (no hay espacio que repartir).</li></ol><ol type="1" id="3f5648ad-99fc-801b-a931-cc6df8a49a34" class="numbered-list numbered-list-digits-2" start="10" dir="auto"><li><code><strong>left</strong></code><strong>/</strong><code><strong>right</strong></code><strong> en lugar de </strong><code><strong>start</strong></code><strong>/</strong><code><strong>end</strong></code> → rompe RTL. Preferir valores lógicos.</li></ol><ol type="1" id="3f5648ad-99fc-8030-8236-fb0f34ea3b44" class="numbered-list numbered-list-digits-2" start="11" dir="auto"><li><strong>Esperar que </strong><code><strong>justify-content: center</strong></code><strong> centre el texto</strong> → centra los <strong>ítems</strong>; para el texto, usar <code>text-align: center</code>.</li></ol><ol type="1" id="3f5648ad-99fc-8091-93fe-c5503b2b2c7f" class="numbered-list numbered-list-digits-2" start="12" dir="auto"><li><code><strong>justify-content</strong></code><strong> en un ítem flex</strong> → no tiene efecto; solo aplica al <strong>contenedor</strong>.</li></ol><h2 id="3f5648ad-99fc-80fd-abf0-f8892e46107d" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><table id="3f5648ad-99fc-8070-9398-c1baa12e329f" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3f5648ad-99fc-805e-9301-e4bdf53989ff" dir="ltr"><th id="JzVX" class="simple-table-header-color simple-table-header"><strong>Caso</strong></th><th id="t@jw" class="simple-table-header-color simple-table-header" style="width:369.33750915527344px"><strong>Valor recomendado</strong></th></tr></thead><tbody><tr id="3f5648ad-99fc-8061-80d8-f87b6639044a" dir="ltr"><td id="JzVX" class="">Centrar horizontalmente</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>center</code></td></tr><tr id="3f5648ad-99fc-80d2-90f2-f06a3c4d7af3" dir="ltr"><td id="JzVX" class="">Header con logo + nav</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>space-between</code></td></tr><tr id="3f5648ad-99fc-80e1-9452-c351d168dd6f" dir="ltr"><td id="JzVX" class="">Menú con espaciado uniforme</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>space-evenly</code> o <code>gap</code></td></tr><tr id="3f5648ad-99fc-80c7-85dd-fefd036fa1f1" dir="ltr"><td id="JzVX" class="">Botones al final</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>flex-end</code></td></tr><tr id="3f5648ad-99fc-80cc-9ec2-d6eb4351696e" dir="ltr"><td id="JzVX" class="">Ítems al inicio</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>flex-start</code></td></tr><tr id="3f5648ad-99fc-803c-a462-d0ca36921405" dir="ltr"><td id="JzVX" class="">Espacio entre tarjetas</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>space-between</code> o <code>gap</code></td></tr><tr id="3f5648ad-99fc-8068-85a9-d1221238a72d" dir="ltr"><td id="JzVX" class="">Centrar vertical (con <code>column</code>)</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>center</code></td></tr><tr id="3f5648ad-99fc-803a-84b7-eff18bec9b4f" dir="ltr"><td id="JzVX" class="">Grid de columnas centrado</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>center</code></td></tr><tr id="3f5648ad-99fc-80de-b866-dccb3d26a52b" dir="ltr"><td id="JzVX" class="">Barra de acciones</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>flex-end</code></td></tr><tr id="3f5648ad-99fc-8098-8e2d-c29433c10e2f" dir="ltr"><td id="JzVX" class="">Distribución uniforme</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>space-evenly</code></td></tr><tr id="3f5648ad-99fc-8006-94ce-f6371ded7894" dir="ltr"><td id="JzVX" class="">Footer con secciones</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>space-around</code></td></tr><tr id="3f5648ad-99fc-809c-b2f8-ef9f724a8468" dir="ltr"><td id="JzVX" class="">Hero centrado</td><td id="t@jw" class="" style="width:369.33750915527344px"><code>center</code></td></tr></tbody></table><h2 id="3f5648ad-99fc-805c-bbd4-ca0182140ef1" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3f5648ad-99fc-800e-8acf-e4e6e31048d3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>display: flex</strong></code> → activa el contenedor flex.</li></ul><ul id="3f5648ad-99fc-8068-87bd-ef156d8724da" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-direction</strong></code> → define el eje principal sobre el que actúa <code>justify-content</code>.</li></ul><ul id="3f5648ad-99fc-8094-9a88-ca235f8ce94b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-items</strong></code> → alinea en el eje <strong>transversal</strong>.</li></ul><ul id="3f5648ad-99fc-8028-b091-d4344509746e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-content</strong></code> → distribuye <strong>líneas</strong> en el eje transversal (con <code>flex-wrap</code>).</li></ul><ul id="3f5648ad-99fc-8070-b9fe-d4caee05f5c1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>align-self</strong></code> → alineación individual de un ítem.</li></ul><ul id="3f5648ad-99fc-80ff-a409-e6409aa9055a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>place-content</strong></code> → shorthand de <code>align-content</code> + <code>justify-content</code>.</li></ul><ul id="3f5648ad-99fc-8036-9d9f-d949c481d500" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>gap</strong></code> → alternativa moderna para espaciado uniforme.</li></ul><ul id="3f5648ad-99fc-8098-ae55-cfc9af624e0c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>margin: auto</strong></code> → centra un ítem individual en flex.</li></ul><ul id="3f5648ad-99fc-805c-987e-dc5448fce285" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>text-align</strong></code> → centra <strong>texto</strong>, no ítems flex.</li></ul><ul id="3f5648ad-99fc-8002-aac9-c1a818c4b75a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Grid</strong> → <code>justify-content</code> alinea columnas (eje inline).</li></ul><ul id="3f5648ad-99fc-80a0-8b46-efca3e56c7c2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>writing-mode</strong></code><strong> / </strong><code><strong>direction</strong></code> → afectan a <code>start</code>/<code>end</code>.</li></ul><p id="3f5648ad-99fc-8000-9594-f4479625624c" class="" dir="auto"><strong>Eje principal vs transversal:</strong></p><p id="3f5648ad-99fc-8006-b27b-f0bf6e7aebe2" class="" dir="auto">
+</p><pre id="3f5648ad-99fc-80dc-b5de-dbb061b57525" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">flex-direction: row
+
+Eje principal →  justify-content actúa aquí
+┌─────────────────────────────────────┐
+│ [1]   [2]   [3]   [4]               │
+│                                     │  ↑ align-items
+└─────────────────────────────────────┘  actúa aquí
+
+flex-direction: column
+
+Eje transversal → align-items actúa aquí
+┌─────────────────────────────────────┐
+│ [1]                                 │
+│ [2]  ← justify-content actúa aquí   │
+│ [3]                                 │
+│ [4]                                 │
+└─────────────────────────────────────┘</code></pre><h2 id="3f5648ad-99fc-8064-bf21-cd9ef94f7a95" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3f5648ad-99fc-8054-b8c0-e3c3e2280e29" class="" dir="auto">Imagina que los ítems flex son <strong>libros en una estantería</strong>. <code>justify-content</code> decide <strong>cómo los colocas a lo largo del estante</strong>:</p><ul id="3f5648ad-99fc-80b4-ab6c-f0d7ff2d2fa2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-start</strong></code> → todos pegados a la <strong>izquierda</strong>.</li></ul><ul id="3f5648ad-99fc-8036-b105-e6245293fc70" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-end</strong></code> → todos pegados a la <strong>derecha</strong>.</li></ul><ul id="3f5648ad-99fc-805b-8868-f4372d78580e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>center</strong></code> → todos en el <strong>centro</strong>.</li></ul><ul id="3f5648ad-99fc-8020-93f9-dd81e5cd550c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>space-between</strong></code> → uno en cada extremo y el resto repartidos <strong>en medio</strong>.</li></ul><ul id="3f5648ad-99fc-80ab-b1ad-dde5d321cd27" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>space-around</strong></code> → cada libro con el mismo espacio <strong>alrededor</strong> (los extremos con la mitad).</li></ul><ul id="3f5648ad-99fc-80f1-924a-cd032451bb2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>space-evenly</strong></code> → <strong>todos los huecos iguales</strong>, incluidos los extremos.</li></ul><h2 id="3f5648ad-99fc-80c5-b99c-eeb9f23cda3d" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3f5648ad-99fc-8086-b387-ebb73999efa5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN Web Docs — <em>justify-content</em><p id="3f5648ad-99fc-80eb-85e2-fceea36d5b3c" class="" dir="auto"><a href="https://developer.mozilla.org/es/docs/Web/CSS/justify-content">https://developer.mozilla.org/es/docs/Web/CSS/justify-content</a></p></li></ul><ul id="3f5648ad-99fc-809b-920c-cb9fc704e93c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C CSS Flexible Box Layout Module Level 1<p id="3f5648ad-99fc-8023-afae-f4ed5b4b73a6" class="" dir="auto"><a href="https://www.w3.org/TR/css-flexbox-1/#justify-content-property">https://www.w3.org/TR/css-flexbox-1/#justify-content-property</a></p></li></ul><ul id="3f5648ad-99fc-80e6-8ef3-f3ff9fc7e5bd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">CSS-Tricks — <em>A Complete Guide to Flexbox</em><p id="3f5648ad-99fc-8072-be24-e6fe04c2b502" class="" dir="auto"><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">https://css-tricks.com/snippets/css/a-guide-to-flexbox/</a></p></li></ul><ul id="3f5648ad-99fc-80e2-a62a-ca9c054b0e94" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">Web.dev</a> — <em>Learn CSS: Flexbox</em><p id="3f5648ad-99fc-80c7-aafb-fb3d9b8d6c56" class="" dir="auto"><a href="https://web.dev/learn/css/flexbox">https://web.dev/learn/css/flexbox</a></p></li></ul><h2 id="3f5648ad-99fc-80de-8b89-f0b136731481" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3f5648ad-99fc-80ad-a023-e205baa27f24" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>flex-start</strong></code><strong> es el valor por defecto</strong> → los ítems se agrupan al inicio del eje principal.</li></ul><ul id="3f5648ad-99fc-80e2-866e-d7df3bfdbd2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Actúa sobre el eje principal</strong> → depende de <code>flex-direction</code>. Con <code>column</code>, alinea verticalmente.</li></ul><ul id="3f5648ad-99fc-8002-a04f-c596399e9e2b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No confundir con </strong><code><strong>align-items</strong></code> → <code>justify-content</code> = eje principal; <code>align-items</code> = eje transversal.</li></ul><ul id="3f5648ad-99fc-800b-8c81-ebcda9c6f273" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>space-around</strong></code><strong> vs </strong><code><strong>space-evenly</strong></code> → <code>around</code> da la mitad de espacio en los extremos; <code>evenly</code> da el mismo espacio en todos.</li></ul><ul id="3f5648ad-99fc-80b4-8d54-c7f771bdabfa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Hoy </strong><code><strong>gap</strong></code><strong> es más limpio</strong> → para espaciado uniforme entre ítems, <code>gap</code> es preferible a <code>space-between</code> con márgenes.</li></ul><ul id="3f5648ad-99fc-80a9-a2bd-df43bd90c5f8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Para un solo ítem</strong> → usar <code>margin: auto</code> en el ítem, no <code>justify-content</code>.</li></ul><ul id="3f5648ad-99fc-80e6-bd0b-ce99db60d7d6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>justify-content</strong></code><strong> en grid</strong> → alinea las <strong>columnas</strong> dentro del contenedor (eje inline).</li></ul><ul id="3f5648ad-99fc-80bd-aa0b-da5abaa66d9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valores lógicos</strong> → preferir <code>start</code>/<code>end</code> sobre <code>flex-start</code>/<code>flex-end</code> en proyectos multiidioma.</li></ul><ul id="3f5648ad-99fc-8023-bba3-e10b0926cf66" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No centra texto</strong> → para eso, <code>text-align: center</code>. <code>justify-content: center</code> centra los <strong>ítems</strong>.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
