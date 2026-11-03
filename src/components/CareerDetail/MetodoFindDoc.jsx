@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import SimuladorFind from '../SimuladorFind/SimuladorFind'
 import CodeBlock from '../CodeBlock/CodeBlock'
+import AdvancedGame from '../AdvancedGame/AdvancedGame'
+import LiveExamples from '../AdvancedGame/LiveExamples'
 import './MetodoFindDoc.css'
 
 
@@ -95,6 +97,14 @@ export default function MetodoFindDoc({ onBack }) {
 
         <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
           <SimuladorFind />
+        </div>
+
+        <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+          <AdvancedGame metodoId="find" />
+        </div>
+
+        <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+          <LiveExamples metodoId="find" />
         </div>
 
         <div className="doc-card doc-card--full">

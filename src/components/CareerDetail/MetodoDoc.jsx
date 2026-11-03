@@ -31,6 +31,9 @@ import SimuladorMedios from '../SimuladoresJS/SimuladorMedios'
 import SimuladorRed from '../SimuladoresJS/SimuladorRed'
 import ReduceLab from '../ReduceLab/ReduceLab'
 import ReduceExtras from '../ReduceExtras/ReduceExtras'
+import AdvancedGame from '../AdvancedGame/AdvancedGame'
+import LiveExamples from '../AdvancedGame/LiveExamples'
+import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 
 /* Elige el simulador según el campo `simulador` del método.
    `simuladores` permite inyectar simuladores propios desde otras secciones. */
@@ -234,6 +237,16 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
             <Simulador metodo={metodo} simuladores={simuladores} />
           </div>
         )}
+
+        {ADVANCED_GAME_IDS.has(metodo.id) && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <AdvancedGame key={`game-${metodo.id}`} metodoId={metodo.id} />
+          </div>
+        )}
+
+        <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+          <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
+        </div>
 
         <div className="doc-card doc-card--full">
           <h3>💡 Ejemplos</h3>
