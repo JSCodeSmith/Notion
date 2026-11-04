@@ -1,0 +1,846 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Object.seal()</title><meta name="data-notion-page-icon" content="🔒"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%94%92%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ab648ad-99fc-8027-8c85-e0078f981820" class="page sans" data-notion-page-icon="🔒"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="🔒"></span></div><h1 class="page-title" dir="auto">Object.seal()</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ab648ad-99fc-8025-8b1d-e1c6da5f1f64" class="" dir="auto">
+</p><h1 id="3ab648ad-99fc-8023-812a-e91e3e8bbc52" class="" dir="auto">📄 Título</h1><p id="3ab648ad-99fc-80b4-9ed8-c8fc8f3b19d4" class="" dir="auto"><code>Object.seal()</code> en JavaScript</p><hr id="3ab648ad-99fc-805b-8286-da1a7d4f25ac" dir="auto"/><h2 id="3ab648ad-99fc-8089-aa0b-dc9f9b405954" class="" dir="auto">📝 Definición</h2><ul id="3ab648ad-99fc-8044-9341-d658cefa34be" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>Object.seal()</code> es un <strong>método estático del objeto global </strong><code><strong>Object</strong></code> que permite <strong>sellar un objeto</strong>, evitando que se puedan <strong>agregar o eliminar propiedades</strong>, pero permitiendo <strong>modificar los valores de las propiedades existentes</strong>.</li></ul><hr id="3ab648ad-99fc-8021-b096-f4ceb7e00b0d" dir="auto"/><h2 id="3ab648ad-99fc-809a-a01e-c04e6b84bfd1" class="" dir="auto">🧠 ¿Qué es?</h2><ul id="3ab648ad-99fc-8093-94e4-f72d1f284ccd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es un <strong>método estático</strong> de <code>Object</code>.</li></ul><ul id="3ab648ad-99fc-809b-a6b7-d8b482e81db9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Forma parte del lenguaje JavaScript (ECMAScript)</strong>, <strong>no de una Web API</strong>.</li></ul><ul id="3ab648ad-99fc-80e2-ab84-f4c543f8b857" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambia el estado interno del objeto usando el concepto de <strong>propiedades configurables (</strong><code><strong>configurable</strong></code><strong>)</strong>.</li></ul><p id="3ab648ad-99fc-80d7-805b-d46f0cf20728" class="" dir="auto">Cuando un objeto es sellado:</p><p id="3ab648ad-99fc-8084-8acf-e145d1a24b0d" class="" dir="auto">✅ Puedes:</p><ul id="3ab648ad-99fc-805e-8224-cbc8a55186f5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Leer propiedades.</li></ul><ul id="3ab648ad-99fc-80b6-b0bd-f7aa85b03c5d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Modificar valores existentes.</li></ul><p id="3ab648ad-99fc-80ee-9f63-d7787b55437c" class="" dir="auto">❌ No puedes:</p><ul id="3ab648ad-99fc-8083-baac-e7ab6caefe62" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Agregar nuevas propiedades.</li></ul><ul id="3ab648ad-99fc-806c-843e-c55bcb5ff189" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Eliminar propiedades existentes.</li></ul><ul id="3ab648ad-99fc-8094-b50d-ea65635fdba4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambiar la configuración de las propiedades.</li></ul><hr id="3ab648ad-99fc-809f-b427-f563460a025a" dir="auto"/><h2 id="3ab648ad-99fc-80be-a325-f283aee8be7b" class="" dir="auto">🎯 ¿Para qué sirve?</h2><p id="3ab648ad-99fc-800d-af29-cb67bc6c3f7c" class="" dir="auto">Se utiliza para:</p><ul id="3ab648ad-99fc-8063-992e-e490cd6cfff9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Proteger estructuras de datos contra cambios de forma accidental.</li></ul><ul id="3ab648ad-99fc-809a-afce-ef2f4a4c0069" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar que otras partes del programa agreguen o eliminen propiedades.</li></ul><ul id="3ab648ad-99fc-804c-b0f3-f11b069a6ab0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear objetos con una estructura fija.</li></ul><ul id="3ab648ad-99fc-8067-87c2-c774a30657b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mejorar la seguridad y control del código.</li></ul><hr id="3ab648ad-99fc-80ee-a30d-fa40ab3536ec" dir="auto"/><h2 id="3ab648ad-99fc-80e8-8be4-c06b0a6275f7" class="" dir="auto">⚙️ ¿Cómo funciona?</h2><p id="3ab648ad-99fc-80f8-b3ed-e5b5349c20b6" class="" dir="auto">Cuando ejecutas:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3ab648ad-99fc-80b5-98d3-e1d6fc5b3ae9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.seal(objeto);</code></pre><p id="3ab648ad-99fc-80a6-aff0-d6ccaabddd8b" class="" dir="auto">JavaScript modifica las propiedades internas del objeto:</p><p id="3ab648ad-99fc-80ca-9539-d55b215a0cf4" class="" dir="auto">Antes:</p><pre id="3ab648ad-99fc-808e-9ce4-dac8f1feb7ce" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot;
+}</code></pre><p id="3ab648ad-99fc-80a7-ae61-dad9f5223794" class="" dir="auto">Puedes:</p><pre id="3ab648ad-99fc-80e6-8167-e086b2f3bec0" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">objeto.edad=20;
+delete objeto.nombre;</code></pre><p id="3ab648ad-99fc-808d-842f-f5a1a04c95aa" class="" dir="auto">Después de <code>seal()</code>:</p><pre id="3ab648ad-99fc-80e3-85c1-f71999462904" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot;
+}</code></pre><p id="3ab648ad-99fc-8018-82f5-f6b5f5e6d8da" class="" dir="auto">La estructura queda bloqueada.</p><p id="3ab648ad-99fc-800e-9810-e6ef85500a86" class="" dir="auto">Pero:</p><pre id="3ab648ad-99fc-8025-821b-ff1a3aefd7c1" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">objeto.nombre=&quot;Luis&quot;;</code></pre><p id="3ab648ad-99fc-8042-9a2e-e74fd318363c" class="" dir="auto">Sí funciona.</p><hr id="3ab648ad-99fc-8037-bffa-c6b405cd7d9c" dir="auto"/><h1 id="3ab648ad-99fc-80a9-a01d-dbc24eee499c" class="" dir="auto">📝 Sintaxis / Estructura</h1><pre id="3ab648ad-99fc-809a-b282-cb212ab23cca" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.seal(objeto);</code></pre><hr id="3ab648ad-99fc-8015-a53c-fcb9ea2a5dc6" dir="auto"/><h2 id="3ab648ad-99fc-8085-9378-ff633908f16f" class="" dir="auto">Parámetro</h2><table id="3ab648ad-99fc-8035-b142-e53c4c146fd8" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ab648ad-99fc-8056-abff-d761a4bc12cd" dir="ltr"><th id="&lt;=|?" class="simple-table-header-color simple-table-header">Parámetro</th><th id="xgo;" class="simple-table-header-color simple-table-header" style="width:403.15000915527344px">Descripción</th></tr></thead><tbody><tr id="3ab648ad-99fc-808e-82eb-d6310260fec9" dir="ltr"><td id="&lt;=|?" class=""><code>objeto</code></td><td id="xgo;" class="" style="width:403.15000915527344px">Objeto que será sellado.</td></tr></tbody></table><hr id="3ab648ad-99fc-80e6-b3d1-f00bc9fd10f5" dir="auto"/><h2 id="3ab648ad-99fc-80d6-8705-ec2cff347434" class="" dir="auto">Valor de retorno</h2><table id="3ab648ad-99fc-806d-ad67-e3642bef8154" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ab648ad-99fc-8028-a6d1-ffa2655690bb" dir="ltr"><th id="&lt;;da" class="simple-table-header-color simple-table-header">Tipo</th><th id="ll\g" class="simple-table-header-color simple-table-header" style="width:399px">Descripción</th></tr></thead><tbody><tr id="3ab648ad-99fc-808f-a074-efac8bf23eea" dir="ltr"><td id="&lt;;da" class=""><code>Object</code></td><td id="ll\g" class="" style="width:399px">Devuelve el mismo objeto que fue sellado.</td></tr></tbody></table><hr id="3ab648ad-99fc-803b-9661-cd0cb291f9f5" dir="auto"/><h1 id="3ab648ad-99fc-80e9-9c81-e785c4521da2" class="" dir="auto">💡 Ejemplos</h1><h2 id="3ab648ad-99fc-8066-91e2-cf63eb845921" class="" dir="auto">Sellar un objeto</h2><pre id="3ab648ad-99fc-8086-852a-f0dd63d49a1d" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Josué&quot;,
+    edad:17
+};
+Object.seal(usuario);
+usuario.edad=18;
+console.log(usuario);</code></pre><p id="3ab648ad-99fc-80b5-96a9-d6f109571d8f" class="" dir="auto">Resultado:</p><pre id="3ab648ad-99fc-8073-987b-f5e06fb97cad" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Josué&quot;,edad:18}</code></pre><p id="3ab648ad-99fc-80e4-9a1d-d008fdcb94d4" class="" dir="auto">Modificar funciona ✅</p><hr id="3ab648ad-99fc-8060-b1d1-cc4e711fd364" dir="auto"/><h2 id="3ab648ad-99fc-8059-8d31-e56fd6feddc2" class="" dir="auto">Intentar agregar una propiedad</h2><pre id="3ab648ad-99fc-8055-aa30-c22695db286f" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Ana&quot;
+};
+Object.seal(persona);
+persona.edad=25;
+console.log(persona);</code></pre><p id="3ab648ad-99fc-8061-b0eb-d08a8bc3360c" class="" dir="auto">Resultado:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js" integrity="sha512-QXFMVAusM85vUYDaNgcYeU3rzSlc+bTV4JvkfJhjxSHlQEo+ig53BtnGkvFTiNJh8D+wv6uWAQ2vJaVmxe8d3w==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3ab648ad-99fc-8048-aac9-d551343a905f" class="code code-wrap" data-notion-code-syntax="json"><code class="language-json" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot;
+}</code></pre><p id="3ab648ad-99fc-8008-937c-e619b5edf7bf" class="" dir="auto"><code>edad</code> no se agregó ❌</p><hr id="3ab648ad-99fc-8096-90a4-c7df383f4104" dir="auto"/><h2 id="3ab648ad-99fc-807d-8499-cc583ad68385" class="" dir="auto">Intentar eliminar una propiedad</h2><pre id="3ab648ad-99fc-80b6-847f-f6684f85eb1a" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const producto= {
+    nombre:&quot;Laptop&quot;,
+    precio:2500
+}
+;Object.seal(producto);
+delete producto.precio;
+console.log(producto);</code></pre><p id="3ab648ad-99fc-8091-9022-d9666f6d66dd" class="" dir="auto">Resultado:</p><pre id="3ab648ad-99fc-806f-8c51-c5ef7b9da0aa" class="code code-wrap" data-notion-code-syntax="json"><code class="language-json" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Laptop&quot;,precio:2500
+}</code></pre><p id="3ab648ad-99fc-80b9-a05b-c8d3d9e7e0db" class="" dir="auto">No se puede eliminar ❌</p><hr id="3ab648ad-99fc-80b8-83aa-c6042a190417" dir="auto"/><h2 id="3ab648ad-99fc-805b-b9a8-d30f79ace8bb" class="" dir="auto">Verificar si un objeto está sellado</h2><pre id="3ab648ad-99fc-80b9-a2e6-e4881c670bed" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Luis&quot;
+}
+;
+Object.seal(usuario);
+console.log(Object.isSealed(usuario));</code></pre><p id="3ab648ad-99fc-800d-8034-c2db6e5f3b13" class="" dir="auto">Resultado:</p><pre id="3ab648ad-99fc-803c-95cf-d9c08fa9489f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3ab648ad-99fc-80f0-9c3b-f335cab0e40a" dir="auto"/><h1 id="3ab648ad-99fc-80e5-b546-d4497fd81730" class="" dir="auto">⚠️ Errores comunes</h1><h2 id="3ab648ad-99fc-80c9-97cc-fa28e90e05ac" class="" dir="auto">❌ Pensar que congela completamente el objeto</h2><pre id="3ab648ad-99fc-80ff-afb2-c209e8298cc1" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Ana&quot;
+};
+Object.seal(usuario);
+usuario.nombre=&quot;María&quot;;console.log(usuario);</code></pre><p id="3ab648ad-99fc-80e1-8c70-e4bde747e075" class="" dir="auto">Resultado:</p><pre id="3ab648ad-99fc-80d7-b8e5-f7c179c454b2" class="code code-wrap" data-notion-code-syntax="json"><code class="language-json" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;María&quot;
+}</code></pre><p id="3ab648ad-99fc-8026-bbfb-ca59e8c05c4d" class="" dir="auto"><code>seal()</code> permite modificar valores.</p><p id="3ab648ad-99fc-8017-b01c-cf29d5b8f027" class="" dir="auto">Para bloquear todo:</p><pre id="3ab648ad-99fc-8097-bfa4-daab24d3d422" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.freeze();</code></pre><hr id="3ab648ad-99fc-8064-9b94-ea8c80c629a5" dir="auto"/><h2 id="3ab648ad-99fc-80f0-ad76-e8da26b1c1a1" class="" dir="auto">❌ Confundir <code>seal()</code> con <code>freeze()</code></h2><table id="3ab648ad-99fc-8059-817e-e109e1457c4e" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ab648ad-99fc-8017-bff1-cb06076bc174" dir="ltr"><th id="sy&lt;T" class="simple-table-header-color simple-table-header">Método</th><th id="vfhP" class="simple-table-header-color simple-table-header">Agregar</th><th id="X&lt;j;" class="simple-table-header-color simple-table-header">Eliminar</th><th id="&gt;C&lt;a" class="simple-table-header-color simple-table-header" style="width:180px">Modificar</th></tr></thead><tbody><tr id="3ab648ad-99fc-80d4-a61a-c4c0c4005f10" dir="ltr"><td id="sy&lt;T" class=""><code>Object.seal()</code></td><td id="vfhP" class="">❌</td><td id="X&lt;j;" class="">❌</td><td id="&gt;C&lt;a" class="" style="width:180px">✅</td></tr><tr id="3ab648ad-99fc-80bc-9cf6-f706fc9c4282" dir="ltr"><td id="sy&lt;T" class=""><code>Object.freeze()</code></td><td id="vfhP" class="">❌</td><td id="X&lt;j;" class="">❌</td><td id="&gt;C&lt;a" class="" style="width:180px">❌</td></tr></tbody></table><hr id="3ab648ad-99fc-800d-a7b1-dd4c3bea6ec8" dir="auto"/><h2 id="3ab648ad-99fc-8058-87f1-f47411aa40d3" class="" dir="auto">❌ Pensar que crea una copia</h2><pre id="3ab648ad-99fc-8084-aa72-e256dc7d170b" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const copia=Object.seal(usuario);</code></pre><p id="3ab648ad-99fc-80f8-a6da-fbaee5452c3a" class="" dir="auto">No crea un nuevo objeto.</p><p id="3ab648ad-99fc-8053-af31-e69e54cc8d44" class="" dir="auto">Devuelve el mismo:</p><pre id="3ab648ad-99fc-80a2-be77-e4df6161dd52" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">copia===usuario</code></pre><p id="3ab648ad-99fc-8071-9ccf-fcbd51a437f9" class="" dir="auto">Resultado:</p><pre id="3ab648ad-99fc-8079-9a9f-ece7b2970e47" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3ab648ad-99fc-800d-a2a3-efd3560b69fa" dir="auto"/><h2 id="3ab648ad-99fc-8099-95b8-d0d5e9b29052" class="" dir="auto">❌ No considerar objetos anidados</h2><pre id="3ab648ad-99fc-8063-b49d-d4cbb3ef2c34" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    direccion: {
+        ciudad:&quot;Lima&quot;
+    }
+};
+Object.seal(usuario);
+usuario.direccion.ciudad=&quot;Cusco&quot;;</code></pre><p id="3ab648ad-99fc-8041-98da-ca7a6da17d60" class="" dir="auto">Esto funciona.</p><p id="3ab648ad-99fc-80c8-bb38-e6d8f3e31776" class="" dir="auto">¿Por qué?</p><p id="3ab648ad-99fc-806f-8723-fac5163302d9" class="" dir="auto">Porque <code>seal()</code> solo protege el primer nivel.</p><p id="3ab648ad-99fc-806e-a3e7-de0acbadc3bd" class="" dir="auto">Es una protección <strong>superficial</strong> (<em>shallow</em>).</p><hr id="3ab648ad-99fc-8020-a3b3-ff42759377fa" dir="auto"/><h1 id="3ab648ad-99fc-8096-a65b-f55a481c69f1" class="" dir="auto">💼 Casos de uso</h1><ul id="3ab648ad-99fc-809c-85da-de7e96714c32" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Configuraciones que no deben cambiar de estructura:</li></ul><pre id="3ab648ad-99fc-80b5-ab34-ed3d7ff02608" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const config= {
+    idioma:&quot;es&quot;,
+    modo:&quot;oscuro&quot;
+};
+Object.seal(config);</code></pre><ul id="3ab648ad-99fc-80f3-a151-d7af5a76d2a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Objetos compartidos entre módulos.</li></ul><ul id="3ab648ad-99fc-801c-8fef-fd0556c15bf3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Modelos de datos con propiedades definidas.</li></ul><ul id="3ab648ad-99fc-800a-a383-d03adffd0726" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar errores accidentales durante desarrollo.</li></ul><ul id="3ab648ad-99fc-80d4-94ba-ec722d4c5293" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Controlar modificaciones en aplicaciones grandes.</li></ul><hr id="3ab648ad-99fc-8009-a575-ee62b5f35417" dir="auto"/><h1 id="3ab648ad-99fc-808e-aba0-fcf87632ad1c" class="" dir="auto">🧩 Relación con otros conceptos</h1><table id="3ab648ad-99fc-80cd-8284-f0ee261636c9" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ab648ad-99fc-80c9-92ec-f0429f943d38" dir="ltr"><th id="[R^m" class="simple-table-header-color simple-table-header">Método</th><th id="LHdG" class="simple-table-header-color simple-table-header" style="width:402px">Función</th></tr></thead><tbody><tr id="3ab648ad-99fc-80dd-8a03-d3b40283451a" dir="ltr"><td id="[R^m" class=""><code>Object.preventExtensions()</code></td><td id="LHdG" class="" style="width:402px">Impide agregar propiedades nuevas</td></tr><tr id="3ab648ad-99fc-8079-bb30-dc15bda537b5" dir="ltr"><td id="[R^m" class=""><code>Object.seal()</code></td><td id="LHdG" class="" style="width:402px">Impide agregar y eliminar propiedades</td></tr><tr id="3ab648ad-99fc-8014-b84f-d52e4e600285" dir="ltr"><td id="[R^m" class=""><code>Object.freeze()</code></td><td id="LHdG" class="" style="width:402px">Bloquea completamente el objeto</td></tr><tr id="3ab648ad-99fc-808d-8e13-f11170e042d1" dir="ltr"><td id="[R^m" class=""><code>Object.isSealed()</code></td><td id="LHdG" class="" style="width:402px">Comprueba si está sellado</td></tr><tr id="3ab648ad-99fc-80f8-8d28-c7d496f3e5a1" dir="ltr"><td id="[R^m" class=""><code>Object.isFrozen()</code></td><td id="LHdG" class="" style="width:402px">Comprueba si está congelado</td></tr></tbody></table><p id="3ab648ad-99fc-805a-a46b-db0499231424" class="" dir="auto">Jerarquía:</p><pre id="3ab648ad-99fc-80fc-b1ff-f51cdb1abd84" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Objeto normal
+      ↓
+preventExtensions()
+      ↓
+seal()
+      ↓
+freeze()</code></pre><p id="3ab648ad-99fc-80a3-a133-eeab278d78e0" class="" dir="auto">Cada nivel agrega más restricciones.</p><hr id="3ab648ad-99fc-8057-b882-e6cf65d74b5c" dir="auto"/><h1 id="3ab648ad-99fc-8007-a8b9-e85649188233" class="" dir="auto">🧠 Analogía</h1><p id="3ab648ad-99fc-8032-8902-c9f2387c6ad5" class="" dir="auto">Imagina una casa 🏠:</p><h3 id="3ab648ad-99fc-80f1-968a-dabad0b6d49b" class="" dir="auto">Objeto normal:</h3><p id="3ab648ad-99fc-8071-a772-ff707d61440a" class="" dir="auto">Puedes:</p><ul id="3ab648ad-99fc-805b-ab90-eef4d39f6169" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Construir habitaciones nuevas.</li></ul><ul id="3ab648ad-99fc-8076-883d-dd254100bdd0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Derribar paredes.</li></ul><ul id="3ab648ad-99fc-8013-a642-ee55fd259e2e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Pintar habitaciones.</li></ul><hr id="3ab648ad-99fc-803e-ac7c-e4213350af14" dir="auto"/><h3 id="3ab648ad-99fc-8094-a11a-ddc5ca965584" class="" dir="auto"><code>Object.seal()</code>:</h3><p id="3ab648ad-99fc-809f-a949-f24f2137e99e" class="" dir="auto">La casa queda sellada:</p><p id="3ab648ad-99fc-801e-b111-fb50a2d8d153" class="" dir="auto">✅ Puedes pintar las habitaciones.</p><p id="3ab648ad-99fc-803e-9485-dbe10b05954b" class="" dir="auto">❌ No puedes construir nuevas habitaciones.</p><p id="3ab648ad-99fc-80fc-96c2-f625982516d5" class="" dir="auto">❌ No puedes eliminar habitaciones existentes.</p><hr id="3ab648ad-99fc-802e-a549-ec7652428acb" dir="auto"/><h3 id="3ab648ad-99fc-80e0-9a7f-f09f6e4dc849" class="" dir="auto"><code>Object.freeze()</code>:</h3><p id="3ab648ad-99fc-80a4-a4fd-c390d2f73c40" class="" dir="auto">La casa queda completamente congelada:</p><p id="3ab648ad-99fc-806c-b12a-e7b00b875619" class="" dir="auto">❌ No puedes cambiar nada.</p><hr id="3ab648ad-99fc-804e-83fd-e4371299c9e4" dir="auto"/><h1 id="3ab648ad-99fc-8071-b236-eb589a425d5e" class="" dir="auto">📚 Fuente</h1><ul id="3ab648ad-99fc-80f6-80f8-e0dc96d1b2e3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>MDN Web Docs:</strong> https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/seal</li></ul><ul id="3ab648ad-99fc-80a2-b83c-df2a3c8b986b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Especificación ECMAScript:</strong> https://tc39.es/ecma262/#sec-object.seal</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

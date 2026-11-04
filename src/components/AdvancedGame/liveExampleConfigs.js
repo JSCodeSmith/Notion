@@ -6,6 +6,24 @@
    - `fecha`             → new Date(año, mes, día, hora, minuto, segundo)
    Cada ejemplo puede usar esas variables sin declararlas. */
 
+import {
+  EXTRA_CONFIGS,
+  EXTRA_CATEGORIAS,
+} from "./liveExampleExtraConfigs.js";
+import {
+  OBJECT_CONFIGS,
+  OBJECT_CATEGORIAS,
+} from "./liveExampleObjectConfigs.js";
+import {
+  MAP_SET_CONFIGS,
+  MAP_SET_CATEGORIAS,
+} from "./liveExampleMapSetConfigs.js";
+import {
+  REGEXP_CONFIGS,
+  REGEXP_CATEGORIAS,
+} from "./liveExampleRegexpConfigs.js";
+import { INTL_CONFIGS, INTL_CATEGORIAS } from "./liveExampleIntlConfigs.js";
+
 /* ============================================================
    Ejemplos personalizados (los 15 métodos con juego avanzado)
    ============================================================ */
@@ -224,6 +242,13 @@ const IDS_ARRAY = [
   "reduce",
   "reduceright",
   "every",
+  "json-stringify",
+  "json-parse",
+  "dom-getelementbyid",
+  "dom-getelementsbyclassname",
+  "dom-getelementsbytagname",
+  "dom-queryselector",
+  "dom-queryselectorall",
 ];
 
 const IDS_TEXTO = [
@@ -262,6 +287,22 @@ const IDS_TEXTO = [
   "matchall",
   "localecompare",
   "normalize",
+  "filereader-readastext",
+  "filereader-readasdataurl",
+  "fullscreen-request",
+  "fullscreen-exit",
+  "storage-localstorage",
+  "storage-sessionstorage",
+  "storage-setitem",
+  "storage-getitem",
+  "storage-removeitem",
+  "storage-key",
+  "storage-clear",
+  "voz-speak",
+  "voz-utterance",
+  "voz-onspeechend",
+  "voz-recognition",
+  "voz-stop",
 ];
 
 const IDS_NUMERO = [
@@ -272,6 +313,10 @@ const IDS_NUMERO = [
   "parseint",
   "parsefloat",
   "tofixed",
+  "settimeout",
+  "cleartimeout",
+  "setinterval",
+  "clearinterval",
 ];
 
 const IDS_FECHA = [
@@ -302,9 +347,193 @@ const CATEGORIAS = Object.fromEntries([
   ...IDS_FECHA.map((id) => [id, "fecha"]),
 ]);
 
+Object.assign(
+  CATEGORIAS,
+  EXTRA_CATEGORIAS,
+  OBJECT_CATEGORIAS,
+  MAP_SET_CATEGORIAS,
+  REGEXP_CATEGORIAS,
+  INTL_CATEGORIAS,
+);
+
 /* ============================================================
    Plantillas genéricas
    ============================================================ */
+
+/* ============================================================
+   Entornos simulados para APIs que no existen en un Worker
+   ============================================================ */
+
+const PRELUDIO_DOM = `const crearNodo = (etiqueta, datos, hijos) => {
+  const info = datos || {};
+  return {
+    tagName: etiqueta.toUpperCase(),
+    id: info.id || "",
+    className: info.className || "",
+    textContent: info.textContent || "",
+    children: hijos || [],
+    classList: {
+      contains: (clase) => (info.className || "").split(" ").includes(clase),
+    },
+    getAttribute: (nombre) => info[nombre] || null,
+  };
+};
+const tituloDOM = crearNodo("h1", {
+  id: "titulo",
+  className: "titulo grande",
+  textContent: "Mi página de emojis",
+});
+const cajaDOM = crearNodo("div", {
+  id: "miCaja",
+  className: "caja",
+  textContent: "Hola mundo",
+});
+const listaDOM = crearNodo("ul", { id: "lista", className: "lista" });
+const itemsDOM = emojis.map((emoji, indice) =>
+  crearNodo("li", {
+    className: "item",
+    textContent: indice + 1 + ". " + emoji,
+  }),
+);
+listaDOM.children = itemsDOM;
+const nodosDOM = [tituloDOM, cajaDOM, listaDOM].concat(itemsDOM);
+const buscarDOM = (selector) => {
+  const sel = String(selector).trim();
+  if (sel === "*") return nodosDOM.slice();
+  if (sel.charAt(0) === "#") {
+    return nodosDOM.filter((nodo) => nodo.id === sel.slice(1));
+  }
+  if (sel.charAt(0) === ".") {
+    return nodosDOM.filter((nodo) => nodo.classList.contains(sel.slice(1)));
+  }
+  const partes = sel.split(".");
+  const etiqueta = partes[0].toLowerCase();
+  const clase = partes[1];
+  return nodosDOM.filter(
+    (nodo) =>
+      nodo.tagName.toLowerCase() === etiqueta &&
+      (!clase || nodo.classList.contains(clase)),
+  );
+};
+const document = {
+  getElementById: (id) => nodosDOM.find((nodo) => nodo.id === String(id)) || null,
+  getElementsByClassName: (clase) =>
+    nodosDOM.filter((nodo) => nodo.classList.contains(String(clase))),
+  getElementsByTagName: (etiqueta) =>
+    nodosDOM.filter(
+      (nodo) => nodo.tagName.toLowerCase() === String(etiqueta).toLowerCase(),
+    ),
+  querySelector: (selector) => buscarDOM(selector)[0] || null,
+  querySelectorAll: (selector) => buscarDOM(selector),
+};`;
+
+const PRELUDIO_STORAGE = `const crearAlmacen = () => {
+  const datos = new Map();
+  return {
+    get length() {
+      return datos.size;
+    },
+    key: (indice) =>
+      indice >= 0 && indice < datos.size ? [...datos.keys()][indice] : null,
+    getItem: (clave) =>
+      datos.has(String(clave)) ? datos.get(String(clave)) : null,
+    setItem: (clave, valor) => {
+      datos.set(String(clave), String(valor));
+    },
+    removeItem: (clave) => {
+      datos.delete(String(clave));
+    },
+    clear: () => {
+      datos.clear();
+    },
+  };
+};
+const localStorage = crearAlmacen();
+const sessionStorage = crearAlmacen();`;
+
+const PRELUDIO_VOZ = `class SpeechSynthesisUtterance {
+  constructor(texto) {
+    this.text = texto;
+    this.lang = "es-ES";
+    this.rate = 1;
+    this.pitch = 1;
+    this.volume = 1;
+    this.onstart = null;
+    this.onend = null;
+  }
+}
+const speechSynthesis = {
+  hablando: false,
+  speak(utterance) {
+    this.hablando = true;
+    if (typeof utterance.onstart === "function") utterance.onstart();
+    console.log("🔊 [voz simulada] " + utterance.text);
+    setTimeout(() => {
+      this.hablando = false;
+      if (typeof utterance.onend === "function") utterance.onend();
+    }, 250);
+  },
+  cancel() {
+    this.hablando = false;
+    console.log("⏹️ [voz simulada] Cola cancelada");
+  },
+  pause() {
+    console.log("⏸️ [voz simulada] Pausada");
+  },
+  resume() {
+    console.log("▶️ [voz simulada] Reanudada");
+  },
+  getVoices() {
+    return [{ name: "Voz simulada ES", lang: "es-ES", default: true }];
+  },
+};
+class SpeechRecognition {
+  constructor() {
+    this.lang = "es-ES";
+    this.continuous = false;
+    this.onresult = null;
+    this.onend = null;
+  }
+  start() {
+    console.log("🎙️ [reconocimiento simulado] Escuchando…");
+    setTimeout(() => {
+      const evento = { results: [[{ transcript: texto, confidence: 0.95 }]] };
+      if (typeof this.onresult === "function") this.onresult(evento);
+      if (typeof this.onend === "function") this.onend();
+    }, 200);
+  }
+  stop() {
+    if (typeof this.onend === "function") this.onend();
+  }
+}`;
+
+const PRELUDIO_FULLSCREEN = `const elementoPantalla = {
+  id: "demo",
+  textContent: texto,
+  requestFullscreen: async () => {
+    document.fullscreenElement = elementoPantalla;
+    console.log("🖥️ [pantalla completa simulada] Activada");
+    return true;
+  },
+};
+const document = {
+  fullscreenElement: null,
+  documentElement: elementoPantalla,
+  exitFullscreen: async () => {
+    document.fullscreenElement = null;
+    console.log("🖥️ [pantalla completa simulada] Desactivada");
+    return true;
+  },
+};`;
+
+const ENTORNO_DOM =
+  "🧪 Entorno simulado: `document` incluye #titulo, #miCaja, #lista y un <li> por cada emoji de tu array.";
+const ENTORNO_STORAGE =
+  "🧪 Entorno simulado: `localStorage` y `sessionStorage` son almacenes en memoria del worker.";
+const ENTORNO_VOZ =
+  "🧪 Entorno simulado: la voz y el reconocimiento se registran en la consola, sin reproducir audio.";
+const ENTORNO_FULLSCREEN =
+  "🧪 Entorno simulado: `document` recrea requestFullscreen() y exitFullscreen().";
 
 const PLANTILLAS = {
   /* ---------------- Arrays ---------------- */
@@ -881,7 +1110,7 @@ return conEspacios.trimRight();`,
       "match() busca una expresión regular y devuelve las coincidencias encontradas.",
     prueba:
       "Añade la bandera g o cambia el patrón.",
-    codigo: `return texto.match(/[^\s]+/g);`,
+    codigo: `return texto.match(/[^\\s]+/g);`,
   },
 
   matchall: {
@@ -890,7 +1119,7 @@ return conEspacios.trimRight();`,
       "matchAll() devuelve un iterador con todas las coincidencias y sus grupos.",
     prueba:
       "Recorre el resultado con for...of para ver cada coincidencia.",
-    codigo: `return [...texto.matchAll(/[^\s]+/g)].map(
+    codigo: `return [...texto.matchAll(/[^\\s]+/g)].map(
   (coincidencia) => coincidencia[0],
 );`,
   },
@@ -1201,11 +1430,465 @@ return copia;`,
       "Cambia la hora y prueba con \"en-US\" para ver el formato de 12 horas.",
     codigo: `return fecha.toLocaleTimeString("es-ES");`,
   },
+
+  /* ---------------- JSON ---------------- */
+
+  "json-stringify": {
+    titulo: "Convierte datos en JSON",
+    descripcion:
+      "JSON.stringify() transforma un valor de JavaScript en una cadena JSON. Aquí serializa tu array de emojis con formato legible.",
+    prueba:
+      "Cambia el tercer argumento (2) por 0 o por 4 para ajustar la indentación.",
+    codigo: `const json = JSON.stringify(emojis, null, 2);
+console.log(json);
+return json;`,
+  },
+
+  "json-parse": {
+    titulo: "Reconstruye datos desde JSON",
+    descripcion:
+      "JSON.parse() convierte una cadena JSON de vuelta a un valor de JavaScript. El array se serializa y se recupera.",
+    prueba:
+      "Modifica el JSON a mano, por ejemplo añadiendo un emoji más, y ejecuta de nuevo.",
+    codigo: `const json = JSON.stringify(emojis);
+console.log("JSON:", json);
+const recuperado = JSON.parse(json);
+console.log("Array recuperado:", recuperado);
+return recuperado;`,
+  },
+
+  /* ---------------- Temporizadores ---------------- */
+
+  settimeout: {
+    titulo: "Ejecuta después de un tiempo",
+    descripcion:
+      "setTimeout() programa una función para que se ejecute una vez tras el retardo indicado. El retardo sale del primer número de tu lista.",
+    prueba:
+      "Cambia el primer número para ajustar la espera (se limita entre 50 y 1000 ms).",
+    codigo: `const bruto = numeros[0];
+const valor = Number.isFinite(bruto) ? Math.round(bruto) : 300;
+const retardo = Math.max(50, Math.min(1000, valor));
+console.log("Esperando " + retardo + " ms…");
+await new Promise((resolver) => setTimeout(resolver, retardo));
+return "¡Pasaron " + retardo + " ms!";`,
+  },
+
+  cleartimeout: {
+    titulo: "Cancela un timeout",
+    descripcion:
+      "clearTimeout() cancela un temporizador programado con setTimeout() antes de que se ejecute.",
+    prueba:
+      "Comprueba en la consola que el mensaje del timeout cancelado nunca aparece.",
+    codigo: `const bruto = numeros[0];
+const valor = Number.isFinite(bruto) ? Math.round(bruto) : 300;
+const retardo = Math.max(50, Math.min(1000, valor));
+const id = setTimeout(
+  () => console.log("❌ Este mensaje no debería aparecer"),
+  retardo,
+);
+clearTimeout(id);
+await new Promise((resolver) => setTimeout(resolver, retardo + 100));
+return "Timeout cancelado antes de ejecutarse";`,
+  },
+
+  setinterval: {
+    titulo: "Repite cada intervalo",
+    descripcion:
+      "setInterval() ejecuta una función repetidamente cada cierto tiempo hasta que se cancela.",
+    prueba:
+      "Cambia el primer número para ajustar el intervalo (entre 50 y 500 ms).",
+    codigo: `const bruto = numeros[0];
+const valor = Number.isFinite(bruto) ? Math.round(bruto) : 150;
+const intervalo = Math.max(50, Math.min(500, valor));
+let ticks = 0;
+const id = setInterval(() => {
+  ticks += 1;
+  console.log("Tick", ticks);
+  if (ticks >= 3) clearInterval(id);
+}, intervalo);
+await new Promise((resolver) => setTimeout(resolver, intervalo * 3 + 150));
+return "Ticks recibidos: " + ticks;`,
+  },
+
+  clearinterval: {
+    titulo: "Detiene un intervalo",
+    descripcion:
+      "clearInterval() cancela un intervalo creado con setInterval() y detiene las repeticiones.",
+    prueba:
+      "Compara este ejemplo con setInterval(): aquí se detiene tras el primer tick.",
+    codigo: `const bruto = numeros[0];
+const valor = Number.isFinite(bruto) ? Math.round(bruto) : 150;
+const intervalo = Math.max(50, Math.min(500, valor));
+let ticks = 0;
+const id = setInterval(() => {
+  ticks += 1;
+  console.log("Tick", ticks);
+}, intervalo);
+await new Promise((resolver) => setTimeout(resolver, intervalo + 100));
+clearInterval(id);
+await new Promise((resolver) => setTimeout(resolver, intervalo + 50));
+return "Intervalo detenido tras " + ticks + " tick(s)";`,
+  },
+
+  /* ---------------- Archivos ---------------- */
+
+  "filereader-readastext": {
+    titulo: "Lee un archivo como texto",
+    descripcion:
+      "FileReader.readAsText() lee el contenido de un archivo Blob o File como una cadena de texto.",
+    prueba:
+      "El archivo se crea con el texto de tus emojis. Añade más y vuelve a leerlo.",
+    codigo: `const archivo = new File([texto], "nota.txt", { type: "text/plain" });
+console.log("Archivo:", archivo.name, "·", archivo.size, "bytes");
+const lector = new FileReader();
+const contenido = await new Promise((resolver, rechazar) => {
+  lector.onload = () => resolver(lector.result);
+  lector.onerror = () => rechazar(lector.error);
+  lector.readAsText(archivo);
+});
+console.log("Contenido:", contenido);
+return contenido;`,
+  },
+
+  "filereader-readasdataurl": {
+    titulo: "Lee un archivo como Data URL",
+    descripcion:
+      "FileReader.readAsDataURL() convierte el archivo en una URL de datos codificada, útil para previsualizar imágenes.",
+    prueba:
+      "Observa el prefijo data:text/plain y el contenido codificado en base64.",
+    codigo: `const archivo = new File([texto], "nota.txt", { type: "text/plain" });
+const lector = new FileReader();
+const dataUrl = await new Promise((resolver, rechazar) => {
+  lector.onload = () => resolver(lector.result);
+  lector.onerror = () => rechazar(lector.error);
+  lector.readAsDataURL(archivo);
+});
+console.log("Data URL:", dataUrl.slice(0, 80) + "…");
+return dataUrl;`,
+  },
+
+  /* ---------------- Pantalla completa ---------------- */
+
+  "fullscreen-request": {
+    titulo: "Activa la pantalla completa",
+    descripcion:
+      "requestFullscreen() pide al navegador mostrar un elemento a pantalla completa. Aquí se simula el documento en el worker.",
+    prueba:
+      "Cambia el texto del constructor: aparecerá como contenido del elemento simulado.",
+    entorno: ENTORNO_FULLSCREEN,
+    preludio: PRELUDIO_FULLSCREEN,
+    codigo: `await document.documentElement.requestFullscreen();
+return {
+  activa: document.fullscreenElement !== null,
+  contenido: document.fullscreenElement?.textContent ?? null,
+};`,
+  },
+
+  "fullscreen-exit": {
+    titulo: "Sale de pantalla completa",
+    descripcion:
+      "document.exitFullscreen() abandona el modo de pantalla completa y devuelve el control a la página.",
+    prueba:
+      "Observa el estado antes y después de llamar a exitFullscreen().",
+    entorno: ENTORNO_FULLSCREEN,
+    preludio: PRELUDIO_FULLSCREEN,
+    codigo: `await document.documentElement.requestFullscreen();
+console.log("Antes:", document.fullscreenElement !== null);
+await document.exitFullscreen();
+return { activa: document.fullscreenElement !== null };`,
+  },
+
+  /* ---------------- DOM · Selección ---------------- */
+
+  "dom-getelementbyid": {
+    titulo: "Selecciona por id",
+    descripcion:
+      "getElementById() devuelve el elemento cuyo id coincide con el texto indicado, o null si no existe.",
+    prueba:
+      "Cambia \"titulo\" por \"miCaja\" o por un id inexistente.",
+    entorno: ENTORNO_DOM,
+    preludio: PRELUDIO_DOM,
+    codigo: `const elemento = document.getElementById("titulo");
+console.log("Encontrado:", elemento?.tagName);
+return elemento ? elemento.textContent : null;`,
+  },
+
+  "dom-getelementsbyclassname": {
+    titulo: "Selecciona por clase",
+    descripcion:
+      "getElementsByClassName() devuelve todos los elementos que tienen la clase indicada.",
+    prueba:
+      "La clase item existe en un <li> por cada emoji de tu array.",
+    entorno: ENTORNO_DOM,
+    preludio: PRELUDIO_DOM,
+    codigo: `const items = document.getElementsByClassName("item");
+console.log("Cantidad:", items.length);
+return [...items].map((item) => item.textContent);`,
+  },
+
+  "dom-getelementsbytagname": {
+    titulo: "Selecciona por etiqueta",
+    descripcion:
+      "getElementsByTagName() devuelve todos los elementos con la etiqueta HTML indicada.",
+    prueba:
+      "Prueba con \"li\", \"div\" o \"h1\" y compara las cantidades.",
+    entorno: ENTORNO_DOM,
+    preludio: PRELUDIO_DOM,
+    codigo: `const items = document.getElementsByTagName("li");
+console.log("Elementos li:", items.length);
+return [...items].map((item) => item.textContent);`,
+  },
+
+  "dom-queryselector": {
+    titulo: "Selecciona el primero",
+    descripcion:
+      "querySelector() devuelve el primer elemento que coincide con un selector CSS.",
+    prueba:
+      "Prueba selectores como \"#titulo\", \".item\" o \"#lista\".",
+    entorno: ENTORNO_DOM,
+    preludio: PRELUDIO_DOM,
+    codigo: `const primero = document.querySelector(".item");
+console.log("Primer item:", primero?.textContent);
+return primero ? primero.textContent : null;`,
+  },
+
+  "dom-queryselectorall": {
+    titulo: "Selecciona todos",
+    descripcion:
+      "querySelectorAll() devuelve todos los elementos que coinciden con un selector CSS.",
+    prueba:
+      "Cambia el selector por \"#lista\" o \"li.item\" y observa el resultado.",
+    entorno: ENTORNO_DOM,
+    preludio: PRELUDIO_DOM,
+    codigo: `const items = document.querySelectorAll(".item");
+console.log("Coincidencias:", items.length);
+return [...items].map((item) => item.textContent);`,
+  },
+
+  /* ---------------- Web Storage ---------------- */
+
+  "storage-localstorage": {
+    titulo: "Almacenamiento persistente",
+    descripcion:
+      "localStorage guarda pares clave-valor que sobreviven al cierre del navegador. Aquí usamos un almacén simulado en memoria.",
+    prueba:
+      "Guarda varias claves y comprueba localStorage.length y getItem().",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `localStorage.setItem("tema", "oscuro");
+localStorage.setItem("texto", texto);
+console.log("Claves guardadas:", localStorage.length);
+return {
+  tema: localStorage.getItem("tema"),
+  texto: localStorage.getItem("texto"),
+};`,
+  },
+
+  "storage-sessionstorage": {
+    titulo: "Almacenamiento por sesión",
+    descripcion:
+      "sessionStorage funciona como localStorage, pero los datos se borran al cerrar la pestaña.",
+    prueba:
+      "Guarda un paso y un texto, y recupéralos con getItem().",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `sessionStorage.setItem("paso", "1");
+sessionStorage.setItem("texto", texto);
+console.log("Longitud:", sessionStorage.length);
+return {
+  paso: sessionStorage.getItem("paso"),
+  texto: sessionStorage.getItem("texto"),
+};`,
+  },
+
+  "storage-setitem": {
+    titulo: "Guarda un valor",
+    descripcion:
+      "setItem(clave, valor) guarda un par clave-valor. Los valores se convierten a string.",
+    prueba:
+      "Guarda un objeto con JSON.stringify y recupéralo con JSON.parse.",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `const perfil = { texto, emojis, creado: "hoy" };
+localStorage.setItem("perfil", JSON.stringify(perfil));
+const guardado = localStorage.getItem("perfil");
+console.log("Guardado:", guardado);
+return JSON.parse(guardado);`,
+  },
+
+  "storage-getitem": {
+    titulo: "Recupera un valor",
+    descripcion:
+      "getItem(clave) devuelve el valor asociado a una clave, o null si no existe.",
+    prueba:
+      "Consulta también una clave que no hayas guardado.",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `localStorage.setItem("saludo", texto);
+const valor = localStorage.getItem("saludo");
+console.log("Recuperado:", valor);
+console.log("Clave inexistente:", localStorage.getItem("no-existe"));
+return valor;`,
+  },
+
+  "storage-removeitem": {
+    titulo: "Elimina una clave",
+    descripcion:
+      "removeItem(clave) elimina únicamente el par clave-valor indicado.",
+    prueba:
+      "Comprueba que la otra clave sigue existiendo después de eliminar la primera.",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `localStorage.setItem("uno", emojis[0] ?? "🍎");
+localStorage.setItem("dos", emojis[1] ?? "🐉");
+localStorage.removeItem("uno");
+console.log("Longitud:", localStorage.length);
+return {
+  uno: localStorage.getItem("uno"),
+  dos: localStorage.getItem("dos"),
+};`,
+  },
+
+  "storage-key": {
+    titulo: "Obtén una clave por índice",
+    descripcion:
+      "key(indice) devuelve el nombre de la clave que ocupa esa posición en el almacén.",
+    prueba:
+      "Añade más claves y recorre los índices con un map.",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `localStorage.setItem("a", emojis[0] ?? "🍎");
+localStorage.setItem("b", emojis[1] ?? "🐉");
+localStorage.setItem("c", emojis[2] ?? "🍌");
+return [0, 1, 2, 3].map((indice) => localStorage.key(indice));`,
+  },
+
+  "storage-clear": {
+    titulo: "Vacía el almacén",
+    descripcion:
+      "clear() elimina todas las claves del almacén de una sola vez.",
+    prueba:
+      "Compara la longitud antes y después de llamar a clear().",
+    entorno: ENTORNO_STORAGE,
+    preludio: PRELUDIO_STORAGE,
+    codigo: `localStorage.setItem("a", "1");
+localStorage.setItem("b", "2");
+console.log("Antes:", localStorage.length);
+localStorage.clear();
+console.log("Después:", localStorage.length);
+return localStorage.getItem("a");`,
+  },
+
+  /* ---------------- Voz ---------------- */
+
+  "voz-speak": {
+    titulo: "Reproduce un texto",
+    descripcion:
+      "speechSynthesis.speak() envía un SpeechSynthesisUtterance a la cola de voz del navegador. Aquí la voz está simulada.",
+    prueba:
+      "Cambia el texto desde el constructor y observa lo que se envía a la cola.",
+    entorno: ENTORNO_VOZ,
+    preludio: PRELUDIO_VOZ,
+    codigo: `const utterance = new SpeechSynthesisUtterance(texto);
+utterance.lang = "es-ES";
+speechSynthesis.speak(utterance);
+await new Promise((resolver) => setTimeout(resolver, 300));
+return "Se envió a la cola: " + utterance.text;`,
+  },
+
+  "voz-utterance": {
+    titulo: "Configura la locución",
+    descripcion:
+      "SpeechSynthesisUtterance contiene el texto y ajustes como lang, rate, pitch y volume.",
+    prueba:
+      "Cambia rate y pitch para simular una voz más rápida o más grave.",
+    entorno: ENTORNO_VOZ,
+    preludio: PRELUDIO_VOZ,
+    codigo: `const utterance = new SpeechSynthesisUtterance(texto);
+utterance.lang = "es-ES";
+utterance.rate = 1.2;
+utterance.pitch = 0.9;
+console.log("Configuración:", {
+  lang: utterance.lang,
+  rate: utterance.rate,
+  pitch: utterance.pitch,
+});
+return {
+  texto: utterance.text,
+  lang: utterance.lang,
+  rate: utterance.rate,
+  pitch: utterance.pitch,
+};`,
+  },
+
+  "voz-onspeechend": {
+    titulo: "Detecta el final",
+    descripcion:
+      "El evento end del utterance avisa de que la locución ha terminado, algo útil para encadenar acciones.",
+    prueba:
+      "Observa el orden de los mensajes: primero habla y después llega end.",
+    entorno: ENTORNO_VOZ,
+    preludio: PRELUDIO_VOZ,
+    codigo: `const utterance = new SpeechSynthesisUtterance(texto);
+const terminar = new Promise((resolver) => {
+  utterance.onend = () => {
+    console.log("Evento end recibido");
+    resolver("Voz terminada");
+  };
+});
+speechSynthesis.speak(utterance);
+return await terminar;`,
+  },
+
+  "voz-recognition": {
+    titulo: "Reconoce una frase",
+    descripcion:
+      "SpeechRecognition escucha el micrófono y entrega una transcripción. Aquí el reconocimiento está simulado con tu texto.",
+    prueba:
+      "Cambia el texto del constructor para simular otra transcripción.",
+    entorno: ENTORNO_VOZ,
+    preludio: PRELUDIO_VOZ,
+    codigo: `const reconocimiento = new SpeechRecognition();
+reconocimiento.lang = "es-ES";
+const escuchar = new Promise((resolver) => {
+  reconocimiento.onresult = (evento) => {
+    const transcripcion = evento.results[0][0].transcript;
+    console.log("Transcripción:", transcripcion);
+    resolver(transcripcion);
+  };
+});
+reconocimiento.start();
+return await escuchar;`,
+  },
+
+  "voz-stop": {
+    titulo: "Detiene la voz",
+    descripcion:
+      "speechSynthesis.cancel() vacía la cola y detiene la locución en curso.",
+    prueba:
+      "Comprueba el estado hablando antes y después de cancelar.",
+    entorno: ENTORNO_VOZ,
+    preludio: PRELUDIO_VOZ,
+    codigo: `const utterance = new SpeechSynthesisUtterance(texto);
+speechSynthesis.speak(utterance);
+console.log("Hablando:", speechSynthesis.hablando);
+speechSynthesis.cancel();
+return { hablando: speechSynthesis.hablando };`,
+  },
 };
 
 /* ============================================================
    API pública
    ============================================================ */
+
+Object.assign(
+  PLANTILLAS,
+  EXTRA_CONFIGS,
+  OBJECT_CONFIGS,
+  MAP_SET_CONFIGS,
+  REGEXP_CONFIGS,
+  INTL_CONFIGS,
+);
 
 export const LIVE_EXAMPLE_IDS = new Set([
   ...Object.keys(EJEMPLOS),
@@ -1241,5 +1924,7 @@ export function getLiveExample(metodo) {
       plantilla.prueba ??
       "Cambia los datos del constructor, edita el código y vuelve a ejecutar.",
     codigo: plantilla.codigo,
+    preludio: plantilla.preludio,
+    entorno: plantilla.entorno,
   };
 }

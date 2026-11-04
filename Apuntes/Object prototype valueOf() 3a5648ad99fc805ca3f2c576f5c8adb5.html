@@ -1,0 +1,808 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Object.prototype.valueOf()</title><meta name="data-notion-page-icon" content="🔓"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%94%93%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3a5648ad-99fc-805c-a3f2-c576f5c8adb5" class="page sans" data-notion-page-icon="🔓"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="🔓"></span></div><h1 class="page-title" dir="auto">Object.prototype.valueOf()</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3a5648ad-99fc-80c3-bbe3-f0c953ceb9e2" class="" dir="auto">
+</p><h1 id="3a5648ad-99fc-8027-9854-ed2ad82b2ce4" class="" dir="auto">📄 Título</h1><p id="3a5648ad-99fc-803c-bb8c-f2057ee26f6f" class="" dir="auto"><code>Object.prototype.valueOf()</code> en JavaScript</p><hr id="3a5648ad-99fc-80ac-a4c1-e75e0ff59238" dir="auto"/><h1 id="3a5648ad-99fc-80b7-90e1-ec02759c5d53" class="" dir="auto">📝 Definición</h1><ul id="3a5648ad-99fc-8037-a9f6-e50cef1d621c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>Object.prototype.valueOf()</code> es un <strong>método</strong> definido en <code>Object.prototype</code> que devuelve el <strong>valor primitivo</strong> asociado a un objeto. </li></ul><ul id="3a8648ad-99fc-8076-8586-e9a8e1e3f70e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En el caso de un objeto común (<code>Object</code>), devuelve el propio objeto.</li></ul><blockquote id="3a5648ad-99fc-80af-8502-fe1cf8f619e5" class="" dir="auto">Este método suele ser sobrescrito por objetos como <code>Number</code>, <code>String</code>, <code>Boolean</code> y <code>Date</code> para devolver un valor primitivo más útil.</blockquote><hr id="3a5648ad-99fc-80c4-b44c-d6316b0fc95f" dir="auto"/><h1 id="3a5648ad-99fc-805d-8bba-d25dd3662fb1" class="" dir="auto">🧠 ¿Qué es?</h1><ul id="3a5648ad-99fc-80f3-909d-dc094e85cebf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es un método heredado por la mayoría de los objetos en JavaScript.</li></ul><ul id="3a5648ad-99fc-8047-9ef7-fc98b7924b71" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Su propósito es obtener el <strong>valor primitivo</strong> de un objeto cuando existe.</li></ul><ul id="3a5648ad-99fc-807e-b3f6-ed15be915356" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para un objeto literal (<code>{}</code>), simplemente devuelve el mismo objeto.</li></ul><hr id="3a5648ad-99fc-80c8-b0a3-e949f53f27aa" dir="auto"/><h1 id="3a5648ad-99fc-8057-bd24-f6cd1f17ccdd" class="" dir="auto">🎯 ¿Para qué sirve?</h1><p id="3a5648ad-99fc-80af-9ab5-c157167fc5c3" class="" dir="auto">Se utiliza para:</p><ul id="3a5648ad-99fc-8006-981e-d1cb948d7a1f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener el valor primitivo de objetos envoltorio (<em>wrapper objects</em>).</li></ul><ul id="3a5648ad-99fc-80ec-9964-d125c9002193" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permitir conversiones automáticas de objetos a valores primitivos.</li></ul><ul id="3a5648ad-99fc-808d-bb71-fb0b8a34ace1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Participar en operaciones matemáticas y comparaciones.</li></ul><ul id="3a5648ad-99fc-80d3-94cb-d6ebc4290044" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Personalizar el comportamiento de objetos mediante la sobrescritura del método.</li></ul><hr id="3a5648ad-99fc-8063-a76d-e7b95d5461ff" dir="auto"/><h1 id="3a5648ad-99fc-80fb-842a-e8255db82944" class="" dir="auto">⚙️ ¿Cómo funciona?</h1><ol type="1" id="3a5648ad-99fc-8077-92d3-ccafaf0ff180" class="numbered-list" start="1" dir="auto"><li>Se invoca sobre un objeto.</li></ol><ol type="1" id="3a5648ad-99fc-805f-841e-d1ef24418736" class="numbered-list" start="2" dir="auto"><li>JavaScript intenta obtener un valor primitivo.</li></ol><ol type="1" id="3a5648ad-99fc-8064-9a6e-de62d33e2a5c" class="numbered-list" start="3" dir="auto"><li>Si el objeto tiene una implementación propia de <code>valueOf()</code>, la utiliza.</li></ol><ol type="1" id="3a5648ad-99fc-8089-8b75-f75bc4f4f684" class="numbered-list" start="4" dir="auto"><li>Si es un objeto común, devuelve el propio objeto.</li></ol><p id="3a5648ad-99fc-80d1-913e-ed57f827537e" class="" dir="auto">Ejemplo del proceso:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3a5648ad-99fc-8025-865a-f32f2f52f551" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Juan&quot;
+};
+console.log(persona.valueOf());</code></pre><p id="3a5648ad-99fc-80bb-b393-e9891dffd9f0" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-803b-873d-c17d6bfd93c3" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Juan&quot; }</code></pre><hr id="3a5648ad-99fc-8025-83ee-e12f3c61905e" dir="auto"/><h1 id="3a5648ad-99fc-8086-bf16-d8fc612857b3" class="" dir="auto">📝 Sintaxis / Estructura (JavaScript)</h1><pre id="3a5648ad-99fc-80f8-991b-ea0163842560" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">objeto.valueOf()</code></pre><h3 id="3a5648ad-99fc-80e1-b1a9-ce5f8bc83cd0" class="" dir="auto">Parámetros</h3><ul id="3a5648ad-99fc-8033-9616-c1d9bbe4750b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">No recibe parámetros.</li></ul><h3 id="3a5648ad-99fc-804b-b9e9-eecda8fdaa4a" class="" dir="auto">Valor de retorno</h3><ul id="3a5648ad-99fc-805d-a5f6-d811ec4d880f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En un objeto común: devuelve el propio objeto.</li></ul><ul id="3a5648ad-99fc-80f2-918a-f416aa1fc3e8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En otros objetos (<code>Number</code>, <code>String</code>, <code>Boolean</code>, <code>Date</code>, etc.): devuelve su valor primitivo.</li></ul><hr id="3a5648ad-99fc-805b-93c1-f57315d34c28" dir="auto"/><h1 id="3a5648ad-99fc-8075-aaf7-e2c881f078ff" class="" dir="auto">💡 Ejemplos</h1><h3 id="3a5648ad-99fc-8014-8572-e8a3ba12fe26" class="" dir="auto">Ejemplo 1: Objeto común</h3><pre id="3a5648ad-99fc-80d7-940d-c8ce24f7be16" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Ana&quot;
+};
+console.log(persona.valueOf());</code></pre><p id="3a5648ad-99fc-80c5-b357-f9acdc741cc0" class="" dir="auto">Resultado:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js" integrity="sha512-QXFMVAusM85vUYDaNgcYeU3rzSlc+bTV4JvkfJhjxSHlQEo+ig53BtnGkvFTiNJh8D+wv6uWAQ2vJaVmxe8d3w==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3a5648ad-99fc-802d-859f-e42a9b333da6" class="code code-wrap" data-notion-code-syntax="json"><code class="language-json" style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot; }</code></pre><hr id="3a5648ad-99fc-8051-9c1f-f2a85ee385c3" dir="auto"/><h3 id="3a5648ad-99fc-80b2-bf59-c33f09a0cfeb" class="" dir="auto">Ejemplo 2: Objeto <code>Number</code></h3><pre id="3a5648ad-99fc-809a-8950-cddeb5ee6592" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const numero=new Number(100);
+console.log(numero.valueOf());</code></pre><p id="3a5648ad-99fc-8099-a39d-f34eed464edb" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-80cd-8304-c7d8a2d75702" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">100</code></pre><p id="3a5648ad-99fc-80dc-b0e1-f89ed3696fff" class="" dir="auto">Tipo del resultado:</p><pre id="3a5648ad-99fc-80b7-8e6d-c1e90faccb00" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">console.log(typeof numero.valueOf());</code></pre><p id="3a5648ad-99fc-80ae-873f-de239f323e19" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-80cf-82f4-d975631cbeb8" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;number&quot;</code></pre><hr id="3a5648ad-99fc-80cc-9fe7-c8186f5d88f9" dir="auto"/><h3 id="3a5648ad-99fc-8069-94b6-d5158c4fa82e" class="" dir="auto">Ejemplo 3: Objeto <code>String</code></h3><pre id="3a5648ad-99fc-801c-a60f-cccfdd7a3529" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const texto=new String(&quot;Hola&quot;);console.log(texto.valueOf());</code></pre><p id="3a5648ad-99fc-80ce-851d-f51640d7d5ec" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-80aa-b623-c239fa948a0f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;</code></pre><hr id="3a5648ad-99fc-80db-991d-c1b7417317cc" dir="auto"/><h3 id="3a5648ad-99fc-80c6-9105-e1bfe3d79edf" class="" dir="auto">Ejemplo 4: Objeto <code>Boolean</code></h3><pre id="3a5648ad-99fc-8064-aa66-c1efa7f10972" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const activo=new Boolean(true);console.log(activo.valueOf());</code></pre><p id="3a5648ad-99fc-8025-864c-c07b401c1064" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-8036-b27f-c902f99d15f8" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3a5648ad-99fc-8088-b745-ffd6e6b36f2c" dir="auto"/><h3 id="3a5648ad-99fc-8018-9777-fa1722f99000" class="" dir="auto">Ejemplo 5: Objeto <code>Date</code></h3><pre id="3a5648ad-99fc-808b-aabe-c3d51ded8b41" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const fecha=new Date(&quot;2026-07-22&quot;);console.log(fecha.valueOf());</code></pre><p id="3a5648ad-99fc-80fc-a345-f415cb5c6596" class="" dir="auto">Resultado (ejemplo):</p><pre id="3a5648ad-99fc-80ec-854e-d4d3cbcaa4ca" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">1784678400000</code></pre><p id="3a5648ad-99fc-809b-81e9-e8c6ee2c98c0" class="" dir="auto">Devuelve el número de milisegundos transcurridos desde el <strong>1 de enero de 1970 (UTC)</strong> hasta la fecha representada.</p><hr id="3a5648ad-99fc-8008-8077-f93c1019f91a" dir="auto"/><h1 id="3a5648ad-99fc-80d5-8a6b-f8ab97c029f1" class="" dir="auto">⚠️ Errores comunes</h1><h3 id="3a5648ad-99fc-8040-8112-e4706f2ddde9" class="" dir="auto">❌ Pensar que siempre devuelve un valor primitivo</h3><pre id="3a5648ad-99fc-80d2-8bd1-cd2a84902500" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Luis&quot;
+};
+console.log(persona.valueOf());</code></pre><p id="3a5648ad-99fc-8048-ad34-d7c8932c0ff1" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-801e-82d1-ecbf4558c34a" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Luis&quot; }</code></pre><p id="3a5648ad-99fc-8035-bae3-ff4f273b6ed9" class="" dir="auto">Los objetos comunes devuelven el propio objeto.</p><hr id="3a5648ad-99fc-8092-95c8-d0c030bdc6d5" dir="auto"/><h3 id="3a5648ad-99fc-8035-a8a5-f49a8d069f01" class="" dir="auto">❌ Confundir <code>valueOf()</code> con <code>toString()</code></h3><pre id="3a5648ad-99fc-80c7-9716-f5e5e4008d22" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const numero=new Number(25);console.log(numero.toString());</code></pre><p id="3a5648ad-99fc-8064-a8d4-fbb743c28616" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-80a4-a307-ebd5e498bfcd" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;25&quot;</code></pre><p id="3a5648ad-99fc-807c-ad28-f5707600a210" class="" dir="auto">Mientras que:</p><pre id="3a5648ad-99fc-8091-94f0-c0ff8c0ed9a5" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">console.log(numero.valueOf());</code></pre><p id="3a5648ad-99fc-801b-ac27-efb732b87ffe" class="" dir="auto">Resultado:</p><pre id="3a5648ad-99fc-8082-a933-c2cd04fd7a82" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">25</code></pre><p id="3a5648ad-99fc-80b1-b31f-e3d44f63e58c" class="" dir="auto"><code>toString()</code> devuelve un <strong>string</strong> y <code>valueOf()</code> devuelve el <strong>valor primitivo</strong>.</p><hr id="3a5648ad-99fc-800c-bc20-d7f0d97d5d3e" dir="auto"/><h3 id="3a5648ad-99fc-805b-87ad-c2a7a8d3278b" class="" dir="auto">❌ Crear objetos envoltorio innecesariamente</h3><pre id="3a5648ad-99fc-80a1-8482-fa521c1d7027" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const numero=new Number(10);</code></pre><p id="3a5648ad-99fc-80b2-b3ed-de8d1bb41e71" class="" dir="auto">Es preferible:</p><pre id="3a5648ad-99fc-806b-bc61-db07379020f2" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const numero=10;</code></pre><p id="3a5648ad-99fc-803a-bb14-ca2e8e54683a" class="" dir="auto">Los objetos <code>Number</code>, <code>String</code> y <code>Boolean</code> rara vez son necesarios.</p><hr id="3a5648ad-99fc-8094-b27e-c07211ee71ff" dir="auto"/><h1 id="3a5648ad-99fc-807b-847a-d2cb5fc9f3d5" class="" dir="auto">💼 Casos de uso</h1><ul id="3a5648ad-99fc-808f-b3d1-e7ff45f70700" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener el valor primitivo de un objeto <code>Number</code>.</li></ul><ul id="3a5648ad-99fc-809e-a1ff-ffa2f1808790" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener el texto contenido en un objeto <code>String</code>.</li></ul><ul id="3a5648ad-99fc-8082-81af-f829b3598d74" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener el valor booleano de un objeto <code>Boolean</code>.</li></ul><ul id="3a5648ad-99fc-8088-94bc-e9f76a1aaa35" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener la marca de tiempo (timestamp) de un objeto <code>Date</code>.</li></ul><ul id="3a5648ad-99fc-80f2-bce8-e88ab3a726a4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Personalizar conversiones en objetos propios.</li></ul><hr id="3a5648ad-99fc-800a-9196-d141f28b8347" dir="auto"/><h1 id="3a5648ad-99fc-80b5-b939-fe0bf15f4876" class="" dir="auto">🧩 Relación con otros conceptos</h1><ul id="3a5648ad-99fc-803a-865e-e75ede7a85b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>toString()</strong></code> → Convierte un valor en una cadena de texto.</li></ul><ul id="3a5648ad-99fc-804a-bde9-c42019db5162" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Conversión de tipos (Type Coercion)</strong> → JavaScript puede llamar automáticamente a <code>valueOf()</code> al necesitar un valor primitivo.</li></ul><ul id="3a5648ad-99fc-80d0-b929-eb6c0802f937" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Objetos envoltorio (</strong><code><strong>Number</strong></code><strong>, </strong><code><strong>String</strong></code><strong>, </strong><code><strong>Boolean</strong></code><strong>)</strong> → Implementan su propia versión de <code>valueOf()</code>.</li></ul><ul id="3a5648ad-99fc-80b9-89f4-f5630af94e25" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>Symbol.toPrimitive</strong></code> → Mecanismo moderno para personalizar la conversión de objetos a valores primitivos; tiene prioridad sobre <code>valueOf()</code>.</li></ul><hr id="3a5648ad-99fc-8098-af2d-c8f2c7ac34b1" dir="auto"/><h1 id="3a5648ad-99fc-806f-999b-f5483f2e8b9f" class="" dir="auto">🧠 Analogía</h1><p id="3a5648ad-99fc-80a5-9fc3-d5bc6f607370" class="" dir="auto">Imagina una <strong>caja de regalo</strong> 🎁.</p><ul id="3a5648ad-99fc-801c-b2f6-f21275f49e9f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">La caja representa un <strong>objeto</strong>.</li></ul><ul id="3a5648ad-99fc-8097-bbdf-dbfec6e722d2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El contenido representa el <strong>valor primitivo</strong>.</li></ul><p id="3a5648ad-99fc-8021-8fe4-c2d9dee03d46" class="" dir="auto"><code>valueOf()</code> es como <strong>abrir la caja</strong> para obtener lo que realmente contiene.</p><p id="3a5648ad-99fc-8080-bfd1-c966d0599aa7" class="" dir="auto">Ejemplos:</p><ul id="3a5648ad-99fc-80d8-8f65-cc856ede7291" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🎁 <code>new Number(50)</code> → abre la caja → <code>50</code></li></ul><ul id="3a5648ad-99fc-80c7-aaf9-e68e7d03565e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🎁 <code>new String(&quot;Hola&quot;)</code> → abre la caja → <code>&quot;Hola&quot;</code></li></ul><ul id="3a5648ad-99fc-8077-bc80-fe8dcf36830a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🎁 <code>new Boolean(true)</code> → abre la caja → <code>true</code></li></ul><p id="3a5648ad-99fc-800f-aae0-cf6e6952ae6d" class="" dir="auto">Pero una caja vacía (un objeto común) no tiene un valor primitivo especial:</p><pre id="3a5648ad-99fc-801d-9725-f7f33d193d20" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const objeto= { nombre:&quot;Ana&quot; };console.log(objeto.valueOf());</code></pre><p id="3a5648ad-99fc-80fc-bf7d-c4c6a58cefd7" class="" dir="auto">Simplemente obtienes la misma caja.</p><hr id="3a5648ad-99fc-803c-837e-f15f3ddb8278" dir="auto"/><h1 id="3a5648ad-99fc-8011-875d-d65293311949" class="" dir="auto">📚 Fuente</h1><ul id="3a5648ad-99fc-800d-8574-c4554b7cf77e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Documentación oficial de JavaScript (MDN).</li></ul><ul id="3a5648ad-99fc-808b-ac7c-cb7a8e907439" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Especificación ECMAScript.</li></ul><hr id="3a5648ad-99fc-80d7-8d69-c9501c30a1b2" dir="auto"/><h1 id="3a5648ad-99fc-8054-a4bb-c1b1bb5461b5" class="" dir="auto">📝 Notas Personales</h1><ul id="3a5648ad-99fc-801a-8e73-f4e2523c8046" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅ <code>Object.prototype.valueOf()</code> intenta devolver el <strong>valor primitivo</strong> de un objeto.</li></ul><ul id="3a5648ad-99fc-805c-b577-fee82a4e114d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅ En un objeto común (<code>{}</code>), devuelve el propio objeto.</li></ul><ul id="3a5648ad-99fc-80ac-b17f-d2cc662c9667" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅ Clases como <code>Number</code>, <code>String</code>, <code>Boolean</code> y <code>Date</code> sobrescriben este método para devolver un valor primitivo útil.</li></ul><ul id="3a5648ad-99fc-8087-b5b4-c45dae8cfe8f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅ JavaScript puede llamar automáticamente a <code>valueOf()</code> durante comparaciones u operaciones matemáticas.</li></ul><ul id="3a5648ad-99fc-8066-97bd-fec4c7e6e940" class="bulleted-list" dir="auto"><li style="list-style-type:disc">✅ No debe confundirse con <code>toString()</code>, que devuelve una representación en texto.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

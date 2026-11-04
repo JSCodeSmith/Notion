@@ -1,4 +1,8 @@
 import { JS_JSON, JS_JSON_DOCS } from "./jsJson";
+import { JS_OBJECT, JS_OBJECT_DOCS } from "./jsObject";
+import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
+import { JS_REGEXP, JS_REGEXP_DOCS } from "./jsRegexp";
+import { JS_INTL, JS_INTL_DOCS } from "./jsIntl";
 import {
   JS_TEMPORIZADORES,
   JS_TEMPORIZADORES_DOCS,
@@ -30,6 +34,10 @@ import { JS_RED, JS_RED_DOCS } from "./js-red";
 /* Categorías que aparecen como subpestañas dentro de JavaScript. */
 export const JS_CATEGORIAS = [
   JS_JSON,
+  JS_OBJECT,
+  JS_MAP_SET,
+  JS_REGEXP,
+  JS_INTL,
   JS_TEMPORIZADORES,
   JS_PROMESAS,
   JS_WEBAPIS,
@@ -56,6 +64,10 @@ export const JS_CATEGORIAS = [
 /* Todos los apuntes, indexados por id. */
 export const JS_APUNTES = {
   ...JS_JSON_DOCS,
+  ...JS_OBJECT_DOCS,
+  ...JS_MAP_SET_DOCS,
+  ...JS_REGEXP_DOCS,
+  ...JS_INTL_DOCS,
   ...JS_TEMPORIZADORES_DOCS,
   ...JS_PROMESAS_DOCS,
   ...JS_WEBAPIS_DOCS,

@@ -1,0 +1,846 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Object.freeze()</title><meta name="data-notion-page-icon" content="🧊"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%A7%8A%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ac648ad-99fc-8065-bdbe-ee44cc489bb1" class="page sans" data-notion-page-icon="🧊"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="🧊"></span></div><h1 class="page-title" dir="auto">Object.freeze()</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ac648ad-99fc-806f-adf8-dc9530bddd1c" class="" dir="auto">
+</p><h1 id="3ac648ad-99fc-8068-8be6-e08799392e51" class="" dir="auto">📄 Título</h1><p id="3ac648ad-99fc-80aa-881f-cc6c12718019" class="" dir="auto"><code>Object.freeze(objeto)</code> en JavaScript</p><hr id="3ac648ad-99fc-80ba-867f-ea5abf80b8aa" dir="auto"/><h2 id="3ac648ad-99fc-80d2-81af-eae03648a0c8" class="" dir="auto">📝 Definición</h2><ul id="3ac648ad-99fc-8016-af50-edc85243175b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>Object.freeze()</code> es un <strong>método estático del objeto global </strong><code><strong>Object</strong></code> que permite <strong>congelar un objeto</strong>, evitando que sus propiedades puedan ser agregadas, eliminadas o modificadas.</li></ul><ul id="3ac648ad-99fc-802b-9805-f6d93c44b99f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Devuelve el mismo objeto que fue congelado.</li></ul><hr id="3ac648ad-99fc-80bd-8eba-fb7491175a59" dir="auto"/><h2 id="3ac648ad-99fc-806d-bcda-d37f812a547c" class="" dir="auto">🧠 ¿Qué es?</h2><ul id="3ac648ad-99fc-80bb-9004-c42dd518e054" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es un <strong>método estático</strong> de <code>Object</code>.</li></ul><ul id="3ac648ad-99fc-8058-8133-c21e63ccca76" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Forma parte del lenguaje JavaScript (ECMAScript)</strong>, <strong>no de una Web API</strong>.</li></ul><ul id="3ac648ad-99fc-8012-a64a-ecd6e8e6a4f0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Convierte un objeto en un estado de <strong>solo lectura superficial (</strong><em><strong>shallow read-only</strong></em><strong>)</strong>.</li></ul><p id="3ac648ad-99fc-8096-842e-d9b1600960f1" class="" dir="auto">Cuando un objeto está congelado:</p><p id="3ac648ad-99fc-804b-a5b9-fcc6ddbb780a" class="" dir="auto">✅ Puedes:</p><ul id="3ac648ad-99fc-808d-aa83-c4e6b0efba5a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Leer propiedades.</li></ul><ul id="3ac648ad-99fc-8015-8bb1-ebb1dbc8d054" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Acceder a sus valores.</li></ul><p id="3ac648ad-99fc-80d3-82cc-c89d763b8b62" class="" dir="auto">❌ No puedes:</p><ul id="3ac648ad-99fc-80d9-9a5e-d6f83bf16914" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Agregar nuevas propiedades.</li></ul><ul id="3ac648ad-99fc-8056-bca9-f413afab82cc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Eliminar propiedades existentes.</li></ul><ul id="3ac648ad-99fc-8099-b624-ff90eb45f828" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambiar valores.</li></ul><ul id="3ac648ad-99fc-8078-9034-f4ffe68d648c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambiar configuraciones de propiedades.</li></ul><hr id="3ac648ad-99fc-8059-9a81-c909088268bf" dir="auto"/><h2 id="3ac648ad-99fc-80ae-b58d-eeff5ca7e70c" class="" dir="auto">🎯 ¿Para qué sirve?</h2><p id="3ac648ad-99fc-809c-9485-e17ae42b6b5b" class="" dir="auto">Se utiliza para:</p><ul id="3ac648ad-99fc-8033-9a49-e6dc0cf02a65" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Proteger objetos importantes contra modificaciones accidentales.</li></ul><ul id="3ac648ad-99fc-8023-a8e9-d21d9597161e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Crear constantes de configuración.</li></ul><ul id="3ac648ad-99fc-80ed-90d9-f91c0ce05768" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar cambios en datos compartidos.</li></ul><ul id="3ac648ad-99fc-8079-96cb-e326b0c61c2e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Mantener estados inmutables en aplicaciones.</li></ul><ul id="3ac648ad-99fc-80b4-a2bb-e7c82cc977c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ayudar en patrones como programación funcional y gestión de estados.</li></ul><hr id="3ac648ad-99fc-8031-ab15-ed0b6480789e" dir="auto"/><h2 id="3ac648ad-99fc-80e3-a4c7-fb78fb6ca0c6" class="" dir="auto">⚙️ ¿Cómo funciona?</h2><p id="3ac648ad-99fc-80f4-9f1d-c19c44cca83c" class="" dir="auto">Cuando ejecutas:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3ac648ad-99fc-803b-a9f0-ddf0e5c5b134" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.freeze(objeto);</code></pre><p id="3ac648ad-99fc-800f-8532-d16c8ae1a4b6" class="" dir="auto">JavaScript realiza dos acciones principales:</p><ol type="1" id="3ac648ad-99fc-8075-a346-e8fc6112c9c1" class="numbered-list" start="1" dir="auto"><li>Evita que se agreguen nuevas propiedades.</li></ol><ol type="1" id="3ac648ad-99fc-80c1-8f9f-f8b7fcea57e9" class="numbered-list" start="2" dir="auto"><li>Hace que las propiedades existentes sean:<ul id="3ac648ad-99fc-8054-9a7b-e5ea87f08891" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>writable: false</code> → no se pueden modificar.</li></ul><ul id="3ac648ad-99fc-8015-b41d-c2b4b501c5b1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>configurable: false</code> → no se pueden eliminar.</li></ul></li></ol><p id="3ac648ad-99fc-802f-94aa-ccb30c80c291" class="" dir="auto">Ejemplo:</p><p id="3ac648ad-99fc-8034-a0eb-e79e193a05dc" class="" dir="auto">Antes:</p><pre id="3ac648ad-99fc-8078-a8f1-fa9c1c44ce76" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Ana&quot;,
+    edad:20
+};</code></pre><p id="3ac648ad-99fc-8010-9b1e-c154deb416b2" class="" dir="auto">Después:</p><pre id="3ac648ad-99fc-806a-aacd-ce83c01b03fb" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.freeze(usuario);</code></pre><p id="3ac648ad-99fc-80d8-9e28-cd2a8e341a90" class="" dir="auto">Intentos:</p><pre id="3ac648ad-99fc-805b-b5f3-c319afe9c258" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">usuario.edad=30;// ❌usuario.email=&quot;ana@gmail.com&quot;;// ❌deleteusuario.nombre;// ❌</code></pre><hr id="3ac648ad-99fc-8020-80b9-ff9ac1780415" dir="auto"/><h1 id="3ac648ad-99fc-803a-a8d9-f0b82bb8fd66" class="" dir="auto">📝 Sintaxis / Estructura</h1><pre id="3ac648ad-99fc-8047-ac33-d30a3031e7e0" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.freeze(objeto);</code></pre><hr id="3ac648ad-99fc-8067-ad99-f04cd83ffc40" dir="auto"/><h2 id="3ac648ad-99fc-806a-a9e9-eaab58c04a96" class="" dir="auto">Parámetro</h2><table id="3ac648ad-99fc-8025-8c66-d50ab0ac519a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ac648ad-99fc-8042-be50-d245187ffdf9" dir="ltr"><th id="SqBU" class="simple-table-header-color simple-table-header">Parámetro</th><th id="l]Xq" class="simple-table-header-color simple-table-header" style="width:413.65000915527344px">Descripción</th></tr></thead><tbody><tr id="3ac648ad-99fc-8097-925f-dad7dae61e76" dir="ltr"><td id="SqBU" class=""><code>objeto</code></td><td id="l]Xq" class="" style="width:413.65000915527344px">Objeto que será congelado.</td></tr></tbody></table><hr id="3ac648ad-99fc-8007-87c8-fb7930575532" dir="auto"/><h2 id="3ac648ad-99fc-808e-9068-d1a0eded36b9" class="" dir="auto">Valor de retorno</h2><table id="3ac648ad-99fc-80e3-ad2c-f520a28cbc79" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ac648ad-99fc-80b0-999b-c8b8fc254b89" dir="ltr"><th id="ar]X" class="simple-table-header-color simple-table-header">Tipo</th><th id="XCnb" class="simple-table-header-color simple-table-header" style="width:440px">Descripción</th></tr></thead><tbody><tr id="3ac648ad-99fc-8009-a3fd-e136ae96a5c7" dir="ltr"><td id="ar]X" class=""><code>Object</code></td><td id="XCnb" class="" style="width:440px">Devuelve el mismo objeto congelado.</td></tr></tbody></table><p id="3ac648ad-99fc-8011-a79e-fe3b250c2b75" class="" dir="auto">Ejemplo:</p><pre id="3ac648ad-99fc-8083-991f-f8a215b0aff5" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const resultado=Object.freeze(usuario);
+console.log(resultado===usuario);</code></pre><p id="3ac648ad-99fc-802c-a6ba-d93e89889ed2" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-8097-8c20-e8d11105be01" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3ac648ad-99fc-8073-a9e1-e200a2dc2396" dir="auto"/><h1 id="3ac648ad-99fc-80e6-9eb7-d388e506fd66" class="" dir="auto">💡 Ejemplos</h1><h2 id="3ac648ad-99fc-80b8-adef-d9ef89079937" class="" dir="auto">Congelar un objeto</h2><pre id="3ac648ad-99fc-807a-86e0-d342439b6251" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Luis&quot;,
+    edad:25
+}; 
+Object.freeze(persona);
+persona.edad=30;
+console.log(persona);</code></pre><p id="3ac648ad-99fc-80d8-bd5c-e88d72db8518" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-80a1-ac93-c8eabd0ebf92" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Luis&quot;,edad:25
+}</code></pre><p id="3ac648ad-99fc-80cf-b612-e27e7cf3a963" class="" dir="auto">La modificación no se realizó.</p><hr id="3ac648ad-99fc-806d-a030-de3d05b35d9b" dir="auto"/><h2 id="3ac648ad-99fc-8024-ae69-f2668549e7f6" class="" dir="auto">Intentar agregar una propiedad</h2><pre id="3ac648ad-99fc-80bb-950b-d4823494e7ca" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const producto= {
+    nombre:&quot;Laptop&quot;
+};
+Object.freeze(producto);producto.precio=2500;console.log(producto);</code></pre><p id="3ac648ad-99fc-80d0-aec5-e1a66163453d" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-806b-8d66-e2b4fd7aeefb" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Laptop&quot;
+}</code></pre><p id="3ac648ad-99fc-808c-b350-da779b927f29" class="" dir="auto">La propiedad no se agregó.</p><hr id="3ac648ad-99fc-8057-a4a9-ec97a5cf0c6c" dir="auto"/><h2 id="3ac648ad-99fc-8005-83ec-f1fc2f82ef34" class="" dir="auto">Intentar eliminar una propiedad</h2><pre id="3ac648ad-99fc-80dd-beac-e1424e06b6c9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Ana&quot;,
+    edad:20
+};
+Object.freeze(usuario);deleteusuario.edad;console.log(usuario);</code></pre><p id="3ac648ad-99fc-809d-bc38-e3600bbe9cdf" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-805b-9c6f-e85ba6f03163" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot;,edad:20
+}</code></pre><p id="3ac648ad-99fc-8052-82e7-f029d80db2e9" class="" dir="auto">No se elimina.</p><hr id="3ac648ad-99fc-803a-9cc2-fdb2365197f2" dir="auto"/><h2 id="3ac648ad-99fc-80b3-8881-fbdd1a3b4a35" class="" dir="auto">Verificar si está congelado</h2><pre id="3ac648ad-99fc-8057-a553-fc474933c5bd" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const config= {
+    modo:&quot;oscuro&quot;
+};Object.freeze(config);console.log(Object.isFrozen(config));</code></pre><p id="3ac648ad-99fc-8025-b182-de4d5b94855b" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-8049-8da9-c6a240021e95" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3ac648ad-99fc-8094-98ad-c0c1047d91f2" dir="auto"/><h2 id="3ac648ad-99fc-80e2-9622-e0e609025447" class="" dir="auto">Congelar un array</h2><p id="3ac648ad-99fc-8089-9cc5-e7e4d04684b4" class="" dir="auto">Los arrays también son objetos:</p><pre id="3ac648ad-99fc-8060-96bf-fe3313356212" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const numeros= [1,2,3];
+Object.freeze(numeros);
+numeros.push(4);</code></pre><p id="3ac648ad-99fc-8043-8a71-de17591bbf06" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-80a9-9257-ec3aeded0397" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Error</code></pre><p id="3ac648ad-99fc-803b-aab9-c8a222c571ed" class="" dir="auto">No puede cambiarse.</p><hr id="3ac648ad-99fc-800a-9f87-f89611f1506e" dir="auto"/><h1 id="3ac648ad-99fc-807a-bc0e-e42fda0f5095" class="" dir="auto">⚠️ Errores comunes</h1><h2 id="3ac648ad-99fc-805a-b680-cbbd8000628c" class="" dir="auto">❌ Pensar que congela objetos internos</h2><pre id="3ac648ad-99fc-80d0-a73e-f8c9d2b4f4de" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Ana&quot;,
+    direccion: {
+        ciudad:&quot;Lima&quot;
+    }
+};
+Object.freeze(usuario);
+usuario.direccion.ciudad=&quot;Cusco&quot;;
+console.log(usuario);</code></pre><p id="3ac648ad-99fc-8019-ab30-eee17e4857d0" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-8041-ac9d-d5c9fa5fd79f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">{nombre:&quot;Ana&quot;,direccion: {ciudad:&quot;Cusco&quot;
+ }
+}</code></pre><p id="3ac648ad-99fc-804b-9691-cd7fd28912d9" class="" dir="auto">¿Por qué?</p><p id="3ac648ad-99fc-801c-af98-db6132fedf84" class="" dir="auto">Porque <code>freeze()</code> solo congela el <strong>primer nivel</strong>.</p><p id="3ac648ad-99fc-80d8-ba42-f8b8d56201e2" class="" dir="auto">Es una:</p><pre id="3ac648ad-99fc-8095-b6ba-d95ec1a97cfa" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Shallow Freeze ✅</code></pre><p id="3ac648ad-99fc-8022-8a77-fd4855827c0e" class="" dir="auto">No una:</p><pre id="3ac648ad-99fc-8038-9078-d2c822e2ac53" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Deep Freeze ❌</code></pre><hr id="3ac648ad-99fc-800b-a810-d3ca70bf8509" dir="auto"/><h2 id="3ac648ad-99fc-80a6-9634-eef92625d44a" class="" dir="auto">❌ Confundirlo con <code>Object.seal()</code></h2><table id="3ac648ad-99fc-805e-8fa6-ff1d5b3c14a6" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ac648ad-99fc-809f-a36f-f6a1df13f994" dir="ltr"><th id="SLnF" class="simple-table-header-color simple-table-header">Método</th><th id="ASOT" class="simple-table-header-color simple-table-header">Agregar</th><th id="kaMh" class="simple-table-header-color simple-table-header">Eliminar</th><th id="di^{" class="simple-table-header-color simple-table-header" style="width:224px">Modificar</th></tr></thead><tbody><tr id="3ac648ad-99fc-80dd-8d6b-e264b5447e8a" dir="ltr"><td id="SLnF" class=""><code>Object.seal()</code></td><td id="ASOT" class="">❌</td><td id="kaMh" class="">❌</td><td id="di^{" class="" style="width:224px">✅</td></tr><tr id="3ac648ad-99fc-80c1-81bc-e390f2a48de1" dir="ltr"><td id="SLnF" class=""><code>Object.freeze()</code></td><td id="ASOT" class="">❌</td><td id="kaMh" class="">❌</td><td id="di^{" class="" style="width:224px">❌</td></tr></tbody></table><hr id="3ac648ad-99fc-8084-a996-d4306c8ffff3" dir="auto"/><h2 id="3ac648ad-99fc-806a-b007-fafdd6c47fcf" class="" dir="auto">❌ Pensar que crea una copia</h2><pre id="3ac648ad-99fc-8028-ad85-d6a8bff48083" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const nuevo=Object.freeze(objeto);</code></pre><p id="3ac648ad-99fc-8069-9896-d04378c908bd" class="" dir="auto">No crea otro objeto.</p><p id="3ac648ad-99fc-8086-9ba2-dfc235ab9c37" class="" dir="auto">Es el mismo:</p><pre id="3ac648ad-99fc-8005-9fee-c8359d27087d" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">nuevo===objeto</code></pre><p id="3ac648ad-99fc-80f5-94bb-ce2c87d235d2" class="" dir="auto">Resultado:</p><pre id="3ac648ad-99fc-80aa-84a2-c7a21dc71acb" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><hr id="3ac648ad-99fc-80c8-952f-da6168817275" dir="auto"/><h2 id="3ac648ad-99fc-80c7-bfa9-f858992f4678" class="" dir="auto">❌ No usar modo estricto para detectar errores</h2><p id="3ac648ad-99fc-80c5-99ba-c4bc363f735b" class="" dir="auto">Sin <code>&quot;use strict&quot;</code>:</p><pre id="3ac648ad-99fc-80ec-bc74-ead540466595" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">objeto.nombre=&quot;Pedro&quot;;</code></pre><p id="3ac648ad-99fc-8028-a16c-f64df0a27777" class="" dir="auto">Puede fallar silenciosamente.</p><p id="3ac648ad-99fc-80e9-b54a-c0fe0c466d92" class="" dir="auto">Con:</p><pre id="3ac648ad-99fc-80f9-acc2-e2200c4ff485" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;use strict&quot;;</code></pre><p id="3ac648ad-99fc-80cd-987a-e4b72e8034c2" class="" dir="auto">JavaScript lanzará un error.</p><hr id="3ac648ad-99fc-8020-b131-f0139b38be96" dir="auto"/><h1 id="3ac648ad-99fc-8005-bfba-c293408e3fb6" class="" dir="auto">💼 Casos de uso</h1><h2 id="3ac648ad-99fc-80b8-af9a-d94e80573fed" class="" dir="auto">Configuraciones constantes</h2><pre id="3ac648ad-99fc-807b-810d-f96f78be0ce2" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const CONFIG=Object.freeze({
+    API_URL:&quot;/api&quot;,
+    VERSION:&quot;1.0&quot;
+});</code></pre><hr id="3ac648ad-99fc-8038-9743-c547018dc35a" dir="auto"/><h2 id="3ac648ad-99fc-8075-a3f1-f7d348a5f9fe" class="" dir="auto">Estados inmutables</h2><p id="3ac648ad-99fc-80f1-bc60-c0282e568ca7" class="" dir="auto">Ejemplo en aplicaciones:</p><pre id="3ac648ad-99fc-807c-8fc0-df991f20d0d9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const estadoInicial=Object.freeze({
+    usuario:null,
+    conectado:false
+});</code></pre><hr id="3ac648ad-99fc-80c7-90ec-c22713a857a8" dir="auto"/><h2 id="3ac648ad-99fc-8031-a73e-f280c2a70a7d" class="" dir="auto">Evitar modificaciones accidentales</h2><ul id="3ac648ad-99fc-80b5-9807-f905387f1bf9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Librerías.</li></ul><ul id="3ac648ad-99fc-80bf-8dc0-f52543c47b7b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Constantes globales.</li></ul><ul id="3ac648ad-99fc-801e-8cfd-c1857fb83b18" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Datos compartidos.</li></ul><ul id="3ac648ad-99fc-80b0-a0fd-d41aedb13afb" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Objetos de configuración.</li></ul><hr id="3ac648ad-99fc-806c-9688-e6bbf496358b" dir="auto"/><h1 id="3ac648ad-99fc-8006-bda6-c02a1a6c63de" class="" dir="auto">🧩 Relación con otros conceptos</h1><table id="3ac648ad-99fc-8087-a504-c4cbe9dfec94" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3ac648ad-99fc-8049-97c1-e858f5d5a4d3" dir="ltr"><th id="h?LF" class="simple-table-header-color simple-table-header">Método</th><th id=":&lt;Fg" class="simple-table-header-color simple-table-header" style="width:424px">Función</th></tr></thead><tbody><tr id="3ac648ad-99fc-80fc-9d3d-f623de499f44" dir="ltr"><td id="h?LF" class=""><code>Object.preventExtensions()</code></td><td id=":&lt;Fg" class="" style="width:424px">No permite agregar propiedades</td></tr><tr id="3ac648ad-99fc-80c1-b4ae-db26046e83bc" dir="ltr"><td id="h?LF" class=""><code>Object.seal()</code></td><td id=":&lt;Fg" class="" style="width:424px">No permite agregar ni eliminar</td></tr><tr id="3ac648ad-99fc-801b-a906-e14729fea698" dir="ltr"><td id="h?LF" class=""><code>Object.freeze()</code></td><td id=":&lt;Fg" class="" style="width:424px">No permite agregar, eliminar ni modificar</td></tr><tr id="3ac648ad-99fc-8033-81ef-e880833fad13" dir="ltr"><td id="h?LF" class=""><code>Object.isFrozen()</code></td><td id=":&lt;Fg" class="" style="width:424px">Comprueba si está congelado</td></tr></tbody></table><p id="3ac648ad-99fc-80b7-a22c-d82354b30da5" class="" dir="auto">Jerarquía de protección:</p><pre id="3ac648ad-99fc-8016-83f4-f714e2967484" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Objeto normal
+      ↓
+preventExtensions()
+      ↓
+seal()
+      ↓
+freeze()</code></pre><hr id="3ac648ad-99fc-8068-a29d-d724b92b3ab8" dir="auto"/><h2 id="3ac648ad-99fc-80af-b1fd-f7ea1a1589cb" class="" dir="auto">Relación con inmutabilidad</h2><p id="3ac648ad-99fc-8089-b197-fa40bd839e9d" class="" dir="auto"><code>Object.freeze()</code> ayuda a crear objetos inmutables:</p><pre id="3ac648ad-99fc-807d-b2fb-f05734cce21c" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario=Object.freeze({
+    nombre:&quot;Ana&quot;
+});</code></pre><p id="3ac648ad-99fc-8048-bbfc-e7a912ed2fcd" class="" dir="auto">Pero recuerda:</p><ul id="3ac648ad-99fc-80e0-97c0-ce622e7ea2b3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Congelación superficial → solo primer nivel.</li></ul><ul id="3ac648ad-99fc-8025-84d7-c651de38b1a5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para estructuras profundas se necesita una técnica de <strong>deep freeze</strong>.</li></ul><hr id="3ac648ad-99fc-803b-9ca7-e3c71a6a1797" dir="auto"/><h1 id="3ac648ad-99fc-80ab-9270-cea524bfc674" class="" dir="auto">🧠 Analogía</h1><p id="3ac648ad-99fc-8094-baef-d1f7f2058f38" class="" dir="auto">Imagina una estatua de hielo 🧊:</p><p id="3ac648ad-99fc-80fe-932f-d6e916e4f3c8" class="" dir="auto">Antes:</p><pre id="3ac648ad-99fc-80aa-9824-d85adb1030ff" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Objeto normal</code></pre><p id="3ac648ad-99fc-802b-b4b6-dc66e14402bf" class="" dir="auto">Puedes:</p><ul id="3ac648ad-99fc-80a8-90d2-c11a9b3aa580" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Añadir piezas.</li></ul><ul id="3ac648ad-99fc-80fd-886e-fc9e2a8200fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Quitar piezas.</li></ul><ul id="3ac648ad-99fc-8033-86d4-d936da57e5ae" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Cambiar partes.</li></ul><p id="3ac648ad-99fc-80c8-a795-c90ec4696dfb" class="" dir="auto">Después de <code>Object.freeze()</code>:</p><pre id="3ac648ad-99fc-806b-8c85-f795b8f3a953" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Estatua congelada</code></pre><p id="3ac648ad-99fc-804b-9a94-c55a11ab7dd2" class="" dir="auto">Solo puedes observarla:</p><p id="3ac648ad-99fc-80cf-bb1c-fd2916d44538" class="" dir="auto">👀 Leer → ✅</p><p id="3ac648ad-99fc-800f-b086-d999fae4d22f" class="" dir="auto">➕ Agregar → ❌</p><p id="3ac648ad-99fc-8050-ae3a-dfe84a47d760" class="" dir="auto">➖ Eliminar → ❌</p><p id="3ac648ad-99fc-80c8-817b-d3a574e86a9b" class="" dir="auto">✏️ Modificar → ❌</p><hr id="3ac648ad-99fc-8089-9151-f611deecd2dd" dir="auto"/><h1 id="3ac648ad-99fc-8045-9f13-e9f5124b0981" class="" dir="auto">📚 Fuente</h1><ul id="3ac648ad-99fc-809e-96e9-db2dd09addb8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>MDN Web Docs:</strong> <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze</a></li></ul><ul id="3ac648ad-99fc-8040-9fc8-ed4128ed983f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Especificación ECMAScript:</strong> https://tc39.es/ecma262/#sec-object.freeze</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

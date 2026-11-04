@@ -1,0 +1,25 @@
+﻿Nombre
+Object.keys()
+Object.values()
+Object.entries()
+Object.fromEntries()
+Object.defineProperty()
+Object.groupBy()
+Object.is()
+hasOwnProperty()
+new Object()
+Object.prototype.toString()
+Object.prototype.valueOf()
+Object.assign
+Object.seal()
+Object.isSealed
+Object.freeze()
+Object.isFrozen()
+Object.create()
+Object.defineProperties
+Object.getOwnPropertyDescriptor
+Object.hasOwn()
+Object.setPrototypeOf
+Object.getPrototypeOf
+Object.preventExtensions
+Object.isExtensible

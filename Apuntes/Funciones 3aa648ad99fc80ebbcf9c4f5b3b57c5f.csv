@@ -1,0 +1,4 @@
+﻿Nombre
+Function.prototype.call()
+Function.prototype.apply()
+Function.prototype.bind()

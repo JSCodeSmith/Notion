@@ -345,7 +345,7 @@ export default function LiveExamples({ metodo, metodoId }) {
     limpiarSalida("↺ Código del ejemplo restaurado. Tus datos se conservan.");
   };
 
-  const preludio = useMemo(() => {
+  const preludioDatos = useMemo(() => {
     switch (categoria) {
       case "texto":
         return `const emojis = ${JSON.stringify(array)};\nconst texto = emojis.join(" ");\n`;
@@ -375,6 +375,9 @@ export default function LiveExamples({ metodo, metodoId }) {
 
     const id = runIdRef.current + 1;
     runIdRef.current = id;
+    const preludio = config.preludio
+      ? `${preludioDatos}${config.preludio}\n`
+      : preludioDatos;
     const base = [
       {
         nivel: "sistema",
@@ -382,9 +385,13 @@ export default function LiveExamples({ metodo, metodoId }) {
       },
       {
         nivel: "info",
-        texto: preludio.trim(),
+        texto: preludioDatos.trim(),
       },
     ];
+
+    if (config.entorno) {
+      base.push({ nivel: "info", texto: config.entorno });
+    }
 
     setEstado("running");
     setResultado(null);
@@ -533,6 +540,9 @@ export default function LiveExamples({ metodo, metodoId }) {
         <div className="le-hero__side">
           <span className="le-method">{config.etiqueta}</span>
           <span className="le-lock">🔒 Worker aislado · 4 s</span>
+          {config.entorno && (
+            <span className="le-lock le-lock--demo">🧪 Entorno simulado</span>
+          )}
         </div>
       </header>
 

@@ -160,6 +160,12 @@
   white-space: nowrap;
 }
 
+.le-lock--demo {
+  border-color: rgba(167, 139, 250, 0.34);
+  background: rgba(167, 139, 250, 0.09);
+  color: #ddd0ff;
+}
+
 /* ---------------- Constructor ---------------- */
 
 .le-builder {

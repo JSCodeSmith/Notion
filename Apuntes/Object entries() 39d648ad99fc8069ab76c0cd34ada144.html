@@ -1,0 +1,817 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Object.entries()</title><meta name="data-notion-page-icon" content="📑"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%91%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="39d648ad-99fc-8069-ab76-c0cd34ada144" class="page sans" data-notion-page-icon="📑"><header><div class="page-header-icon undefined"><span class="icon" data-emoji="📑"></span></div><h1 class="page-title" dir="auto">Object.entries()</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><h2 id="39d648ad-99fc-8093-82b6-d7ca24089453" class="" dir="auto">Título</h2><p id="39d648ad-99fc-8029-a34a-e99366f23348" class="" dir="auto"><code>Object.entries()</code> en JavaScript</p><h2 id="39d648ad-99fc-801c-a652-d9aeaaad42a6" class="" dir="auto">📝 Definición</h2><ul id="39d648ad-99fc-80ad-a1d6-f489db734439" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es un método estático en JavaScript que devuelve un arreglo (<em>array</em>) de arreglos bidimensional, donde cada subarreglo es un par compuesto por <code>[llave, valor]</code> correspondiente a las propiedades enumerables propias de un objeto.</li></ul><h2 id="39d648ad-99fc-80d0-9fc7-d24865f8a994" class="" dir="auto">🧠 ¿Qué es?</h2><ul id="39d648ad-99fc-8074-ab7a-d3e02b972377" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Es un <strong>método estático</strong> del objeto global <code>Object</code>. </li></ul><ul id="39d648ad-99fc-8092-9149-f3b2eae1175a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Permite deconstruir la estructura de un objeto transformándolo por completo en una matriz (un arreglo de arreglos) para facilitar la manipulación simultánea de sus claves y contenidos.</li></ul><h2 id="39d648ad-99fc-80bc-8d2a-d22ac9464d3f" class="" dir="auto">🎯 ¿Para qué sirve?</h2><ul id="39d648ad-99fc-80e9-b4da-df17bb608a63" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Iteración completa:</strong> Recorrer un objeto teniendo acceso directo tanto al nombre de la propiedad (<code>llave</code>) como a su contenido (<code>valor</code>) en cada ciclo, idealmente usando desestructuración.</li></ul><ul id="39d648ad-99fc-80ce-b750-f7f55721c378" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Transformar objetos en otros tipos:</strong> Convertir fácilmente un objeto literal en una estructura de datos moderna como un <code>Map</code>.</li></ul><ul id="39d648ad-99fc-8015-b856-ed8bdf4d5653" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Filtrar u ordenar estructuras complejas:</strong> Al convertir el objeto en una matriz, se pueden aplicar filtros combinados que dependan tanto del nombre de la llave como del valor almacenado.</li></ul><h2 id="39d648ad-99fc-8035-aafa-e15034fa152a" class="" dir="auto">⚙️ ¿Cómo funciona?</h2><p id="39d648ad-99fc-809a-a2ab-c561595590f3" class="" dir="auto">Cuando pasas un objeto a <code>Object.entries(objeto)</code>:</p><ol type="1" id="39d648ad-99fc-806c-8b2e-fc86adcce030" class="numbered-list" start="1" dir="auto"><li>Recorre todas las propiedades del objeto.</li></ol><ol type="1" id="39d648ad-99fc-804e-b9e1-ea669042d3f0" class="numbered-list" start="2" dir="auto"><li>Filtra aquellas que son <strong>propias</strong> y <strong>enumerables</strong>.</li></ol><ol type="1" id="39d648ad-99fc-8022-9122-ffa79369bb88" class="numbered-list" start="3" dir="auto"><li>Por cada propiedad, crea un pequeño arreglo de dos posiciones: la posición <code>[0]</code> guarda la llave (como string) y la posición <code>[1]</code> guarda el valor.</li></ol><ol type="1" id="39d648ad-99fc-8042-a692-fa5f88fd1d3b" class="numbered-list" start="4" dir="auto"><li>Empaqueta todos estos pequeños arreglos dentro de un arreglo contenedor principal.</li></ol><h2 id="39d648ad-99fc-8073-b104-ef1443003279" class="" dir="auto">📝 Sintaxis / Estructura</h2><p id="39d648ad-99fc-80da-94f5-d9458804e2bb" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="39d648ad-99fc-80ea-b1e7-fa48f33f382c" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.entries(objeto);</code></pre><ul id="39d648ad-99fc-8059-a905-d267f78c4ad3" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>objeto</strong></code>: El objeto cuyas parejas de propiedades enumerables se desean extraer en formato de matriz.</li></ul><h2 id="39d648ad-99fc-8020-8eb7-dacdadac7293" class="" dir="auto">💡 Ejemplos</h2><h3 id="39d648ad-99fc-800d-8e92-d7152d11607d" class="" dir="auto">1. Extracción básica y desestructuración en un bucle</h3><p id="39d648ad-99fc-80a8-8783-f2c8361b48f0" class="" dir="auto">
+</p><pre id="39d648ad-99fc-800d-b95b-e8d39f376fe7" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const puntajes = {
+    Satoshi: 100,
+    Hal: 95
+};
+
+// Usamos un bucle for...of junto con desestructuración [llave, valor]
+for (const [usuario, puntos] of Object.entries(puntajes)) {
+    console.log(`El usuario ${usuario} tiene un puntaje de ${puntos}.`);
+}
+/* Salida:
+El usuario Satoshi tiene un puntaje de 100.
+El usuario Hal tiene un puntaje de 95.
+*/</code></pre><h3 id="39d648ad-99fc-8061-a3ee-e95cb37f70ec" class="" dir="auto">2. Convertir un Objeto Literal en un <code>Map</code></h3><p id="39d648ad-99fc-80d3-bf75-da78a7d88765" class="" dir="auto">
+</p><pre id="39d648ad-99fc-804a-888f-ecfdec64077e" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const configuracion = { idioma: &quot;es&quot;, tema: &quot;oscuro&quot; };
+
+// El constructor de Map acepta directamente la matriz generada por entries
+const mapaConfig = new Map(Object.entries(configuracion));
+
+console.log(mapaConfig.get(&quot;tema&quot;)); // Salida: &quot;oscuro&quot;</code></pre><h2 id="39d648ad-99fc-8010-979c-e129ebaf561b" class="" dir="auto">⚠️ Errores comunes</h2><ul id="39d648ad-99fc-8021-bedf-f982b7c3dc96" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pasarle valores </strong><code><strong>null</strong></code><strong> o </strong><code><strong>undefined</strong></code><strong>:</strong> Invocar <code>Object.entries(null)</code> u <code>Object.entries(undefined)</code> romperá la aplicación inmediatamente con un error de tipo <code>TypeError</code>.</li></ul><ul id="39d648ad-99fc-802d-bcdd-fbc5262cb65f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Modificar el subarreglo creyendo que muta el objeto:</strong> Si modificas el contenido de uno de los arreglos temporales generados (ej. <code>miMatriz[0][1] = &quot;nuevo&quot;</code>), <strong>no</strong> estarás cambiando el valor dentro del objeto original; solo estás alterando la matriz que devolvió el método.</li></ul><ul id="39d648ad-99fc-8000-b1b2-fe48e5ae2ea5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Asumir orden estricto con llaves numéricas:</strong> Al igual que sus métodos hermanos, si las llaves del objeto son números, JavaScript las ordenará de menor a mayor automáticamente en la matriz devuelta.</li></ul><h2 id="39d648ad-99fc-8006-92c0-e766c4575935" class="" dir="auto">💼 Casos de uso</h2><ul id="39d648ad-99fc-8018-9239-e74f398ebe3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Filtrar las propiedades de un objeto:</strong> Limpiar un objeto eliminando propiedades basadas en sus valores (por ejemplo, remover claves con valores <code>null</code> o vacíos) combinando <code>Object.entries()</code>, <code>.filter()</code> y <code>Object.fromEntries()</code>.</li></ul><ul id="39d648ad-99fc-8055-b9f0-f7022368662f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Construcción de URLs dinámicas:</strong> Tomar un objeto de parámetros de búsqueda (<code>{ query: &quot;javascript&quot;, page: 2 }</code>) e iterarlo para armar una cadena de texto de consulta para una API (<em>Query String</em>).</li></ul><h2 id="39d648ad-99fc-8025-ac7d-ed329004b4b5" class="" dir="auto">🧩 Relación con otros conceptos</h2><ul id="39d648ad-99fc-802e-bf4a-e2d5ae3a35b8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>Object.keys()</strong></code><strong>:</strong> Extrae únicamente los nombres de las claves (posición <code>[0]</code> de entries).</li></ul><ul id="39d648ad-99fc-8075-b796-c7031dfbffe9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>Object.values()</strong></code><strong>:</strong> Extrae únicamente los datos de los valores (posición <code>[1]</code> de entries).</li></ul><ul id="39d648ad-99fc-8079-a109-f224b6d02005" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>Object.fromEntries()</strong></code><strong>:</strong> El proceso inverso exacto. Toma una matriz de pares <code>[llave, valor]</code> y la vuelve a transformar en un objeto literal clásico de JavaScript.</li></ul><h2 id="39d648ad-99fc-80d1-9229-d19e17ea6737" class="" dir="auto">🧠 Analogía</h2><p id="39d648ad-99fc-809e-9e8d-ca1154adad2e" class="" dir="auto">Regresemos al <strong>frasco de conservas surtidas</strong> que tiene pegada su etiqueta nutricional (llaves) y frutas por dentro (valores). <code>Object.entries()</code> es el equivalente exacto a <strong>sacar cada fruta del frasco junto con el pedacito de etiqueta que le corresponde, meterlos juntos en una bolsita transparente individual, y alinear todas las bolsitas en una bandeja</strong>. Ahora tienes una bandeja llena de bolsas (matriz) y en cada bolsa tienes amarrados tanto el nombre del ingrediente como la fruta real en sí.</p><h2 id="39d648ad-99fc-80cc-8c55-d0f939eed406" class="" dir="auto">📚 Fuente</h2><ul id="39d648ad-99fc-8068-9aec-d21484250e3a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Object/entries">MDN Web Docs - Object.entries()</a></li></ul><h2 id="39d648ad-99fc-80da-bf49-dca81c74d6c8" class="" dir="auto">📝 Notas personales</h2><blockquote id="39d648ad-99fc-80ce-b31a-fc0a0d527b6a" class="" dir="auto">💡 <em>Tip Pro:</em> Una de las combinaciones más potentes del JavaScript moderno para transformar objetos es la siguiente línea:<br/><code>const limpio = Object.fromEntries(Object.entries(original).filter(([_, v]) =&gt; v !== null));</code><br/>Esta instrucción convierte el objeto en matriz, filtra todos los elementos cuyo valor (<code>v</code>) sea <code>null</code> (usando un guion bajo <code>_</code> para ignorar la llave en la desestructuración) y vuelve a armar el objeto limpio en un segundo. ¡Guárdate este truco!</blockquote></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

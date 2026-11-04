@@ -1,0 +1,846 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Object.preventExtensions</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3dc648ad-99fc-80cb-b3c7-c3c70f523c60" class="page sans"><header><h1 class="page-title" dir="auto">Object.preventExtensions</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3dc648ad-99fc-80ff-8792-c9e45083fd70" class="" dir="auto">
+</p><h1 id="3dc648ad-99fc-80dc-9f47-e91b89a6a1ff" class="" dir="auto"><code>Object.preventExtensions()</code></h1><p id="3dc648ad-99fc-80f0-860c-df67b9652c25" class="" dir="auto">📄 <strong>Título</strong></p><p id="3dc648ad-99fc-8020-8511-fb826c00a31d" class="" dir="auto"><code>Object.preventExtensions()</code></p><p id="3dc648ad-99fc-80d1-96ca-f67ece1b5008" class="" dir="auto">📝 <strong>Definición</strong></p><p id="3dc648ad-99fc-8050-8656-c5967fe425d1" class="" dir="auto"><code>Object.preventExtensions()</code> </p><p id="3dc648ad-99fc-8085-9fd7-fe504404bba7" class="" dir="auto">Es un <strong>método estático de </strong><code><strong>Object</strong></code> que impide que se <strong>agreguen nuevas propiedades</strong> a un objeto.</p><p id="3dc648ad-99fc-8076-8a3f-f63908c93080" class="" dir="auto">🧠 <strong>¿Qué es?</strong></p><p id="3dc648ad-99fc-800f-acb2-f0493df4982f" class="" dir="auto">Es una herramienta para convertir un objeto en <strong>no extensible</strong>.</p><p id="3dc648ad-99fc-8097-b529-e0a9b5ffadf0" class="" dir="auto">El objeto sigue existiendo y sus propiedades actuales pueden continuar siendo modificadas o eliminadas, dependiendo de sus descriptores.</p><p id="3dc648ad-99fc-80b2-a5bd-fdc96cf5a3ba" class="" dir="auto">🎯 <strong>¿Para qué sirve?</strong></p><p id="3dc648ad-99fc-802a-b1c2-c5701a65e83b" class="" dir="auto">Sirve para:</p><ul id="3dc648ad-99fc-8089-8330-ef3e88c15a1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🔒 Evitar que se agreguen propiedades accidentalmente.</li></ul><ul id="3dc648ad-99fc-80ed-93bd-daab75b3f42d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🛡️ Controlar la estructura de un objeto.</li></ul><ul id="3dc648ad-99fc-80a1-88f4-cc727d6a66ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🧩 Crear objetos cuya cantidad de propiedades no pueda aumentar.</li></ul><ul id="3dc648ad-99fc-80f7-aa4c-de3a5810c9f1" class="bulleted-list" dir="auto"><li style="list-style-type:disc">🧪 Aplicar restricciones durante validaciones o configuraciones.</li></ul><p id="3dc648ad-99fc-800c-9bfd-dfbe8e4da518" class="" dir="auto">⚙️ <strong>¿Cómo funciona?</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3dc648ad-99fc-8005-a398-d313d8bd29b2" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {
+    nombre:&quot;Josué&quot;,
+    edad:17
+};
+Object.preventExtensions(usuario);</code></pre><p id="3dc648ad-99fc-8038-acb0-d983f80f22a9" class="" dir="auto">Después:</p><pre id="3dc648ad-99fc-80a7-9cab-e05282a4c2d6" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">usuario.email=&quot;correo@example.com&quot;;</code></pre><p id="3dc648ad-99fc-800d-8387-f77662c1f199" class="" dir="auto">La propiedad <code>email</code> <strong>no podrá agregarse</strong>.</p><p id="3dc648ad-99fc-802f-bdc5-f808d4688dd9" class="" dir="auto">Pero las propiedades existentes todavía pueden modificarse:</p><pre id="3dc648ad-99fc-80df-8f01-fc5d93b4804e" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">usuario.edad=18;</code></pre><p id="3dc648ad-99fc-80de-8587-da7ac14a0dba" class="" dir="auto">Y también pueden eliminarse:</p><pre id="3dc648ad-99fc-807f-8f33-e069a1426e15" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">deleteusuario.edad;</code></pre><p id="3dc648ad-99fc-80a5-b278-e6ca7580fe63" class="" dir="auto">Por eso:</p><blockquote id="3dc648ad-99fc-80f0-9604-e0ce2f3f071d" class="" dir="auto"><code><strong>preventExtensions()</strong></code><strong> bloquea la adición de propiedades, no todas las modificaciones.</strong></blockquote><hr id="3dc648ad-99fc-8076-a7e1-c2014ff9f180" dir="auto"/><p id="3dc648ad-99fc-80bc-915f-d979fb016759" class="" dir="auto">📝 <strong>Sintaxis / Estructura</strong></p><pre id="3dc648ad-99fc-8017-bbf5-e79edabc0542" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.preventExtensions(obj)</code></pre><h3 id="3dc648ad-99fc-80c7-acb3-e18270bfd7c3" class="" dir="auto">Parámetro</h3><p id="3dc648ad-99fc-8016-a664-f1c850eef9b3" class="" dir="auto"><code><strong>obj</strong></code></p><p id="3dc648ad-99fc-804f-9d11-f502a13ae827" class="" dir="auto">El objeto que quieres convertir en no extensible.</p><h3 id="3dc648ad-99fc-8087-90d8-d724a0b3e8f1" class="" dir="auto">Retorno</h3><p id="3dc648ad-99fc-80c9-aaa2-d0808062e360" class="" dir="auto">Devuelve <strong>el mismo objeto</strong> que recibió.</p><pre id="3dc648ad-99fc-8096-b4a8-feee095406da" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const usuario= {};
+const resultado=Object.preventExtensions(usuario);
+console.log(resultado===usuario);</code></pre><p id="3dc648ad-99fc-80ad-843f-d05e12a88d86" class="" dir="auto">Resultado:</p><pre id="3dc648ad-99fc-80c1-ba5c-db9c4e32ed0d" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">true</code></pre><p id="3dc648ad-99fc-80e8-abfb-d9e737baf693" class="" dir="auto">💡 <strong>Ejemplos</strong></p><h3 id="3dc648ad-99fc-80aa-99c7-d486402e92b0" class="" dir="auto">1. Impedir nuevas propiedades</h3><pre id="3dc648ad-99fc-80dc-bb17-d214f2a35f9a" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Josué&quot;
+};
+Object.preventExtensions(persona);
+persona.edad=17;
+console.log(persona);</code></pre><p id="3dc648ad-99fc-80aa-beb6-deab28490916" class="" dir="auto">La propiedad <code>edad</code> no se agrega.</p><hr id="3dc648ad-99fc-80e8-ab75-f0428f5bfb01" dir="auto"/><h3 id="3dc648ad-99fc-8033-8b48-f8ec1fbb975f" class="" dir="auto">2. Las propiedades existentes sí pueden modificarse</h3><pre id="3dc648ad-99fc-80cc-a558-db6bc3987b79" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Josué&quot;
+};
+Object.preventExtensions(persona);
+persona.nombre=&quot;Juan&quot;;
+console.log(persona.nombre);</code></pre><p id="3dc648ad-99fc-80a1-85e6-f75ec64115ff" class="" dir="auto">Resultado:</p><pre id="3dc648ad-99fc-80e6-8279-ccd7b0c1c389" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">Juan</code></pre><hr id="3dc648ad-99fc-80ba-a6d1-df89ac31fa6e" dir="auto"/><h3 id="3dc648ad-99fc-8073-a92c-d36664dc35fc" class="" dir="auto">3. Las propiedades existentes pueden eliminarse</h3><pre id="3dc648ad-99fc-80b7-93ff-c9d840bb503c" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {
+    nombre:&quot;Josué&quot;,
+    edad:17
+};
+Object.preventExtensions(persona);
+delete persona.edad;
+console.log(persona);</code></pre><p id="3dc648ad-99fc-80da-b212-cd2750bcb806" class="" dir="auto">Resultado:</p><pre id="3dc648ad-99fc-8067-a235-e06dbc30bb02" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">{
+	nombre:&quot;Josué&quot;
+}</code></pre><hr id="3dc648ad-99fc-8074-a964-ee30db69c619" dir="auto"/><h3 id="3dc648ad-99fc-80ec-a3d4-cd3158227f1d" class="" dir="auto">4. Comprobar si el objeto es extensible</h3><p id="3dc648ad-99fc-80d7-9bb6-e170daf74931" class="" dir="auto">Puedes utilizar:</p><pre id="3dc648ad-99fc-803d-ac69-ecaf8765dddf" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.isExtensible(persona);</code></pre><p id="3dc648ad-99fc-805d-a2b4-cfbaf0d1b9e6" class="" dir="auto">Ejemplo:</p><pre id="3dc648ad-99fc-8016-9f80-c7f918dae6e9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const persona= {};
+console.log(Object.isExtensible(persona));// true
+Object.preventExtensions(persona);
+console.log(Object.isExtensible(persona));// false</code></pre><p id="3dc648ad-99fc-80b0-a26a-d749b2c5b060" class="" dir="auto">⚠️ <strong>Errores comunes</strong></p><h3 id="3dc648ad-99fc-8080-821b-fd81c399b0f6" class="" dir="auto">Confundirlo con <code>Object.seal()</code></h3><p id="3dc648ad-99fc-80d0-a667-c5776cc15b46" class="" dir="auto">No son lo mismo.</p><table id="3dc648ad-99fc-80e9-88d3-d50b6de8782b" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3dc648ad-99fc-8013-bb0c-c7e7fc3cac05" dir="ltr"><th id="HdLK" class="simple-table-header-color simple-table-header">Método</th><th id="\mwS" class="simple-table-header-color simple-table-header">Agregar</th><th id="mbzA" class="simple-table-header-color simple-table-header">Modificar</th><th id="IZIZ" class="simple-table-header-color simple-table-header">Eliminar</th></tr></thead><tbody><tr id="3dc648ad-99fc-8066-8e41-eb6cef6f05a6" dir="ltr"><td id="HdLK" class=""><code>preventExtensions()</code></td><td id="\mwS" class="">❌</td><td id="mbzA" class="">✅</td><td id="IZIZ" class="">✅</td></tr><tr id="3dc648ad-99fc-8007-ad5a-fd1b1261753a" dir="ltr"><td id="HdLK" class=""><code>seal()</code></td><td id="\mwS" class="">❌</td><td id="mbzA" class="">✅</td><td id="IZIZ" class="">❌</td></tr><tr id="3dc648ad-99fc-8028-bc4c-d2a2a69598f6" dir="ltr"><td id="HdLK" class=""><code>freeze()</code></td><td id="\mwS" class="">❌</td><td id="mbzA" class="">❌</td><td id="IZIZ" class="">❌</td></tr></tbody></table><p id="3dc648ad-99fc-80a0-86fd-ee6422971841" class="" dir="auto">La progresión mental es:</p><pre id="3dc648ad-99fc-8085-ad39-c7f28789ca7f" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">preventExtensions()
+        ↓
+&quot;No agregues propiedades&quot;
+
+seal()
+        ↓
+&quot;No agregues ni elimines propiedades&quot;
+
+freeze()
+        ↓
+&quot;No agregues, elimines ni modifiques propiedades&quot;</code></pre><h3 id="3dc648ad-99fc-803b-8063-f384aaadfa65" class="" dir="auto">Pensar que vuelve al objeto completamente inmutable</h3><p id="3dc648ad-99fc-80a7-b182-c949e88fafb3" class="" dir="auto">Esto:</p><pre id="3dc648ad-99fc-804d-89b8-c1345f35e9d4" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.preventExtensions(obj);</code></pre><p id="3dc648ad-99fc-8007-8e2a-fc831d9b8ad0" class="" dir="auto"><strong>NO significa</strong>:</p><pre id="3dc648ad-99fc-8016-8d70-fee7303e5822" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">objeto inmutable ❌</code></pre><p id="3dc648ad-99fc-80ed-8e1a-f32aa5b53698" class="" dir="auto">Significa:</p><pre id="3dc648ad-99fc-80ed-a7fe-f432d2b051bc" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">objeto no extensible ✅</code></pre><hr id="3dc648ad-99fc-80e9-a3fd-ef3b517eebf7" dir="auto"/><p id="3dc648ad-99fc-80de-a194-c605f7317f1b" class="" dir="auto">💼 <strong>Casos de uso</strong></p><ul id="3dc648ad-99fc-8063-a7a1-cfa17b4b565b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Proteger la estructura de objetos.</li></ul><ul id="3dc648ad-99fc-8055-a05c-fda6c4876fc6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar propiedades agregadas accidentalmente.</li></ul><ul id="3dc648ad-99fc-807c-9120-cd713560bb62" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validaciones de objetos.</li></ul><ul id="3dc648ad-99fc-804f-9aad-eb3a25ba06d8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">APIs o configuraciones donde la estructura debe permanecer limitada.</li></ul><ul id="3dc648ad-99fc-80c2-8017-f06154296766" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Programación defensiva.</li></ul><p id="3dc648ad-99fc-80b5-9512-f24a05af5d66" class="" dir="auto">🧩 <strong>Relación con otros conceptos</strong></p><pre id="3dc648ad-99fc-8085-aa8d-f014fdb9c6f9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.preventExtensions()
+        │
+        ├── Object.isExtensible()
+        │
+        ├── Object.seal()
+        │
+        ├── Object.freeze()
+        │
+        └── Propiedades de objetos</code></pre><p id="3dc648ad-99fc-80cc-bb04-e1d17c2448e2" class="" dir="auto">También se relaciona con:</p><pre id="3dc648ad-99fc-802b-80c9-f3688f044467" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.defineProperty()
+Object.defineProperties()</code></pre><p id="3dc648ad-99fc-8024-8529-f830896cc14f" class="" dir="auto">porque los <strong>descriptores de propiedades</strong> determinan qué operaciones siguen siendo posibles.</p><p id="3dc648ad-99fc-8078-a4d0-c4da426cb845" class="" dir="auto">🧠 <strong>Analogía</strong></p><p id="3dc648ad-99fc-8049-80ed-fb2cc20ff214" class="" dir="auto">Imagina un local 🏪.</p><p id="3dc648ad-99fc-80fa-8072-ea56b5b2d387" class="" dir="auto"><code>Object.preventExtensions()</code> coloca un cartel:</p><blockquote id="3dc648ad-99fc-80ff-bb70-d5e6b7d5867a" class="" dir="auto">🚫 <strong>“No se pueden agregar nuevas habitaciones.”</strong></blockquote><p id="3dc648ad-99fc-80f4-a806-cef4f0b7f653" class="" dir="auto">Pero las habitaciones que ya existen todavía pueden:</p><ul id="3dc648ad-99fc-802b-afbd-f3d643dd2962" class="bulleted-list" dir="auto"><li style="list-style-type:disc">cambiarse 🔧</li></ul><ul id="3dc648ad-99fc-802c-a7ba-c677272215fc" class="bulleted-list" dir="auto"><li style="list-style-type:disc">remodelarse 🎨</li></ul><ul id="3dc648ad-99fc-80f6-b672-f9accdd94a40" class="bulleted-list" dir="auto"><li style="list-style-type:disc">incluso eliminarse 🗑️</li></ul><p id="3dc648ad-99fc-8074-94d0-cabb16b8e097" class="" dir="auto">Es decir:</p><pre id="3dc648ad-99fc-8016-813c-ead91e4ff54f" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">estructura nueva → ❌
+modificación → ✅
+eliminación → ✅</code></pre><p id="3dc648ad-99fc-8098-9a49-c418eb2085dd" class="" dir="auto">📚 <strong>Fuente</strong></p><p id="3dc648ad-99fc-808f-bd04-cae02fc76ad5" class="" dir="auto">MDN Web Docs — <code>Object.preventExtensions()</code></p><p id="3dc648ad-99fc-801d-a038-eaaff93b5698" class="" dir="auto">📝 <strong>Notas Personales</strong></p><p id="3dc648ad-99fc-8046-8f7a-ebbb00e393b7" class="" dir="auto"><strong>Regla mental:</strong></p><blockquote id="3dc648ad-99fc-80f8-9464-cd602399cdbd" class="" dir="auto"><code>preventExtensions()</code> = <strong>“Puedes modificar lo que ya existe, pero no puedes agregar nuevas propiedades.”</strong></blockquote><pre id="3dc648ad-99fc-8056-95bd-daa31c802854" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Object.preventExtensions(obj);</code></pre><p id="3dc648ad-99fc-801d-951b-d8b68e8ef2e3" class="" dir="auto">🔒 <strong>Bloquea la extensión del objeto, no lo congela</strong></p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
