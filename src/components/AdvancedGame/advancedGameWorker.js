@@ -106,14 +106,12 @@ const crearConsola = (registros) => {
 };
 
 self.onmessage = async (evento) => {
-  const { id, codigo, preludio = "" } = evento.data
+  const { id, codigo, preludio = "", estricto = true } = evento.data
   const registros = []
 
   try {
-    const ejecutar = new Function(
-      "console",
-      `"use strict";\nreturn (async () => {\n${preludio}\n${codigo}\n})();`,
-    )
+    const cuerpo = `${estricto ? '"use strict";\n' : ""}return (async () => {\n${preludio}\n${codigo}\n})();`
+    const ejecutar = new Function("console", cuerpo)
 
     const resultado = await ejecutar(crearConsola(registros))
 
@@ -131,11 +129,25 @@ self.onmessage = async (evento) => {
         ? `${error.name}: ${error.message}`
         : String(error)
 
+    /* Traduce la línea del stack de `new Function` a la línea real del
+       editor. V8 añade 2 líneas de función + el envoltorio async; la línea
+       de "use strict" solo existe cuando el modo estricto está activo. */
+    const pila = error instanceof Error ? String(error.stack ?? "") : ""
+    const coincidencia = pila.match(/<anonymous>:(\d+):(\d+)/)
+    const lineasPreludio = preludio ? preludio.split("\n").length : 0
+    const offset = estricto ? 4 : 3
+    const linea = coincidencia
+      ? Math.max(1, Number(coincidencia[1]) - offset - lineasPreludio)
+      : null
+    const columna = coincidencia ? Number(coincidencia[2]) : null
+
     self.postMessage({
       id,
       ok: false,
       logs: registros,
       error: texto,
+      linea,
+      columna,
     })
   }
 }

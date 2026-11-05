@@ -23,6 +23,10 @@ import {
   REGEXP_CATEGORIAS,
 } from "./liveExampleRegexpConfigs.js";
 import { INTL_CONFIGS, INTL_CATEGORIAS } from "./liveExampleIntlConfigs.js";
+import {
+  APUNTES_HTML_CONFIGS,
+  APUNTES_HTML_CATEGORIAS,
+} from "./liveExampleApuntesHtmlConfigs.js";
 
 /* ============================================================
    Ejemplos personalizados (los 15 métodos con juego avanzado)
@@ -354,6 +358,7 @@ Object.assign(
   MAP_SET_CATEGORIAS,
   REGEXP_CATEGORIAS,
   INTL_CATEGORIAS,
+  APUNTES_HTML_CATEGORIAS,
 );
 
 /* ============================================================
@@ -1888,6 +1893,7 @@ Object.assign(
   MAP_SET_CONFIGS,
   REGEXP_CONFIGS,
   INTL_CONFIGS,
+  APUNTES_HTML_CONFIGS,
 );
 
 export const LIVE_EXAMPLE_IDS = new Set([
@@ -1926,5 +1932,6 @@ export function getLiveExample(metodo) {
     codigo: plantilla.codigo,
     preludio: plantilla.preludio,
     entorno: plantilla.entorno,
+    estricto: plantilla.estricto,
   };
 }

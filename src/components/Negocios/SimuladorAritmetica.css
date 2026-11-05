@@ -1,0 +1,335 @@
+/* Simulador de Aritmética Comercial y Financiera */
+
+.simarit {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.simarit__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.simarit__eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.simarit__head h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: var(--text);
+}
+
+.simarit__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+  max-width: 70ch;
+}
+
+.simarit__reset {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.simarit__reset:hover {
+  color: var(--text);
+  border-color: var(--border-strong, var(--accent));
+}
+
+.simarit__formula {
+  padding: 10px 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-soft, rgba(120, 120, 255, 0.12));
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.simarit__grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(240px, 1.1fr);
+  gap: 20px;
+}
+
+.simarit__titulo {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.simarit__campos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.simarit-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.simarit-campo__label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.simarit-campo__control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s;
+}
+
+.simarit-campo__control:focus-within {
+  border-color: var(--accent);
+}
+
+.simarit-campo__control em {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.simarit-campo__control input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.simarit-campo__control input::-webkit-outer-spin-button,
+.simarit-campo__control input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.simarit__resultados {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simarit__tarjetas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.simarit-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.simarit-tarjeta span {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.simarit-tarjeta strong {
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.simarit-tarjeta--ok {
+  border-color: rgba(46, 204, 113, 0.45);
+  background: rgba(46, 204, 113, 0.08);
+}
+
+.simarit-tarjeta--ok strong {
+  color: #2ecc71;
+}
+
+.simarit-tarjeta--bad {
+  border-color: rgba(231, 76, 60, 0.5);
+  background: rgba(231, 76, 60, 0.08);
+}
+
+.simarit-tarjeta--bad strong {
+  color: #e74c3c;
+}
+
+.simarit-barra {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.simarit-barra__pista {
+  display: flex;
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-radius: 999px;
+}
+
+.simarit-barra__seg {
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.simarit-barra__seg--costo {
+  background: #4a7bd4;
+}
+
+.simarit-barra__seg--ganancia {
+  background: #2ecc71;
+}
+
+.simarit-barra__seg--perdida {
+  background: #e74c3c;
+}
+
+.simarit-barra__seg--gasto {
+  background: #e0a03a;
+}
+
+.simarit-barra__seg--impuesto {
+  background: #9b59b6;
+}
+
+.simarit-barra__seg--interes {
+  background: #16a085;
+}
+
+.simarit-barra__seg--descuento {
+  background: #d35400;
+}
+
+.simarit-barra__leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.simarit-barra__leyenda span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.simarit-barra__leyenda strong {
+  color: var(--text);
+}
+
+.simarit-punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.simarit-punto--costo {
+  background: #4a7bd4;
+}
+
+.simarit-punto--ganancia {
+  background: #2ecc71;
+}
+
+.simarit-punto--perdida {
+  background: #e74c3c;
+}
+
+.simarit-punto--gasto {
+  background: #e0a03a;
+}
+
+.simarit-punto--impuesto {
+  background: #9b59b6;
+}
+
+.simarit-punto--interes {
+  background: #16a085;
+}
+
+.simarit-punto--descuento {
+  background: #d35400;
+}
+
+.simarit__aviso {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #f0b429;
+  background: rgba(240, 180, 41, 0.1);
+  border: 1px solid rgba(240, 180, 41, 0.35);
+  border-radius: var(--radius-sm);
+}
+
+.simarit__pasos ol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.simarit__pasos li {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.simarit__pasos li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .simarit__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .simarit__tarjetas {
+    grid-template-columns: 1fr;
+  }
+
+  .simarit__head {
+    flex-direction: column;
+  }
+}

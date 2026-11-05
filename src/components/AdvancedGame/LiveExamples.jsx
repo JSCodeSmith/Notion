@@ -165,6 +165,29 @@ export default function LiveExamples({ metodo, metodoId }) {
   const categoria = config?.categoria ?? "array";
   const textos = TEXTOS[categoria] ?? TEXTOS.array;
 
+  /* Pasos guiados: salen de los ejemplos del propio apunte, así cualquier
+     método (aunque no tenga simulador propio) estrena laboratorio. */
+  const pasos = useMemo(() => {
+    const ejemplos = (metodo?.ejemplos ?? []).filter((ej) => ej?.code);
+    if (ejemplos.length) {
+      return ejemplos.map((ejemplo, indice) => ({
+        titulo: ejemplo.titulo ?? `Paso ${indice + 1}`,
+        descripcion: ejemplo.descripcion ?? "",
+        codigo: ejemplo.code,
+      }));
+    }
+    if (config?.codigo) {
+      return [
+        {
+          titulo: "Ejecuta el ejemplo base",
+          descripcion: config.descripcion ?? "",
+          codigo: config.codigo,
+        },
+      ];
+    }
+    return [];
+  }, [metodo, config]);
+
   const [array, setArray] = useState(ARRAY_INICIAL);
   const [numeros, setNumeros] = useState(NUMEROS_INICIALES);
   const [fechaPartes, setFechaPartes] = useState(FECHA_INICIAL);
@@ -187,6 +210,10 @@ export default function LiveExamples({ metodo, metodoId }) {
   const [estado, setEstado] = useState("idle");
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState(null);
+  const [lineaError, setLineaError] = useState(null);
+  const [depuracion, setDepuracion] = useState(false);
+  const [pasoActual, setPasoActual] = useState(0);
+  const [pasosAbiertos, setPasosAbiertos] = useState(true);
 
   const workerRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -213,6 +240,7 @@ export default function LiveExamples({ metodo, metodoId }) {
       setEstado("idle");
       setResultado(null);
       setError(null);
+      setLineaError(null);
       setLogs([{ nivel: "sistema", texto }]);
     },
     [cancelar],
@@ -337,11 +365,13 @@ export default function LiveExamples({ metodo, metodoId }) {
     else setArray(ARRAY_INICIAL);
     setEntradaNumero("");
     setCodigo(config?.codigo ?? "");
+    setPasoActual(0);
     limpiarSalida(textos.reinicio);
   };
 
   const restaurarCodigo = () => {
     setCodigo(config?.codigo ?? "");
+    setPasoActual(0);
     limpiarSalida("↺ Código del ejemplo restaurado. Tus datos se conservan.");
   };
 
@@ -362,8 +392,36 @@ export default function LiveExamples({ metodo, metodoId }) {
     }
   }, [categoria, array, numeros, fechaPartes]);
 
-  const ejecutar = () => {
+  const cargarPaso = (indice) => {
+    const paso = pasos[indice];
+    if (!paso) return;
+    setPasoActual(indice);
+    setCodigo(paso.codigo);
+    setLineaError(null);
+    setEstado("idle");
+    setResultado(null);
+    setError(null);
+    setLogs([
+      {
+        nivel: "sistema",
+        texto: `🧭 Paso ${indice + 1} de ${pasos.length} cargado en el editor. Ejecútalo para ver el resultado.`,
+      },
+      { nivel: "info", texto: paso.titulo },
+    ]);
+  };
+
+  const ejecutarPaso = (indice) => {
+    const paso = pasos[indice];
+    if (!paso) return;
+    setPasoActual(indice);
+    setCodigo(paso.codigo);
+    ejecutar(paso.codigo);
+  };
+
+  const ejecutar = (codigoOverride) => {
     if (!config || estado === "running") return;
+    const codigoActivo =
+      typeof codigoOverride === "string" ? codigoOverride : codigo;
 
     cancelar();
 
@@ -396,6 +454,7 @@ export default function LiveExamples({ metodo, metodoId }) {
     setEstado("running");
     setResultado(null);
     setError(null);
+    setLineaError(null);
     setLogs(base);
 
     let worker;
@@ -443,6 +502,9 @@ export default function LiveExamples({ metodo, metodoId }) {
         setEstado("error");
         setResultado(null);
         setError(textoError);
+        setLineaError(
+          Number.isFinite(data.linea) && data.linea > 0 ? data.linea : null,
+        );
         setLogs([
           ...base,
           ...logsWorker,
@@ -453,6 +515,7 @@ export default function LiveExamples({ metodo, metodoId }) {
 
       const textoResultado = data.texto ?? "undefined";
       setEstado("ok");
+      setLineaError(null);
       setResultado({ texto: textoResultado });
       setLogs([
         ...base,
@@ -475,7 +538,7 @@ export default function LiveExamples({ metodo, metodoId }) {
       ]);
     };
 
-    worker.postMessage({ id, codigo, preludio });
+    worker.postMessage({ id, codigo: codigoActivo, preludio, estricto: config.estricto !== false });
   };
 
   const manejarTecla = (evento) => {
@@ -545,6 +608,110 @@ export default function LiveExamples({ metodo, metodoId }) {
           )}
         </div>
       </header>
+
+      {pasos.length > 0 && (
+        <section className="le-lab">
+          <div className="le-lab__head">
+            <div>
+              <p className="le-step">🧭 Laboratorio paso a paso</p>
+              <p className="le-help">
+                Recorre los {pasos.length} pasos del apunte, cárgalos en el
+                editor, ejecútalos y depura lo que ocurra en la consola.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="le-mini"
+              onClick={() => setPasosAbiertos((valor) => !valor)}
+              aria-expanded={pasosAbiertos}
+            >
+              {pasosAbiertos ? "▾ Ocultar pasos" : "▸ Ver pasos"}
+            </button>
+          </div>
+
+          {pasosAbiertos && (
+            <>
+              <div className="le-lab__rail" role="tablist" aria-label="Pasos del laboratorio">
+                {pasos.map((paso, indice) => (
+                  <button
+                    key={`${paso.titulo}-${indice}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={indice === pasoActual}
+                    className={`le-lab__dot ${
+                      indice === pasoActual ? "is-active" : ""
+                    }`}
+                    onClick={() => setPasoActual(indice)}
+                    title={paso.titulo}
+                  >
+                    <span>{indice + 1}</span>
+                    <small>{paso.titulo}</small>
+                  </button>
+                ))}
+              </div>
+
+              <div className="le-lab__card">
+                <div className="le-lab__card-head">
+                  <div>
+                    <p className="le-lab__eyebrow">
+                      Paso {pasoActual + 1} de {pasos.length}
+                    </p>
+                    <h3>{pasos[pasoActual].titulo}</h3>
+                    {pasos[pasoActual].descripcion && (
+                      <p className="le-lab__desc">
+                        {pasos[pasoActual].descripcion}
+                      </p>
+                    )}
+                  </div>
+                  <span className="le-lab__badge">📚 Del apunte</span>
+                </div>
+
+                <pre className="le-lab__code">
+                  <code>{pasos[pasoActual].codigo}</code>
+                </pre>
+
+                <div className="le-lab__actions">
+                  <button
+                    type="button"
+                    className="le-btn"
+                    onClick={() => cargarPaso(pasoActual)}
+                  >
+                    📥 Cargar en el editor
+                  </button>
+                  <button
+                    type="button"
+                    className="le-btn le-btn--primary"
+                    onClick={() => ejecutarPaso(pasoActual)}
+                    disabled={estado === "running"}
+                  >
+                    ▶ Ejecutar este paso
+                  </button>
+                  <button
+                    type="button"
+                    className="le-mini"
+                    onClick={() => setPasoActual((valor) => Math.max(0, valor - 1))}
+                    disabled={pasoActual === 0}
+                  >
+                    ← Anterior
+                  </button>
+                  <button
+                    type="button"
+                    className="le-mini"
+                    onClick={() =>
+                      setPasoActual((valor) =>
+                        Math.min(pasos.length - 1, valor + 1),
+                      )
+                    }
+                    disabled={pasoActual === pasos.length - 1}
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </section>
+      )}
 
       <div className="le-builder">
         <div className="le-builder__head">
@@ -801,7 +968,14 @@ export default function LiveExamples({ metodo, metodoId }) {
           <div className="le-editor">
             <div className="le-gutter" ref={gutterRef} aria-hidden="true">
               {lineas.map((_, indice) => (
-                <span key={indice}>{indice + 1}</span>
+                <span
+                  key={indice}
+                  className={
+                    lineaError === indice + 1 ? "is-error" : undefined
+                  }
+                >
+                  {lineaError === indice + 1 ? "●" : indice + 1}
+                </span>
               ))}
             </div>
             <textarea
@@ -817,6 +991,13 @@ export default function LiveExamples({ metodo, metodoId }) {
               aria-label={`Editor de ejemplo vivo para ${config.etiqueta}`}
             />
           </div>
+
+          {lineaError && (
+            <div className="le-line-error" role="alert">
+              <strong>🐞 Línea {lineaError}</strong>
+              <code>{lineas[lineaError - 1] ?? ""}</code>
+            </div>
+          )}
 
           <div className="le-actions">
             <button
@@ -841,6 +1022,14 @@ export default function LiveExamples({ metodo, metodoId }) {
             >
               🧹 Limpiar consola
             </button>
+            <button
+              type="button"
+              className={`le-btn ${depuracion ? "is-active" : ""}`}
+              onClick={() => setDepuracion((valor) => !valor)}
+              aria-pressed={depuracion}
+            >
+              🐞 {depuracion ? "Depuración activa" : "Depurar"}
+            </button>
             <span className={`le-chip-estado le-chip-estado--${chip.clase}`}>
               <span /> {chip.texto}
             </span>
@@ -852,7 +1041,7 @@ export default function LiveExamples({ metodo, metodoId }) {
         <div className={`le-console le-console--${estado}`}>
           <div className="le-panel__head">
             <span className="le-panel__title">
-              <span className="le-console__live" /> 3 · Consola
+              <span className="le-console__live" /> Consola
             </span>
             <span className="le-panel__hint">{logs.length} líneas</span>
           </div>
@@ -894,6 +1083,72 @@ export default function LiveExamples({ metodo, metodoId }) {
           )}
         </div>
       </div>
+
+      {depuracion && (
+        <section className="le-debug">
+          <div className="le-debug__head">
+            <div>
+              <p className="le-step">🐞 Depuración guiada</p>
+              <p className="le-help">
+                Estado de la última ejecución, línea exacta del error y pistas
+                sacadas de los errores comunes del apunte.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="le-mini"
+              onClick={() => setDepuracion(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+
+          <div className="le-debug__grid">
+            <div className="le-debug__cell">
+              <span>Estado</span>
+              <strong className={`le-debug__state is-${chip.clase}`}>
+                {chip.texto}
+              </strong>
+            </div>
+            <div className="le-debug__cell">
+              <span>Línea del error</span>
+              <strong>{lineaError ?? "—"}</strong>
+            </div>
+            <div className="le-debug__cell">
+              <span>Resultado</span>
+              <code>{resultado?.texto ?? "—"}</code>
+            </div>
+          </div>
+
+          {error && (
+            <div className="le-debug__error">
+              <strong>Error detectado</strong>
+              <span>{error}</span>
+              {lineaError && (
+                <code>{lineas[lineaError - 1] ?? ""}</code>
+              )}
+            </div>
+          )}
+
+          {!error && (
+            <p className="le-debug__ok">
+              ✅ Sin excepciones. Revisa la consola para comprobar cada salida y
+              compara el resultado con lo que esperabas.
+            </p>
+          )}
+
+          {metodo?.errores?.length > 0 && (
+            <div className="le-debug__tips">
+              <strong>⚠️ Errores comunes que conviene revisar</strong>
+              <ul>
+                {metodo.errores.slice(0, 3).map((texto, indice) => (
+                  <li key={indice}>{texto}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+      )}
     </section>
   );
 }

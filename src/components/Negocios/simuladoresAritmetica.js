@@ -1,0 +1,396 @@
+/* Utilidades y configuración de los simuladores de Aritmética.
+   Se mantienen fuera del componente para separar datos de interfaz. */
+
+export const numero = (v) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+};
+
+export const decimales = (n, max = 2) =>
+  n.toLocaleString("es-PE", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: max,
+  });
+
+export const dinero = (n) =>
+  Number.isFinite(n) ? `$${decimales(Math.abs(n) < 0.005 ? 0 : n)}` : "—";
+
+export const porcentaje = (n) =>
+  Number.isFinite(n) ? `${decimales(n)}%` : "—";
+
+export const factor = (d) => 1 - numero(d) / 100;
+
+/* ======================================================================
+   Configuración de cada simulador
+   ====================================================================== */
+
+export const SIMULADORES = {
+  "precio-lista": {
+    titulo: "Simulador · Precio de lista",
+    descripcion:
+      "Suma el costo y la ganancia para obtener el precio que se publica antes de descuentos.",
+    formula: "PL = PC + Ganancia",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 80 },
+      { k: "g", label: "Ganancia deseada", prefijo: "$", def: 20 },
+    ],
+    calcular: ({ pc, g }) => {
+      const pl = pc + g;
+      const mg = pc > 0 ? (g / pc) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Precio de lista", valor: dinero(pl), tono: "ok" },
+          { label: "Ganancia", valor: dinero(g) },
+          { label: "Margen sobre el costo", valor: porcentaje(mg) },
+        ],
+        pasos: [
+          `Identifica el costo: PC = ${dinero(pc)}.`,
+          `Suma la ganancia: PL = ${dinero(pc)} + ${dinero(g)} = ${dinero(pl)}.`,
+          `Comprueba el margen: MG = (${decimales(g)} / ${decimales(pc)}) × 100 = ${porcentaje(mg)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          { label: "Ganancia", valor: g, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "precio-costo": {
+    titulo: "Simulador · Precio de costo",
+    descripcion:
+      "Resta la ganancia al precio de lista para descubrir cuánto le costó al vendedor.",
+    formula: "PC = PL - Ganancia",
+    campos: [
+      { k: "pl", label: "Precio de lista", prefijo: "$", def: 100 },
+      { k: "g", label: "Ganancia incluida", prefijo: "$", def: 20 },
+    ],
+    calcular: ({ pl, g }) => {
+      const pc = pl - g;
+      const mg = pc > 0 ? (g / pc) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Precio de costo", valor: dinero(pc), tono: pc < 0 ? "bad" : "ok" },
+          { label: "Ganancia", valor: dinero(g) },
+          { label: "Margen sobre el costo", valor: porcentaje(mg) },
+        ],
+        aviso:
+          pc < 0
+            ? "La ganancia es mayor que el precio de lista: el costo resultante es negativo."
+            : null,
+        pasos: [
+          `Toma el precio de lista: PL = ${dinero(pl)}.`,
+          `Resta la ganancia: PC = ${dinero(pl)} - ${dinero(g)} = ${dinero(pc)}.`,
+          `Verifica el margen: MG = (${decimales(g)} / ${decimales(pc)}) × 100 = ${porcentaje(mg)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          { label: "Ganancia", valor: g, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "ganancia-perdida": {
+    titulo: "Simulador · Ganancia y pérdida",
+    descripcion:
+      "Compara el costo con el precio de venta y descubre si la operación deja o quita dinero.",
+    formula: "G = PV - PC · P = PC - PV",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 30 },
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 50 },
+    ],
+    calcular: ({ pc, pv }) => {
+      const diferencia = pv - pc;
+      const ganancia = diferencia >= 0;
+      const monto = Math.abs(diferencia);
+      const mg = pc > 0 ? (diferencia / pc) * 100 : NaN;
+      return {
+        resultados: [
+          {
+            label: "Resultado",
+            valor: ganancia ? `Ganancia de ${dinero(monto)}` : `Pérdida de ${dinero(monto)}`,
+            tono: ganancia ? "ok" : "bad",
+          },
+          {
+            label: "Monto",
+            valor: dinero(monto),
+            tono: ganancia ? "ok" : "bad",
+          },
+          { label: "Margen sobre el costo", valor: porcentaje(mg) },
+        ],
+        pasos: [
+          `Compara: PV ${dinero(pv)} ${ganancia ? ">" : "<"} PC ${dinero(pc)}.`,
+          ganancia
+            ? `Ganancia = PV - PC = ${dinero(pv)} - ${dinero(pc)} = ${dinero(monto)}.`
+            : `Pérdida = PC - PV = ${dinero(pc)} - ${dinero(pv)} = ${dinero(monto)}.`,
+          `Margen sobre el costo = (${decimales(diferencia)} / ${decimales(pc)}) × 100 = ${porcentaje(mg)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          {
+            label: ganancia ? "Ganancia" : "Pérdida",
+            valor: monto,
+            tono: ganancia ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "margen-ganancia": {
+    titulo: "Simulador · Margen de ganancia",
+    descripcion:
+      "Convierte la ganancia en porcentaje del costo y compara el margen con el precio de venta.",
+    formula: "MG = (G / PC) × 100",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 80 },
+      { k: "g", label: "Ganancia", prefijo: "$", def: 20 },
+    ],
+    calcular: ({ pc, g }) => {
+      const pv = pc + g;
+      const mg = pc > 0 ? (g / pc) * 100 : NaN;
+      const mv = pv > 0 ? (g / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Margen sobre el costo", valor: porcentaje(mg), tono: "ok" },
+          { label: "Precio de venta", valor: dinero(pv) },
+          { label: "Margen sobre la venta", valor: porcentaje(mv) },
+        ],
+        pasos: [
+          `Ganancia: G = ${dinero(g)}.`,
+          `Costo base: PC = ${dinero(pc)}.`,
+          `Margen sobre costo: MG = (${decimales(g)} / ${decimales(pc)}) × 100 = ${porcentaje(mg)}.`,
+          `Margen sobre venta: MV = (${decimales(g)} / ${decimales(pv)}) × 100 = ${porcentaje(mv)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          { label: "Ganancia", valor: g, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  descuento: {
+    titulo: "Simulador · Descuento simple",
+    descripcion:
+      "Calcula cuánto se rebaja del precio de lista y cuánto paga finalmente el cliente.",
+    formula: "D = PL × (%D / 100) · PF = PL - D",
+    campos: [
+      { k: "pl", label: "Precio de lista", prefijo: "$", def: 50 },
+      { k: "d", label: "Descuento", sufijo: "%", def: 20 },
+    ],
+    calcular: ({ pl, d }) => {
+      const monto = pl * (d / 100);
+      const pf = pl - monto;
+      const paga = 100 - d;
+      return {
+        resultados: [
+          { label: "Descuento", valor: dinero(monto), tono: "bad" },
+          { label: "Precio final", valor: dinero(pf), tono: "ok" },
+          { label: "Porcentaje que paga", valor: porcentaje(paga) },
+        ],
+        pasos: [
+          `Precio de lista: PL = ${dinero(pl)}.`,
+          `Descuento: D = ${decimales(pl)} × (${decimales(d)} / 100) = ${dinero(monto)}.`,
+          `Precio final: PF = ${dinero(pl)} - ${dinero(monto)} = ${dinero(pf)}.`,
+          `Factor directo: PF = ${decimales(pl)} × ${decimales(1 - d / 100, 4)} = ${dinero(pf)}.`,
+        ],
+        barra: [
+          { label: "Precio final", valor: pf, tono: "ok" },
+          { label: "Descuento", valor: monto, tono: "descuento" },
+        ],
+      };
+    },
+  },
+
+  "descuentos-sucesivos": {
+    titulo: "Simulador · Descuentos sucesivos",
+    descripcion:
+      "Encadena hasta tres descuentos y obtén el descuento único equivalente. No se suman: se multiplican.",
+    formula: "DU = 100 - [(100-d1)(100-d2)…] / 100^(n-1)",
+    campos: [
+      { k: "pl", label: "Precio de lista", prefijo: "$", def: 100 },
+      { k: "d1", label: "Descuento 1", sufijo: "%", def: 20 },
+      { k: "d2", label: "Descuento 2", sufijo: "%", def: 10 },
+      { k: "d3", label: "Descuento 3 (opcional)", sufijo: "%", def: 0 },
+    ],
+    calcular: ({ pl, d1, d2, d3 }) => {
+      const activos = [d1, d2, d3].filter((d) => d > 0 && d < 100);
+      const factores = activos.map(factor);
+      const factorFinal = factores.reduce((acc, f) => acc * f, 1);
+      const pf = pl * factorFinal;
+      const ahorro = pl - pf;
+      const du = activos.length ? (1 - factorFinal) * 100 : 0;
+      return {
+        resultados: [
+          { label: "Descuento único", valor: porcentaje(du), tono: "ok" },
+          { label: "Precio final", valor: dinero(pf), tono: "ok" },
+          { label: "Ahorro total", valor: dinero(ahorro), tono: "bad" },
+        ],
+        aviso:
+          activos.length === 0
+            ? "Añade al menos un descuento mayor que 0 y menor que 100."
+            : null,
+        pasos: activos.length
+          ? [
+              `Descuentos activos: ${activos.map((d) => porcentaje(d)).join(" → ")}.`,
+              `Factores: ${activos.map((d) => decimales(1 - d / 100, 4)).join(" × ")} = ${decimales(factorFinal, 6)}.`,
+              `Precio final: PF = ${dinero(pl)} × ${decimales(factorFinal, 6)} = ${dinero(pf)}.`,
+              `Descuento único: DU = (1 - ${decimales(factorFinal, 6)}) × 100 = ${porcentaje(du)}.`,
+              `Comprobación: ${dinero(pl)} - ${dinero(pf)} = ${dinero(ahorro)} de ahorro.`,
+            ]
+          : ["Sin descuentos activos no hay cálculo que mostrar."],
+        barra: [
+          { label: "Precio final", valor: pf, tono: "ok" },
+          { label: "Ahorro", valor: ahorro, tono: "descuento" },
+        ],
+      };
+    },
+  },
+
+  "regla-tres": {
+    titulo: "Simulador · Regla de tres simple",
+    descripcion:
+      "Con tres datos conocidos calcula el cuarto. Úsala para descuentos, cantidades y porcentajes.",
+    formula: "x = (b × c) / a",
+    campos: [
+      { k: "a", label: "a · valor conocido", def: 5 },
+      { k: "b", label: "b · resultado conocido", prefijo: "$", def: 100 },
+      { k: "c", label: "c · nuevo valor", def: 8 },
+    ],
+    calcular: ({ a, b, c }) => {
+      const x = a !== 0 ? (b * c) / a : NaN;
+      return {
+        resultados: [
+          { label: "Resultado x", valor: dinero(x), tono: "ok" },
+          {
+            label: "Proporción b / a",
+            valor: a !== 0 ? decimales(b / a, 4) : "—",
+          },
+          { label: "Equivalencia", valor: `${decimales(a)} → ${decimales(b)}` },
+        ],
+        aviso:
+          a === 0
+            ? "El valor a no puede ser 0: la división no está definida."
+            : null,
+        pasos: [
+          `Planteo: ${decimales(a)} → ${decimales(b)}.`,
+          `Nuevo valor: ${decimales(c)} → x.`,
+          `Producto en cruz: x = (${decimales(b)} × ${decimales(c)}) / ${decimales(a)}.`,
+          `Resultado: x = ${decimales(b * c)} / ${decimales(a)} = ${dinero(x)}.`,
+        ],
+      };
+    },
+  },
+
+  "pv-ganancias": {
+    titulo: "Simulador · Ganancia bruta y neta",
+    descripcion:
+      "Separa el costo directo de los gastos, impuestos e intereses para ver la ganancia real.",
+    formula: "GB = PV - CD · GN = PV - (CD + GO + Imp + Int)",
+    campos: [
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 100 },
+      { k: "cd", label: "Costo directo", prefijo: "$", def: 60 },
+      { k: "go", label: "Gastos operativos", prefijo: "$", def: 20 },
+      { k: "imp", label: "Impuestos", prefijo: "$", def: 5 },
+      { k: "int", label: "Intereses", prefijo: "$", def: 2 },
+    ],
+    calcular: ({ pv, cd, go, imp, int }) => {
+      const gb = pv - cd;
+      const mb = pv > 0 ? (gb / pv) * 100 : NaN;
+      const totalCostos = cd + go + imp + int;
+      const gn = pv - totalCostos;
+      const mn = pv > 0 ? (gn / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Ganancia bruta", valor: dinero(gb), tono: gb < 0 ? "bad" : "ok" },
+          { label: "Margen bruto", valor: porcentaje(mb) },
+          { label: "Ganancia neta", valor: dinero(gn), tono: gn < 0 ? "bad" : "ok" },
+          { label: "Margen neto", valor: porcentaje(mn) },
+        ],
+        aviso:
+          gn < 0
+            ? "La ganancia neta es negativa: los costos y gastos superan el precio de venta."
+            : null,
+        pasos: [
+          `Ganancia bruta: GB = ${dinero(pv)} - ${dinero(cd)} = ${dinero(gb)}.`,
+          `Margen bruto: MB = (${decimales(gb)} / ${decimales(pv)}) × 100 = ${porcentaje(mb)}.`,
+          `Costo total: ${dinero(cd)} + ${dinero(go)} + ${dinero(imp)} + ${dinero(int)} = ${dinero(totalCostos)}.`,
+          `Ganancia neta: GN = ${dinero(pv)} - ${dinero(totalCostos)} = ${dinero(gn)}.`,
+          `Margen neto: MN = (${decimales(gn)} / ${decimales(pv)}) × 100 = ${porcentaje(mn)}.`,
+        ],
+        barra: [
+          { label: "Costo directo", valor: cd, tono: "costo" },
+          { label: "Gastos", valor: go, tono: "gasto" },
+          { label: "Impuestos", valor: imp, tono: "impuesto" },
+          { label: "Intereses", valor: int, tono: "interes" },
+          {
+            label: gn >= 0 ? "Ganancia neta" : "Pérdida",
+            valor: Math.abs(gn),
+            tono: gn >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "caso-integrador": {
+    titulo: "Simulador · Caso integrador",
+    descripcion:
+      "Del costo al precio de lista, del descuento al precio final y de ahí a la ganancia real.",
+    formula: "PC → +Ganancia → PL → -Descuento → PF → Ganancia real",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 80 },
+      { k: "mg", label: "Ganancia deseada", sufijo: "%", def: 25 },
+      { k: "d", label: "Descuento ofrecido", sufijo: "%", def: 10 },
+    ],
+    calcular: ({ pc, mg, d }) => {
+      const g = pc * (mg / 100);
+      const pl = pc + g;
+      const descuento = pl * (d / 100);
+      const pf = pl - descuento;
+      const greal = pf - pc;
+      const mgreal = pc > 0 ? (greal / pc) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Precio de lista", valor: dinero(pl), tono: "ok" },
+          { label: "Precio final", valor: dinero(pf), tono: "ok" },
+          {
+            label: "Ganancia real",
+            valor: dinero(greal),
+            tono: greal < 0 ? "bad" : "ok",
+          },
+          {
+            label: "Margen real",
+            valor: porcentaje(mgreal),
+            tono: greal < 0 ? "bad" : "ok",
+          },
+        ],
+        aviso:
+          greal < 0
+            ? "El descuento es tan grande que la venta genera pérdida."
+            : greal === 0
+              ? "El descuento consume toda la ganancia: la venta queda en cero."
+              : null,
+        pasos: [
+          `Ganancia deseada: G = ${dinero(pc)} × (${decimales(mg)} / 100) = ${dinero(g)}.`,
+          `Precio de lista: PL = ${dinero(pc)} + ${dinero(g)} = ${dinero(pl)}.`,
+          `Descuento: D = ${dinero(pl)} × (${decimales(d)} / 100) = ${dinero(descuento)}.`,
+          `Precio final: PF = ${dinero(pl)} - ${dinero(descuento)} = ${dinero(pf)}.`,
+          `Ganancia real: ${dinero(pf)} - ${dinero(pc)} = ${dinero(greal)}.`,
+          `Margen real: (${decimales(greal)} / ${decimales(pc)}) × 100 = ${porcentaje(mgreal)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          {
+            label: greal >= 0 ? "Ganancia real" : "Pérdida",
+            valor: Math.abs(greal),
+            tono: greal >= 0 ? "ganancia" : "perdida",
+          },
+          { label: "Descuento", valor: descuento, tono: "descuento" },
+        ],
+      };
+    },
+  },
+};

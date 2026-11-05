@@ -104,6 +104,12 @@ export const CARRERAS = [
         icon: "🗣️",
         nivel: "Avanzado",
       },
+      {
+        id: "aritmetica-comercial",
+        nombre: "Aritmética Comercial y Financiera",
+        icon: "🧮",
+        nivel: "Principiante",
+      },
     ],
   },
 ];

@@ -1,0 +1,231 @@
+📄 Value Stream Mapping (VSM) - Mapeo de la Cadena de Valor
+📝 Definición
+El Value Stream Mapping (VSM), o Mapeo de la Cadena de Valor, es una herramienta visual de Lean Manufacturing que permite dibujar, analizar y mejorar el flujo de materiales e información necesario para llevar un producto o servicio desde el proveedor hasta el cliente. Fue desarrollado en Toyota como "Material and Information Flow Mapping" y popularizado por Mike Rother y John Shook en su libro "Learning to See" (1999). Su objetivo es identificar el desperdicio (MUDA) y optimizar el flujo de valor eliminando las actividades que no agregan valor (NVA).
+
+🧠 ¿Qué es?
+El VSM es una herramienta de diagnóstico que muestra todo el proceso (no solo una parte) y permite ver dónde se genera valor y dónde se pierde tiempo. Se dibuja un mapa del estado actual (cómo funciona el proceso hoy) y luego un mapa del estado futuro (cómo debería funcionar). La diferencia entre ambos mapas revela las oportunidades de mejora.
+
+Características clave:
+
+Visual: Usa íconos y símbolos estándar para representar procesos, flujos e información.
+
+Holístico: Muestra el proceso completo, no solo una etapa.
+
+Basado en datos: Incluye métricas como tiempos de ciclo, tiempos de espera, inventarios, etc.
+
+Enfocado en el valor: Distingue entre actividades VA (Valor Agregado), NNVA (Necesario Sin Valor Agregado) y NVA (Sin Valor Agregado).
+
+Colaborativo: Se construye en equipo, con las personas que conocen el proceso.
+
+Accionable: El mapa futuro se convierte en un plan de acción concreto.
+
+La diferencia con otros diagramas:
+
+Diagrama de flujo: Muestra la secuencia de pasos, pero no el flujo de información ni las métricas de tiempo.
+
+VSM: Muestra el flujo de materiales y el flujo de información, con métricas de tiempo y desperdicio.
+
+🎯 ¿Para qué sirve?
+Visualizar el proceso completo: Ver el flujo de principio a fin, no solo una parte.
+
+Identificar desperdicios: Detectar actividades NVA (esperas, inventario, transporte, etc.).
+
+Medir el tiempo total: Calcular el lead time y el cycle time del proceso.
+
+Detectar cuellos de botella: Identificar dónde se acumula el trabajo.
+
+Priorizar mejoras: Enfocar los esfuerzos en las áreas de mayor impacto.
+
+Diseñar el estado futuro: Crear un plan para optimizar el flujo.
+
+Alinear al equipo: Todos comparten la misma visión del proceso.
+
+Comunicar a la dirección: Mostrar de forma clara dónde se pierde valor.
+
+⚙️ ¿Cómo funciona? El Proceso de VSM
+El VSM sigue un proceso estructurado de 5 pasos:
+
+Paso	Descripción	Acción
+1. Seleccionar la familia de productos	Elegir un producto o familia de productos con procesos similares.	Enfocarse en un flujo específico.
+2. Dibujar el estado actual	Mapear el proceso tal como es hoy, con todas sus métricas.	Caminar el proceso, cronometrar, contar inventarios.
+3. Analizar el estado actual	Identificar desperdicios, cuellos de botella y oportunidades.	Calcular VA, NNVA, NVA, lead time, cycle time.
+4. Diseñar el estado futuro	Crear un mapa del proceso optimizado.	Eliminar NVA, reducir NNVA, optimizar VA.
+5. Implementar el plan	Convertir el mapa futuro en un plan de acción con responsables y plazos.	Ejecutar, medir, ajustar, repetir.
+📝 Símbolos y Elementos del VSM
+El VSM utiliza un lenguaje visual estándar:
+
+Símbolo	Nombre	Significado
+⬜	Caja de proceso	Una etapa del proceso (ej: corte, ensamblaje, pintura).
+📦	Inventario	Material acumulado entre procesos (con cantidad y tiempo).
+➡️	Flecha de empuje	El material se mueve sin sincronización (push).
+⬅️	Flecha de tirón	El material se mueve por demanda (pull).
+🔄	Flecha de información	Flujo de información (manual o electrónico).
+👤	Operador	Persona que realiza la tarea.
+⏱️	Tiempo de ciclo (C/T)	Tiempo que tarda una etapa en procesar una unidad.
+⏳	Tiempo de espera	Tiempo que el material espera entre etapas.
+📅	Tiempo disponible	Tiempo de trabajo disponible por turno.
+📊	Línea de tiempo	Muestra el lead time y el VA time.
+🚚	Proveedor	Fuente de materiales.
+🏠	Cliente	Destino final del producto.
+🎯	Kaizen	Oportunidad de mejora (explosión de mejora).
+📊 Cómo Calcular las Métricas Clave
+1️⃣ Tiempo de Valor Agregado (VA Time)
+Definición: Tiempo en el que se realiza una actividad que el cliente valora y por la que paga.
+
+Cómo se calcula: Suma de los tiempos de ciclo de las actividades VA.
+
+Ejemplo: Si una actividad de ensamblaje tarda 30 segundos y es VA, el VA time es 30 segundos.
+
+2️⃣ Tiempo de No Valor Agregado (NVA Time)
+Definición: Tiempo en el que no se agrega valor (esperas, inventario, transporte, etc.).
+
+Cómo se calcula: Suma de los tiempos de espera y actividades NVA.
+
+Ejemplo: Si el material espera 2 horas entre dos procesos, ese es NVA time.
+
+3️⃣ Lead Time (Tiempo de Entrega)
+Definición: Tiempo total desde que el cliente hace el pedido hasta que recibe el producto.
+
+Fórmula: Lead Time = VA Time + NVA Time + NNVA Time.
+
+Ejemplo: Si VA Time = 5 minutos y NVA Time = 3 días, el Lead Time es 3 días y 5 minutos.
+
+4️⃣ Cycle Time (Tiempo de Ciclo)
+Definición: Tiempo que tarda una etapa en procesar una unidad.
+
+Cómo se calcula: Tiempo total de la etapa / Número de unidades producidas.
+
+Ejemplo: Si una máquina produce 60 unidades en 60 minutos, el cycle time es 1 minuto por unidad.
+
+5️⃣ Takt Time (Ritmo de Producción)
+Definición: Ritmo al que se debe producir para satisfacer la demanda del cliente.
+
+Fórmula: Takt Time = Tiempo disponible / Demanda del cliente.
+
+Ejemplo: Si hay 480 minutos disponibles y la demanda es 480 unidades, el Takt Time es 1 minuto por unidad.
+
+6️⃣ Eficiencia del Flujo (Flow Efficiency)
+Definición: Porcentaje del tiempo total que se dedica a actividades VA.
+
+Fórmula: Flow Efficiency = (VA Time / Lead Time) × 100.
+
+Ejemplo: Si VA Time = 5 minutos y Lead Time = 3 días (1440 minutos), la eficiencia es 0.35%.
+
+💡 Ejemplo Práctico: VSM de un Proceso de Fabricación
+Mapa del Estado Actual
+text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      MAPA DEL ESTADO ACTUAL                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  🚚 Proveedor          ┌─────────┐    ┌─────────┐    ┌─────────┐    🏠 Cliente│
+│  (Acero)               │  Corte  │    │Soldadura│    │ Pintura │    (Cliente)│
+│                        │         │    │         │    │         │             │
+│                        │ C/T: 30s│    │ C/T: 45s│    │ C/T: 60s│             │
+│                        │ WIP: 50 │    │ WIP: 80 │    │ WIP: 30 │             │
+│                        └─────────┘    └─────────┘    └─────────┘             │
+│                             │              │              │                  │
+│                             ▼              ▼              ▼                  │
+│                        📦 Inventario   📦 Inventario   📦 Inventario         │
+│                        (2 días)        (3 días)        (1 día)              │
+│                                                                             │
+│  Lead Time = 2 + 3 + 1 días + (30+45+60)s = 6 días + 135s                  │
+│  VA Time = 30 + 45 + 60 = 135 segundos = 2.25 minutos                      │
+│  Flow Efficiency = (2.25 min / 6 días) × 100 = 0.026%                      │
+│                                                                             │
+│  🎯 Oportunidades de mejora:                                                │
+│  - Reducir inventario entre procesos (NVA).                                 │
+│  - Balancear los tiempos de ciclo (cuello de botella en pintura: 60s).      │
+│  - Implementar flujo continuo (one-piece flow).                             │
+│  - Reducir tiempos de preparación (SMED).                                   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+Mapa del Estado Futuro (Optimizado)
+text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      MAPA DEL ESTADO FUTURO                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  🚚 Proveedor          ┌─────────┐    ┌─────────┐    ┌─────────┐    🏠 Cliente│
+│  (Acero)               │  Corte  │───▶│Soldadura│───▶│ Pintura │───▶(Cliente)│
+│                        │         │    │         │    │         │             │
+│                        │ C/T: 30s│    │ C/T: 45s│    │ C/T: 45s│             │
+│                        │ WIP: 0  │    │ WIP: 0  │    │ WIP: 0  │             │
+│                        └─────────┘    └─────────┘    └─────────┘             │
+│                                                                             │
+│  Lead Time = 30 + 45 + 45 = 120 segundos = 2 minutos                       │
+│  VA Time = 120 segundos = 2 minutos                                        │
+│  Flow Efficiency = (2 min / 2 min) × 100 = 100%                            │
+│                                                                             │
+│  🎯 Mejoras implementadas:                                                  │
+│  - Flujo continuo (one-piece flow): sin inventario entre procesos.          │
+│  - Balanceo de líneas: pintura reducida a 45s (de 60s).                     │
+│  - SMED: cambios de producto en menos de 5 minutos.                         │
+│  - Kanban: producción pull en lugar de push.                                │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+⚠️ Errores Comunes al Usar VSM
+Error	Descripción	Consecuencia
+Mapear todo el proceso a la vez	Intentar mapear toda la planta en un solo VSM.	El mapa se vuelve inmanejable.
+No caminar el proceso	Dibujar el mapa desde la oficina, sin observar el proceso real.	El mapa no refleja la realidad.
+No medir los tiempos	No cronometrar ni contar inventarios.	El mapa carece de datos objetivos.
+No involucrar a los operarios	Mapear sin las personas que hacen el trabajo.	Se pierden perspectivas y soluciones.
+Quedarse en el mapa actual	No diseñar el estado futuro.	El VSM no genera mejora.
+No implementar el plan	Hacer el mapa y archivarlo.	Pérdida de tiempo y recursos.
+No repetir el ciclo	Hacer VSM una vez y no volver a hacerlo.	El proceso vuelve a degradarse.
+Ignorar el flujo de información	Centrarse solo en el flujo de materiales.	Se pierden oportunidades de mejora en la comunicación.
+💼 Casos de Uso
+Situación	Aplicación
+Manufactura	Optimizar líneas de producción, reducir inventario.
+Logística	Mejorar el flujo de materiales y la cadena de suministro.
+Servicios	Mapear procesos administrativos (ej: facturación, onboarding).
+Salud	Optimizar el flujo de pacientes en un hospital.
+Desarrollo de software	Mapear el flujo de valor desde la idea hasta el despliegue.
+Retail	Optimizar el flujo de productos desde el proveedor hasta la tienda.
+🧩 Relación con otros conceptos
+Concepto	Relación
+Lean Manufacturing	El VSM es una herramienta central del Lean.
+MUDA (Desperdicio)	El VSM identifica los 7 desperdicios.
+VA / NVA / NNVA	El VSM clasifica las actividades en estas categorías.
+Kanban	El VSM ayuda a diseñar el sistema Kanban.
+Justo a Tiempo (JIT)	El VSM ayuda a implementar el JIT.
+Teoría de Restricciones (TOC)	El VSM identifica cuellos de botella.
+SMED	El VSM identifica oportunidades para reducir tiempos de preparación.
+Kaizen	El VSM es una herramienta de mejora continua.
+Value Stream	El VSM mapea la cadena de valor.
+🧠 Analogía
+El VSM es como un mapa de carreteras para un viaje por carretera. El mapa del estado actual muestra todas las paradas, los atascos (inventarios), las carreteras lentas (cuellos de botella) y las desviaciones (desperdicios). El mapa del estado futuro muestra la ruta óptima: sin atascos, con carreteras rápidas y sin desvíos. El VSM te ayuda a planificar el viaje (el proceso) para llegar a tu destino (el cliente) de la manera más rápida y eficiente posible.
+
+📚 Fuente
+Rother, M., & Shook, J. (1999). Learning to See: Value Stream Mapping to Add Value and Eliminate MUDA. Lean Enterprise Institute.
+
+Womack, J. P., & Jones, D. T. (1996). Lean Thinking. Simon & Schuster.
+
+Ohno, T. (1988). Toyota Production System: Beyond Large-Scale Production. Productivity Press.
+
+Liker, J. K. (2004). The Toyota Way. McGraw-Hill.
+
+Harvard Business Review, (2023). Value Stream Mapping.
+
+Lean Enterprise Institute, (2024). Value Stream Mapping.
+
+📝 Notas personales
+El VSM es una herramienta de comunicación: El mapa debe ser visible para todos. Es una forma de alinear al equipo en torno a una visión común del proceso.
+
+El VSM no es un fin, es un medio: El objetivo no es hacer un mapa bonito, sino identificar y eliminar desperdicios.
+
+El mapa del estado futuro debe ser realista: No sueñes con un proceso perfecto; diseña un proceso alcanzable en un plazo razonable.
+
+El VSM es un proceso iterativo: Una vez implementado el estado futuro, se vuelve a mapear para identificar nuevas oportunidades.
+
+Consejos para hacer un buen VSM:
+
+Elige una familia de productos: No intentes mapear todo.
+Camina el proceso: Ve al lugar donde ocurre el trabajo (Gemba).
+Involucra a los operarios: Ellos conocen el proceso mejor que nadie.
+Mide los tiempos: Usa cronómetro y cuenta inventarios.
+Dibuja a mano: Usa lápiz y papel; es más fácil de modificar.
+Identifica los desperdicios: Marca las oportunidades de mejora (Kaizen).
+Diseña el estado futuro: Sé ambicioso pero realista.
+Implementa el plan: Con responsables, plazos y métricas.
+Repite el ciclo: El VSM es un proceso continuo de mejora.

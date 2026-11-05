@@ -1,0 +1,190 @@
+📄 window.print()
+📝 Definición
+window.print() es un método del objeto window en JavaScript que abre el cuadro de diálogo de impresión del navegador, permitiendo al usuario imprimir la página web actual o guardarla como PDF. Es la forma estándar de invocar la funcionalidad de impresión desde el código JavaScript.
+
+🧠 ¿Qué es?
+window.print() es una API del navegador que actúa como un puente entre el código JavaScript y la función de impresión del sistema operativo. Cuando se llama, el navegador muestra su diálogo de impresión nativo (el mismo que aparece al presionar Ctrl + P o Cmd + P), donde el usuario puede seleccionar la impresora, el tamaño del papel, los márgenes, y otras opciones.
+
+Características clave:
+
+Síncrono: La ejecución del código se pausa hasta que el usuario cierra el diálogo de impresión (aunque en algunos navegadores modernos puede ser asíncrono).
+
+Dependiente del navegador: El diseño y las opciones del diálogo varían según el navegador y el sistema operativo.
+
+No devuelve nada: No retorna un valor (retorna undefined).
+
+No se puede personalizar: No puedes controlar directamente qué se imprime ni cómo; eso depende del CSS de impresión (@media print).
+
+Requiere interacción del usuario: El usuario debe confirmar o cancelar la impresión.
+
+🎯 ¿Para qué sirve?
+Imprimir la página actual: Documentos, facturas, reportes, tickets.
+
+Guardar como PDF: El usuario puede seleccionar "Guardar como PDF" en el diálogo de impresión.
+
+Imprimir secciones específicas: Usando CSS (@media print) para ocultar elementos no deseados.
+
+Generar documentos imprimibles: Facturas, recibos, etiquetas, reportes.
+
+Proporcionar una experiencia de impresión controlada: Botones de "Imprimir" en la interfaz.
+
+Automatizar la impresión: En algunos contextos (kioscos, puntos de venta), se puede llamar automáticamente después de una transacción.
+
+⚙️ ¿Cómo funciona?
+Sintaxis
+javascript
+window.print();
+O simplemente:
+
+javascript
+print();
+Parámetros
+Ninguno.
+
+Valor de retorno
+undefined.
+
+Comportamiento
+Se llama a window.print().
+
+El navegador muestra el diálogo de impresión.
+
+El usuario selecciona las opciones (impresora, páginas, márgenes, etc.).
+
+El usuario confirma o cancela.
+
+El código continúa su ejecución (aunque en algunos navegadores puede pausarse hasta que se cierre el diálogo).
+
+📝 Ejemplos
+Ejemplo 1: Botón de Imprimir
+html
+<button onclick="window.print()">Imprimir esta página</button>
+Ejemplo 2: Imprimir una sección específica
+html
+<div id="factura">
+    <h1>Factura #001</h1>
+    <p>Cliente: Juan Pérez</p>
+    <p>Total: $100</p>
+</div>
+<button onclick="imprimirFactura()">Imprimir Factura</button>
+
+<script>
+function imprimirFactura() {
+    const factura = document.getElementById('factura').innerHTML;
+    const ventana = window.open('', '', 'width=800,height=600');
+    ventana.document.write(`
+        <html>
+            <head><title>Factura</title></head>
+            <body>${factura}</body>
+        </html>
+    `);
+    ventana.document.close();
+    ventana.print();
+    ventana.close();
+}
+</script>
+Ejemplo 3: Imprimir después de una transacción
+javascript
+function finalizarCompra() {
+    // Lógica de la compra
+    alert('Compra realizada con éxito');
+    // Imprimir el recibo
+    window.print();
+}
+Ejemplo 4: CSS para impresión (@media print)
+css
+@media print {
+    /* Ocultar elementos no deseados */
+    .no-print {
+        display: none;
+    }
+    /* Ajustar el diseño */
+    body {
+        font-size: 12pt;
+        color: black;
+    }
+    /* Mostrar solo la factura */
+    .factura {
+        display: block;
+        width: 100%;
+    }
+}
+html
+<button class="no-print" onclick="window.print()">Imprimir</button>
+<div class="factura">
+    <h1>Factura #001</h1>
+    <p>Total: $100</p>
+</div>
+Ejemplo 5: Imprimir con estilos personalizados
+javascript
+function imprimirConEstilos() {
+    const contenido = document.getElementById('contenido').innerHTML;
+    const ventana = window.open('', '', 'width=800,height=600');
+    ventana.document.write(`
+        <html>
+            <head>
+                <title>Documento</title>
+                <style>
+                    body { font-family: Arial, sans-serif; }
+                    h1 { color: #333; }
+                    table { border-collapse: collapse; width: 100%; }
+                    th, td { border: 1px solid #ddd; padding: 8px; }
+                </style>
+            </head>
+            <body>${contenido}</body>
+        </html>
+    `);
+    ventana.document.close();
+    ventana.print();
+}
+⚠️ Errores Comunes
+Error	Descripción	Consecuencia
+Llamar a print() sin interacción del usuario	Ejecutar window.print() automáticamente al cargar la página.	Algunos navegadores lo bloquean o muestran una advertencia.
+No usar @media print	No adaptar el diseño para impresión.	Se imprimen menús, botones, anuncios, etc.
+Confundir window.print() con document.print()	Usar document.print().	Error: document.print no es una función.
+No esperar a que la página cargue	Llamar a print() antes de que el contenido esté listo.	Se imprime una página en blanco o incompleta.
+No manejar ventanas emergentes	Usar window.open() sin bloquear pop-ups.	El navegador bloquea la ventana de impresión.
+Imprimir contenido dinámico sin esperar	Imprimir antes de que los datos se carguen (AJAX).	Se imprime contenido incompleto.
+💼 Casos de Uso
+Situación	Aplicación
+Facturación	Imprimir facturas y recibos.
+Reportes	Imprimir reportes de ventas, inventario, etc.
+Tickets	Imprimir tickets de compra en puntos de venta.
+Etiquetas	Imprimir etiquetas de envío.
+Documentos legales	Imprimir contratos, términos y condiciones.
+Educación	Imprimir material de estudio, exámenes.
+Kioscos	Imprimir automáticamente después de una transacción.
+🧩 Relación con otros conceptos
+Concepto	Relación
+CSS @media print	Permite personalizar el diseño para impresión.
+window.open()	Se usa para abrir una ventana con contenido imprimible.
+document.write()	Se usa para escribir el contenido en la ventana de impresión.
+PDF	El usuario puede guardar como PDF desde el diálogo de impresión.
+POS	Los sistemas POS usan window.print() para imprimir tickets.
+ERP	Los ERP usan window.print() para imprimir reportes.
+🧠 Analogía
+window.print() es como el botón de "Imprimir" de una impresora física. Cuando lo presionas, se abre el panel de control de la impresora (el diálogo de impresión), donde puedes elegir qué imprimir, en qué impresora, y con qué configuración. El navegador actúa como el "sistema operativo" que envía el documento a la impresora (o a un PDF). Tú no controlas directamente la impresora; solo le dices al navegador "quiero imprimir esto" y el navegador se encarga del resto.
+
+📚 Fuente
+MDN Web Docs - window.print()
+
+W3Schools - Window print()
+
+JavaScript.info - Browser APIs
+
+📝 Notas personales
+window.print() es simple pero poderoso: Una sola línea de código puede generar facturas, reportes o tickets.
+
+El CSS de impresión es clave: Sin @media print, la página se imprime tal cual se ve en pantalla, incluyendo menús, botones y anuncios.
+
+No abuses de window.print() automático: Los navegadores pueden bloquearlo si no hay interacción del usuario.
+
+Consejos para usar window.print():
+
+Usa @media print: Oculta elementos no deseados y ajusta el diseño.
+Proporciona un botón de imprimir: No imprimas automáticamente sin consentimiento.
+Espera a que el contenido cargue: Si usas AJAX, espera a que los datos estén listos.
+Usa una ventana nueva para contenido específico: Si solo quieres imprimir una sección, abre una ventana con ese contenido.
+Prueba en diferentes navegadores: El diálogo de impresión varía según el navegador.
+Considera guardar como PDF: Muchos usuarios prefieren guardar como PDF en lugar de imprimir en papel.
+No confundas window.print() con document.print(): El método correcto es window.print() o simplemente print().

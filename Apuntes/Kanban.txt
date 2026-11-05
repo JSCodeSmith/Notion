@@ -1,0 +1,190 @@
+📄 Kanban
+📝 Definición
+Kanban es un método visual de gestión del flujo de trabajo que permite a los equipos visualizar las tareas, limitar el trabajo en curso (WIP - Work In Progress) y maximizar la eficiencia. Nació en Toyota en la década de 1940 como un sistema de producción "justo a tiempo" (JIT) y fue adaptado al desarrollo de software y a la gestión de proyectos por David J. Anderson en 2007. Su nombre proviene del japonés: "kan" (visual) + "ban" (tarjeta), es decir, "tarjeta visual".
+
+🧠 ¿Qué es?
+Kanban es un sistema de señalización que utiliza tarjetas visuales para representar el trabajo en cada etapa de un proceso. Cada tarjeta representa una tarea o un elemento de trabajo y se mueve a través de un tablero Kanban (físico o digital) a medida que avanza por las diferentes etapas del flujo.
+
+Principios fundamentales de Kanban:
+
+Visualizar el trabajo: Hacer visible todo el flujo de trabajo en un tablero.
+
+Limitar el trabajo en curso (WIP): Establecer un límite máximo de tareas en cada etapa para evitar la sobrecarga.
+
+Gestionar el flujo: Medir y optimizar el flujo de trabajo (cycle time, lead time).
+
+Hacer las políticas explícitas: Definir claramente las reglas del proceso.
+
+Implementar bucles de retroalimentación: Revisar y mejorar continuamente.
+
+Mejorar colaborativamente: Evolucionar el proceso de manera experimental.
+
+La diferencia clave con Scrum:
+
+Scrum: Se organiza en sprints (iteraciones de duración fija, generalmente 2-4 semanas). El trabajo se compromete al inicio del sprint y no cambia hasta el final.
+
+Kanban: Es un flujo continuo. No hay sprints; el trabajo fluye según la capacidad del equipo. Se puede priorizar y cambiar tareas en cualquier momento.
+
+Kanban: Se enfoca en el flujo y en la limitación del WIP.
+
+Scrum: Se enfoca en la iteración y en la entrega de valor al final de cada sprint.
+
+🎯 ¿Para qué sirve?
+Visualizar el trabajo: Todos saben qué tareas hay, quién las hace y en qué estado están.
+
+Limitar el WIP: Evitar la sobrecarga y el multitasking, que reducen la productividad.
+
+Mejorar el flujo: Identificar cuellos de botella y optimizar el proceso.
+
+Aumentar la previsibilidad: Medir el cycle time y el lead time para predecir entregas.
+
+Fomentar la colaboración: El tablero es un punto de encuentro para el equipo.
+
+Reducir el desperdicio: Eliminar tareas innecesarias y esperas.
+
+Mejorar continuamente: Identificar oportunidades de mejora en cada reunión.
+
+Adaptarse al cambio: Permitir cambios de prioridad sin romper el flujo.
+
+⚙️ ¿Cómo funciona? El Tablero Kanban
+El tablero Kanban es la herramienta central. Se organiza en columnas que representan las etapas del flujo de trabajo y tarjetas que representan las tareas.
+
+Estructura Básica de un Tablero Kanban
+text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            TABLERO KANBAN                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
+│  │  BACKLOG    │  │  POR HACER  │  │  EN CURSO   │  │  HECHO      │        │
+│  │             │  │             │  │  (WIP: 3)   │  │             │        │
+│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │
+│  │ │ Tarea 1 │ │  │ │ Tarea 4 │ │  │ │ Tarea 7 │ │  │ │ Tarea 10│ │        │
+│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │
+│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │
+│  │ │ Tarea 2 │ │  │ │ Tarea 5 │ │  │ │ Tarea 8 │ │  │ │ Tarea 11│ │        │
+│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │
+│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │             │        │
+│  │ │ Tarea 3 │ │  │ │ Tarea 6 │ │  │ │ Tarea 9 │ │  │             │        │
+│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │             │        │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘        │
+│                                                                             │
+│  ◄───────────────────────── FLUJO DE TRABAJO ──────────────────────────►   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+Elementos clave:
+
+Columnas: Representan las etapas del proceso (Backlog, Por Hacer, En Curso, En Revisión, Hecho).
+
+Tarjetas: Representan las tareas. Contienen información como título, descripción, responsable, prioridad, etc.
+
+Límites de WIP: Un número máximo de tarjetas permitidas en cada columna (ej: "En Curso (WIP: 3)").
+
+Swimlanes (Carriles) : Filas horizontales que agrupan tarjetas por categoría (ej: prioridad, tipo de trabajo, equipo).
+
+Políticas explícitas: Reglas escritas sobre cómo se mueven las tarjetas (ej: "Una tarea no pasa a 'Hecho' sin revisión").
+
+📝 Los 4 Principios del Método Kanban (David J. Anderson)
+Principio	Descripción
+1. Empezar con lo que haces ahora	No cambies todo de golpe. Visualiza el proceso actual tal como es.
+2. Aceptar el cambio incremental y evolutivo	Mejora poco a poco, no busques la perfección de inmediato.
+3. Respetar el proceso actual, los roles y las responsabilidades	No impongas cambios drásticos; evoluciona desde lo que ya existe.
+4. Fomentar el liderazgo en todos los niveles	El liderazgo no es solo de los jefes; todos pueden liderar mejoras.
+📊 Las 6 Prácticas del Método Kanban
+Práctica	Descripción
+1. Visualizar el flujo de trabajo	Usar un tablero para mostrar todas las tareas y su estado.
+2. Limitar el WIP	Establecer un máximo de tareas en cada etapa para evitar la sobrecarga.
+3. Gestionar el flujo	Medir y optimizar el flujo (cycle time, lead time, throughput).
+4. Hacer las políticas explícitas	Definir y comunicar las reglas del proceso.
+5. Implementar bucles de retroalimentación	Reuniones periódicas para revisar el flujo y mejorar.
+6. Mejorar colaborativamente	Experimentar y evolucionar el proceso en equipo.
+📈 Métricas Clave de Kanban
+Métrica	Definición	Para qué sirve
+Lead Time	Tiempo desde que una tarea se solicita hasta que se entrega.	Medir la previsibilidad y la satisfacción del cliente.
+Cycle Time	Tiempo desde que una tarea empieza a trabajarse hasta que se termina.	Medir la eficiencia del equipo.
+Throughput	Número de tareas completadas en un período.	Medir la productividad.
+WIP (Work In Progress)	Número de tareas en curso.	Controlar la sobrecarga.
+WIP Limit	Número máximo de tareas permitidas en una etapa.	Evitar la sobrecarga y el multitasking.
+Flow Efficiency	(Tiempo de valor agregado / Tiempo total) × 100.	Medir la eficiencia del flujo.
+Blocked Time	Tiempo que una tarea está bloqueada.	Identificar cuellos de botella.
+💡 Ejemplo Práctico: Kanban en un Equipo de Marketing
+Tablero Kanban:
+
+Backlog	Por Hacer (WIP: 3)	En Curso (WIP: 2)	En Revisión (WIP: 1)	Hecho
+Campaña de verano	Post para LinkedIn	Diseño de banner	Revisión de copy	Post publicado
+Video tutorial	Email marketing	Redacción de blog		Email enviado
+Infografía				
+Reglas del equipo:
+
+No se puede tener más de 3 tareas en "Por Hacer" y 2 en "En Curso".
+
+Una tarea no pasa a "Hecho" sin revisión del líder.
+
+Si una tarea está bloqueada, se marca con una etiqueta roja.
+
+Reuniones:
+
+Daily Standup (15 min) : Revisar el tablero, identificar bloqueos, mover tarjetas.
+
+Revisión semanal: Medir cycle time, lead time, y ajustar límites de WIP.
+
+⚠️ Errores Comunes al Implementar Kanban
+Error	Descripción	Consecuencia
+No limitar el WIP	No establecer un máximo de tareas en curso.	Sobrecarga, multitasking, baja productividad.
+Tablero demasiado complejo	Añadir demasiadas columnas o swimlanes.	Confusión, falta de claridad.
+No hacer las políticas explícitas	No definir las reglas del proceso.	Cada uno hace lo que quiere, falta de consistencia.
+No medir el flujo	No medir cycle time, lead time, etc.	No se puede mejorar lo que no se mide.
+No revisar el tablero	No hacer reuniones periódicas.	El tablero queda obsoleto, se pierde el valor.
+Usar Kanban como Scrum	Forzar sprints o reuniones de Scrum en Kanban.	Confusión, resistencia al cambio.
+No evolucionar	Mantener el mismo tablero y políticas para siempre.	El proceso no se adapta a los cambios.
+💼 Casos de Uso
+Situación	Aplicación
+Desarrollo de software	Gestionar el flujo de tareas (features, bugs, mejoras).
+Marketing	Gestionar campañas, contenidos y diseños.
+Operaciones	Gestionar el flujo de pedidos, inventario, logística.
+Recursos Humanos	Gestionar reclutamiento, onboarding, capacitación.
+Soporte al cliente	Gestionar tickets de soporte.
+Gestión personal	Organizar tareas personales y proyectos.
+Manufactura	Gestionar la producción (origen del método).
+🧩 Relación con otros conceptos
+Concepto	Relación
+Scrum	Kanban es un método ágil alternativo a Scrum. Scrum usa sprints; Kanban usa flujo continuo.
+Lean	Kanban es una herramienta Lean para eliminar desperdicios y optimizar el flujo.
+Teoría de Restricciones (TOC)	Kanban ayuda a identificar y gestionar cuellos de botella.
+Justo a Tiempo (JIT)	Kanban es el sistema de señalización del JIT.
+Cuello de Botella	Kanban visualiza los cuellos de botella y ayuda a gestionarlos.
+Value Stream Mapping (VSM)	Kanban visualiza el flujo; VSM lo analiza en profundidad.
+Kaizen	Kanban fomenta la mejora continua.
+DevOps	Kanban se usa en equipos de DevOps para gestionar el flujo de trabajo.
+🧠 Analogía
+Kanban es como un tablero de ajedrez donde las piezas se mueven a través del tablero. Cada pieza (tarea) avanza por las casillas (columnas) hasta llegar al final (hecho). Pero hay una regla: no puede haber más de 3 piezas en una casilla (límite de WIP). Si hay demasiadas piezas en una casilla, el juego se atasca. El jugador (equipo) debe mover las piezas de manera fluida, sin acumularlas, para ganar (entregar valor). El tablero muestra el estado del juego en todo momento, para que todos sepan qué hacer.
+
+📚 Fuente
+Anderson, D. J. (2010). Kanban: Successful Evolutionary Change for Your Technology Business. Blue Hole Press.
+
+Ohno, T. (1988). Toyota Production System: Beyond Large-Scale Production. Productivity Press.
+
+Womack, J. P., & Jones, D. T. (1996). Lean Thinking. Simon & Schuster.
+
+Harvard Business Review, (2023). Kanban: The Visual Approach to Work.
+
+Lean Enterprise Institute, (2024). Kanban.
+
+📝 Notas personales
+Kanban no es un software; es un método: Puedes usar un tablero físico con post-its o una herramienta digital (Trello, Jira, Notion). Lo importante es visualizar el flujo.
+
+El límite de WIP es sagrado: No lo ignores. Si el equipo está sobrecargado, el flujo se detiene.
+
+Kanban es evolutivo, no revolucionario: No cambies todo de golpe. Empieza con lo que tienes y mejora poco a poco.
+
+No es solo para software: Kanban funciona en cualquier proceso con flujo de trabajo.
+
+Consejos para implementar Kanban:
+
+Empieza con un tablero simple: Backlog, En Curso, Hecho. Luego añade más columnas si es necesario.
+Define los límites de WIP: Empieza con un límite generoso y ajústalo según la experiencia.
+Haz las políticas explícitas: Escribe las reglas en el tablero para que todos las vean.
+Mide el flujo: Usa cycle time y lead time para mejorar.
+Revisa el tablero a diario: Una reunión de 15 minutos es suficiente.
+Mejora continuamente: Identifica cuellos de botella y experimenta con soluciones.
+No fuerces Kanban en un equipo que prefiere Scrum: Cada equipo debe elegir el método que mejor se adapte a su contexto.

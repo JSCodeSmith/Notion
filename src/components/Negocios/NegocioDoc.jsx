@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Lista, Quiz, Inline } from '../CareerDetail/MetodoDoc'
 import CodeBlock from '../CodeBlock/CodeBlock'
 import NegociosLab from './NegociosLab'
+import SimuladorAritmetica from './SimuladorAritmetica'
 import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
 
@@ -163,6 +164,10 @@ export default function NegocioDoc({ nota, onBack }) {
             🧪 Abrir laboratorio
           </button>
         </div>
+      )}
+
+      {nota.simulador === 'aritmetica' && (
+        <SimuladorAritmetica key={nota.id} tipo={nota.simuladorTipo} />
       )}
 
       <div className="doc-grid">
