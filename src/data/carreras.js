@@ -105,7 +105,7 @@ export const CARRERAS = [
         nivel: "Avanzado",
       },
       {
-        id: "aritmetica-comercial",
+        id: "aritmetica",
         nombre: "Aritmética Comercial y Financiera",
         icon: "🧮",
         nivel: "Principiante",
