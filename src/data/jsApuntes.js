@@ -1,3 +1,11 @@
+import { JS_CORE_OBJECT, JS_CORE_OBJECT_DOCS } from "./jsCoreObject";
+import { JS_CORE_FUNCTION, JS_CORE_FUNCTION_DOCS } from "./jsCoreFunction";
+import {
+  JS_CORE_TYPEDARRAY,
+  JS_CORE_TYPEDARRAY_DOCS,
+} from "./jsCoreTypedArray";
+import { JS_CORE_BROWSER, JS_CORE_BROWSER_DOCS } from "./jsCoreBrowser";
+
 import { JS_JSON, JS_JSON_DOCS } from "./jsJson";
 import { JS_OBJECT, JS_OBJECT_DOCS } from "./jsObject";
 import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
@@ -11,10 +19,7 @@ import {
   JS_TYPEDARRAYS,
   JS_TYPEDARRAYS_DOCS,
 } from "./jsApuntesHtml";
-import {
-  JS_TEMPORIZADORES,
-  JS_TEMPORIZADORES_DOCS,
-} from "./jsTemporizadores";
+import { JS_TEMPORIZADORES, JS_TEMPORIZADORES_DOCS } from "./jsTemporizadores";
 import { JS_PROMESAS, JS_PROMESAS_DOCS } from "./jsPromesas";
 import { JS_WEBAPIS, JS_WEBAPIS_DOCS } from "./jsWebApis";
 import { JS_HISTORY, JS_HISTORY_DOCS } from "./jsHistory";
@@ -70,6 +75,10 @@ export const JS_CATEGORIAS = [
   JS_VOZ,
   JS_MEDIOS,
   JS_RED,
+  JS_CORE_OBJECT,
+  JS_CORE_FUNCTION,
+  JS_CORE_TYPEDARRAY,
+  JS_CORE_BROWSER,
 ];
 
 /* Todos los apuntes, indexados por id. */
@@ -103,6 +112,10 @@ export const JS_APUNTES = {
   ...JS_VOZ_DOCS,
   ...JS_MEDIOS_DOCS,
   ...JS_RED_DOCS,
+  ...JS_CORE_OBJECT_DOCS,
+  ...JS_CORE_FUNCTION_DOCS,
+  ...JS_CORE_TYPEDARRAY_DOCS,
+  ...JS_CORE_BROWSER_DOCS,
 };
 
 /* id del apunte → id de su categoría (para abrir la subpestaña correcta). */
