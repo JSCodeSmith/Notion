@@ -1,25 +1,25 @@
 /**
- * Genera la categoría "Aritmética Comercial y Financiera" a partir de los
- * TXT de `Apuntes/`. Separa los temas que vienen juntos en un solo TXT.
+ * Genera la categoría "Aritmética Comercial y Financiera" a partir del
+ * contenido curado de `scripts/aritmeticaConceptos.mjs`.
+ *
+ * Cada tema de los TXT originales se publica como un apunte independiente,
+ * con su simulador y su laboratorio.
  *
  * Uso:  node scripts/generate-aritmetica.mjs
  */
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { buildQuiz } from "./generate-apuntes.mjs";
+import { CONCEPTOS, CONCEPTOS_POR_ID, GRUPOS } from "./aritmeticaConceptos.mjs";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..");
-const TXT_DIR = path.join(ROOT, "Apuntes");
-const DATA_DIR = path.join(ROOT, "src", "data");
+const DATA_DIR = path.join(import.meta.dirname, "..", "src", "data");
 
 /* ------------------------------------------------------------------ */
 /* 1. Estructura                                                       */
 /* ------------------------------------------------------------------ */
 
 const CATEGORIA = {
-  id: "aritmetica",
+  id: "aritmetica-comercial",
   label: "Aritmética Comercial y Financiera",
   export: "NEGOCIO_ARITMETICA",
   archivo: "negocioAritmetica",
@@ -27,39 +27,20 @@ const CATEGORIA = {
   nivel: "Principiante",
   titulo: "Aritmética Comercial y Financiera",
   descripcion:
-    "PV, ganancias, descuentos sucesivos, regla de tres e interés compuesto aplicados a los negocios.",
+    "Precios, costos, ganancias, márgenes, descuentos, regla de tres e interés compuesto aplicados a los negocios.",
   simulador: "aritmetica",
-  grupos: [
-    {
-      seccion: "Precios y ganancias",
-      notas: [
-        {
-          id: "aritmetica-pv-ganancia",
-          titulo:
-            "Aritmética Comercial y Financiera: PV, Ganancia Bruta y Ganancia Neta",
-          icon: "💰",
-          firma: "PV, ganancia bruta, ganancia neta y márgenes",
-        },
-      ],
-    },
-    {
-      seccion: "Descuentos, regla de tres e interés",
-      notas: [
-        {
-          id: "aritmetica-general",
-          titulo: "Aritmética Comercial y Financiera",
-          icon: "🔁",
-          firma: "Precios, descuentos sucesivos, regla de tres e interés",
-        },
-      ],
-    },
-  ],
-};
-/* Simulador específico por nota (opcional). */
-const SIMULADOR_POR_NOTA = {
-  "aritmetica-pv-ganancia": "aritmetica-pv",
-  "aritmetica-descuentos-sucesivos": "aritmetica-descuentos",
-  "aritmetica-interes-compuesto": "aritmetica-interes",
+  grupos: GRUPOS.map((grupo) => ({
+    seccion: grupo.seccion,
+    notas: grupo.conceptos.map((id) => {
+      const concepto = CONCEPTOS_POR_ID[id];
+      return {
+        id: concepto.id,
+        titulo: concepto.titulo,
+        icon: concepto.icon,
+        firma: concepto.firma,
+      };
+    }),
+  })),
 };
 
 /* ------------------------------------------------------------------ */
@@ -83,129 +64,11 @@ const clip = (value = "", max = 160) => {
 
 const quitarBold = (value = "") => String(value).replace(/\*\*/g, "");
 
-const limpiarTitulo = (value = "") =>
-  value.replace(/^[^\p{L}\p{N}¿¡]+/u, "").trim();
-
 /* ------------------------------------------------------------------ */
-/* 3. Parser de TXT                                                    */
+/* 3. Construcción del documento                                       */
 /* ------------------------------------------------------------------ */
 
-const HEADER =
-  /^(📝|🧠|🎯|⚙️|⚠️|💼|🧩|📚|📊|💡|🔄|🛠️|📋|📌|🔍|🧾|🔑|📎|🧮|💰|🌱|✂️|🔧)\s+(.+)$/u;
-
-const CAMPOS = [
-  [/definici[oó]n/i, "definicion"],
-  [/qu[eé] es/i, "queEs"],
-  [/para qu[eé] sirve/i, "paraQueSirve"],
-  [/c[oó]mo funciona/i, "comoFunciona"],
-  [/errores|advertencias|desaf[ií]os/i, "errores"],
-  [/casos de uso/i, "casos"],
-  [/relaci[oó]n con otros/i, "relacion"],
-  [/analog[ií]a/i, "analogia"],
-  [/fuente/i, "fuente"],
-  [/notas personales/i, "notasPersonales"],
-];
-
-function parsearDoc(titulo, cuerpo) {
-  const lineas = cuerpo.split(/\r?\n/);
-  const secciones = [];
-  let actual = { key: "intro", label: "", textos: [] };
-  secciones.push(actual);
-
-  for (const linea of lineas) {
-    const limpia = linea.trim();
-    const header = limpia.match(HEADER);
-    if (header && limpia.length <= 120) {
-      const label = header[2].trim();
-      const campo = CAMPOS.find(([regex]) => regex.test(label));
-      actual = {
-        key: campo ? campo[1] : "extra",
-        label: campo ? label : `${header[1]} ${label}`,
-        textos: [],
-      };
-      secciones.push(actual);
-      continue;
-    }
-    actual.textos.push(linea);
-  }
-
-  const doc = {
-    definicion: [],
-    queEs: [],
-    paraQueSirve: [],
-    comoFunciona: [],
-    errores: [],
-    casos: [],
-    relacion: [],
-    analogia: "",
-    notasPersonales: [],
-    fuente: "",
-    extras: [],
-    intro: [],
-    titulo,
-  };
-
-  for (const s of secciones) {
-    const texto = s.textos.join("\n").trim();
-    if (!texto) continue;
-
-    if (s.key === "extra") {
-      doc.extras.push({
-        seccion: s.label,
-        textos: texto
-          .split(/\n\s*\n/)
-          .map((t) => t.trim())
-          .filter(Boolean),
-      });
-    } else if (s.key === "analogia" || s.key === "fuente") {
-      doc[s.key] = texto.replace(/\s+/g, " ").trim();
-    } else if (s.key === "intro") {
-      doc.intro = texto
-        .split(/\n\s*\n/)
-        .map((t) => t.replace(/\s+/g, " ").trim())
-        .filter(Boolean);
-    } else {
-      doc[s.key] = texto
-        .split(/\n\s*\n/)
-        .map((t) => t.replace(/\s+/g, " ").trim())
-        .filter(Boolean);
-    }
-  }
-
-  return doc;
-}
-
-function leerTxt(archivo) {
-  const ruta = path.join(TXT_DIR, archivo);
-  if (!fs.existsSync(ruta)) {
-    throw new Error(`No se encontró "${archivo}" en Apuntes/`);
-  }
-  return fs.readFileSync(ruta, "utf8").replace(/\uFEFF/g, "");
-}
-
-function extraerDocs(archivo) {
-  const contenido = leerTxt(archivo);
-  const trozos = contenido.split(/^📄\s*/m).filter((t) => t.trim());
-  return trozos.map((trozo) => {
-    const [primera, ...resto] = trozo.split(/\r?\n/);
-    return {
-      titulo: limpiarTitulo(primera.trim()),
-      cuerpo: resto.join("\n"),
-    };
-  });
-}
-
-/* ------------------------------------------------------------------ */
-/* 4. Construcción del documento                                       */
-/* ------------------------------------------------------------------ */
-
-function buildDoc(config, parsed) {
-  const definicion = parsed.definicion.length
-    ? parsed.definicion
-    : parsed.intro.length
-      ? parsed.intro
-      : [`**${config.titulo}** es un tema clave de aritmética comercial.`];
-
+function buildDoc(config) {
   return {
     id: config.id,
     titulo: config.titulo,
@@ -213,35 +76,22 @@ function buildDoc(config, parsed) {
     curso: CATEGORIA.id,
     cursoLabel: CATEGORIA.label,
     categoria: "Administración y Negocios",
-    resumen: clip(quitarBold(definicion[0] ?? ""), 180),
+    resumen: clip(quitarBold(config.definicion[0] ?? ""), 180),
     firma: config.firma,
-    simulador: SIMULADOR_POR_NOTA[config.id] ?? CATEGORIA.simulador,
+    simulador: CATEGORIA.simulador,
+    simuladorTipo: config.simuladorTipo,
 
-    definicion,
-    queEs: parsed.queEs.length ? parsed.queEs : definicion,
-    paraQueSirve: parsed.paraQueSirve.length
-      ? parsed.paraQueSirve
-      : [`🎯 Aplicar ${config.firma} en un negocio real.`],
-    comoFunciona: parsed.comoFunciona.length
-      ? parsed.comoFunciona
-      : ["Se aplican fórmulas simples y se verifica el resultado."],
-    errores: parsed.errores.length
-      ? parsed.errores
-      : ["⚠️ Revisa las unidades y el orden de los descuentos."],
-    casos: parsed.casos.length
-      ? parsed.casos
-      : [`💼 Aplicar ${config.titulo} en un caso real.`],
-    relacion: parsed.relacion.length
-      ? parsed.relacion
-      : ["🧩 Se combina con el resto de conceptos de aritmética."],
-    analogia:
-      parsed.analogia ||
-      `Piensa en ${config.titulo} como una calculadora: cada operación tiene su fórmula y su verificación.`,
-    notasPersonales: parsed.notasPersonales.length
-      ? parsed.notasPersonales
-      : undefined,
-    extras: parsed.extras || [],
-    fuente: parsed.fuente || "Apuntes personales · Notion",
+    definicion: config.definicion,
+    queEs: config.queEs,
+    paraQueSirve: config.paraQueSirve,
+    comoFunciona: config.comoFunciona,
+    errores: config.errores,
+    casos: config.casos,
+    relacion: config.relacion,
+    analogia: config.analogia,
+    notasPersonales: config.notasPersonales,
+    extras: config.extras ?? [],
+    fuente: config.fuente || "Apuntes personales · Notion",
   };
 }
 
@@ -412,82 +262,13 @@ function serialize(value, indent = 0) {
   return JSON.stringify(value);
 }
 /* ------------------------------------------------------------------ */
-/* 7. Lectura + generación                                             */
+/* 7. Generación de apuntes                                            */
 /* ------------------------------------------------------------------ */
 
-// Recopilar todos los documentos una sola vez
-const TODOS = [];
-const vistos = new Set();
-for (const archivo of [
-  "Aritmética Comercial y Financiera.txt",
-  "Aritmetica Fianaciera.txt",
-]) {
-  try {
-    for (const doc of extraerDocs(archivo)) {
-      const clave = norm(doc.titulo);
-      if (vistos.has(clave)) continue;
-      vistos.add(clave);
-      TODOS.push(doc);
-    }
-  } catch (e) {
-    console.warn(`⚠️  No se pudo leer "${archivo}": ${e.message}`);
-  }
-}
-
-// 🔍 Debug: mostrar qué se encontró realmente
-console.log("\n📂 Documentos detectados en los TXT:");
-for (const d of TODOS) {
-  console.log(`   · "${d.titulo}" (${d.cuerpo.length} chars)`);
-}
-if (!TODOS.length) {
-  throw new Error(
-    "No se encontró ningún documento en los TXT. " +
-      "Verifica que 'Aritmética Comercial y Financiera.txt' y 'Aritmetica Fianaciera.txt' " +
-      "existan en Apuntes/ y contengan secciones que empiecen con 📄",
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* 8. Filtrar configs por lo que existe (tolerante)                    */
-/* ------------------------------------------------------------------ */
-
-const buscarDoc = (config) => {
-  const exacto = TODOS.find((d) => norm(d.titulo) === norm(config.titulo));
-  if (exacto) return exacto;
-  const parcial = TODOS.find((d) =>
-    norm(d.titulo).startsWith(norm(config.titulo)),
-  );
-  return parcial || null;
-};
-
-const docs = [];
-const omitidos = [];
-for (const grupo of CATEGORIA.grupos) {
-  for (const config of grupo.notas) {
-    const nota = buscarDoc(config);
-    if (!nota) {
-      omitidos.push(config.titulo);
-      continue;
-    }
-    const parsed = parsearDoc(nota.titulo, nota.cuerpo);
-    docs.push(buildDoc(config, parsed));
-  }
-}
+const docs = CONCEPTOS.map((concepto) => buildDoc(concepto));
 
 if (!docs.length) {
-  throw new Error(
-    "Ningún documento del config coincide con lo que hay en los TXT. " +
-      "Revisa la lista de arriba y ajusta los títulos en CATEGORIA.grupos.",
-  );
-}
-
-if (omitidos.length) {
-  console.warn("\n⚠️  Omitidos (no encontrados en los TXT):");
-  for (const o of omitidos) console.warn(`   · "${o}"`);
-  console.warn(
-    "\n💡 Si quieres que aparezcan, añade esas secciones 📄 a " +
-      "'Aritmetica Fianaciera.txt' (o el archivo correspondiente) y vuelve a ejecutar.\n",
-  );
+  throw new Error("No se pudo construir ningún concepto de aritmética.");
 }
 
 for (const doc of docs) {

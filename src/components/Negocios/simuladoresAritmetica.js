@@ -335,6 +335,63 @@ export const SIMULADORES = {
     },
   },
 
+  "interes-compuesto": {
+    titulo: "Simulador · Interés compuesto",
+    descripcion:
+      "Calcula el monto final cuando los intereses se reinvierten y generan nuevos intereses. Ajusta la capitalización para ver el efecto bola de nieve.",
+    formula: "M = C × (1 + i/m)^(n×m) · I = M - C",
+    campos: [
+      { k: "c", label: "Capital inicial", prefijo: "$", def: 1000 },
+      { k: "i", label: "Tasa anual", sufijo: "%", def: 10 },
+      { k: "n", label: "Años", sufijo: "años", def: 5 },
+      { k: "m", label: "Capitalizaciones por año", def: 1 },
+    ],
+    calcular: ({ c, i, n, m }) => {
+      const capitalizaciones = Math.max(1, Math.round(m));
+      const tasaPeriodo = i / 100 / capitalizaciones;
+      const periodos = n * capitalizaciones;
+      const factor = Math.pow(1 + tasaPeriodo, periodos);
+      const monto = c * factor;
+      const intereses = monto - c;
+      const tasaEfectiva =
+        (Math.pow(1 + tasaPeriodo, capitalizaciones) - 1) * 100;
+      const regla72 = i > 0 ? 72 / i : NaN;
+
+      return {
+        resultados: [
+          { label: "Monto final", valor: dinero(monto), tono: "ok" },
+          { label: "Intereses generados", valor: dinero(intereses), tono: "ok" },
+          { label: "Tasa efectiva anual", valor: porcentaje(tasaEfectiva) },
+          {
+            label: "Años para duplicar (regla del 72)",
+            valor: Number.isFinite(regla72) ? decimales(regla72, 1) : "—",
+          },
+        ],
+        aviso:
+          c <= 0
+            ? "El capital inicial debe ser mayor que cero."
+            : i < 0
+              ? "La tasa no puede ser negativa en este simulador."
+              : n <= 0
+                ? "El número de años debe ser mayor que cero."
+                : null,
+        pasos: [
+          `Capital inicial: C = ${dinero(c)}.`,
+          `Tasa por período: i/m = ${decimales(i)}% / ${capitalizaciones} = ${porcentaje(tasaPeriodo * 100)}.`,
+          `Períodos totales: n × m = ${decimales(n)} × ${capitalizaciones} = ${decimales(periodos)}.`,
+          `Factor de crecimiento: (1 + ${decimales(tasaPeriodo, 6)})^${decimales(periodos)} = ${decimales(factor, 6)}.`,
+          `Monto final: M = ${dinero(c)} × ${decimales(factor, 6)} = ${dinero(monto)}.`,
+          `Intereses: I = ${dinero(monto)} - ${dinero(c)} = ${dinero(intereses)}.`,
+          `Tasa efectiva anual: (1 + ${decimales(tasaPeriodo, 6)})^${capitalizaciones} - 1 = ${porcentaje(tasaEfectiva)}.`,
+        ],
+        barra: [
+          { label: "Capital", valor: c, tono: "costo" },
+          { label: "Intereses", valor: intereses, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
   "caso-integrador": {
     titulo: "Simulador · Caso integrador",
     descripcion:

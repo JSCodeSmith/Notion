@@ -8,6 +8,10 @@ import {
   NEGOCIO_ARITMETICA,
   NEGOCIO_ARITMETICA_DOCS,
 } from "./negocioAritmetica";
+import {
+  NEGOCIO_BIBLIOTECA,
+  NEGOCIO_BIBLIOTECA_DOCS,
+} from "./negocioBiblioteca";
 
 /* Cursos de Administración y Negocios (una pestaña por curso). */
 export const NEGOCIOS_CURSOS = [
@@ -18,6 +22,7 @@ export const NEGOCIOS_CURSOS = [
   NEGOCIO_OPERACIONES,
   NEGOCIO_LIDERAZGO,
   NEGOCIO_ARITMETICA,
+  NEGOCIO_BIBLIOTECA,
 ];
 
 /* Todos los apuntes de negocios, indexados por id. */
@@ -29,6 +34,7 @@ export const NEGOCIOS_APUNTES = {
   ...NEGOCIO_OPERACIONES_DOCS,
   ...NEGOCIO_LIDERAZGO_DOCS,
   ...NEGOCIO_ARITMETICA_DOCS,
+  ...NEGOCIO_BIBLIOTECA_DOCS,
 };
 
 /* id del apunte → id de su curso. */

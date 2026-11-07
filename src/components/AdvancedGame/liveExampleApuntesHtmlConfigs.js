@@ -150,6 +150,109 @@ export const APUNTES_HTML_CONFIGS = {
     codigo: "const bytes = Uint8Array.from(emojis, (_, indice) =>\n  ((indice + 1) * 40) % 256,\n);\nconsole.log(\"Emojis:\", emojis.length);\nconsole.log(\"Bytes:\", bytes);\nconsole.log(\"Como array normal:\", Array.from(bytes));\nreturn Array.from(bytes);",
     estricto: false,
   },
+
+  /* --- Object: copia, prototipos y colecciones --- */
+
+  "js-object-assign": {
+    titulo: "Copia y fusiona objetos",
+    descripcion:
+      "assign() copia las propiedades enumerables de los orígenes al destino y devuelve el mismo destino.",
+    prueba:
+      "Cambia el orden de los orígenes: la última propiedad con el mismo nombre gana.",
+    codigo:
+      "const base = { emoji: emojis[0] ?? \"😀\", puntos: 10 };\nconst copia = Object.assign({}, base);\ncopia.puntos = 999;\nconst fusion = Object.assign({}, base, { nivel: \"oro\" });\nconsole.log(\"Original:\", base);\nconsole.log(\"Copia modificada:\", copia);\nconsole.log(\"Fusión:\", fusion);\nconsole.log(\"¿Misma referencia?\", copia === base);\nreturn fusion;",
+    estricto: false,
+  },
+
+  "js-object-create": {
+    titulo: "Elige el prototipo del objeto",
+    descripcion:
+      "create() fabrica un objeto nuevo cuyo prototipo es el que tú indiques. Con null, no hereda nada.",
+    prueba:
+      "Compara la ficha creada con base frente al objeto sin prototipo.",
+    codigo:
+      "const base = {\n  saludar() {\n    return \"Hola \" + this.emoji;\n  },\n};\nconst ficha = Object.create(base);\nficha.emoji = emojis[0] ?? \"😀\";\nconst sinPrototipo = Object.create(null);\nsinPrototipo.emoji = emojis[1] ?? emojis[0] ?? \"😀\";\nconsole.log(\"¿Hereda de base?\", Object.getPrototypeOf(ficha) === base);\nconsole.log(ficha.saludar());\nconsole.log(\"Prototipo nulo:\", Object.getPrototypeOf(sinPrototipo));\nreturn ficha.saludar();",
+    estricto: false,
+  },
+
+  "js-object-entries": {
+    titulo: "Recorre pares clave-valor",
+    descripcion:
+      "entries() devuelve un array de pares [clave, valor], ideal para recorrer objetos con for...of.",
+    prueba:
+      "Añade una propiedad nueva a la ficha y observa cómo aparece en el recorrido.",
+    codigo:
+      "const ficha = {\n  emoji: emojis[0] ?? \"😀\",\n  puntos: emojis.length,\n  nivel: \"oro\",\n};\nfor (const [clave, valor] of Object.entries(ficha)) {\n  console.log(clave + \" → \" + valor);\n}\nconst pares = Object.entries(ficha).map(\n  ([clave, valor]) => clave + \"=\" + valor,\n);\nconsole.log(\"Pares:\", pares);\nreturn pares;",
+    estricto: false,
+  },
+
+  "js-object-freeze": {
+    titulo: "Congela el objeto de verdad",
+    descripcion:
+      "freeze() impide añadir, borrar o modificar propiedades. En modo estricto, el intento lanza un TypeError.",
+    prueba:
+      "Quita el bloque try/catch y ejecuta: verás el error exacto en la consola.",
+    codigo:
+      "const ficha = Object.freeze({\n  emoji: emojis[0] ?? \"😀\",\n  puntos: 10,\n});\nconsole.log(\"¿Congelado?\", Object.isFrozen(ficha));\ntry {\n  ficha.puntos = 99;\n} catch (error) {\n  console.log(\"No se puede modificar:\", error.name);\n}\nconsole.log(\"Valor final:\", ficha.puntos);\nreturn ficha;",
+    estricto: true,
+  },
+
+  "js-object-fromentries": {
+    titulo: "Convierte pares en objeto",
+    descripcion:
+      "fromEntries() es la operación inversa de entries(): recibe pares [clave, valor] y devuelve un objeto.",
+    prueba:
+      "Duplica una clave en el array y comprueba qué valor sobrevive.",
+    codigo:
+      "const pares = [\n  [\"emoji\", emojis[0] ?? \"😀\"],\n  [\"puntos\", emojis.length],\n  [\"nivel\", \"oro\"],\n];\nconst ficha = Object.fromEntries(pares);\nconsole.log(\"Pares:\", pares);\nconsole.log(\"Objeto:\", ficha);\nconsole.log(\"Claves:\", Object.keys(ficha));\nreturn ficha;",
+    estricto: false,
+  },
+
+  "js-object-hasown": {
+    titulo: "Propia frente a heredada",
+    descripcion:
+      "hasOwn() solo devuelve true para propiedades que el objeto guarda directamente, no para las heredadas.",
+    prueba:
+      "Prueba con 'saludo', que vive en el prototipo: existe, pero no es propia.",
+    codigo:
+      "const base = { saludo: \"hola\" };\nconst ficha = Object.create(base);\nficha.emoji = emojis[0] ?? \"😀\";\nconsole.log(\"emoji propia:\", Object.hasOwn(ficha, \"emoji\"));\nconsole.log(\"saludo propia:\", Object.hasOwn(ficha, \"saludo\"));\nconsole.log(\"saludo heredada:\", \"saludo\" in ficha);\nreturn Object.hasOwn(ficha, \"emoji\");",
+    estricto: false,
+  },
+
+  "js-object-keys": {
+    titulo: "Lista las claves enumerables",
+    descripcion:
+      "keys() devuelve solo las claves propias que se pueden enumerar; las ocultas con defineProperty no aparecen.",
+    prueba:
+      "Cambia enumerable a true en 'secreto' y vuelve a ejecutar.",
+    codigo:
+      "const ficha = {\n  emoji: emojis[0] ?? \"😀\",\n  puntos: 10,\n  nivel: \"oro\",\n};\nObject.defineProperty(ficha, \"secreto\", {\n  value: true,\n  enumerable: false,\n});\nconsole.log(\"Claves enumerables:\", Object.keys(ficha));\nconsole.log(\"Todas las propias:\", Object.getOwnPropertyNames(ficha));\nconsole.log(\"Cantidad:\", Object.keys(ficha).length);\nreturn Object.keys(ficha);",
+    estricto: false,
+  },
+
+  "js-object-values": {
+    titulo: "Extrae solo los valores",
+    descripcion:
+      "values() devuelve un array con los valores enumerables del objeto, en el mismo orden que keys().",
+    prueba:
+      "Añade una propiedad numérica y comprueba cómo cambia el array de valores.",
+    codigo:
+      "const ficha = {\n  emoji: emojis[0] ?? \"😀\",\n  puntos: 10,\n  nivel: \"oro\",\n};\nconsole.log(\"Valores:\", Object.values(ficha));\nconsole.log(\"Suma de puntos:\", ficha.puntos + emojis.length);\nreturn Object.values(ficha);",
+    estricto: false,
+  },
+
+  /* --- Web API: window.print() (simulada en el worker) --- */
+
+  "js-window-print": {
+    titulo: "Simula el diálogo de impresión",
+    descripcion:
+      "window.print() abre el diálogo nativo del navegador. Aquí simulamos la API para ver el flujo dentro del worker.",
+    prueba:
+      "Cambia el contenido del documento y observa cómo se prepara antes de imprimir.",
+    codigo:
+      "/* En el worker no existe window real: creamos una simulación. */\nconst window = {\n  print() {\n    console.log(\"🖨️ Se abriría el diálogo de impresión del navegador.\");\n    return undefined;\n  },\n};\nconst documento = emojis.map(\n  (emoji, indice) => `${indice + 1}. ${emoji}`,\n);\nconsole.log(\"Contenido a imprimir:\");\ndocumento.forEach((linea) => console.log(linea));\nconst resultado = window.print();\nconsole.log(\"window.print() devuelve:\", resultado);\nreturn documento.length;",
+    estricto: false,
+  },
 };
 
 export const APUNTES_HTML_CATEGORIAS = {
@@ -174,4 +277,13 @@ export const APUNTES_HTML_CATEGORIAS = {
   "function-bind": "array",
   "typedarray-set": "array",
   "uint8array-from": "array",
+  "js-object-assign": "array",
+  "js-object-create": "array",
+  "js-object-entries": "array",
+  "js-object-freeze": "array",
+  "js-object-fromentries": "array",
+  "js-object-hasown": "array",
+  "js-object-keys": "array",
+  "js-object-values": "array",
+  "js-window-print": "array",
 };

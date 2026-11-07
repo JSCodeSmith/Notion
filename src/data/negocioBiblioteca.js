@@ -258,10 +258,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Agilidad Empresarial (Business Agility)?",
         "opciones": [
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Optimizar todo por igual Invertir en mejorar todas las etapas, no solo la restricción. Desperdicio de recursos; el…"
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial."
         ],
         "correcta": 0
       }
@@ -502,10 +502,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Análisis SEPTE (Social, Económico, Político, Tecnológico, Ecológico)?",
         "opciones": [
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia Optimizar todo por igual Invertir en mejorar todas las etapas, no solo la restricción. Desperdicio de recursos; el…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…"
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital."
         ],
         "correcta": 0
       }
@@ -596,7 +596,9 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       "Reid Hoffman y Chris Yeh identifican 5 etapas de crecimiento, cada una con sus propios desafíos y estrategias:",
       "```\nEtapa                                                                                                                                                                                                                       Nombre   Tamaño                 Desafío                                    Estrategia                                      \n1                                                                                                                                                                                                                           Familia  1-9 empleados          Crear un producto que el mercado quiera.   MVP, validación, Product-Market Fit.            \n2                                                                                                                                                                                                                           Tribu    10-99 empleados        Encontrar un modelo de negocio escalable.  Crecimiento inicial, contratación clave.        \n3                                                                                                                                                                                                                           Aldea    100-999 empleados      Escalar el modelo de negocio.              Procesos, estructura, liderazgo.                \n4                                                                                                                                                                                                                           Ciudad   1,000-9,999 empleados  Escalar la organización.                   Cultura, descentralización, eficiencia.         \n5                                                                                                                                                                                                                           Nación   10,000+ empleados      Escalar el impacto.                        Innovación continua, ecosistema, sostenibilidad.\nLa transición entre etapas: Cada transición requiere un cambio en la estrategia, la estructura y la cultura. El Blitzscaling implica saltar etapas y crecer a un ritmo que la organización no está preparada para manejar.\n```"
     ],
-    "errores": [],
+    "errores": [
+      "```\nRiesgo                             Descripción                                          Consecuencia                                  \nQuema de capital                   Gastar más de lo que se ingresa.                     Insolvencia si no se levanta más capital.     \nCultura tóxica                     El ritmo acelerado puede quemar a los empleados.     Alta rotación, baja moral.                    \nCalidad del producto               Crecer rápido puede sacrificar la calidad.           Mala experiencia del cliente, churn.          \nFalta de procesos                  El caos puede llevar a ineficiencias graves.         Desorganización, errores costosos.            \nRegulación                         Crecer rápido puede ignorar regulaciones.            Multas, demandas, bloqueos.                   \nSostenibilidad                     El crecimiento no es sostenible a largo plazo.       Colapso cuando el capital se agota.           \nNo todos los mercados lo permiten  Solo funciona en mercados \"winner-takes-most\".       Fracaso en mercados fragmentados.             \nPresión de los inversores          Los VCs presionan por crecimiento a toda costa.      Decisiones cortoplacistas, daño a largo plazo.\nÉtica                              Crecer rápido puede ignorar consideraciones éticas.  Daño reputacional, pérdida de confianza.      \n```"
+    ],
     "casos": [
       "```\nSituación                               Aplicación                                                            \nStartup en mercado \"winner-takes-most\"  Usar Blitzscaling para capturar el mercado antes que los competidores.\nEmpresa con efectos de red              Crecer rápido para aumentar el valor de la red.                       \nMercado en rápida evolución             Ser el primero en moverse y definir el estándar.                      \nEmpresa con acceso a capital            Usar grandes rondas de VC para financiar el crecimiento.              \nCompetencia con gigantes                Crecer rápido para defenderse de competidores más grandes.            \nExpansión internacional                 Entrar a múltiples mercados simultáneamente.                          \n```"
     ],
@@ -630,12 +632,6 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "seccion": "💡 Ejemplos de Empresas que Usaron Blitzscaling",
         "textos": [
           "```\nEmpresa        Cómo usaron Blitzscaling                                                                   Resultado                             \nUber           Expansión agresiva a ciudades, subsidios a conductores y pasajeros, grandes rondas de VC.  Líder global de movilidad.            \nAirbnb         Expansión global rápida, marketing agresivo, adquisiciones.                                Líder global de alojamiento.          \nFacebook       Crecimiento viral, adquisiciones (Instagram, WhatsApp), inversión en infraestructura.      Red social más grande del mundo.      \nAmazon         Inversión masiva en logística, AWS, expansión global, precios bajos.                       Gigante del e-commerce y cloud.       \nLinkedIn       Crecimiento de red, adquisiciones, expansión global.                                       Red profesional líder.                \nNetflix        Inversión masiva en contenido original, expansión global.                                  Líder del streaming.                  \nSpotify        Crecimiento de usuarios, acuerdos con discográficas, expansión global.                     Líder del streaming musical.          \nMercado Libre  Expansión regional, inversión en logística y fintech.                                      Líder del e-commerce en Latinoamérica.\nNubank         Crecimiento agresivo de usuarios, expansión regional, inversión en tecnología.             Neobanco más valioso de Latinoamérica.\nRappi          Expansión rápida a múltiples países, diversificación de servicios.                         SuperApp líder en Latinoamérica.      \n```"
-        ]
-      },
-      {
-        "seccion": "⚠️ Riesgos y Críticas al Blitzscaling",
-        "textos": [
-          "```\nRiesgo                             Descripción                                          Consecuencia                                  \nQuema de capital                   Gastar más de lo que se ingresa.                     Insolvencia si no se levanta más capital.     \nCultura tóxica                     El ritmo acelerado puede quemar a los empleados.     Alta rotación, baja moral.                    \nCalidad del producto               Crecer rápido puede sacrificar la calidad.           Mala experiencia del cliente, churn.          \nFalta de procesos                  El caos puede llevar a ineficiencias graves.         Desorganización, errores costosos.            \nRegulación                         Crecer rápido puede ignorar regulaciones.            Multas, demandas, bloqueos.                   \nSostenibilidad                     El crecimiento no es sostenible a largo plazo.       Colapso cuando el capital se agota.           \nNo todos los mercados lo permiten  Solo funciona en mercados \"winner-takes-most\".       Fracaso en mercados fragmentados.             \nPresión de los inversores          Los VCs presionan por crecimiento a toda costa.      Decisiones cortoplacistas, daño a largo plazo.\nÉtica                              Crecer rápido puede ignorar consideraciones éticas.  Daño reputacional, pérdida de confianza.      \n```"
         ]
       }
     ],
@@ -673,10 +669,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Blitzscaling (Escalado Relámpago)?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Situación Aplicación Startup en mercado \"winner-takes-most\" Usar Blitzscaling para capturar el mercado antes que los competidores. Empresa con…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…"
+          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
         ],
         "correcta": 1
       }
@@ -763,7 +759,9 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "comoFunciona": [
       "```\nTipo                         Descripción                                                                       Ejemplo                                                                                                    \nEfecto de Red Directo        El valor aumenta para los usuarios del mismo lado.                                Teléfono, WhatsApp, Facebook.                                                                              \nEfecto de Red Indirecto      El valor aumenta para un lado a medida que crece el otro lado.                    Uber (conductores y pasajeros), Airbnb (anfitriones y huéspedes), Mercado Libre (vendedores y compradores).\nEfecto de Red de Datos       El valor aumenta porque más usuarios generan más datos, que mejoran el producto.  Netflix (recomendaciones), Google (búsqueda), Waze (tráfico).                                              \nEfecto de Red de Plataforma  Múltiples lados se benefician mutuamente.                                         iOS (desarrolladores y usuarios), Steam (desarrolladores y jugadores).                                     \nEfecto de Red Social         El valor depende de las conexiones sociales.                                      LinkedIn, Instagram, TikTok.                                                                               \nEfecto de Red de Mercado     El valor depende del volumen de transacciones.                                    Amazon, Mercado Libre, eBay.                                                                               \n```"
     ],
-    "errores": [],
+    "errores": [
+      "```\nDesafío                            Descripción                                                   Mitigación                                                              \nProblema del \"huevo y la gallina\"  Necesitas usuarios para atraer usuarios.                      Subsidiar un lado, empezar con un nicho, crear valor artificial.        \nMasa crítica                       Es difícil alcanzar el punto de inflexión.                    Enfocarse en un mercado pequeño, crear valor para los primeros usuarios.\nEfectos de red negativos           Demasiados usuarios pueden degradar el servicio.              Moderación, calidad, segmentación, límites.                             \nCompetencia                        Un competidor puede crear una red más fuerte.                 Innovar, diferenciarse, crear costos de cambio.                         \nMonopolio y regulación             El dominio de una red puede atraer regulación antimonopolio.  Cumplir con regulaciones, demostrar competencia.                        \nDependencia de la red              Si la red colapsa, el valor se pierde.                        Diversificar, crear valor más allá de la red.                           \nCambio tecnológico                 Una nueva tecnología puede hacer obsoleta la red.             Innovar continuamente, anticipar cambios.                               \n```"
+    ],
     "casos": [
       "```\nSituación                 Aplicación                                                                  \nRedes sociales            Crear una red donde el valor crece con cada nuevo usuario.                  \nMarketplaces              Conectar compradores y vendedores para crear efectos de red indirectos.     \nPlataformas de movilidad  Conectar conductores y pasajeros para crear efectos de red indirectos.      \nPlataformas de contenido  Conectar creadores y consumidores para crear efectos de red.                \nSaaS                      Crear efectos de red de datos (más usuarios → mejores recomendaciones).     \nFintech                   Crear efectos de red en pagos (más usuarios → más comercios → más usuarios).\nVideojuegos               Crear efectos de red multijugador (más jugadores → mejores partidas).       \n```"
     ],
@@ -804,13 +802,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       {
         "seccion": "📊 La Curva de los Efectos de Red",
         "textos": [
-          "```\nValor\n  │\n  │                         ┌──────────────\n  │                        /\n  │                       /\n  │                      /\n  │                     /\n  │                    /\n  │                   /\n  │                  /\n  │                 /\n  │                /\n  │               /\n  │              /\n  │             /\n  │            /\n  │           /\n  │          /\n  │         /\n  │        /\n  │       /\n  │      /\n  │     /\n  │    /\n  │   /\n  │  /\n  │ /\n  │/\n  └──────────────────────────────────────────► Usuarios\n       Masa Crítica\nMasa Crítica: El punto en el que el efecto de red se acelera. Antes de la masa crítica, el crecimiento es lento. Después, el crecimiento se vuelve exponencial.\n```"
-        ]
-      },
-      {
-        "seccion": "⚠️ Desafíos y Riesgos de los Efectos de Red",
-        "textos": [
-          "```\nDesafío                            Descripción                                                   Mitigación                                                              \nProblema del \"huevo y la gallina\"  Necesitas usuarios para atraer usuarios.                      Subsidiar un lado, empezar con un nicho, crear valor artificial.        \nMasa crítica                       Es difícil alcanzar el punto de inflexión.                    Enfocarse en un mercado pequeño, crear valor para los primeros usuarios.\nEfectos de red negativos           Demasiados usuarios pueden degradar el servicio.              Moderación, calidad, segmentación, límites.                             \nCompetencia                        Un competidor puede crear una red más fuerte.                 Innovar, diferenciarse, crear costos de cambio.                         \nMonopolio y regulación             El dominio de una red puede atraer regulación antimonopolio.  Cumplir con regulaciones, demostrar competencia.                        \nDependencia de la red              Si la red colapsa, el valor se pierde.                        Diversificar, crear valor más allá de la red.                           \nCambio tecnológico                 Una nueva tecnología puede hacer obsoleta la red.             Innovar continuamente, anticipar cambios.                               \n```"
+          "Valor",
+          "```\n  │\n  │                         ┌──────────────\n  │                        /\n  │                       /\n  │                      /\n  │                     /\n  │                    /\n  │                   /\n  │                  /\n  │                 /\n  │                /\n  │               /\n  │              /\n  │             /\n  │            /\n  │           /\n  │          /\n  │         /\n  │        /\n  │       /\n  │      /\n  │     /\n  │    /\n  │   /\n  │  /\n  │ /\n  │/\n  └──────────────────────────────────────────► Usuarios\n```",
+          "Masa Crítica",
+          "**Masa Crítica**: El punto en el que el efecto de red se acelera. Antes de la masa crítica, el crecimiento es lento. Después, el crecimiento se vuelve exponencial."
         ]
       }
     ],
@@ -848,10 +843,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Efectos de Red (Network Effects)?",
         "opciones": [
-          "``` Situación Aplicación Redes sociales Crear una red donde el valor crece con cada nuevo usuario. Marketplaces Conectar compradores y vendedores para…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…"
+          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
         ],
         "correcta": 0
       }
@@ -937,7 +932,9 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "comoFunciona": [
       "```\nComponente                                   Descripción                                                   Ejemplo                                                     \nInfraestructura como Servicio (IaaS)         Alquiler de servidores, almacenamiento y redes.               AWS EC2, Azure Virtual Machines, Google Compute Engine.     \nPlataforma como Servicio (PaaS)              Entorno para desarrollar, ejecutar y gestionar aplicaciones.  AWS Elastic Beanstalk, Google App Engine, Azure App Service.\nSoftware como Servicio (SaaS)                Software listo para usar, accesible desde el navegador.       Salesforce, Slack, Zoom, Google Workspace.                  \nFunciones como Servicio (FaaS) / Serverless  Ejecutar código sin gestionar servidores.                     AWS Lambda, Azure Functions, Google Cloud Functions.        \nBases de Datos como Servicio (DBaaS)         Bases de datos gestionadas en la nube.                        Amazon RDS, MongoDB Atlas, Google Cloud SQL.                \nIA y Machine Learning como Servicio          Servicios de IA listos para integrar.                         AWS SageMaker, Google AI Platform, Azure ML.                \nAlmacenamiento como Servicio                 Almacenamiento escalable en la nube.                          Amazon S3, Google Cloud Storage, Azure Blob Storage.        \nRedes de Entrega de Contenido (CDN)          Distribución global de contenido con baja latencia.           CloudFront (AWS), Cloud CDN (Google), Azure CDN.            \n```"
     ],
-    "errores": [],
+    "errores": [
+      "```\nDesafío                                     Descripción                                 Mitigación                                  \nDependencia del proveedor (Vendor Lock-in)  Difícil migrar de un proveedor a otro.      Usar estándares abiertos, multi-cloud.      \nCostos impredecibles                        El pago por uso puede dispararse.           Monitorear costos, usar reservas, optimizar.\nSeguridad y privacidad                      Los datos están en servidores de terceros.  Cifrado, cumplimiento, auditorías.          \nLatencia                                    La distancia física afecta la velocidad.    Usar CDN, regiones cercanas.                \nCumplimiento regulatorio                    Los datos pueden cruzar fronteras.          Elegir regiones con regulaciones adecuadas. \nFalta de control                            Menos control sobre la infraestructura.     Usar servicios gestionados con SLA.         \nComplejidad                                 La nube tiene miles de servicios.           Capacitación, arquitectura bien diseñada.   \nInterrupciones                              Los proveedores pueden fallar.              Redundancia, multi-cloud, backup.           \n```"
+    ],
     "casos": [
       "```\nSituación            Aplicación                                                     \nStartup tecnológica  Lanzar un SaaS sin invertir en servidores.                     \nEmpresa tradicional  Migrar a la nube para reducir costos y aumentar agilidad.      \nE-commerce           Escalar en picos de demanda (Black Friday).                    \nFintech              Procesar millones de transacciones con seguridad.              \nGaming               Ofrecer juegos en streaming sin hardware local.                \nIoT                  Gestionar millones de dispositivos conectados.                 \nIA y Big Data        Procesar grandes volúmenes de datos sin infraestructura propia.\n```"
     ],
@@ -970,12 +967,6 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "seccion": "📊 Comparativa: Modelo Tradicional (On-Premise) vs. Cloud-First",
         "textos": [
           "```\nCaracterística         On-Premise (Tradicional)                         Cloud-First                         \nInfraestructura        Propia (centros de datos).                       Alquilada (AWS, Azure, GCP).        \nInversión inicial      Alta (CapEx).                                    Baja (OpEx).                        \nEscalabilidad          Limitada, lenta.                                 Elástica, rápida.                   \nCostos                 Fijos, altos.                                    Variables, por uso.                 \nMantenimiento          Propio (personal, electricidad, refrigeración).  Del proveedor de nube.              \nInnovación             Lenta (comprar e instalar).                      Rápida (servicios listos para usar).\nDisponibilidad global  Limitada a la ubicación física.                  Global (múltiples regiones).        \nSeguridad              Responsabilidad propia.                          Compartida (proveedor + empresa).   \nTime to Market         Lento (meses).                                   Rápido (días).                      \n```"
-        ]
-      },
-      {
-        "seccion": "⚠️ Desafíos y Riesgos del Modelo Cloud",
-        "textos": [
-          "```\nDesafío                                     Descripción                                 Mitigación                                  \nDependencia del proveedor (Vendor Lock-in)  Difícil migrar de un proveedor a otro.      Usar estándares abiertos, multi-cloud.      \nCostos impredecibles                        El pago por uso puede dispararse.           Monitorear costos, usar reservas, optimizar.\nSeguridad y privacidad                      Los datos están en servidores de terceros.  Cifrado, cumplimiento, auditorías.          \nLatencia                                    La distancia física afecta la velocidad.    Usar CDN, regiones cercanas.                \nCumplimiento regulatorio                    Los datos pueden cruzar fronteras.          Elegir regiones con regulaciones adecuadas. \nFalta de control                            Menos control sobre la infraestructura.     Usar servicios gestionados con SLA.         \nComplejidad                                 La nube tiene miles de servicios.           Capacitación, arquitectura bien diseñada.   \nInterrupciones                              Los proveedores pueden fallar.              Redundancia, multi-cloud, backup.           \n```"
         ]
       }
     ],
@@ -1013,10 +1004,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Modelo de Negocio Basado en la Nube (Cloud-Enabled / Cloud-First Business Model)?",
         "opciones": [
-          "``` Situación Aplicación Startup tecnológica Lanzar un SaaS sin invertir en servidores. Empresa tradicional Migrar a la nube para reducir costos y…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…"
+          "Dependencia del proveedor (Vendor Lock-in): Difícil migrar de un proveedor a otro. · Usar estándares abiertos, multi-cloud.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito."
         ],
         "correcta": 0
       }
@@ -1128,7 +1119,9 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       "**Objetivo**: Recibir entregas frecuentes y en pequeñas cantidades, justo a tiempo.",
       "**Ejemplo**: Un proveedor entrega materias primas varias veces al día, en lugar de una vez al mes."
     ],
-    "errores": [],
+    "errores": [
+      "```\nDesafío                          Descripción                                                           Mitigación                                                                     \nVulnerabilidad a interrupciones  Un paro en la cadena de suministro puede detener la producción.       Diversificar proveedores, tener inventarios de seguridad para insumos críticos.\nDependencia de proveedores       Requiere proveedores confiables y entregas puntuales.                 Establecer relaciones a largo plazo, contratos claros, comunicación constante. \nDemanda impredecible             El JIT funciona mejor con demanda estable.                            Usar pronósticos, tener planes de contingencia, flexibilidad.                  \nComplejidad                      Requiere coordinación y sincronización perfecta.                      Invertir en tecnología, capacitación, y mejora continua.                       \nResistencia al cambio            La cultura de \"por si acaso\" es difícil de cambiar.                   Liderazgo, comunicación, formación, y resultados visibles.                     \nCostos de transporte             Entregas frecuentes y en pequeñas cantidades pueden aumentar costos.  Optimizar rutas, consolidar envíos, usar proveedores locales.                  \n```"
+    ],
     "casos": [
       "```\nSituación               Aplicación                                                       \nManufactura             Producir solo lo que se demanda, reducir inventario.             \nLogística               Entregas frecuentes y en pequeñas cantidades.                    \nRetail                  Reponer inventario solo cuando se vende (sistema pull).          \nServicios               Ajustar la capacidad de servicio a la demanda en tiempo real.    \nDesarrollo de software  Entregar funcionalidades en pequeñas iteraciones (Kanban, CI/CD).\nSalud                   Gestionar inventario de suministros médicos justo a tiempo.      \n```"
     ],
@@ -1168,12 +1161,6 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
           "**Sin JIT**: Se preparan 100 hamburguesas por la mañana. Muchas se enfrían, se tiran o se venden de baja calidad.",
           "**Con JIT**: Se preparan hamburguesas solo cuando el cliente las pide. Se reduce el desperdicio, se mejora la calidad y se optimiza el inventario."
         ]
-      },
-      {
-        "seccion": "⚠️ Desafíos y Riesgos del JIT",
-        "textos": [
-          "```\nDesafío                          Descripción                                                           Mitigación                                                                     \nVulnerabilidad a interrupciones  Un paro en la cadena de suministro puede detener la producción.       Diversificar proveedores, tener inventarios de seguridad para insumos críticos.\nDependencia de proveedores       Requiere proveedores confiables y entregas puntuales.                 Establecer relaciones a largo plazo, contratos claros, comunicación constante. \nDemanda impredecible             El JIT funciona mejor con demanda estable.                            Usar pronósticos, tener planes de contingencia, flexibilidad.                  \nComplejidad                      Requiere coordinación y sincronización perfecta.                      Invertir en tecnología, capacitación, y mejora continua.                       \nResistencia al cambio            La cultura de \"por si acaso\" es difícil de cambiar.                   Liderazgo, comunicación, formación, y resultados visibles.                     \nCostos de transporte             Entregas frecuentes y en pequeñas cantidades pueden aumentar costos.  Optimizar rutas, consolidar envíos, usar proveedores locales.                  \n```"
-        ]
       }
     ],
     "titulo": "Justo a Tiempo (JIT - Just In Time)",
@@ -1210,10 +1197,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Justo a Tiempo (JIT - Just In Time)?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Situación Aplicación Manufactura Producir solo lo que se demanda, reducir inventario. Logística Entregas frecuentes y en pequeñas cantidades.…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…"
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Vulnerabilidad a interrupciones: Un paro en la cadena de suministro puede detener la producción. · Diversificar proveedores, tener inventarios de…",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito."
         ],
         "correcta": 1
       }
@@ -1302,7 +1289,9 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     ],
     "comoFunciona": [
       "El tablero Kanban es la herramienta central. Se organiza en columnas que representan las etapas del flujo de trabajo y tarjetas que representan las tareas.",
-      "```\nEstructura Básica de un Tablero Kanban\ntext\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                            TABLERO KANBAN                                   │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │\n│  │  BACKLOG    │  │  POR HACER  │  │  EN CURSO   │  │  HECHO      │        │\n│  │             │  │             │  │  (WIP: 3)   │  │             │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │\n│  │ │ Tarea 1 │ │  │ │ Tarea 4 │ │  │ │ Tarea 7 │ │  │ │ Tarea 10│ │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │\n│  │ │ Tarea 2 │ │  │ │ Tarea 5 │ │  │ │ Tarea 8 │ │  │ │ Tarea 11│ │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │             │        │\n│  │ │ Tarea 3 │ │  │ │ Tarea 6 │ │  │ │ Tarea 9 │ │  │             │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │             │        │\n│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘        │\n│                                                                             │\n│  ◄───────────────────────── FLUJO DE TRABAJO ──────────────────────────►   │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\nElementos clave:\n```",
+      "Estructura Básica de un Tablero Kanban",
+      "```\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                            TABLERO KANBAN                                   │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │\n│  │  BACKLOG    │  │  POR HACER  │  │  EN CURSO   │  │  HECHO      │        │\n│  │             │  │             │  │  (WIP: 3)   │  │             │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │\n│  │ │ Tarea 1 │ │  │ │ Tarea 4 │ │  │ │ Tarea 7 │ │  │ │ Tarea 10│ │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │        │\n│  │ │ Tarea 2 │ │  │ │ Tarea 5 │ │  │ │ Tarea 8 │ │  │ │ Tarea 11│ │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │        │\n│  │ ┌─────────┐ │  │ ┌─────────┐ │  │ ┌─────────┐ │  │             │        │\n│  │ │ Tarea 3 │ │  │ │ Tarea 6 │ │  │ │ Tarea 9 │ │  │             │        │\n│  │ └─────────┘ │  │ └─────────┘ │  │ └─────────┘ │  │             │        │\n│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘        │\n│                                                                             │\n│  ◄───────────────────────── FLUJO DE TRABAJO ──────────────────────────►   │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\n```",
+      "Elementos clave:",
       "**Columnas**: Representan las etapas del proceso (Backlog, Por Hacer, En Curso, En Revisión, Hecho).",
       "**Tarjetas**: Representan las tareas. Contienen información como título, descripción, responsable, prioridad, etc.",
       "**Límites de WIP**: Un número máximo de tarjetas permitidas en cada columna (ej: \"En Curso (WIP: 3)\").",
@@ -1395,10 +1384,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Kanban?",
         "opciones": [
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia Optimizar todo por igual Invertir en mejorar todas las etapas, no solo la restricción. Desperdicio de recursos; el…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…"
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "No limitar el WIP: No establecer un máximo de tareas en curso. · Sobrecarga, multitasking, baja productividad."
         ],
         "correcta": 3
       }
@@ -1575,10 +1564,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Teoría de Restricciones (TOC - Theory of Constraints)?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Optimizar todo por igual Invertir en mejorar todas las etapas, no solo la restricción. Desperdicio de recursos; el…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…"
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Optimizar todo por igual: Invertir en mejorar todas las etapas, no solo la restricción. · Desperdicio de recursos; el sistema sigue limitado.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
         ],
         "correcta": 1
       }
@@ -1720,7 +1709,32 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       {
         "seccion": "💡 Ejemplo Práctico: VSM de un Proceso de Fabricación",
         "textos": [
-          "```\nMapa del Estado Actual\ntext\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                      MAPA DEL ESTADO ACTUAL                                 │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│  🚚 Proveedor          ┌─────────┐    ┌─────────┐    ┌─────────┐    🏠 Cliente│\n│  (Acero)               │  Corte  │    │Soldadura│    │ Pintura │    (Cliente)│\n│                        │         │    │         │    │         │             │\n│                        │ C/T: 30s│    │ C/T: 45s│    │ C/T: 60s│             │\n│                        │ WIP: 50 │    │ WIP: 80 │    │ WIP: 30 │             │\n│                        └─────────┘    └─────────┘    └─────────┘             │\n│                             │              │              │                  │\n│                             ▼              ▼              ▼                  │\n│                        📦 Inventario   📦 Inventario   📦 Inventario         │\n│                        (2 días)        (3 días)        (1 día)              │\n│                                                                             │\n│  Lead Time = 2 + 3 + 1 días + (30+45+60)s = 6 días + 135s                  │\n│  VA Time = 30 + 45 + 60 = 135 segundos = 2.25 minutos                      │\n│  Flow Efficiency = (2.25 min / 6 días) × 100 = 0.026%                      │\n│                                                                             │\n│  🎯 Oportunidades de mejora:                                                │\n│  - Reducir inventario entre procesos (NVA).                                 │\n│  - Balancear los tiempos de ciclo (cuello de botella en pintura: 60s).      │\n│  - Implementar flujo continuo (one-piece flow).                             │\n│  - Reducir tiempos de preparación (SMED).                                   │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\nMapa del Estado Futuro (Optimizado)\ntext\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                      MAPA DEL ESTADO FUTURO                                 │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│  🚚 Proveedor          ┌─────────┐    ┌─────────┐    ┌─────────┐    🏠 Cliente│\n│  (Acero)               │  Corte  │───▶│Soldadura│───▶│ Pintura │───▶(Cliente)│\n│                        │         │    │         │    │         │             │\n│                        │ C/T: 30s│    │ C/T: 45s│    │ C/T: 45s│             │\n│                        │ WIP: 0  │    │ WIP: 0  │    │ WIP: 0  │             │\n│                        └─────────┘    └─────────┘    └─────────┘             │\n│                                                                             │\n│  Lead Time = 30 + 45 + 45 = 120 segundos = 2 minutos                       │\n│  VA Time = 120 segundos = 2 minutos                                        │\n│  Flow Efficiency = (2 min / 2 min) × 100 = 100%                            │\n│                                                                             │\n│  🎯 Mejoras implementadas:                                                  │\n│  - Flujo continuo (one-piece flow): sin inventario entre procesos.          │\n│  - Balanceo de líneas: pintura reducida a 45s (de 60s).                     │\n│  - SMED: cambios de producto en menos de 5 minutos.                         │\n│  - Kanban: producción pull en lugar de push.                                │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\n```"
+          "Mapa del Estado Actual",
+          "```\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                      MAPA DEL ESTADO ACTUAL                                 │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│  🚚 Proveedor          ┌─────────┐    ┌─────────┐    ┌─────────┐    🏠 Cliente│\n│  (Acero)               │  Corte  │    │Soldadura│    │ Pintura │    (Cliente)│\n│                        │         │    │         │    │         │             │\n│                        │ C/T: 30s│    │ C/T: 45s│    │ C/T: 60s│             │\n│                        │ WIP: 50 │    │ WIP: 80 │    │ WIP: 30 │             │\n│                        └─────────┘    └─────────┘    └─────────┘             │\n│                             │              │              │                  │\n│                             ▼              ▼              ▼                  │\n│                        📦 Inventario   📦 Inventario   📦 Inventario         │\n│                        (2 días)        (3 días)        (1 día)              │\n│                                                                             │\n│  Lead Time = 2 + 3 + 1 días + (30+45+60)s = 6 días + 135s                  │\n│  VA Time = 30 + 45 + 60 = 135 segundos = 2.25 minutos                      │\n│  Flow Efficiency = (2.25 min / 6 días) × 100 = 0.026%                      │\n│                                                                             │\n│  🎯 Oportunidades de mejora:                                                │\n│  - Reducir inventario entre procesos (NVA).                                 │\n│  - Balancear los tiempos de ciclo (cuello de botella en pintura: 60s).      │\n│  - Implementar flujo continuo (one-piece flow).                             │\n│  - Reducir tiempos de preparación (SMED).                                   │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\n```",
+          "Mapa del Estado Futuro (Optimizado)",
+          "text",
+          "┌─────────────────────────────────────────────────────────────────────────────┐",
+          "│ MAPA DEL ESTADO FUTURO │",
+          "├─────────────────────────────────────────────────────────────────────────────┤",
+          "│ │",
+          "│ 🚚 Proveedor ┌─────────┐ ┌─────────┐ ┌─────────┐ 🏠 Cliente│",
+          "│ (Acero) │ Corte │───▶│Soldadura│───▶│ Pintura │───▶(Cliente)│",
+          "│ │ │ │ │ │ │ │",
+          "**│ │ C/T**: 30s│ │ C/T: 45s│ │ C/T: 45s│ │",
+          "**│ │ WIP**: 0 │ │ WIP: 0 │ │ WIP: 0 │ │",
+          "│ └─────────┘ └─────────┘ └─────────┘ │",
+          "│ │",
+          "│ Lead Time = 30 + 45 + 45 = 120 segundos = 2 minutos │",
+          "│ VA Time = 120 segundos = 2 minutos │",
+          "│ Flow Efficiency = (2 min / 2 min) × 100 = 100% │",
+          "│ │",
+          "**│ 🎯 Mejoras implementadas**: │",
+          "**│ - Flujo continuo (one-piece flow)**: sin inventario entre procesos. │",
+          "**│ - Balanceo de líneas**: pintura reducida a 45s (de 60s). │",
+          "**│ - SMED**: cambios de producto en menos de 5 minutos. │",
+          "**│ - Kanban**: producción pull en lugar de push. │",
+          "│ │",
+          "└─────────────────────────────────────────────────────────────────────────────┘"
         ]
       }
     ],
@@ -1758,10 +1772,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Value Stream Mapping (VSM) - Mapeo de la Cadena de Valor?",
         "opciones": [
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia Mapear todo el proceso a la vez Intentar mapear toda la planta en un solo VSM. El mapa se vuelve inmanejable. No…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…"
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Mapear todo el proceso a la vez: Intentar mapear toda la planta en un solo VSM. · El mapa se vuelve inmanejable.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital."
         ],
         "correcta": 2
       }
@@ -1933,10 +1947,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Cuello de Botella (Bottleneck)?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Optimizar todo por igual Invertir en mejorar todas las etapas, no solo el cuello de botella. Desperdicio de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…"
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Optimizar todo por igual: Invertir en mejorar todas las etapas, no solo el cuello de botella. · Desperdicio de recursos; el sistema sigue limitado por…",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
         ],
         "correcta": 2
       }
@@ -2106,10 +2120,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Sistema POS (Point of Sale / Punto de Venta)?",
         "opciones": [
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia No evaluar las necesidades Comprar un POS sin saber qué se necesita. Funcionalidades innecesarias o faltantes.…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…"
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "No evaluar las necesidades: Comprar un POS sin saber qué se necesita. · Funcionalidades innecesarias o faltantes.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital."
         ],
         "correcta": 2
       }
@@ -2274,10 +2288,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Data-Driven Organization (Organización Basada en Datos)?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Desafío Descripción Mitigación Falta de cultura de datos Los empleados no saben usar datos o no confían en ellos. Capacitación, liderazgo, casos…"
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Falta de cultura de datos: Los empleados no saben usar datos o no confían en ellos. · Capacitación, liderazgo, casos de éxito."
         ],
         "correcta": 3
       }
@@ -2456,10 +2470,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Gestión de las Relaciones con los Clientes (CRM)?",
         "opciones": [
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia No definir una estrategia Comprar un CRM sin saber qué se quiere lograr. Herramienta subutilizada, baja adopción.…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…"
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "No definir una estrategia: Comprar un CRM sin saber qué se quiere lograr. · Herramienta subutilizada, baja adopción.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital."
         ],
         "correcta": 2
       }
@@ -2621,10 +2635,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Planificación de Recursos Empresariales (ERP)?",
         "opciones": [
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Error Descripción Consecuencia No definir una estrategia Implementar sin objetivos claros. Herramienta subutilizada, ROI bajo. Subestimar el…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…"
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "No definir una estrategia: Implementar sin objetivos claros. · Herramienta subutilizada, ROI bajo.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito."
         ],
         "correcta": 1
       }
@@ -2769,10 +2783,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Documentos Comerciales?",
         "opciones": [
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia No emitir factura Omitir la factura en una venta. Incumplimiento fiscal, multas. Errores en los datos Datos…"
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "No emitir factura: Omitir la factura en una venta. · Incumplimiento fiscal, multas."
         ],
         "correcta": 3
       }
@@ -2936,10 +2950,10 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
         "id": 3,
         "pregunta": "¿Cuál de estas afirmaciones corresponde a Responsabilidad Digital Corporativa (CDR)?",
         "opciones": [
-          "``` Desafío Descripción Mitigación Falta de regulación clara Las leyes digitales están en evolución. Adoptar principios éticos más allá de la ley;…",
-          "``` Desafío Descripción Mitigación Resistencia al cambio La cultura tradicional se resiste a la agilidad. Liderazgo, comunicación, educación, casos de…",
-          "``` Error Descripción Consecuencia No limitar el WIP No establecer un máximo de tareas en curso. Sobrecarga, multitasking, baja productividad. Tablero…",
-          "``` Error Descripción Consecuencia Análisis superficial Basarse en suposiciones en lugar de datos. Decisiones estratégicas incorrectas. Ignorar la…"
+          "Falta de regulación clara: Las leyes digitales están en evolución. · Adoptar principios éticos más allá de la ley; anticiparse.",
+          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
+          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
+          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
         ],
         "correcta": 0
       }

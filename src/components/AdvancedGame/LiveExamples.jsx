@@ -59,6 +59,17 @@ const CAMPOS_FECHA = [
   { campo: "second", etiqueta: "Seg", min: 0, max: 59 },
 ];
 
+/* Comprueba que el ejemplo se pueda ejecutar sin romper el laboratorio.
+   Solo analiza la sintaxis: no ejecuta nada. */
+const esSintaxisValida = (codigo) => {
+  try {
+    new Function(`return (async () => {\n${codigo}\n})();`);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 const TEXTOS = {
   array: {
     desc: "Construye tu propio array con emojis, ajusta el código y ejecútalo en un sandbox aislado con su propia consola.",
@@ -168,24 +179,31 @@ export default function LiveExamples({ metodo, metodoId }) {
   /* Pasos guiados: salen de los ejemplos del propio apunte, así cualquier
      método (aunque no tenga simulador propio) estrena laboratorio. */
   const pasos = useMemo(() => {
-    const ejemplos = (metodo?.ejemplos ?? []).filter((ej) => ej?.code);
-    if (ejemplos.length) {
-      return ejemplos.map((ejemplo, indice) => ({
+    const ejemplos = (metodo?.ejemplos ?? [])
+      .filter((ej) => ej?.code && esSintaxisValida(ej.code))
+      .map((ejemplo, indice) => ({
         titulo: ejemplo.titulo ?? `Paso ${indice + 1}`,
         descripcion: ejemplo.descripcion ?? "",
         codigo: ejemplo.code,
       }));
-    }
-    if (config?.codigo) {
-      return [
-        {
-          titulo: "Ejecuta el ejemplo base",
-          descripcion: config.descripcion ?? "",
-          codigo: config.codigo,
-        },
-      ];
-    }
-    return [];
+
+    const curado = config?.codigo
+      ? [
+          {
+            titulo: config.titulo ?? "Ejecuta el ejemplo base",
+            descripcion: config.descripcion ?? "",
+            codigo: config.codigo,
+          },
+        ]
+      : [];
+
+    const vistos = new Set();
+    return [...curado, ...ejemplos].filter((paso) => {
+      const clave = paso.codigo.trim();
+      if (vistos.has(clave)) return false;
+      vistos.add(clave);
+      return true;
+    });
   }, [metodo, config]);
 
   const [array, setArray] = useState(ARRAY_INICIAL);
