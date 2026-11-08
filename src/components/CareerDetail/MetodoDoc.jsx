@@ -35,10 +35,18 @@ import AdvancedGame from '../AdvancedGame/AdvancedGame'
 import LiveExamples from '../AdvancedGame/LiveExamples'
 import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 
+import { METODOS_ARRAYS } from '../../data/carreras'
+
+
 /* Elige el simulador según el campo `simulador` del método.
    `simuladores` permite inyectar simuladores propios desde otras secciones. */
 function Simulador({ metodo, simuladores = {} }) {
+  
+  const IDS_BUSQUEDA = new Set(
+    METODOS_ARRAYS.flatMap((g) => g.metodos.map((m) => m.id))
+  )
   const Propio = simuladores[metodo.simulador]
+
   if (Propio) return <Propio key={metodo.id} metodoId={metodo.id} />
 
   switch (metodo.simulador) {
@@ -97,10 +105,12 @@ function Simulador({ metodo, simuladores = {} }) {
       return <SimuladorMedios key={metodo.id} metodoId={metodo.id} />
     case 'red':
       return <SimuladorRed key={metodo.id} metodoId={metodo.id} />
-    case 'reduce-lab':
+   case 'reduce-lab':
       return <ReduceLab key={metodo.id} />
     default:
-      return <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
+      return IDS_BUSQUEDA.has(metodo.id)
+        ? <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
+        : null
   }
 }
 

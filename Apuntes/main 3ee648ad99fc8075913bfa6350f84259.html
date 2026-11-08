@@ -1,0 +1,852 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>&lt;main&gt;</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ee648ad-99fc-8075-913b-fa6350f84259" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>&lt;main&gt;</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ee648ad-99fc-8022-b7b5-e1c781b93813" class="" dir="auto">
+</p><h1 id="3ee648ad-99fc-8049-ba76-f884454feaaf" class="" dir="auto"><strong>📄 </strong><code><strong>&lt;main&gt;</strong></code></h1><h2 id="3ee648ad-99fc-808b-87c6-de406cc116f0" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ee648ad-99fc-8010-8542-db23b83a22e8" class="" dir="auto"><code>&lt;main&gt;</code> es un elemento <strong>semántico</strong> de HTML5 que representa el <strong>contenido principal</strong> del documento. </p><p id="3ee648ad-99fc-8011-bc41-f914ffa4548f" class="" dir="auto">Es la parte central y única de la página, excluyendo cabeceras, pies, menús, barras laterales y cualquier contenido repetido en otras páginas.</p><h2 id="3ee648ad-99fc-8036-9ec1-e4f0f7a3871d" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ee648ad-99fc-8011-8389-cf5b56cdc5e2" class="" dir="auto">Es un elemento de <strong>bloque</strong> y <strong>semántico</strong>. </p><p id="3ee648ad-99fc-80e6-9112-f9f20c139663" class="" dir="auto">Agrupa el contenido <strong>único y relevante</strong> de la página: artículos, secciones, formularios, etc. </p><p id="3ee648ad-99fc-805a-b9ed-e6c8af0b57c3" class="" dir="auto">Solo debe haber <strong>un </strong><code><strong>&lt;main&gt;</strong></code><strong> visible</strong> por documento.</p><h2 id="3ee648ad-99fc-8040-bef9-c3a5cedec9fe" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ee648ad-99fc-804c-b54e-ecdf2c1b86be" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Identificar el contenido principal</strong> de la página.</li></ul><ul id="3ee648ad-99fc-80b5-a375-c0a69a51b1f4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la accesibilidad</strong>: los lectores de pantalla pueden saltar directo al <code>&lt;main&gt;</code>.</li></ul><ul id="3ee648ad-99fc-8025-a46f-e2a1758b6cba" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar la navegación</strong> con skip links.</li></ul><ul id="3ee648ad-99fc-80bc-9d33-c0c783ade310" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aportar semántica</strong>: diferencia el contenido único del repetido (header, footer, nav).</li></ul><ul id="3ee648ad-99fc-804e-a154-f5ca086810eb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar SEO</strong>: los buscadores identifican el contenido central.</li></ul><ul id="3ee648ad-99fc-808b-b774-eee23cd751ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Servir de ancla</strong> para enlaces internos (<code>&lt;a href=&quot;#main&quot;&gt;</code>).</li></ul><h2 id="3ee648ad-99fc-8075-aa62-d7188bff7349" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><ol type="1" id="3ee648ad-99fc-8048-9517-e8fe2091850d" class="numbered-list" start="1" dir="auto"><li>El navegador lo renderiza como <strong>bloque</strong> (sin estilos visuales por defecto).</li></ol><ol type="1" id="3ee648ad-99fc-80fc-bc17-f64237f23f16" class="numbered-list" start="2" dir="auto"><li><strong>Solo uno</strong> debe estar <strong>visible</strong> por documento.</li></ol><ol type="1" id="3ee648ad-99fc-8001-ada4-c66ec04d1b1c" class="numbered-list" start="3" dir="auto"><li><strong>No</strong> debe incluir contenido repetido: header, footer, nav, aside.</li></ol><ol type="1" id="3ee648ad-99fc-8033-a0c7-d4173d87161e" class="numbered-list" start="4" dir="auto"><li>Puede anidarse en <code>&lt;body&gt;</code> directamente.</li></ol><ol type="1" id="3ee648ad-99fc-80ba-b82b-d818ff3f48f5" class="numbered-list" start="5" dir="auto"><li>Los lectores de pantalla lo anuncian como <strong>&quot;main&quot;</strong>.</li></ol><ol type="1" id="3ee648ad-99fc-800b-b80b-eb23ee07e736" class="numbered-list" start="6" dir="auto"><li>El atributo <code>hidden</code> puede ocultar <code>&lt;main&gt;</code> secundarios en SPAs.</li></ol><h2 id="3ee648ad-99fc-8040-b1e7-ecbeef862a4f" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ee648ad-99fc-804d-ac1b-c0d4fcb5b438" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;main&gt;
+  &lt;h1&gt;Título principal&lt;/h1&gt;
+  &lt;p&gt;Contenido principal...&lt;/p&gt;
+&lt;/main&gt;</code></pre><h2 id="3ee648ad-99fc-80b0-ac14-c063d5643497" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><p id="3ee648ad-99fc-80e3-a01c-eb33fbc212e1" class="" dir="auto"><strong>Estructura básica de página:</strong></p><p id="3ee648ad-99fc-8015-a18a-f6f5692d1e40" class="" dir="auto">
+</p><pre id="3ee648ad-99fc-8046-881a-c8d81db8b2c4" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mi sitio&lt;/h1&gt;
+    &lt;nav&gt;...&lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;h2&gt;Artículo principal&lt;/h2&gt;
+    &lt;p&gt;Contenido único de la página...&lt;/p&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Mi sitio&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre><p id="3ee648ad-99fc-8059-bfc3-c336a33b5787" class="" dir="auto"><strong>Con artículo y secciones:</strong></p><pre id="3ee648ad-99fc-8046-962a-cf929b74bee7" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;main&gt;
+  &lt;article&gt;
+    &lt;h1&gt;Cómo aprender HTML&lt;/h1&gt;
+    &lt;p&gt;Introducción...&lt;/p&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Historia&lt;/h2&gt;
+      &lt;p&gt;...&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Etiquetas básicas&lt;/h2&gt;
+      &lt;p&gt;...&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/article&gt;
+&lt;/main&gt;</code></pre><p id="3ee648ad-99fc-80cc-b580-f4ad7ae50390" class="" dir="auto"><strong>Skip link accesible:</strong></p><pre id="3ee648ad-99fc-80ed-917f-ec3a745585a6" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;body&gt;
+  &lt;a href=&quot;#main&quot; class=&quot;skip-link&quot;&gt;Saltar al contenido&lt;/a&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;main id=&quot;main&quot;&gt;
+    &lt;h1&gt;Contenido principal&lt;/h1&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;</code></pre><pre id="3ee648ad-99fc-8036-8f0e-f0e2309ebd51" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 0;
+  top: 0;
+  background: #000;
+  color: #fff;
+  padding: 0.5rem;
+}</code></pre><p id="3ee648ad-99fc-80de-80f8-f557a09ee429" class="" dir="auto"><strong>Con estilos CSS:</strong></p><pre id="3ee648ad-99fc-809f-8096-d0705912a6d1" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;main class=&quot;contenedor&quot;&gt;
+  &lt;h1&gt;Bienvenido&lt;/h1&gt;
+&lt;/main&gt;</code></pre><pre id="3ee648ad-99fc-8089-b8ae-d87d40e1a100" class="code code-wrap" data-notion-code-syntax="scss"><code class="language-scss" style="white-space:pre-wrap;word-break:break-all">main.contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}</code></pre><h2 id="3ee648ad-99fc-8012-9298-d0c036994e52" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ul id="3ee648ad-99fc-80a9-a871-f6024bc409e0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Poner <strong>más de un </strong><code><strong>&lt;main&gt;</strong></code><strong> visible</strong> por documento.</li></ul><ul id="3ee648ad-99fc-803e-8f4d-f391f1d14f5b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Incluir <strong>header, footer, nav o aside</strong> dentro del <code>&lt;main&gt;</code>.</li></ul><ul id="3ee648ad-99fc-8061-8dff-e32dba93bf3c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Anidar <code>&lt;main&gt;</code> dentro de <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;aside&gt;</code> o <code>&lt;nav&gt;</code>.</li></ul><ul id="3ee648ad-99fc-8052-8aff-ccd058ca778b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usarlo como <strong>contenedor genérico</strong> (para eso <code>&lt;div&gt;</code>).</li></ul><ul id="3ee648ad-99fc-8019-8f66-c5dafdd092f3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Olvidar el <code>&lt;h1&gt;</code> dentro del <code>&lt;main&gt;</code> (buena práctica SEO).</li></ul><ul id="3ee648ad-99fc-80aa-81cb-cad2debc5b99" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ No incluir el contenido <strong>único</strong> de la página.</li></ul><ul id="3ee648ad-99fc-806e-9947-e0c74261957d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Ocultar <code>&lt;main&gt;</code> con <code>display: none</code> sin motivo.</li></ul><ul id="3ee648ad-99fc-80eb-a50d-f5555e8e5038" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usarlo dentro de <code>&lt;body&gt;</code> más de una vez sin <code>hidden</code>.</li></ul><h2 id="3ee648ad-99fc-80c5-969e-ff150aa609ac" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><ul id="3ee648ad-99fc-80dd-b8e7-d238c91f255c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Contenido principal</strong> de cualquier página web.</li></ul><ul id="3ee648ad-99fc-80d8-ab21-cf6569556079" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Artículos</strong> de blog o noticias.</li></ul><ul id="3ee648ad-99fc-80f1-b3aa-f510d741e859" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Páginas de producto</strong> en e-commerce.</li></ul><ul id="3ee648ad-99fc-808d-8ade-d9d8412db8dd" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Documentación</strong> técnica.</li></ul><ul id="3ee648ad-99fc-80be-a966-c696f953766c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Landing pages</strong> con hero y secciones.</li></ul><ul id="3ee648ad-99fc-80c2-b721-df3ce5910b2a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>SPAs</strong>: varios <code>&lt;main&gt;</code> alternados con <code>hidden</code>.</li></ul><ul id="3ee648ad-99fc-80de-b11d-d51469b62e44" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Skip links</strong> para accesibilidad.</li></ul><ul id="3ee648ad-99fc-8002-b200-cce479320c93" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Páginas de contacto</strong> o formularios.</li></ul><h2 id="3ee648ad-99fc-8075-a161-c1dd0a4e9395" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3ee648ad-99fc-80f6-82b9-e8a3b7d61fda" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;header&gt;</strong></code>: cabecera (no va dentro del <code>&lt;main&gt;</code>).</li></ul><ul id="3ee648ad-99fc-805d-be93-fde8117b5123" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;footer&gt;</strong></code>: pie (no va dentro del <code>&lt;main&gt;</code>).</li></ul><ul id="3ee648ad-99fc-801b-8478-f162df35819f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;nav&gt;</strong></code>: navegación (no va dentro del <code>&lt;main&gt;</code>).</li></ul><ul id="3ee648ad-99fc-8024-b8e2-cde0d77800a8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;aside&gt;</strong></code>: contenido lateral (no va dentro del <code>&lt;main&gt;</code>).</li></ul><ul id="3ee648ad-99fc-801b-96bc-fed16fd201fa" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;article&gt;</strong></code><strong> / </strong><code><strong>&lt;section&gt;</strong></code>: contenidos típicos dentro del <code>&lt;main&gt;</code>.</li></ul><ul id="3ee648ad-99fc-8051-868e-e42f0eef5cbb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;h1&gt;</strong></code>: suele ir dentro del <code>&lt;main&gt;</code> (buena práctica SEO).</li></ul><ul id="3ee648ad-99fc-8080-8625-c19c9e56b529" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>role=&quot;main&quot;</strong></code>: rol ARIA implícito.</li></ul><ul id="3ee648ad-99fc-80a0-be54-cdf413cef256" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>hidden</strong></code>: útil para SPAs con múltiples vistas.</li></ul><ul id="3ee648ad-99fc-80d2-8421-cb8cde84a439" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CSS</strong>: <code>max-width</code>, <code>margin: auto</code>, <code>padding</code> para centrar y espaciar.</li></ul><ul id="3ee648ad-99fc-80bd-9067-da8dcfe5f034" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong>: skip links apuntan al <code>&lt;main&gt;</code>.</li></ul><h2 id="3ee648ad-99fc-8015-8825-e6b5408690c7" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ee648ad-99fc-8032-8f64-f880afa74867" class="" dir="auto">Un <code>&lt;main&gt;</code> es como el <strong>contenido central de un periódico</strong>: el artículo principal, las noticias. La cabecera (título del periódico, fecha), el menú (secciones) y el pie (página, publicidad) están <strong>fuera</strong> del contenido principal. Solo hay <strong>un contenido principal</strong> por edición.</p><h2 id="3ee648ad-99fc-8048-abe2-f2c9d7e48e5e" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ee648ad-99fc-8031-840a-ccf2f42ab91e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN – <em><code>&lt;main&gt;</code></em>: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/main">https://developer.mozilla.org/es/docs/Web/HTML/Element/main</a></li></ul><ul id="3ee648ad-99fc-8022-81b1-dc13fc3264ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc">WHATWG HTML Living Standard – <em>The main element</em>: <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-main-element">https://html.spec.whatwg.org/multipage/grouping-content.html#the-main-element</a></li></ul><ul id="3ee648ad-99fc-80b4-b240-ebfd208b858b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C – <em>HTML5: The main element</em></li></ul><ul id="3ee648ad-99fc-80d7-81f7-d11049924776" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">web.dev</a> – <em>Landmarks</em>: <a href="https://web.dev/learn/accessibility/landmarks">https://web.dev/learn/accessibility/landmarks</a></li></ul><h2 id="3ee648ad-99fc-8020-b7c2-c7b1957cc280" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ee648ad-99fc-80e5-bf7a-f9bce7317c0c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo un </strong><code><strong>&lt;main&gt;</strong></code><strong> visible</strong> por documento.</li></ul><ul id="3ee648ad-99fc-80fd-9282-f5c406578b40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No</strong> debe incluir contenido repetido: header, footer, nav, aside.</li></ul><ul id="3ee648ad-99fc-80c0-8ae4-d367efc60354" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No</strong> debe anidarse dentro de <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;aside&gt;</code> o <code>&lt;nav&gt;</code>.</li></ul><ul id="3ee648ad-99fc-80f0-9241-ffb8fdad0491" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los lectores de pantalla lo anuncian como <strong>&quot;main&quot;</strong>: muy útil para navegación.</li></ul><ul id="3ee648ad-99fc-8061-aa96-d674d92ef73b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Skip link</strong>: <code>&lt;a href=&quot;#main&quot;&gt;Saltar al contenido&lt;/a&gt;</code> para accesibilidad.</li></ul><ul id="3ee648ad-99fc-80ed-9cbf-f9e6aa538476" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Suele contener el <code><strong>&lt;h1&gt;</strong></code> de la página (buena práctica SEO).</li></ul><ul id="3ee648ad-99fc-80c5-8f51-da2fb6d63232" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En <strong>SPAs</strong>, puedes tener varios <code>&lt;main&gt;</code> alternados con <code>hidden</code>.</li></ul><ul id="3ee648ad-99fc-809a-a9c5-c602e58cd5a3" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En CSS, <code>&lt;main&gt;</code> no tiene estilos por defecto (solo <code>display: block</code>).</li></ul><ul id="3ee648ad-99fc-80ad-8539-c49bfe63134e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En frameworks (React, Vue), <code>&lt;main&gt;</code> es un componente más.</li></ul><ul id="3ee648ad-99fc-8036-831b-c03afa5f345d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Buena práctica</strong>: si el contenido es único y central, va en <code>&lt;main&gt;</code>; si es repetido, va fuera.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

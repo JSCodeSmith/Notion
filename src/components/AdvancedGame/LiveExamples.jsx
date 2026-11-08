@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getLiveExample } from "./liveExampleConfigs";
+import { apuntesDeLaboratorio } from "./apuntesLaboratorio";
 import "./LiveExamples.css";
 
 const PALETA = [
@@ -68,6 +69,67 @@ const esSintaxisValida = (codigo) => {
   } catch {
     return false;
   }
+};
+
+const CATEGORIA_POR_SIMULADOR = {
+  array: "array",
+  mutador: "array",
+  utilidad: "array",
+  busqueda: "array",
+  string: "texto",
+  texto: "texto",
+  numero: "numero",
+  fecha: "fecha",
+};
+
+/* Los apuntes que no tienen ejemplo vivo curado usan su primer ejemplo
+   ejecutable. La categoría decide qué datos se inyectan en el sandbox. */
+const inferirCategoria = (metodo, codigo = "") => {
+  const porSimulador = CATEGORIA_POR_SIMULADOR[metodo?.simulador];
+  if (porSimulador) return porSimulador;
+
+  const texto = String(codigo);
+  if (
+    /\b(Date|getFullYear|getMonth|getDate|toISOString|toLocaleDateString)\b/.test(
+      texto,
+    )
+  ) {
+    return "fecha";
+  }
+  if (
+    /\b(Number|Math|toFixed|parseInt|parseFloat|isNaN|isFinite)\b/.test(
+      texto,
+    )
+  ) {
+    return "numero";
+  }
+  if (
+    /\b(texto|String\.|charAt|charCodeAt|substring|toUpperCase|toLowerCase|trim|padStart|padEnd)\b/.test(
+      texto,
+    )
+  ) {
+    return "texto";
+  }
+  return "array";
+};
+
+const crearConfigFallback = (metodo, metodoId) => {
+  const ejemplos = metodo?.ejemplos ?? [];
+  const ejemplo = ejemplos.find((ej) => ej?.code && esSintaxisValida(ej.code));
+  if (!ejemplo) return null;
+
+  const etiqueta = metodo?.titulo ?? metodo?.nombre ?? metodoId ?? "Ejemplo";
+  return {
+    categoria: inferirCategoria(metodo, ejemplo.code),
+    etiqueta,
+    titulo: ejemplo.titulo ?? "Ejemplo del apunte",
+    descripcion:
+      ejemplo.descripcion ??
+      `Ejecuta ${etiqueta} con tus propios datos y observa cada salida.`,
+    prueba:
+      "Cambia un valor, predice el resultado antes de ejecutar y compáralo con la consola.",
+    codigo: ejemplo.code,
+  };
 };
 
 const TEXTOS = {
@@ -172,7 +234,12 @@ const numeroACodigo = (numero) => {
 const formatearNumero = (numero) => numeroACodigo(numero);
 
 export default function LiveExamples({ metodo, metodoId }) {
-  const config = getLiveExample(metodo ?? metodoId);
+  const config = useMemo(
+    () =>
+      getLiveExample(metodo ?? metodoId) ??
+      crearConfigFallback(metodo, metodoId),
+    [metodo, metodoId],
+  );
   const categoria = config?.categoria ?? "array";
   const textos = TEXTOS[categoria] ?? TEXTOS.array;
 
@@ -232,6 +299,12 @@ export default function LiveExamples({ metodo, metodoId }) {
   const [depuracion, setDepuracion] = useState(false);
   const [pasoActual, setPasoActual] = useState(0);
   const [pasosAbiertos, setPasosAbiertos] = useState(true);
+  const [puntos, setPuntos] = useState(() => new Set());
+  const [traza, setTraza] = useState([]);
+  const [trazaIndice, setTrazaIndice] = useState(0);
+  const [trazaTruncada, setTrazaTruncada] = useState(false);
+  const [puntoAlcanzado, setPuntoAlcanzado] = useState(null);
+  const [soloPaso, setSoloPaso] = useState(false);
 
   const workerRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -259,6 +332,10 @@ export default function LiveExamples({ metodo, metodoId }) {
       setResultado(null);
       setError(null);
       setLineaError(null);
+      setTraza([]);
+      setTrazaIndice(0);
+      setTrazaTruncada(false);
+      setPuntoAlcanzado(null);
       setLogs([{ nivel: "sistema", texto }]);
     },
     [cancelar],
@@ -419,6 +496,10 @@ export default function LiveExamples({ metodo, metodoId }) {
     setEstado("idle");
     setResultado(null);
     setError(null);
+    setTraza([]);
+    setTrazaIndice(0);
+    setTrazaTruncada(false);
+    setPuntoAlcanzado(null);
     setLogs([
       {
         nivel: "sistema",
@@ -473,6 +554,10 @@ export default function LiveExamples({ metodo, metodoId }) {
     setResultado(null);
     setError(null);
     setLineaError(null);
+    setTraza([]);
+    setTrazaIndice(0);
+    setTrazaTruncada(false);
+    setPuntoAlcanzado(null);
     setLogs(base);
 
     let worker;
@@ -512,8 +597,21 @@ export default function LiveExamples({ metodo, metodoId }) {
         ? data.logs.map((log) => ({
             nivel: log?.nivel ?? "log",
             texto: String(log?.texto ?? ""),
+            paso: Number.isFinite(log?.paso) ? log.paso : -1,
           }))
         : [];
+      const trazaWorker = Array.isArray(data.traza)
+        ? data.traza
+            .filter((paso) => paso && Number.isFinite(paso.linea))
+            .map((paso) => ({
+              linea: paso.linea,
+              variables: Array.isArray(paso.variables) ? paso.variables : [],
+            }))
+        : [];
+      setTraza(trazaWorker);
+      /* La traza empieza en el primer paso para poder avanzar con ▶. */
+      setTrazaIndice(0);
+      setTrazaTruncada(Boolean(data.truncada));
 
       if (!data.ok) {
         const textoError = data.error || "Error desconocido";
@@ -556,7 +654,13 @@ export default function LiveExamples({ metodo, metodoId }) {
       ]);
     };
 
-    worker.postMessage({ id, codigo: codigoActivo, preludio, estricto: config.estricto !== false });
+    worker.postMessage({
+      id,
+      codigo: codigoActivo,
+      preludio,
+      estricto: config.estricto !== false,
+      trazar: depuracion,
+    });
   };
 
   const manejarTecla = (evento) => {
@@ -597,11 +701,67 @@ export default function LiveExamples({ metodo, metodoId }) {
     return JSON.stringify(array);
   }, [categoria, array, numeros, fechaPartes]);
 
+  const apuntes = useMemo(() => {
+    if (metodo) return apuntesDeLaboratorio(metodo);
+    if (!config) return null;
+    return {
+      idea: config.descripcion,
+      modelo: "",
+      checklist: [],
+      reto: config.prueba,
+      pista: "",
+    };
+  }, [metodo, config]);
+
   if (!config) return null;
 
   const lineas = codigo.split("\n");
   const chip = ESTADOS[estado] ?? ESTADOS.idle;
   const esEmoji = categoria === "array" || categoria === "texto";
+
+  const alternarPunto = (numero) => {
+    setPuntos((actuales) => {
+      const siguiente = new Set(actuales);
+      if (siguiente.has(numero)) siguiente.delete(numero);
+      else siguiente.add(numero);
+      return siguiente;
+    });
+  };
+
+  const indiceTraza = traza.length
+    ? Math.max(0, Math.min(trazaIndice, traza.length - 1))
+    : 0;
+  const trazaPaso = traza.length ? traza[indiceTraza] : null;
+  const lineaActual = trazaPaso?.linea ?? null;
+
+  const irTraza = (indice) => {
+    if (!traza.length) return;
+    setPuntoAlcanzado(null);
+    setTrazaIndice(Math.max(0, Math.min(traza.length - 1, indice)));
+  };
+
+  const continuarHastaPunto = () => {
+    if (!traza.length) return;
+    for (let i = indiceTraza + 1; i < traza.length; i += 1) {
+      if (puntos.has(traza[i].linea)) {
+        setTrazaIndice(i);
+        setPuntoAlcanzado(traza[i].linea);
+        return;
+      }
+    }
+    setPuntoAlcanzado(null);
+    setTrazaIndice(traza.length - 1);
+  };
+
+  const logsVisibles =
+    soloPaso && traza.length
+      ? logs.filter(
+          (log) =>
+            !Number.isFinite(log.paso) ||
+            log.paso < 0 ||
+            log.paso === indiceTraza,
+        )
+      : logs;
 
   return (
     <section className="le">
@@ -728,6 +888,60 @@ export default function LiveExamples({ metodo, metodoId }) {
               </div>
             </>
           )}
+        </section>
+      )}
+
+      {apuntes && (apuntes.idea || apuntes.reto) && (
+        <section className="le-apuntes">
+          <div className="le-apuntes__head">
+            <div>
+              <p className="le-step">
+                📝 Tus apuntes propios que hiciste autónomamente
+              </p>
+              <p className="le-help">
+                Notas escritas para esta práctica: la idea de fondo, un modelo
+                mental, las comprobaciones que conviene hacer y un reto.
+              </p>
+            </div>
+            <span className="le-lab__badge">✍️ Cuaderno del lab</span>
+          </div>
+
+          <div className="le-apuntes__grid">
+            {apuntes.idea && (
+              <div className="le-apuntes__card le-apuntes__card--idea">
+                <span>La idea</span>
+                <p>{apuntes.idea}</p>
+              </div>
+            )}
+            {apuntes.modelo && (
+              <div className="le-apuntes__card">
+                <span>Modelo mental</span>
+                <p>{apuntes.modelo}</p>
+              </div>
+            )}
+            {apuntes.checklist?.length > 0 && (
+              <div className="le-apuntes__card le-apuntes__card--check">
+                <span>Checklist</span>
+                <ul>
+                  {apuntes.checklist.map((punto, indice) => (
+                    <li key={indice}>{punto}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {apuntes.reto && (
+              <div className="le-apuntes__card le-apuntes__card--reto">
+                <span>Reto para el editor</span>
+                <p>{apuntes.reto}</p>
+              </div>
+            )}
+            {apuntes.pista && (
+              <div className="le-apuntes__card le-apuntes__card--pista">
+                <span>Pista</span>
+                <p>{apuntes.pista}</p>
+              </div>
+            )}
+          </div>
         </section>
       )}
 
@@ -984,17 +1198,40 @@ export default function LiveExamples({ metodo, metodoId }) {
           </div>
 
           <div className="le-editor">
-            <div className="le-gutter" ref={gutterRef} aria-hidden="true">
-              {lineas.map((_, indice) => (
-                <span
-                  key={indice}
-                  className={
-                    lineaError === indice + 1 ? "is-error" : undefined
-                  }
-                >
-                  {lineaError === indice + 1 ? "●" : indice + 1}
-                </span>
-              ))}
+            <div
+              className="le-gutter"
+              ref={gutterRef}
+              role="group"
+              aria-label="Números de línea y puntos de ruptura"
+            >
+              {lineas.map((_, indice) => {
+                const numero = indice + 1;
+                const esPunto = puntos.has(numero);
+                const esActual = lineaActual === numero;
+                const esError = lineaError === numero;
+                return (
+                  <button
+                    type="button"
+                    key={indice}
+                    className={`le-gutter__line${
+                      esPunto ? " is-punto" : ""
+                    }${esActual ? " is-actual" : ""}${
+                      esError ? " is-error" : ""
+                    }`}
+                    onClick={() => alternarPunto(numero)}
+                    title={`Línea ${numero} · pulsa para ${
+                      esPunto ? "quitar" : "poner"
+                    } un punto de ruptura`}
+                    aria-label={`Línea ${numero}${
+                      esPunto ? ", punto de ruptura activo" : ""
+                    }. Pulsa para ${esPunto ? "quitarlo" : "poner uno"}.`}
+                    aria-pressed={esPunto}
+                  >
+                    <span className="le-gutter__dot" aria-hidden="true" />
+                    <span className="le-gutter__num">{numero}</span>
+                  </button>
+                );
+              })}
             </div>
             <textarea
               ref={editorRef}
@@ -1061,11 +1298,27 @@ export default function LiveExamples({ metodo, metodoId }) {
             <span className="le-panel__title">
               <span className="le-console__live" /> Consola
             </span>
-            <span className="le-panel__hint">{logs.length} líneas</span>
+            <span className="le-console__head-right">
+              <button
+                type="button"
+                className={`le-console__filtro${
+                  soloPaso ? " is-active" : ""
+                }`}
+                onClick={() => setSoloPaso((valor) => !valor)}
+                disabled={!traza.length}
+                aria-pressed={soloPaso}
+                title="Muestra solo los mensajes del paso seleccionado en la traza"
+              >
+                🎯 Paso {indiceTraza + 1}
+              </button>
+              <span className="le-panel__hint">
+                {logsVisibles.length} líneas
+              </span>
+            </span>
           </div>
 
           <div className="le-console__body" aria-live="polite">
-            {logs.map((log, indice) => (
+            {logsVisibles.map((log, indice) => (
               <div
                 className={`le-log le-log--${log.nivel}`}
                 key={`${indice}-${log.nivel}`}
@@ -1073,7 +1326,21 @@ export default function LiveExamples({ metodo, metodoId }) {
                 <span className="le-log__icon" aria-hidden="true">
                   {ICONOS[log.nivel] ?? "›"}
                 </span>
-                <span className="le-log__text">{log.texto}</span>
+                <span className="le-log__text">
+                  {Number.isFinite(log.paso) && log.paso >= 0 && (
+                    <button
+                      type="button"
+                      className={`le-log__paso${
+                        log.paso === indiceTraza ? " is-actual" : ""
+                      }`}
+                      onClick={() => irTraza(log.paso)}
+                      title={`Ir al paso ${log.paso + 1} de la traza`}
+                    >
+                      #{log.paso + 1}
+                    </button>
+                  )}
+                  {log.texto}
+                </span>
               </div>
             ))}
             {estado === "running" && (
@@ -1106,20 +1373,163 @@ export default function LiveExamples({ metodo, metodoId }) {
         <section className="le-debug">
           <div className="le-debug__head">
             <div>
-              <p className="le-step">🐞 Depuración guiada</p>
+              <p className="le-step">🐞 Depuración guiada · traza real</p>
               <p className="le-help">
-                Estado de la última ejecución, línea exacta del error y pistas
-                sacadas de los errores comunes del apunte.
+                Recorre la ejecución sentencia a sentencia, inspecciona las
+                variables de cada paso y combina la traza con los puntos de
+                ruptura del editor.
               </p>
             </div>
-            <button
-              type="button"
-              className="le-mini"
-              onClick={() => setDepuracion(false)}
-            >
-              Cerrar
-            </button>
+            <div className="le-debug__head-actions">
+              <button
+                type="button"
+                className="le-btn"
+                onClick={ejecutar}
+                disabled={estado === "running"}
+              >
+                ▶ Ejecutar con traza
+              </button>
+              <button
+                type="button"
+                className="le-mini"
+                onClick={() => setDepuracion(false)}
+              >
+                Cerrar
+              </button>
+            </div>
           </div>
+
+          {traza.length > 0 ? (
+            <div className="le-traza">
+              <div className="le-traza__toolbar">
+                <button
+                  type="button"
+                  className="le-traza__btn"
+                  onClick={() => irTraza(0)}
+                  disabled={indiceTraza === 0}
+                  title="Primer paso"
+                >
+                  ⏮
+                </button>
+                <button
+                  type="button"
+                  className="le-traza__btn"
+                  onClick={() => irTraza(indiceTraza - 1)}
+                  disabled={indiceTraza === 0}
+                  title="Paso anterior"
+                >
+                  ◀
+                </button>
+                <span className="le-traza__contador">
+                  Paso {indiceTraza + 1} / {traza.length}
+                </span>
+                <button
+                  type="button"
+                  className="le-traza__btn"
+                  onClick={() => irTraza(indiceTraza + 1)}
+                  disabled={indiceTraza === traza.length - 1}
+                  title="Paso siguiente"
+                >
+                  ▶
+                </button>
+                <button
+                  type="button"
+                  className="le-traza__btn"
+                  onClick={() => irTraza(traza.length - 1)}
+                  disabled={indiceTraza === traza.length - 1}
+                  title="Último paso"
+                >
+                  ⏭
+                </button>
+                <button
+                  type="button"
+                  className="le-traza__btn le-traza__btn--continuar"
+                  onClick={continuarHastaPunto}
+                  disabled={!puntos.size}
+                  title="Avanza hasta el siguiente punto de ruptura"
+                >
+                  ⏸ Hasta punto
+                </button>
+                <span className="le-traza__linea">
+                  Línea {trazaPaso.linea}
+                </span>
+                {puntoAlcanzado && (
+                  <span className="le-traza__punto">
+                    ⏸ Punto de ruptura en línea {puntoAlcanzado}
+                  </span>
+                )}
+              </div>
+
+              {trazaTruncada && (
+                <p className="le-traza__aviso">
+                  ⚠️ La traza se cortó a los 450 pasos para no bloquear el
+                  navegador. Ejecuta un fragmento más pequeño para ver el
+                  final.
+                </p>
+              )}
+
+              <div className="le-traza__grid">
+                <div className="le-traza__codigo">
+                  <span className="le-traza__label">Sentencia actual</span>
+                  <pre>
+                    <code>{lineas[trazaPaso.linea - 1] ?? ""}</code>
+                  </pre>
+
+                  <span className="le-traza__label">
+                    Puntos de ruptura
+                  </span>
+                  {puntos.size > 0 ? (
+                    <div className="le-traza__puntos">
+                      {[...puntos]
+                        .sort((a, b) => a - b)
+                        .map((linea) => (
+                          <button
+                            key={linea}
+                            type="button"
+                            className="le-traza__punto-chip"
+                            onClick={() => alternarPunto(linea)}
+                            title={`Quitar el punto de ruptura de la línea ${linea}`}
+                          >
+                            {linea} ×
+                          </button>
+                        ))}
+                    </div>
+                  ) : (
+                    <p className="le-traza__empty">
+                      Pulsa un número de línea del editor para marcar un punto
+                      de ruptura.
+                    </p>
+                  )}
+                </div>
+
+                <div className="le-traza__vars">
+                  <span className="le-traza__label">
+                    Variables en este paso
+                  </span>
+                  {trazaPaso.variables.length > 0 ? (
+                    <div className="le-traza__tabla">
+                      {trazaPaso.variables.map(([nombre, valor]) => (
+                        <div className="le-variable" key={nombre}>
+                          <span className="le-variable__nombre">{nombre}</span>
+                          <code className="le-variable__valor">{valor}</code>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="le-traza__empty">
+                      Todavía no hay variables disponibles en este paso.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="le-traza__empty-box">
+              {estado === "running"
+                ? "Capturando la traza de ejecución…"
+                : "Pulsa «Ejecutar con traza» para capturar la ejecución y poder avanzar paso a paso."}
+            </div>
+          )}
 
           <div className="le-debug__grid">
             <div className="le-debug__cell">
@@ -1150,8 +1560,8 @@ export default function LiveExamples({ metodo, metodoId }) {
 
           {!error && (
             <p className="le-debug__ok">
-              ✅ Sin excepciones. Revisa la consola para comprobar cada salida y
-              compara el resultado con lo que esperabas.
+              ✅ Sin excepciones. Revisa la traza y la consola para comprobar
+              cada salida y compara el resultado con lo que esperabas.
             </p>
           )}
 

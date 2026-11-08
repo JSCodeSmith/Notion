@@ -249,11 +249,7 @@
   gap: 18px;
   padding: 16px 18px;
   margin-bottom: 20px;
-  background: linear-gradient(
-    120deg,
-    var(--accent-soft),
-    var(--surface) 65%
-  );
+  background: linear-gradient(120deg, var(--accent-soft), var(--surface) 65%);
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius);
@@ -486,7 +482,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .nlab-item:hover {
@@ -565,7 +563,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .nlab-btn:hover:not(:disabled) {
@@ -735,7 +735,9 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .nlab-chip:hover:not(:disabled) {
@@ -1094,5 +1096,391 @@
   .negocio-lab {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* ---------- Laboratorio guiado de aritmética ---------- */
+
+.narit-lab {
+  margin: 0 0 26px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.narit-lab__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.narit-lab__eyebrow {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.narit-lab__head h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.narit-lab__desc {
+  margin: 6px 0 0;
+  max-width: 72ch;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.narit-lab__badge {
+  flex: none;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.narit-lab__progreso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.narit-lab__barra {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.narit-lab__barra span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+  transition: width 0.25s ease;
+}
+
+.narit-lab__cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.narit-lab__rail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 340px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.narit-lab__dot {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 8px 10px;
+  text-align: left;
+  cursor: pointer;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+.narit-lab__dot > span {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-faint);
+  background: var(--surface);
+  border-radius: 8px;
+}
+
+.narit-lab__dot small {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.35;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.narit-lab__dot:hover,
+.narit-lab__dot.is-active {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.narit-lab__dot.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.narit-lab__dot.is-active > span {
+  color: #fff;
+  background: var(--accent);
+}
+
+.narit-lab__dot.is-hecho > span {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.narit-lab__paso {
+  padding: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.narit-lab__paso-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.narit-lab__paso-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.narit-lab__hecho {
+  padding: 4px 9px;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.narit-lab__hecho:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.narit-lab__hecho.is-active {
+  color: #15803d;
+  background: #dcfce7;
+  border-color: transparent;
+}
+
+.narit-lab__paso h4 {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.narit-lab__explicacion {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.narit-lab__codigo {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.narit-lab__salida {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.narit-lab__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.narit-lab__nav button {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.narit-lab__nav button:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.narit-lab__nav button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.narit-notas {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+}
+
+.narit-notas__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.narit-notas__sub {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.narit-notas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.narit-nota {
+  padding: 11px 13px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.narit-nota > span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.narit-nota p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.narit-nota ul {
+  margin: 0;
+  padding-left: 17px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.narit-nota--idea {
+  border-left: 3px solid var(--accent);
+}
+
+.narit-nota--idea > span {
+  color: var(--accent);
+}
+
+.narit-nota--reto {
+  border-left: 3px solid #d97706;
+}
+
+.narit-nota--reto > span {
+  color: #b45309;
+}
+
+.narit-nota--pista {
+  border-left: 3px solid #16a34a;
+}
+
+.narit-nota--pista > span {
+  color: #15803d;
+}
+
+.negocio-database .notion-table tbody tr,
+.negocio-database .notion-table td {
+  height: auto;
+  max-height: none;
+}
+
+.negocio-database .notion-cell-title {
+  align-items: center;
+  gap: 10px;
+  padding-block: 10px;
+  height: auto;
+}
+
+.negocio-database .notion-cell-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.4; /* separa las líneas del título */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
+
+.negocio-database .notion-cell-icon,
+.negocio-database .negocio-lab-chip,
+.negocio-database .notion-open-btn {
+  flex-shrink: 0;
+}
+
+.negocio-database .notion-cell-sig {
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+@media (max-width: 800px) {
+  .narit-lab__cuerpo {
+    grid-template-columns: 1fr;
+  }
+
+  .narit-lab__rail {
+    flex-direction: row;
+    max-height: none;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .narit-lab__dot {
+    min-width: 210px;
   }
 }

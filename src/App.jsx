@@ -3,92 +3,22 @@ import Header from './components/Header/Header'
 import CommandBar from './components/CommandBar/CommandBar'
 import CareerGrid from './components/CareerGrid/CareerGrid'
 import CareerDetail from './components/CareerDetail/CareerDetail'
-import { CARRERAS, METODOS_ARRAYS } from './data/carreras'
-import { METODOS_DOCS } from './data/metodosDocs'
-import { CONSOLE_API_CONCEPTOS, CONSOLE_API_DOCS } from './APIs/ConsoleAPI/data'
+import HtmlCurso from './components/HtmlCurso/HtmlCurso'
+import { CARRERAS } from './data/carreras'
+import { SEARCH_INDEX } from './data/searchIndex'
 import './App.css'
-import { METODOS_STRINGS } from './data/metodosStrings'
-import { METODOS_NUMEROS } from './data/metodosNumeros'
-import { METODOS_FECHAS, METODOS_FECHAS_DOCS } from './data/metodosFechas'
-import { JS_CATEGORIAS, JS_APUNTES } from './data/jsApuntes'
-import {
-  NEGOCIOS_CURSOS,
-  NEGOCIOS_IDS,
-} from './data/negociosApuntes'
-import { CSS_CATEGORIAS, CSS_IDS } from './data/cssApuntes'
 
-// Fuera del componente: se crea una sola vez.
-// 'find' tiene componente propio (MetodoFindDoc), el resto vive en METODOS_DOCS.
-const DOC_IDS = new Set([
-  'find',
-  ...Object.keys(METODOS_DOCS),
-  ...Object.keys(METODOS_FECHAS_DOCS),
-  ...Object.keys(JS_APUNTES),
-  ...Object.keys(CONSOLE_API_DOCS),
-  ...NEGOCIOS_IDS,
-  ...CSS_IDS,
-])
-
-/* Los apuntes de Administración y Negocios, agrupados por curso. */
-const NEGOCIOS_BUSCADOR = NEGOCIOS_CURSOS.flatMap((curso) =>
-  curso.grupos.map((grupo) => ({
-    ...grupo,
-    seccion: `${curso.label} · ${grupo.seccion}`,
-    subtitulo: 'Administración y Negocios',
-    careerId: 'administracion',
-    courseId: curso.id,
-    keywords: `negocios administracion empresa estrategia ${grupo.seccion}`,
-  })),
-)
+const tabBtn = (on) => ({
+  padding: '8px 18px', borderRadius: 999, cursor: 'pointer', fontWeight: 700,
+  border: '1px solid ' + (on ? '#7c6cff' : '#2a2a2a'),
+  background: on ? '#241f45' : '#161616', color: on ? '#cfc8ff' : '#bbb',
+})
 
 export default function App() {
   const [activeCareerId, setActiveCareerId] = useState(null)
   const [activeCourseId, setActiveCourseId] = useState(null)
   const [activeMethodId, setActiveMethodId] = useState(null)
-
-  const METODOS_BUSCADOR = [
-    ...METODOS_ARRAYS,
-    ...METODOS_STRINGS.map((g) => ({
-      ...g,
-      seccion: `Strings · ${g.seccion}`,
-    })),
-    ...METODOS_NUMEROS.map((g) => ({
-      ...g,
-      seccion: `Números · ${g.seccion}`,
-    })),
-    ...METODOS_FECHAS.map((g) => ({
-      ...g,
-      seccion: `Fechas · ${g.seccion}`,
-    })),
-    ...JS_CATEGORIAS.flatMap((categoria) =>
-      categoria.grupos.map((g) => ({
-        ...g,
-        seccion: `${categoria.label} · ${g.seccion}`,
-        subtitulo: categoria.titulo,
-        careerId: 'programacion',
-        courseId: 'lenguajes',
-      }))
-    ),
-    {
-      seccion: 'Console API',
-      subtitulo: 'APIs',
-      careerId: 'programacion',
-      courseId: 'lenguajes',
-      metodos: CONSOLE_API_CONCEPTOS,
-    },
-    ...CSS_CATEGORIAS.flatMap((categoria) =>
-      categoria.grupos.map((grupo) => ({
-        ...grupo,
-        seccion: `${categoria.label} · ${grupo.seccion}`,
-        subtitulo: `${categoria.titulo} · Desarrollo Web`,
-        careerId: 'programacion',
-        courseId: 'web',
-        keywords: `css desarrollo web estilos hoja de estilos ${categoria.label} ${categoria.id} ${grupo.seccion}`,
-      })),
-    ),
-    ...NEGOCIOS_BUSCADOR,
-  ]
-
+  const [webTab, setWebTab] = useState('css')
 
   const activeCareer = activeCareerId
     ? CARRERAS.find((c) => c.id === activeCareerId) ?? null
@@ -98,7 +28,6 @@ export default function App() {
     activeCareer && activeCourseId
       ? activeCareer.cursos.find((c) => c.id === activeCourseId) ?? null
       : null
-
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
@@ -142,52 +71,92 @@ export default function App() {
       if (item.type === 'metodo') {
         setActiveCareerId(item.careerId)
         setActiveCourseId(item.courseId)
-        setActiveMethodId(item.methodId) // abre el apunte directamente
+        setActiveMethodId(item.methodId)
+        if (item.courseId === 'web') {
+          setWebTab(String(item.methodId).startsWith('html-') ? 'html' : 'css')
+        }
         scrollTop()
       }
     },
     [goToCareer]
   )
 
+  const breadcrumb =
+    activeCareer && activeCourse
+      ? [
+          { icon: '📚', label: 'Biblioteca', onClick: goHome },
+          {
+            icon: activeCareer.emoji,
+            label: activeCareer.nombre,
+            onClick: () => {
+              setActiveCourseId(null)
+              setActiveMethodId(null)
+            },
+          },
+          { icon: activeCourse.icon, label: activeCourse.nombre },
+        ]
+      : []
+
+  const esWeb = activeCourse?.id === 'web'
+
   return (
     <div className="app">
       <Header onGoHome={goHome}>
-        <CommandBar
-          carreras={CARRERAS}
-          metodos={METODOS_BUSCADOR}
-          docIds={DOC_IDS}
-          onSelect={handleSelect}
-        />
+        <CommandBar searchIndex={SEARCH_INDEX} onSelect={handleSelect} />
       </Header>
 
       <main className="app__main">
-      {activeCareer && activeCourse ? (
-        <CareerDetail
-          key={activeCourse.id}
-          carrera={{ ...activeCourse, emoji: activeCourse.icon }}
-          onBack={() => { setActiveCourseId(null); setActiveMethodId(null) }}
-          metodoActivo={activeMethodId}
-          onMetodoChange={setActiveMethodId}
-          breadcrumb={[
-            { icon: '📚', label: 'Biblioteca', onClick: goHome },
-            { icon: activeCareer.emoji, label: activeCareer.nombre,
-              onClick: () => { setActiveCourseId(null); setActiveMethodId(null) } },
-            { icon: activeCourse.icon, label: activeCourse.nombre },
-          ]}
-        />
-      ) : activeCareer ? (
-  <CareerDetail
-    carrera={activeCareer}
-    onBack={goHome}
-    onSelectCourse={goToCourse}
-    breadcrumb={[
-      { icon: '📚', label: 'Biblioteca', onClick: goHome },
-      { icon: activeCareer.emoji, label: activeCareer.nombre },
-    ]}
-  />
-) : (
-  <CareerGrid carreras={CARRERAS} onSelectCareer={goToCareer} />
-)}
+        {activeCareer && activeCourse ? (
+          <>
+            {esWeb && (
+              <div style={{ display: 'flex', gap: 8, margin: '12px 0' }}>
+                <button
+                  style={tabBtn(webTab === 'css')}
+                  onClick={() => { setWebTab('css'); setActiveMethodId(null) }}
+                >
+                  🎨 CSS
+                </button>
+                <button
+                  style={tabBtn(webTab === 'html')}
+                  onClick={() => { setWebTab('html'); setActiveMethodId(null) }}
+                >
+                  🌐 HTML
+                </button>
+              </div>
+            )}
+
+            {esWeb && webTab === 'html' ? (
+              <HtmlCurso
+                metodoActivo={activeMethodId}
+                onMetodoChange={setActiveMethodId}
+              />
+            ) : (
+              <CareerDetail
+                key={activeCourse.id}
+                carrera={{ ...activeCourse, emoji: activeCourse.icon }}
+                onBack={() => {
+                  setActiveCourseId(null)
+                  setActiveMethodId(null)
+                }}
+                metodoActivo={activeMethodId}
+                onMetodoChange={setActiveMethodId}
+                breadcrumb={breadcrumb}
+              />
+            )}
+          </>
+        ) : activeCareer ? (
+          <CareerDetail
+            carrera={activeCareer}
+            onBack={goHome}
+            onSelectCourse={goToCourse}
+            breadcrumb={[
+              { icon: '📚', label: 'Biblioteca', onClick: goHome },
+              { icon: activeCareer.emoji, label: activeCareer.nombre },
+            ]}
+          />
+        ) : (
+          <CareerGrid carreras={CARRERAS} onSelectCareer={goToCareer} />
+        )}
       </main>
 
       <footer className="app__footer">

@@ -1,0 +1,811 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>&lt;img&gt;</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ed648ad-99fc-800e-8116-febd849aa12a" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>&lt;img&gt;</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ed648ad-99fc-805a-8086-c06f371b79c1" class="" dir="auto">
+</p><h1 id="3ed648ad-99fc-80d0-bd4c-d04a60304ea5" class="" dir="auto"><strong>📄 </strong><code><strong>&lt;img&gt;</strong></code></h1><h2 id="3ed648ad-99fc-8064-a7cb-c4a00724e5d7" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ed648ad-99fc-80a1-9b12-f4510515bca1" class="" dir="auto"><code>&lt;img&gt;</code> es el elemento que <strong>incrusta una imagen</strong> en un documento HTML. </p><p id="3ed648ad-99fc-80d6-b56a-dd44ce1037d6" class="" dir="auto">Es un elemento <strong>vacío</strong> (no tiene etiqueta de cierre) y <strong>reemplazado</strong> (el navegador sustituye la etiqueta por el recurso visual).</p><h2 id="3ed648ad-99fc-80b1-9b1d-ca043db0e655" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ed648ad-99fc-809a-b4f6-c399e8462c28" class="" dir="auto">Es un elemento <strong>inline</strong> que carga un archivo de imagen externo mediante el atributo <code>src</code>. </p><p id="3ed648ad-99fc-80f1-9598-de70aee7d39a" class="" dir="auto">No contiene texto ni otros elementos: se representa a sí mismo como una imagen en el flujo del documento.</p><h2 id="3ed648ad-99fc-80ea-ad60-cdc729c81307" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ed648ad-99fc-801a-ba71-cfd2d471fb10" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mostrar imágenes</strong>: fotos, ilustraciones, iconos, logotipos.</li></ul><ul id="3ed648ad-99fc-809f-adf0-c2763368874e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aportar contenido visual</strong> a la página.</li></ul><ul id="3ed648ad-99fc-8043-a3ec-eda55860db77" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar la experiencia</strong> del usuario.</li></ul><ul id="3ed648ad-99fc-80ac-9651-ec475d1c9fa8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Apoyar el SEO</strong> con imágenes optimizadas y con <code>alt</code>.</li></ul><ul id="3ed648ad-99fc-8004-b180-e1d5d81bf038" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Servir de enlace</strong> si se envuelve en un <code>&lt;a&gt;</code>.</li></ul><ul id="3ed648ad-99fc-80a4-888f-e35d61cefe71" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mostrar imágenes responsive</strong> con <code>srcset</code> y <code>sizes</code>.</li></ul><h2 id="3ed648ad-99fc-80bd-a0e7-e249aa955dce" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><ol type="1" id="3ed648ad-99fc-80d1-937b-dc8afc1084e9" class="numbered-list" start="1" dir="auto"><li>El navegador lee el <code>src</code> y <strong>descarga</strong> la imagen.</li></ol><ol type="1" id="3ed648ad-99fc-80ee-b993-f28a7dd3a3af" class="numbered-list" start="2" dir="auto"><li>Mientras carga, reserva espacio según <code>width</code>/<code>height</code> (si se especifican).</li></ol><ol type="1" id="3ed648ad-99fc-80db-88a8-c8982e48fe12" class="numbered-list" start="3" dir="auto"><li>Al terminar, <strong>sustituye</strong> el elemento por la imagen renderizada.</li></ol><ol type="1" id="3ed648ad-99fc-809c-88ff-f50a1a6fecbf" class="numbered-list" start="4" dir="auto"><li>Si falla, muestra el <strong>texto alternativo</strong> (<code>alt</code>) o un icono roto.</li></ol><ol type="1" id="3ed648ad-99fc-80b0-8244-c9ff33ab189c" class="numbered-list" start="5" dir="auto"><li>Si es lazy (<code>loading=&quot;lazy&quot;</code>), la carga se <strong>difiere</strong> hasta que está cerca del viewport.</li></ol><h2 id="3ed648ad-99fc-802e-b60b-f99e18e1dbd7" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><p id="3ed648ad-99fc-800d-887e-fe87890dd7cc" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ed648ad-99fc-805e-a880-d49c6042824f" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;img src=&quot;imagen.jpg&quot; alt=&quot;Descripción de la imagen&quot;&gt;</code></pre><h2 id="3ed648ad-99fc-8043-af1e-c38ced0e116b" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><p id="3ed648ad-99fc-8041-911c-f92dbd72fc38" class="" dir="auto"><strong>Imagen básica:</strong></p><p id="3ed648ad-99fc-8084-aca9-d1b3cc95ca2e" class="" dir="auto">
+</p><pre id="3ed648ad-99fc-80eb-bd77-c905606367c7" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;img src=&quot;/img/perro.jpg&quot; alt=&quot;Perro labrador sentado en el parque&quot;&gt;</code></pre><p id="3ed648ad-99fc-803d-a147-d3e56fb0fef3" class="" dir="auto"><strong>Con dimensiones (evita saltos de layout):</strong></p><pre id="3ed648ad-99fc-804e-bcaa-ec7cc8109cdd" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;img src=&quot;foto.jpg&quot; alt=&quot;Paisaje montañoso&quot; width=&quot;800&quot; height=&quot;600&quot;&gt;</code></pre><p id="3ed648ad-99fc-800d-b16d-f978228f2077" class="" dir="auto"><strong>Responsive con </strong><code><strong>srcset</strong></code><strong>:</strong></p><pre id="3ed648ad-99fc-80b0-af61-fcb5bfacf659" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;img
+  src=&quot;foto-800.jpg&quot;
+  srcset=&quot;foto-400.jpg 400w, foto-800.jpg 800w, foto-1600.jpg 1600w&quot;
+  sizes=&quot;(max-width: 600px) 400px, 800px&quot;
+  alt=&quot;Playa al atardecer&quot;
+  loading=&quot;lazy&quot;&gt;</code></pre><p id="3ed648ad-99fc-80fd-8591-d0896072dc69" class="" dir="auto"><strong>Imagen como enlace:</strong></p><p id="3ed648ad-99fc-8045-88c4-dc0d6d8b86b2" class="" dir="auto">
+</p><pre id="3ed648ad-99fc-80f0-8934-d9f5d5f0a1ef" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;a href=&quot;https://example.com&quot;&gt;
+  &lt;img src=&quot;logo.png&quot; alt=&quot;Ir al sitio de Example&quot;&gt;
+&lt;/a&gt;</code></pre><p id="3ed648ad-99fc-80a6-9efd-c605ea7b3a09" class="" dir="auto"><strong>Imagen decorativa (alt vacío):</strong></p><pre id="3ed648ad-99fc-80ef-a716-d8af5477c2e4" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;img src=&quot;decoracion.svg&quot; alt=&quot;&quot;&gt;</code></pre><p id="3ed648ad-99fc-8047-9834-e58f8dca3794" class="" dir="auto"><strong>Con </strong><code><strong>figure</strong></code><strong> y </strong><code><strong>figcaption</strong></code><strong>:</strong></p><pre id="3ed648ad-99fc-8036-a222-d2c077926c0c" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;figure&gt;
+  &lt;img src=&quot;grafico.png&quot; alt=&quot;Gráfico de ventas 2026&quot;&gt;
+  &lt;figcaption&gt;Ventas anuales 2026&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre><h2 id="3ed648ad-99fc-8057-8c3f-e66de61de601" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ul id="3ed648ad-99fc-8028-b047-d4fa2f6b84d5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ <strong>Olvidar </strong><code><strong>alt</strong></code> → problema de accesibilidad y SEO.</li></ul><ul id="3ed648ad-99fc-8099-be24-d8aae9e91eaf" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ <code>alt</code> genérico: <code>alt=&quot;imagen&quot;</code>, <code>alt=&quot;foto&quot;</code>.</li></ul><ul id="3ed648ad-99fc-8018-8765-df5ae97261c8" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ <code>alt</code> redundante: <code>alt=&quot;imagen de un perro&quot;</code> (mejor <code>alt=&quot;Perro labrador&quot;</code>).</li></ul><ul id="3ed648ad-99fc-8013-b295-ef451e117c8b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ No especificar <code>width</code>/<code>height</code> → <strong>layout shift</strong> (CLS).</li></ul><ul id="3ed648ad-99fc-80fa-a77c-f57041635ba9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar imágenes enormes sin optimizar → página lenta.</li></ul><ul id="3ed648ad-99fc-80c9-8740-cbac7106d412" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Poner <code>width</code>/<code>height</code> en CSS <strong>y</strong> en HTML con valores distintos.</li></ul><ul id="3ed648ad-99fc-80d2-a246-f718bbae4b39" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;img&gt;</code> para iconos cuando SVG inline o fuentes de iconos son mejores.</li></ul><ul id="3ed648ad-99fc-807b-b344-d08b32656d26" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ No usar <code>loading=&quot;lazy&quot;</code> en imágenes fuera del viewport.</li></ul><ul id="3ed648ad-99fc-80c6-bfbc-e749e78431fd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Olvidar el <code>/</code> final si escribes XHTML.</li></ul><ul id="3ed648ad-99fc-80eb-9ac9-c14854d8687e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;img&gt;</code> con <code>src</code> vacío → petición innecesaria al servidor.</li></ul><h2 id="3ed648ad-99fc-8027-bdf7-f7bb61f6b61d" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><ul id="3ed648ad-99fc-804d-9e57-f9c088251241" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Fotos de productos</strong> en e-commerce.</li></ul><ul id="3ed648ad-99fc-8046-8335-dc523d14840d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Avatares</strong> de usuarios.</li></ul><ul id="3ed648ad-99fc-8015-b675-d716f98d921b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ilustraciones</strong> en blogs y artículos.</li></ul><ul id="3ed648ad-99fc-80af-b53a-f66366538116" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Logotipos</strong> en cabeceras.</li></ul><ul id="3ed648ad-99fc-8072-860c-d0f72df084e7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Iconos</strong> decorativos o informativos.</li></ul><ul id="3ed648ad-99fc-8086-9785-d473b5aacb3f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Gráficos y diagramas</strong>.</li></ul><ul id="3ed648ad-99fc-8020-864f-d9ebab1fa442" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Imágenes de fondo</strong> (aunque CSS <code>background-image</code> es más apropiado).</li></ul><ul id="3ed648ad-99fc-80bd-b658-fa0f7b4d06f6" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Banners</strong> publicitarios.</li></ul><ul id="3ed648ad-99fc-80d6-9920-fdf5cad490ed" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Capturas de pantalla</strong> en documentación.</li></ul><h2 id="3ed648ad-99fc-802e-9784-e78ea95d0e22" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3ed648ad-99fc-80d9-85bd-d3d60cbb4765" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;picture&gt;</strong></code>: contenedor para imágenes responsive con <code>&lt;source&gt;</code>.</li></ul><ul id="3ed648ad-99fc-80f3-a641-fc0163377c64" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;figure&gt;</strong></code><strong> / </strong><code><strong>&lt;figcaption&gt;</strong></code>: imagen con pie de foto.</li></ul><ul id="3ed648ad-99fc-8085-b410-f4618d9352ff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;a&gt;</strong></code>: envuelve la imagen para hacerla enlace.</li></ul><ul id="3ed648ad-99fc-80d5-8ffd-e2ba2ac2c995" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;svg&gt;</strong></code>: imágenes vectoriales inline.</li></ul><ul id="3ed648ad-99fc-80d3-b281-e035867afd14" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;video&gt;</strong></code><strong> / </strong><code><strong>&lt;audio&gt;</strong></code>: medios con comportamiento propio.</li></ul><ul id="3ed648ad-99fc-800f-932e-c99fd498cca0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;map&gt;</strong></code><strong> / </strong><code><strong>&lt;area&gt;</strong></code>: mapas de imagen.</li></ul><ul id="3ed648ad-99fc-80d1-bb72-c62f158f332b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>background-image</strong></code> (CSS): para imágenes decorativas.</li></ul><ul id="3ed648ad-99fc-8062-9d32-da4d9f92ec40" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>srcset</strong></code><strong> / </strong><code><strong>sizes</strong></code>: imágenes responsive.</li></ul><ul id="3ed648ad-99fc-8084-8ef2-f9af9f3225ee" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>loading=&quot;lazy&quot;</strong></code>: carga diferida.</li></ul><ul id="3ed648ad-99fc-807d-b574-ffef93084def" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>alt</strong></code>: accesibilidad y SEO.</li></ul><h2 id="3ed648ad-99fc-8010-aafd-e928f76552db" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ed648ad-99fc-809a-bb9c-f5b6a00ea6bb" class="" dir="auto">Un <code>&lt;img&gt;</code> es como un <strong>marco de fotos</strong> en una pared: el <code>src</code> es la foto que colocas, el <code>alt</code> es la etiqueta descriptiva para quien no puede verla, y <code>width</code>/<code>height</code> son las dimensiones del marco. El navegador &quot;coloca&quot; la foto en el hueco reservado.</p><h2 id="3ed648ad-99fc-8044-b67c-ea44aa3f0df6" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ed648ad-99fc-8029-8a25-f43dbadc9354" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN – <em><code>&lt;img&gt;</code></em>: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/img">https://developer.mozilla.org/es/docs/Web/HTML/Element/img</a></li></ul><ul id="3ed648ad-99fc-80c5-a18f-f4bf4d2c9759" class="bulleted-list" dir="auto"><li style="list-style-type:disc">WHATWG HTML Living Standard – <em>The img element</em>: <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element">https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element</a></li></ul><ul id="3ed648ad-99fc-80ef-8426-fc2258d8d367" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C – <em>HTML5: The img element</em></li></ul><ul id="3ed648ad-99fc-80d6-abcc-ce7c8b502de4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">web.dev</a> – <em>Images</em>: <a href="https://web.dev/learn/images">https://web.dev/learn/images</a></li></ul><h2 id="3ed648ad-99fc-809d-90e3-f30210d8a692" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ed648ad-99fc-800b-a956-e4b3f977ace9" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>alt</strong></code><strong> es obligatorio</strong> en la práctica: si la imagen es decorativa, usa <code>alt=&quot;&quot;</code> (vacío, no ausente).</li></ul><ul id="3ed648ad-99fc-8086-9daf-ec0e89dc6cdb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre</strong> especifica <code>width</code> y <code>height</code> para evitar <em>layout shift</em> (CLS).</li></ul><ul id="3ed648ad-99fc-80a2-ae03-da383ec426da" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Usa <strong>formatos modernos</strong>: WebP, AVIF; con fallback a JPG/PNG.</li></ul><ul id="3ed648ad-99fc-80d0-acc4-c542f2211c2d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>loading=&quot;lazy&quot;</code> para imágenes fuera del viewport; <code>eager</code> para las críticas (hero, logo).</li></ul><ul id="3ed648ad-99fc-8036-b245-f94c15ac0826" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para <strong>imágenes responsive</strong>, usa <code>srcset</code> + <code>sizes</code> o <code>&lt;picture&gt;</code>.</li></ul><ul id="3ed648ad-99fc-8000-ac44-d754e6b9be76" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En XHTML, <code>&lt;img&gt;</code> se cierra como <code>&lt;img ... /&gt;</code>; en HTML5 no necesita cierre.</li></ul><ul id="3ed648ad-99fc-804d-bf20-ce7c76fa616d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El atributo <code>alt</code> <strong>no</strong> debe empezar con &quot;imagen de&quot; ni &quot;foto de&quot;; describe el contenido.</li></ul><ul id="3ed648ad-99fc-8084-9376-f243d3001d3c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para <strong>imágenes decorativas</strong>, <code>alt=&quot;&quot;</code> (vacío) evita que los lectores de pantalla las anuncien.</li></ul><ul id="3ed648ad-99fc-808c-a206-d37acc3d6859" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Considera <code>fetchpriority=&quot;high&quot;</code> para la imagen principal (LCP).</li></ul><ul id="3ed648ad-99fc-808f-9261-e617e0b98941" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Comprime las imágenes antes de subirlas: TinyPNG, Squoosh, ImageOptim.</li></ul><ul id="3ed648ad-99fc-80d1-af61-cc6a171cf056" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Nunca uses <code>&lt;img&gt;</code> para texto: usa HTML + CSS.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

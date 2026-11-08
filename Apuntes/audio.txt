@@ -1,0 +1,176 @@
+# **📄 `<audio>`**
+
+## **📝 Definición**
+
+`<audio>` 
+
+Es el elemento que permite **incrustar contenido de audio** en un documento HTML: música, podcasts, efectos de sonido, etc. 
+
+Proporciona controles de reproducción y admite múltiples formatos y fuentes.
+
+## **🧠 ¿Qué es?**
+
+Es un elemento **inline-block** (en HTML5, `display: inline` por defecto, pero con contenido propio) y **reemplazado**. 
+
+Sin atributos como `controls`, es **invisible** al usuario: solo suena si se controla por JavaScript.
+
+## **🎯 ¿Para qué sirve?**
+
+- **Reproducir audio** en la web sin plugins (Flash, etc.).
+- **Ofrecer controles** de reproducción (play, pausa, volumen).
+- **Cargar múltiples formatos** con `<source>` para compatibilidad.
+- **Controlar la reproducción** con JavaScript (play, pause, volumen, etc.).
+- **Aportar accesibilidad**: transcripciones, subtítulos, controles de teclado.
+
+## **⚙️ ¿Cómo funciona?**
+
+1. El navegador lee los `<source>` en orden y usa el **primer formato compatible**.
+2. Si no hay `controls`, el elemento es **invisible** (solo suena por JS).
+3. Se puede controlar con **JavaScript** (API `HTMLMediaElement`).
+4. Los eventos (`play`, `pause`, `ended`, `timeupdate`) permiten interactuar.
+5. Es **accesible** si incluye controles y transcripción.
+
+## **📝 Sintaxis / Estructura**
+
+```html
+<audio controls>
+  <source src="audio.mp3" type="audio/mpeg">
+  <source src="audio.ogg" type="audio/ogg">
+  Tu navegador no soporta audio HTML5.
+</audio>
+```
+
+## **💡 Ejemplos**
+
+**Audio básico con controles:**
+
+```html
+<audio controls>
+  <source src="cancion.mp3" type="audio/mpeg">
+  Tu navegador no soporta audio HTML5.
+</audio>
+```
+
+**Múltiples formatos (compatibilidad):**
+
+```html
+<audio controls>
+  <source src="audio.ogg" type="audio/ogg">
+  <source src="audio.mp3" type="audio/mpeg">
+  <source src="audio.wav" type="audio/wav">
+  Tu navegador no soporta audio HTML5.
+</audio>
+```
+
+**Audio en bucle y silenciado (autoplay):**
+
+```html
+<audio autoplay loop muted>
+  <source src="ambiente.mp3" type="audio/mpeg">
+</audio>
+```
+
+**Audio con `preload` para no cargar hasta que se necesite:**
+
+```html
+<audio controls preload="none">
+  <source src="podcast.mp3" type="audio/mpeg">
+</audio>
+```
+
+**Controlado por JavaScript:**
+
+```html
+<audio id="miAudio">
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+<button onclick="document.getElementById('miAudio').play()">Reproducir</button>
+<button onclick="document.getElementById('miAudio').pause()">Pausar</button>
+```
+
+**Dentro de `<figure>` con pie:**
+
+```html
+<figure>
+  <audio controls>
+    <source src="entrevista.mp3" type="audio/mpeg">
+  </audio>
+  <figcaption>Entrevista a Ana Pérez, 2026.</figcaption>
+</figure>
+```
+
+**Con estilos CSS:**
+
+```html
+<audio controls class="reproductor">
+  <source src="audio.mp3" type="audio/mpeg">
+</audio>
+```
+
+```css
+audio.reproductor {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+}
+```
+
+## **⚠️ Errores comunes**
+
+- ❌ Olvidar `controls` → el audio es **invisible** y el usuario no puede reproducirlo.
+- ❌ Usar `autoplay` sin `muted` → los navegadores lo bloquean.
+- ❌ No incluir **múltiples formatos** → algunos navegadores no reproducen.
+- ❌ Olvidar el **texto de fallback** entre las etiquetas.
+- ❌ Usar `src` en `<audio>` **y** `<source>` a la vez (el `src` tiene prioridad).
+- ❌ No incluir **transcripción** o subtítulos → problema de accesibilidad.
+- ❌ Abusar de `autoplay` → mala experiencia de usuario.
+- ❌ Usar `<audio>` para sonidos de interfaz sin control de volumen.
+- ❌ No considerar el **peso** del archivo → página lenta.
+
+## **💼 Casos de uso**
+
+- **Reproductores de música** o podcasts.
+- **Audiolibros** o artículos narrados.
+- **Efectos de sonido** en juegos o interacciones.
+- **Mensajes de voz** en apps de mensajería.
+- **Ambientación** en páginas web (con control del usuario).
+- **Entrevistas** o grabaciones periodísticas.
+- **Aprendizaje de idiomas** (pronunciación).
+- **Accesibilidad**: lectura de contenido para personas con discapacidad visual.
+
+## **🧩 Relación con otros conceptos**
+
+- **`<video>`**: similar pero para video.
+- **`<source>`**: múltiples fuentes para compatibilidad.
+- **`<track>`**: subtítulos, transcripciones, descripciones.
+- **`<figure>` / `<figcaption>`**: para audio con pie.
+- **`<embed>` / `<object>`**: alternativas antiguas (ya no necesarias).
+- **API `HTMLMediaElement`**: control con JavaScript (play, pause, volume).
+- **Eventos**: `play`, `pause`, `ended`, `timeupdate`, `volumechange`.
+- **Formatos**: MP3, OGG, WAV, AAC, FLAC, Opus.
+- **Accesibilidad**: transcripciones, subtítulos, controles de teclado.
+- **`preload`**: `none`, `metadata`, `auto`.
+
+## **🧠 Analogía**
+
+`<audio>` es como un **reproductor de música** en una habitación: si no le pones botones (`controls`), la música puede sonar pero nadie puede controlarla. Si le pones botones, cualquiera puede darle play, pausa o subir el volumen.
+
+## **📚 Fuente**
+
+- MDN – `*<audio>*`: https://developer.mozilla.org/es/docs/Web/HTML/Element/audio
+- MDN – `*<source>*`: https://developer.mozilla.org/es/docs/Web/HTML/Element/source
+- WHATWG HTML Living Standard – *The audio element*: https://html.spec.whatwg.org/multipage/media.html#the-audio-element
+- W3C – *HTML5: The audio element*
+
+## **📝 Notas personales**
+
+- **Siempre** incluye `controls` si quieres que el usuario pueda reproducir.
+- **`autoplay` sin `muted`** está bloqueado en la mayoría de navegadores.
+- **Múltiples formatos**: MP3 + OGG cubren casi todos los navegadores.
+- **Texto de fallback** entre `<audio>` y `</audio>` para navegadores antiguos.
+- **`preload="none"`** para no cargar hasta que el usuario interactúe (ahorra datos).
+- **Transcripción** para accesibilidad: no todos pueden oír el audio.
+- **`<track>`** para subtítulos o descripciones.
+- Los controles nativos **varían** entre navegadores (no se pueden estilizar fácilmente).
+- Para **reproductores personalizados**, usa la API de JavaScript.
+- **Buena práctica**: no abuses del autoplay; respeta al usuario.

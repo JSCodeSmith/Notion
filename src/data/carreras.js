@@ -400,8 +400,18 @@ export const normalize = (value = "") =>
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
-export function buildSearchIndex(carreras) {
+// ✅ SOLO LA FUNCIÓN NUEVA (la que acepta metodos y docIds)
+export function buildSearchIndex(
+  carreras,
+  {
+    metodos = [],
+    docIds = new Set(),
+    metodosCareerId = "programacion",
+    metodosCourseId = "lenguajes",
+  } = {},
+) {
   const index = [];
+
   for (const carrera of carreras) {
     index.push({
       id: `carrera:${carrera.id}`,
@@ -412,17 +422,40 @@ export function buildSearchIndex(carreras) {
       icon: carrera.emoji,
       keywords: `${carrera.categoria} ${carrera.tags?.join(" ") || ""}`,
     });
+
     for (const curso of carrera.cursos) {
       index.push({
         id: `curso:${carrera.id}:${curso.id}`,
         type: "curso",
         careerId: carrera.id,
+        courseId: curso.id,
         title: curso.nombre,
-        subtitle: `${carrera.nombre}`,
+        subtitle: carrera.nombre,
         icon: curso.icon || "📄",
         keywords: `${carrera.nombre} ${curso.nivel || ""}`,
       });
     }
   }
+
+  for (const grupo of metodos) {
+    for (const metodo of grupo.metodos) {
+      index.push({
+        id: `metodo:${metodo.id}`,
+        type: "metodo",
+        careerId: grupo.careerId ?? metodosCareerId,
+        courseId: grupo.courseId ?? metodosCourseId,
+        methodId: metodo.id,
+        title: metodo.nombre,
+        subtitle: `${grupo.seccion} · ${grupo.subtitulo ?? "Lenguajes de Programación"}`,
+        icon: metodo.icon,
+        keywords: `${metodo.firma ?? ""} ${grupo.seccion} ${
+          grupo.keywords ??
+          "array arreglo metodo metodos method methods javascript js"
+        }`,
+        hasDoc: docIds.has(metodo.id),
+      });
+    }
+  }
+
   return index;
 }

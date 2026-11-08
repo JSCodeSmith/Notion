@@ -106,6 +106,7 @@ some: {
 
 export default function SimuladorBusqueda({ metodoId }) {
   const config = CONFIGS[metodoId]
+  if (!config) return null
 
   const [valor, setValor] = useState(config.valorInicial)
   const [paso, setPaso] = useState(0) // cuántos pasos de la traza se han revelado

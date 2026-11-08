@@ -1,0 +1,141 @@
+# **📄 `<b>`**
+
+## **📝 Definición**
+
+`<b>` (del inglés *bold*, "negrita") es el elemento que aplica **negrita visual** al texto en HTML. 
+
+A diferencia de `<strong>`, **no aporta semántica de importancia**: solo cambia la apariencia.
+
+## **🧠 ¿Qué es?**
+
+Es un elemento **inline** (en línea) de **estilo visual**. 
+
+En HTML5 se redefine como "texto al que se le llama la atención sin importancia especial", como palabras clave en un resumen, nombres de productos o términos técnicos sin énfasis semántico.
+
+## **🎯 ¿Para qué sirve?**
+
+- **Destacar visualmente** texto sin implicar importancia.
+- **Marcar términos** en resúmenes o abstracts.
+- **Nombres de productos** o marcas.
+- **Palabras clave** en contextos donde no hay énfasis semántico.
+- **Dar formato** sin connotación de urgencia o seriedad.
+- **Diferenciar visualmente** ciertos términos en un párrafo.
+
+## **⚙️ ¿Cómo funciona?**
+
+1. El navegador lo renderiza en **negrita** por defecto (`font-weight: bold`).
+2. **No** cambia la entonación en lectores de pantalla (a diferencia de `<strong>`).
+3. **No** aporta peso semántico para SEO.
+4. Es un elemento **inline**: no genera saltos de línea.
+5. Puede anidarse con `<i>`, `<em>`, `<a>`, etc.
+
+## **📝 Sintaxis / Estructura**
+
+```html
+<b>Texto en negrita</b>
+```
+
+## **💡 Ejemplos**
+
+**Palabra clave en un resumen:**
+
+```html
+<p>
+  En este artículo exploramos <b>HTML5</b>, <b>CSS3</b> y <b>JavaScript</b>.
+</p>
+```
+
+**Nombre de producto destacado:**
+
+```html
+<p>
+  El nuevo <b>iPhone 17 Pro</b> ya está disponible.
+</p>
+```
+
+**Términos en una definición:**
+
+```html
+<p>
+  <b>HTML</b>: lenguaje de marcado de hipertexto.
+</p>
+```
+
+**Combinado con `<i>`:**
+
+```html
+<p>
+  El <b>tiburón blanco</b> (<i>Carcharodon carcharias</i>) es un gran depredador.
+</p>
+```
+
+**Con estilos CSS personalizados:**
+
+```html
+<p>Texto <b class="destacado">resaltado</b>.</p>
+```
+
+```css
+b.destacado {
+  background: #fff3cd;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+```
+
+## **⚠️ Errores comunes**
+
+- ❌ Usarlo cuando **realmente hay importancia semántica** (ahí va `<strong>`).
+- ❌ Usarlo **solo para dar estilo** en lugar de CSS (`font-weight: bold`).
+- ❌ Anidar `<b>` dentro de otro `<b>` (redundante).
+- ❌ Usarlo en **títulos** (`<h1>`–`<h6>`): ya son negrita por defecto.
+- ❌ Abusar: si todo es `<b>`, nada destaca.
+- ❌ Confundir `<b>` (visual) con `<strong>` (semántico).
+- ❌ Usarlo en párrafos completos.
+- ❌ Usarlo para **simular encabezados** (usar `<h1>`–`<h6>`).
+- ❌ No considerar accesibilidad: `<b>` **no** cambia la entonación del lector de pantalla.
+
+## **💼 Casos de uso**
+
+- **Palabras clave** en resúmenes o abstracts.
+- **Nombres de productos** o marcas.
+- **Términos técnicos** en definiciones.
+- **Etiquetas de categorías** en listados.
+- **Números o fechas** destacados sin urgencia.
+- **Nombres propios** en artículos periodísticos.
+- **Encabezados de tabla** (aunque `<th>` es más apropiado).
+- **Resaltado visual** en interfaces sin valor semántico.
+
+## **🧩 Relación con otros conceptos**
+
+- **`<strong>`**: negrita **con** semántica de importancia.
+- **`<i>`**: cursiva **sin** semántica.
+- **`<em>`**: cursiva **con** semántica de énfasis.
+- **`<mark>`**: texto resaltado con fondo amarillo.
+- **CSS**: `font-weight: bold` es la alternativa sin etiqueta.
+- **Accesibilidad**: `<b>` **no** cambia la entonación del lector de pantalla.
+- **SEO**: sin impacto (a diferencia de `<strong>`).
+- **ARIA**: sin rol especial; es puramente presentacional.
+
+## **🧠 Analogía**
+
+`<b>` es como usar un **marcador amarillo** en un texto: llama la atención visualmente, pero **no comunica que ese texto sea más importante** que el resto. En cambio, `<strong>` sería como **subrayar con rojo y exclamar**: se ve y además comunica relevancia.
+
+## **📚 Fuente**
+
+- MDN – `*<b>*`: https://developer.mozilla.org/es/docs/Web/HTML/Element/b
+- WHATWG HTML Living Standard – *The b element*: https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-b-element
+- W3C – *HTML5: The b element*
+
+## **📝 Notas personales**
+
+- **`<b>` = negrita visual**; `<strong>` = importancia semántica.
+- En HTML5, `<b>` se usa para "llamar la atención sin importancia especial".
+- **No** cambia la entonación del lector de pantalla (a diferencia de `<strong>`).
+- **No** aporta peso SEO (a diferencia de `<strong>`).
+- Si solo quieres negrita visual, **considera usar CSS** (`font-weight: bold`) con una `class`.
+- No lo uses en **títulos**: ya son negrita por defecto.
+- **No abuses**: si todo es `<b>`, nada destaca.
+- En frameworks (React, Vue), `<b>` es un componente más: `<b className="...">`.
+- **Buena práctica**: en HTML moderno, `<b>` se usa poco; la mayoría de las veces `<strong>` es más apropiado.
+- Si el texto es importante → `<strong>`; si solo es visual → `<b>` o CSS.

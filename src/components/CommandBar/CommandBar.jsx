@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { normalize } from '../../data/carreras'
-import { buildSearchIndex } from '../../data/searchIndex.js'
 import './CommandBar.css'
 
 const bareTitle = (item) =>
@@ -29,52 +28,36 @@ function badgeText(item) {
 
 function SearchIcon() {
   return (
-    <svg
-      className="cmd__icon"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      aria-hidden="true"
-    >
+    <svg className="cmd__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
     </svg>
   )
 }
 
-export default function CommandBar({ carreras, metodos = [], docIds, onSelect }) {
+// 👇 Acepta `searchIndex` directo
+export default function CommandBar({ searchIndex, onSelect }) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const inputRef = useRef(null)
   const rootRef = useRef(null)
 
-  const index = useMemo(
-    () => buildSearchIndex(carreras, { metodos, docIds }),
-    [carreras, metodos, docIds]
-  )
-
   const results = useMemo(() => {
     const q = normalize(query.trim())
 
-    // Sin texto: mostrar carreras + TODOS los métodos
     if (!q) {
-      return index.filter(
+      return searchIndex.filter(
         (item) => item.type === 'carrera' || item.type === 'metodo'
       )
     }
 
-    // Con texto: TODOS los que coincidan, sin cortar
-    return index
+    return searchIndex
       .map((item) => ({ item, score: scoreItem(item, q) }))
       .filter((entry) => entry.score > 0)
       .sort((a, b) => b.score - a.score)
       .map((entry) => entry.item)
-  }, [index, query])
+  }, [searchIndex, query])
 
   useEffect(() => {
     setActiveIndex(0)
@@ -154,14 +137,7 @@ export default function CommandBar({ carreras, metodos = [], docIds, onSelect })
           autoComplete="off"
         />
         {query ? (
-          <button
-            type="button"
-            className="cmd__clear"
-            onClick={() => {
-              setQuery('')
-              inputRef.current?.focus()
-            }}
-          >
+          <button type="button" className="cmd__clear" onClick={() => { setQuery(''); inputRef.current?.focus(); }}>
             ✕
           </button>
         ) : (

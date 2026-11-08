@@ -3,6 +3,7 @@ import { Lista, Quiz, Inline } from '../CareerDetail/MetodoDoc'
 import CodeBlock from '../CodeBlock/CodeBlock'
 import NegociosLab from './NegociosLab'
 import SimuladorAritmetica from './SimuladorAritmetica'
+import LaboratorioAritmetica from './LaboratorioAritmetica'
 import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
 
@@ -116,6 +117,11 @@ export default function NegocioDoc({ nota, onBack }) {
   const [labAbierto, setLabAbierto] = useState(false)
   const partes = nota.partes ?? []
   const extras = nota.extras ?? []
+  /* El paso a paso se muestra dentro del laboratorio guiado; así no se
+     repite dos veces en la misma página. */
+  const extrasVisibles = nota.lab?.pasoAPaso?.length
+    ? extras.filter((extra) => !/paso a paso/i.test(extra.seccion))
+    : extras
   const misiones =
     misionesDeNota(nota.id).length + (nota.lab?.misiones.length ?? 0)
 
@@ -170,6 +176,10 @@ export default function NegocioDoc({ nota, onBack }) {
         <SimuladorAritmetica key={nota.id} tipo={nota.simuladorTipo} />
       )}
 
+      {nota.simulador === 'aritmetica' && (
+        <LaboratorioAritmetica key={`lab-${nota.id}`} nota={nota} />
+      )}
+
       <div className="doc-grid">
         <Seccion titulo="📝 Definición" items={nota.definicion} full />
         <Seccion titulo="🧠 ¿Qué es?" items={nota.queEs} />
@@ -209,7 +219,7 @@ export default function NegocioDoc({ nota, onBack }) {
           </div>
         )}
 
-        {extras.map((extra, i) => (
+        {extrasVisibles.map((extra, i) => (
           <Seccion
             key={i}
             titulo={extra.seccion.replace(/\*\*/g, '')}

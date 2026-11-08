@@ -3,8 +3,11 @@
    (o al agotarse el tiempo desde el hilo principal). */
 
 import { firma, formatear, serializar } from "./serializar";
+import { instrumentar } from "./traza";
 
-const crearConsola = (registros) => {
+const MAX_TRAZA = 450;
+
+const crearConsola = (registros, obtenerPaso = () => -1) => {
   const contadores = new Map();
   const tiempos = new Map();
   let profundidad = 0;
@@ -12,6 +15,7 @@ const crearConsola = (registros) => {
   const anotar = (nivel) => (...args) => {
     registros.push({
       nivel,
+      paso: obtenerPaso(),
       texto:
         "  ".repeat(profundidad) +
         args.map((arg) => formatear(arg)).join(" "),
@@ -43,6 +47,7 @@ const crearConsola = (registros) => {
     table: (...args) => {
       registros.push({
         nivel: "log",
+        paso: obtenerPaso(),
         texto:
           "  ".repeat(profundidad) +
           args.map((arg) => formatear(arg)).join("\n"),
@@ -76,9 +81,7 @@ const crearConsola = (registros) => {
       );
     },
     timeStamp: (etiqueta = "") => {
-      anotar("log")(
-        "⏱️ " + (String(etiqueta) || "timestamp") + " · " + Date.now(),
-      );
+      anotar("log")("⏱️ " + (String(etiqueta) || "timestamp") + " → " + Date.now());
     },
     count: (etiqueta = "default") => {
       const clave = String(etiqueta);
@@ -92,11 +95,12 @@ const crearConsola = (registros) => {
       anotar("log")(clave + ": 0");
     },
     assert: (condicion, ...args) => {
-      if (!condicion) anotar("error")("Assertion failed:", ...args)
+      if (!condicion) anotar("error")("Assertion failed:", ...args);
     },
     clear: () => {
       registros.push({
         nivel: "sistema",
+        paso: obtenerPaso(),
         texto: "🧹 console.clear() solicitado",
       });
     },
@@ -106,14 +110,58 @@ const crearConsola = (registros) => {
 };
 
 self.onmessage = async (evento) => {
-  const { id, codigo, preludio = "", estricto = true } = evento.data
+  const { id, codigo, preludio = "", estricto = true, trazar = false } = evento.data
   const registros = []
+  const traza = []
+  let truncada = false
+  let pasoActual = -1
+  let codigoEjecutar = codigo
+
+  if (trazar) {
+    const instrumentado = instrumentar(codigo)
+    if (!instrumentado.ok) {
+      self.postMessage({
+        id,
+        ok: false,
+        logs: [],
+        traza: [],
+        error: instrumentado.error,
+        linea: instrumentado.linea,
+        columna: null,
+      })
+      return
+    }
+    codigoEjecutar = instrumentado.codigo
+  }
+
+  const __trace = (linea, obtener) => {
+    if (traza.length >= MAX_TRAZA) {
+      truncada = true
+      return
+    }
+    let variables = []
+    try {
+      const valores = obtener?.() ?? {}
+      variables = Object.entries(valores)
+        .slice(0, 60)
+        .map(([nombre, valor]) => [nombre, formatear(valor)])
+    } catch {
+      variables = []
+    }
+    traza.push({ linea, variables })
+    pasoActual = traza.length - 1
+  }
 
   try {
-    const cuerpo = `${estricto ? '"use strict";\n' : ""}return (async () => {\n${preludio}\n${codigo}\n})();`
-    const ejecutar = new Function("console", cuerpo)
+    const cuerpo = `${estricto ? '"use strict";\n' : ""}return (async () => {\n${preludio}\n${codigoEjecutar}\n})();`
+    const ejecutar = trazar
+      ? new Function("console", "__trace", cuerpo)
+      : new Function("console", cuerpo)
 
-    const resultado = await ejecutar(crearConsola(registros))
+    const consola = crearConsola(registros, () => pasoActual)
+    const resultado = trazar
+      ? await ejecutar(consola, __trace)
+      : await ejecutar(consola)
 
     self.postMessage({
       id,
@@ -122,6 +170,8 @@ self.onmessage = async (evento) => {
       valor: serializar(resultado),
       texto: formatear(resultado),
       firma: firma(resultado),
+      traza,
+      truncada,
     })
   } catch (error) {
     const texto =
@@ -136,9 +186,14 @@ self.onmessage = async (evento) => {
     const coincidencia = pila.match(/<anonymous>:(\d+):(\d+)/)
     const lineasPreludio = preludio ? preludio.split("\n").length : 0
     const offset = estricto ? 4 : 3
-    const linea = coincidencia
-      ? Math.max(1, Number(coincidencia[1]) - offset - lineasPreludio)
+    const lineaTraza = traza.length
+      ? traza[traza.length - 1].linea
       : null
+    const linea = trazar
+      ? lineaTraza
+      : coincidencia
+        ? Math.max(1, Number(coincidencia[1]) - offset - lineasPreludio)
+        : null
     const columna = coincidencia ? Number(coincidencia[2]) : null
 
     self.postMessage({
@@ -148,6 +203,8 @@ self.onmessage = async (evento) => {
       error: texto,
       linea,
       columna,
+      traza,
+      truncada,
     })
   }
 }

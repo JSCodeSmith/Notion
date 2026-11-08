@@ -1,0 +1,852 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>&lt;form&gt;</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ee648ad-99fc-801f-a0b9-e1c6c03c8ece" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>&lt;form&gt;</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ee648ad-99fc-8036-b43e-eb2c3697a5a5" class="" dir="auto">
+</p><h1 id="3ee648ad-99fc-80f4-abd9-fe3586a21f31" class="" dir="auto"><strong>📄 </strong><code><strong>&lt;form&gt;</strong></code></h1><h2 id="3ee648ad-99fc-800b-956b-f80407b5191e" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ee648ad-99fc-8030-8345-e5441962042c" class="" dir="auto"><code>&lt;form&gt;</code> </p><p id="3ee648ad-99fc-809a-9f94-f26e761f839a" class="" dir="auto">Es el elemento que representa una <strong>sección interactiva</strong> de un documento que contiene <strong>controles de formulario</strong> (inputs, botones, selects, etc.) para que el usuario introduzca y envíe datos a un servidor.</p><h2 id="3ee648ad-99fc-80b7-8abb-c7d154cac415" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ee648ad-99fc-8088-a371-c7d2d4c1040e" class="" dir="auto">Es un elemento de <strong>bloque</strong> y <strong>semántico</strong> que <strong>agrupa controles interactivos</strong> y define <strong>cómo y a dónde</strong> se envían los datos. </p><p id="3ee648ad-99fc-80f3-bf8b-e6f06334e67d" class="" dir="auto">Sin <code>&lt;form&gt;</code>, los controles existen pero no se pueden enviar de forma nativa.</p><h2 id="3ee648ad-99fc-80f6-b4be-e730b35a7b6a" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ee648ad-99fc-8050-9164-f69de15effae" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Recoger datos</strong> del usuario (login, registro, contacto).</li></ul><ul id="3ee648ad-99fc-802e-ab77-dc9b0c75d030" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Enviar datos</strong> a un servidor (GET o POST).</li></ul><ul id="3ee648ad-99fc-8086-8654-eba5a972dadb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Validar entradas</strong> de forma nativa (con atributos HTML5).</li></ul><ul id="3ee648ad-99fc-8046-969d-d0bcdc478fcc" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Agrupar controles</strong> relacionados.</li></ul><ul id="3ee648ad-99fc-8018-af73-fcbaafead17b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Mejorar accesibilidad</strong>: los lectores de pantalla asocian etiquetas y controles.</li></ul><ul id="3ee648ad-99fc-8001-bed9-fdb449a1a959" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aportar semántica</strong>: indica que es una zona interactiva.</li></ul><h2 id="3ee648ad-99fc-80e6-a718-f683353ea550" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><ol type="1" id="3ee648ad-99fc-8021-896f-d5e8795d2c65" class="numbered-list" start="1" dir="auto"><li>El navegador renderiza un <strong>bloque</strong> sin estilos visuales por defecto.</li></ol><ol type="1" id="3ee648ad-99fc-8002-ae37-dc7b0d14ad35" class="numbered-list" start="2" dir="auto"><li>Al enviar (<code>submit</code>), el navegador <strong>serializa</strong> los controles con <code>name</code> y los envía a <code>action</code> con <code>method</code>.</li></ol><ol type="1" id="3ee648ad-99fc-8013-90aa-d2255420a255" class="numbered-list" start="3" dir="auto"><li>Si no hay <code>action</code>, se envía a la URL actual.</li></ol><ol type="1" id="3ee648ad-99fc-8057-842b-e580c451cf86" class="numbered-list" start="4" dir="auto"><li>Si no hay <code>method</code>, se usa <strong>GET</strong> por defecto.</li></ol><ol type="1" id="3ee648ad-99fc-80e4-a89a-f6cfdb9afbad" class="numbered-list" start="5" dir="auto"><li>La <strong>validación nativa</strong> se ejecuta antes del envío (con <code>required</code>, <code>pattern</code>, <code>type</code>, etc.).</li></ol><ol type="1" id="3ee648ad-99fc-8085-ad2a-d0269b8c547b" class="numbered-list" start="6" dir="auto"><li>Los eventos (<code>submit</code>, <code>reset</code>, <code>input</code>, <code>change</code>) permiten interceptar con JS.</li></ol><h2 id="3ee648ad-99fc-8034-a706-dd8212ef89ec" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ee648ad-99fc-8041-b957-d18664b3ecda" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/enviar&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;nombre&quot;&gt;Nombre:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;nombre&quot; name=&quot;nombre&quot; required&gt;
+  &lt;button type=&quot;submit&quot;&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre><h2 id="3ee648ad-99fc-80f2-8b06-d843aaf9be5b" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><p id="3ee648ad-99fc-80c7-a201-e1d249b98300" class="" dir="auto"><strong>Formulario de contacto:</strong></p><p id="3ee648ad-99fc-8050-9a8d-cab6467c8a61" class="" dir="auto">
+</p><pre id="3ee648ad-99fc-803e-b113-d4e9cdf282cb" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/contacto&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;nombre&quot;&gt;Nombre:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;nombre&quot; name=&quot;nombre&quot; required&gt;
+
+  &lt;label for=&quot;email&quot;&gt;Correo:&lt;/label&gt;
+  &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
+
+  &lt;label for=&quot;mensaje&quot;&gt;Mensaje:&lt;/label&gt;
+  &lt;textarea id=&quot;mensaje&quot; name=&quot;mensaje&quot; rows=&quot;4&quot;&gt;&lt;/textarea&gt;
+
+  &lt;button type=&quot;submit&quot;&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre><p id="3ee648ad-99fc-803b-8ca7-eb1b90609eb4" class="" dir="auto"><strong>Login:</strong></p><p id="3ee648ad-99fc-8087-afa4-ce002d9ed269" class="" dir="auto">
+</p><pre id="3ee648ad-99fc-8062-bd3a-e2ae6669c9d8" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;usuario&quot;&gt;Usuario:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;usuario&quot; name=&quot;usuario&quot; autocomplete=&quot;username&quot; required&gt;
+
+  &lt;label for=&quot;password&quot;&gt;Contraseña:&lt;/label&gt;
+  &lt;input type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot; autocomplete=&quot;current-password&quot; required&gt;
+
+  &lt;button type=&quot;submit&quot;&gt;Iniciar sesión&lt;/button&gt;
+&lt;/form&gt;</code></pre><p id="3ee648ad-99fc-80c7-90ac-e368026ad361" class="" dir="auto"><strong>Subida de archivos (con </strong><code><strong>enctype</strong></code><strong>):</strong></p><pre id="3ee648ad-99fc-802b-9dda-ee6bf3afb236" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/subir&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+  &lt;label for=&quot;archivo&quot;&gt;Archivo:&lt;/label&gt;
+  &lt;input type=&quot;file&quot; id=&quot;archivo&quot; name=&quot;archivo&quot; accept=&quot;image/*&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Subir&lt;/button&gt;
+&lt;/form&gt;</code></pre><p id="3ee648ad-99fc-80a8-9791-feb7709948b4" class="" dir="auto"><strong>Con validación nativa:</strong></p><pre id="3ee648ad-99fc-800c-b5cf-f41ebf5933df" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/registro&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;Correo:&lt;/label&gt;
+  &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
+
+  &lt;label for=&quot;edad&quot;&gt;Edad:&lt;/label&gt;
+  &lt;input type=&quot;number&quot; id=&quot;edad&quot; name=&quot;edad&quot; min=&quot;18&quot; max=&quot;120&quot; required&gt;
+
+  &lt;label for=&quot;cp&quot;&gt;Código postal:&lt;/label&gt;
+  &lt;input type=&quot;text&quot; id=&quot;cp&quot; name=&quot;cp&quot; pattern=&quot;[0-9]{5}&quot; title=&quot;5 dígitos&quot;&gt;
+
+  &lt;button type=&quot;submit&quot;&gt;Registrarse&lt;/button&gt;
+&lt;/form&gt;</code></pre><p id="3ee648ad-99fc-80fd-b69d-fb6e65b4e0b6" class="" dir="auto"><strong>Con </strong><code><strong>fieldset</strong></code><strong> y </strong><code><strong>legend</strong></code><strong>:</strong></p><pre id="3ee648ad-99fc-801e-aca1-c4499c2bf047" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;form action=&quot;/pedido&quot; method=&quot;post&quot;&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Datos de envío&lt;/legend&gt;
+    &lt;label for=&quot;calle&quot;&gt;Calle:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;calle&quot; name=&quot;calle&quot; required&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Pago&lt;/legend&gt;
+    &lt;label for=&quot;tarjeta&quot;&gt;Tarjeta:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;tarjeta&quot; name=&quot;tarjeta&quot; required&gt;
+  &lt;/fieldset&gt;
+
+  &lt;button type=&quot;submit&quot;&gt;Confirmar pedido&lt;/button&gt;
+&lt;/form&gt;</code></pre><h2 id="3ee648ad-99fc-807a-82e4-e851de9c762b" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ul id="3ee648ad-99fc-80e5-8090-d8f9cd3adc91" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ <strong>Olvidar </strong><code><strong>name</strong></code> en los controles → no se envían datos.</li></ul><ul id="3ee648ad-99fc-80d4-b7dd-d58cef90ac21" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Olvidar <code>label</code> asociado con <code>for</code> → problema de accesibilidad.</li></ul><ul id="3ee648ad-99fc-80ce-8513-c1d82e568462" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>GET</code> para <strong>datos sensibles</strong> (contraseñas, tarjetas) → van en la URL.</li></ul><ul id="3ee648ad-99fc-80a1-8e06-e8f7638d8296" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>POST</code> sin <strong>CSRF protection</strong> en el servidor.</li></ul><ul id="3ee648ad-99fc-8068-aea2-efbdbaba4f9f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Olvidar <code>enctype=&quot;multipart/form-data&quot;</code> al subir archivos.</li></ul><ul id="3ee648ad-99fc-8039-a6a9-c86556fed4c7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ No validar en el <strong>servidor</strong> (la validación nativa es solo del cliente).</li></ul><ul id="3ee648ad-99fc-80a5-973c-d56e9bbb3a1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;div&gt;</code> en lugar de <code>&lt;fieldset&gt;</code> para agrupar.</li></ul><ul id="3ee648ad-99fc-80b4-88ae-f627c3cd3e97" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Anidar <code>&lt;form&gt;</code> dentro de otro <code>&lt;form&gt;</code> (inválido).</li></ul><ul id="3ee648ad-99fc-806e-83bd-c1d13901a61d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ No incluir <code>autocomplete</code> en campos de login/registro.</li></ul><ul id="3ee648ad-99fc-80ff-ad7d-e23080c41953" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;button&gt;</code> sin <code>type</code> → por defecto es <code>submit</code> (puede causar envíos accidentales).</li></ul><h2 id="3ee648ad-99fc-804b-a676-da00c06ab1e9" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><ul id="3ee648ad-99fc-8048-9671-d537eab02b0e" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Login</strong> y registro de usuarios.</li></ul><ul id="3ee648ad-99fc-80ba-8129-e20afcfa4a88" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Formularios de contacto</strong>.</li></ul><ul id="3ee648ad-99fc-801e-ad72-e854afd3d325" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Búsqueda</strong> en el sitio.</li></ul><ul id="3ee648ad-99fc-80e0-af86-ede09b8d0c69" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Checkout</strong> en e-commerce.</li></ul><ul id="3ee648ad-99fc-8062-94b0-e31c31a281ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Suscripción</strong> a newsletter.</li></ul><ul id="3ee648ad-99fc-8092-be08-ffeb0334da38" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Encuestas</strong> y cuestionarios.</li></ul><ul id="3ee648ad-99fc-8020-8780-fd09daf1f1d4" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Reserva</strong> de citas o vuelos.</li></ul><ul id="3ee648ad-99fc-806f-9673-cefe71a3046f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Subida de archivos</strong>.</li></ul><ul id="3ee648ad-99fc-80b4-b0d6-fb1a87f7a409" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Configuración</strong> de perfil.</li></ul><h2 id="3ee648ad-99fc-80a0-a982-e0861f96790a" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3ee648ad-99fc-8035-88f0-e15fbe202a65" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;input&gt;</strong></code>: control principal (text, email, password, etc.).</li></ul><ul id="3ee648ad-99fc-807a-a180-f6f368516f59" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;label&gt;</strong></code>: etiqueta asociada al control (accesibilidad).</li></ul><ul id="3ee648ad-99fc-8028-a4d7-c5d2c0d45cff" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;textarea&gt;</strong></code>: texto multilínea.</li></ul><ul id="3ee648ad-99fc-80fc-bbd4-c709bf403e14" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;select&gt;</strong></code><strong> / </strong><code><strong>&lt;option&gt;</strong></code>: listas desplegables.</li></ul><ul id="3ee648ad-99fc-8060-81d0-ca11a9ad088d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;button&gt;</strong></code>: botones (submit, reset, button).</li></ul><ul id="3ee648ad-99fc-80ee-bf0d-cd97059c20ea" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;fieldset&gt;</strong></code><strong> / </strong><code><strong>&lt;legend&gt;</strong></code>: agrupar controles.</li></ul><ul id="3ee648ad-99fc-80ca-9523-efcbc4bfb40c" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;output&gt;</strong></code>: resultado de un cálculo.</li></ul><ul id="3ee648ad-99fc-809f-9c73-c6274d93faf8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;datalist&gt;</strong></code>: sugerencias para un input.</li></ul><ul id="3ee648ad-99fc-807a-a9bb-d241ba05f134" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Validación nativa</strong>: <code>required</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>type</code>.</li></ul><ul id="3ee648ad-99fc-8010-bca8-d57c6dad59ef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>GET</strong></code><strong> vs </strong><code><strong>POST</strong></code>: método de envío.</li></ul><ul id="3ee648ad-99fc-802e-9f00-cfb40a8c9e3d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>enctype</strong></code>: codificación del envío (archivos → multipart).</li></ul><ul id="3ee648ad-99fc-80e2-9454-cf1d710f37bf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CSRF</strong>: protección en el servidor.</li></ul><ul id="3ee648ad-99fc-8009-9061-ca9573f894b2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong>: <code>label</code>, <code>fieldset</code>, <code>aria-*</code>.</li></ul><h2 id="3ee648ad-99fc-80d2-b726-d20da485dc3d" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ee648ad-99fc-80ed-9bf1-ee0f9631f2c8" class="" dir="auto">Un <code>&lt;form&gt;</code> es como un <strong>formulario en papel</strong> que rellenas y entregas en una oficina: tiene campos (inputs), etiquetas (labels), secciones (fieldsets) y un botón de &quot;entregar&quot; (submit). Sin el formulario, los campos sueltos no sirven para nada.</p><h2 id="3ee648ad-99fc-80d1-bce3-e5726325f4c0" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ee648ad-99fc-802c-8d67-ca87f73519df" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN – <em><code>&lt;form&gt;</code></em>: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/form">https://developer.mozilla.org/es/docs/Web/HTML/Element/form</a></li></ul><ul id="3ee648ad-99fc-8079-b6c5-df49ce75dd75" class="bulleted-list" dir="auto"><li style="list-style-type:disc">WHATWG HTML Living Standard – <em>The form element</em>: <a href="https://html.spec.whatwg.org/multipage/forms.html#the-form-element">https://html.spec.whatwg.org/multipage/forms.html#the-form-element</a></li></ul><ul id="3ee648ad-99fc-8010-99b7-ff4b47ee16f6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C – <em>HTML5: The form element</em></li></ul><ul id="3ee648ad-99fc-80ed-8c34-fe5b48682da1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://web.dev/">web.dev</a> – <em>Forms</em>: <a href="https://web.dev/learn/forms">https://web.dev/learn/forms</a></li></ul><h2 id="3ee648ad-99fc-80a6-8276-d78b52202b75" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ee648ad-99fc-80c9-a340-f5c58edf0eda" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre </strong><code><strong>name</strong></code> en los controles: sin él, no se envían.</li></ul><ul id="3ee648ad-99fc-80d3-80f6-c63438bd6d28" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Siempre </strong><code><strong>label</strong></code> asociado con <code>for</code> → accesibilidad.</li></ul><ul id="3ee648ad-99fc-80b2-a0ac-d0faa3b370ce" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>GET</strong></code> para búsquedas; <code><strong>POST</strong></code> para datos sensibles.</li></ul><ul id="3ee648ad-99fc-80df-aa1a-d42b6cb0f5d0" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>enctype=&quot;multipart/form-data&quot;</strong></code> al subir archivos.</li></ul><ul id="3ee648ad-99fc-804c-8fd8-e08f23db226d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Valida en el servidor</strong> también: la validación nativa es solo del cliente.</li></ul><ul id="3ee648ad-99fc-8075-a0d2-d1678241d107" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>autocomplete</strong></code> mejora la experiencia en login/registro.</li></ul><ul id="3ee648ad-99fc-806b-8399-e070441f590d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>fieldset</strong></code><strong> + </strong><code><strong>legend</strong></code> para agrupar controles relacionados.</li></ul><ul id="3ee648ad-99fc-807b-96d6-d65d48adfd7a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;button type=&quot;submit&quot;&gt;</strong></code> explícito para evitar envíos accidentales.</li></ul><ul id="3ee648ad-99fc-8081-aef6-c6a78f46e16d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>CSRF</strong>: el servidor debe protegerse contra ataques.</li></ul><ul id="3ee648ad-99fc-8072-9584-d0f868777329" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No anides </strong><code><strong>&lt;form&gt;</strong></code>: es inválido y confunde.</li></ul><ul id="3ee648ad-99fc-8059-a6ee-c8897641796b" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Buena práctica</strong>: usa validación nativa + validación del servidor.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1905,33 +1905,50 @@ export function getLiveExample(metodo) {
   const id = typeof metodo === "string" ? metodo : metodo?.id;
   if (!id) return null;
 
-  const categoria = CATEGORIAS[id] ?? "array";
-
-  if (EJEMPLOS[id]) {
-    return { categoria, ...EJEMPLOS[id] };
+  /* Los apuntes HTML usan ids con prefijo (`js-object-defineproperty`),
+     mientras que algunos ejemplos vivos se registraron sin él
+     (`object-defineproperty`). Probamos ambas formas y estos alias. */
+  const alias = {
+    "js-hasownproperty": "object-prototype-hasownproperty",
+    "js-new-object": "object-new",
+    "js-object-tostring": "object-prototype-tostring",
+    "js-object-valueof": "object-prototype-valueof",
+  };
+  const candidatos = [id, alias[id]].filter(Boolean);
+  const sinPrefijo = id.replace(/^js-/, "");
+  if (sinPrefijo !== id && !candidatos.includes(sinPrefijo)) {
+    candidatos.push(sinPrefijo);
   }
 
-  const plantilla = PLANTILLAS[id];
-  if (!plantilla) return null;
-
   const etiqueta =
-    typeof metodo === "string"
-      ? id
-      : metodo.titulo ?? metodo.nombre ?? id;
+    typeof metodo === "string" ? id : metodo.titulo ?? metodo.nombre ?? id;
 
-  return {
-    categoria,
-    etiqueta,
-    titulo: plantilla.titulo,
-    descripcion:
-      plantilla.descripcion ??
-      `Ejecuta ${etiqueta} con tus propios datos y observa el resultado en la consola.`,
-    prueba:
-      plantilla.prueba ??
-      "Cambia los datos del constructor, edita el código y vuelve a ejecutar.",
-    codigo: plantilla.codigo,
-    preludio: plantilla.preludio,
-    entorno: plantilla.entorno,
-    estricto: plantilla.estricto,
-  };
+  for (const candidato of candidatos) {
+    const categoria = CATEGORIAS[candidato] ?? "array";
+
+    if (EJEMPLOS[candidato]) {
+      return { categoria, ...EJEMPLOS[candidato] };
+    }
+
+    const plantilla = PLANTILLAS[candidato];
+    if (!plantilla) continue;
+
+    return {
+      categoria,
+      etiqueta,
+      titulo: plantilla.titulo,
+      descripcion:
+        plantilla.descripcion ??
+        `Ejecuta ${etiqueta} con tus propios datos y observa el resultado en la consola.`,
+      prueba:
+        plantilla.prueba ??
+        "Cambia los datos del constructor, edita el código y vuelve a ejecutar.",
+      codigo: plantilla.codigo,
+      preludio: plantilla.preludio,
+      entorno: plantilla.entorno,
+      estricto: plantilla.estricto,
+    };
+  }
+
+  return null;
 }

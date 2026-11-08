@@ -1,0 +1,839 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>&lt;li&gt;</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3ed648ad-99fc-80b1-9546-e710e99c42a4" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>&lt;li&gt;</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3ed648ad-99fc-803d-8fc8-c21a3a794011" class="" dir="auto">
+</p><h1 id="3ed648ad-99fc-80ea-a1f5-fcdf3706c6da" class="" dir="auto"><strong>📄 </strong><code><strong>&lt;li&gt;</strong></code><strong> </strong></h1><h2 id="3ed648ad-99fc-80b0-adc3-cb0660da01ac" class="" dir="auto"><strong>📝 Definición</strong></h2><p id="3ed648ad-99fc-8012-95a9-d16f2b168e6e" class="" dir="auto"><code>&lt;li&gt;</code> (del inglés <em>list item</em>, &quot;ítem de lista&quot;) es el elemento que representa <strong>un elemento individual dentro de una lista</strong>. </p><p id="3ee648ad-99fc-8009-b70b-d9590618f7d9" class="" dir="auto">Actúa como el contenedor de cada elemento, agrupando su contenido específico</p><p id="3ee648ad-99fc-8005-a1ef-c3ee8ad9241e" class="" dir="auto">Es el hijo obligatorio de <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> y <code>&lt;menu&gt;</code>, y puede contener texto, enlaces, imágenes u otros elementos de bloque.</p><h2 id="3ed648ad-99fc-80e4-a38c-cd6c0386e2e3" class="" dir="auto"><strong>🧠 ¿Qué es?</strong></h2><p id="3ed648ad-99fc-80fa-a208-f941f40a4957" class="" dir="auto">Es un elemento de <strong>bloque</strong> (aunque se comporta como ítem dentro de su lista padre). </p><p id="3ee648ad-99fc-802c-bee9-fe05f0cd5bb3" class="" dir="auto">Cada <code>&lt;li&gt;</code> representa una entrada de la lista. </p><p id="3ee648ad-99fc-807b-9f71-c9595e45ada2" class="" dir="auto">Los lectores de pantalla lo anuncian como &quot;elemento X de N&quot; dentro de listas ordenadas.</p><h2 id="3ed648ad-99fc-8069-ae3a-c6cf250d36a1" class="" dir="auto"><strong>🎯 ¿Para qué sirve?</strong></h2><ul id="3ed648ad-99fc-80d9-94df-c4c8223703da" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Definir cada ítem</strong> de una lista (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;menu&gt;</code>).</li></ul><ul id="3ed648ad-99fc-80c9-911b-c345a2d34eab" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Contener contenido variado</strong>: texto, enlaces, imágenes, párrafos, sublistas.</li></ul><ul id="3ed648ad-99fc-800d-97ba-cc90dc79b82d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Aportar semántica</strong>: indica al navegador que es un elemento de lista.</li></ul><ul id="3ed648ad-99fc-800f-a93a-c570ba644568" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Facilitar accesibilidad</strong>: los lectores de pantalla cuentan los ítems.</li></ul><ul id="3ed648ad-99fc-802c-a1b2-d74fc384cdd1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Servir de base</strong> para menús, pasos, ingredientes, etc.</li></ul><h2 id="3ed648ad-99fc-80b7-9ad1-d6d263503f28" class="" dir="auto"><strong>⚙️ ¿Cómo funciona?</strong></h2><ol type="1" id="3ed648ad-99fc-806c-9b27-de159fab9e27" class="numbered-list" start="1" dir="auto"><li>Solo es válido <strong>dentro</strong> de <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code>.</li></ol><ol type="1" id="3ed648ad-99fc-8000-a0dc-ee0ad58e1f3e" class="numbered-list" start="2" dir="auto"><li>El navegador le asigna un marcador (viñeta o número) según el padre.</li></ol><ol type="1" id="3ed648ad-99fc-8007-879e-cbf51731f1a5" class="numbered-list" start="3" dir="auto"><li>Puede contener <strong>elementos de flujo</strong>: texto, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;img&gt;</code>, otra lista, etc.</li></ol><ol type="1" id="3ed648ad-99fc-80dc-9cab-f6398332203d" class="numbered-list" start="4" dir="auto"><li>Si el <code>&lt;li&gt;</code> contiene una sublista, esta debe ir <strong>dentro del </strong><code><strong>&lt;li&gt;</strong></code>.</li></ol><ol type="1" id="3ed648ad-99fc-806e-967f-e04dc72cb961" class="numbered-list" start="5" dir="auto"><li>El cierre <code>&lt;/li&gt;</code> es <strong>opcional</strong> si el siguiente elemento es otro <code>&lt;li&gt;</code>, pero se recomienda escribirlo.</li></ol><h2 id="3ed648ad-99fc-80c8-973f-ff779ab74246" class="" dir="auto"><strong>📝 Sintaxis / Estructura</strong></h2><p id="3ed648ad-99fc-80b3-8bdd-f79a0c59621f" class="" dir="auto">
+</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="3ed648ad-99fc-8057-a967-d4cfc420004e" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;ul&gt;
+  &lt;li&gt;Elemento de lista&lt;/li&gt;
+&lt;/ul&gt;</code></pre><h2 id="3ed648ad-99fc-8030-a666-d1aa61259fc5" class="" dir="auto"><strong>💡 Ejemplos</strong></h2><p id="3ed648ad-99fc-8002-ac67-efe220eb0485" class="" dir="auto"><strong>Ítem en lista desordenada:</strong></p><p id="3ed648ad-99fc-8051-abaa-e81bb8dd0a3e" class="" dir="auto">
+</p><pre id="3ed648ad-99fc-80f4-8c3d-f52406fb2ccb" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;ul&gt;
+  &lt;li&gt;Manzana&lt;/li&gt;
+  &lt;li&gt;Plátano&lt;/li&gt;
+  &lt;li&gt;Naranja&lt;/li&gt;
+&lt;/ul&gt;</code></pre><p id="3ed648ad-99fc-8010-87c2-d0ad95805a5e" class="" dir="auto"><strong>Ítem en lista ordenada con </strong><code><strong>value</strong></code><strong>:</strong></p><p id="3ed648ad-99fc-8038-ba00-e8d605af60bb" class="" dir="auto">
+</p><pre id="3ed648ad-99fc-803e-8d19-d6fad2e147ec" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;ol&gt;
+  &lt;li&gt;Primero&lt;/li&gt;
+  &lt;li value=&quot;10&quot;&gt;Décimo&lt;/li&gt;
+  &lt;li&gt;Undécimo&lt;/li&gt;
+&lt;/ol&gt;</code></pre><p id="3ed648ad-99fc-8049-a495-c36111b8e931" class="" dir="auto"><strong>Ítem con contenido enriquecido:</strong></p><pre id="3ed648ad-99fc-80a4-8457-c0ae2eda7d92" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h3&gt;Título del ítem&lt;/h3&gt;
+    &lt;p&gt;Descripción del ítem.&lt;/p&gt;
+    &lt;a href=&quot;/detalle&quot;&gt;Ver más&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre><p id="3ed648ad-99fc-80cf-82fd-e8c694427517" class="" dir="auto"><strong>Ítem con sublista anidada:</strong></p><pre id="3ed648ad-99fc-80ba-8246-e2ef5864f136" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;ul&gt;
+  &lt;li&gt;Frutas
+    &lt;ul&gt;
+      &lt;li&gt;Manzana&lt;/li&gt;
+      &lt;li&gt;Plátano&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Verduras&lt;/li&gt;
+&lt;/ul&gt;</code></pre><p id="3ed648ad-99fc-8057-8e0e-d4f69ba49ede" class="" dir="auto"><strong>Menú de navegación:</strong></p><pre id="3ed648ad-99fc-80fd-a44d-f98381e43565" class="code code-wrap" data-notion-code-syntax="html"><code class="language-html" style="white-space:pre-wrap;word-break:break-all">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/contacto&quot;&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre><p id="3ed648ad-99fc-808d-9b9d-df041c487f18" class="" dir="auto"><strong>Ítem con estilos personalizados:</strong></p><pre id="3ed648ad-99fc-809b-b62b-cf733acf4cf5" class="code code-wrap" data-notion-code-syntax="css"><code class="language-css" style="white-space:pre-wrap;word-break:break-all">li::marker {
+  color: #007bff;
+  font-weight: bold;
+}
+li.destacado {
+  background: #fffbe6;
+  padding: 0.5rem;
+  border-radius: 4px;
+}</code></pre><h2 id="3ed648ad-99fc-809c-a7f5-c89b1a420837" class="" dir="auto"><strong>⚠️ Errores comunes</strong></h2><ul id="3ed648ad-99fc-80c8-9dbe-f12f5112ec21" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;li&gt;</code> <strong>fuera</strong> de <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code> (inválido).</li></ul><ul id="3ed648ad-99fc-807d-bd82-d2483b914ec9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Poner contenido directamente en <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> <strong>sin </strong><code><strong>&lt;li&gt;</strong></code>.</li></ul><ul id="3ed648ad-99fc-8043-aa54-f70e6f6354ca" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Anidar una sublista <strong>fuera</strong> del <code>&lt;li&gt;</code> (debe ir dentro).</li></ul><ul id="3ed648ad-99fc-80b3-95f0-cb3c33cb687b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>type</code> en <code>&lt;li&gt;</code> (obsoleto, usar CSS).</li></ul><ul id="3ed648ad-99fc-8095-b325-daf07d74a323" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>value</code> en un <code>&lt;li&gt;</code> dentro de <code>&lt;ul&gt;</code> (solo funciona en <code>&lt;ol&gt;</code>).</li></ul><ul id="3ed648ad-99fc-8075-a2c1-cb9f6b4d2cfe" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Olvidar el cierre <code>&lt;/li&gt;</code> cuando hay contenido complejo (puede causar anidamientos raros).</li></ul><ul id="3ed648ad-99fc-80b1-82c7-cca6cde0937c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Poner un <code>&lt;li&gt;</code> vacío.</li></ul><ul id="3ed648ad-99fc-806b-b7cc-d1a61cdc848f" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Anidar un <code>&lt;li&gt;</code> directamente dentro de otro <code>&lt;li&gt;</code> sin una sublista intermedia.</li></ul><ul id="3ed648ad-99fc-80be-946f-c53a762ccce5" class="bulleted-list" dir="auto"><li style="list-style-type:disc">❌ Usar <code>&lt;li&gt;</code> como contenedor genérico fuera de listas.</li></ul><h2 id="3ed648ad-99fc-80c4-b69a-c6f05cc6df56" class="" dir="auto"><strong>💼 Casos de uso</strong></h2><ul id="3ed648ad-99fc-8096-8310-fb61f58dadeb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Menús de navegación</strong> (<code>&lt;ul&gt;</code> + <code>&lt;li&gt;</code> + <code>&lt;a&gt;</code>).</li></ul><ul id="3ed648ad-99fc-80d1-acda-f117d074aabe" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Listas de características</strong> de productos.</li></ul><ul id="3ed648ad-99fc-80d7-8bf6-ce41be114ff8" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Pasos de una receta</strong> o tutorial (<code>&lt;ol&gt;</code> + <code>&lt;li&gt;</code>).</li></ul><ul id="3ed648ad-99fc-80df-bb6a-cbbe4de01309" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Rankings</strong> y clasificaciones.</li></ul><ul id="3ed648ad-99fc-8086-977e-c4793fbf1a4f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Breadcrumbs</strong> (migas de pan).</li></ul><ul id="3ed648ad-99fc-8045-ba47-eb9cf4b51b27" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Redes sociales</strong> en el footer.</li></ul><ul id="3ed648ad-99fc-80e0-b559-eaffb1b5aa86" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Etiquetas / tags</strong>.</li></ul><ul id="3ed648ad-99fc-805f-922e-ec10fcef2916" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Listas de archivos</strong> o recursos.</li></ul><ul id="3ed648ad-99fc-80a6-b650-fb00dd07889f" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Ítems de un carrito de compras</strong>.</li></ul><h2 id="3ed648ad-99fc-8024-810d-c916954b71b3" class="" dir="auto"><strong>🧩 Relación con otros conceptos</strong></h2><ul id="3ed648ad-99fc-803c-8810-df0bdb5063f7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;ul&gt;</strong></code>: lista desordenada (padre).</li></ul><ul id="3ed648ad-99fc-8077-8801-f9a9c865b35a" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;ol&gt;</strong></code>: lista ordenada (padre).</li></ul><ul id="3ed648ad-99fc-8055-85b2-d424603f28fb" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;menu&gt;</strong></code>: lista de comandos (padre, poco usado).</li></ul><ul id="3ed648ad-99fc-801e-9cc5-ca2c9299e943" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>value</strong></code>: solo válido en <code>&lt;li&gt;</code> dentro de <code>&lt;ol&gt;</code>.</li></ul><ul id="3ed648ad-99fc-8044-b5e5-d672e9a85152" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>::marker</strong></code> (CSS): pseudoelemento para estilizar viñetas/números.</li></ul><ul id="3ed648ad-99fc-800c-bf91-f5ba203d8be7" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>list-style</strong></code> (CSS): controla el marcador.</li></ul><ul id="3ed648ad-99fc-809c-8d08-e4a1c4f8f62d" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>&lt;dl&gt;</strong></code><strong> / </strong><code><strong>&lt;dt&gt;</strong></code><strong> / </strong><code><strong>&lt;dd&gt;</strong></code>: alternativa para listas de definiciones.</li></ul><ul id="3ed648ad-99fc-801b-b47b-f2fb11680283" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Accesibilidad</strong>: lectores de pantalla anuncian posición en <code>&lt;ol&gt;</code>.</li></ul><ul id="3ed648ad-99fc-80b1-8a46-e13e84bdbfef" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code><strong>role=&quot;listitem&quot;</strong></code>: rol ARIA implícito.</li></ul><h2 id="3ed648ad-99fc-804b-807f-ce72239dc8bf" class="" dir="auto"><strong>🧠 Analogía</strong></h2><p id="3ed648ad-99fc-8027-8187-efb3b7c061b4" class="" dir="auto">Un <code>&lt;li&gt;</code> es como <strong>una línea de una lista de compras</strong>: cada ítem es una entrada independiente. Puedes tener una lista de frutas (con viñetas) o una receta (numerada), pero en ambos casos cada línea es un <code>&lt;li&gt;</code>.</p><h2 id="3ed648ad-99fc-8016-92d8-c2a2e0d7f45e" class="" dir="auto"><strong>📚 Fuente</strong></h2><ul id="3ed648ad-99fc-80e9-af46-e417ef726dd6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">MDN – <em><code>&lt;li&gt;</code></em>: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Element/li">https://developer.mozilla.org/es/docs/Web/HTML/Element/li</a></li></ul><ul id="3ed648ad-99fc-8038-8b11-c99afbea2a82" class="bulleted-list" dir="auto"><li style="list-style-type:disc">WHATWG HTML Living Standard – <em>The li element</em>: <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element">https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element</a></li></ul><ul id="3ed648ad-99fc-8018-b40b-f5772c531668" class="bulleted-list" dir="auto"><li style="list-style-type:disc">W3C – <em>HTML5: The li element</em></li></ul><h2 id="3ed648ad-99fc-8074-b74b-de269bd149cf" class="" dir="auto"><strong>📝 Notas personales</strong></h2><ul id="3ed648ad-99fc-803c-ab8d-f9a756cd8576" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>Solo válido</strong> dentro de <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code>.</li></ul><ul id="3ed648ad-99fc-8099-8d6c-e456f3119ae0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">El cierre <code>&lt;/li&gt;</code> es <strong>opcional</strong> si el siguiente elemento es otro <code>&lt;li&gt;</code>, pero se recomienda escribirlo.</li></ul><ul id="3ed648ad-99fc-80b8-9a5e-f023c54137e1" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>value</code> <strong>solo funciona en </strong><code><strong>&lt;ol&gt;</strong></code>: cambia el número del ítem y de los siguientes.</li></ul><ul id="3ed648ad-99fc-80e2-808b-c60744ee36a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para <strong>estilizar viñetas</strong>, usa <code>::marker</code> o <code>::before</code>.</li></ul><ul id="3ed648ad-99fc-8003-afb2-d4dee8dd3f41" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Las <strong>sublistas</strong> van dentro del <code>&lt;li&gt;</code>, nunca directamente dentro del <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code>.</li></ul><ul id="3ed648ad-99fc-8037-bb69-cb0be2768d07" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Para <strong>menús</strong>, el patrón típico es <code>&lt;ul&gt;</code> → <code>&lt;li&gt;</code> → <code>&lt;a&gt;</code>.</li></ul><ul id="3ed648ad-99fc-8005-948a-e3481c4a8296" class="bulleted-list" dir="auto"><li style="list-style-type:disc">En <strong>Safari</strong>, <code>list-style: none</code> elimina la semántica de lista; añade <code>role=&quot;list&quot;</code> al padre.</li></ul><ul id="3ed648ad-99fc-802a-a431-e65476352509" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Puedes poner <strong>varios párrafos o bloques</strong> dentro de un <code>&lt;li&gt;</code> si es necesario.</li></ul><ul id="3ed648ad-99fc-8053-b2a9-e4fe111e53ff" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Los lectores de pantalla anuncian &quot;elemento X de N&quot; en listas ordenadas: muy útil para procesos.</li></ul><ul id="3ed648ad-99fc-804c-bf37-e6c4791f2bbf" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>No abuses</strong>: si no es una lista real, no uses <code>&lt;li&gt;</code>.</li></ul></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
