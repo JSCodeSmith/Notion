@@ -172,9 +172,6 @@ const quitarBold = (value = "") => String(value).replace(/\*\*/g, "");
 const escaparRegex = (value) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-const capitalizar = (value = "") =>
-  value.charAt(0).toUpperCase() + value.slice(1);
-
 const esFilaTabla = (lineas) =>
   lineas.filter((linea) => linea.includes("\t")).length >= 2;
 
@@ -640,8 +637,6 @@ if (faltantes.length) {
   console.warn("⚠️ No se encontraron estos TXT:", faltantes);
 }
 
-const porTitulo = new Map(documentos.map((doc) => [doc.id, doc]));
-
 for (const doc of documentos) {
   doc.quiz = construirQuiz(doc, documentos);
   doc.lab = {
@@ -677,11 +672,7 @@ const curso = {
 
 const docs = Object.fromEntries(
   ordenados.map((doc) => {
-    const {
-      seccion,
-      firma,
-      ...resto
-    } = doc;
+    const { seccion: _seccion, firma: _firma, ...resto } = doc;
     return [doc.id, resto];
   }),
 );

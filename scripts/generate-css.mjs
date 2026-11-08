@@ -265,6 +265,17 @@ function listarHtml(dir) {
   return salida;
 }
 
+if (!fs.existsSync(HTML_DIR)) {
+  console.log(`⚠️  No se encontró la carpeta de apuntes CSS: ${HTML_DIR}`);
+  console.log(
+    "   Los apuntes CSS ya generados se conservan sin cambios.",
+  );
+  console.log(
+    "   Coloca allí los HTML exportados de Notion y vuelve a ejecutar el script.",
+  );
+  process.exit(0);
+}
+
 const HTMLS = listarHtml(HTML_DIR);
 
 function buscarHtml(prefijo) {

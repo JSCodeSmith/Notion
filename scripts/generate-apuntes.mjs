@@ -1248,6 +1248,17 @@ const esEjecucionDirecta =
   path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url));
 
 if (esEjecucionDirecta) {
+  if (!fs.existsSync(HTML_DIR)) {
+    console.log(`⚠️  No se encontró la carpeta de apuntes: ${HTML_DIR}`);
+    console.log(
+      "   Los apuntes de DOM y Web APIs ya generados se conservan sin cambios.",
+    );
+    console.log(
+      "   Coloca allí los HTML exportados de Notion y vuelve a ejecutar el script.",
+    );
+    process.exit(0);
+  }
+
   const filtros = process.argv.slice(2).map((arg) => arg.toLowerCase());
   const seleccion = filtros.length
     ? CATEGORIAS.filter((categoria) => filtros.includes(categoria.id))

@@ -9,10 +9,12 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { buildQuiz } from "./generate-apuntes.mjs";
 import { CONCEPTOS, CONCEPTOS_POR_ID, GRUPOS } from "./aritmeticaConceptos.mjs";
 
-const DATA_DIR = path.join(import.meta.dirname, "..", "src", "data");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DATA_DIR = path.join(__dirname, "..", "src", "data");
 
 /* ------------------------------------------------------------------ */
 /* 1. Estructura                                                       */

@@ -742,6 +742,31 @@ function buscarNota(tituloEsperado) {
   );
 }
 
+/* Preflight: si faltan los HTML de los cursos de negocios, no sobrescribas
+   los datos actuales. Los apuntes de negocio ahora se generan desde TXT. */
+const titulosRequeridos = CURSOS.flatMap((curso) =>
+  curso.grupos.flatMap((grupo) => grupo.notas.map(([, titulo]) => titulo)),
+);
+const faltantes = titulosRequeridos.filter((titulo) => {
+  try {
+    buscarNota(titulo);
+    return false;
+  } catch {
+    return true;
+  }
+});
+
+if (faltantes.length) {
+  console.log("⚠️  No se encontraron todos los HTML de los cursos de negocios.");
+  console.log(`   Faltan ${faltantes.length} de ${titulosRequeridos.length}:`);
+  for (const titulo of faltantes.slice(0, 5)) console.log(`   · ${titulo}`);
+  if (faltantes.length > 5) console.log("   · …");
+  console.log("   Los datos actuales se conservan sin cambios.");
+  console.log("   Para regenerar la Biblioteca de Negocios desde los TXT usa:");
+  console.log("   node scripts/generate-negocios-txt.mjs");
+  process.exit(0);
+}
+
 /* ------------------------------------------------------------------ */
 /* 5. Construcción de documentos                                       */
 /* ------------------------------------------------------------------ */
@@ -1089,15 +1114,26 @@ const imports = modulos
   )
   .join("\n");
 
+const importsExtra = [
+  'import { NEGOCIO_ARITMETICA, NEGOCIO_ARITMETICA_DOCS } from "./negocioAritmetica";',
+  'import { NEGOCIO_BIBLIOTECA, NEGOCIO_BIBLIOTECA_DOCS } from "./negocioBiblioteca";',
+].join("\n");
+
 const categorias = modulos
   .map(({ curso }) => `  ${curso.export},`)
+  .concat(["  NEGOCIO_ARITMETICA,", "  NEGOCIO_BIBLIOTECA,"])
   .join("\n");
 
 const spreadDocs = modulos
   .map(({ curso }) => `  ...${curso.export}_DOCS,`)
+  .concat([
+    "  ...NEGOCIO_ARITMETICA_DOCS,",
+    "  ...NEGOCIO_BIBLIOTECA_DOCS,",
+  ])
   .join("\n");
 
 const aggregator = `${imports}
+${importsExtra}
 
 /* Cursos de Administración y Negocios (una pestaña por curso). */
 export const NEGOCIOS_CURSOS = [
