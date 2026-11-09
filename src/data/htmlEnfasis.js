@@ -14,7 +14,7 @@ export const HTML_ENFASIS = {
       "metodos": [
         {
           "id": "html-strong",
-          "nombre": "strong",
+          "nombre": "<strong>",
           "firma": "<strong>Texto importante</strong>",
           "icon": "💪",
         },
@@ -31,13 +31,13 @@ export const HTML_ENFASIS = {
       "metodos": [
         {
           "id": "html-b",
-          "nombre": "b",
+          "nombre": "<b>",
           "firma": "<b>Texto en negrita</b>",
           "icon": "🅱️",
         },
         {
           "id": "html-i",
-          "nombre": "i",
+          "nombre": "<i>",
           "firma": "<i>Texto en cursiva</i>",
           "icon": "🔤",
         },
@@ -66,7 +66,7 @@ export const HTML_ENFASIS = {
 export const HTML_ENFASIS_DOCS = {
   "html-strong": {
     "id": "html-strong",
-    "titulo": "strong",
+    "titulo": "<strong>",
     "icon": "💪",
     "categoria": "Énfasis y código",
     "categoriaId": "html-enfasis",
@@ -98,14 +98,14 @@ export const HTML_ENFASIS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Texto importante",
+        "code": "<strong>Texto importante</strong>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Texto importante en un párrafo:**",
-        "code": "Advertencia: no apagues el equipo durante la actualización.\n\nEl lenguaje HTML es la base de toda página web.\n\nEsto es muy importante para el proyecto.\n\nGuarda el archivo con Ctrl + S.\n  Recarga la página con F5.\n\nTexto crítico.\n\nstrong.alerta {\n  color: #d32f2f;\n  font-weight: 700;\n  text-transform: uppercase;\n}",
+        "code": "<p>\n  <strong>Advertencia:</strong> no apagues el equipo durante la actualización.\n</p>\n\n<p>\n  El lenguaje <strong>HTML</strong> es la base de toda página web.\n</p>\n\n<p>\n  Esto es <strong>muy <em>importante</em></strong> para el proyecto.\n</p>\n\n<ol>\n  <li>Guarda el archivo con <strong>Ctrl + S</strong>.</li>\n  <li>Recarga la página con <strong>F5</strong>.</li>\n</ol>\n\n<p>Texto <strong class=\"alerta\">crítico</strong>.</p>\n\nstrong.alerta {\n  color: #d32f2f;\n  font-weight: 700;\n  text-transform: uppercase;\n}",
       },
     ],
     "errores": [
@@ -157,45 +157,45 @@ export const HTML_ENFASIS_DOCS = {
     "quiz": [
       {
         "id": 1,
-        "pregunta": "¿Cuál es la firma correcta de strong?",
+        "pregunta": "¿Cuál es la firma correcta de <strong>?",
         "opciones": [
-          "<b>Texto en negrita</b>",
-          "<i>Texto en cursiva</i>",
+          "<html lang=\"es\">...</html>",
+          "<head>...</head>",
           "<strong>Texto importante</strong>",
-          "<em>Texto enfatizado</em>",
+          "<!DOCTYPE html>",
         ],
         "correcta": 2,
       },
       {
         "id": 2,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor strong?",
+        "pregunta": "Según tus apuntes, ¿qué describe mejor <strong>?",
         "opciones": [
-          "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
           "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
-          "<i> (del inglés italic, \"cursiva\") es el elemento que aplica cursiva visual al texto en HTML.",
-          "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
         ],
         "correcta": 1,
       },
       {
         "id": 3,
-        "pregunta": "¿Para qué sirve strong?",
+        "pregunta": "¿Para qué sirve <strong>?",
         "opciones": [
-          "Destacar visualmente texto sin implicar importancia.",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
           "Destacar información crítica en un texto.",
-          "Marcar términos técnicos o científicos.",
-          "Enfatizar palabras en una frase.",
+          "Definir el título de la página (<title>).",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
         ],
         "correcta": 1,
       },
       {
         "id": 4,
-        "pregunta": "¿Cuál de estos errores o advertencias corresponde a strong?",
+        "pregunta": "¿Cuál de estos errores o advertencias corresponde a <strong>?",
         "opciones": [
           "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
-          "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
-          "Usarlo cuando realmente hay énfasis semántico (ahí va <em>).",
-          "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
+          "Omitir lang → mala accesibilidad y SEO.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
         ],
         "correcta": 0,
       },
@@ -235,14 +235,14 @@ export const HTML_ENFASIS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Texto enfatizado",
+        "code": "<em>Texto enfatizado</em>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Énfasis en una palabra:**",
-        "code": "No dije que ella robara el dinero.\n\nNo dije que ella robara el dinero.\nNo dije que ella robara el dinero.\nNo dije que ella robara el dinero.\n\nEl framework de JavaScript facilita el desarrollo.\n\nEsto es muy importante para el proyecto.\n\nTexto enfatizado.\n\nem.destacado {\n  font-style: normal;\n  background: #e3f2fd;\n  padding: 0 3px;\n  border-radius: 3px;\n}",
+        "code": "<p>No dije que <em>ella</em> robara el dinero.</p>\n\n<p>No dije que ella <em>robara</em> el dinero.</p>\n<p>No dije que ella robara <em>el dinero</em>.</p>\n<p>No dije que <em>ella</em> robara el dinero.</p>\n\n<p>El <em>framework</em> de JavaScript facilita el desarrollo.</p>\n\n<p>Esto es <strong>muy <em>importante</em></strong> para el proyecto.</p>\n\n<p>Texto <em class=\"destacado\">enfatizado</em>.</p>\n\nem.destacado {\n  font-style: normal;\n  background: #e3f2fd;\n  padding: 0 3px;\n  border-radius: 3px;\n}",
       },
     ],
     "errores": [
@@ -297,9 +297,9 @@ export const HTML_ENFASIS_DOCS = {
         "pregunta": "¿Cuál es la firma correcta de <em>?",
         "opciones": [
           "<em>Texto enfatizado</em>",
-          "<strong>Texto importante</strong>",
-          "<i>Texto en cursiva</i>",
-          "<b>Texto en negrita</b>",
+          "<!DOCTYPE html>",
+          "<head>...</head>",
+          "<html lang=\"es\">...</html>",
         ],
         "correcta": 0,
       },
@@ -307,10 +307,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <em>?",
         "opciones": [
-          "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
           "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
-          "<i> (del inglés italic, \"cursiva\") es el elemento que aplica cursiva visual al texto en HTML.",
-          "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
         ],
         "correcta": 1,
       },
@@ -318,10 +318,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <em>?",
         "opciones": [
-          "Destacar información crítica en un texto.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
           "Enfatizar palabras en una frase.",
-          "Marcar términos técnicos o científicos.",
-          "Destacar visualmente texto sin implicar importancia.",
+          "Definir el título de la página (<title>).",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
         ],
         "correcta": 1,
       },
@@ -330,9 +330,9 @@ export const HTML_ENFASIS_DOCS = {
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <em>?",
         "opciones": [
           "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
-          "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
-          "Usarlo cuando realmente hay énfasis semántico (ahí va <em>).",
-          "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
+          "Escribirlo después de <html> o de un comentario.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Omitir lang → mala accesibilidad y SEO.",
         ],
         "correcta": 0,
       },
@@ -340,7 +340,7 @@ export const HTML_ENFASIS_DOCS = {
   },
   "html-b": {
     "id": "html-b",
-    "titulo": "b",
+    "titulo": "<b>",
     "icon": "🅱️",
     "categoria": "Énfasis y código",
     "categoriaId": "html-enfasis",
@@ -450,45 +450,45 @@ export const HTML_ENFASIS_DOCS = {
     "quiz": [
       {
         "id": 1,
-        "pregunta": "¿Cuál es la firma correcta de b?",
+        "pregunta": "¿Cuál es la firma correcta de <b>?",
         "opciones": [
           "<b>Texto en negrita</b>",
-          "<strong>Texto importante</strong>",
-          "<i>Texto en cursiva</i>",
-          "<em>Texto enfatizado</em>",
+          "<!DOCTYPE html>",
+          "<head>...</head>",
+          "<html lang=\"es\">...</html>",
         ],
         "correcta": 0,
       },
       {
         "id": 2,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor b?",
+        "pregunta": "Según tus apuntes, ¿qué describe mejor <b>?",
         "opciones": [
-          "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
           "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
-          "<i> (del inglés italic, \"cursiva\") es el elemento que aplica cursiva visual al texto en HTML.",
-          "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
         ],
         "correcta": 1,
       },
       {
         "id": 3,
-        "pregunta": "¿Para qué sirve b?",
+        "pregunta": "¿Para qué sirve <b>?",
         "opciones": [
           "Destacar visualmente texto sin implicar importancia.",
-          "Destacar información crítica en un texto.",
-          "Marcar términos técnicos o científicos.",
-          "Enfatizar palabras en una frase.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
+          "Definir el título de la página (<title>).",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
         ],
         "correcta": 0,
       },
       {
         "id": 4,
-        "pregunta": "¿Cuál de estos errores o advertencias corresponde a b?",
+        "pregunta": "¿Cuál de estos errores o advertencias corresponde a <b>?",
         "opciones": [
-          "Usarlo cuando realmente hay énfasis semántico (ahí va <em>).",
-          "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
           "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
-          "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
+          "Omitir lang → mala accesibilidad y SEO.",
         ],
         "correcta": 2,
       },
@@ -496,7 +496,7 @@ export const HTML_ENFASIS_DOCS = {
   },
   "html-i": {
     "id": "html-i",
-    "titulo": "i",
+    "titulo": "<i>",
     "icon": "🔤",
     "categoria": "Énfasis y código",
     "categoriaId": "html-enfasis",
@@ -527,14 +527,14 @@ export const HTML_ENFASIS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Texto en cursiva",
+        "code": "<i>Texto en cursiva</i>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Término técnico o científico:**",
-        "code": "El tiburón blanco (Carcharodon carcharias) es un gran depredador.\n\nEl término feedback se usa mucho en el mundo laboral.\n\n¿Y si me equivoco?, pensó Ana.\n\nEl Titanic zarpó en 1912.\n\nTexto in situ.\n\ni.termino {\n  font-style: italic;\n  color: #555;\n}",
+        "code": "<p>El tiburón blanco (<i>Carcharodon carcharias</i>) es un gran depredador.</p>\n\n<p>El término <i>feedback</i> se usa mucho en el mundo laboral.</p>\n\n<p><i>¿Y si me equivoco?</i>, pensó Ana.</p>\n\n<p>El <i>Titanic</i> zarpó en 1912.</p>\n\n<i class=\"fa fa-user\"></i>\n\n<p>Texto <i class=\"termino\">in situ</i>.</p>\n\ni.termino {\n  font-style: italic;\n  color: #555;\n}",
       },
     ],
     "errores": [
@@ -588,45 +588,45 @@ export const HTML_ENFASIS_DOCS = {
     "quiz": [
       {
         "id": 1,
-        "pregunta": "¿Cuál es la firma correcta de i?",
+        "pregunta": "¿Cuál es la firma correcta de <i>?",
         "opciones": [
-          "<strong>Texto importante</strong>",
+          "<!DOCTYPE html>",
           "<i>Texto en cursiva</i>",
-          "<b>Texto en negrita</b>",
-          "<em>Texto enfatizado</em>",
+          "<head>...</head>",
+          "<html lang=\"es\">...</html>",
         ],
         "correcta": 1,
       },
       {
         "id": 2,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor i?",
+        "pregunta": "Según tus apuntes, ¿qué describe mejor <i>?",
         "opciones": [
           "<i> (del inglés italic, \"cursiva\") es el elemento que aplica cursiva visual al texto en HTML.",
-          "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
-          "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
-          "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
         ],
         "correcta": 0,
       },
       {
         "id": 3,
-        "pregunta": "¿Para qué sirve i?",
+        "pregunta": "¿Para qué sirve <i>?",
         "opciones": [
-          "Destacar información crítica en un texto.",
-          "Destacar visualmente texto sin implicar importancia.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
+          "Definir el título de la página (<title>).",
           "Marcar términos técnicos o científicos.",
-          "Enfatizar palabras en una frase.",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
         ],
         "correcta": 2,
       },
       {
         "id": 4,
-        "pregunta": "¿Cuál de estos errores o advertencias corresponde a i?",
+        "pregunta": "¿Cuál de estos errores o advertencias corresponde a <i>?",
         "opciones": [
-          "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
-          "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
           "Usarlo cuando realmente hay énfasis semántico (ahí va <em>).",
-          "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
+          "Omitir lang → mala accesibilidad y SEO.",
         ],
         "correcta": 2,
       },
@@ -664,14 +664,14 @@ export const HTML_ENFASIS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Texto subrayado",
+        "code": "<u>Texto subrayado</u>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Error ortográfico (como en un editor):**",
-        "code": "El pero ladra muy fuerte.\n\nSu nombre es 王小明.\n\nEl precio es 19,99 €.\n\nTexto incorrecto.\n\nu.error {\n  text-decoration: underline wavy red;\n  text-decoration-skip-ink: none;\n}\n\nu.spellcheck {\n  text-decoration: underline wavy #e53935;\n  text-decoration-thickness: 1px;\n}",
+        "code": "<p>El <u>pero</u> ladra muy fuerte.</p>\n\n<p>Su nombre es <u>王小明</u>.</p>\n\n<p>El precio es <u>19,99 €</u>.</p>\n\n<p>Texto <u class=\"error\">incorrecto</u>.</p>\n\nu.error {\n  text-decoration: underline wavy red;\n  text-decoration-skip-ink: none;\n}\n\nu.spellcheck {\n  text-decoration: underline wavy #e53935;\n  text-decoration-thickness: 1px;\n}",
       },
     ],
     "errores": [
@@ -727,9 +727,9 @@ export const HTML_ENFASIS_DOCS = {
         "pregunta": "¿Cuál es la firma correcta de <u>?",
         "opciones": [
           "<u>Texto subrayado</u>",
-          "<em>Texto enfatizado</em>",
-          "<strong>Texto importante</strong>",
-          "<b>Texto en negrita</b>",
+          "<html lang=\"es\">...</html>",
+          "<!DOCTYPE html>",
+          "<head>...</head>",
         ],
         "correcta": 0,
       },
@@ -737,10 +737,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <u>?",
         "opciones": [
-          "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
           "<u> (del inglés underline, \"subrayado\") es el elemento que aplica subrayado al texto en HTML.",
-          "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
-          "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
         ],
         "correcta": 1,
       },
@@ -748,10 +748,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <u>?",
         "opciones": [
-          "Enfatizar palabras en una frase.",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
           "Marcar errores ortográficos (como en procesadores de texto).",
-          "Destacar información crítica en un texto.",
-          "Destacar visualmente texto sin implicar importancia.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
+          "Definir el título de la página (<title>).",
         ],
         "correcta": 1,
       },
@@ -760,9 +760,9 @@ export const HTML_ENFASIS_DOCS = {
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <u>?",
         "opciones": [
           "Usarlo como enlace falso: <u>Ir a inicio</u> (los usuarios esperan un <a>).",
-          "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
-          "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
-          "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
+          "Escribirlo después de <html> o de un comentario.",
+          "Omitir lang → mala accesibilidad y SEO.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
         ],
         "correcta": 0,
       },
@@ -801,14 +801,14 @@ export const HTML_ENFASIS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "fragmento de código",
+        "code": "<code>fragmento de código</code>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Código inline en un párrafo:**",
-        "code": "Para declarar una variable en JavaScript, usa let o const.\n\nLa etiqueta &lt;p&gt; define un párrafo.\n\nLa función saludar() devuelve un saludo.\n\nfunction saludar(nombre) {\n  return `Hola, ${nombre}`;\n}\n\nconst x = 10;\nconsole.log(x);\n\ncode.language-javascript {\n  color: #333;\n  background: #f5f5f5;\n}\n\nUsa npm install para instalar.\n\ncode.inline {\n  background: #f4f4f4;\n  padding: 0.2em 0.4em;\n  border-radius: 4px;\n  font-family: 'Fira Code', monospace;\n  font-size: 0.9em;\n  color: #c7254e;\n}\n\nPara escribir un párrafo usa &lt;p&gt;texto&lt;/p&gt;.",
+        "code": "<p>Para declarar una variable en JavaScript, usa <code>let</code> o <code>const</code>.</p>\n\n<p>La etiqueta <code>&lt;p&gt;</code> define un párrafo.</p>\n\n<p>La función <code>saludar()</code> devuelve un saludo.</p>\n\n<pre><code>\nfunction saludar(nombre) {\n  return `Hola, ${nombre}`;\n}\n</code></pre>\n\n<pre><code class=\"language-javascript\">\nconst x = 10;\nconsole.log(x);\n</code></pre>\n\ncode.language-javascript {\n  color: #333;\n  background: #f5f5f5;\n}\n\n<p>Usa <code class=\"inline\">npm install</code> para instalar.</p>\n\ncode.inline {\n  background: #f4f4f4;\n  padding: 0.2em 0.4em;\n  border-radius: 4px;\n  font-family: 'Fira Code', monospace;\n  font-size: 0.9em;\n  color: #c7254e;\n}\n\n<p>Para escribir un párrafo usa <code>&lt;p&gt;texto&lt;/p&gt;</code>.</p>",
       },
     ],
     "errores": [
@@ -863,10 +863,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 1,
         "pregunta": "¿Cuál es la firma correcta de <code>?",
         "opciones": [
-          "<em>Texto enfatizado</em>",
-          "<strong>Texto importante</strong>",
+          "<html lang=\"es\">...</html>",
+          "<!DOCTYPE html>",
           "<code>fragmento</code>",
-          "<b>Texto en negrita</b>",
+          "<head>...</head>",
         ],
         "correcta": 2,
       },
@@ -874,10 +874,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <code>?",
         "opciones": [
-          "<strong> es el elemento que marca texto de gran importancia, seriedad o urgencia en HTML.",
-          "<em> (del inglés emphasis, \"énfasis\") es el elemento que marca texto con énfasis en HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<html> es el elemento raíz de todo documento HTML.",
           "<code> es el elemento que representa un fragmento de código informático en HTML.",
-          "<b> (del inglés bold, \"negrita\") es el elemento que aplica negrita visual al texto en HTML.",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
         ],
         "correcta": 2,
       },
@@ -885,10 +885,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <code>?",
         "opciones": [
-          "Enfatizar palabras en una frase.",
-          "Destacar información crítica en un texto.",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
           "Marcar código dentro de un texto.",
-          "Destacar visualmente texto sin implicar importancia.",
+          "Definir el título de la página (<title>).",
         ],
         "correcta": 2,
       },
@@ -896,10 +896,10 @@ export const HTML_ENFASIS_DOCS = {
         "id": 4,
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <code>?",
         "opciones": [
-          "Usarlo solo por la cursiva cuando no hay énfasis real (ahí va <i> o CSS).",
+          "Omitir lang → mala accesibilidad y SEO.",
           "Usarlo para texto normal que no es código.",
-          "Usarlo solo por la negrita cuando no hay importancia real (ahí va <b> o CSS).",
-          "Usarlo cuando realmente hay importancia semántica (ahí va <strong>).",
+          "Escribirlo después de <html> o de un comentario.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
         ],
         "correcta": 1,
       },

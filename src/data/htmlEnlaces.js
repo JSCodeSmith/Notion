@@ -14,7 +14,7 @@ export const HTML_ENLACES = {
       "metodos": [
         {
           "id": "html-a",
-          "nombre": "a",
+          "nombre": "<a>",
           "firma": "<a href=\"\">Texto del enlace</a>",
           "icon": "🔗",
         },
@@ -26,7 +26,7 @@ export const HTML_ENLACES = {
 export const HTML_ENLACES_DOCS = {
   "html-a": {
     "id": "html-a",
-    "titulo": "a",
+    "titulo": "<a>",
     "icon": "🔗",
     "categoria": "Enlaces",
     "categoriaId": "html-enlaces",
@@ -151,6 +151,51 @@ export const HTML_ENLACES_DOCS = {
       "Los enlaces visitados (`:visited`) solo permiten cambiar color por privacidad.",
       "**Nunca** anides un `<a>` dentro de otro `<a>`.",
     ],
-    "quiz": [],
+    "quiz": [
+      {
+        "id": 1,
+        "pregunta": "¿Cuál es la firma correcta de <a>?",
+        "opciones": [
+          "<head>...</head>",
+          "<!DOCTYPE html>",
+          "<a href=\"\">Texto del enlace</a>",
+          "<html lang=\"es\">...</html>",
+        ],
+        "correcta": 2,
+      },
+      {
+        "id": 2,
+        "pregunta": "Según tus apuntes, ¿qué describe mejor <a>?",
+        "opciones": [
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<a> (del inglés anchor, \"ancla\") es el elemento que crea hipervínculos en HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
+        ],
+        "correcta": 2,
+      },
+      {
+        "id": 3,
+        "pregunta": "¿Para qué sirve <a>?",
+        "opciones": [
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
+          "Definir el título de la página (<title>).",
+          "Enlazar a secciones internas (anclas).",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
+        ],
+        "correcta": 2,
+      },
+      {
+        "id": 4,
+        "pregunta": "¿Cuál de estos errores o advertencias corresponde a <a>?",
+        "opciones": [
+          "Usar <a> sin href como botón (mejor <button>).",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
+          "Omitir lang → mala accesibilidad y SEO.",
+        ],
+        "correcta": 0,
+      },
+    ],
   },
 };

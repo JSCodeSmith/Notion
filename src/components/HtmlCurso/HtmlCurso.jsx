@@ -1,122 +1,162 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from "react";
 import {
   HTML_CATEGORIAS,
   HTML_APUNTES,
   HTML_APUNTE_CATEGORIA,
-} from '../../data/htmlApuntes'
+} from "../../data/htmlApuntes";
+import HtmlDoc from "./HtmlDoc";
+import "./HtmlCurso.css";
 
-const S = {
-  tabs: { display: 'flex', flexWrap: 'wrap', gap: 8, margin: '16px 0' },
-  tab: (on) => ({
-    padding: '8px 14px', borderRadius: 999, cursor: 'pointer', fontWeight: 600,
-    border: '1px solid ' + (on ? '#7c6cff' : '#2a2a2a'),
-    background: on ? '#241f45' : '#161616', color: on ? '#cfc8ff' : '#bbb',
-  }),
-  box: { background: '#141414', border: '1px solid #2a2a2a', borderRadius: 12, padding: 20, marginBottom: 16 },
-  chip: (on) => ({
-    padding: '6px 12px', borderRadius: 8, cursor: 'pointer', fontFamily: 'monospace',
-    border: '1px solid ' + (on ? '#3ddcc0' : '#2a2a2a'),
-    background: on ? '#10302b' : '#1a1a1a', color: on ? '#3ddcc0' : '#ccc',
-  }),
-  h3: { margin: '18px 0 8px', color: '#9ad7ff' },
-  code: { background: '#0b0b0b', border: '1px solid #2a2a2a', borderRadius: 8, padding: 12, overflowX: 'auto', color: '#e6e6e6', fontSize: 14 },
-  p: { color: '#c9c9c9', lineHeight: 1.6, margin: '4px 0' },
-}
-
-const Lista = ({ titulo, items }) =>
-  items && items.length ? (
-    <>
-      <h3 style={S.h3}>{titulo}</h3>
-      <ul style={{ margin: 0, paddingLeft: 20 }}>
-        {items.map((t, i) => <li key={i} style={S.p}>{t}</li>)}
-      </ul>
-    </>
-  ) : null
-
-function Doc({ doc }) {
-  return (
-    <div style={S.box}>
-      <h2 style={{ marginTop: 0 }}>{doc.icon} {doc.titulo}</h2>
-      <Lista titulo="Definición" items={doc.definicion} />
-      <Lista titulo="¿Qué es?" items={doc.queEs} />
-      <Lista titulo="¿Para qué sirve?" items={doc.paraQueSirve} />
-      <Lista titulo="¿Cómo funciona?" items={doc.comoFunciona} />
-      {doc.sintaxis?.length > 0 && (
-        <>
-          <h3 style={S.h3}>Sintaxis</h3>
-          {doc.sintaxis.map((s, i) => <pre key={i} style={S.code}><code>{s.code}</code></pre>)}
-        </>
-      )}
-      {doc.ejemplos?.length > 0 && (
-        <>
-          <h3 style={S.h3}>Ejemplos</h3>
-          {doc.ejemplos.map((e, i) => (
-            <div key={i} style={{ marginBottom: 12 }}>
-              <strong>{e.titulo}</strong>
-              {e.descripcion && <p style={S.p}>{e.descripcion}</p>}
-              <pre style={S.code}><code>{e.code}</code></pre>
-            </div>
-          ))}
-        </>
-      )}
-      <Lista titulo="Errores comunes" items={doc.errores} />
-      <Lista titulo="Casos de uso" items={doc.casos} />
-      <Lista titulo="Relación con otros conceptos" items={doc.relacion} />
-      {doc.analogia && (<><h3 style={S.h3}>Analogía</h3><p style={S.p}>{doc.analogia}</p></>)}
-      <Lista titulo="Notas personales" items={doc.notasPersonales} />
-      {doc.fuente && <p style={{ ...S.p, opacity: 0.6, marginTop: 16 }}>Fuente: {doc.fuente}</p>}
-    </div>
-  )
-}
+const plural = (n, singular, plural_) =>
+  `${n} ${n === 1 ? singular : plural_}`;
 
 export default function HtmlCurso({ metodoActivo, onMetodoChange }) {
-  const [catId, setCatId] = useState(HTML_CATEGORIAS[0]?.id)
+  const [categoriaId, setCategoriaId] = useState(
+    () =>
+      (metodoActivo && HTML_APUNTE_CATEGORIA[metodoActivo]) ||
+      HTML_CATEGORIAS[0]?.id,
+  );
 
-  useEffect(() => {
-    const c = metodoActivo && HTML_APUNTE_CATEGORIA[metodoActivo]
-    if (c) setCatId(c)
-  }, [metodoActivo])
+  const categoriaActivaId =
+    (metodoActivo && HTML_APUNTE_CATEGORIA[metodoActivo]) || categoriaId;
 
-  const cat = HTML_CATEGORIAS.find((c) => c.id === catId) || HTML_CATEGORIAS[0]
-  const doc = metodoActivo ? HTML_APUNTES[metodoActivo] : null
+  const activa =
+    HTML_CATEGORIAS.find((categoria) => categoria.id === categoriaActivaId) ??
+    HTML_CATEGORIAS[0];
+
+  const total = useMemo(
+    () =>
+      HTML_CATEGORIAS.reduce(
+        (acc, categoria) =>
+          acc +
+          categoria.grupos.reduce(
+            (suma, grupo) => suma + grupo.metodos.length,
+            0,
+          ),
+        0,
+      ),
+    [],
+  );
+
+  const doc = metodoActivo ? HTML_APUNTES[metodoActivo] : null;
+
+  if (doc) {
+    return (
+      <HtmlDoc
+        doc={doc}
+        onBack={() => {
+          const categoria = HTML_APUNTE_CATEGORIA[doc.id];
+          if (categoria) setCategoriaId(categoria);
+          onMetodoChange(null);
+        }}
+      />
+    );
+  }
 
   return (
-    <div>
-      <div style={S.box}>
-        <h2 style={{ marginTop: 0 }}>🌐 HTML: elementos</h2>
-        <p style={S.p}>
-          {Object.keys(HTML_APUNTES).length} apuntes · {HTML_CATEGORIAS.length} categorías
-        </p>
+    <div className="html-curso">
+      <div className="html-hero">
+        <span className="html-hero__icon">🌐</span>
+        <div className="html-hero__text">
+          <h2 className="html-hero__title">HTML: elementos</h2>
+          <p className="html-hero__desc">
+            Apuntes de etiquetas HTML con un simulador interactivo y un quiz
+            para cada concepto. Edita el código, observa el resultado en vivo y
+            comprueba lo aprendido.
+          </p>
+          <div className="html-hero__meta">
+            <span className="html-chip">🌐 Desarrollo Web</span>
+            <span className="html-chip html-chip--accent">
+              {plural(HTML_CATEGORIAS.length, "categoría", "categorías")}
+            </span>
+            <span className="html-chip">
+              {plural(total, "apunte", "apuntes")}
+            </span>
+            <span className="html-chip html-chip--sim">
+              🧪 {total} simuladores + quiz
+            </span>
+          </div>
+        </div>
       </div>
 
-      <div style={S.tabs}>
-        {HTML_CATEGORIAS.map((c) => (
-          <button key={c.id} style={S.tab(c.id === cat.id)}
-            onClick={() => { setCatId(c.id); onMetodoChange(null) }}>
-            {c.icon} {c.label}
+      <div className="html-tabs" role="tablist" aria-label="Categorías de HTML">
+        {HTML_CATEGORIAS.map((categoria) => (
+          <button
+            key={categoria.id}
+            type="button"
+            role="tab"
+            aria-selected={activa.id === categoria.id}
+            className={`html-tab ${activa.id === categoria.id ? "is-active" : ""}`}
+            onClick={() => {
+              setCategoriaId(categoria.id);
+              onMetodoChange(null);
+            }}
+          >
+            <span className="html-tab__icon">{categoria.icon}</span>
+            <span>{categoria.label}</span>
           </button>
         ))}
       </div>
 
-      <div style={S.box}>
-        <h3 style={{ marginTop: 0 }}>{cat.titulo}</h3>
-        <p style={S.p}>{cat.descripcion}</p>
-        {cat.grupos.map((g) => (
-          <div key={g.seccion}>
-            <h3 style={S.h3}>{g.seccion}</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-              {g.metodos.map((m) => (
-                <button key={m.id} style={S.chip(m.id === metodoActivo)}
-                  onClick={() => onMetodoChange(m.id)}>
-                  {m.icon} {m.firma}
-                </button>
-              ))}
-            </div>
+      <div className="html-category">
+        <div className="html-category__head">
+          <span className="html-category__icon">{activa.icon}</span>
+          <div className="html-category__text">
+            <h3 className="html-category__title">{activa.titulo}</h3>
+            <p className="html-category__desc">{activa.descripcion}</p>
           </div>
+          <span className="html-category__sim">
+            🧪 Simulador + quiz por etiqueta
+          </span>
+        </div>
+
+        {activa.grupos.map((grupo) => (
+          <section key={grupo.seccion} className="notion-section">
+            <h2 className="notion-section-title">{grupo.seccion}</h2>
+
+            <div className="notion-table-container">
+              <table className="notion-table">
+                <thead>
+                  <tr>
+                    <th className="notion-col-title">Aa Etiqueta</th>
+                    <th>Firma</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {grupo.metodos.map((metodo) => (
+                    <tr
+                      key={metodo.id}
+                      className="is-clickable"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => onMetodoChange(metodo.id)}
+                    >
+                      <td className="notion-cell-title">
+                        <span className="notion-cell-icon">{metodo.icon}</span>
+                        <span className="notion-cell-name html-cell-name">
+                          {metodo.nombre}
+                        </span>
+                        <span className="html-sim-chip">🧪 Simulador</span>
+                        <span className="html-quiz-chip">🧠 Quiz</span>
+                        <button
+                          type="button"
+                          className="notion-open-btn"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onMetodoChange(metodo.id);
+                          }}
+                        >
+                          ABRIR
+                        </button>
+                      </td>
+                      <td className="notion-cell-sig">{metodo.firma}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
         ))}
       </div>
-
-      {doc && <Doc doc={doc} />}
     </div>
-  )
+  );
 }

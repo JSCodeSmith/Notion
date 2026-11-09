@@ -90,14 +90,23 @@ export const HTML_ESTRUCTURA_DOCS = {
     ],
     "sintaxis": [
       {
+        "caption": "**HTML5 (actual):**",
         "code": "<!DOCTYPE html>",
+      },
+      {
+        "caption": "**HTML 4.01 Strict (antiguo):**",
+        "code": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n   \"http://www.w3.org/TR/html4/strict.dtd\">",
+      },
+      {
+        "caption": "**XHTML 1.0 Strict:**",
+        "code": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n   \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Documento HTML5 mínimo:**",
-        "code": "Mi página\n\n\n  Hola mundo",
+        "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Mi página</title>\n</head>\n<body>\n  <h1>Hola mundo</h1>\n</body>\n</html>",
       },
     ],
     "errores": [
@@ -207,14 +216,14 @@ export const HTML_ESTRUCTURA_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "<html lang=\"es\">...</html>",
+        "code": "<!DOCTYPE html>\n<html lang=\"es\">\n  <head>\n    <!-- metadatos -->\n  </head>\n  <body>\n    <!-- contenido visible -->\n  </body>\n</html>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Documento básico:**",
-        "code": "Mi sitio\n\n\n    Hola\n\nhtml {\n  scroll-behavior: smooth;\n  font-size: 16px;\n}",
+        "code": "<!DOCTYPE html>\n<html lang=\"es\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <title>Mi sitio</title>\n  </head>\n  <body>\n    <h1>Hola</h1>\n  </body>\n</html>\n\n<html lang=\"ar\" dir=\"rtl\">\n\nhtml {\n  scroll-behavior: smooth;\n  font-size: 16px;\n}",
       },
     ],
     "errores": [
@@ -333,14 +342,14 @@ export const HTML_ESTRUCTURA_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Título de la página\n\n\n\n\n    body { font-family: sans-serif; }",
+        "code": "<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta name=\"description\" content=\"Descripción de la página\">\n  <title>Título de la página</title>\n  <link rel=\"stylesheet\" href=\"estilos.css\">\n  <link rel=\"icon\" href=\"favicon.ico\">\n  <script src=\"app.js\" defer></script>\n  <style>\n    body { font-family: sans-serif; }\n  </style>\n</head>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Head mínimo recomendado:**",
-        "code": "Mi sitio\n\nMi Blog — Desarrollo Web",
+        "code": "<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Mi sitio</title>\n</head>\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta name=\"description\" content=\"Blog sobre desarrollo web\">\n  <meta name=\"author\" content=\"Ana Pérez\">\n  <meta property=\"og:title\" content=\"Mi Blog\">\n  <meta property=\"og:image\" content=\"/img/preview.png\">\n  <title>Mi Blog — Desarrollo Web</title>\n  <link rel=\"stylesheet\" href=\"/css/main.css\">\n  <link rel=\"icon\" href=\"/favicon.ico\">\n  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n  <script src=\"/js/app.js\" defer></script>\n</head>",
       },
     ],
     "errores": [
@@ -460,14 +469,14 @@ export const HTML_ESTRUCTURA_DOCS = {
     "sintaxis": [
       {
         "caption": "html",
-        "code": "...\n  ...\n  ...",
+        "code": "<body>\n  <header>...</header>\n  <main>...</main>\n  <footer>...</footer>\n</body>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Documento mínimo:** html",
-        "code": "Ejemplo\n\n\n  Hola mundo\n  Mi primera página.\n\nMi sitio\n\n      Inicio\n      Blog\n\n\n\n\n\n      Artículo 1\n      Contenido del artículo.\n\n\n\n\n    &copy; 2026 Mi sitio\n\nbody {\n  font-family: system-ui, sans-serif;\n  background: #f5f5f5;\n  color: #222;\n  margin: 0;\n  line-height: 1.6;\n}",
+        "code": "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Ejemplo</title>\n</head>\n<body>\n  <h1>Hola mundo</h1>\n  <p>Mi primera página.</p>\n</body>\n</html>\n\n<body>\n  <header>\n    <h1>Mi sitio</h1>\n    <nav>\n      <a href=\"#inicio\">Inicio</a>\n      <a href=\"#blog\">Blog</a>\n    </nav>\n  </header>\n\n  <main>\n    <article>\n      <h2>Artículo 1</h2>\n      <p>Contenido del artículo.</p>\n    </article>\n  </main>\n\n  <footer>\n    <p>&copy; 2026 Mi sitio</p>\n  </footer>\n\n  <script src=\"app.js\" defer></script>\n</body>\n\nbody {\n  font-family: system-ui, sans-serif;\n  background: #f5f5f5;\n  color: #222;\n  margin: 0;\n  line-height: 1.6;\n}",
       },
     ],
     "errores": [
@@ -587,14 +596,14 @@ export const HTML_ESTRUCTURA_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "selector {\n    propiedad: valor;\n  }",
+        "code": "<style>\n  selector {\n    propiedad: valor;\n  }\n</style>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Estilos básicos:**",
-        "code": "body {\n      font-family: system-ui, sans-serif;\n      background: #f5f5f5;\n      color: #222;\n    }\n    h1 {\n      color: #007bff;\n    }\n\nbody {\n    font-size: 12pt;\n    color: #000;\n  }\n  nav, footer {\n    display: none;\n  }\n\nbody { font-size: 16px; }\n  @media (max-width: 600px) {\n    body { font-size: 14px; }\n  }\n\n:root {\n    --color-primario: #007bff;\n    --color-texto: #333;\n  }\n  body {\n    color: var(--color-texto);\n  }\n  a {\n    color: var(--color-primario);\n  }\n\n/* Estilos críticos para el primer render */\n    header { background: #222; color: #fff; padding: 1rem; }",
+        "code": "<head>\n  <style>\n    body {\n      font-family: system-ui, sans-serif;\n      background: #f5f5f5;\n      color: #222;\n    }\n    h1 {\n      color: #007bff;\n    }\n  </style>\n</head>\n\n<style media=\"print\">\n  body {\n    font-size: 12pt;\n    color: #000;\n  }\n  nav, footer {\n    display: none;\n  }\n</style>\n\n<style>\n  body { font-size: 16px; }\n  @media (max-width: 600px) {\n    body { font-size: 14px; }\n  }\n</style>\n\n<style>\n  :root {\n    --color-primario: #007bff;\n    --color-texto: #333;\n  }\n  body {\n    color: var(--color-texto);\n  }\n  a {\n    color: var(--color-primario);\n  }\n</style>\n\n<head>\n  <style>\n    /* Estilos críticos para el primer render */\n    header { background: #222; color: #fff; padding: 1rem; }\n  </style>\n  <link rel=\"stylesheet\" href=\"estilos.css\">\n</head>",
       },
     ],
     "errores": [

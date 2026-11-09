@@ -69,14 +69,14 @@ export const HTML_LISTAS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Elemento 1\n  Elemento 2\n  Elemento 3",
+        "code": "<ul>\n  <li>Elemento 1</li>\n  <li>Elemento 2</li>\n  <li>Elemento 3</li>\n</ul>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Lista simple:**",
-        "code": "Manzana\n  Plátano\n  Naranja\n\nFrutas\n\n      Manzana\n      Plátano\n\n\n  Verduras\n\n      Zanahoria\n      Brócoli\n\nInicio\n    Blog\n    Contacto\n\n.menu {\n  list-style: none;\n  display: flex;\n  gap: 1rem;\n  padding: 0;\n}\n\nul.lista-check {\n  list-style: none;\n  padding-left: 0;\n}\nul.lista-check li::before {\n  content: \"✓ \";\n  color: green;\n}",
+        "code": "<ul>\n  <li>Manzana</li>\n  <li>Plátano</li>\n  <li>Naranja</li>\n</ul>\n\n<ul>\n  <li>Frutas\n    <ul>\n      <li>Manzana</li>\n      <li>Plátano</li>\n    </ul>\n  </li>\n  <li>Verduras\n    <ul>\n      <li>Zanahoria</li>\n      <li>Brócoli</li>\n    </ul>\n  </li>\n</ul>\n\n<nav>\n  <ul class=\"menu\">\n    <li><a href=\"/\">Inicio</a></li>\n    <li><a href=\"/blog\">Blog</a></li>\n    <li><a href=\"/contacto\">Contacto</a></li>\n  </ul>\n</nav>\n\n.menu {\n  list-style: none;\n  display: flex;\n  gap: 1rem;\n  padding: 0;\n}\n\nul.lista-check {\n  list-style: none;\n  padding-left: 0;\n}\nul.lista-check li::before {\n  content: \"✓ \";\n  color: green;\n}",
       },
     ],
     "errores": [
@@ -130,9 +130,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 1,
         "pregunta": "¿Cuál es la firma correcta de <ul>?",
         "opciones": [
-          "<ol>...</ol>",
-          "<li>Elemento</li>",
-          "Ninguna de las anteriores",
+          "<!DOCTYPE html>",
+          "<html lang=\"es\">...</html>",
+          "<head>...</head>",
           "<ul>...</ul>",
         ],
         "correcta": 3,
@@ -141,9 +141,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <ul>?",
         "opciones": [
-          "<li> (del inglés list item, \"ítem de lista\") es el elemento que representa un elemento individual dentro de una lista.",
-          "<ol> (del inglés ordered list, \"lista ordenada\") es el elemento que crea una lista con orden jerárquico o secuencial en HTML.",
-          "Ninguna de las anteriores",
+          "<html> es el elemento raíz de todo documento HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
           "<ul> (del inglés unordered list, \"lista desordenada\") es el elemento que crea una lista sin orden jerárquico en HTML.",
         ],
         "correcta": 3,
@@ -152,9 +152,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <ul>?",
         "opciones": [
-          "Definir cada ítem de una lista (<ul>, <ol>, <menu>).",
-          "Ninguna de las anteriores",
-          "Mostrar secuencias numeradas o alfabéticas.",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
+          "Definir el título de la página (<title>).",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
           "Agrupar elementos sin orden específico.",
         ],
         "correcta": 3,
@@ -163,9 +163,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 4,
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <ul>?",
         "opciones": [
-          "Usar <li> fuera de <ul>, <ol> o <menu> (inválido).",
-          "Ninguna de las anteriores",
-          "Poner contenido que no sea <li> directamente dentro.",
+          "Omitir lang → mala accesibilidad y SEO.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
           "Poner contenido que no sea <li> directamente dentro (texto suelto, <div>).",
         ],
         "correcta": 3,
@@ -205,14 +205,14 @@ export const HTML_LISTAS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Primer paso\n  Segundo paso\n  Tercer paso",
+        "code": "<ol>\n  <li>Primer paso</li>\n  <li>Segundo paso</li>\n  <li>Tercer paso</li>\n</ol>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Lista ordenada simple:**",
-        "code": "Precalentar el horno a 180°C\n  Mezclar los ingredientes\n  Hornear durante 30 minutos\n\nElemento E\n  Elemento F\n  Elemento G\n\n3\n  2\n  1\n\nPreparar la masa\n\n      Mezclar harina y agua\n      Amasar 10 minutos\n\n\n  Hornear\n\nPrimero\n  Décimo\n  Undécimo\n\nol.pasos {\n  list-style-type: decimal-leading-zero;\n  counter-reset: paso;\n}\nol.pasos li::marker {\n  color: #007bff;\n  font-weight: bold;\n}",
+        "code": "<ol>\n  <li>Precalentar el horno a 180°C</li>\n  <li>Mezclar los ingredientes</li>\n  <li>Hornear durante 30 minutos</li>\n</ol>\n\n<ol start=\"5\" type=\"A\">\n  <li>Elemento E</li>\n  <li>Elemento F</li>\n  <li>Elemento G</li>\n</ol>\n\n<ol reversed>\n  <li>3</li>\n  <li>2</li>\n  <li>1</li>\n</ol>\n\n<ol>\n  <li>Preparar la masa\n    <ol>\n      <li>Mezclar harina y agua</li>\n      <li>Amasar 10 minutos</li>\n    </ol>\n  </li>\n  <li>Hornear</li>\n</ol>\n\n<ol>\n  <li>Primero</li>\n  <li value=\"10\">Décimo</li>\n  <li>Undécimo</li>\n</ol>\n\nol.pasos {\n  list-style-type: decimal-leading-zero;\n  counter-reset: paso;\n}\nol.pasos li::marker {\n  color: #007bff;\n  font-weight: bold;\n}",
       },
     ],
     "errores": [
@@ -267,9 +267,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 1,
         "pregunta": "¿Cuál es la firma correcta de <ol>?",
         "opciones": [
-          "<li>Elemento</li>",
-          "<ul>...</ul>",
-          "Ninguna de las anteriores",
+          "<html lang=\"es\">...</html>",
+          "<!DOCTYPE html>",
+          "<head>...</head>",
           "<ol>...</ol>",
         ],
         "correcta": 3,
@@ -278,9 +278,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <ol>?",
         "opciones": [
-          "<li> (del inglés list item, \"ítem de lista\") es el elemento que representa un elemento individual dentro de una lista.",
-          "<ul> (del inglés unordered list, \"lista desordenada\") es el elemento que crea una lista sin orden jerárquico en HTML.",
-          "Ninguna de las anteriores",
+          "<html> es el elemento raíz de todo documento HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
           "<ol> (del inglés ordered list, \"lista ordenada\") es el elemento que crea una lista con orden jerárquico o secuencial en HTML.",
         ],
         "correcta": 3,
@@ -289,9 +289,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <ol>?",
         "opciones": [
-          "Agrupar elementos sin orden específico.",
-          "Definir cada ítem de una lista (<ul>, <ol>, <menu>).",
-          "Ninguna de las anteriores",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
+          "Definir el título de la página (<title>).",
           "Mostrar secuencias numeradas o alfabéticas.",
         ],
         "correcta": 3,
@@ -300,9 +300,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 4,
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <ol>?",
         "opciones": [
-          "Usar <li> fuera de <ul>, <ol> o <menu> (inválido).",
-          "Poner contenido que no sea <li> directamente dentro (texto suelto, <div>).",
-          "Ninguna de las anteriores",
+          "Omitir lang → mala accesibilidad y SEO.",
+          "Escribirlo después de <html> o de un comentario.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
           "Poner contenido que no sea <li> directamente dentro.",
         ],
         "correcta": 3,
@@ -343,14 +343,14 @@ export const HTML_LISTAS_DOCS = {
     ],
     "sintaxis": [
       {
-        "code": "Elemento de lista",
+        "code": "<ul>\n  <li>Elemento de lista</li>\n</ul>",
       },
     ],
     "ejemplos": [
       {
         "titulo": "Ejemplo 1",
         "descripcion": "**Ítem en lista desordenada:**",
-        "code": "Manzana\n  Plátano\n  Naranja\n\nPrimero\n  Décimo\n  Undécimo\n\nTítulo del ítem\n    Descripción del ítem.\n    Ver más\n\nFrutas\n\n      Manzana\n      Plátano\n\n\n  Verduras\n\nInicio\n    Blog\n    Contacto\n\nli::marker {\n  color: #007bff;\n  font-weight: bold;\n}\nli.destacado {\n  background: #fffbe6;\n  padding: 0.5rem;\n  border-radius: 4px;\n}",
+        "code": "<ul>\n  <li>Manzana</li>\n  <li>Plátano</li>\n  <li>Naranja</li>\n</ul>\n\n<ol>\n  <li>Primero</li>\n  <li value=\"10\">Décimo</li>\n  <li>Undécimo</li>\n</ol>\n\n<ul>\n  <li>\n    <h3>Título del ítem</h3>\n    <p>Descripción del ítem.</p>\n    <a href=\"/detalle\">Ver más</a>\n  </li>\n</ul>\n\n<ul>\n  <li>Frutas\n    <ul>\n      <li>Manzana</li>\n      <li>Plátano</li>\n    </ul>\n  </li>\n  <li>Verduras</li>\n</ul>\n\n<nav>\n  <ul>\n    <li><a href=\"/\">Inicio</a></li>\n    <li><a href=\"/blog\">Blog</a></li>\n    <li><a href=\"/contacto\">Contacto</a></li>\n  </ul>\n</nav>\n\nli::marker {\n  color: #007bff;\n  font-weight: bold;\n}\nli.destacado {\n  background: #fffbe6;\n  padding: 0.5rem;\n  border-radius: 4px;\n}",
       },
     ],
     "errores": [
@@ -405,9 +405,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 1,
         "pregunta": "¿Cuál es la firma correcta de <li>?",
         "opciones": [
-          "<ol>...</ol>",
-          "<ul>...</ul>",
-          "Ninguna de las anteriores",
+          "<html lang=\"es\">...</html>",
+          "<!DOCTYPE html>",
+          "<head>...</head>",
           "<li>Elemento</li>",
         ],
         "correcta": 3,
@@ -416,9 +416,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 2,
         "pregunta": "Según tus apuntes, ¿qué describe mejor <li>?",
         "opciones": [
-          "<ol> (del inglés ordered list, \"lista ordenada\") es el elemento que crea una lista con orden jerárquico o secuencial en HTML.",
-          "Ninguna de las anteriores",
-          "<ul> (del inglés unordered list, \"lista desordenada\") es el elemento que crea una lista sin orden jerárquico en HTML.",
+          "<html> es el elemento raíz de todo documento HTML.",
+          "<head> es el elemento contenedor de los metadatos del documento HTML.",
+          "<!DOCTYPE html> es una declaración (no una etiqueta HTML) que se coloca al inicio de un documento HTML para indicarle al navegador qué…",
           "<li> (del inglés list item, \"ítem de lista\") es el elemento que representa un elemento individual dentro de una lista.",
         ],
         "correcta": 3,
@@ -427,9 +427,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 3,
         "pregunta": "¿Para qué sirve <li>?",
         "opciones": [
-          "Ninguna de las anteriores",
-          "Mostrar secuencias numeradas o alfabéticas.",
-          "Agrupar elementos sin orden específico.",
+          "Definir el título de la página (<title>).",
+          "Delimitar el documento HTML: marca dónde empieza y termina.",
+          "Evitar el \"quirks mode\": sin DOCTYPE, el navegador entra en modo compatibilidad y renderiza como navegadores antiguos (IE5, etc.).",
           "Definir cada ítem de una lista (<ul>, <ol>, <menu>).",
         ],
         "correcta": 3,
@@ -438,9 +438,9 @@ export const HTML_LISTAS_DOCS = {
         "id": 4,
         "pregunta": "¿Cuál de estos errores o advertencias corresponde a <li>?",
         "opciones": [
-          "Poner contenido que no sea <li> directamente dentro.",
-          "Ninguna de las anteriores",
-          "Poner contenido que no sea <li> directamente dentro (texto suelto, <div>).",
+          "Omitir lang → mala accesibilidad y SEO.",
+          "Omitir <meta charset=\"UTF-8\"> → caracteres rotos (tildes, ñ).",
+          "Escribirlo después de <html> o de un comentario.",
           "Usar <li> fuera de <ul>, <ol> o <menu> (inválido).",
         ],
         "correcta": 3,

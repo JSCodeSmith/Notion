@@ -1,0 +1,152 @@
+/* ---------- Página de apunte HTML (estilo Notion) ---------- */
+
+.html-doc {
+  max-width: 980px;
+}
+
+.html-doc__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.html-doc__icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(249, 115, 22, 0.28), transparent 60%),
+    var(--surface-2);
+  font-size: 34px;
+  line-height: 1;
+}
+
+.html-doc__heading {
+  min-width: 0;
+}
+
+.html-doc__title {
+  margin: 0 0 6px;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.html-doc__firma {
+  margin: 0 0 10px;
+  color: #8f8f98;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.html-doc__firma code {
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: #fdba74;
+}
+
+.html-doc__props {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.html-doc__prop {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.html-doc__prop--sim {
+  border-color: rgba(34, 211, 238, 0.28);
+  background: rgba(34, 211, 238, 0.08);
+  color: #67e8f9;
+}
+
+.html-doc__prop--quiz {
+  border-color: rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.09);
+  color: #fdba74;
+}
+
+.html-doc__sim {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.html-doc__callout {
+  display: flex;
+  gap: 9px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-left: 3px solid #eab308;
+  border-radius: 4px;
+  background: rgba(234, 179, 8, 0.07);
+  color: #d8c68f;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.html-doc__callout p {
+  margin: 0;
+  color: inherit;
+}
+
+.html-doc__source {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-faint);
+  font-size: 12.5px;
+}
+
+.html-doc__notes {
+  border-left: 3px solid #eab308;
+}
+
+.html-doc__notes h3 {
+  color: #facc15;
+}
+
+/* El quiz se siente como una continuación natural del simulador. */
+.html-doc .doc-card--quiz {
+  border-color: rgba(249, 115, 22, 0.28);
+  background:
+    radial-gradient(circle at 100% 0, rgba(249, 115, 22, 0.1), transparent 42%),
+    #1a1a1c;
+}
+
+.html-doc .doc-card--quiz h3 {
+  color: #fdba74;
+}
+
+@media (max-width: 640px) {
+  .html-doc__header {
+    flex-direction: column;
+  }
+
+  .html-doc__icon {
+    width: 52px;
+    height: 52px;
+    font-size: 28px;
+  }
+}

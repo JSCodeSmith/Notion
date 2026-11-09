@@ -522,7 +522,11 @@ function buildDoc(categoria, nota) {
       : parseTxtApunte(contenido, prefijo);
 
   const id = `html-${slug(prefijo)}`;
-  const titulo = limpiaTitulo(parsed.rawTitle) || prefijo;
+  const tituloBase = limpiaTitulo(parsed.rawTitle) || prefijo;
+  // Los TXT de Notion guardan el título como "a" en vez de "<a>".
+  const titulo = /^<[^>]+>$/.test(tituloBase)
+    ? tituloBase
+    : `<${tituloBase}>`;
 
   return {
     id,
@@ -593,9 +597,7 @@ function buildCategoria(categoria) {
     }
   }
 
-  if (!docs.length) return { meta: null, docs: 0, faltantes };
-
-  for (const doc of docs) doc.quiz = buildQuiz(doc, docs);
+  if (!docs.length) return { meta: null, docs: 0, faltantes, lista: [] };
 
   const docsById = Object.fromEntries(docs.map((d) => [d.id, d]));
   const meta = {
@@ -619,20 +621,39 @@ function buildCategoria(categoria) {
       .filter((g) => g.metodos.length),
   };
 
+  return {
+    meta,
+    docs: docs.length,
+    faltantes,
+    lista: docs,
+    docsById,
+    categoria,
+  };
+}
+
+/* Los quizzes usan como distractores apuntes de todas las categorías. Así
+   incluso una etiqueta que está sola en su categoría (por ejemplo <a>)
+   recibe un quiz completo en lugar de quedarse sin preguntas. */
+function escribirCategoria(resultado, todosLosDocs) {
+  if (!resultado.meta) return;
+
+  for (const doc of resultado.lista) {
+    doc.quiz = buildQuiz(doc, todosLosDocs);
+  }
+
   const content = `/* Generado desde Apuntes/ — HTML.
    Regenerar con: node scripts/generate-html-elementos.mjs */
 
-export const ${categoria.export} = ${serialize(meta)};
+export const ${resultado.categoria.export} = ${serialize(resultado.meta)};
 
-export const ${categoria.export}_DOCS = ${serialize(docsById)};
+export const ${resultado.categoria.export}_DOCS = ${serialize(resultado.docsById)};
 `;
 
   fs.writeFileSync(
-    path.join(DATA_DIR, `${categoria.archivo}.js`),
+    path.join(DATA_DIR, `${resultado.categoria.archivo}.js`),
     content,
     "utf8",
   );
-  return { meta, docs: docs.length, faltantes };
 }
 
 /* ------------------------------------------------------------------ */
@@ -644,6 +665,10 @@ console.log(`   · ${APUNTES.filter((a) => a.tipo === "html").length} HTML`);
 console.log(`   · ${APUNTES.filter((a) => a.tipo === "txt").length} TXT\n`);
 
 const resumen = CATEGORIAS.map(buildCategoria);
+const todosLosDocs = resumen.flatMap((r) => r.lista);
+for (const resultado of resumen) {
+  escribirCategoria(resultado, todosLosDocs);
+}
 const total = resumen.reduce((a, r) => a + r.docs, 0);
 
 console.log(`✅ HTML generado: ${total} apuntes\n`);

@@ -455,8 +455,10 @@ function inlineText(html = "") {
 function codeText(html = "") {
   const match = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
   const raw = match ? match[1] : html;
-  return decodeEntities(raw)
-    .replace(/<[^>]+>/g, "")
+  // Primero se quitan las etiquetas reales (resaltado de Prism) y después se
+  // decodifican las entidades: si se hiciera al revés, el HTML escapado
+  // (&lt;ul&gt;) se confundiría con una etiqueta y desaparecería del apunte.
+  return decodeEntities(raw.replace(/<[^>]+>/g, ""))
     .replace(/\r\n/g, "\n")
     .replace(/\u00a0/g, " ")
     .replace(/[ \t]+$/gm, "")
