@@ -450,4 +450,551 @@ export const SIMULADORES = {
       };
     },
   },
+
+  "ganancia": {
+    titulo: "Simulador · Ganancia",
+    descripcion:
+      "Compara el precio de venta con el costo y mide cuánto dinero deja la operación, en monto y en porcentaje.",
+    formula: "Ganancia = PV - PC · Margen sobre costo = (G / PC) × 100",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 80 },
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 100 },
+    ],
+    calcular: ({ pc, pv }) => {
+      const ganancia = pv - pc;
+      const margenCosto = pc > 0 ? (ganancia / pc) * 100 : NaN;
+      const margenVenta = pv > 0 ? (ganancia / pv) * 100 : NaN;
+      return {
+        resultados: [
+          {
+            label: "Ganancia",
+            valor: dinero(ganancia),
+            tono: ganancia < 0 ? "bad" : "ok",
+          },
+          { label: "Margen sobre el costo", valor: porcentaje(margenCosto) },
+          { label: "Margen sobre la venta", valor: porcentaje(margenVenta) },
+        ],
+        aviso:
+          ganancia < 0
+            ? "El precio de venta es menor que el costo: esta operación genera pérdida, no ganancia."
+            : null,
+        pasos: [
+          `Precio de venta: PV = ${dinero(pv)}.`,
+          `Precio de costo: PC = ${dinero(pc)}.`,
+          `Ganancia = ${dinero(pv)} - ${dinero(pc)} = ${dinero(ganancia)}.`,
+          `Margen sobre el costo = (${decimales(ganancia)} / ${decimales(pc)}) × 100 = ${porcentaje(margenCosto)}.`,
+          `Margen sobre la venta = (${decimales(ganancia)} / ${decimales(pv)}) × 100 = ${porcentaje(margenVenta)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          {
+            label: ganancia >= 0 ? "Ganancia" : "Pérdida",
+            valor: Math.abs(ganancia),
+            tono: ganancia >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "perdida": {
+    titulo: "Simulador · Pérdida",
+    descripcion:
+      "Detecta cuándo el precio de venta no cubre el costo y mide el tamaño de la pérdida en dinero y en porcentaje.",
+    formula: "Pérdida = PC - PV · % Pérdida = (Pérdida / PC) × 100",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 100 },
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 80 },
+    ],
+    calcular: ({ pc, pv }) => {
+      const perdida = pc - pv;
+      const porcentajePerdida = pc > 0 ? (perdida / pc) * 100 : NaN;
+      return {
+        resultados: [
+          {
+            label: "Pérdida",
+            valor: dinero(perdida),
+            tono: perdida > 0 ? "bad" : "ok",
+          },
+          { label: "Porcentaje sobre el costo", valor: porcentaje(porcentajePerdida) },
+          { label: "Precio mínimo para no perder", valor: dinero(pc) },
+        ],
+        aviso:
+          perdida <= 0
+            ? "El precio de venta cubre el costo: no hay pérdida en esta operación."
+            : null,
+        pasos: [
+          `Precio de costo: PC = ${dinero(pc)}.`,
+          `Precio de venta: PV = ${dinero(pv)}.`,
+          `Pérdida = ${dinero(pc)} - ${dinero(pv)} = ${dinero(perdida)}.`,
+          `Porcentaje de pérdida = (${decimales(perdida)} / ${decimales(pc)}) × 100 = ${porcentaje(porcentajePerdida)}.`,
+          `Para no perder, el PV debía ser al menos ${dinero(pc)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          {
+            label: perdida > 0 ? "Pérdida" : "Ganancia",
+            valor: Math.abs(perdida),
+            tono: perdida > 0 ? "perdida" : "ganancia",
+          },
+        ],
+      };
+    },
+  },
+
+  "precio-venta": {
+    titulo: "Simulador · Precio de venta",
+    descripcion:
+      "Fija el precio de venta a partir del costo y un margen objetivo, y comprueba cuánto representa la ganancia sobre la venta.",
+    formula: "PV = PC × (1 + m/100)",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 80 },
+      { k: "m", label: "Margen deseado sobre el costo", sufijo: "%", def: 25 },
+    ],
+    calcular: ({ pc, m }) => {
+      const g = pc * (m / 100);
+      const pv = pc + g;
+      const margenVenta = pv > 0 ? (g / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Precio de venta", valor: dinero(pv), tono: "ok" },
+          { label: "Ganancia incluida", valor: dinero(g) },
+          { label: "Margen sobre la venta", valor: porcentaje(margenVenta) },
+        ],
+        aviso: m < 0 ? "Un margen negativo haría que el precio de venta no cubra el costo." : null,
+        pasos: [
+          `Precio de costo: PC = ${dinero(pc)}.`,
+          `Ganancia objetivo: G = ${dinero(pc)} × (${decimales(m)} / 100) = ${dinero(g)}.`,
+          `Precio de venta: PV = ${dinero(pc)} + ${dinero(g)} = ${dinero(pv)}.`,
+          `Margen sobre la venta = (${decimales(g)} / ${decimales(pv)}) × 100 = ${porcentaje(margenVenta)}.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          { label: "Ganancia", valor: g, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "ganancia-bruta": {
+    titulo: "Simulador · Ganancia bruta",
+    descripcion:
+      "Resta el costo directo de los bienes vendidos al precio de venta y muestra la ganancia antes de gastos operativos.",
+    formula: "GB = PV - COGS",
+    campos: [
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 100 },
+      { k: "cogs", label: "Costo de ventas (COGS)", prefijo: "$", def: 60 },
+    ],
+    calcular: ({ pv, cogs }) => {
+      const gb = pv - cogs;
+      const margen = pv > 0 ? (gb / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Ganancia bruta", valor: dinero(gb), tono: gb < 0 ? "bad" : "ok" },
+          { label: "Margen bruto", valor: porcentaje(margen) },
+          { label: "Costo de ventas", valor: porcentaje(pv > 0 ? (cogs / pv) * 100 : NaN) },
+        ],
+        aviso:
+          gb < 0
+            ? "El costo directo supera el precio de venta: el producto pierde antes de los gastos."
+            : null,
+        pasos: [
+          `Precio de venta: PV = ${dinero(pv)}.`,
+          `Costo de ventas: COGS = ${dinero(cogs)}.`,
+          `Ganancia bruta: GB = ${dinero(pv)} - ${dinero(cogs)} = ${dinero(gb)}.`,
+          `Margen bruto = (${decimales(gb)} / ${decimales(pv)}) × 100 = ${porcentaje(margen)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          {
+            label: gb >= 0 ? "Ganancia bruta" : "Pérdida",
+            valor: Math.abs(gb),
+            tono: gb >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "ganancia-neta": {
+    titulo: "Simulador · Ganancia neta",
+    descripcion:
+      "Resta a la ganancia bruta los gastos operativos, impuestos e intereses para llegar al resultado final del negocio.",
+    formula: "GN = PV - COGS - Gastos - Impuestos - Intereses",
+    campos: [
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 100 },
+      { k: "cogs", label: "Costo de ventas (COGS)", prefijo: "$", def: 60 },
+      { k: "gastos", label: "Gastos operativos", prefijo: "$", def: 15 },
+      { k: "imp", label: "Impuestos", prefijo: "$", def: 5 },
+      { k: "int", label: "Intereses", prefijo: "$", def: 2 },
+    ],
+    calcular: ({ pv, cogs, gastos, imp, int }) => {
+      const gb = pv - cogs;
+      const totalCostos = cogs + gastos + imp + int;
+      const gn = pv - totalCostos;
+      const margenNeto = pv > 0 ? (gn / pv) * 100 : NaN;
+      const margenBruto = pv > 0 ? (gb / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Ganancia bruta", valor: dinero(gb), tono: gb < 0 ? "bad" : "ok" },
+          { label: "Ganancia neta", valor: dinero(gn), tono: gn < 0 ? "bad" : "ok" },
+          { label: "Margen bruto", valor: porcentaje(margenBruto) },
+          { label: "Margen neto", valor: porcentaje(margenNeto) },
+        ],
+        aviso:
+          gn < 0
+            ? "La ganancia neta es negativa: los costos, gastos e intereses superan el precio de venta."
+            : null,
+        pasos: [
+          `Ganancia bruta: GB = ${dinero(pv)} - ${dinero(cogs)} = ${dinero(gb)}.`,
+          `Costo total = ${dinero(cogs)} + ${dinero(gastos)} + ${dinero(imp)} + ${dinero(int)} = ${dinero(totalCostos)}.`,
+          `Ganancia neta: GN = ${dinero(pv)} - ${dinero(totalCostos)} = ${dinero(gn)}.`,
+          `Margen neto = (${decimales(gn)} / ${decimales(pv)}) × 100 = ${porcentaje(margenNeto)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          { label: "Gastos", valor: gastos, tono: "gasto" },
+          { label: "Impuestos", valor: imp, tono: "impuesto" },
+          { label: "Intereses", valor: int, tono: "interes" },
+          {
+            label: gn >= 0 ? "Ganancia neta" : "Pérdida",
+            valor: Math.abs(gn),
+            tono: gn >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "margen-bruto": {
+    titulo: "Simulador · Margen de ganancia bruto",
+    descripcion:
+      "Convierte la ganancia bruta en porcentaje de las ventas para comparar la rentabilidad antes de los gastos operativos.",
+    formula: "Margen Bruto = ((PV - COGS) / PV) × 100",
+    campos: [
+      { k: "pv", label: "Ventas / precio de venta", prefijo: "$", def: 100 },
+      { k: "cogs", label: "Costo de ventas (COGS)", prefijo: "$", def: 60 },
+    ],
+    calcular: ({ pv, cogs }) => {
+      const gb = pv - cogs;
+      const margen = pv > 0 ? (gb / pv) * 100 : NaN;
+      const markup = cogs > 0 ? (gb / cogs) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Margen bruto", valor: porcentaje(margen), tono: "ok" },
+          { label: "Ganancia bruta", valor: dinero(gb) },
+          { label: "Markup equivalente", valor: porcentaje(markup) },
+        ],
+        aviso:
+          pv <= 0
+            ? "Las ventas deben ser mayores que cero para calcular el margen."
+            : null,
+        pasos: [
+          `Ventas: ${dinero(pv)}.`,
+          `Ganancia bruta: GB = ${dinero(pv)} - ${dinero(cogs)} = ${dinero(gb)}.`,
+          `Margen bruto = (${decimales(gb)} / ${decimales(pv)}) × 100 = ${porcentaje(margen)}.`,
+          `Markup sobre el costo = (${decimales(gb)} / ${decimales(cogs)}) × 100 = ${porcentaje(markup)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          { label: "Ganancia bruta", valor: gb, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "margen-operativo": {
+    titulo: "Simulador · Margen operativo (EBIT)",
+    descripcion:
+      "Mide la rentabilidad del negocio antes de intereses e impuestos, después de cubrir los gastos operativos.",
+    formula: "EBIT = PV - COGS - Gastos operativos · Margen = (EBIT / PV) × 100",
+    campos: [
+      { k: "pv", label: "Ventas / precio de venta", prefijo: "$", def: 100 },
+      { k: "cogs", label: "Costo de ventas (COGS)", prefijo: "$", def: 60 },
+      { k: "gastos", label: "Gastos operativos", prefijo: "$", def: 20 },
+    ],
+    calcular: ({ pv, cogs, gastos }) => {
+      const gb = pv - cogs;
+      const ebit = gb - gastos;
+      const margen = pv > 0 ? (ebit / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "EBIT", valor: dinero(ebit), tono: ebit < 0 ? "bad" : "ok" },
+          { label: "Margen operativo", valor: porcentaje(margen), tono: ebit < 0 ? "bad" : "ok" },
+          { label: "Ganancia bruta", valor: dinero(gb) },
+        ],
+        aviso:
+          ebit < 0
+            ? "Los gastos operativos superan la ganancia bruta: la operación no cubre su estructura."
+            : null,
+        pasos: [
+          `Ganancia bruta: GB = ${dinero(pv)} - ${dinero(cogs)} = ${dinero(gb)}.`,
+          `EBIT = ${dinero(gb)} - ${dinero(gastos)} = ${dinero(ebit)}.`,
+          `Margen operativo = (${decimales(ebit)} / ${decimales(pv)}) × 100 = ${porcentaje(margen)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          { label: "Gastos", valor: gastos, tono: "gasto" },
+          {
+            label: ebit >= 0 ? "EBIT" : "Pérdida operativa",
+            valor: Math.abs(ebit),
+            tono: ebit >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "margen-neto": {
+    titulo: "Simulador · Margen de ganancia neto",
+    descripcion:
+      "Calcula cuánto de cada venta queda como utilidad final después de costos, gastos, impuestos e intereses.",
+    formula: "Margen Neto = (Utilidad Neta / Ventas) × 100",
+    campos: [
+      { k: "pv", label: "Ventas / precio de venta", prefijo: "$", def: 100 },
+      { k: "cogs", label: "Costo de ventas (COGS)", prefijo: "$", def: 60 },
+      { k: "gastos", label: "Gastos operativos", prefijo: "$", def: 15 },
+      { k: "imp", label: "Impuestos", prefijo: "$", def: 5 },
+      { k: "int", label: "Intereses", prefijo: "$", def: 2 },
+    ],
+    calcular: ({ pv, cogs, gastos, imp, int }) => {
+      const gn = pv - cogs - gastos - imp - int;
+      const margen = pv > 0 ? (gn / pv) * 100 : NaN;
+      const margenOperativo = pv > 0 ? ((pv - cogs - gastos) / pv) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Margen neto", valor: porcentaje(margen), tono: gn < 0 ? "bad" : "ok" },
+          { label: "Utilidad neta", valor: dinero(gn), tono: gn < 0 ? "bad" : "ok" },
+          { label: "Margen operativo", valor: porcentaje(margenOperativo) },
+        ],
+        aviso:
+          gn < 0
+            ? "La utilidad neta es negativa: el margen neto no alcanza a cubrir todos los costos."
+            : null,
+        pasos: [
+          `Utilidad neta = ${dinero(pv)} - ${dinero(cogs)} - ${dinero(gastos)} - ${dinero(imp)} - ${dinero(int)} = ${dinero(gn)}.`,
+          `Margen neto = (${decimales(gn)} / ${decimales(pv)}) × 100 = ${porcentaje(margen)}.`,
+          `Margen operativo = (${decimales(pv - cogs - gastos)} / ${decimales(pv)}) × 100 = ${porcentaje(margenOperativo)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          { label: "Gastos", valor: gastos, tono: "gasto" },
+          { label: "Impuestos", valor: imp, tono: "impuesto" },
+          { label: "Intereses", valor: int, tono: "interes" },
+          {
+            label: gn >= 0 ? "Utilidad neta" : "Pérdida",
+            valor: Math.abs(gn),
+            tono: gn >= 0 ? "ganancia" : "perdida",
+          },
+        ],
+      };
+    },
+  },
+
+  "markup": {
+    titulo: "Simulador · Markup",
+    descripcion:
+      "Calcula el recargo porcentual sobre el costo y lo compara con el margen sobre la venta para evitar confusiones.",
+    formula: "Markup = ((PV - PC) / PC) × 100",
+    campos: [
+      { k: "pc", label: "Precio de costo", prefijo: "$", def: 60 },
+      { k: "pv", label: "Precio de venta", prefijo: "$", def: 100 },
+    ],
+    calcular: ({ pc, pv }) => {
+      const g = pv - pc;
+      const markup = pc > 0 ? (g / pc) * 100 : NaN;
+      const margen = pv > 0 ? (g / pv) * 100 : NaN;
+      const multiplicador = pc > 0 ? pv / pc : NaN;
+      return {
+        resultados: [
+          { label: "Markup sobre el costo", valor: porcentaje(markup), tono: "ok" },
+          { label: "Margen sobre la venta", valor: porcentaje(margen) },
+          { label: "Multiplicador del costo", valor: Number.isFinite(multiplicador) ? `${decimales(multiplicador, 2)}×` : "—" },
+        ],
+        aviso:
+          markup < 0
+            ? "El precio de venta es menor que el costo: el markup es negativo."
+            : null,
+        pasos: [
+          `Ganancia: G = ${dinero(pv)} - ${dinero(pc)} = ${dinero(g)}.`,
+          `Markup = (${decimales(g)} / ${decimales(pc)}) × 100 = ${porcentaje(markup)}.`,
+          `Margen sobre venta = (${decimales(g)} / ${decimales(pv)}) × 100 = ${porcentaje(margen)}.`,
+          `Multiplicador = ${dinero(pv)} / ${dinero(pc)} = ${decimales(multiplicador, 2)}×.`,
+        ],
+        barra: [
+          { label: "Costo", valor: pc, tono: "costo" },
+          { label: "Ganancia", valor: g, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "cogs": {
+    titulo: "Simulador · Costo de ventas (COGS)",
+    descripcion:
+      "Calcula el costo de los productos vendidos a partir del inventario inicial, las compras y el inventario final.",
+    formula: "COGS = Inventario Inicial + Compras - Inventario Final",
+    campos: [
+      { k: "inicial", label: "Inventario inicial", prefijo: "$", def: 500 },
+      { k: "compras", label: "Compras del período", prefijo: "$", def: 800 },
+      { k: "final", label: "Inventario final", prefijo: "$", def: 300 },
+      { k: "ventas", label: "Ventas del período", prefijo: "$", def: 1500 },
+    ],
+    calcular: ({ inicial, compras, final, ventas }) => {
+      const disponible = inicial + compras;
+      const cogs = disponible - final;
+      const gb = ventas - cogs;
+      const margen = ventas > 0 ? (gb / ventas) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "Costo de ventas", valor: dinero(cogs), tono: "ok" },
+          { label: "Ganancia bruta", valor: dinero(gb), tono: gb < 0 ? "bad" : "ok" },
+          { label: "Margen bruto", valor: porcentaje(margen) },
+        ],
+        aviso:
+          final > disponible
+            ? "El inventario final no puede ser mayor que el inventario disponible."
+            : null,
+        pasos: [
+          `Inventario disponible = ${dinero(inicial)} + ${dinero(compras)} = ${dinero(disponible)}.`,
+          `COGS = ${dinero(disponible)} - ${dinero(final)} = ${dinero(cogs)}.`,
+          `Ganancia bruta = ${dinero(ventas)} - ${dinero(cogs)} = ${dinero(gb)}.`,
+          `Margen bruto = (${decimales(gb)} / ${decimales(ventas)}) × 100 = ${porcentaje(margen)}.`,
+        ],
+        barra: [
+          { label: "COGS", valor: cogs, tono: "costo" },
+          { label: "Ganancia bruta", valor: gb, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "ebitda": {
+    titulo: "Simulador · EBITDA",
+    descripcion:
+      "Reconstruye el EBITDA sumando a la utilidad neta impuestos, intereses, depreciación y amortización.",
+    formula: "EBITDA = Utilidad Neta + Impuestos + Intereses + D&A",
+    campos: [
+      { k: "un", label: "Utilidad neta", prefijo: "$", def: 50 },
+      { k: "imp", label: "Impuestos", prefijo: "$", def: 20 },
+      { k: "int", label: "Intereses", prefijo: "$", def: 10 },
+      { k: "dep", label: "Depreciación", prefijo: "$", def: 15 },
+      { k: "amort", label: "Amortización", prefijo: "$", def: 5 },
+      { k: "ventas", label: "Ventas", prefijo: "$", def: 500 },
+    ],
+    calcular: ({ un, imp, int, dep, amort, ventas }) => {
+      const ajustes = imp + int + dep + amort;
+      const ebitda = un + ajustes;
+      const margen = ventas > 0 ? (ebitda / ventas) * 100 : NaN;
+      return {
+        resultados: [
+          { label: "EBITDA", valor: dinero(ebitda), tono: ebitda < 0 ? "bad" : "ok" },
+          { label: "Margen EBITDA", valor: porcentaje(margen) },
+          { label: "Ajustes totales", valor: dinero(ajustes) },
+        ],
+        aviso:
+          ventas <= 0
+            ? "Las ventas deben ser mayores que cero para calcular el margen EBITDA."
+            : null,
+        pasos: [
+          `Utilidad neta: ${dinero(un)}.`,
+          `Ajustes = ${dinero(imp)} + ${dinero(int)} + ${dinero(dep)} + ${dinero(amort)} = ${dinero(ajustes)}.`,
+          `EBITDA = ${dinero(un)} + ${dinero(ajustes)} = ${dinero(ebitda)}.`,
+          `Margen EBITDA = (${decimales(ebitda)} / ${decimales(ventas)}) × 100 = ${porcentaje(margen)}.`,
+        ],
+        barra: [
+          { label: "Utilidad neta", valor: un, tono: "ganancia" },
+          { label: "Impuestos", valor: imp, tono: "impuesto" },
+          { label: "Intereses", valor: int, tono: "interes" },
+          { label: "D&A", valor: dep + amort, tono: "gasto" },
+        ],
+      };
+    },
+  },
+
+  "roi": {
+    titulo: "Simulador · ROI",
+    descripcion:
+      "Calcula el retorno porcentual de una inversión y lo compara con el beneficio neto obtenido.",
+    formula: "ROI = (Beneficio / Inversión) × 100",
+    campos: [
+      { k: "inversion", label: "Inversión inicial", prefijo: "$", def: 1000 },
+      { k: "beneficio", label: "Beneficio neto", prefijo: "$", def: 200 },
+      { k: "anios", label: "Años del proyecto", sufijo: "años", def: 1 },
+    ],
+    calcular: ({ inversion, beneficio, anios }) => {
+      const roi = inversion > 0 ? (beneficio / inversion) * 100 : NaN;
+      const anualizado =
+        inversion > 0 && anios > 0 ? roi / anios : NaN;
+      return {
+        resultados: [
+          { label: "ROI total", valor: porcentaje(roi), tono: roi < 0 ? "bad" : "ok" },
+          { label: "ROI anualizado", valor: porcentaje(anualizado) },
+          { label: "Retorno total", valor: dinero(inversion + beneficio) },
+        ],
+        aviso:
+          inversion <= 0
+            ? "La inversión debe ser mayor que cero."
+            : anios <= 0
+              ? "Los años deben ser mayores que cero."
+              : null,
+        pasos: [
+          `Inversión: ${dinero(inversion)}.`,
+          `Beneficio neto: ${dinero(beneficio)}.`,
+          `ROI = (${decimales(beneficio)} / ${decimales(inversion)}) × 100 = ${porcentaje(roi)}.`,
+          `ROI anualizado = ${porcentaje(roi)} / ${decimales(anios)} = ${porcentaje(anualizado)}.`,
+        ],
+        barra: [
+          { label: "Inversión", valor: inversion, tono: "costo" },
+          { label: "Beneficio", valor: beneficio, tono: "ganancia" },
+        ],
+      };
+    },
+  },
+
+  "punto-equilibrio": {
+    titulo: "Simulador · Punto de equilibrio",
+    descripcion:
+      "Encuentra cuántas unidades hay que vender para cubrir los costos fijos y calcula las ventas necesarias.",
+    formula: "Q* = CF / (PV - CV) · Ventas* = Q* × PV",
+    campos: [
+      { k: "cf", label: "Costos fijos", prefijo: "$", def: 1000 },
+      { k: "pv", label: "Precio de venta unitario", prefijo: "$", def: 25 },
+      { k: "cv", label: "Costo variable unitario", prefijo: "$", def: 15 },
+    ],
+    calcular: ({ cf, pv, cv }) => {
+      const contribucion = pv - cv;
+      const unidades = contribucion > 0 ? cf / contribucion : NaN;
+      const ventas = contribucion > 0 ? unidades * pv : NaN;
+      const margenContribucion = pv > 0 ? (contribucion / pv) * 100 : NaN;
+      return {
+        resultados: [
+          {
+            label: "Unidades de equilibrio",
+            valor: Number.isFinite(unidades) ? decimales(Math.ceil(unidades), 0) : "—",
+            tono: "ok",
+          },
+          { label: "Ventas de equilibrio", valor: dinero(ventas) },
+          { label: "Margen de contribución", valor: dinero(contribucion) },
+          { label: "Margen de contribución %", valor: porcentaje(margenContribucion) },
+        ],
+        aviso:
+          contribucion <= 0
+            ? "El precio de venta debe ser mayor que el costo variable para cubrir los costos fijos."
+            : cf <= 0
+              ? "Los costos fijos deben ser mayores que cero."
+              : null,
+        pasos: [
+          `Margen de contribución: PV - CV = ${dinero(pv)} - ${dinero(cv)} = ${dinero(contribucion)}.`,
+          `Unidades de equilibrio: Q* = ${dinero(cf)} / ${dinero(contribucion)} = ${Number.isFinite(unidades) ? decimales(unidades, 2) : "—"}.`,
+          `Ventas de equilibrio = ${Number.isFinite(unidades) ? decimales(Math.ceil(unidades), 0) : "—"} × ${dinero(pv)} = ${dinero(ventas)}.`,
+          `Margen de contribución % = (${decimales(contribucion)} / ${decimales(pv)}) × 100 = ${porcentaje(margenContribucion)}.`,
+        ],
+        barra: [
+          { label: "Costo variable", valor: cv, tono: "costo" },
+          { label: "Contribución", valor: contribucion, tono: "ganancia" },
+        ],
+      };
+    },
+  },
 };

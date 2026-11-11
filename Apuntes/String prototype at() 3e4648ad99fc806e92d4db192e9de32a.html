@@ -1,0 +1,840 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>String.prototype.at()</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3e4648ad-99fc-806e-92d4-db192e9de32a" class="page sans"><header><h1 class="page-title" dir="auto"><code><strong>String.prototype.at()</strong></code></h1><p class="page-description" dir="auto"></p><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="3e4648ad-99fc-8046-a680-d54f5ca85c6d" class="" dir="auto">
+</p><h1 id="3e4648ad-99fc-80fe-a2e3-f3a46a35f9ba" class="" dir="auto"><code>String.prototype.at()</code></h1><p id="3e4648ad-99fc-803e-8c39-c72745ce5533" class="" dir="auto">📄 <strong>Título</strong></p><p id="3e4648ad-99fc-8026-98eb-ef75cdbd49a5" class="" dir="auto"><code>String.prototype.at()</code></p><hr id="3e4648ad-99fc-80f7-a98d-d5f1f38787c7" dir="auto"/><p id="3e4648ad-99fc-80e3-8a68-ee7af03305e3" class="" dir="auto">📝 <strong>Definición</strong></p><p id="3e4648ad-99fc-800f-b24d-ed61cfd53862" class="" dir="auto">Método de <code>String</code> que devuelve el <strong>carácter ubicado en un índice determinado</strong> de una cadena. </p><p id="3e4648ad-99fc-80a6-bc37-c3a267a6ab58" class="" dir="auto">Permite utilizar <strong>índices negativos</strong> para acceder a caracteres empezando desde el final.</p><hr id="3e4648ad-99fc-807b-90ff-f00d8f0004d4" dir="auto"/><p id="3e4648ad-99fc-80d9-9bc7-f3a88237241c" class="" dir="auto">🧠 <strong>¿Qué es?</strong></p><p id="3e4648ad-99fc-8075-95eb-ff86804723ec" class="" dir="auto"><code>at()</code> sirve para acceder directamente a un carácter de un <code>String</code> mediante su posición.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js" integrity="sha512-m3JYEI6gx5fh9jF10FjGoMzVKcV2N6nchcDcqPCdI1L3R2WQV7br2XVNR8iTLb2daOMRl3zldbcfT40xU2ntVw==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><pre id="3e4648ad-99fc-8094-a009-c5856a4329f9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const texto=&quot;JavaScript&quot;;
+texto.at(0);// &quot;J&quot;</code></pre><p id="3e4648ad-99fc-809d-8bd7-fe4f6104b7b7" class="" dir="auto">La característica más importante es que acepta índices negativos:</p><pre id="3e4648ad-99fc-8038-8987-ec77e48b5032" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const texto=&quot;JavaScript&quot;;
+texto.at(-1);// &quot;t&quot;</code></pre><p id="3e4648ad-99fc-80ab-8038-c63fea8582d3" class="" dir="auto">Es decir:</p><pre id="3e4648ad-99fc-8069-a21d-f60c0c8c8ffe" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">at(0)   → primer carácter
+at(1)   → segundo carácter
+at(-1)  → último carácter
+at(-2)  → penúltimo carácter</code></pre><hr id="3e4648ad-99fc-8044-8cb8-fd07caad83ef" dir="auto"/><p id="3e4648ad-99fc-8098-8d0f-e4e7cf4ab5bf" class="" dir="auto">🎯 <strong>¿Para qué sirve?</strong></p><p id="3e4648ad-99fc-805a-aba6-fa4f1b5462d3" class="" dir="auto">Sirve para:</p><ul id="3e4648ad-99fc-801a-bb9e-cf7b165a344a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener un carácter específico de una cadena.</li></ul><ul id="3e4648ad-99fc-8006-a489-fc999881cb7d" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Acceder fácilmente al último carácter.</li></ul><ul id="3e4648ad-99fc-80bb-b091-c7d87c5dc7a6" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Utilizar índices negativos.</li></ul><ul id="3e4648ad-99fc-80fe-a346-d427efd637a0" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Evitar cálculos manuales como <code>string[string.length - 1]</code>.</li></ul><ul id="3e4648ad-99fc-8032-88d4-f3ad8b9529c9" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Acceder a elementos de un <code>String</code> de forma similar a <code>Array.prototype.at()</code>.</li></ul><hr id="3e4648ad-99fc-80cb-b131-e42813d367b3" dir="auto"/><p id="3e4648ad-99fc-8075-9ee4-efbad17dc6d9" class="" dir="auto">⚙️ <strong>¿Cómo funciona?</strong></p><p id="3e4648ad-99fc-8012-85b6-f1635e08c44e" class="" dir="auto">Recibe un índice y devuelve el carácter correspondiente.</p><pre id="3e4648ad-99fc-80ad-9f58-f6faa8b85af4" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const texto=&quot;Hola&quot;;
+console.log(texto.at(0));// &quot;H&quot;
+console.log(texto.at(3));// &quot;a&quot;</code></pre><p id="3e4648ad-99fc-80c2-8fe6-ed303b1a784d" class="" dir="auto">Con índices negativos:</p><pre id="3e4648ad-99fc-805b-b328-d33f2a1fda13" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">console.log(texto.at(-1));// &quot;a&quot;
+console.log(texto.at(-2));// &quot;l&quot;</code></pre><p id="3e4648ad-99fc-80a0-9d93-d19b999767a5" class="" dir="auto">Visualmente:</p><pre id="3e4648ad-99fc-8009-be70-d226e089c1e7" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all"> H   o   l   a
+ 0   1   2   3
+-4  -3  -2  -1</code></pre><p id="3e4648ad-99fc-8091-8f79-c05b43b2ad16" class="" dir="auto">Por eso:</p><pre id="3e4648ad-99fc-8057-95ee-f48588248105" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;</code></pre><hr id="3e4648ad-99fc-805b-9580-e7f1a95d99d6" dir="auto"/><p id="3e4648ad-99fc-8063-8a91-d9a84cb8d447" class="" dir="auto">📝 <strong>Sintaxis / Estructura</strong></p><pre id="3e4648ad-99fc-808c-a42d-fd79f931364f" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">cadena.at(indice)</code></pre><h3 id="3e4648ad-99fc-806b-a3f6-eee01b6c25a3" class="" dir="auto">Parámetros</h3><p id="3e4648ad-99fc-804f-a534-cbce47e9ccda" class="" dir="auto"><code><strong>indice</strong></code></p><p id="3e4648ad-99fc-8070-bd0a-c0bb05fc06a5" class="" dir="auto">Es el índice del carácter que quieres obtener.</p><p id="3e4648ad-99fc-80ce-8615-ddedd9e452d1" class="" dir="auto">Puede ser:</p><ul id="3e4648ad-99fc-8056-a1d3-f0eb30437c9c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Positivo → desde el inicio.</li></ul><ul id="3e4648ad-99fc-808f-8e02-eb49466b6f1b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Negativo → desde el final.</li></ul><pre id="3e4648ad-99fc-8066-b96b-cf9169c7657d" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;JavaScript&quot;.at(0);// &quot;J&quot;
+&quot;JavaScript&quot;.at(-1);// &quot;t&quot;</code></pre><h3 id="3e4648ad-99fc-8071-87d3-c37a0c896ed2" class="" dir="auto">Retorno</h3><p id="3e4648ad-99fc-80da-a051-df692045f51e" class="" dir="auto">Devuelve:</p><pre id="3e4648ad-99fc-809a-88bf-f254f0edb36c" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">string</code></pre><p id="3e4648ad-99fc-80b3-b39a-e47c77e673d9" class="" dir="auto">con el carácter encontrado.</p><p id="3e4648ad-99fc-80dc-8724-c577d1cbb5fd" class="" dir="auto">Si el índice está fuera de los límites:</p><pre id="3e4648ad-99fc-80ab-856f-fb1292de26f6" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(10);// undefined</code></pre><hr id="3e4648ad-99fc-80f4-9ceb-d22cdd8f4f82" dir="auto"/><p id="3e4648ad-99fc-8039-bf1f-e48ea47db58e" class="" dir="auto">💡 <strong>Ejemplos</strong></p><h3 id="3e4648ad-99fc-80f1-b540-fe6df8c9e449" class="" dir="auto">1. Obtener el primer carácter</h3><pre id="3e4648ad-99fc-80dd-9bfb-d9d2796ed480" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;JavaScript&quot;.at(0);// &quot;J&quot;</code></pre><h3 id="3e4648ad-99fc-80e8-96d4-e4f18d27adf7" class="" dir="auto">2. Obtener un carácter específico</h3><pre id="3e4648ad-99fc-802a-acfb-d4fb5e39af0f" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;JavaScript&quot;.at(4);// &quot;S&quot;</code></pre><h3 id="3e4648ad-99fc-80df-a880-deaca12e4351" class="" dir="auto">3. Obtener el último carácter</h3><pre id="3e4648ad-99fc-80a0-b7d4-c97ded236176" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;JavaScript&quot;.at(-1);// &quot;t&quot;</code></pre><h3 id="3e4648ad-99fc-8095-babc-c6280ba27a89" class="" dir="auto">4. Obtener el penúltimo</h3><pre id="3e4648ad-99fc-80ef-bc17-f44fd75395eb" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;JavaScript&quot;.at(-2);// &quot;p&quot;</code></pre><h3 id="3e4648ad-99fc-809a-beca-c31d5b64834c" class="" dir="auto">5. Índice fuera de rango</h3><pre id="3e4648ad-99fc-80ee-994f-e2751066df5e" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(10);// undefined</code></pre><hr id="3e4648ad-99fc-8081-b784-c29e80700974" dir="auto"/><h3 id="3e4648ad-99fc-8011-a4dd-cdd21b3f948b" class="" dir="auto">🔥 <code>at()</code> vs <code>charAt()</code></h3><p id="3e4648ad-99fc-809f-9075-c428b0234dc5" class="" dir="auto">Ambos pueden obtener caracteres:</p><pre id="3e4648ad-99fc-8035-8359-edd8f9e5e6b2" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(1);// &quot;o&quot;
+&quot;Hola&quot;.charAt(1);// &quot;o&quot;</code></pre><p id="3e4648ad-99fc-8020-93ec-ea7b801f5350" class="" dir="auto">Pero <code>at()</code> tiene una ventaja importante:</p><pre id="3e4648ad-99fc-800c-befb-ddca84173a97" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;</code></pre><p id="3e4648ad-99fc-8078-a36b-f6c799665b9e" class="" dir="auto">Mientras que:</p><pre id="3e4648ad-99fc-80ef-8a07-c6e731b14b92" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.charAt(-1);// &quot;&quot;</code></pre><p id="3e4648ad-99fc-80f1-b70f-d5cf98ddb93d" class="" dir="auto">Por eso:</p><pre id="3e4648ad-99fc-803a-b693-c73793ee55dd" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">at()
+→ acepta índices negativos
+
+charAt()
+→ no acepta índices negativos</code></pre><hr id="3e4648ad-99fc-800f-9c6b-d2c238c1e11a" dir="auto"/><h3 id="3e4648ad-99fc-8016-973e-ebf1579bfe47" class="" dir="auto">🔥 <code>at()</code> vs acceso mediante <code>[]</code></h3><p id="3e4648ad-99fc-8060-9330-c60fe86e5a8e" class="" dir="auto">También puedes hacer:</p><pre id="3e4648ad-99fc-808f-a283-ddab84221584" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;[1];// &quot;o&quot;</code></pre><p id="3e4648ad-99fc-8077-b5b3-ccd2c8023291" class="" dir="auto">Y:</p><pre id="3e4648ad-99fc-8011-a6e1-fb7aa562bc32" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;[-1];// undefined</code></pre><p id="3e4648ad-99fc-8012-9710-c4b1dc063fb5" class="" dir="auto">En cambio:</p><pre id="3e4648ad-99fc-8039-ae13-c1c51d8c5444" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;</code></pre><p id="3e4648ad-99fc-80eb-ad42-eff8495de752" class="" dir="auto">Así que <code>at()</code> resulta especialmente cómodo para acceder desde el final.</p><hr id="3e4648ad-99fc-803f-8067-cae4b262b60d" dir="auto"/><p id="3e4648ad-99fc-802b-b537-e909e9daab94" class="" dir="auto">⚠️ <strong>Errores comunes</strong></p><h3 id="3e4648ad-99fc-8053-aaec-fd602fa1838b" class="" dir="auto">1. Pensar que <code>at()</code> devuelve el código Unicode</h3><p id="3e4648ad-99fc-8099-97be-fa3e3119b258" class="" dir="auto">No.</p><pre id="3e4648ad-99fc-80ff-bc7e-c8644644446b" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;A&quot;.at(0);// &quot;A&quot;</code></pre><p id="3e4648ad-99fc-80d7-b7c4-e235ad0751ce" class="" dir="auto">Si quieres el <strong>code point</strong>:</p><pre id="3e4648ad-99fc-80e9-aebd-d86ba27ac08d" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;A&quot;.codePointAt(0);// 65</code></pre><hr id="3e4648ad-99fc-8026-a2f1-e5fce00ecf87" dir="auto"/><h3 id="3e4648ad-99fc-80af-b2ac-ef82b369716b" class="" dir="auto">2. Confundir índice negativo con posición inexistente</h3><pre id="3e4648ad-99fc-809f-a655-f39b7a9f1ec5" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;</code></pre><ul id="3e4648ad-99fc-8010-a5cb-e1cc57d00749" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><code>-1</code> significa <strong>último carácter</strong>, no un índice inválido.</li></ul><hr id="3e4648ad-99fc-80be-9407-c54ae622376b" dir="auto"/><h3 id="3e4648ad-99fc-80d8-b56a-fe2a2ec90803" class="" dir="auto">3. Confundirlo con <code>charAt()</code></h3><pre id="3e4648ad-99fc-80c0-ade6-d0ef5f38f5de" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;
+&quot;Hola&quot;.charAt(-1);// &quot;&quot;</code></pre><p id="3e4648ad-99fc-806b-ba16-c9a4c2fb8d1d" class="" dir="auto">La diferencia de los índices negativos es una de las razones principales para utilizar <code>at()</code>.</p><hr id="3e4648ad-99fc-8052-b62b-fc65165b6532" dir="auto"/><h3 id="3e4648ad-99fc-8010-998c-da8fbcf2512b" class="" dir="auto">4. Pensar que modifica el String</h3><pre id="3e4648ad-99fc-807f-84a7-f2807795cec7" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const texto=&quot;Hola&quot;;
+texto.at(0);
+console.log(texto);// &quot;Hola&quot;</code></pre><p id="3e4648ad-99fc-804b-9922-f874dd6b8e56" class="" dir="auto"><code>at()</code> solamente <strong>consulta</strong> la cadena.</p><hr id="3e4648ad-99fc-8038-b701-dff7179e09c0" dir="auto"/><p id="3e4648ad-99fc-801b-b548-ea66dbc74d09" class="" dir="auto">💼 <strong>Casos de uso</strong></p><ul id="3e4648ad-99fc-8066-825e-c00c306dd11c" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener el primer o último carácter.</li></ul><ul id="3e4648ad-99fc-805f-ba43-f51b1391e490" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validar la primera letra de una palabra.</li></ul><ul id="3e4648ad-99fc-8037-b694-fc03a6839392" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Comprobar extensiones de archivos.</li></ul><ul id="3e4648ad-99fc-8098-b0bd-d368c9922365" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Analizar cadenas.</li></ul><ul id="3e4648ad-99fc-8099-94df-fe366453f94a" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Recorrer Strings mediante índices.</li></ul><ul id="3e4648ad-99fc-8040-ae36-f70af4c52e47" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Obtener caracteres desde el final de forma sencilla.</li></ul><p id="3e4648ad-99fc-80e7-a50a-d2e924c0cdbb" class="" dir="auto">Ejemplo:</p><pre id="3e4648ad-99fc-804e-a59a-d1ad0b89c4a9" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">const archivo=&quot;foto.jpg&quot;;
+console.log(archivo.at(-1));// &quot;g&quot;
+console.log(archivo.at(-2));// &quot;p&quot;</code></pre><hr id="3e4648ad-99fc-800b-902e-f42ab1dec898" dir="auto"/><p id="3e4648ad-99fc-801c-8d87-ef681d8f83ce" class="" dir="auto">🧩 <strong>Relación con otros conceptos</strong></p><pre id="3e4648ad-99fc-80d8-9cf6-d0558398d06c" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">String
+│
+├── at()
+│     └── carácter por índice
+│
+├── charAt()
+│     └── carácter por índice
+│
+├── charCodeAt()
+│     └── unidad UTF-16 por índice
+│
+├── codePointAt()
+│     └── code point Unicode por índice
+│
+└── indexOf()
+      └── índice de una coincidencia</code></pre><h3 id="3e4648ad-99fc-8061-a910-e8d2531194eb" class="" dir="auto">Comparación importante</h3><table id="3e4648ad-99fc-806f-84a4-dbae813d561a" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="3e4648ad-99fc-804c-8071-cc24a1037d5e" dir="ltr"><th id="rPyB" class="simple-table-header-color simple-table-header">Método</th><th id="fQSe" class="simple-table-header-color simple-table-header" style="width:488.09375px">Devuelve</th></tr></thead><tbody><tr id="3e4648ad-99fc-80e1-ae14-e86bf34a800d" dir="ltr"><td id="rPyB" class=""><code>at()</code></td><td id="fQSe" class="" style="width:488.09375px">Carácter</td></tr><tr id="3e4648ad-99fc-807c-b693-ed3ca3846c90" dir="ltr"><td id="rPyB" class=""><code>charAt()</code></td><td id="fQSe" class="" style="width:488.09375px">Carácter</td></tr><tr id="3e4648ad-99fc-8023-ad30-c50d15bf7817" dir="ltr"><td id="rPyB" class=""><code>charCodeAt()</code></td><td id="fQSe" class="" style="width:488.09375px">Unidad de código UTF-16</td></tr><tr id="3e4648ad-99fc-8088-9b77-d74e7ea7e52e" dir="ltr"><td id="rPyB" class=""><code>codePointAt()</code></td><td id="fQSe" class="" style="width:488.09375px">Code point Unicode</td></tr><tr id="3e4648ad-99fc-8012-a4ba-de04e02e1b66" dir="ltr"><td id="rPyB" class=""><code>indexOf()</code></td><td id="fQSe" class="" style="width:488.09375px">Índice de una coincidencia</td></tr></tbody></table><p id="3e4648ad-99fc-8050-9a72-f49faf059781" class="" dir="auto">Y <code>at()</code> comparte el concepto de índices negativos con:</p><pre id="3e4648ad-99fc-8073-933f-fec2e588881f" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">Array.prototype.at()</code></pre><p id="3e4648ad-99fc-80d6-a2f0-c0510f108539" class="" dir="auto">Por ejemplo:</p><pre id="3e4648ad-99fc-8016-bce9-d592c6141964" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;
+
+[&quot;H&quot;,&quot;o&quot;,&quot;l&quot;,&quot;a&quot;].at(-1);// &quot;a&quot;</code></pre><hr id="3e4648ad-99fc-805f-b66b-ed1fc407c8b5" dir="auto"/><p id="3e4648ad-99fc-80db-9590-f18d7a2c02c2" class="" dir="auto">🧠 <strong>Analogía</strong></p><p id="3e4648ad-99fc-8081-8da1-e2db940f5602" class="" dir="auto">Imagina que una palabra es una fila de casilleros:</p><pre id="3e4648ad-99fc-80bc-948e-df09f73e8b06" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all"> H   o   l   a
+ 0   1   2   3</code></pre><p id="3e4648ad-99fc-80fa-bce0-d46976945841" class="" dir="auto"><code>at(2)</code> pregunta:</p><blockquote id="3e4648ad-99fc-808e-847b-e5a53d3704bb" class="" dir="auto"><strong>&quot;Dame lo que hay en el casillero 2.&quot;</strong></blockquote><pre id="3e4648ad-99fc-807e-bc0e-c2cc42fcf09d" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(2);// &quot;l&quot;</code></pre><p id="3e4648ad-99fc-8018-86d4-c0cd0356f48a" class="" dir="auto">Y <code>at(-1)</code> dice:</p><blockquote id="3e4648ad-99fc-8014-88cc-ee7062e853fb" class="" dir="auto"><strong>&quot;Dame el último casillero.&quot;</strong></blockquote><pre id="3e4648ad-99fc-808f-97e5-f5ba1865c31e" class="code code-wrap"><code style="white-space:pre-wrap;word-break:break-all">&quot;Hola&quot;.at(-1);// &quot;a&quot;</code></pre><hr id="3e4648ad-99fc-80ec-9c05-df1c4674815f" dir="auto"/><p id="3e4648ad-99fc-806c-a3f5-d4763e79b15f" class="" dir="auto">📚 <strong>Fuente</strong></p><p id="3e4648ad-99fc-8090-984f-ea6d11602f70" class="" dir="auto">MDN Web Docs — <code>String.prototype.at()</code>.</p><hr id="3e4648ad-99fc-80d2-b4b9-d4030b82775a" dir="auto"/><p id="3e4648ad-99fc-80ab-b636-f9702d4d25a9" class="" dir="auto">📝 <strong>Notas personales</strong></p><p id="3e4648ad-99fc-80e9-8691-f52ba6f4c74c" class="" dir="auto"><strong>Palabras clave:</strong></p><p id="3e4648ad-99fc-809c-a74b-db371ea5ab63" class="" dir="auto"><code>String</code> · <code>índice</code> · <code>carácter</code> · <code>índice negativo</code> · <code>charAt()</code> · <code>Unicode</code></p><p id="3e4648ad-99fc-8003-963e-f175d5ff17c4" class="" dir="auto">💡 <strong>Para memorizar:</strong></p><blockquote id="3e4648ad-99fc-80f4-a7c3-d137dfef0aaf" class="" dir="auto"><code><strong>at()</strong></code><strong> = obtener el carácter de una posición, incluyendo posiciones desde el final.</strong></blockquote><pre id="3e4648ad-99fc-8032-aa97-ef4ea9c995d5" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">cadena.at(indice)</code></pre><pre id="3e4648ad-99fc-800e-bcf3-fa45eb2b12e4" class="code code-wrap" data-notion-code-syntax="jsx"><code class="language-jsx" style="white-space:pre-wrap;word-break:break-all">at(0)  → primero
+at(1)  → segundo
+at(-1) → último
+at(-2) → penúltimo</code></pre><p id="3e4648ad-99fc-8011-8e4c-ee74a3560be7" class="" dir="auto">🔥 <strong>La idea clave:</strong> <code>at()</code> destaca frente a <code>charAt()</code> y <code>[]</code> porque permite <strong>índices negativos</strong>.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -2,6 +2,8 @@
    Cada etiqueta tiene su propio estado inicial, sus controles y la función
    que construye el código que se muestra en la vista previa. */
 
+import { HTML_CONFIGS_EXTRA } from "./htmlConfigsExtra";
+
 const escAttr = (value = "") =>
   String(value)
     .replace(/&/g, "&amp;")
@@ -1090,6 +1092,7 @@ export const HTML_CONFIGS = {
   ...enlacesConfigs,
   ...formulariosConfigs,
   ...multimediaConfigs,
+  ...HTML_CONFIGS_EXTRA,
 };
 
 export const HTML_FALLBACK = {

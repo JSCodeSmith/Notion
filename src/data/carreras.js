@@ -355,18 +355,6 @@ export const METODOS_ARRAYS = [
         icon: "🔤",
       },
       {
-        id: "uint8from",
-        nombre: "Uint8Array.from()",
-        firma: "Uint8Array.from(arrayLike, mapFn, thisArg)",
-        icon: "🔢",
-      },
-      {
-        id: "typedset",
-        nombre: "TypedArray.set()",
-        firma: "TypedArray.prototype.set(array, offset)",
-        icon: "📥",
-      },
-      {
         id: "of",
         nombre: "Array.of()",
         firma: "Array.of(...items)",

@@ -7,18 +7,12 @@ import {
 import { JS_CORE_BROWSER, JS_CORE_BROWSER_DOCS } from "./jsCoreBrowser";
 
 import { JS_JSON, JS_JSON_DOCS } from "./jsJson";
-import { JS_OBJECT, JS_OBJECT_DOCS } from "./jsObject";
 import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
 import { JS_REGEXP, JS_REGEXP_DOCS } from "./jsRegexp";
 import { JS_INTL, JS_INTL_DOCS } from "./jsIntl";
-import {
-  JS_OBJECT_AVANZADO,
-  JS_OBJECT_AVANZADO_DOCS,
-  JS_FUNCIONES,
-  JS_FUNCIONES_DOCS,
-  JS_TYPEDARRAYS,
-  JS_TYPEDARRAYS_DOCS,
-} from "./jsApuntesHtml";
+/* Las categorías antiguas Object / Object avanzado / Funciones / TypedArrays
+   se retiraron porque sus apuntes están duplicados (y ampliados) en
+   JS_CORE_OBJECT, JS_CORE_FUNCTION y JS_CORE_TYPEDARRAY. */
 import { JS_TEMPORIZADORES, JS_TEMPORIZADORES_DOCS } from "./jsTemporizadores";
 import { JS_PROMESAS, JS_PROMESAS_DOCS } from "./jsPromesas";
 import { JS_WEBAPIS, JS_WEBAPIS_DOCS } from "./jsWebApis";
@@ -47,13 +41,9 @@ import { JS_RED, JS_RED_DOCS } from "./js-red";
 /* Categorías que aparecen como subpestañas dentro de JavaScript. */
 export const JS_CATEGORIAS = [
   JS_JSON,
-  JS_OBJECT,
   JS_MAP_SET,
   JS_REGEXP,
   JS_INTL,
-  JS_OBJECT_AVANZADO,
-  JS_FUNCIONES,
-  JS_TYPEDARRAYS,
   JS_TEMPORIZADORES,
   JS_PROMESAS,
   JS_WEBAPIS,
@@ -84,13 +74,9 @@ export const JS_CATEGORIAS = [
 /* Todos los apuntes, indexados por id. */
 export const JS_APUNTES = {
   ...JS_JSON_DOCS,
-  ...JS_OBJECT_DOCS,
   ...JS_MAP_SET_DOCS,
   ...JS_REGEXP_DOCS,
   ...JS_INTL_DOCS,
-  ...JS_OBJECT_AVANZADO_DOCS,
-  ...JS_FUNCIONES_DOCS,
-  ...JS_TYPEDARRAYS_DOCS,
   ...JS_TEMPORIZADORES_DOCS,
   ...JS_PROMESAS_DOCS,
   ...JS_WEBAPIS_DOCS,

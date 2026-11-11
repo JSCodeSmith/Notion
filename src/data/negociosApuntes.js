@@ -2,6 +2,10 @@ import { NEGOCIO_ADMIN_GESTION, NEGOCIO_ADMIN_GESTION_DOCS } from "./negocioAdmi
 import { NEGOCIO_ESTRATEGIA, NEGOCIO_ESTRATEGIA_DOCS } from "./negocioEstrategia";
 import { NEGOCIO_EMPRENDIMIENTO, NEGOCIO_EMPRENDIMIENTO_DOCS } from "./negocioEmprendimiento";
 import { NEGOCIO_INNOVACION, NEGOCIO_INNOVACION_DOCS } from "./negocioInnovacion";
+import {
+  NEGOCIO_INNOVACION_TIPOS,
+  NEGOCIO_INNOVACION_TIPOS_DOCS,
+} from "./negocioInnovacionTipos";
 import { NEGOCIO_OPERACIONES, NEGOCIO_OPERACIONES_DOCS } from "./negocioOperaciones";
 import { NEGOCIO_LIDERAZGO, NEGOCIO_LIDERAZGO_DOCS } from "./negocioLiderazgo";
 import {
@@ -13,12 +17,18 @@ import {
   NEGOCIO_BIBLIOTECA_DOCS,
 } from "./negocioBiblioteca";
 
+/* Innovación suma los cuatro tipos como apuntes propios. */
+export const CURSO_INNOVACION = {
+  ...NEGOCIO_INNOVACION,
+  grupos: [NEGOCIO_INNOVACION_TIPOS, ...NEGOCIO_INNOVACION.grupos],
+};
+
 /* Cursos de Administración y Negocios (una pestaña por curso). */
 export const NEGOCIOS_CURSOS = [
   NEGOCIO_ADMIN_GESTION,
   NEGOCIO_ESTRATEGIA,
   NEGOCIO_EMPRENDIMIENTO,
-  NEGOCIO_INNOVACION,
+  CURSO_INNOVACION,
   NEGOCIO_OPERACIONES,
   NEGOCIO_LIDERAZGO,
   NEGOCIO_ARITMETICA,
@@ -31,6 +41,7 @@ export const NEGOCIOS_APUNTES = {
   ...NEGOCIO_ESTRATEGIA_DOCS,
   ...NEGOCIO_EMPRENDIMIENTO_DOCS,
   ...NEGOCIO_INNOVACION_DOCS,
+  ...NEGOCIO_INNOVACION_TIPOS_DOCS,
   ...NEGOCIO_OPERACIONES_DOCS,
   ...NEGOCIO_LIDERAZGO_DOCS,
   ...NEGOCIO_ARITMETICA_DOCS,

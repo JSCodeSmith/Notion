@@ -74,6 +74,7 @@ export const JS_REGEXP_DOCS = {
     icon: "✅",
     categoria: "RegExp",
     firma: "regex.test(texto)",
+    simulador: "webapi",
 
     definicion: [
       "Es un método de las instancias de `RegExp` que comprueba si el patrón coincide con algún fragmento de una cadena y devuelve un **booleano**. ✅",

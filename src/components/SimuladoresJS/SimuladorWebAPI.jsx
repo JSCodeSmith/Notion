@@ -1560,6 +1560,7 @@ export default function SimuladorWebAPI({ metodoId }) {
     case "structuredclone":
       return <SimuladorStructuredClone />;
     case "regexp-test":
+    case "regexp-test-method":
       return <SimuladorRegexp />;
     case "url-createobjecturl":
       return <SimuladorCreateObjectURL />;

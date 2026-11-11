@@ -184,7 +184,7 @@ return equipo.findLastIndex((item) => item.nivel >= 3);`;
     },
   },
 
-  indexof: {
+  "string-indexof": {
     titulo: "El código secreto",
     icono: "🔤",
     metodo: "String.indexOf()",
@@ -489,7 +489,7 @@ return equipos.flatMap((equipo) =>
     },
   },
 
-  slice: {
+  "string-slice": {
     titulo: "Corta el portal",
     icono: "✂️",
     metodo: "String.slice()",

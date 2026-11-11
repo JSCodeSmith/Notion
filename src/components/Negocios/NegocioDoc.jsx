@@ -4,6 +4,7 @@ import CodeBlock from '../CodeBlock/CodeBlock'
 import NegociosLab from './NegociosLab'
 import SimuladorAritmetica from './SimuladorAritmetica'
 import LaboratorioAritmetica from './LaboratorioAritmetica'
+import { SIMULADORES_INNOVACION } from './simuladoresInnovacion'
 import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
 
@@ -174,6 +175,15 @@ export default function NegocioDoc({ nota, onBack }) {
 
       {nota.simulador === 'aritmetica' && (
         <SimuladorAritmetica key={nota.id} tipo={nota.simuladorTipo} />
+      )}
+
+      {nota.simulador === 'innovacion' && (
+        <SimuladorAritmetica
+          key={nota.id}
+          tipo={nota.simuladorTipo}
+          registro={SIMULADORES_INNOVACION}
+          eyebrow="💡 Innovación interactiva"
+        />
       )}
 
       {nota.simulador === 'aritmetica' && (

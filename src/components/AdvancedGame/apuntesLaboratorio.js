@@ -339,6 +339,54 @@ export const APUNTES_LAB = {
     pista:
       "Los valores se ajustan al rango 0–255: 300 se convierte en 44 y -1 en 255.",
   },
+  "string-at": {
+    idea:
+      "at() permite leer una posición de la cadena sin calcular índices desde length. Su superpoder son los negativos: -1 es el último carácter.",
+    modelo:
+      "Es un cursor con dos direcciones: avanza desde el principio con números positivos y retrocede desde el final con números negativos.",
+    checklist: [
+      "at(0) es el primer carácter; at(-1), el último.",
+      "Fuera de rango devuelve undefined, no una cadena vacía.",
+      "Los índices decimales se truncan antes de buscar la posición.",
+      "Sigue contando unidades UTF-16: un emoji puede ocupar dos posiciones.",
+    ],
+    reto:
+      "Obtén el primer, el último y el penúltimo carácter de un texto usando solo at(). Después compara el resultado con charAt() y con corchetes.",
+    pista:
+      "Usa at(0), at(-1) y at(-2). Prueba también at(100) para ver que devuelve undefined.",
+  },
+  "string-length": {
+    idea:
+      "length no es un método: es una propiedad de solo lectura que cuenta unidades UTF-16. Sirve para validar, recorrer y calcular posiciones.",
+    modelo:
+      "Es la etiqueta de una cinta métrica: informa del tamaño, pero no puedes cambiar la cuerda escribiendo otro número en la etiqueta.",
+    checklist: [
+      "Se lee sin paréntesis: texto.length.",
+      "No modifica la cadena aunque intentes asignarle un valor.",
+      "Los emojis suelen ocupar 2 unidades UTF-16.",
+      "Para caracteres visibles usa [...texto].length.",
+    ],
+    reto:
+      "Comprueba la longitud de tu nombre y de un texto con emojis. Explica por qué length y [...texto].length pueden dar resultados distintos.",
+    pista:
+      "Compara '😀'.length (2) con [...'😀'].length (1). El primero cuenta unidades internas; el segundo, caracteres visibles.",
+  },
+  "intl-format": {
+    idea:
+      "format() es la salida de cualquier formateador Intl: recibe un valor y devuelve un string adaptado al idioma y a las opciones del formateador.",
+    modelo:
+      "El formateador es una plantilla configurada una vez; format() es el sello que aplica esa plantilla a cada valor que le pasas.",
+    checklist: [
+      "format() no modifica el valor original: devuelve texto.",
+      "Cada formateador (NumberFormat, DateTimeFormat, ListFormat...) tiene su propio format().",
+      "La configuración vive en el constructor; format() solo recibe el valor.",
+      "Reutiliza el formateador fuera de bucles para no recrearlo en cada iteración.",
+    ],
+    reto:
+      "Crea un Intl.NumberFormat para es-ES y otro para en-US. Formatea el mismo número con ambos y explica las diferencias de separadores y decimales.",
+    pista:
+      "new Intl.NumberFormat('es-ES').format(1234.56) devuelve '1.234,56'; con 'en-US' devuelve '1,234.56'.",
+  },
 };
 
 export function apuntesDeLaboratorio(metodo) {
@@ -361,6 +409,12 @@ export function apuntesDeLaboratorio(metodo) {
       .map((texto) => String(texto).replace(/\*\*/g, ""))
       .find(Boolean) ?? "Practica el concepto con el ejemplo y observa cada salida.";
 
+  /* Los errores pueden venir como string o como { texto, code }. */
+  const soloTexto = (item) =>
+    typeof item === "string" ? item : item?.texto ?? "";
+
+  const primerError = soloTexto(metodo.errores?.[0]);
+
   return {
     idea,
     modelo: metodo.analogia ?? "",
@@ -371,7 +425,7 @@ export function apuntesDeLaboratorio(metodo) {
     reto:
       "Cambia un valor del ejemplo, predice el resultado antes de ejecutar y compáralo con la consola.",
     pista:
-      metodo.errores?.[0] ??
+      primerError ||
       "Lee el error, revisa la línea marcada y vuelve a ejecutar.",
   };
 }

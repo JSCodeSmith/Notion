@@ -6,6 +6,7 @@ import {
   Quiz,
 } from "../CareerDetail/MetodoDoc";
 import HTMLSimulador from "../SimuladoresHTML/HTMLSimulador";
+import HtmlLaboratorio from "./HtmlLaboratorio";
 import "../CareerDetail/MetodoFindDoc.css";
 import "./HtmlDoc.css";
 
@@ -39,6 +40,14 @@ export default function HtmlDoc({ doc, onBack }) {
           </div>
         </div>
       </header>
+
+      {doc.obsoleto && (
+        <div className="doc-warning">
+          ⚠️ Este elemento está <strong>obsoleto (deprecated)</strong> y ya no
+          forma parte del estándar HTML5. Se incluye como apunte histórico:
+          no lo uses en páginas nuevas.
+        </div>
+      )}
 
       <hr className="notion-divider" />
 
@@ -96,6 +105,16 @@ export default function HtmlDoc({ doc, onBack }) {
         <div className="doc-card doc-card--full html-doc__sim">
           <HTMLSimulador key={doc.id} metodoId={doc.id} />
         </div>
+
+        {doc.laboratorio && (
+          <div className="doc-card doc-card--full html-doc__lab">
+            <HtmlLaboratorio
+              key={`lab-${doc.id}`}
+              laboratorio={doc.laboratorio}
+              titulo={doc.titulo}
+            />
+          </div>
+        )}
 
         {quiz.length > 0 && <Quiz key={`quiz-${doc.id}`} preguntas={quiz} />}
 

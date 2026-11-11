@@ -4,7 +4,7 @@ export const JS_WEBAPIS = {
   icon: "🌐",
   titulo: "Web APIs del navegador",
   descripcion:
-    "Peticiones HTTP, clones profundos, expresiones regulares, archivos y codificación de texto para trabajar en el navegador.",
+    "Peticiones HTTP, clones profundos, archivos y codificación de texto para trabajar en el navegador.",
   grupos: [
     {
       seccion: "Red",
@@ -25,12 +25,6 @@ export const JS_WEBAPIS = {
           nombre: "structuredClone()",
           firma: "structuredClone(valor, opciones)",
           icon: "🧬",
-        },
-        {
-          id: "regexp-test",
-          nombre: "RegExp.prototype.test()",
-          firma: "regex.test(cadena)",
-          icon: "🔍",
         },
       ],
     },
@@ -449,165 +443,6 @@ console.log(copia.byteLength);  // 16`,
           "structuredClone conserva Date, Map y undefined",
           "JSON conserva más tipos",
           "structuredClone no acepta objetos",
-        ],
-        correcta: 1,
-      },
-    ],
-  },
-
-  "regexp-test": {
-    id: "regexp-test",
-    titulo: "RegExp.prototype.test()",
-    icon: "🔍",
-    categoria: "Web APIs · Validación",
-    firma: "regex.test(cadena)",
-    simulador: "webapi",
-
-    definicion: [
-      "Es un método de las instancias de `RegExp` que comprueba si una cadena coincide con el patrón. 🔍",
-      "Devuelve `true` si encuentra una coincidencia y `false` si no la encuentra.",
-    ],
-
-    queEs: [
-      "Es un método de comprobación: responde a la pregunta «¿esta cadena coincide o contiene algo que coincida con este patrón?». ❓",
-      "Pertenece a `RegExp.prototype` y se usa con expresiones regulares.",
-    ],
-
-    paraQueSirve: [
-      "🔎 Comprobar si existe una palabra o un fragmento de texto.",
-      "✅ Validar formatos: correos, teléfonos, códigos postales.",
-      "🔢 Detectar números o identificadores.",
-      "🛡️ Validar parcialmente la entrada de un usuario.",
-    ],
-
-    comoFunciona: [
-      "Recibe una cadena y la compara con el patrón de la expresión regular.",
-      "Si encuentra una coincidencia, devuelve `true`.",
-      "Si no encuentra nada, devuelve `false`.",
-      "No devuelve el texto encontrado: para eso se usa `match()` o `exec()`.",
-      "Con la bandera `g`, el método modifica `lastIndex` y puede alternar resultados en llamadas sucesivas.",
-    ],
-
-    sintaxis: [
-      {
-        code: `const regex = /patron/;
-regex.test("cadena a comprobar");`,
-      },
-      {
-        caption: "Con banderas:",
-        code: `const regex = /javascript/i; // i: ignora mayúsculas
-const soloDigitos = /^\\d+$/;  // solo números`,
-      },
-    ],
-
-    nota: "💡 Si reutilizas una regex con la bandera `g`, reinicia `regex.lastIndex = 0` antes de cada comprobación o crea una nueva instancia.",
-
-    ejemplos: [
-      {
-        titulo: "1. 🔎 Comprobar una palabra",
-        code: `const regex = /perro/;
-console.log(regex.test("Tengo un perro")); // true`,
-      },
-      {
-        titulo: "2. ❌ Cuando no existe",
-        code: `const regex = /gato/;
-console.log(regex.test("Tengo un perro")); // false`,
-      },
-      {
-        titulo: "3. 🔠 Ignorar mayúsculas y minúsculas",
-        code: `const regex = /javascript/i;
-console.log(regex.test("Estoy aprendiendo JAVASCRIPT")); // true`,
-      },
-      {
-        titulo: "4. 🔢 Comprobar si contiene un número",
-        code: `const regex = /\\d/;
-console.log(regex.test("Edad: 17")); // true
-console.log(regex.test("Hola"));     // false`,
-      },
-      {
-        titulo: "5. ✅ Validar un formato",
-        code: `const regex = /^\\d{4}$/;
-console.log(regex.test("2026")); // true
-console.log(regex.test("26"));   // false`,
-      },
-      {
-        titulo: "6. 📧 Validar un correo",
-        code: `const email = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-console.log(email.test("usuario@example.com")); // true`,
-      },
-    ],
-
-    errores: [
-      "**Pensar que devuelve la coincidencia:** devuelve solo `true` o `false`; usa `match()` o `exec()` para obtener información.",
-      "**Confundir `test()` con `match()`:** `regex.test(texto)` comprueba; `texto.match(regex)` devuelve información de la coincidencia.",
-      "**No tener cuidado con la bandera `g`:** `test()` mantiene un estado interno en `lastIndex` y puede dar resultados alternos.",
-      "**Olvidar anclar el patrón:** `/\\d{4}/` encuentra cuatro dígitos en cualquier parte; `/^\\d{4}$/` exige exactamente cuatro.",
-    ],
-
-    casos: [
-      "✅ Validar entradas de formularios.",
-      "📧 Comprobar correos electrónicos.",
-      "🔍 Detectar palabras clave en logs o mensajes.",
-      "🔢 Validar códigos y números.",
-    ],
-
-    relacion: [
-      "**`exec()`:** devuelve información detallada de la coincidencia.",
-      "**`String.prototype.match()`:** obtiene las coincidencias desde el string.",
-      "**`String.prototype.replace()`:** sustituye coincidencias.",
-      "**Banderas:** `g` global, `i` insensible a mayúsculas, `m` multilínea.",
-    ],
-
-    analogia:
-      "Imagina un detector de seguridad con un patrón: `/dinero/`. Haces pasar una cadena: «Necesito dinero». El detector pregunta: «¿encuentro lo que estoy buscando?». Si la respuesta es sí, devuelve `true`; si no, `false`. No te dice dónde está ni cuánto encontró: solo confirma si hay coincidencia.",
-
-    fuente: "MDN Web Docs · RegExp.prototype.test()",
-
-    notasPersonales: [
-      "✅ Devuelve un booleano, no la coincidencia.",
-      "✅ Usa `i` para ignorar mayúsculas.",
-      "⚠️ Con `g`, revisa `lastIndex`.",
-      "💡 `test()` = ¿coincide?; `match()` = ¿qué coincidió?",
-    ],
-
-    quiz: [
-      {
-        id: 1,
-        pregunta: "¿Qué devuelve RegExp.prototype.test()?",
-        opciones: [
-          "La coincidencia encontrada",
-          "Un booleano true o false",
-          "Un array de coincidencias",
-          "El índice de la coincidencia",
-        ],
-        correcta: 1,
-      },
-      {
-        id: 2,
-        pregunta: "¿Qué bandera ignora mayúsculas y minúsculas?",
-        opciones: ["g", "i", "m", "s"],
-        correcta: 1,
-      },
-      {
-        id: 3,
-        pregunta: "¿Qué método devuelve información sobre la coincidencia?",
-        opciones: ["test()", "match()", "some()", "includes()"],
-        correcta: 1,
-      },
-      {
-        id: 4,
-        pregunta: "¿Qué patrón exige exactamente cuatro dígitos?",
-        opciones: ["/\\d{4}/", "/^\\d{4}$/", "/\\d+/", "/[0-9]/"],
-        correcta: 1,
-      },
-      {
-        id: 5,
-        pregunta: "¿Qué problema puede causar la bandera g con test()?",
-        opciones: [
-          "Ninguno",
-          "Modifica lastIndex y alterna resultados",
-          "Lanza un error",
-          "Convierte el string en número",
         ],
         correcta: 1,
       },

@@ -1703,7 +1703,7 @@ substring: {
 },
 
 /* ---------- slice ---------- */
-slice: {
+"string-slice": {
   nombre: "slice()",
   campos: [
     { k: "texto", label: "Texto", tipo: "text", def: "JavaScript", ancho: 160 },
@@ -1922,6 +1922,147 @@ charat: {
       msg: `⏹ Retorna: ${show(resultado)}`,
     });
 
+    return pasos;
+  },
+},
+
+/* ---------- String.prototype.at() ---------- */
+"string-at": {
+  nombre: "at()",
+  campos: [
+    { k: "texto", label: "Texto", tipo: "text", def: "JavaScript", ancho: 160 },
+    { k: "index", label: "index (admite negativos)", tipo: "number", def: "-1", ancho: 90 },
+  ],
+  codigo: (v) => {
+    const iTxt = v.index.trim();
+    const iArg = iTxt === "" ? "" : Math.trunc(Number(iTxt));
+    return `const resultado = ${show(v.texto)}.at(${iArg});`;
+  },
+  celdas: (v) => celdasChars(v.texto),
+  resultadoFinal: (v) => {
+    try {
+      const iTxt = v.index.trim();
+      const iArg = iTxt === "" ? undefined : Math.trunc(Number(iTxt));
+      const valor = iArg === undefined ? v.texto.at() : v.texto.at(iArg);
+      return show(valor);
+    } catch (e) {
+      return `⚠️ ${e.name}: ${e.message}`;
+    }
+  },
+  traza: (v) => {
+    const s = v.texto;
+    const n = s.length;
+    const iTxt = v.index.trim();
+    const indexRaw = iTxt === "" ? undefined : Math.trunc(Number(iTxt));
+
+    const pasos = [
+      {
+        tipo: "system",
+        msg: `Texto: ${show(s)} · length = ${n} · index = ${indexRaw === undefined ? "(omitido → 0)" : indexRaw}`,
+      },
+    ];
+
+    if (n === 0) {
+      pasos.push({
+        tipo: "error",
+        msg: "⚠️ Cadena vacía: no hay posiciones que leer",
+      });
+      pasos.push({ tipo: "result", msg: "⏹ Retorna: undefined" });
+      return pasos;
+    }
+
+    const index = indexRaw === undefined ? 0 : indexRaw;
+    const normalizado = index < 0 ? n + index : index;
+
+    if (index < 0) {
+      pasos.push({
+        tipo: "iteration",
+        msg: `> Índice negativo: ${index} + length(${n}) = ${normalizado}`,
+      });
+    }
+
+    if (normalizado < 0 || normalizado >= n) {
+      pasos.push({
+        tipo: "error",
+        msg: `> El índice ${index} queda fuera de rango (0..${n - 1} o -1..-${n})`,
+      });
+      pasos.push({
+        tipo: "system",
+        msg: "ℹ️ at() devuelve undefined; charAt() devolvería una cadena vacía",
+      });
+      pasos.push({ tipo: "result", msg: "⏹ Retorna: undefined" });
+      return pasos;
+    }
+
+    const caracter = s.at(index);
+    pasos.push({
+      tipo: "success",
+      msg: `> La posición ${normalizado} contiene ${show(caracter)}`,
+      marks: [normalizado],
+    });
+    pasos.push({
+      tipo: "success",
+      msg: `✅ Resultado: ${show(caracter)} (length = ${caracter.length})`,
+    });
+    pasos.push({ tipo: "result", msg: `⏹ Retorna: ${show(caracter)}` });
+    return pasos;
+  },
+},
+
+/* ---------- String.prototype.length ---------- */
+"string-length": {
+  nombre: "length",
+  campos: [
+    {
+      k: "texto",
+      label: "Texto",
+      tipo: "text",
+      def: "JavaScript",
+      ancho: 220,
+    },
+  ],
+  codigo: (v) => `const resultado = ${show(v.texto)}.length;`,
+  celdas: (v) => celdasChars(v.texto),
+  resultadoFinal: (v) => String(v.texto.length),
+  traza: (v) => {
+    const s = v.texto;
+    const n = s.length;
+    const codePoints = [...s].length;
+
+    const pasos = [
+      {
+        tipo: "system",
+        msg: `Texto: ${show(s)} · unidades UTF-16 = ${n}`,
+      },
+      {
+        tipo: "iteration",
+        msg: "> length recorre las unidades de código de la cadena",
+      },
+    ];
+
+    if (n === 0) {
+      pasos.push({
+        tipo: "success",
+        msg: "✅ La cadena está vacía: length = 0",
+      });
+      pasos.push({ tipo: "result", msg: "⏹ Retorna: 0" });
+      return pasos;
+    }
+
+    pasos.push({
+      tipo: "success",
+      msg: `✅ Se cuentan ${n} unidades UTF-16`,
+      marks: Array.from({ length: n }, (_, i) => i),
+    });
+
+    if (codePoints !== n) {
+      pasos.push({
+        tipo: "system",
+        msg: `ℹ️ Hay ${codePoints} caracteres visibles (code points): algunos ocupan 2 unidades`,
+      });
+    }
+
+    pasos.push({ tipo: "result", msg: `⏹ Retorna: ${n}` });
     return pasos;
   },
 },
@@ -2531,7 +2672,7 @@ includes: {
   },
 },
 /* ---------- indexOf ---------- */
-indexof: {
+"string-indexof": {
   nombre: "indexOf()",
   campos: [
     { k: "texto", label: "Texto", tipo: "text", def: "Me gusta JavaScript", ancho: 220 },

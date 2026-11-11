@@ -340,6 +340,82 @@ function VistaHead({ valores }) {
   );
 }
 
+function VistaFrameset({ valores }) {
+  const columnas = String(valores.columnas ?? "25%,75%")
+    .split(",")
+    .map((parte) => parte.trim())
+    .filter(Boolean);
+  const estilos = columnas.length
+    ? columnas.map((parte) =>
+        parte.endsWith("%")
+          ? { flex: `0 0 ${parte}` }
+          : { flex: `0 0 ${parte}px` },
+      )
+    : [{ flex: "1" }, { flex: "1" }];
+
+  return (
+    <div className="html-sim__frameset">
+      <div className="html-sim__frameset-window">
+        <div className="html-sim__frameset-bar">
+          <span className="html-sim__frameset-dot" />
+          <span>Documento con marcos (obsoleto)</span>
+        </div>
+        <div className="html-sim__frameset-body">
+          {estilos.map((estilo, indice) => (
+            <div
+              key={indice}
+              className="html-sim__frame"
+              style={estilo}
+            >
+              <span className="html-sim__frame-name">
+                frame {indice + 1}
+              </span>
+              <code>
+                {indice === 0
+                  ? valores.menu || "menu.html"
+                  : valores.contenido || "contenido.html"}
+              </code>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="html-sim__frameset-note">
+        ⚠️ <code>&lt;frameset&gt;</code> fue eliminado en HTML5. Esta vista es
+        solo didáctica: hoy se usan CSS Grid, Flexbox o <code>&lt;iframe&gt;</code>.
+      </p>
+    </div>
+  );
+}
+
+function VistaTrack({ valores }) {
+  return (
+    <div className="html-sim__track">
+      <div className="html-sim__track-screen">
+        <div className="html-sim__track-play">▶</div>
+        <span className="html-sim__track-caption">
+          {valores.label || "Subtítulos"} · {valores.idioma || "es"}
+        </span>
+      </div>
+      <div className="html-sim__track-bar">
+        <span className="html-sim__track-time">0:12</span>
+        <span className="html-sim__track-progress">
+          <span className="html-sim__track-fill" />
+        </span>
+        <span className="html-sim__track-time">1:30</span>
+      </div>
+      <div className="html-sim__track-meta">
+        <span>🎬 kind: <code>{valores.kind}</code></span>
+        <span>🌐 srclang: <code>{valores.idioma}</code></span>
+        <span>📄 src: <code>{valores.src}</code></span>
+      </div>
+      <p className="html-sim__frameset-note">
+        El navegador carga el archivo <code>.vtt</code> desde <code>src</code> y
+        muestra sus pistas sobre el video.
+      </p>
+    </div>
+  );
+}
+
 export default function HTMLSimulador({ metodoId }) {
   const config = HTML_CONFIGS[metodoId] ?? HTML_FALLBACK;
 
@@ -432,6 +508,10 @@ export default function HTMLSimulador({ metodoId }) {
             <VistaDoctype incluir={Boolean(valores.incluir)} />
           ) : config.vista === "head" ? (
             <VistaHead valores={valores} />
+          ) : config.vista === "frameset" ? (
+            <VistaFrameset valores={valores} />
+          ) : config.vista === "track" ? (
+            <VistaTrack valores={valores} />
           ) : (
             <iframe
               className="html-sim__frame"

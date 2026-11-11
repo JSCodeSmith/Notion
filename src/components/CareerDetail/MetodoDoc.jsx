@@ -26,6 +26,7 @@ import SimuladorGeo from '../SimuladoresDOM/SimuladorGeo'
 import SimuladorMath from '../SimuladoresJS/SimuladorMath'
 import SimuladorStorage from '../SimuladoresJS/SimuladorStorage'
 import SimuladorEstilos from '../SimuladoresJS/SimuladorEstilos'
+import SimuladorIntl from '../SimuladoresJS/SimuladorIntl'
 import SimuladorVoz from '../SimuladoresJS/SimuladorVoz'
 import SimuladorMedios from '../SimuladoresJS/SimuladorMedios'
 import SimuladorRed from '../SimuladoresJS/SimuladorRed'
@@ -95,6 +96,8 @@ function Simulador({ metodo, simuladores = {} }) {
       return <SimuladorGeo key={metodo.id} metodoId={metodo.id} />
     case 'math':
       return <SimuladorMath key={metodo.id} metodoId={metodo.id} />
+    case 'intl':
+      return <SimuladorIntl key={metodo.id} metodoId={metodo.id} />
     case 'storage':
       return <SimuladorStorage key={metodo.id} metodoId={metodo.id} />
     case 'estilos':

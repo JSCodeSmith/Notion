@@ -3,6 +3,31 @@
    El código se ejecuta en un Web Worker: no hay DOM ni red. */
 
 export const INTL_CONFIGS = {
+  "intl-format": {
+    titulo: "El sello de cualquier formateador",
+    descripcion:
+      "format() recibe un valor y devuelve el texto ya adaptado al idioma y a las opciones del formateador.",
+    prueba:
+      "Cambia los números inyectados: el formateador los presenta con los separadores de es-ES y en-US sin modificar los valores originales.",
+    codigo: `const numero = numeros[0] ?? 1234.56;
+const es = new Intl.NumberFormat("es-ES");
+const en = new Intl.NumberFormat("en-US");
+const moneda = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+});
+console.log("Valor original:", numero);
+console.log("es-ES:", es.format(numero));
+console.log("en-US:", en.format(numero));
+console.log("Moneda:", moneda.format(numero));
+return {
+  original: numero,
+  es: es.format(numero),
+  en: en.format(numero),
+  moneda: moneda.format(numero),
+};`,
+  },
+
   "intl-numberformat": {
     titulo: "Formatea números por locale",
     descripcion:
@@ -238,6 +263,7 @@ return {
 };
 
 export const INTL_CATEGORIAS = {
+  "intl-format": "numero",
   "intl-numberformat": "numero",
   "intl-currency": "numero",
   "intl-percent": "numero",

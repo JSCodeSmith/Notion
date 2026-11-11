@@ -924,7 +924,9 @@ export default function LiveExamples({ metodo, metodoId }) {
                 <span>Checklist</span>
                 <ul>
                   {apuntes.checklist.map((punto, indice) => (
-                    <li key={indice}>{punto}</li>
+                    <li key={indice}>
+                      {typeof punto === "string" ? punto : punto?.texto ?? ""}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -1569,8 +1571,10 @@ export default function LiveExamples({ metodo, metodoId }) {
             <div className="le-debug__tips">
               <strong>⚠️ Errores comunes que conviene revisar</strong>
               <ul>
-                {metodo.errores.slice(0, 3).map((texto, indice) => (
-                  <li key={indice}>{texto}</li>
+                {metodo.errores.slice(0, 3).map((error, indice) => (
+                  <li key={indice}>
+                    {typeof error === "string" ? error : error?.texto ?? ""}
+                  </li>
                 ))}
               </ul>
             </div>

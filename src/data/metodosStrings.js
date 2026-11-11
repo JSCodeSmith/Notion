@@ -11,6 +11,23 @@ const Q = (rows) =>
    ====================================================================== */
 export const METODOS_STRINGS = [
   {
+    seccion: "Longitud y acceso",
+    metodos: [
+      {
+        id: "string-length",
+        nombre: "length",
+        firma: "String.prototype.length",
+        icon: "📏",
+      },
+      {
+        id: "string-at",
+        nombre: "at()",
+        firma: "String.prototype.at(index)",
+        icon: "📍",
+      },
+    ],
+  },
+  {
     seccion: "Unicode y Códigos",
     metodos: [
       {
@@ -79,7 +96,7 @@ export const METODOS_STRINGS = [
         icon: "🔍",
       },
       {
-        id: "indexof",
+        id: "string-indexof",
         nombre: "indexOf()",
         firma: "String.prototype.indexOf(searchValue, fromIndex)",
         icon: "📍",
@@ -215,7 +232,7 @@ export const METODOS_STRINGS = [
     seccion: "Extracción y División",
     metodos: [
       {
-        id: "slice",
+        id: "string-slice",
         nombre: "slice()",
         firma: "String.prototype.slice(indexStart, indexEnd)",
         icon: "✂️",
@@ -270,6 +287,374 @@ export const METODOS_STRINGS = [
    DOCUMENTOS (misma forma que METODOS_DOCS)
    ====================================================================== */
 export const METODOS_STRINGS_DOCS = {
+  /* ============================ String.prototype.length ============================ */
+  "string-length": {
+    id: "string-length",
+    titulo: "String.prototype.length",
+    simulador: "string",
+    definicion: [
+      "Es una **propiedad de solo lectura** de los *strings* que devuelve el número de **unidades de código UTF-16** que forman la cadena.",
+    ],
+    queEs: [
+      "No es una función: se lee sin paréntesis (`texto.length`), no se llama como `texto.length()`.",
+      "Es una propiedad heredada de `String.prototype` y está disponible en cualquier cadena literal o creada con `String()`.",
+      "Su valor es un número entero entre `0` y el tamaño máximo que permita el motor de JavaScript.",
+      "Los *strings* son inmutables: `length` informa del tamaño, pero **no se puede asignar** para recortar o alargar la cadena.",
+    ],
+    paraQueSirve: [
+      "**Conocer el tamaño de un texto:** validar campos, mostrar contadores de caracteres o cortar fragmentos.",
+      "**Acceder al último carácter:** `texto[texto.length - 1]` o `texto.at(-1)`.",
+      "**Recorrer una cadena:** usar `length` como límite de un bucle `for`.",
+      "**Detectar cadenas vacías:** `texto.length === 0` es una comprobación rápida.",
+      "**Calcular rellenos y recortes:** `padStart`, `padEnd`, `slice` y `substring` suelen combinarse con `length`.",
+    ],
+    comoFunciona: [
+      "Cada carácter BMP (la mayoría de letras, números y símbolos) ocupa **1 unidad UTF-16**.",
+      "Los emojis y muchos caracteres fuera del BMP ocupan **2 unidades UTF-16** (un par sustituto), aunque visualmente sean un solo carácter.",
+      "`length` cuenta unidades de código, **no caracteres visibles** ni grafemas.",
+      "La propiedad es de solo lectura: asignarle un valor no cambia la cadena y en modo estricto puede lanzar `TypeError`.",
+      "Para contar caracteres visibles usa `[...texto].length` o `Intl.Segmenter`.",
+    ],
+    sintaxis: [
+      {
+        code: `const texto = "JavaScript";
+console.log(texto.length); // 10`,
+      },
+      {
+        caption: "Último carácter y cadena vacía:",
+        code: `const palabra = "Hola";
+console.log(palabra[palabra.length - 1]); // "a"
+console.log("".length);                   // 0`,
+      },
+      {
+        caption: "Contar caracteres visibles frente a unidades UTF-16:",
+        code: `const emoji = "😀";
+console.log(emoji.length);        // 2  (unidades UTF-16)
+console.log([...emoji].length);   // 1  (code points)`,
+      },
+    ],
+    nota: "**Retorno:** un `number` entero. `length` no es un método: escribir `texto.length()` lanza `TypeError` porque un número no es una función.",
+    ejemplos: [
+      {
+        titulo: "Ejemplo 1: Longitud básica",
+        code: `const saludo = "Hola, mundo";
+console.log(saludo.length); // 11`,
+      },
+      {
+        titulo: "Ejemplo 2: Último carácter sin hardcodear el índice",
+        code: `const palabra = "Desarrollo";
+const ultimo = palabra[palabra.length - 1];
+console.log(ultimo); // "o"`,
+      },
+      {
+        titulo: "Ejemplo 3: Validar un campo",
+        code: `function validarNombre(nombre) {
+  if (nombre.length < 3) {
+    return "El nombre es demasiado corto";
+  }
+  return "Nombre válido";
+}
+
+console.log(validarNombre("Ana"));   // "Nombre válido"
+console.log(validarNombre("Al"));    // "El nombre es demasiado corto"`,
+      },
+      {
+        titulo: "Ejemplo 4: La trampa de los emojis",
+        code: `const texto = "😀👍";
+console.log(texto.length);      // 4 (dos pares sustitutos)
+console.log([...texto].length); // 2 (dos caracteres visibles)`,
+      },
+    ],
+    errores: [
+      {
+        texto: "**Llamar a `length` como si fuera un método:**",
+        code: `"Hola".length(); // ❌ TypeError: "Hola".length is not a function
+"Hola".length;   // ✅ 4`,
+      },
+      {
+        texto: "**Intentar modificar la longitud de una cadena:**",
+        code: `let texto = "Hola";
+texto.length = 2;
+console.log(texto); // "Hola" (sigue igual)`,
+      },
+      {
+        texto:
+          "**Confundir unidades UTF-16 con caracteres visibles:** un emoji puede contar 2.",
+        code: `"😀".length;      // 2
+[... "😀"].length; // 1`,
+      },
+      {
+        texto:
+          "**Usar `length` después de `trim()` sin guardar el resultado:** `trim()` devuelve una cadena nueva.",
+        code: `const texto = "  hola  ";
+console.log(texto.length);        // 9
+console.log(texto.trim().length); // 4`,
+      },
+    ],
+    casos: [
+      "**Contadores de caracteres:** mostrar cuántos caracteres quedan en un campo de texto.",
+      "**Validaciones:** exigir una longitud mínima o máxima en formularios.",
+      "**Recorrer cadenas:** `for (let i = 0; i < texto.length; i++)`.",
+      "**Recortes dinámicos:** `texto.slice(0, texto.length - 1)` para quitar el último carácter.",
+      "**Rellenos:** `texto.padStart(10, \"0\")` para completar códigos.",
+    ],
+    relacion: [
+      "**`String.prototype.at()`:** accede a un índice, incluido uno negativo, sin calcular `length - 1`.",
+      "**`String.prototype.slice()`:** extrae tramos usando índices, normalmente combinados con `length`.",
+      "**`String.prototype.padStart()` / `padEnd()`:** rellenan hasta una longitud objetivo.",
+      "**`Array.prototype.length`:** en arrays sí es modificable y puede truncar o ampliar el array.",
+      "**`Intl.Segmenter`:** cuenta grafemas y palabras según las reglas del idioma.",
+    ],
+    analogia:
+      "`length` es como la etiqueta de una cinta métrica pegada a una cuerda: te dice cuántos tramos tiene, pero no puedes estirar o encoger la cuerda escribiendo otro número en la etiqueta. Y si la cuerda tiene un emoji, la cinta cuenta dos eslabones internos aunque tú veas una sola figura.",
+    fuente:
+      "MDN Web Docs · String.prototype.length | ECMAScript Language Specification (ECMA-262)",
+    notasPersonales: [
+      "✅ `length` es una propiedad, no un método: sin paréntesis.",
+      "✅ Es de solo lectura: no recorta la cadena.",
+      "⚠️ Cuenta unidades UTF-16; un emoji puede valer 2.",
+      "💡 Para el último carácter moderno: `texto.at(-1)`.",
+      "🧪 Para caracteres visibles: `[...texto].length`.",
+    ],
+    quiz: Q([
+      [
+        "¿Qué devuelve 'JavaScript'.length?",
+        ["9", "10", "11", "undefined"],
+        1,
+      ],
+      [
+        "¿Qué devuelve '😀'.length?",
+        ["1", "2", "0", "Un error"],
+        1,
+      ],
+      [
+        "¿Cómo se lee la longitud de un string?",
+        ["texto.length()", "texto.length", "texto.size", "texto.count()"],
+        1,
+      ],
+      [
+        "¿Qué ocurre al asignar texto.length = 2?",
+        [
+          "La cadena se recorta",
+          "La cadena no cambia",
+          "Lanza SyntaxError siempre",
+          "Devuelve una copia recortada",
+        ],
+        1,
+      ],
+      [
+        "¿Qué devuelve ''.length?",
+        ["0", "1", "null", "undefined"],
+        0,
+      ],
+      [
+        "¿Qué método cuenta caracteres visibles (code points) de un emoji?",
+        ["texto.length", "[...texto].length", "texto.size", "texto.count"],
+        1,
+      ],
+      [
+        "¿Qué expresión obtiene el último carácter con length?",
+        [
+          "texto[texto.length]",
+          "texto[texto.length - 1]",
+          "texto[0]",
+          "texto.length - 1",
+        ],
+        1,
+      ],
+      [
+        "¿De dónde hereda la propiedad length un string?",
+        ["Array.prototype", "String.prototype", "Object.length", "Number.prototype"],
+        1,
+      ],
+    ]),
+  },
+
+  /* ============================ String.prototype.at() ============================ */
+  "string-at": {
+    id: "string-at",
+    titulo: "String.prototype.at()",
+    simulador: "string",
+    definicion: [
+      "Es un método de `String` que devuelve el carácter situado en un índice y **acepta índices negativos** para contar desde el final de la cadena.",
+    ],
+    queEs: [
+      "Es la versión moderna de `charAt()` para acceder a posiciones: devuelve un *string* de un solo carácter o `undefined` si el índice no existe.",
+      "Introducido en **ES2022**, comparte diseño con `Array.prototype.at()` y `TypedArray.prototype.at()`.",
+      "A diferencia de `charAt()`, `at(-1)` devuelve el último carácter sin calcular `length - 1`.",
+      "Como todos los métodos de cadena, **no modifica** el texto original.",
+    ],
+    paraQueSirve: [
+      "**Obtener el último carácter** de una palabra o código: `texto.at(-1)`.",
+      "**Acceder desde el final:** `at(-2)` para el penúltimo, `at(-3)` para el antepenúltimo.",
+      "**Evitar cálculos manuales** como `texto[texto.length - 1]`.",
+      "**Escribir código más legible** al trabajar con colas, extensiones o identificadores.",
+      "**Mantener coherencia** con `Array.prototype.at()` al recorrer strings y arrays.",
+    ],
+    comoFunciona: [
+      "Recibe un índice numérico; si se omite, se usa `0`.",
+      "Con índices positivos funciona como los corchetes: `at(0)` es el primer carácter.",
+      "Con índices negativos resta desde el final: `at(-1)` es el último, `at(-2)` el penúltimo.",
+      "Si el índice, tras resolver el negativo, queda fuera de rango, devuelve `undefined` (no `\"\"` como `charAt()`).",
+      "Los índices decimales se truncan hacia cero antes de buscar la posición.",
+      "Cuenta unidades UTF-16: un emoji puede ocupar dos posiciones.",
+    ],
+    sintaxis: [
+      {
+        code: `const texto = "JavaScript";
+console.log(texto.at(0));  // "J"
+console.log(texto.at(-1)); // "t"`,
+      },
+      {
+        caption: "Comparación con charAt() y corchetes:",
+        code: `const texto = "Hola";
+console.log(texto.at(-1));    // "a"
+console.log(texto.charAt(-1)); // ""      (no admite negativos)
+console.log(texto[-1]);        // undefined (los corchetes tampoco)`,
+      },
+      {
+        caption: "Fuera de rango:",
+        code: `const texto = "Hola";
+console.log(texto.at(10));  // undefined
+console.log(texto.at(-10)); // undefined`,
+      },
+    ],
+    nota: "**Retorno:** un `string` de un carácter, o `undefined` si el índice no existe. **Diferencia clave:** `at()` sí admite negativos y devuelve `undefined` fuera de rango; `charAt()` devuelve `\"\"`.",
+    ejemplos: [
+      {
+        titulo: "Ejemplo 1: Primer y último carácter",
+        code: `const palabra = "JavaScript";
+console.log(palabra.at(0));  // "J"
+console.log(palabra.at(-1)); // "t"`,
+      },
+      {
+        titulo: "Ejemplo 2: Penúltimo carácter",
+        code: `const extension = "informe.pdf";
+console.log(extension.at(-2)); // "d"
+console.log(extension.at(-3)); // "p"`,
+      },
+      {
+        titulo: "Ejemplo 3: Índice fuera de rango",
+        code: `const texto = "Hola";
+console.log(texto.at(99));  // undefined
+console.log(texto.at(-99)); // undefined`,
+      },
+      {
+        titulo: "Ejemplo 4: Recorrer desde el final",
+        code: `const palabra = "react";
+for (let i = -1; i >= -palabra.length; i--) {
+  console.log(palabra.at(i));
+}
+// t, c, a, e, r`,
+      },
+    ],
+    errores: [
+      {
+        texto:
+          "**Esperar `\"\"` fuera de rango:** `at()` devuelve `undefined`, así que `.toUpperCase()` puede fallar.",
+        code: `const texto = "Hola";
+console.log(texto.at(10));          // undefined
+console.log(texto.at(10).toUpperCase()); // ❌ TypeError`,
+      },
+      {
+        texto:
+          "**Usar un índice negativo con charAt() o corchetes:** solo `at()` lo interpreta desde el final.",
+        code: `"Hola".at(-1);     // "a"
+"Hola".charAt(-1); // ""
+"Hola"[-1];        // undefined`,
+      },
+      {
+        texto:
+          "**Confundir índices negativos con posiciones absolutas:** `at(-1)` no es `at(1)`.",
+        code: `"JavaScript".at(1);  // "a"
+"JavaScript".at(-1); // "t"`,
+      },
+      {
+        texto:
+          "**Pensar que cuenta caracteres visibles:** sigue contando unidades UTF-16.",
+        code: `"😀".at(0);          // mitad del par sustituto
+[..."😀"].at(0);       // "😀"`,
+      },
+    ],
+    casos: [
+      "**Extensiones de archivo:** `archivo.at(-3)` para comprobar `pdf`.",
+      "**Últimos dígitos:** `tarjeta.at(-1)` para el dígito verificador.",
+      "**Colas y turnos:** leer el último elemento de una cadena de códigos.",
+      "**Interfaces:** mostrar la inicial o la última letra de un nombre.",
+      "**Código moderno:** sustituir `texto[texto.length - 1]` por `texto.at(-1)`.",
+    ],
+    relacion: [
+      "**`String.prototype.charAt()`:** método clásico; no acepta negativos y devuelve `\"\"` fuera de rango.",
+      "**Notación de corchetes (`texto[i]`)**: no acepta negativos y devuelve `undefined` fuera de rango.",
+      "**`String.prototype.length`:** base para calcular índices positivos.",
+      "**`Array.prototype.at()`:** misma idea para arrays y TypedArrays.",
+      "**`String.prototype.codePointAt()`:** obtiene el valor Unicode de la posición.",
+    ],
+    analogia:
+      "`at()` es como un control remoto con dos botones: uno avanza desde el principio y otro retrocede desde el final. `charAt()` solo tiene el botón de avance, así que para llegar al último carácter tienes que contar toda la fila antes.",
+    fuente:
+      "MDN Web Docs · String.prototype.at() | ECMAScript 2022 Language Specification",
+    notasPersonales: [
+      "✅ `at(-1)` = último carácter; `at(-2)` = penúltimo.",
+      "✅ Fuera de rango devuelve `undefined`, no `\"\"`.",
+      "✅ Acepta índices decimales (se truncan).",
+      "⚠️ Cuenta unidades UTF-16, igual que `length`.",
+      "💡 Es la pareja moderna de `Array.prototype.at()`.",
+    ],
+    quiz: Q([
+      [
+        "¿Qué devuelve 'JavaScript'.at(-1)?",
+        ["'J'", "'t'", "'a'", "undefined"],
+        1,
+      ],
+      [
+        "¿Qué devuelve 'JavaScript'.at(0)?",
+        ["'J'", "'t'", "'a'", "undefined"],
+        0,
+      ],
+      [
+        "¿Qué devuelve 'Hola'.at(10)?",
+        ["''", "null", "undefined", "Un error"],
+        2,
+      ],
+      [
+        "¿Qué método NO acepta índices negativos?",
+        ["at()", "charAt()", "slice()", "Array.prototype.at()"],
+        1,
+      ],
+      [
+        "¿Qué devuelve 'Hola'.at(-2)?",
+        ["'H'", "'o'", "'l'", "'a'"],
+        2,
+      ],
+      [
+        "¿En qué versión de ECMAScript se introdujo String.prototype.at()?",
+        ["ES5", "ES2015", "ES2022", "ES2024"],
+        2,
+      ],
+      [
+        "¿Qué devuelve '😀'.at(0)?",
+        [
+          "'😀'",
+          "La primera mitad del par sustituto",
+          "''",
+          "Un error",
+        ],
+        1,
+      ],
+      [
+        "¿Qué expresión equivale a texto.at(-1)?",
+        [
+          "texto[0]",
+          "texto[texto.length]",
+          "texto[texto.length - 1]",
+          "texto.charAt(-1)",
+        ],
+        2,
+      ],
+    ]),
+  },
+
   /* ============================ String.raw() ============================ */
   raw: {
     id: "raw",
@@ -4138,8 +4523,8 @@ console.log(parte);    // "Hola"`,
     ]),
   },
   /* ============================ slice() ============================ */
-  slice: {
-    id: "slice",
+  "string-slice": {
+    id: "string-slice",
     titulo: "String.prototype.slice()",
     simulador: "string",
     definicion: [
@@ -5213,8 +5598,8 @@ numero.toString().includes("2");`,
   },
 
   /* ============================ indexOf() ============================ */
-  indexof: {
-    id: "indexof",
+  "string-indexof": {
+    id: "string-indexof",
     titulo: "String.prototype.indexOf()",
     simulador: "string",
     definicion: [

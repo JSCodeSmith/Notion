@@ -161,6 +161,214 @@ export const APUNTES_ARITMETICA_LAB = {
     pista:
       "PL = $100; precio final = $90; ganancia real = $10, equivalente a 12,5% sobre el costo.",
   },
+  "aritmetica-ganancia": {
+    idea:
+      "La ganancia es la parte del precio de venta que sobrevive al costo. Se mide en dinero, pero se compara en porcentaje para saber si la operación es buena.",
+    modelo:
+      "Es el sobrante de la caja después de pagar la mercadería: no es todo lo que entra, sino lo que realmente queda.",
+    checklist: [
+      "Ganancia = PV - PC cuando el precio de venta supera el costo.",
+      "Margen sobre costo = (Ganancia / PC) × 100.",
+      "Margen sobre venta = (Ganancia / PV) × 100.",
+      "Una ganancia bruta todavía no descuenta gastos operativos.",
+    ],
+    reto:
+      "Un producto cuesta $120 y se vende a $150. Calcula la ganancia, el margen sobre el costo y el margen sobre la venta.",
+    pista:
+      "Ganancia = $30. Sobre el costo = 25%; sobre la venta = 20%.",
+  },
+  "aritmetica-perdida": {
+    idea:
+      "La pérdida es la ganancia con el signo invertido: el precio de venta no alcanza a cubrir el costo. Medirla evita repetir una venta que destruye valor.",
+    modelo:
+      "Es el hueco que deja una venta cuando entra menos dinero del que salió: hay que taparlo con otras operaciones.",
+    checklist: [
+      "Hay pérdida cuando el PV es menor que el PC.",
+      "Pérdida = PC - PV.",
+      "Porcentaje de pérdida sobre el costo = (Pérdida / PC) × 100.",
+      "El precio piso para no perder es exactamente el costo.",
+    ],
+    reto:
+      "Compras a $90 y vendes a $75. Calcula la pérdida y el porcentaje sobre el costo. ¿Qué precio habrías necesitado para no perder?",
+    pista:
+      "Pérdida = $15 (16,67% del costo). El precio mínimo era $90.",
+  },
+  "aritmetica-precio-venta": {
+    idea:
+      "El precio de venta es una decisión, no una casualidad: debe cubrir costo, gastos y una ganancia mínima. Se construye desde el costo hacia arriba, nunca al revés.",
+    modelo:
+      "Es la puerta por donde entra el dinero: si es más angosta que el costo, el negocio se queda sin aire.",
+    checklist: [
+      "PV = PC × (1 + margen/100) si el margen va sobre el costo.",
+      "PV = PC + Ganancia si la ganancia está en dinero.",
+      "El precio de lista puede bajar con descuentos hasta llegar al PV final.",
+      "Comprueba que el PV cubra costo, gastos e impuestos.",
+    ],
+    reto:
+      "Costo $150 y margen objetivo del 30% sobre el costo. Calcula el PV y el margen resultante sobre la venta.",
+    pista:
+      "PV = 150 × 1,30 = $195. Margen sobre venta = 45 / 195 ≈ 23,08%.",
+  },
+  "aritmetica-ganancia-bruta": {
+    idea:
+      "La ganancia bruta es el primer filtro de rentabilidad: mide si el precio cubre el costo directo del producto antes de pagar la estructura del negocio.",
+    modelo:
+      "Es lo que queda en la mesa después de pagar los ingredientes de la pizza, antes del local y del personal.",
+    checklist: [
+      "GB = PV - COGS.",
+      "Solo descuenta costos directos, no gastos operativos.",
+      "Una GB negativa es una alarma inmediata.",
+      "El margen bruto convierte la GB en porcentaje de las ventas.",
+    ],
+    reto:
+      "Ventas de $2,000 y COGS de $1,300. Calcula la ganancia bruta y el margen bruto.",
+    pista:
+      "GB = $700; margen bruto = 35%.",
+  },
+  "aritmetica-ganancia-neta": {
+    idea:
+      "La ganancia neta es la última línea: lo que queda después de pagar absolutamente todo. Es la que decide si el negocio se sostiene o no.",
+    modelo:
+      "Es lo que realmente te queda en el bolsillo después de la mercadería, el local, la luz, los impuestos y el banco.",
+    checklist: [
+      "GN = GB - gastos operativos - impuestos - intereses.",
+      "Una GB positiva puede esconder una GN negativa.",
+      "Convierte la GN en margen neto dividiendo entre las ventas.",
+      "No confundas ganancia neta con efectivo disponible.",
+    ],
+    reto:
+      "GB = $700, gastos operativos $400, impuestos $60 e intereses $40. Calcula la GN y el margen neto sobre ventas de $2,000.",
+    pista:
+      "GN = 700 - 400 - 60 - 40 = $200; margen neto = 10%.",
+  },
+  "aritmetica-margen-bruto": {
+    idea:
+      "El margen bruto responde una sola pregunta: de cada $100 vendidos, ¿cuánto queda después del costo directo? Es la base para cubrir la estructura.",
+    modelo:
+      "Es la porción del pastel que queda después de pagar los ingredientes; todavía no alcanza para el alquiler, pero ya sabes con cuánto cuentas.",
+    checklist: [
+      "Margen bruto = ((PV - COGS) / PV) × 100.",
+      "Se calcula sobre la venta, no sobre el costo.",
+      "No incluye gastos operativos ni impuestos.",
+      "Compáralo siempre con el margen operativo y el neto.",
+    ],
+    reto:
+      "PV $250 y COGS $150. Calcula el margen bruto y el markup equivalente.",
+    pista:
+      "GB = $100; margen bruto = 40%; markup = 66,67%.",
+  },
+  "aritmetica-margen-operativo": {
+    idea:
+      "El margen operativo mide la eficiencia del motor del negocio antes de la deuda y los impuestos. Si no alcanza, el problema está en la operación, no en el financiamiento.",
+    modelo:
+      "Es la potencia del motor antes de contar el desgaste de las piezas y el combustible.",
+    checklist: [
+      "EBIT = ventas - COGS - gastos operativos.",
+      "Margen operativo = (EBIT / ventas) × 100.",
+      "Excluye intereses e impuestos por definición.",
+      "Compáralo con el margen bruto para ver el peso de la estructura.",
+    ],
+    reto:
+      "Ventas $5,000, COGS $3,000 y gastos operativos $1,200. Calcula EBIT, margen operativo y margen bruto.",
+    pista:
+      "GB = $2,000 (40%); EBIT = $800; margen operativo = 16%.",
+  },
+  "aritmetica-margen-neto": {
+    idea:
+      "El margen neto es la nota final del negocio: cuánto de cada venta sobrevive después de costos, gastos, impuestos e intereses.",
+    modelo:
+      "Es la nota final del examen: después de todas las materias, es lo que realmente quedó de tu esfuerzo.",
+    checklist: [
+      "Margen neto = (Utilidad neta / Ventas) × 100.",
+      "Se calcula sobre la venta, igual que el margen bruto y el operativo.",
+      "Incluye impuestos e intereses.",
+      "Un margen neto positivo y creciente indica buena salud.",
+    ],
+    reto:
+      "Ventas $10,000, COGS $6,000, gastos $2,000, impuestos $600 e intereses $200. Calcula la utilidad neta y el margen neto.",
+    pista:
+      "Utilidad neta = $1,200; margen neto = 12%.",
+  },
+  "aritmetica-markup": {
+    idea:
+      "El markup es el recargo porcentual sobre el costo. Suena parecido al margen, pero usa otra base: confundirlos es el error de precios más común.",
+    modelo:
+      "Es la rampa que agregas sobre el costo para llegar al precio: si la rampa es del 50%, el precio sube la mitad de lo que costó.",
+    checklist: [
+      "Markup = ((PV - PC) / PC) × 100.",
+      "El margen sobre venta usa el PV como base, no el costo.",
+      "Markup del 100% equivale a margen de venta del 50%.",
+      "Convierte siempre la base antes de comparar dos porcentajes.",
+    ],
+    reto:
+      "Costo $80 y precio de venta $120. Calcula el markup y el margen sobre la venta.",
+    pista:
+      "Ganancia $40. Markup = 50%; margen sobre venta = 33,33%.",
+  },
+  "aritmetica-cogs": {
+    idea:
+      "El COGS es el costo de lo que realmente se vendió, no de todo lo que se compró. Separarlo bien es la base de una ganancia bruta confiable.",
+    modelo:
+      "Es el costo de los ingredientes usados en los platos vendidos, no de todo lo que hay en la despensa.",
+    checklist: [
+      "COGS = Inventario inicial + Compras - Inventario final.",
+      "Solo incluye costos directos de los bienes vendidos.",
+      "Un inventario final inflado reduce artificialmente el COGS.",
+      "Resta el COGS a las ventas para obtener la ganancia bruta.",
+    ],
+    reto:
+      "Inventario inicial $900, compras $2,100, inventario final $600 y ventas $3,000. Calcula COGS y margen bruto.",
+    pista:
+      "COGS = 900 + 2,100 - 600 = $2,400; GB = $600; margen bruto = 20%.",
+  },
+  "aritmetica-ebitda": {
+    idea:
+      "El EBITDA mide la capacidad operativa antes de intereses, impuestos y amortizaciones. Es útil para comparar, pero no reemplaza al flujo de caja.",
+    modelo:
+      "Es medir la fuerza del motor sin contar el desgaste de las piezas ni el combustible.",
+    checklist: [
+      "EBITDA = Utilidad neta + impuestos + intereses + D&A.",
+      "No descuenta inversiones ni capital de trabajo.",
+      "EBITDA positivo no garantiza liquidez.",
+      "Margen EBITDA = EBITDA / ventas × 100.",
+    ],
+    reto:
+      "Utilidad neta $300, impuestos $120, intereses $80, depreciación $100 y amortización $50. Calcula el EBITDA.",
+    pista:
+      "EBITDA = 300 + 120 + 80 + 100 + 50 = $650.",
+  },
+  "aritmetica-roi": {
+    idea:
+      "El ROI compara el beneficio con la inversión que lo hizo posible. Sin el monto invertido, el beneficio solo no dice si la apuesta valió la pena.",
+    modelo:
+      "Es la nota de una apuesta: cuánto recuperaste por cada ficha que pusiste.",
+    checklist: [
+      "ROI = (Beneficio / Inversión) × 100.",
+      "Usa beneficio neto, no ingresos.",
+      "Considera el tiempo: un ROI anual no es lo mismo que uno trienal.",
+      "Compáralo con el costo de oportunidad del dinero.",
+    ],
+    reto:
+      "Inviertes $5,000 y obtienes un beneficio neto de $1,250 en dos años. Calcula el ROI total y el anualizado.",
+    pista:
+      "ROI total = 25%; ROI anualizado = 12,5%.",
+  },
+  "aritmetica-punto-equilibrio": {
+    idea:
+      "El punto de equilibrio es la raya que separa perder de ganar. No es la meta: es el mínimo que hay que vender para que la estructura no consuma el negocio.",
+    modelo:
+      "Es la raya del campo: por debajo pierdes, por encima empiezas a ganar.",
+    checklist: [
+      "Margen de contribución = PV unitario - CV unitario.",
+      "Q* = Costos fijos / margen de contribución.",
+      "Ventas de equilibrio = Q* × PV unitario.",
+      "Si el margen de contribución es negativo, nunca se llega al equilibrio.",
+    ],
+    reto:
+      "Costos fijos $4,000, PV $50 y costo variable $30. Calcula el punto de equilibrio en unidades y en ventas.",
+    pista:
+      "Contribución = $20; Q* = 200 unidades; ventas = $10,000.",
+  },
 };
 
 export function apuntesAritmeticaDe(nota) {

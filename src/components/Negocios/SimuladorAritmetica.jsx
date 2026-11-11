@@ -62,8 +62,12 @@ function Barra({ segmentos }) {
    Componente principal
    ====================================================================== */
 
-export default function SimuladorAritmetica({ tipo }) {
-  const config = SIMULADORES[tipo] ?? null;
+export default function SimuladorAritmetica({
+  tipo,
+  registro = SIMULADORES,
+  eyebrow = "🧮 Aritmética interactiva",
+}) {
+  const config = registro[tipo] ?? null;
   const [valores, setValores] = useState(() =>
     config
       ? Object.fromEntries(config.campos.map((campo) => [campo.k, String(campo.def)]))
@@ -92,7 +96,7 @@ export default function SimuladorAritmetica({ tipo }) {
     <section className="simarit">
       <header className="simarit__head">
         <div>
-          <p className="simarit__eyebrow">🧮 Aritmética interactiva</p>
+          <p className="simarit__eyebrow">{eyebrow}</p>
           <h3>{config.titulo}</h3>
           <p className="simarit__desc">{config.descripcion}</p>
         </div>

@@ -7,6 +7,17 @@ export const JS_INTL = {
     "Formatea números, monedas, fechas y textos según el idioma y la región del usuario con la API nativa de internacionalización.",
   grupos: [
     {
+      seccion: "Formateo",
+      metodos: [
+        {
+          id: "intl-format",
+          nombre: ".format(valor)",
+          firma: "formateador.format(valor)",
+          icon: "🏷️",
+        },
+      ],
+    },
+    {
       seccion: "Números y monedas",
       metodos: [
         {
@@ -73,6 +84,208 @@ export const JS_INTL = {
 };
 
 export const JS_INTL_DOCS = {
+  "intl-format": {
+    id: "intl-format",
+    titulo: "Intl · .format(valor)",
+    icon: "🏷️",
+    categoria: "Intl",
+    firma: "formateador.format(valor)",
+    simulador: "intl",
+
+    definicion: [
+      "`format()` es el método que **produce el resultado final** de cualquier formateador de `Intl`: recibe un valor y devuelve un `string` listo para mostrar al usuario. 🏷️",
+      "Cada formateador (`Intl.NumberFormat`, `Intl.DateTimeFormat`, `Intl.RelativeTimeFormat`, `Intl.ListFormat`, etc.) tiene su propio `format()`, pero todos comparten la misma idea: aplicar las reglas del idioma y de las opciones configuradas.",
+    ],
+
+    queEs: [
+      "Es la puerta de salida de la API de internacionalización: el formateador guarda la configuración y `format()` la aplica a cada valor. 🌍",
+      "No transforma el dato original ni lo guarda: devuelve texto formateado y nada más.",
+      "También existe `formatToParts()`, que devuelve las piezas del resultado (símbolo, número, separadores) para estilos personalizados.",
+    ],
+
+    paraQueSirve: [
+      "🔢 Formatear números según el locale: `1.234,56` en español frente a `1,234.56` en inglés.",
+      "💰 Mostrar monedas con símbolo, código y decimales correctos.",
+      "📅 Presentar fechas y horas en el orden y formato local.",
+      "📊 Formatear porcentajes, unidades y notación científica.",
+      "⏳ Expresar tiempo relativo, como «hace 2 días».",
+      "📋 Unir listas con la conjunción correcta: «A, B y C».",
+    ],
+
+    comoFunciona: [
+      "Creas un formateador con `new Intl.XxxFormat(locales, opciones)`.",
+      "Llamas a `format(valor)` con el dato que quieres presentar.",
+      "El motor consulta los datos de internacionalización (CLDR) y aplica las reglas del locale y las opciones.",
+      "Devuelve un `string`; el valor original permanece intacto.",
+      "Puedes reutilizar el mismo formateador muchas veces: es más eficiente que crear uno por valor.",
+      "Si el valor no es válido para ese formateador, puede devolver una cadena de error o lanzar una excepción según el caso.",
+    ],
+
+    sintaxis: [
+      {
+        caption: "Número con Intl.NumberFormat:",
+        code: `const formato = new Intl.NumberFormat("es-ES");
+console.log(formato.format(1234567.89));
+// 1.234.567,89`,
+      },
+      {
+        caption: "Moneda con opciones:",
+        code: `const precio = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+});
+console.log(precio.format(49.9));
+// 49,90 €`,
+      },
+      {
+        caption: "Fecha con Intl.DateTimeFormat:",
+        code: `const fecha = new Intl.DateTimeFormat("es-ES", {
+  dateStyle: "long",
+});
+console.log(fecha.format(new Date("2026-10-08")));
+// 8 de octubre de 2026`,
+      },
+    ],
+
+    nota: "💡 `format()` siempre devuelve un `string`. Si necesitas seguir calculando, conserva el valor original y formatea solo en el momento de mostrarlo.",
+
+    ejemplos: [
+      {
+        titulo: "1. 🔢 El mismo número en dos idiomas",
+        code: `const es = new Intl.NumberFormat("es-ES");
+const en = new Intl.NumberFormat("en-US");
+console.log(es.format(1234567.89)); // 1.234.567,89
+console.log(en.format(1234567.89)); // 1,234,567.89`,
+      },
+      {
+        titulo: "2. 💰 Moneda y porcentaje",
+        code: `const euros = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+});
+const porcentaje = new Intl.NumberFormat("es-ES", {
+  style: "percent",
+  maximumFractionDigits: 1,
+});
+console.log(euros.format(19.99));     // 19,99 €
+console.log(porcentaje.format(0.256)); // 25,6 %`,
+      },
+      {
+        titulo: "3. 📅 Fecha y hora local",
+        code: `const fecha = new Date("2026-10-08T18:30:00");
+const formato = new Intl.DateTimeFormat("es-ES", {
+  dateStyle: "full",
+  timeStyle: "short",
+});
+console.log(formato.format(fecha));
+// jueves, 8 de octubre de 2026, 18:30`,
+      },
+      {
+        titulo: "4. 📋 Listas y tiempo relativo",
+        code: `const lista = new Intl.ListFormat("es-ES", {
+  style: "long",
+  type: "conjunction",
+});
+console.log(lista.format(["HTML", "CSS", "JavaScript"]));
+// HTML, CSS y JavaScript
+
+const relativo = new Intl.RelativeTimeFormat("es-ES", {
+  numeric: "auto",
+});
+console.log(relativo.format(-2, "day")); // hace 2 días`,
+      },
+    ],
+
+    errores: [
+      "**Esperar un número de vuelta:** `format()` devuelve texto; para operar necesitas el valor original.",
+      "**Pasar una cadena con separadores locales:** `formato.format(\"1.234,56\")` no interpreta la coma española; convierte antes con `Number()`.",
+      "**Crear el formateador dentro de un bucle:** construye una instancia por iteración sin necesidad; créala una vez y reutilízala.",
+      "**Olvidar `new`:** `Intl.NumberFormat(\"es-ES\")` sin `new` lanza `TypeError` porque es un constructor.",
+      "**Confundir locale con país:** `\"es\"` aplica convenciones genéricas; `\"es-ES\"` fija región y evita ambigüedades.",
+      "**Usar `format()` para comparar:** para ordenar o comparar textos localizados existe `Intl.Collator.compare()`.",
+    ],
+
+    casos: [
+      "🛒 Mostrar precios y totales de un carrito en la moneda del usuario.",
+      "📊 Presentar estadísticas, porcentajes y cantidades compactas en paneles.",
+      "📅 Mostrar fechas de publicaciones, eventos o vencimientos.",
+      "⏳ Indicar tiempos relativos en notificaciones y comentarios.",
+      "📋 Generar listas naturales de etiquetas, autores o categorías.",
+      "🌍 Adaptar una misma interfaz a varios idiomas sin duplicar lógica.",
+    ],
+
+    relacion: [
+      "**`Intl.NumberFormat`:** formateador de números, monedas, porcentajes y unidades.",
+      "**`Intl.DateTimeFormat`:** formateador de fechas y horas.",
+      "**`Intl.RelativeTimeFormat`:** formateador de tiempos relativos.",
+      "**`Intl.ListFormat`:** formateador de listas con conjunciones.",
+      "**`Intl.PluralRules`:** elige la categoría gramatical antes de aplicar `format()`.",
+      "**`formatToParts()`:** devuelve las piezas del resultado para estilos personalizados.",
+    ],
+
+    analogia:
+      "El formateador es como una plantilla de imprenta configurada para un idioma y un estilo. `format()` es el sello que aplicas a cada valor: el número o la fecha entran en crudo y salen convertidos en el texto exacto que verá el usuario. La plantilla no cambia el dato; solo decide cómo se presenta.",
+
+    fuente:
+      "MDN Web Docs · Intl.NumberFormat.prototype.format() | ECMAScript Internationalization API · Unicode CLDR",
+
+    notasPersonales: [
+      "✅ `format()` devuelve siempre un `string`.",
+      "✅ La configuración va en el constructor; `format()` solo recibe el valor.",
+      "✅ Reutiliza el formateador: es más eficiente.",
+      "⚠️ No uses `format()` para comparar u ordenar textos.",
+      "🧪 Prueba `formatToParts()` si necesitas resaltar partes del resultado.",
+    ],
+
+    quiz: [
+      {
+        id: 1,
+        pregunta: "¿Qué devuelve formateador.format(valor)?",
+        opciones: ["Un número", "Un string formateado", "Un array", "Un booleano"],
+        correcta: 1,
+      },
+      {
+        id: 2,
+        pregunta: "¿Dónde se configura el locale y el estilo?",
+        opciones: [
+          "En la llamada a format()",
+          "En el constructor del formateador",
+          "En una variable global",
+          "En el valor que se formatea",
+        ],
+        correcta: 1,
+      },
+      {
+        id: 3,
+        pregunta: "¿Qué método devuelve las piezas del resultado formateado?",
+        opciones: ["format()", "formatToParts()", "parts()", "resolve()"],
+        correcta: 1,
+      },
+      {
+        id: 4,
+        pregunta: "¿Qué formateador usarías para una fecha?",
+        opciones: [
+          "Intl.NumberFormat",
+          "Intl.DateTimeFormat",
+          "Intl.ListFormat",
+          "Intl.PluralRules",
+        ],
+        correcta: 1,
+      },
+      {
+        id: 5,
+        pregunta: "¿Qué ocurre con el valor original después de format()?",
+        opciones: [
+          "Se modifica",
+          "Se convierte en string",
+          "Permanece intacto",
+          "Se elimina",
+        ],
+        correcta: 2,
+      },
+    ],
+  },
+
   "intl-numberformat": {
     id: "intl-numberformat",
     titulo: "Intl.NumberFormat",

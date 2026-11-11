@@ -81,7 +81,7 @@ console.log("Buscando el último índice de:", objetivo);
 return emojis.findLastIndex((emoji) => emoji === objetivo);`,
   },
 
-  indexof: {
+  "string-indexof": {
     etiqueta: "String.prototype.indexOf()",
     titulo: "Busca dentro del texto",
     descripcion:
@@ -156,7 +156,7 @@ return emojis.lastIndexOf(objetivo);`,
     codigo: `return emojis.flatMap((emoji) => [emoji, emoji]);`,
   },
 
-  slice: {
+  "string-slice": {
     etiqueta: "String.prototype.slice()",
     titulo: "Corta la cadena",
     descripcion:
@@ -166,6 +166,36 @@ return emojis.lastIndexOf(objetivo);`,
     codigo: `const cadena = emojis.join("");
 console.log("Texto:", cadena);
 return cadena.slice(2, 6);`,
+  },
+
+  "string-at": {
+    titulo: "Accede desde el final",
+    descripcion:
+      "at() devuelve el carácter de una posición y acepta índices negativos: -1 es el último.",
+    prueba:
+      "Cambia el índice por -2 o -3 y comprueba cómo se mueve la letra seleccionada.",
+    codigo: `const cadena = emojis.join("");
+const primero = cadena.at(0);
+const ultimo = cadena.at(-1);
+console.log("Texto:", cadena);
+console.log("Primero:", primero);
+console.log("Último:", ultimo);
+return { primero, ultimo };`,
+  },
+
+  "string-length": {
+    titulo: "Mide la cadena",
+    descripcion:
+      "length cuenta las unidades UTF-16 del texto. Los emojis suelen ocupar dos unidades.",
+    prueba:
+      "Añade o quita emojis: length cambia de dos en dos. Compara con [...texto].length.",
+    codigo: `const cadena = emojis.join("");
+const unidades = cadena.length;
+const visibles = [...cadena].length;
+console.log("Texto:", cadena);
+console.log("Unidades UTF-16:", unidades);
+console.log("Caracteres visibles:", visibles);
+return { unidades, visibles };`,
   },
 
   fill: {
@@ -256,8 +286,10 @@ const IDS_ARRAY = [
 ];
 
 const IDS_TEXTO = [
-  "indexof",
-  "slice",
+  "string-indexof",
+  "string-slice",
+  "string-at",
+  "string-length",
   "raw",
   "codepointat",
   "charcodeat",

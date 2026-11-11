@@ -129,13 +129,13 @@ function extraerPares(doc) {
 }
 
 const primerNegrita = (texto = "") => {
-  const m = texto.match(/\*\*([^*]{2,40})\*\*/);
+  const m = texto.match(/\*\*([^*]{2,60})\*\*/);
   return m ? m[1].trim() : "";
 };
 
 function misionCompletar(doc, hermanos) {
   const conNegrita = (doc.definicion ?? []).find((t) =>
-    /\*\*([^*]{2,40})\*\*/.test(t),
+    /\*\*([^*]{2,60})\*\*/.test(t),
   );
   if (!conNegrita) return null;
   const termino = primerNegrita(conNegrita);
