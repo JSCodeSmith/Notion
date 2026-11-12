@@ -36,6 +36,10 @@ import AdvancedGame from '../AdvancedGame/AdvancedGame'
 import LiveExamples from '../AdvancedGame/LiveExamples'
 import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 
+import SimuladorFindDiagrama from '../SimuladorFind/SimuladorFindDiagrama' // <-- NUEVA IMPORTACIÓN
+
+
+
 import { METODOS_ARRAYS } from '../../data/carreras'
 
 
@@ -225,10 +229,22 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
         <div className="doc-card"><h3>📝 Definición</h3><Contenido data={metodo.definicion} /></div>
         <div className="doc-card"><h3>🧠 ¿Qué es?</h3><Contenido data={metodo.queEs} /></div>
         <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
-        <div className="doc-card">
-          <h3>⚙️ ¿Cómo funciona?</h3>
-          <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
-        </div>
+
+       
+       {metodo.id === 'find' ? (
+          <div
+             className="doc-card doc-card--full" 
+            style={{ padding: 0, background: 'transparent', border: 'none', gridColumn: '1 / -1', width: '100%' }}
+          
+          >
+            <SimuladorFindDiagrama />
+          </div>
+        ) : (
+          <div className="doc-card">
+            <h3>⚙️ ¿Cómo funciona?</h3>
+            <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
+          </div>
+        )}
 
         <div className="doc-card doc-card--full">
           <h3>📝 Sintaxis / Estructura</h3>

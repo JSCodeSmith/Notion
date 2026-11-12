@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión: La búsqueda del Emoji</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #0b0914;
+            --bg-card: #151221;
+            --bg-editor: #0d0b14;
+            --border-purple: #4c3575;
+            --border-light: #2a2342;
+            --text-main: #e2dff0;
+            --text-muted: #867fa3;
+            --accent-neon: #a855f7;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --accent-blue: #3b82f6;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at top, rgba(168, 85, 247, 0.15), transparent 50%);
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-purple);
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(76, 53, 117, 0.3);
+            overflow: hidden;
+        }
+
+        /* CABECERA DEL JUEGO */
+        .game-header {
+            padding: 24px;
+            background: linear-gradient(180deg, rgba(76, 53, 117, 0.2) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .header-left { display: flex; gap: 20px; align-items: center; }
+        
+        .icon-box {
+            width: 50px; height: 50px;
+            background: var(--bg-editor);
+            border: 1px solid var(--accent-neon);
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .title-info h4 { color: var(--accent-neon); font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;}
+        .title-info h1 { color: white; font-size: 1.6rem; font-weight: 800; margin-bottom: 4px;}
+        .title-info p { color: var(--text-muted); font-size: 0.85rem; }
+
+        .header-right { display: flex; gap: 10px; }
+        .badge {
+            background: var(--bg-editor); border: 1px solid var(--border-light);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.75rem;
+            font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px;
+        }
+        .badge.purple { border-color: var(--accent-neon); color: var(--accent-neon); }
+        .badge.yellow { border-color: var(--accent-yellow); color: var(--accent-yellow); }
+
+        /* BARRA DE ESTADÍSTICAS */
+        .stats-bar {
+            display: flex; padding: 16px 24px; background: var(--bg-editor);
+            border-bottom: 1px solid var(--border-light); gap: 40px;
+        }
+        .stat-item { flex: 1; }
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600;}
+        .stat-value { font-size: 1.1rem; font-weight: 700; color: white; }
+        .progress-bar { width: 100%; height: 6px; background: var(--border-light); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-neon), #d8b4fe); width: 58%; transition: width 0.5s ease; }
+
+        /* OBJETIVO */
+        .objective-bar {
+            margin: 24px; padding: 16px 20px;
+            background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .objective-text { font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; gap: 8px;}
+        .target-display { font-size: 1.5rem; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));}
+        
+        .btn-hint {
+            background: rgba(245, 158, 11, 0.15); border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow); padding: 6px 12px; border-radius: 6px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-hint:hover { background: rgba(245, 158, 11, 0.25); }
+
+        /* TABLERO DE EMOJIS */
+        .emoji-board { padding: 0 24px 24px 24px; }
+        .board-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; font-weight: 600; display: flex; justify-content: space-between; align-items: center;}
+        
+        .btn-shuffle {
+            background: transparent; border: 1px solid var(--border-light); color: var(--text-main);
+            padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; transition: 0.2s;
+        }
+        .btn-shuffle:hover { background: var(--border-light); }
+
+        .emojis-grid { display: flex; gap: 12px; }
+        
+        .emoji-card {
+            flex: 1; background: var(--bg-editor); border: 1px solid var(--border-light);
+            border-radius: 10px; padding: 16px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            transition: all 0.3s; cursor: pointer; position: relative;
+        }
+        .emoji-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .emoji-card .emoji { font-size: 1.8rem; pointer-events: none; }
+        .emoji-card .index { font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-code); pointer-events: none;}
+        
+        /* ESTADO SELECCIONADO (Target) */
+        .emoji-card.selected {
+            border-color: var(--accent-blue); background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+        .emoji-card.selected::before {
+            content: "🎯"; position: absolute; top: -10px; right: -10px; font-size: 1rem;
+        }
+
+        /* ANIMACIÓN DE EVALUACIÓN */
+        .emoji-card.active {
+            border-color: var(--accent-neon); box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            transform: translateY(-4px) scale(1.05); z-index: 10;
+        }
+        .emoji-card.success {
+            border-color: var(--accent-green); background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); transform: scale(1.1); z-index: 10;
+        }
+        .emoji-card.success::after {
+            content: "✅"; position: absolute; top: -10px; right: -10px; font-size: 1rem;
+        }
+
+        /* EDITOR Y CONSOLA */
+        .playground {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+            background: var(--border-light); border-top: 1px solid var(--border-light);
+        }
+        
+        .editor-panel, .console-panel { background: var(--bg-editor); display: flex; flex-direction: column; }
+        
+        .panel-header {
+            padding: 10px 16px; background: var(--bg-card); border-bottom: 1px solid var(--border-light);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.75rem; color: var(--text-muted); font-weight: 500;
+        }
+        .mac-dots { display: flex; gap: 6px; }
+        .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .mac-red { background: #ff5f56; } .mac-yellow { background: #ffbd2e; } .mac-green { background: #27c93f; }
+
+        .code-area {
+            padding: 16px; font-family: var(--font-code); font-size: 0.85rem;
+            line-height: 1.8; color: #e2dff0; flex-grow: 1; min-height: 200px;
+            background: transparent; border: none; resize: none; outline: none;
+        }
+        
+        .console-output {
+            padding: 16px; font-family: var(--font-code); font-size: 0.85rem;
+            line-height: 1.8; color: var(--text-muted); flex-grow: 1; min-height: 200px;
+            overflow-y: auto;
+        }
+        .log-error { color: var(--accent-red); }
+        .log-success { color: var(--accent-green); }
+
+        /* FOOTER ACCIONES */
+        .actions-bar {
+            padding: 16px 24px; background: var(--bg-card); border-top: 1px solid var(--border-light);
+            display: flex; gap: 12px;
+        }
+        .btn {
+            padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; border: none; display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s; font-family: var(--font-ui);
+        }
+        .btn-primary { background: var(--accent-neon); color: white; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4); }
+        .btn-primary:hover { background: #9333ea; transform: translateY(-2px); }
+        .btn-secondary { background: var(--bg-editor); color: var(--text-main); border: 1px solid var(--border-light); }
+        .btn-secondary:hover { background: var(--border-light); }
+
+        .error-banner {
+            background: rgba(239, 68, 68, 0.1); border-top: 1px solid var(--accent-red);
+            color: var(--accent-red); padding: 12px 24px; font-size: 0.85rem;
+            display: none; align-items: center; gap: 8px; font-weight: 500;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- Header -->
+        <div class="game-header">
+            <div class="header-left">
+                <div class="icon-box">🔍</div>
+                <div class="title-info">
+                    <h4>Misión #1</h4>
+                    <h1>La búsqueda del Emoji</h1>
+                    <p>Haz clic en cualquier emoji del tablero para seleccionarlo como objetivo. Luego usa find() para encontrarlo.</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="badge purple">Revisar</div>
+                <div class="badge yellow">+ 120 XP</div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-label">Nivel</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Experiencia</div>
+                <div class="stat-value" id="xp-text">145 / 250 XP</div>
+                <div class="progress-bar"><div class="progress-fill" id="xp-bar"></div></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Misiones</div>
+                <div class="stat-value">1</div>
+            </div>
+        </div>
+
+        <!-- Objective -->
+        <div class="objective-bar">
+            <div class="objective-text">
+                🎯 Objetivo: Encontrar el <span class="target-display" id="target-display">🐉</span>
+            </div>
+            <button class="btn-hint" onclick="showHint()">💡 Ver pista</button>
+        </div>
+
+        <!-- Emojis Board -->
+        <div class="emoji-board">
+            <div class="board-title">
+                <span>⬛ TABLERO DE EMOJIS <span style="color:var(--text-muted); font-size:0.7rem; font-weight:normal;">(Haz clic para elegir objetivo)</span></span>
+                <button class="btn-shuffle" onclick="shuffleBoard()">🔀 Mezclar</button>
+            </div>
+            <div class="emojis-grid" id="emojis-container">
+                <!-- Inyectado por JS -->
+            </div>
+        </div>
+
+        <!-- Editor & Console -->
+        <div class="playground">
+            <!-- Editor -->
+            <div class="editor-panel">
+                <div class="panel-header">
+                    <div class="mac-dots">
+                        <div class="mac-dot mac-red"></div><div class="mac-dot mac-yellow"></div><div class="mac-dot mac-green"></div>
+                    </div>
+                    <span>mission.js</span>
+                    <span style="color:#4c3575;">Ctrl + Enter para ejecutar</span>
+                </div>
+                <textarea id="code-editor" class="code-area" spellcheck="false"></textarea>
+            </div>
+
+            <!-- Consola -->
+            <div class="console-panel">
+                <div class="panel-header">
+                    <div class="mac-dots">
+                        <div class="mac-dot mac-red"></div><div class="mac-dot mac-yellow"></div><div class="mac-dot mac-green"></div>
+                    </div>
+                    <span>Consola</span>
+                </div>
+                <div class="console-output" id="console-output">
+                    > Esperando ejecución...
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="actions-bar">
+            <button class="btn btn-primary" onclick="executeCode()">▶ Ejecutar código</button>
+            <button class="btn btn-secondary" onclick="showSolution()">💡 Solución</button>
+            <button class="btn btn-secondary" onclick="resetGame()">🔄 Reiniciar</button>
+        </div>
+
+        <div class="error-banner" id="error-banner">
+            <span>❌</span>
+            <span>El resultado no coincide. Compara tu salida con el objetivo.</span>
+        </div>
+    </div>
+
+    <script>
+        // Base de emojis posibles
+        const emojiPool = ["🥑", "🍎", "🐉", "🍍", "🍊", "🚀", "👾", "🎸", "🍕", "🦄"];
+        
+        let currentEmojis = ["🥑", "🍎", "🐉", "🍍", "🍊"];
+        let targetEmoji = "🐉";
+        let currentXP = 145;
+        const maxXP = 250;
+
+        const emojisContainer = document.getElementById('emojis-container');
+        const codeEditor = document.getElementById('code-editor');
+        const consoleOutput = document.getElementById('console-output');
+        const errorBanner = document.getElementById('error-banner');
+        const targetDisplay = document.getElementById('target-display');
+
+        // Renderizar el tablero
+        function renderBoard() {
+            emojisContainer.innerHTML = '';
+            currentEmojis.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = `emoji-card ${emoji === targetEmoji ? 'selected' : ''}`;
+                card.id = `emoji-${index}`;
+                // Al hacer clic, establece ese emoji como el objetivo
+                card.onclick = () => setTarget(emoji);
+                
+                card.innerHTML = `
+                    <div class="emoji">${emoji}</div>
+                    <div class="index">[${index}]</div>
+                `;
+                emojisContainer.appendChild(card);
+            });
+        }
+
+        // Establecer un nuevo objetivo
+        function setTarget(emoji) {
+            targetEmoji = emoji;
+            targetDisplay.innerText = emoji;
+            errorBanner.style.display = "none";
+            consoleOutput.innerHTML = "> Nuevo objetivo seleccionado. Actualizando código...";
+            
+            // Actualizar el código automáticamente (dejando la lógica find vacía para que el usuario la escriba)
+            updateEditorTemplate();
+            renderBoard(); // Re-renderizar para actualizar la clase 'selected'
+        }
+
+        // Plantilla base del editor
+        function updateEditorTemplate() {
+            codeEditor.value = `const emojis = ${JSON.stringify(currentEmojis)};
+
+// Encuentra el emoji objetivo: "${targetEmoji}"
+return null;`;
+        }
+
+        // Mezclar el tablero
+        function shuffleBoard() {
+            // Mezclar array (Fisher-Yates)
+            for (let i = currentEmojis.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentEmojis[i], currentEmojis[j]] = [currentEmojis[j], currentEmojis[i]];
+            }
+            // Asegurarnos de que haya variedad (opcional)
+            if(!currentEmojis.includes(targetEmoji)) {
+                currentEmojis[Math.floor(Math.random() * 5)] = targetEmoji;
+            }
+            
+            updateEditorTemplate();
+            renderBoard();
+            consoleOutput.innerHTML = "> Tablero mezclado. El objetivo sigue siendo el mismo.";
+        }
+
+        function showHint() {
+            // Encontrar en qué índice está el objetivo actual
+            const targetIndex = currentEmojis.indexOf(targetEmoji);
+            if (targetIndex === -1) return;
+
+            const targetCard = document.getElementById(`emoji-${targetIndex}`);
+            targetCard.style.borderColor = '#f59e0b';
+            targetCard.style.boxShadow = '0 0 15px rgba(245, 158, 11, 0.5)';
+            
+            setTimeout(() => {
+                targetCard.style.borderColor = '';
+                targetCard.style.boxShadow = '';
+            }, 2000);
+        }
+
+        function showSolution() {
+            codeEditor.value = `const emojis = ${JSON.stringify(currentEmojis)};
+
+return emojis.find(emoji => emoji === "${targetEmoji}");`;
+        }
+
+        function resetGame() {
+            currentEmojis = ["🥑", "🍎", "🐉", "🍍", "🍊"];
+            setTarget("🐉");
+            consoleOutput.innerHTML = "> Esperando ejecución...";
+            errorBanner.style.display = "none";
+            document.querySelectorAll('.emoji-card').forEach(card => card.className = 'emoji-card');
+        }
+
+        async function executeCode() {
+            errorBanner.style.display = "none";
+            consoleOutput.innerHTML = "> Compilando y ejecutando en un worker aislado...<br><br>";
+            
+            const code = codeEditor.value;
+
+            // Limpiar estilos previos de animación
+            document.querySelectorAll('.emoji-card').forEach(card => {
+                card.classList.remove('active', 'success');
+            });
+
+            // Simulación visual
+            await animateSearch();
+
+            try {
+                // Evaluar código de usuario. Inyectamos el array actual.
+                const runCode = new Function('emojis', `
+                    ${code.replace(/const emojis = .*?;/, '')}
+                `);
+                
+                // Ejecutamos pasando el array real
+                const result = runCode(currentEmojis);
+
+                if (result === targetEmoji) {
+                    // ÉXITO
+                    consoleOutput.innerHTML += `✅ return → "${result}"<br><br>`;
+                    consoleOutput.innerHTML += `<span class="log-success">¡MISIÓN CUMPLIDA! Encontraste el emoji. +120 XP</span>`;
+                    
+                    // Actualizar XP
+                    currentXP = Math.min(currentXP + 120, maxXP);
+                    document.getElementById('xp-text').innerText = `${currentXP} / ${maxXP} XP`;
+                    document.getElementById('xp-bar').style.width = `${(currentXP / maxXP) * 100}%`;
+                    
+                    const targetIndex = currentEmojis.indexOf(targetEmoji);
+                    document.getElementById(`emoji-${targetIndex}`).classList.add('success');
+                } else if (result === null || result === undefined) {
+                    // ERROR LÓGICO
+                    consoleOutput.innerHTML += `❌ return → ${result}<br><br>`;
+                    consoleOutput.innerHTML += `<span class="log-error">X SALIDA DISTINTA</span><br>`;
+                    consoleOutput.innerHTML += `<span style="color:#f59e0b;">Esperado: "${targetEmoji}"</span>`;
+                    errorBanner.style.display = "flex";
+                } else {
+                    // ERROR DE TIPO
+                    consoleOutput.innerHTML += `❌ return → "${result}"<br><br>`;
+                    consoleOutput.innerHTML += `<span class="log-error">X SALIDA DISTINTA</span><br>`;
+                    consoleOutput.innerHTML += `<span style="color:#f59e0b;">Esperado: "${targetEmoji}"</span>`;
+                    errorBanner.style.display = "flex";
+                }
+            } catch (error) {
+                // ERROR DE SINTAXIS
+                consoleOutput.innerHTML += `<span class="log-error">❌ Error de Sintaxis:</span><br>${error.message}`;
+                errorBanner.style.display = "flex";
+            }
+        }
+
+        async function animateSearch() {
+            const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+            
+            for (let i = 0; i < currentEmojis.length; i++) {
+                const card = document.getElementById(`emoji-${i}`);
+                card.classList.add('active');
+                await sleep(300);
+                
+                if (currentEmojis[i] === targetEmoji) {
+                    card.classList.remove('active');
+                    card.classList.add('success');
+                    break;
+                }
+                card.classList.remove('active');
+            }
+        }
+
+        // Inicializar
+        updateEditorTemplate();
+        renderBoard();
+        
+        codeEditor.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                executeCode();
+            }
+        });
+    </script>
+</body>
+</html>

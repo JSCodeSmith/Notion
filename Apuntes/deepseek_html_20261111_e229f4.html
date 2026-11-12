@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox Seguro: Array.find()</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #0b0914;
+            --bg-card: #151221;
+            --bg-panel: #0d0b14;
+            --bg-code: #000000;
+            --border-color: #2a2342;
+            --border-glow: rgba(168, 85, 247, 0.4);
+            --text-main: #e2dff0;
+            --text-muted: #867fa3;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --accent-red: #ef4444;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at top, rgba(16, 185, 129, 0.05), transparent 40%),
+                              radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.05), transparent 40%);
+        }
+
+        .sandbox-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* HEADER */
+        .sandbox-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left { display: flex; gap: 16px; align-items: center; }
+        .icon-box {
+            width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green); border-radius: 12px;
+            display: flex; justify-content: center; align-items: center; font-size: 1.5rem;
+        }
+        .header-text h2 { color: white; font-size: 1.4rem; margin-bottom: 4px;}
+        .header-text p { color: var(--text-muted); font-size: 0.85rem; }
+        
+        .badges { display: flex; gap: 10px; }
+        .badge {
+            background: var(--bg-panel); border: 1px solid var(--border-color);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.75rem;
+            font-weight: 600; color: var(--text-muted);
+        }
+
+        /* CONSTRUCTOR DE ARRAY */
+        .builder-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .builder-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+        }
+        .builder-title { font-size: 0.9rem; font-weight: 600; color: white; display: flex; align-items: center; gap: 8px;}
+        
+        .controls { display: flex; gap: 8px; }
+        .btn-sm {
+            background: var(--bg-panel); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 6px 12px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-sm:hover { background: var(--border-color); }
+        .btn-sm.danger { border-color: rgba(239, 68, 68, 0.5); color: var(--accent-red); }
+        .btn-sm.danger:hover { background: rgba(239, 68, 68, 0.1); }
+
+        /* Paleta */
+        .emoji-palette {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+            background: var(--bg-panel); padding: 16px; border-radius: 8px;
+            border: 1px dashed var(--border-color);
+        }
+        .palette-btn {
+            background: transparent; border: 1px solid transparent; border-radius: 8px;
+            font-size: 1.5rem; padding: 8px; cursor: pointer; transition: all 0.2s;
+        }
+        .palette-btn:hover { background: var(--border-color); transform: scale(1.1); }
+
+        /* Array Actual */
+        .current-array-area {
+            background: var(--bg-panel); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 16px;
+        }
+        .array-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-code);}
+        .array-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        
+        .chip {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            padding: 6px 12px; border-radius: 20px; display: flex; align-items: center; gap: 8px;
+            font-family: var(--font-code); font-size: 0.9rem; animation: popIn 0.2s ease-out;
+        }
+        .chip .idx { color: var(--accent-purple); font-size: 0.75rem; }
+        .chip .remove-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            cursor: pointer; font-size: 1rem; display: flex; align-items: center; transition: color 0.2s;
+        }
+        .chip .remove-btn:hover { color: var(--accent-red); }
+
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* PLAYGROUND (EDITOR + CONSOLA) */
+        .playground {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        }
+
+        .panel {
+            background: var(--bg-panel); border: 1px solid var(--border-color);
+            border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+        }
+        .panel-header {
+            background: var(--bg-card); padding: 10px 16px; border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.75rem; color: var(--text-muted); font-weight: 600;
+        }
+        .mac-dots { display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+        /* Editor */
+        .editor-body { display: flex; flex: 1; background: var(--bg-code); }
+        .line-numbers {
+            padding: 16px 8px; background: var(--bg-panel); color: #52525b;
+            text-align: right; font-family: var(--font-code); font-size: 0.85rem;
+            border-right: 1px solid var(--border-color); user-select: none;
+        }
+        textarea.code-input {
+            flex: 1; background: transparent; border: none; color: var(--text-main);
+            font-family: var(--font-code); font-size: 0.85rem; padding: 16px;
+            resize: none; outline: none; line-height: 1.6; min-height: 200px;
+        }
+
+        .editor-actions {
+            padding: 12px; background: var(--bg-card); border-top: 1px solid var(--border-color);
+            display: flex; gap: 10px; align-items: center;
+        }
+        .btn-run {
+            background: var(--accent-green); color: white; border: none;
+            padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .btn-run:hover { background: #059669; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+        
+        .btn-icon {
+            background: var(--bg-panel); color: var(--text-main); border: 1px solid var(--border-color);
+            padding: 8px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .btn-icon:hover { background: var(--border-color); }
+
+        /* Consola */
+        .console-body {
+            padding: 16px; background: var(--bg-code); flex: 1;
+            font-family: var(--font-code); font-size: 0.85rem; line-height: 1.6;
+            color: var(--text-muted); min-height: 200px; overflow-y: auto;
+        }
+        .console-line { margin-bottom: 4px; }
+        .log-success { color: var(--accent-green); }
+        .log-error { color: var(--accent-red); }
+        .log-info { color: var(--accent-blue); }
+
+        .sandbox-footer {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 8px; padding: 12px 16px; font-size: 0.8rem;
+            color: var(--text-muted); display: flex; align-items: center; gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sandbox-container">
+        
+        <!-- HEADER -->
+        <div class="sandbox-header">
+            <div class="header-left">
+                <div class="icon-box">🧪</div>
+                <div class="header-text">
+                    <h2>Ejemplos vivos</h2>
+                    <p>Construye tu propio array con emojis, ajusta el código y ejecútalo en un sandbox aislado.</p>
+                </div>
+            </div>
+            <div class="badges">
+                <div class="badge">Array.prototype.find()</div>
+                <div class="badge" style="color:var(--accent-green); border-color:rgba(16,185,129,0.3);">Worker aislado · 4 s</div>
+            </div>
+        </div>
+
+        <!-- CONSTRUCTOR DE ARRAY -->
+        <div class="builder-section">
+            <div class="builder-header">
+                <div class="builder-title">
+                    <span>1 · CONSTRUYE TU ARRAY CON EMOJIS</span>
+                </div>
+                <div class="controls">
+                    <button class="btn-sm" onclick="addRandom()">🎲 Aleatorio</button>
+                    <button class="btn-sm" onclick="shuffleArray()">🔀 Mezclar</button>
+                    <button class="btn-sm danger" onclick="clearArray()">🗑 Vaciar</button>
+                </div>
+            </div>
+            
+            <!-- Paleta -->
+            <div class="emoji-palette" id="palette">
+                <!-- Inyectado por JS -->
+            </div>
+
+            <!-- Array Actual -->
+            <div class="current-array-area">
+                <div class="array-header">
+                    <span>TU ARRAY <span id="array-count" style="color:var(--accent-blue);">0 / 20</span></span>
+                    <span style="color:var(--accent-purple);" id="array-preview">[]</span>
+                </div>
+                <div class="array-chips" id="array-chips">
+                    <!-- Inyectado por JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PLAYGROUND -->
+        <div class="playground">
+            
+            <!-- EDITOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="mac-dots">
+                        <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                    </div>
+                    <span>ejemplo.js</span>
+                    <span style="color:#52525b;">Ctrl + Enter para ejecutar</span>
+                </div>
+                <div class="editor-body">
+                    <div class="line-numbers" id="line-numbers">1<br>2<br>3</div>
+                    <textarea id="code-editor" class="code-input" spellcheck="false">const objetivo = emojis[0];
+console.log("Buscando:", objetivo);
+return emojis.find((emoji) => emoji === objetivo);</textarea>
+                </div>
+                <div class="editor-actions">
+                    <button class="btn-run" onclick="executeCode()">▶ Ejecutar ejemplo</button>
+                    <button class="btn-icon" onclick="clearConsole()" title="Limpiar consola">🧹</button>
+                    <button class="btn-icon" onclick="resetCode()" title="Restaurar código">🔄</button>
+                </div>
+            </div>
+
+            <!-- CONSOLA -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="color:var(--accent-green);">●</span> Consola
+                    </div>
+                    <span id="console-status" style="color:#52525b;">Listo</span>
+                </div>
+                <div class="console-body" id="console-output">
+                    <div class="console-line log-info">💡 Esperando ejecución...</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="sandbox-footer">
+            <span>📦 El array se inyecta automáticamente como <code>const emojis = [...];</code> antes de tu código.</span>
+        </div>
+
+    </div>
+
+    <script>
+        // Paleta de emojis disponibles
+        const emojiPalette = ["🍎","🍌","🍇","🍊","🍓","🍒","🥝","🍍","🍉","🥑","🍕","🍔","🍟","🌮","🍩","🍪","🍿","🐉","🦄","🤖","👾","🚀","⭐","💎","🎮","🕹️","🎲","🔥","🌈","✨"];
+        
+        let currentEmojis = [];
+        const maxEmojis = 20;
+
+        const paletteContainer = document.getElementById('palette');
+        const arrayChips = document.getElementById('array-chips');
+        const arrayCount = document.getElementById('array-count');
+        const arrayPreview = document.getElementById('array-preview');
+        const codeEditor = document.getElementById('code-editor');
+        const consoleOutput = document.getElementById('console-output');
+        const consoleStatus = document.getElementById('console-status');
+        const lineNumbers = document.getElementById('line-numbers');
+
+        // 1. Inicializar la paleta
+        emojiPalette.forEach(emoji => {
+            const btn = document.createElement('button');
+            btn.className = 'palette-btn';
+            btn.innerText = emoji;
+            btn.onclick = () => addEmoji(emoji);
+            paletteContainer.appendChild(btn);
+        });
+
+        // 2. Renderizar el array actual
+        function renderArray() {
+            arrayChips.innerHTML = '';
+            currentEmojis.forEach((emoji, index) => {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.innerHTML = `
+                    <span class="idx">[${index}]</span>
+                    ${emoji}
+                    <button class="remove-btn" onclick="removeEmoji(${index})">×</button>
+                `;
+                arrayChips.appendChild(chip);
+            });
+            
+            arrayCount.innerText = `${currentEmojis.length} / ${maxEmojis}`;
+            arrayPreview.innerText = JSON.stringify(currentEmojis);
+        }
+
+        // 3. Funciones del Array
+        function addEmoji(emoji) {
+            if (currentEmojis.length >= maxEmojis) return;
+            currentEmojis.push(emoji);
+            renderArray();
+        }
+
+        function removeEmoji(index) {
+            currentEmojis.splice(index, 1);
+            renderArray();
+        }
+
+        function clearArray() {
+            currentEmojis = [];
+            renderArray();
+        }
+
+        function addRandom() {
+            if (currentEmojis.length >= maxEmojis) return;
+            const randomEmoji = emojiPalette[Math.floor(Math.random() * emojiPalette.length)];
+            addEmoji(randomEmoji);
+        }
+
+        function shuffleArray() {
+            for (let i = currentEmojis.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentEmojis[i], currentEmojis[j]] = [currentEmojis[j], currentEmojis[i]];
+            }
+            renderArray();
+        }
+
+        // 4. Editor de código (actualizar números de línea)
+        codeEditor.addEventListener('input', () => {
+            const lines = codeEditor.value.split('\n').length;
+            lineNumbers.innerHTML = Array.from({length: lines}, (_, i) => i + 1).join('<br>');
+        });
+
+        // 5. Consola
+        function logToConsole(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `console-line log-${type}`;
+            div.innerHTML = message;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+
+        function clearConsole() {
+            consoleOutput.innerHTML = '';
+            logToConsole('💡 Consola limpia.', 'info');
+            consoleStatus.innerText = 'Listo';
+            consoleStatus.style.color = '#52525b';
+        }
+
+        function resetCode() {
+            codeEditor.value = `const objetivo = emojis[0];
+console.log("Buscando:", objetivo);
+return emojis.find((emoji) => emoji === objetivo);`;
+            codeEditor.dispatchEvent(new Event('input'));
+            logToConsole('🔄 Código restaurado.', 'success');
+        }
+
+        // 6. Ejecutar Código
+        function executeCode() {
+            if (currentEmojis.length === 0) {
+                logToConsole('❌ Error: El array está vacío. Añade emojis primero.', 'error');
+                return;
+            }
+
+            const code = codeEditor.value;
+            consoleStatus.innerText = 'Ejecutando...';
+            consoleStatus.style.color = 'var(--accent-blue)';
+
+            // Simular retraso de worker
+            setTimeout(() => {
+                try {
+                    // Envolvemos el código en una función para inyectar el array de forma segura
+                    const runCode = new Function('emojis', `
+                        try {
+                            ${code}
+                        } catch (e) {
+                            return { __error: e.message };
+                        }
+                    `);
+                    
+                    const result = runCode([...currentEmojis]); // Enviamos una copia
+
+                    if (result && result.__error) {
+                        logToConsole(`❌ Error: ${result.__error}`, 'error');
+                        consoleStatus.innerText = 'Error';
+                        consoleStatus.style.color = 'var(--accent-red)';
+                    } else {
+                        logToConsole(`> Resultado: ${JSON.stringify(result)}`, 'success');
+                        consoleStatus.innerText = 'Éxito';
+                        consoleStatus.style.color = 'var(--accent-green)';
+                    }
+
+                } catch (e) {
+                    logToConsole(`❌ Error de sintaxis: ${e.message}`, 'error');
+                    consoleStatus.innerText = 'Error';
+                    consoleStatus.style.color = 'var(--accent-red)';
+                }
+            }, 400);
+        }
+
+        // Inicializar consola y eventos
+        codeEditor.dispatchEvent(new Event('input'));
+        logToConsole('💡 Sandbox listo. Construye tu array y presiona Ejecutar.', 'info');
+        
+        // Atajo Ctrl+Enter
+        codeEditor.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                executeCode();
+            }
+        });
+    </script>
+</body>
+</html>

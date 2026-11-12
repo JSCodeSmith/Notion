@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Juego Pro: La Búsqueda del Héroe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0d1117;
+            --bg-panel: #161b22;
+            --bg-card: #21262d;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-purple: #d2a8ff;
+            --accent-yellow: #e3b341;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top, rgba(88, 166, 255, 0.1), transparent 40%);
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        /* HEADER */
+        .game-header {
+            padding: 20px 24px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .game-title { font-size: 1.2rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+        
+        .stats { display: flex; gap: 12px; }
+        .badge { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; font-family: var(--font-code); border: 1px solid; }
+        .badge-xp { background: rgba(227, 179, 65, 0.1); border-color: var(--accent-yellow); color: var(--accent-yellow); }
+        .badge-streak { background: rgba(248, 81, 73, 0.1); border-color: var(--accent-red); color: var(--accent-red); display: none; }
+
+        /* MISIÓN */
+        .mission-board { padding: 24px; background-color: var(--bg-base); border-bottom: 1px solid var(--border-color); text-align: center; }
+        .mission-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; font-weight: 600; }
+        .mission-text { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+        .mission-condition { font-family: var(--font-code); background: rgba(88, 166, 255, 0.1); color: var(--accent-blue); padding: 6px 12px; border-radius: 6px; display: inline-block; font-size: 0.9rem; }
+
+        /* HÉROES */
+        .heroes-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            padding: 30px 24px;
+        }
+
+        .hero-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .hero-card:hover:not(.disabled) { transform: translateY(-6px); border-color: var(--text-muted); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .hero-card.disabled { cursor: not-allowed; opacity: 0.7; }
+
+        .hero-avatar { font-size: 2.5rem; margin-bottom: 12px; }
+        .hero-name { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+        .hero-class { font-size: 0.75rem; color: var(--accent-purple); margin-bottom: 8px; font-weight: 600;}
+        .hero-stats { font-family: var(--font-code); font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Tarjeta especial: Undefined */
+        .hero-card.card-undefined {
+            background-color: rgba(248, 81, 73, 0.05);
+            border-color: rgba(248, 81, 73, 0.3);
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .hero-card.card-undefined .hero-name { color: var(--accent-red); font-family: var(--font-code); }
+
+        /* Animaciones de Escaneo */
+        .hero-card.evaluating { border-color: var(--accent-yellow); box-shadow: 0 0 20px rgba(227, 179, 65, 0.4); transform: translateY(-6px) scale(1.05); z-index: 10; }
+        .hero-card.success { border-color: var(--accent-green); background-color: rgba(63, 185, 80, 0.1); box-shadow: 0 0 25px rgba(63, 185, 80, 0.5); transform: translateY(-6px) scale(1.1); z-index: 10; }
+        .hero-card.fail-screen { border-color: var(--accent-red); background-color: rgba(248, 81, 73, 0.1); box-shadow: 0 0 25px rgba(248, 81, 73, 0.5); }
+
+        /* PLAYGROUND */
+        .playground { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border-color); background-color: var(--bg-base); }
+        .panel { display: flex; flex-direction: column; }
+        .panel-header { padding: 10px 16px; background-color: var(--bg-card); border-bottom: 1px solid var(--border-color); font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-code); display: flex; align-items: center; gap: 8px; }
+        
+        .code-block { padding: 20px; font-family: var(--font-code); font-size: 0.9rem; color: #e6edf3; line-height: 1.8; border-right: 1px solid var(--border-color); min-height: 150px; }
+        .kw { color: #ff7b72; } .fn { color: var(--accent-purple); } .var { color: var(--accent-blue); } .str { color: #a5d6ff; }
+
+        .console { padding: 16px; font-family: var(--font-code); font-size: 0.85rem; color: var(--text-muted); height: 150px; overflow-y: auto; }
+        .log-line { margin-bottom: 4px; animation: fadeIn 0.3s; }
+        .log-eval { color: var(--accent-yellow); } .log-success { color: var(--accent-green); font-weight: bold; } .log-error { color: var(--accent-red); }
+
+        /* CONTROLES */
+        .action-bar { padding: 16px 24px; background-color: var(--bg-panel); border-top: 1px solid var(--border-color); display: flex; justify-content: center; }
+        .btn-next { background-color: var(--accent-blue); color: #fff; border: none; padding: 12px 32px; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; display: none; transition: all 0.2s; }
+        .btn-next:hover { background-color: #388bfd; transform: scale(1.05); }
+
+        /* CONFETI */
+        .confetti { position: absolute; width: 10px; height: 10px; background-color: #f00; opacity: 0; z-index: 100; pointer-events: none; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (max-width: 800px) { .heroes-grid { grid-template-columns: repeat(3, 1fr); } .playground { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <div class="game-container" id="game-container">
+        
+        <div class="game-header">
+            <div class="game-title">⚔️ La Búsqueda del Héroe</div>
+            <div class="stats">
+                <div class="badge badge-streak" id="streak-display">🔥 Racha: 0</div>
+                <div class="badge badge-xp" id="xp-display">0 XP</div>
+            </div>
+        </div>
+
+        <div class="mission-board">
+            <div class="mission-label">Misión Actual</div>
+            <div class="mission-text" id="mission-text">...</div>
+            <div class="mission-condition" id="mission-condition">...</div>
+        </div>
+
+        <div class="heroes-grid" id="heroes-grid">
+            <!-- JS inyecta las tarjetas -->
+        </div>
+
+        <div class="playground">
+            <div class="panel">
+                <div class="panel-header"><span style="color:var(--accent-green);">●</span> heroes.find()</div>
+                <div class="code-block" id="code-display"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-header"><span style="color:var(--accent-blue);">●</span> Consola (Engine)</div>
+                <div class="console" id="console"></div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn-next" id="btn-next" onclick="nextRound()">Siguiente Misión ➔</button>
+        </div>
+
+    </div>
+
+    <script>
+        const heroes = [
+            { id: 1, nombre: "Aragorn", clase: "Guerrero", poder: 85, avatar: "🗡️" },
+            { id: 2, nombre: "Gandalf", clase: "Mago", poder: 100, avatar: "🧙‍♂️" },
+            { id: 3, nombre: "Legolas", clase: "Arquero", poder: 78, avatar: "🏹" },
+            { id: 4, nombre: "Boromir", clase: "Guerrero", poder: 70, avatar: "🛡️" },
+            { id: 5, nombre: "Galadriel", clase: "Mago", poder: 95, avatar: "🧝‍♀️" }
+        ];
+
+        // Misiones con diferentes niveles de dificultad (incluyendo el caso undefined)
+        const missions = [
+            { text: "Encuentra al primer Mago", conditionCode: 'heroes.find(h => h.clase === "Mago")', evaluator: (h) => h.clase === "Mago" },
+            { text: "Encuentra al primer héroe con poder > 90", conditionCode: 'heroes.find(h => h.poder > 90)', evaluator: (h) => h.poder > 90 },
+            { text: "Encuentra al primer Arquero", conditionCode: 'heroes.find(h => h.clase === "Arquero")', evaluator: (h) => h.clase === "Arquero" },
+            // JEFE FINAL: Misión imposible para enseñar undefined
+            { text: "Encuentra a un héroe con poder > 200", conditionCode: 'heroes.find(h => h.poder > 200)', evaluator: (h) => h.poder > 200, isTrick: true }
+        ];
+
+        let currentLevel = 0;
+        let xp = 0;
+        let streak = 0;
+        let isAnimating = false;
+
+        const grid = document.getElementById('heroes-grid');
+        const missionText = document.getElementById('mission-text');
+        const missionCondition = document.getElementById('mission-condition');
+        const consoleBox = document.getElementById('console');
+        const codeDisplay = document.getElementById('code-display');
+        const btnNext = document.getElementById('btn-next');
+        const xpDisplay = document.getElementById('xp-display');
+        const streakDisplay = document.getElementById('streak-display');
+
+        function renderHeroes(isTrick) {
+            grid.innerHTML = '';
+            
+            // Si es la misión trampa, añadimos una tarjeta "Undefined"
+            const totalCards = isTrick ? heroes.length + 1 : heroes.length;
+
+            heroes.forEach((hero, index) => {
+                const card = document.createElement('div');
+                card.className = 'hero-card';
+                card.id = `hero-card-${index}`;
+                card.onclick = () => handleHeroClick(index, false, isTrick);
+                card.innerHTML = `
+                    <div class="hero-avatar">${hero.avatar}</div>
+                    <div class="hero-name">${hero.nombre}</div>
+                    <div class="hero-class">${hero.clase}</div>
+                    <div class="hero-stats">Poder: ${hero.poder}</div>
+                `;
+                grid.appendChild(card);
+            });
+
+            if (isTrick) {
+                const undefinedCard = document.createElement('div');
+                undefinedCard.className = 'hero-card card-undefined';
+                undefinedCard.id = `hero-card-undefined`;
+                undefinedCard.onclick = () => handleHeroClick(-1, true, isTrick);
+                undefinedCard.innerHTML = `
+                    <div class="hero-avatar" style="font-size:1.8rem; color:var(--accent-red);">∅</div>
+                    <div class="hero-name">undefined</div>
+                    <div class="hero-stats" style="margin-top:5px;">(No encontrado)</div>
+                `;
+                grid.appendChild(undefinedCard);
+            }
+        }
+
+        function updateCodeUI(codeStr) {
+            codeDisplay.innerHTML = `<span style="color:#8b949e;">// Buscando al objetivo...</span><br><span class="kw">const</span> <span class="var">resultado</span> = <span class="var">${codeStr.replace('heroes.', '')}</span>;`;
+        }
+
+        function startRound() {
+            if (currentLevel >= missions.length) {
+                missionText.innerText = "¡Juego Completado!";
+                missionCondition.innerText = "Has dominado find() y undefined.";
+                btnNext.style.display = 'none';
+                consoleBox.innerHTML = '<div class="log-line log-success">¡Felicidades! Eres un Maestro de find(). 🏆</div>';
+                return;
+            }
+
+            isAnimating = false;
+            btnNext.style.display = 'none';
+            
+            const mission = missions[currentLevel];
+            missionText.innerText = mission.text;
+            missionCondition.innerText = mission.conditionCode;
+            updateCodeUI(mission.conditionCode);
+            
+            consoleBox.innerHTML = '<div class="log-line">> Haz clic en el héroe que creas correcto.</div>';
+            
+            renderHeroes(mission.isTrick);
+        }
+
+        async function handleHeroClick(clickedIndex, isUndefinedClick, isTrick) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            document.querySelectorAll('.hero-card').forEach(c => c.classList.add('disabled'));
+
+            const mission = missions[currentLevel];
+            
+            if (isUndefinedClick) {
+                consoleBox.innerHTML = `<div class="log-line">> Seleccionaste: undefined.</div>`;
+            } else {
+                consoleBox.innerHTML = `<div class="log-line">> Seleccionaste a ${heroes[clickedIndex].nombre}.</div>`;
+            }
+            consoleBox.innerHTML += `<div class="log-line">> Ejecutando find()...</div>`;
+            await sleep(600);
+
+            let foundIndex = -1;
+
+            // Escaneo visual
+            for (let i = 0; i < heroes.length; i++) {
+                const card = document.getElementById(`hero-card-${i}`);
+                card.classList.add('evaluating');
+                consoleBox.innerHTML += `<div class="log-line log-eval">> Evaluando a ${heroes[i].nombre}...</div>`;
+                consoleBox.scrollTop = consoleBox.scrollHeight;
+                
+                await sleep(500);
+
+                if (mission.evaluator(heroes[i])) {
+                    card.classList.remove('evaluating');
+                    card.classList.add('success');
+                    foundIndex = i;
+                    consoleBox.innerHTML += `<div class="log-line log-success">✅ ¡Cortocircuito! Encontrado.</div>`;
+                    break; 
+                } else {
+                    card.classList.remove('evaluating');
+                }
+            }
+
+            await sleep(500);
+
+            // Lógica de Victoria / Derrota
+            let won = false;
+
+            if (isTrick) {
+                // Si es la misión trampa y el usuario clickeó undefined
+                if (isUndefinedClick && foundIndex === -1) {
+                    won = true;
+                } else if (!isUndefinedClick) {
+                    won = false;
+                    // Resaltar el botón de undefined como la respuesta correcta
+                    document.getElementById('hero-card-undefined').classList.add('success');
+                    if(foundIndex !== -1) document.getElementById(`hero-card-${foundIndex}`).classList.remove('success'); // Quitar verde si lo hubo por error
+                }
+            } else {
+                // Misiones normales
+                if (clickedIndex === foundIndex) won = true;
+            }
+
+            if (won) {
+                streak++;
+                const earnedXP = 50 + (streak * 10);
+                xp += earnedXP;
+                xpDisplay.innerText = `${xp} XP`;
+                
+                if (streak > 1) {
+                    streakDisplay.style.display = 'block';
+                    streakDisplay.innerText = `🔥 Racha: ${streak}`;
+                }
+                
+                consoleBox.innerHTML += `<div class="log-line log-success">🏆 ¡Correcto! +${earnedXP} XP.</div>`;
+                triggerConfetti();
+            } else {
+                streak = 0;
+                streakDisplay.style.display = 'none';
+                
+                if (foundIndex === -1) {
+                    consoleBox.innerHTML += `<div class="log-line log-error">❌ find() devolvió undefined. Ningún héroe cumplía la condición.</div>`;
+                } else {
+                    consoleBox.innerHTML += `<div class="log-line log-error">❌ Incorrecto. find() se detuvo en ${heroes[foundIndex].nombre}.</div>`;
+                }
+                
+                // Efecto visual de error en la tarjeta clicada
+                if (!isUndefinedClick) {
+                    document.getElementById(`hero-card-${clickedIndex}`).classList.add('fail-screen');
+                }
+            }
+
+            btnNext.style.display = 'block';
+            btnNext.innerText = (currentLevel === missions.length - 1) ? 'Finalizar Juego 🏁' : 'Siguiente Misión ➔';
+        }
+
+        function nextRound() {
+            currentLevel++;
+            startRound();
+        }
+
+        function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+        // Efecto Confeti Casero
+        function triggerConfetti() {
+            const container = document.getElementById('game-container');
+            const colors = ['#58a6ff', '#3fb950', '#d2a8ff', '#e3b341'];
+            
+            for(let i=0; i<30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                container.appendChild(confetti);
+                
+                // Animación con Web API
+                const animation = confetti.animate([
+                    { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translateY(${400 + Math.random() * 200}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: 1000 + Math.random() * 1000,
+                    easing: 'cubic-bezier(.37,.01,.6,.99)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // Iniciar juego
+        startRound();
+    </script>
+</body>
+</html>

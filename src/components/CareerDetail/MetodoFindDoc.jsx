@@ -3,8 +3,10 @@ import SimuladorFind from '../SimuladorFind/SimuladorFind'
 import CodeBlock from '../CodeBlock/CodeBlock'
 import AdvancedGame from '../AdvancedGame/AdvancedGame'
 import LiveExamples from '../AdvancedGame/LiveExamples'
-import './MetodoFindDoc.css'
+import SimuladorFindDiagrama from '../SimuladorFind/SimuladorFindDiagrama' 
 
+import SimuladorFindInteractivo from '../SimuladorFind/SimuladorFindInteractivo';
+import './MetodoFindDoc.css'
 
 const PREGUNTAS_QUIZ = [
   { id: 1, pregunta: "¿Qué devuelve find() si ningún elemento cumple la condición?", opciones: ["undefined", "null", "Un array vacío", "false"], correcta: 0 },
@@ -54,35 +56,44 @@ export default function MetodoFindDoc({ onBack }) {
       </div>
 
       <div className="doc-grid">
-        <div className="doc-card">
-          <h3>📝 Definición</h3>
-          <ul>
-            <li>Es un método iterativo integrado en JavaScript que se utiliza para buscar un elemento dentro de un array.</li>
-            <li>Devuelve el <strong>primer elemento</strong> que cumpla con una condición determinada por una función.</li>
-          </ul>
+        
+        {/* LAS 3 COLUMNAS EXACTAS */}
+        <div style={{ gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+          <div className="doc-card">
+            <h3>📝 Definición</h3>
+            <ul>
+              <li>Es un método iterativo integrado en JavaScript que se utiliza para buscar un elemento dentro de un array.</li>
+              <li>Devuelve el <strong>primer elemento</strong> que cumpla con una condición determinada por una función.</li>
+            </ul>
+          </div>
+
+          <div className="doc-card">
+            <h3>🧠 ¿Qué es?</h3>
+            <p>Es un método de orden superior que recorre los elementos de un array uno a uno y ejecuta una función de prueba para cada uno, deteniéndose inmediatamente cuando encuentra una coincidencia.</p>
+          </div>
+
+          <div className="doc-card">
+            <h3>🎯 ¿Para qué sirve?</h3>
+            <ul>
+              <li>Localizar de forma rápida un objeto o valor específico dentro de una lista sin necesidad de escribir bucles manuales.</li>
+              <li>Es ideal cuando buscas <strong>un único elemento</strong> (por ejemplo, buscar un usuario por su ID).</li>
+            </ul>
+          </div>
         </div>
 
-        <div className="doc-card">
-          <h3>🧠 ¿Qué es?</h3>
-          <p>Es un método de orden superior que recorre los elementos de un array uno a uno y ejecuta una función de prueba para cada uno, deteniéndose inmediatamente cuando encuentra una coincidencia.</p>
-        </div>
-
-        <div className="doc-card">
-          <h3>🎯 ¿Para qué sirve?</h3>
-          <ul>
-            <li>Localizar de forma rápida un objeto o valor específico dentro de una lista sin necesidad de escribir bucles manuales.</li>
-            <li>Es ideal cuando buscas <strong>un único elemento</strong> (por ejemplo, buscar un usuario por su ID).</li>
-          </ul>
-        </div>
-
-        <div className="doc-card">
-          <h3>⚙️ ¿Cómo funciona?</h3>
-          <ol>
-            <li>Recorre el array desde el índice 0 en adelante.</li>
-            <li>Evalúa cada elemento con la función condición que le pasas.</li>
-            <li><strong>Cortocircuito:</strong> En el momento exacto en que la función devuelve <code>true</code>, se detiene y devuelve ese elemento.</li>
-            <li>Si recorre todo el array y nadie cumple la condición, devuelve <code>undefined</code>.</li>
-          </ol>
+        {/* SIMULADOR A ANCHO COMPLETO */}
+        <div 
+          className="doc-card doc-card--full" 
+          style={{ 
+            padding: 0, 
+            background: 'transparent', 
+            border: 'none',
+            gridColumn: '1 / -1',
+            width: '100%',
+            overflow: 'visible'
+          }}
+        >
+          <SimuladorFindDiagrama />
         </div>
 
         <div className="doc-card doc-card--full">

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escapa de la Bestia: Niveles de find()</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0a0a;
+            --bg-panel: #121212;
+            --bg-card: #1e1e1e;
+            --border-color: #333333;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --accent-green: #4ade80;
+            --accent-red: #ef4444;
+            --accent-yellow: #fbbf24;
+            --accent-blue: #60a5fa;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(239, 68, 68, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* HEADER */
+        .game-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(239, 68, 68, 0.1) 0%, transparent 100%);
+        }
+        .game-title { font-size: 1.1rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+        
+        .level-indicator {
+            font-family: var(--font-code);
+            background: #222;
+            border: 1px solid #444;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .beast-health-bar {
+            flex: 1;
+            max-width: 150px;
+            margin-left: 20px;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .beast-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-red);
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        /* ESCENARIO */
+        .scenario {
+            height: 200px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .hero { font-size: 3rem; position: absolute; left: 50%; transform: translateX(-50%); top: 20px; z-index: 2; transition: transform 0.3s; }
+        .beast { font-size: 4rem; position: absolute; left: 50%; transform: translateX(-50%); bottom: -60px; z-index: 2; transition: bottom 0.3s ease; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.8)); }
+
+        /* MISIÓN */
+        .mission-panel {
+            padding: 20px; background-color: #000;
+            border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .mission-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; }
+        .code-line {
+            font-family: var(--font-code); font-size: 1.1rem; color: var(--accent-blue);
+            background: #111; padding: 12px 20px; border-radius: 8px;
+            display: inline-block; border: 1px solid #333; text-align: left;
+        }
+        .code-line .kw { color: #ff7b72; }
+        .code-line .fn { color: #d2a8ff; }
+        .code-line .str { color: #a5d6ff; }
+        .code-line .num { color: #79c0ff; }
+
+        /* CAJAS */
+        .boxes-grid {
+            display: flex; justify-content: center; gap: 15px;
+            padding: 30px 20px; perspective: 1000px; min-height: 160px;
+        }
+        .box {
+            width: 100px; height: 100px; background-color: var(--bg-card);
+            border: 2px solid var(--border-color); border-radius: 12px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s; position: relative; user-select: none;
+        }
+        .box:hover:not(.disabled) { transform: translateY(-5px) scale(1.05); border-color: var(--text-muted); }
+        .box .item-icon { font-size: 2.2rem; opacity: 0.4; transition: opacity 0.3s; }
+        .box .item-name { font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-code); margin-top: 5px; text-align: center; }
+        .box .id-badge { position: absolute; top: -10px; background: #333; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-family: var(--font-code); }
+
+        /* Caja de Undefined */
+        .box.box-undefined { border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.05); }
+        .box.box-undefined .item-icon { color: var(--accent-red); opacity: 1; font-weight: bold; font-family: var(--font-code); }
+
+        /* Animaciones */
+        .box.evaluating { border-color: var(--accent-yellow); box-shadow: 0 0 25px rgba(251, 191, 36, 0.5); transform: translateY(-10px) scale(1.1); z-index: 10; }
+        .box.evaluating .item-icon { opacity: 1; }
+        .box.success { border-color: var(--accent-green); background-color: rgba(74, 222, 128, 0.1); box-shadow: 0 0 30px rgba(74, 222, 128, 0.6); transform: translateY(-10px) scale(1.15); }
+        .box.success .item-icon { opacity: 1; }
+        .box.fail { border-color: var(--accent-red); background-color: rgba(239, 68, 68, 0.1); }
+
+        /* CONSOLA Y BOTONES */
+        .console-panel {
+            background: #000; padding: 16px; font-family: var(--font-code); font-size: 0.85rem;
+            height: 90px; overflow-y: auto; color: var(--text-muted); border-top: 1px solid var(--border-color);
+        }
+        .log-line { margin-bottom: 4px; }
+        .log-success { color: var(--accent-green); }
+        .log-error { color: var(--accent-red); }
+        .log-info { color: var(--accent-yellow); }
+
+        .controls { padding: 16px; display: flex; justify-content: center; background-color: var(--bg-panel); }
+        .btn-next {
+            background-color: var(--accent-blue); color: #fff; border: none; padding: 10px 32px;
+            border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer;
+            transition: 0.2s; display: none;
+        }
+        .btn-next:hover { background-color: #388bfd; transform: scale(1.05); }
+
+        /* OVERLAYS (Transiciones) */
+        .overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.9); display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 50;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s; text-align: center;
+        }
+        .overlay.active { opacity: 1; pointer-events: auto; }
+        .overlay h2 { font-size: 3rem; margin-bottom: 10px; }
+        .overlay p { font-size: 1.1rem; color: var(--text-muted); max-width: 80%; line-height: 1.5; }
+        
+        .title-win { color: var(--accent-green); text-shadow: 0 0 20px rgba(74, 222, 128, 0.5); }
+        .title-lose { color: var(--accent-red); text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        
+        <!-- Header -->
+        <div class="game-header">
+            <div class="game-title">🏃‍♂️ Escapa de la Bestia</div>
+            <div class="level-indicator" id="level-display">Nivel 1 / 3</div>
+            <div class="beast-health-bar"><div class="beast-fill" id="beast-progress"></div></div>
+        </div>
+
+        <!-- Escenario -->
+        <div class="scenario">
+            <div class="hero" id="hero">🏃‍♂️💨</div>
+            <div class="beast" id="beast">🐺</div>
+        </div>
+
+        <!-- Misión -->
+        <div class="mission-panel">
+            <div class="mission-desc" id="mission-desc">...</div>
+            <div class="code-line" id="code-display"></div>
+        </div>
+
+        <!-- Cajas -->
+        <div class="boxes-grid" id="boxes-grid"></div>
+
+        <!-- Consola -->
+        <div class="console-panel" id="console"></div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <button class="btn-next" id="btn-next" onclick="nextLevel()">Siguiente Nivel ➔</button>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay">
+            <h2 id="overlay-title">...</h2>
+            <p id="overlay-desc">...</p>
+        </div>
+
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN DE LOS NIVELES ---
+        const levels = [
+            {
+                level: 1,
+                desc: "La bestia se acerca. ¡Busca un Arma rápido!",
+                code: '<span class="kw">const</span> escape = items.<span class="fn">find</span>(item => item.type === <span class="str">"Arma"</span>);',
+                evaluator: (item) => item.type === "Arma",
+                items: [
+                    { icon: "🍄", type: "Comida", name: "Hongo", power: 5 },
+                    { icon: "🗡️", type: "Arma", name: "Espada", power: 50 },
+                    { icon: "🧪", type: "Poción", name: "Poción", power: 20 }
+                ],
+                speed: 1.2 // Velocidad de la bestia
+            },
+            {
+                level: 2,
+                desc: "¡Necesitas algo más fuerte! Busca una Poción con poder > 50.",
+                code: '<span class="kw">const</span> escape = items.<span class="fn">find</span>(item => item.type === <span class="str">"Poción"</span> && item.power > <span class="num">50</span>);',
+                evaluator: (item) => item.type === "Poción" && item.power > 50,
+                items: [
+                    { icon: "🧪", type: "Poción", name: "Poción Débil", power: 20 },
+                    { icon: "🛡️", type: "Defensa", name: "Escudo", power: 40 },
+                    { icon: "⚗️", type: "Poción", name: "Súper Poción", power: 90 }
+                ],
+                speed: 1.8
+            },
+            {
+                level: 3,
+                desc: "¡Trampa! El código pide algo con poder > 200. Nada lo cumple. ¡Huye a la caja vacía!",
+                code: '<span class="kw">const</span> escape = items.<span class="fn">find</span>(item => item.power > <span class="num">200</span>);',
+                evaluator: (item) => item.power > 200, // Nadie cumple esto
+                items: [
+                    { icon: "🗡️", type: "Arma", name: "Espada", power: 50 },
+                    { icon: "🛡️", type: "Defensa", name: "Escudo", power: 80 },
+                    { icon: "⚗️", type: "Poción", name: "Élite", power: 100 }
+                ],
+                speed: 2.5,
+                isTrap: true // Activa la caja de undefined
+            }
+        ];
+
+        let currentLevelIndex = 0;
+        let beastLevel = 0;
+        let gameInterval;
+        let isPlaying = false;
+        let isAnimating = false;
+
+        // DOM
+        const boxesGrid = document.getElementById('boxes-grid');
+        const codeDisplay = document.getElementById('code-display');
+        const missionDesc = document.getElementById('mission-desc');
+        const consoleBox = document.getElementById('console');
+        const beastEl = document.getElementById('beast');
+        const heroEl = document.getElementById('hero');
+        const beastProgress = document.getElementById('beast-progress');
+        const levelDisplay = document.getElementById('level-display');
+        const overlay = document.getElementById('overlay');
+        const overlayTitle = document.getElementById('overlay-title');
+        const overlayDesc = document.getElementById('overlay-desc');
+        const btnNext = document.getElementById('btn-next');
+
+        // 1. Iniciar Nivel
+        function startLevel(index) {
+            currentLevelIndex = index;
+            const level = levels[index];
+            
+            isPlaying = true;
+            isAnimating = false;
+            beastLevel = 0;
+            beastProgress.style.width = '0%';
+            beastEl.style.bottom = '-60px';
+            heroEl.innerText = '🏃‍♂️💨';
+            overlay.classList.remove('active');
+            btnNext.style.display = 'none';
+            
+            levelDisplay.innerText = `Nivel ${level.level} / ${levels.length}`;
+            missionDesc.innerText = level.desc;
+            codeDisplay.innerHTML = level.code;
+            
+            consoleBox.innerHTML = '<div class="log-line log-info">> ¡La bestia te persigue! Encuentra el ítem correcto.</div>';
+            
+            renderBoxes(level);
+            startTimer(level.speed);
+        }
+
+        // 2. Dibujar cajas
+        function renderBoxes(level) {
+            boxesGrid.innerHTML = '';
+            
+            level.items.forEach((item, i) => {
+                const box = document.createElement('div');
+                box.className = 'box';
+                box.id = `box-${i}`;
+                box.onclick = () => handleBoxClick(i, false);
+                box.innerHTML = `
+                    <span class="id-badge">[${i}]</span>
+                    <div class="item-icon">${item.icon}</div>
+                    <div class="item-name">${item.name}</div>
+                `;
+                boxesGrid.appendChild(box);
+            });
+
+            // Si es nivel trampa, añadimos la caja undefined
+            if (level.isTrap) {
+                const undefinedBox = document.createElement('div');
+                undefinedBox.className = 'box box-undefined';
+                undefinedBox.id = `box-undefined`;
+                undefinedBox.onclick = () => handleBoxClick(-1, true);
+                undefinedBox.innerHTML = `
+                    <span class="id-badge">[?]</span>
+                    <div class="item-icon">∅</div>
+                    <div class="item-name" style="color:var(--accent-red); font-weight:bold;">undefined</div>
+                `;
+                boxesGrid.appendChild(undefinedBox);
+            }
+        }
+
+        // 3. Temporizador de la Bestia
+        function startTimer(speed) {
+            clearInterval(gameInterval);
+            gameInterval = setInterval(() => {
+                if (!isPlaying || isAnimating) return;
+                
+                beastLevel += speed;
+                beastProgress.style.width = `${beastLevel}%`;
+                
+                // La bestia se acerca visualmente
+                if (beastLevel > 30) beastEl.style.bottom = '-30px';
+                if (beastLevel > 60) beastEl.style.bottom = '0px';
+                if (beastLevel > 85) beastEl.style.bottom = '20px';
+                
+                if (beastLevel >= 100) {
+                    gameOver(false, "La bestia te atrapó por ser muy lento.");
+                }
+            }, 100);
+        }
+
+        // 4. Lógica de clic en caja
+        async function handleBoxClick(clickedIndex, isUndefinedClick) {
+            if (!isPlaying || isAnimating) return;
+            isAnimating = true;
+
+            document.querySelectorAll('.box').forEach(b => b.classList.add('disabled'));
+            const level = levels[currentLevelIndex];
+
+            if (isUndefinedClick) {
+                consoleBox.innerHTML += `<div class="log-line">> Seleccionaste: [undefined]</div>`;
+            } else {
+                consoleBox.innerHTML += `<div class="log-line">> Seleccionaste: ${level.items[clickedIndex].name}</div>`;
+            }
+            
+            // --- SIMULACIÓN REAL DE FIND ---
+            let foundIndex = -1;
+            
+            for (let i = 0; i < level.items.length; i++) {
+                const box = document.getElementById(`box-${i}`);
+                box.classList.add('evaluating');
+                await sleep(500);
+                
+                if (level.evaluator(level.items[i])) {
+                    box.classList.remove('evaluating');
+                    box.classList.add('success');
+                    foundIndex = i;
+                    consoleBox.innerHTML += `<div class="log-line log-success">✅ find() devolvió: ${level.items[i].name}.</div>`;
+                    break; // Cortocircuito
+                } else {
+                    box.classList.remove('evaluating');
+                }
+            }
+
+            await sleep(500);
+
+            // --- RESOLUCIÓN ---
+            if (level.isTrap) {
+                // Lógica Nivel Trampa (Undefined)
+                if (isUndefinedClick && foundIndex === -1) {
+                    levelWin();
+                } else {
+                    if (foundIndex === -1) {
+                        // Resaltar undefined como correcto si no encontró nada
+                        document.getElementById('box-undefined').classList.add('success');
+                    }
+                    gameOver(false, "El find() no encontró nada (undefined). Debiste hacer clic en la caja 'undefined'.");
+                }
+            } else {
+                // Lógica Niveles Normales
+                if (clickedIndex === foundIndex) {
+                    levelWin();
+                } else {
+                    document.getElementById(`box-${clickedIndex}`).classList.add('fail');
+                    gameOver(false, `Elegiste mal. find() encontró: ${level.items[foundIndex].name} (Índice ${foundIndex}).`);
+                }
+            }
+        }
+
+        // 5. Manejo de Fin de Nivel / Juego
+        function levelWin() {
+            isPlaying = false;
+            clearInterval(gameInterval);
+            
+            overlay.classList.add('active');
+            overlayTitle.className = 'title-win';
+            heroEl.innerText = '🏃‍♂️💨✨';
+
+            if (currentLevelIndex === levels.length - 1) {
+                // Ganó el juego entero
+                overlayTitle.innerText = "¡SOBREVIVISTE!";
+                overlayDesc.innerText = "Has dominado los cortocircuitos de find(). La bestia se rindió.";
+                btnNext.innerText = "Jugar de Nuevo 🔄";
+                btnNext.style.display = 'block';
+                btnNext.onclick = () => startLevel(0);
+            } else {
+                // Pasó un nivel intermedio
+                overlayTitle.innerText = "¡NIVEL SUPERADO!";
+                overlayDesc.innerText = "Encontraste el ítem correcto. Prepárate para el siguiente.";
+                btnNext.innerText = "Siguiente Nivel ➔";
+                btnNext.style.display = 'block';
+                btnNext.onclick = () => startLevel(currentLevelIndex + 1);
+            }
+        }
+
+        function gameOver(win, msg) {
+            isPlaying = false;
+            clearInterval(gameInterval);
+            
+            overlay.classList.add('active');
+            overlayTitle.className = 'title-lose';
+            overlayTitle.innerText = "¡TE ATRAPÓ!";
+            overlayDesc.innerText = msg;
+            heroEl.innerText = '😱';
+            beastEl.style.bottom = '40px';
+
+            btnNext.innerText = "Reintentar Nivel 🔄";
+            btnNext.style.display = 'block';
+            // Reintenta el mismo nivel en el que falló
+            btnNext.onclick = () => startLevel(currentLevelIndex);
+        }
+
+        function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+        // Iniciar juego al cargar
+        startLevel(0);
+    </script>
+</body>
+</html>
