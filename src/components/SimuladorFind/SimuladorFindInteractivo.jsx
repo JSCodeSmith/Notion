@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import './SimuladorFindInteractivo.css';
 
 const USUARIOS_INICIALES = [
@@ -9,94 +9,115 @@ const USUARIOS_INICIALES = [
   { id: 5, nombre: "Pedro", emoji: "👨‍🍳" }
 ];
 
+const evaluateCondition = (val, target, op) => {
+  switch (op) {
+    case '===': return val === target;
+    case '!==': return val !== target;
+    case '>': return val > target;
+    case '<': return val < target;
+    case '>=': return val >= target;
+    case '<=': return val <= target;
+    default: return false;
+  }
+};
+
 export default function SimuladorFindInteractivo() {
   const [usuarios, setUsuarios] = useState(USUARIOS_INICIALES);
-  const [targetId, setTargetId] = useState(3);
+  const [targetId, setTargetId] = useState(10);
+  const [operator, setOperator] = useState('<');
+  const [speed, setSpeed] = useState(1000);
+  
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [foundIndex, setFoundIndex] = useState(-1);
+  const [notFound, setNotFound] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState(1000);
-  const [logs, setLogs] = useState([{ msg: 'Esperando ejecución ...', type: 'info' }]);
-  
-  const historyRef = useRef([]);
-  const timerRef = useRef(null);
-  const terminalRef = useRef(null);
-  const draggedIdxRef = useRef(null);
+  const [historySize, setHistorySize] = useState(0);
 
-  // Auto-scroll en la terminal
+  const [logs, setLogs] = useState([{ text: '> Esperando ejecución...', type: 'log-info' }]);
+  const [editingId, setEditingId] = useState(null);
+
+  const historyRef = useRef([]);
+  const draggedIndexRef = useRef(null);
+  const terminalRef = useRef(null);
+
+  // Auto-scroll de la terminal
   useEffect(() => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
   }, [logs]);
 
-  // Lógica de reproducción automática
-  useEffect(() => {
-    if (isPlaying) {
-      timerRef.current = setInterval(() => {
-        stepForward();
-      }, speed);
-    } else {
-      clearInterval(timerRef.current);
-    }
-    return () => clearInterval(timerRef.current);
-  }, [isPlaying, speed, currentIndex, foundIndex, usuarios, targetId]);
-
-  const log = (msg, type = 'info') => {
-    setLogs(prev => [...prev, { msg, type }]);
-  };
+  const addLog = useCallback((text, type = 'log-info') => {
+    setLogs(prev => [...prev, { text, type }]);
+  }, []);
 
   const resetAlgorithm = () => {
     setIsPlaying(false);
-    clearInterval(timerRef.current);
     setCurrentIndex(-1);
     setFoundIndex(-1);
+    setNotFound(false);
+    setHistorySize(0);
     historyRef.current = [];
-    setLogs([{ msg: 'Esperando ejecución ...', type: 'info' }]);
+    setLogs([{ text: '> Esperando ejecución...', type: 'log-info' }]);
+    setEditingId(null);
   };
 
-  const stepForward = () => {
-    if (foundIndex !== -1) {
-      setIsPlaying(false);
-      return;
-    }
-
-    // Guardar estado para el botón "Atrás"
+  const saveState = useCallback((snapshot = {}) => {
     historyRef.current.push({
-      index: currentIndex,
-      found: foundIndex,
-      array: JSON.parse(JSON.stringify(usuarios))
+      index: snapshot.index ?? currentIndex,
+      found: snapshot.found ?? foundIndex,
+      usuarios: JSON.parse(JSON.stringify(usuarios))
     });
+    setHistorySize(historyRef.current.length);
+  }, [currentIndex, foundIndex, usuarios]);
 
-    let nextIndex = currentIndex;
-    let nextFound = foundIndex;
-
-    if (nextIndex === -1) {
-      nextIndex = 0;
-      log(`Iniciando búsqueda. Objetivo ID: ${targetId}`, 'info');
-    } else {
-      if (usuarios[nextIndex].id === targetId) {
-        nextFound = nextIndex;
-        log(`✅ Encontrado en índice [${nextIndex}]: ${usuarios[nextIndex].nombre}`, 'success');
-        setCurrentIndex(nextIndex);
-        setFoundIndex(nextFound);
-        setIsPlaying(false);
-        return;
-      } else {
-        log(`❌ Índice [${nextIndex}]: ID ${usuarios[nextIndex].id} no coincide.`, 'error');
-        nextIndex++;
-      }
-    }
-
-    if (nextIndex >= usuarios.length) {
-      log(`⚠️ Fin del array. No se encontró el ID ${targetId}`, 'error');
-      setCurrentIndex(-1);
+  const stepForward = useCallback(() => {
+    if (foundIndex !== -1 || notFound) {
       setIsPlaying(false);
       return;
     }
 
-    setCurrentIndex(nextIndex);
-  };
+    let index = currentIndex;
+
+    if (index === -1) {
+      saveState({ index: -1, found: -1 });
+      index = 0;
+      setCurrentIndex(0);
+      addLog(`<b>Iniciando .find():</b> Buscando valor ${operator} ${targetId}.`, 'log-info');
+    }
+
+    if (index >= usuarios.length) {
+      addLog('⚠️ Fin del array. Ningún elemento cumple la condición. Retorna <b>undefined</b>.', 'log-error');
+      setIsPlaying(false);
+      setNotFound(true);
+      return;
+    }
+
+    const user = usuarios[index];
+    const isMatch = evaluateCondition(user.id, targetId, operator);
+
+    if (isMatch) {
+      saveState({ index });
+      setFoundIndex(index);
+      addLog(`✅ <b>¡Coincidencia encontrada!</b> En el índice [${index}], el valor ${user.id} ${operator} ${targetId} es TRUE.`, 'log-success');
+      addLog('💡 <b>¿Por qué se detiene aquí?</b> El método .find() devuelve el <b>primer</b> elemento que cumple la condición. Al encontrar un TRUE, rompe el bucle inmediatamente.', 'log-highlight');
+      addLog(`Resultado final: <code>{ id: ${user.id}, nombre: "${user.nombre}" }</code>`, 'log-info');
+      setIsPlaying(false);
+    } else {
+      addLog(`❌ Índice [${index}]: El valor ${user.id} ${operator} ${targetId} es FALSE. Se descarta y continúa.`, 'log-error');
+      saveState({ index });
+      setCurrentIndex(index + 1);
+    }
+  }, [addLog, currentIndex, foundIndex, notFound, operator, saveState, targetId, usuarios]);
+
+  // Manejo de la reproducción automática
+  useEffect(() => {
+    let timer;
+    if (isPlaying) {
+      timer = setTimeout(stepForward, speed);
+    }
+    return () => clearTimeout(timer);
+  }, [isPlaying, speed, stepForward]);
 
   const stepBack = () => {
     if (historyRef.current.length === 0) return;
@@ -104,184 +125,187 @@ export default function SimuladorFindInteractivo() {
     const prev = historyRef.current.pop();
     setCurrentIndex(prev.index);
     setFoundIndex(prev.found);
-    setUsuarios(prev.array);
-    log(`⏪ Retrocediendo...`, 'info');
+    setNotFound(false);
+    setUsuarios(prev.usuarios);
+    setHistorySize(historyRef.current.length);
+    addLog('⏪ Retrocediendo...', 'log-info');
   };
 
   const togglePlay = () => {
     if (isPlaying) {
       setIsPlaying(false);
     } else {
-      if (foundIndex !== -1) resetAlgorithm();
+      if (foundIndex !== -1 || notFound || currentIndex >= usuarios.length) resetAlgorithm();
       setIsPlaying(true);
     }
   };
 
-  const handleEditId = (index, newId) => {
-    const nuevos = [...usuarios];
-    nuevos[index].id = parseInt(newId);
-    setUsuarios(nuevos);
-    resetAlgorithm();
-  };
-
-  const handleDelete = (index) => {
-    const nuevos = usuarios.filter((_, i) => i !== index);
-    setUsuarios(nuevos);
-    log(`Elemento eliminado`, 'error');
-    resetAlgorithm();
-  };
-
-  // Drag and Drop
+  // --- Drag & Drop ---
   const handleDragStart = (e, index) => {
-    draggedIdxRef.current = index;
+    draggedIndexRef.current = index;
     e.dataTransfer.effectAllowed = 'move';
+    // Opcional: añadir clase visual
+    e.target.style.opacity = '0.5';
+  };
+
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = '1';
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
-  const handleDrop = (e, dropIdx) => {
+  const handleDrop = (e, dropIndex) => {
     e.preventDefault();
-    const draggedIdx = draggedIdxRef.current;
-    if (draggedIdx !== null && draggedIdx !== dropIdx) {
-      const nuevos = [...usuarios];
-      const item = nuevos.splice(draggedIdx, 1)[0];
-      nuevos.splice(dropIdx, 0, item);
-      setUsuarios(nuevos);
-      log(`Movido del índice ${draggedIdx} al ${dropIdx}`, 'info');
+    const dragIndex = draggedIndexRef.current;
+    if (dragIndex !== null && dragIndex !== dropIndex) {
+      const newUsuarios = [...usuarios];
+      const [movedItem] = newUsuarios.splice(dragIndex, 1);
+      newUsuarios.splice(dropIndex, 0, movedItem);
+      setUsuarios(newUsuarios);
+      addLog(`Array reordenado (movido de índice ${dragIndex} a ${dropIndex}).`, 'log-highlight');
       resetAlgorithm();
     }
   };
 
+  // --- Edición y Eliminación ---
+  const handleDelete = (index) => {
+    const newUsuarios = usuarios.filter((_, i) => i !== index);
+    setUsuarios(newUsuarios);
+    addLog(`Elemento eliminado del índice ${index}.`, 'log-error');
+    resetAlgorithm();
+  };
+
+  const handleEditChange = (index, newId) => {
+    setUsuarios(prev => prev.map((user, i) =>
+      i === index ? { ...user, id: parseInt(newId, 10) || 0 } : user
+    ));
+
+    if (foundIndex !== -1 || notFound || currentIndex !== -1) {
+      setCurrentIndex(-1);
+      setFoundIndex(-1);
+      setNotFound(false);
+      historyRef.current = [];
+      setHistorySize(0);
+    }
+  };
+
   return (
-    <div className="sif-wrapper">
-      <div className="sif-mac-window">
-        {/* Barra de Título */}
-        <div className="sif-title-bar">
-          <div className="sif-mac-dots">
-            <div className="sif-dot red"></div>
-            <div className="sif-dot yellow"></div>
-            <div className="sif-dot green"></div>
-          </div>
-          <div className="sif-title-text">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            interactivo.find.js
-          </div>
+    <div className="sfi-container">
+      {/* 1. Bloque de Código Dinámico */}
+      <div className="sfi-code-panel">
+        <div className="sfi-code-line">
+          <span className="sfi-line-number">1</span>
+          <span className="sfi-syntax-comment">// Busca el primer usuario con el ID indicado</span>
+        </div>
+        <div className="sfi-code-line">
+          <span className="sfi-line-number">2</span>
+          <span>
+            <span className="sfi-syntax-keyword">const</span> resultado = usuarios.<span className="sfi-syntax-func">find</span>(u =&gt; u.id <span className="sfi-syntax-op">{operator}</span> <span className="sfi-syntax-val">{targetId}</span>);
+          </span>
+        </div>
+      </div>
+
+      {/* 2. Barra de Controles */}
+      <div className="sfi-controls-bar">
+        <div className="sfi-input-group">
+          <label>Buscar:</label>
+          <input 
+            type="number" 
+            value={targetId} 
+            onChange={(e) => { setTargetId(Number(e.target.value)); resetAlgorithm(); }} 
+          />
+        </div>
+        <div className="sfi-input-group">
+          <select value={operator} onChange={(e) => { setOperator(e.target.value); resetAlgorithm(); }}>
+            <option value="===">===</option>
+            <option value="<">&lt;</option>
+            <option value=">">&gt;</option>
+            <option value="<=">&lt;=</option>
+            <option value=">=">&gt;=</option>
+            <option value="!==">!==</option>
+          </select>
         </div>
 
-        {/* Código */}
-        <div className="sif-code-editor">
-          <div className="sif-line">
-            <div className="sif-line-number">1</div>
-            <div className="sif-code-content sif-syn-comment">// Busca el primer usuario con el ID indicado</div>
-          </div>
-          <div className="sif-line">
-            <div className="sif-line-number">2</div>
-            <div className="sif-code-content">
-              <span className="sif-syn-keyword">const</span> <span className="sif-syn-variable">resultado</span> = <span className="sif-syn-variable">usuarios</span>.<span className="sif-syn-property">find</span>(<span className="sif-syn-variable">u</span> =&gt; <span className="sif-syn-variable">u</span>.<span className="sif-syn-property">id</span> === <span className="sif-syn-number">{targetId}</span>);
+        <div style={{ flexGrow: 1 }}></div>
+
+        <div className="sfi-input-group">
+          <label>Velocidad:</label>
+          <select value={speed} onChange={(e) => setSpeed(Number(e.target.value))}>
+            <option value={2000}>0.5x</option>
+            <option value={1000}>1x</option>
+            <option value={500}>2x</option>
+          </select>
+        </div>
+
+        <button className="sfi-btn" onClick={resetAlgorithm} type="button">🔄 Reset</button>
+        <button className="sfi-btn" onClick={stepBack} disabled={historySize === 0 || isPlaying} type="button">⏪ Atrás</button>
+        <button className="sfi-btn sfi-primary" onClick={() => { setIsPlaying(false); stepForward(); }} disabled={isPlaying} type="button">⏭️ Paso a Paso</button>
+        <button className="sfi-btn sfi-primary" onClick={togglePlay} type="button">
+          {isPlaying ? '⏸️ Pausar' : '▶️ Ejecutar'}
+        </button>
+      </div>
+
+      {/* 3. Grid de Tarjetas */}
+      <div className="sfi-array-panel">
+        {usuarios.map((user, index) => {
+          let stateClass = '';
+          if (index === foundIndex) stateClass = 'sfi-found';
+          else if (index === currentIndex && !notFound) stateClass = 'sfi-evaluating';
+          else if (currentIndex > index || notFound) stateClass = 'sfi-discarded';
+
+          return (
+            <div 
+              key={`${user.id}-${index}`} 
+              className={`sfi-array-item ${stateClass}`}
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, index)}
+            >
+              <div className="sfi-index-badge">[{index}]</div>
+              <div className="sfi-emoji-display">{user.emoji}</div>
+              
+              {editingId === index ? (
+                <input 
+                  type="number" 
+                  className="sfi-edit-input"
+                  value={user.id}
+                  onChange={(e) => handleEditChange(index, e.target.value)}
+                  onBlur={() => setEditingId(null)}
+                  onKeyDown={(e) => e.key === 'Enter' && setEditingId(null)}
+                  autoFocus
+                />
+              ) : (
+                <div className="sfi-value-display">ID: {user.id}</div>
+              )}
+
+              <div className="sfi-item-actions">
+                <button className="sfi-btn-edit" onClick={() => setEditingId(index)}>✏️ Edit</button>
+                <button className="sfi-btn-delete" onClick={() => handleDelete(index)}>🗑️</button>
+              </div>
             </div>
-          </div>
+          );
+        })}
+      </div>
+
+      {(foundIndex !== -1 || notFound) && (
+        <div className={`sfi-result ${foundIndex !== -1 ? 'success' : 'fail'}`} role="status">
+          {foundIndex !== -1
+            ? `✅ find() devolvió el usuario del índice [${foundIndex}].`
+            : '❌ find() recorrió todo el array y devolvió undefined.'}
         </div>
+      )}
 
-        {/* Controles */}
-        <div className="sif-controls">
-          <div className="sif-input-group">
-            <label>Buscar ID:</label>
-            <input 
-              type="number" 
-              value={targetId} 
-              onChange={(e) => { setTargetId(parseInt(e.target.value) || 1); resetAlgorithm(); }} 
-              min="1" 
-            />
-          </div>
-          <button className="sif-btn sif-primary" onClick={togglePlay}>
-            {isPlaying ? '⏸️ Pausar' : (
-              <>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                Ejecutar
-              </>
-            )}
-          </button>
-          <button className="sif-btn" onClick={() => { setIsPlaying(false); stepForward(); }} disabled={isPlaying}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19" stroke="white" strokeWidth="2"></line></svg>
-            Paso a Paso
-          </button>
-          <button className="sif-btn" onClick={stepBack} disabled={historyRef.current.length === 0 || isPlaying}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5" stroke="white" strokeWidth="2"></line></svg>
-            Atrás
-          </button>
-          <button className="sif-btn" onClick={resetAlgorithm}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
-            Reset
-          </button>
-
-          <div className="sif-speed-control">
-            <label>Velocidad</label>
-            <input 
-              type="range" 
-              min="200" 
-              max="2000" 
-              value={speed} 
-              onChange={(e) => setSpeed(parseInt(e.target.value))} 
-              step="100" 
-            />
-          </div>
-        </div>
-
-        {/* Array Visual */}
-        <div className="sif-array-container">
-          {usuarios.map((user, index) => {
-            let itemClass = "sif-array-item";
-            if (index === currentIndex) itemClass += " sif-evaluating";
-            if (index === foundIndex) itemClass += " sif-found";
-
-            return (
-              <div 
-                key={index} 
-                className={itemClass} 
-                draggable 
-                onDragStart={(e) => handleDragStart(e, index)}
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, index)}
-              >
-                <span className="sif-idx-badge">[ {index} ]</span>
-                <div className="sif-array-content">
-                  {"{id:"}<span className="sif-syn-number">{user.id}</span>{", nombre:"}<span className="sif-syn-string">"{user.nombre}"</span>{"}"}
-                </div>
-                <span className="sif-array-emoji">{user.emoji}</span>
-                
-                <div className="sif-edit-slider-container">
-                  <input 
-                    type="range" 
-                    min="1" 
-                    max="10" 
-                    value={user.id} 
-                    onChange={(e) => handleEditId(index, e.target.value)} 
-                  />
-                </div>
-
-                <div className="sif-item-actions">
-                  <button className="sif-delete" title="Eliminar" onClick={() => handleDelete(index)}>🗑️</button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Terminal */}
-        <div className="sif-terminal-panel">
-          <div className="sif-terminal-header">
-            <span>TERMINAL DE SALIDA</span>
-            <span>•••</span>
-          </div>
-          <div className="sif-terminal-output" ref={terminalRef}>
-            {logs.map((log, i) => (
-              <div key={i} className={`sif-log-line sif-log-${log.type}`}>
-                &gt; {log.msg}
-              </div>
-            ))}
-          </div>
+      {/* 4. Terminal */}
+      <div className="sfi-terminal-panel">
+        <div className="sfi-terminal-header">TERMINAL DE SALIDA & DEPURACIÓN</div>
+        <div className="sfi-terminal-body" ref={terminalRef}>
+          {logs.map((log, i) => (
+            <div key={i} className={`sfi-log-line ${log.type}`} dangerouslySetInnerHTML={{ __html: log.text }} />
+          ))}
         </div>
       </div>
     </div>

@@ -14,7 +14,9 @@ export default function SimuladorFind() {
   const [estado, setEstado] = useState('idle') // idle | playing | paused | found | not-found
   const [indiceActual, setIndiceActual] = useState(-1)
   const [logs, setLogs] = useState([])
+
   const playIntervalRef = useRef(null)
+  const nextIndexRef = useRef(0)
 
   // Limpiar intervalo si se desmonta el componente
   useEffect(() => {
@@ -23,69 +25,90 @@ export default function SimuladorFind() {
     }
   }, [])
 
+  const detenerIntervalo = () => {
+    if (playIntervalRef.current) {
+      clearInterval(playIntervalRef.current)
+      playIntervalRef.current = null
+    }
+  }
+
   const agregarLog = (mensaje, tipo = 'info') => {
-    setLogs(prev => [...prev, { id: Date.now() + Math.random(), mensaje, tipo }])
+    setLogs(prev => [...prev, { id: `${Date.now()}-${Math.random()}`, mensaje, tipo }])
   }
 
   const resetSimulacion = () => {
-    if (playIntervalRef.current) clearInterval(playIntervalRef.current)
+    detenerIntervalo()
+    nextIndexRef.current = 0
     setEstado('idle')
     setIndiceActual(-1)
     setLogs([])
   }
 
+  // Toda la lógica vive fuera del actualizador de estado: así React puede
+  // invocar los actualizadores dos veces en StrictMode sin duplicar logs.
+  const ejecutarPaso = () => {
+    const index = nextIndexRef.current
+
+    if (index >= USUARIOS_INICIALES.length) {
+      detenerIntervalo()
+      setEstado('not-found')
+      setIndiceActual(USUARIOS_INICIALES.length)
+      agregarLog('❌ Recorrido completo. Ningún usuario cumple la condición.', 'error')
+      agregarLog('⏹ Retorna: undefined', 'result')
+      return
+    }
+
+    const usuarioActual = USUARIOS_INICIALES[index]
+    setIndiceActual(index)
+    agregarLog(
+      `> Evaluando [${index}]: { id: ${usuarioActual.id}, nombre: "${usuarioActual.nombre}" }`,
+      'iteration'
+    )
+
+    if (usuarioActual.id === Number(idBuscado)) {
+      detenerIntervalo()
+      nextIndexRef.current = index + 1
+      setEstado('found')
+      agregarLog(`✅ Condición cumplida (${usuarioActual.id} === ${idBuscado}). Cortocircuito.`, 'success')
+      agregarLog(`⏹ Retorna: { id: ${usuarioActual.id}, nombre: "${usuarioActual.nombre}" }`, 'result')
+    } else {
+      nextIndexRef.current = index + 1
+      agregarLog(`❌ Condición fallida (${usuarioActual.id} !== ${idBuscado}). Continuando...`, 'error')
+    }
+  }
+
   const iniciarSimulacion = () => {
     resetSimulacion()
+    nextIndexRef.current = 0
     setEstado('playing')
     setIndiceActual(0)
     agregarLog(`▶ Ejecutando array.find(...) buscando id = ${idBuscado}`, 'system')
-    
-    // Iniciar el bucle automático
-    playIntervalRef.current = setInterval(() => {
-      ejecutarPaso()
-    }, 1000) // 1 segundo por iteración
-  }
-
-  const ejecutarPaso = () => {
-    setIndiceActual(prevIndex => {
-      const index = prevIndex === -1 ? 0 : prevIndex
-      
-      if (index >= USUARIOS_INICIALES.length) {
-        if (playIntervalRef.current) clearInterval(playIntervalRef.current)
-        setEstado('not-found')
-        agregarLog('❌ Recorrido completo. Ningún usuario cumple la condición.', 'error')
-        agregarLog('⏹ Retorna: undefined', 'result')
-        return index
-      }
-
-      const usuarioActual = USUARIOS_INICIALES[index]
-      agregarLog(`> Evaluando [${index}]: { id: ${usuarioActual.id}, nombre: "${usuarioActual.nombre}" }`, 'iteration')
-      
-      if (usuarioActual.id === Number(idBuscado)) {
-        if (playIntervalRef.current) clearInterval(playIntervalRef.current)
-        setEstado('found')
-        agregarLog(`✅ Condición cumplida (${usuarioActual.id} === ${idBuscado}). Cortocircuito.`, 'success')
-        agregarLog(`⏹ Retorna: { id: ${usuarioActual.id}, nombre: "${usuarioActual.nombre}" }`, 'result')
-        return index
-      } else {
-        agregarLog(`❌ Condición fallida (${usuarioActual.id} !== ${idBuscado}). Continuando...`, 'error')
-        return index + 1
-      }
-    })
+    playIntervalRef.current = setInterval(ejecutarPaso, 1000)
   }
 
   const togglePlayPause = () => {
     if (estado === 'playing') {
-      clearInterval(playIntervalRef.current)
+      detenerIntervalo()
       setEstado('paused')
-    } else if (estado === 'paused' || estado === 'idle') {
+    } else if (estado === 'paused') {
       setEstado('playing')
-      if (indiceActual === -1) {
-        setIndiceActual(0)
-        agregarLog(`▶ Ejecutando array.find(...) buscando id = ${idBuscado}`, 'system')
-      }
       playIntervalRef.current = setInterval(ejecutarPaso, 1000)
+    } else if (estado === 'idle') {
+      iniciarSimulacion()
     }
+  }
+
+  const pasoManual = () => {
+    if (estado === 'found' || estado === 'not-found') return
+
+    if (estado === 'idle') {
+      nextIndexRef.current = 0
+      setEstado('paused')
+      setIndiceActual(0)
+      agregarLog(`▶ Ejecutando array.find(...) buscando id = ${idBuscado}`, 'system')
+    }
+
+    ejecutarPaso()
   }
 
   return (
@@ -101,23 +124,34 @@ export default function SimuladorFind() {
           <span className="code-purple">const</span> resultado <span className="code-blue">=</span> usuarios.<span className="code-yellow">find</span>(u <span className="code-blue">=&gt;</span> u.id <span className="code-blue">===</span> <span className="code-orange">{idBuscado}</span>);
         </div>
         <div className="sim-controls">
-          <input 
-            type="number" 
-            value={idBuscado} 
+          <input
+            type="number"
+            value={idBuscado}
             onChange={(e) => {
               setIdBuscado(e.target.value)
               resetSimulacion()
             }}
             className="sim-input"
             disabled={estado === 'playing'}
+            aria-label="ID que quieres buscar"
           />
-          <button onClick={togglePlayPause} className="sim-btn primary" disabled={estado === 'found' || estado === 'not-found'}>
-            {estado === 'playing' ? '⏸ Pausar' : '▶ Ejecutar'}
+          <button
+            onClick={togglePlayPause}
+            className="sim-btn primary"
+            disabled={estado === 'found' || estado === 'not-found'}
+            type="button"
+          >
+            {estado === 'playing' ? '⏸ Pausar' : estado === 'paused' ? '▶ Continuar' : '▶ Ejecutar'}
           </button>
-          <button onClick={ejecutarPaso} className="sim-btn" disabled={estado === 'playing' || estado === 'found' || estado === 'not-found'}>
+          <button
+            onClick={pasoManual}
+            className="sim-btn"
+            disabled={estado === 'playing' || estado === 'found' || estado === 'not-found'}
+            type="button"
+          >
             ⏭ Paso
           </button>
-          <button onClick={resetSimulacion} className="sim-btn">
+          <button onClick={resetSimulacion} className="sim-btn" type="button">
             🔄 Reset
           </button>
         </div>

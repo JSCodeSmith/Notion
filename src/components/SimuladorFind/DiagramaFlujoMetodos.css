@@ -1,0 +1,417 @@
+/* DiagramaFlujoMetodos.css */
+.df-container {
+  --bg-body: #0d1117;
+  --bg-panel: #161b22;
+  --bg-node: #1f242c;
+  --border-color: #30363d;
+  --text-main: #c9d1d9;
+  --text-muted: #8b949e;
+  --find: #58a6ff;
+  --filter: #3fb950;
+  --findindex: #d2a8ff;
+  --red: #f85149;
+
+  background-color: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 30px;
+  font-family: "Inter", sans-serif;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.df-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.df-header h2 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.df-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* CONTROLES Y TABS */
+.df-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-panel);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.df-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.df-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.df-btn:hover {
+  background: var(--bg-node);
+  color: var(--text-main);
+}
+.df-btn.active {
+  border-color: var(--btn-color);
+  color: var(--btn-color);
+  background: color-mix(in srgb, var(--btn-color) 10%, transparent);
+  box-shadow: 0 0 15px color-mix(in srgb, var(--btn-color) 20%, transparent);
+}
+
+.df-play-btn {
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(46, 160, 67, 0.3);
+}
+.df-play-btn:hover {
+  background: linear-gradient(135deg, #2ea043, #3fb950);
+  transform: translateY(-2px);
+}
+.df-play-btn.playing {
+  background: linear-gradient(135deg, #da3633, #f85149);
+  box-shadow: 0 4px 15px rgba(218, 54, 51, 0.3);
+}
+
+/* BARRA DE PROGRESO */
+.df-progress-bar {
+  position: relative;
+  height: 6px;
+  background: var(--bg-panel);
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.df-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #58a6ff, #d2a8ff);
+  transition: width 0.4s ease;
+}
+.df-progress-text {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+/* WORKSPACE (DIAGRAMA + CÓDIGO) */
+.df-workspace {
+  display: grid;
+  grid-template-columns: 1fr 340px; /* Columna de código más ancha */
+  gap: 20px;
+}
+
+@media (max-width: 1100px) {
+  .df-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* DIAGRAMA */
+.df-diagram {
+  position: relative;
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-color: #0a0c10;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* CONTENEDOR CON SCROLL PARA PANTALLAS PEQUEÑAS */
+.df-scroll-area {
+  width: 100%;
+  overflow-x: auto; /* Si no cabe, aparece scroll horizontal */
+  overflow-y: hidden;
+}
+
+.df-canvas {
+  position: relative;
+  width: 800px; /* Ancho ajustado para que quepa bien */
+  height: 520px;
+  margin: 0 auto;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.df-path {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 2.5;
+  color: var(--border-color);
+  opacity: 0;
+  transition:
+    opacity 0.4s ease,
+    stroke 0.4s ease;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.df-path.visible {
+  opacity: 1;
+  animation: drawLine 1s forwards ease-in-out;
+}
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.df-path.common.visible {
+  stroke: var(--text-muted);
+  color: var(--text-muted);
+}
+.df-path.no.visible {
+  stroke: var(--red);
+  color: var(--red);
+}
+.df-path.yes.visible {
+  stroke: var(--text-main);
+  color: var(--text-main);
+}
+.df-path.filter.visible {
+  stroke: var(--filter);
+  color: var(--filter);
+}
+.df-path.find.visible {
+  stroke: var(--find);
+  color: var(--find);
+}
+.df-path.findindex.visible {
+  stroke: var(--findindex);
+  color: var(--findindex);
+}
+
+/* NODOS */
+.df-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(145deg, #232931, #1a1f26);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-align: center;
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  width: 170px;
+  z-index: 10;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  opacity: 0.3;
+  box-sizing: border-box;
+}
+
+.df-node.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  border-color: var(--text-muted);
+  color: #fff;
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+  }
+}
+
+.df-node.decision {
+  width: 150px;
+  height: 110px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  padding: 0;
+}
+.df-node.decision::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border-color);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  z-index: -1;
+  transition: background 0.4s;
+}
+.df-node.decision::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: linear-gradient(145deg, #232931, #1a1f26);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  z-index: -1;
+}
+.df-node.decision.active {
+  border: none;
+  animation: none;
+}
+.df-node.decision.active::before {
+  background: var(--text-main);
+}
+
+/* Colores de Nodos Activos */
+.df-node.find.active {
+  border-color: var(--find);
+  color: var(--find);
+  box-shadow: 0 0 25px rgba(88, 166, 255, 0.4);
+  animation: pulseFind 1.5s infinite alternate;
+}
+.df-node.filter.active {
+  border-color: var(--filter);
+  color: var(--filter);
+  box-shadow: 0 0 25px rgba(63, 185, 80, 0.4);
+  animation: pulseFilter 1.5s infinite alternate;
+}
+.df-node.findindex.active {
+  border-color: var(--findindex);
+  color: var(--findindex);
+  box-shadow: 0 0 25px rgba(210, 168, 255, 0.4);
+  animation: pulseFindindex 1.5s infinite alternate;
+}
+
+@keyframes pulseFind {
+  from {
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+  }
+  to {
+    box-shadow: 0 0 35px rgba(88, 166, 255, 0.6);
+  }
+}
+@keyframes pulseFilter {
+  from {
+    box-shadow: 0 0 15px rgba(63, 185, 80, 0.2);
+  }
+  to {
+    box-shadow: 0 0 35px rgba(63, 185, 80, 0.6);
+  }
+}
+@keyframes pulseFindindex {
+  from {
+    box-shadow: 0 0 15px rgba(210, 168, 255, 0.2);
+  }
+  to {
+    box-shadow: 0 0 35px rgba(210, 168, 255, 0.6);
+  }
+}
+
+/* ETIQUETAS */
+.df-label {
+  position: absolute;
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: "Fira Code", monospace;
+  background: var(--bg-body);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  z-index: 20;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s;
+  opacity: 0.3;
+}
+
+.df-label.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.df-label.no.active {
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 10px rgba(248, 81, 73, 0.3);
+}
+.df-label.yes.active {
+  border-color: var(--text-main);
+  color: var(--text-main);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* PANEL DE CÓDIGO CON COLORES */
+.df-code-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.df-code-header {
+  background: #0d1117;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.df-code-lang {
+  background: rgba(88, 166, 255, 0.1);
+  color: var(--find);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Aquí se aplica tu CodeBlock, le quitamos márgenes para que encaje */
+.df-code-content {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.df-code-content .code-block {
+  margin: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+}

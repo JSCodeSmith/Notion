@@ -1,21 +1,35 @@
 import { useState, useEffect, useRef } from 'react';
 import './SimuladorFindDiagrama.css';
 
+const parseArray = (value) =>
+  value.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+
+const parseCondition = (value) => {
+  const parsed = parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const INITIAL_ARRAY = '5, 12, 8, 130, 44';
+const INITIAL_COND = '100';
+
 export default function SimuladorFindDiagrama() {
-  const [inputArray, setInputArray] = useState('5, 12, 8, 130, 44');
-  const [inputCond, setInputCond] = useState('100');
+  const [inputArray, setInputArray] = useState(INITIAL_ARRAY);
+  const [inputCond, setInputCond] = useState(INITIAL_COND);
   
-  const [arrayData, setArrayData] = useState([]);
-  const [conditionVal, setConditionVal] = useState(0);
+  const [arrayData, setArrayData] = useState(() => parseArray(INITIAL_ARRAY));
+  const [conditionVal, setConditionVal] = useState(() => parseCondition(INITIAL_COND));
   
   const [currentIdx, setCurrentIdx] = useState(0);
   const [phase, setPhase] = useState('start');
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   
-  const [logs, setLogs] = useState([]);
+  const [logs, setLogs] = useState([
+    { text: '> Flujo reiniciado. Listo para ejecutar.', className: 'log-info' }
+  ]);
   const [result, setResult] = useState({ status: 'idle', value: 'Esperando...' });
 
   const consoleRef = useRef(null);
+  const nextStepRef = useRef(null);
 
   useEffect(() => {
     if (consoleRef.current) {
@@ -27,23 +41,16 @@ export default function SimuladorFindDiagrama() {
     setLogs((prev) => [...prev, { text, className }]);
   };
 
-  const resetSim = () => {
-    setIsAutoPlaying(false);
+  const resetSim = (autoplay = false) => {
+    setIsAutoPlaying(autoplay);
     setCurrentIdx(0);
     setPhase('start');
-    
-    const parsedArray = inputArray.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
-    const parsedCond = parseFloat(inputCond) || 0;
-    
-    setArrayData(parsedArray);
-    setConditionVal(parsedCond);
+
+    setArrayData(parseArray(inputArray));
+    setConditionVal(parseCondition(inputCond));
     setLogs([{ text: '> Flujo reiniciado. Listo para ejecutar.', className: 'log-info' }]);
     setResult({ status: 'idle', value: 'Esperando...' });
   };
-
-  useEffect(() => {
-    resetSim();
-  }, []);
 
   const nextStep = () => {
     if (phase === 'finished') return;
@@ -76,7 +83,7 @@ export default function SimuladorFindDiagrama() {
         addLog(`  Evaluando condición: ${arrayData[currentIdx]} > ${conditionVal}`, 'log-eval');
         setPhase('decision');
         break;
-      case 'decision':
+      case 'decision': {
         const isTrueDec = arrayData[currentIdx] > conditionVal;
         if (isTrueDec) {
           addLog(`✅ Condición TRUE. Cortocircuito.`, 'log-success');
@@ -86,6 +93,7 @@ export default function SimuladorFindDiagrama() {
           setPhase('loop_path');
         }
         break;
+      }
       case 'loop_path':
         setCurrentIdx(prev => prev + 1);
         setPhase('iter_loop');
@@ -107,31 +115,36 @@ export default function SimuladorFindDiagrama() {
     }
   };
 
+  // Mantenemos la referencia al último nextStep sin convertirlo en dependencia
+  // del temporizador: así el timeout solo se reinicia cuando cambia el paso.
   useEffect(() => {
-    let timer;
-    if (isAutoPlaying && phase !== 'finished') {
-      timer = setTimeout(() => {
-        nextStep();
-      }, 1000);
-    }
+    nextStepRef.current = nextStep;
+  });
+
+  useEffect(() => {
+    if (!isAutoPlaying || phase === 'finished') return;
+
+    const timer = setTimeout(() => {
+      nextStepRef.current?.();
+    }, 1000);
+
     return () => clearTimeout(timer);
-  }, [isAutoPlaying, phase, currentIdx, arrayData]);
+  }, [isAutoPlaying, phase, currentIdx, arrayData, conditionVal]);
 
   const handleManualStep = () => {
     setIsAutoPlaying(false);
-    nextStep();
+    nextStepRef.current?.();
   };
 
   const toggleAutoPlay = () => {
     if (isAutoPlaying) {
       setIsAutoPlaying(false);
+    } else if (phase === 'start' || phase === 'finished') {
+      // resetSim ya deja el estado listo y arranca la reproducción en el mismo
+      // render, sin setTimeout ni estados intermedios.
+      resetSim(true);
     } else {
-      if (phase === 'start' || phase === 'finished') {
-        resetSim();
-        setTimeout(() => setIsAutoPlaying(true), 10);
-      } else {
-        setIsAutoPlaying(true);
-      }
+      setIsAutoPlaying(true);
     }
   };
 
@@ -203,7 +216,7 @@ export default function SimuladorFindDiagrama() {
             <button className="btn btn-run" onClick={toggleAutoPlay}>{isAutoPlaying ? '⏸ Pausar' : '▶ Auto'}</button>
             <button className="btn btn-step" onClick={handleManualStep} disabled={isAutoPlaying || phase === 'finished'}>⏭ Paso</button>
           </div>
-          <button className="btn btn-reset" onClick={resetSim}>🔄 Reiniciar</button>
+          <button className="btn btn-reset" onClick={() => resetSim(false)}>🔄 Reiniciar</button>
         </div>
         <div className={`result-box ${result.status}`}>
           <div className="label">Resultado Final</div>
