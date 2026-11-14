@@ -66,6 +66,22 @@ export const CORTA = new Set([
   'find', 'findindex', 'findlast', 'findlastindex', 'some', 'every',
 ]);
 
+/* Nombre real en JavaScript: algunos ids no coinciden con el método. */
+export const NOMBRE_JS = {
+  indexof: 'indexOf',
+  findindex: 'findIndex',
+  findlast: 'findLast',
+  findlastindex: 'findLastIndex',
+  lastindexof: 'lastIndexOf',
+  foreach: 'forEach',
+  flatmap: 'flatMap',
+  toreversed: 'toReversed',
+  tosorted: 'toSorted',
+  tospliced: 'toSpliced',
+  copywithin: 'copyWithin',
+  reduceright: 'reduceRight',
+};
+
 const fn = {
   mayor25: (n) => n > 25,
   mayor10: (n) => n > 10,
@@ -88,24 +104,32 @@ export const DEMOS = {
     array: [10, 20, 30, 40, 50],
     fn: fn.mayor25,
     cond: 'n > 25',
+    limite: 25,
+    op: '>',
     code: 'const resultado = array.find(n => n > 25);',
   },
   findindex: {
     array: [10, 20, 30, 40, 50],
     fn: fn.mayor25,
     cond: 'n > 25',
+    limite: 25,
+    op: '>',
     code: 'const resultado = array.findIndex(n => n > 25);',
   },
   findlast: {
     array: [5, 12, 8, 130, 44],
     fn: fn.mayor10,
     cond: 'n > 10',
+    limite: 10,
+    op: '>',
     code: 'const resultado = array.findLast(n => n > 10);',
   },
   findlastindex: {
     array: [5, 12, 8, 130, 44],
     fn: fn.mayor10,
     cond: 'n > 10',
+    limite: 10,
+    op: '>',
     code: 'const resultado = array.findLastIndex(n => n > 10);',
   },
   indexof: {
@@ -122,12 +146,16 @@ export const DEMOS = {
     array: [12, 15, 20, 14],
     fn: fn.adulto,
     cond: 'n >= 18',
+    limite: 18,
+    op: '>=',
     code: 'const resultado = array.some(n => n >= 18);',
   },
   every: {
     array: [18, 22, 15, 30],
     fn: fn.adulto,
     cond: 'n >= 18',
+    limite: 18,
+    op: '>=',
     code: 'const resultado = array.every(n => n >= 18);',
   },
 

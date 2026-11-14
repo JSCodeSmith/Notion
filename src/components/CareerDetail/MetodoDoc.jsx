@@ -39,12 +39,13 @@ import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 import SimuladorFindDiagrama from '../SimuladorFind/SimuladorFindDiagrama' // <-- NUEVA IMPORTACIÓN
 
 import DiagramaMetodo from '../SimuladorMetodos/DiagramaMetodo'
+import SimuladorMetodo from '../SimuladorMetodos/SimuladorMetodo'
 import EntornoPruebaMetodo from '../SimuladorMetodos/EntornoPruebaMetodo'
 import MisionMetodo from '../SimuladorMetodos/MisionMetodo'
+import SandboxMetodo from '../SimuladorMetodos/SandboxMetodo'
 import DiagramaComparativo from '../SimuladorMetodos/DiagramaComparativo'
 import QuizMetodo from '../SimuladorMetodos/QuizMetodo'
 import { ARRAY_METHOD_IDS } from '../SimuladorMetodos/metodosMeta'
-import '../SimuladorMetodos/SimuladorMetodos.css'
 
 
 
@@ -236,11 +237,20 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
       </div>
 
       <div className="doc-grid">
-        <div className="doc-card"><h3>📝 Definición</h3><Contenido data={metodo.definicion} /></div>
-        <div className="doc-card"><h3>🧠 ¿Qué es?</h3><Contenido data={metodo.queEs} /></div>
-        <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
+        {esMetodoArray ? (
+          <div className="doc-triple">
+            <div className="doc-card"><h3>📝 Definición</h3><Contenido data={metodo.definicion} /></div>
+            <div className="doc-card"><h3>🧠 ¿Qué es?</h3><Contenido data={metodo.queEs} /></div>
+            <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
+          </div>
+        ) : (
+          <>
+            <div className="doc-card"><h3>📝 Definición</h3><Contenido data={metodo.definicion} /></div>
+            <div className="doc-card"><h3>🧠 ¿Qué es?</h3><Contenido data={metodo.queEs} /></div>
+            <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
+          </>
+        )}
 
-       
        {esMetodoArray ? (
          <div
            className="doc-card doc-card--full"
@@ -278,30 +288,34 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           )}
         </div>
 
-        {metodo.simulador && (
+        {esMetodoArray ? (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-            {esMetodoArray && (
-              <div style={{ padding: '0 4px' }}>
-                <h3>🎮 Simulador Interactivo</h3>
-                <p style={{ margin: '0 0 12px', color: '#9b9b9b' }}>
-                  Mueve el array y los parámetros para ver el comportamiento real
-                  de <code>{metodo.titulo}</code>.
-                </p>
-              </div>
-            )}
-            <Simulador metodo={metodo} simuladores={simuladores} />
+            <SimuladorMetodo key={`simulador-${metodo.id}`} metodo={metodo} />
+          </div>
+        ) : (
+          metodo.simulador && (
+            <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+              <Simulador metodo={metodo} simuladores={simuladores} />
+            </div>
+          )
+        )}
+
+        {esMetodoArray && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none', marginTop: '24px' }}>
+            <EntornoPruebaMetodo key={`entorno-${metodo.id}`} metodo={metodo} />
           </div>
         )}
 
         {esMetodoArray && (
-          <>
-            <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-              <EntornoPruebaMetodo key={`entorno-${metodo.id}`} metodo={metodo} />
-            </div>
-            <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-              <MisionMetodo key={`mision-${metodo.id}`} metodo={metodo} />
-            </div>
-          </>
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <MisionMetodo key={`mision-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
+
+        {esMetodoArray && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <SandboxMetodo key={`sandbox-${metodo.id}`} metodo={metodo} />
+          </div>
         )}
 
         {!esMetodoArray && ADVANCED_GAME_IDS.has(metodo.id) && (
@@ -310,18 +324,11 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           </div>
         )}
 
-        <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-          {esMetodoArray && (
-            <div style={{ padding: '0 4px' }}>
-              <h3>🧪 Sandbox interactivo con depuración avanzada</h3>
-              <p style={{ margin: '0 0 12px', color: '#9b9b9b' }}>
-                Cambia datos, rompe el código a propósito y observa la traza real
-                de <code>{metodo.titulo}</code>.
-              </p>
-            </div>
-          )}
-          <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
-        </div>
+        {!esMetodoArray && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
 
         <div className="doc-card doc-card--full">
           <h3>💡 Ejemplos</h3>
@@ -356,13 +363,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
         )}
 
-        {esMetodoArray && ADVANCED_GAME_IDS.has(metodo.id) && (
-          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
-            <AdvancedGame key={`game-${metodo.id}`} metodoId={metodo.id} />
-          </div>
-        )}
-
-        <div className="doc-card"><h3>🧠 Analogía</h3><p><Inline text={metodo.analogia} /></p></div>
+        <div className="doc-card doc-card--full"><h3>🧠 Analogía</h3><p><Inline text={metodo.analogia} /></p></div>
 
         {esMetodoArray ? (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>

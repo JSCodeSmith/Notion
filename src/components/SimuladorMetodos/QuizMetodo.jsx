@@ -1,9 +1,247 @@
 import { useMemo, useState } from 'react';
 import CodeBlock from '../CodeBlock/CodeBlock';
-import { escapeHtml } from '../SimuladorFind/findTrace';
-import { ejecutarDemo } from './ejecutarMetodo';
-import { obtenerFamilia } from './metodosMeta';
+import { escapeHtml, formatValue } from '../SimuladorFind/findTrace';
+import { ejecutarDemo, formatearResultado } from './ejecutarMetodo';
+import {
+  CORTA,
+  MUTA,
+  obtenerFamilia,
+  obtenerNombre,
+  obtenerRelacionados,
+} from './metodosMeta';
 import '../SimuladorFind/QuizFind.css';
+
+const MINIMO_PREGUNTAS = 11;
+
+const FALLO = {
+  find: 'undefined',
+  findlast: 'undefined',
+  findindex: '-1',
+  findlastindex: '-1',
+  indexof: '-1',
+  lastindexof: '-1',
+  some: 'false',
+  every: 'true',
+};
+
+const FAMILIA_TEXTO = {
+  busqueda: 'Recorre y se detiene en la primera coincidencia.',
+  transformacion: 'Recorre todo y devuelve una salida nueva sin mutar la entrada.',
+  mutador: 'Modifica el array original y devuelve un resultado de la operación.',
+  reduccion: 'Recorre todo acumulando un único valor final.',
+  iterador: 'Produce una secuencia o ejecuta un efecto por elemento.',
+  utilidad: 'Calcula el resultado directamente, sin callback.',
+};
+
+const barajar = (lista, semilla) => {
+  const copia = [...lista];
+  let estado = semilla || 1;
+  for (let i = copia.length - 1; i > 0; i -= 1) {
+    estado = (estado * 1103515245 + 12345) % 2147483648;
+    const j = estado % (i + 1);
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+};
+
+const semillaDe = (texto) => {
+  let h = 0;
+  for (let i = 0; i < texto.length; i += 1) {
+    h = (h * 31 + texto.charCodeAt(i)) % 1000003;
+  }
+  return h || 1;
+};
+
+/* Construye 4 opciones únicas y devuelve el índice de la correcta. */
+const conOpciones = (correcta, distractores, semilla) => {
+  const vistos = new Set();
+  const opciones = [];
+  [correcta, ...distractores].forEach((valor) => {
+    const texto = String(valor);
+    if (!vistos.has(texto)) {
+      vistos.add(texto);
+      opciones.push(texto);
+    }
+  });
+  ['undefined', 'null', '[]', '0', '-1', 'false', 'true'].forEach((relleno) => {
+    if (opciones.length < 4 && !vistos.has(relleno)) {
+      vistos.add(relleno);
+      opciones.push(relleno);
+    }
+  });
+  const mezcladas = barajar(opciones.slice(0, 4), semilla);
+  return {
+    opciones: mezcladas,
+    correcta: mezcladas.indexOf(String(correcta)),
+  };
+};
+
+const tipoDe = (valor) => {
+  if (Array.isArray(valor)) return 'Un array';
+  if (valor === undefined) return 'undefined';
+  if (valor === null) return 'null';
+  if (typeof valor === 'boolean') return 'Un booleano';
+  if (typeof valor === 'number') return 'Un número';
+  if (typeof valor === 'string') return 'Un string';
+  return 'Un objeto';
+};
+
+const nombreVisible = (id) => {
+  const nombre = obtenerNombre(id);
+  return nombre.includes('(') || nombre === 'length' ? nombre : `${nombre}()`;
+};
+
+const preguntasExtra = (metodo, familia, demo) => {
+  const corto = obtenerNombre(metodo.id).replace('Array.prototype.', '');
+  const resultado = formatearResultado(metodo.id, demo.result);
+  const lista = `[${demo.original.map(formatValue).join(', ')}]`;
+  const relacionados = obtenerRelacionados(metodo.id);
+  const otro = relacionados.find((id) => id !== metodo.id);
+  const otroNombre = otro ? nombreVisible(otro) : 'filter()';
+  const muta = MUTA.has(metodo.id);
+  const corta = CORTA.has(metodo.id);
+  const tieneCallback = Boolean(demo.demo.fn);
+  const fallo = FALLO[metodo.id] ?? 'undefined';
+
+  let vacio = 'undefined';
+  try {
+    vacio = formatearResultado(
+      metodo.id,
+      ejecutarDemo(metodo.id, { arreglo: [] }).result
+    );
+  } catch {
+    vacio = 'undefined';
+  }
+
+  const q1 = {
+    pregunta: `¿Qué devuelve <code>${escapeHtml(corto)}</code> en este escenario: <code>${escapeHtml(lista)}</code>?`,
+    ...conOpciones(resultado, ['undefined', 'null', '[]', '-1', lista], semillaDe(`${metodo.id}-extra-1`)),
+  };
+
+  const q2 = {
+    pregunta: `¿<code>${escapeHtml(corto)}</code> modifica el array original?`,
+    ...conOpciones(
+      muta ? 'Sí, muta el array' : 'No, no lo modifica',
+      [
+        'Sí, muta el array',
+        'No, no lo modifica',
+        'Solo si el array está vacío',
+        'Solo si contiene strings',
+      ],
+      semillaDe(`${metodo.id}-extra-2`)
+    ),
+  };
+
+  const q3 = {
+    pregunta: `¿Cuál de estas afirmaciones describe mejor a <code>${escapeHtml(corto)}</code>?`,
+    ...conOpciones(
+      FAMILIA_TEXTO[familia] ?? FAMILIA_TEXTO.utilidad,
+      Object.values(FAMILIA_TEXTO).filter(
+        (texto) => texto !== FAMILIA_TEXTO[familia]
+      ),
+      semillaDe(`${metodo.id}-extra-3`)
+    ),
+  };
+
+  const q4 = tieneCallback
+    ? {
+        pregunta: `¿Qué parámetros recibe el callback de <code>${escapeHtml(corto)}</code>?`,
+        ...conOpciones(
+          '(elemento, indice, array)',
+          ['(indice, elemento)', 'Solo el indice', 'El array completo'],
+          semillaDe(`${metodo.id}-extra-4`)
+        ),
+      }
+    : {
+        pregunta: `¿<code>${escapeHtml(corto)}</code> recibe una función callback?`,
+        ...conOpciones(
+          'No, recibe valores o índices directamente',
+          ['Sí, siempre recibe un callback', 'Solo si el array es numérico', 'Solo con objetos'],
+          semillaDe(`${metodo.id}-extra-4`)
+        ),
+      };
+
+  const q5 = {
+    pregunta: `¿<code>${escapeHtml(corto)}</code> se detiene antes de recorrer todo el array?`,
+    ...conOpciones(
+      corta ? 'Sí, corta el recorrido al cumplirse la condición' : 'No, recorre todo el array',
+      [
+        'Sí, corta el recorrido al cumplirse la condición',
+        'No, recorre todo el array',
+        'Solo si el array está ordenado',
+        'Solo si el callback devuelve false',
+      ],
+      semillaDe(`${metodo.id}-extra-5`)
+    ),
+  };
+
+  const q6 = familia === 'busqueda'
+    ? {
+        pregunta: `Si ningún elemento cumple la condición, ¿qué devuelve <code>${escapeHtml(corto)}</code>?`,
+        ...conOpciones(fallo, ['undefined', 'null', '[]', '-1', 'false', 'true'], semillaDe(`${metodo.id}-extra-6`)),
+      }
+    : {
+        pregunta: `¿Qué tipo de valor devuelve <code>${escapeHtml(corto)}</code>?`,
+        ...conOpciones(
+          tipoDe(demo.result),
+          ['Un array', 'Un booleano', 'Un número', 'Un string', 'undefined'],
+          semillaDe(`${metodo.id}-extra-6`)
+        ),
+      };
+
+  const q7 = {
+    pregunta: `¿Qué método se relaciona directamente con <code>${escapeHtml(corto)}</code>?`,
+    ...conOpciones(
+      otroNombre,
+      ['concat()', 'join()', 'split()', 'JSON.parse()'],
+      semillaDe(`${metodo.id}-extra-7`)
+    ),
+  };
+
+  const q8 = {
+    pregunta: '¿Cuál es el array de entrada que se usa en el ejemplo?',
+    ...conOpciones(lista, ['[]', '[1, 2, 3]', 'undefined'], semillaDe(`${metodo.id}-extra-8`)),
+  };
+
+  const q9 = {
+    pregunta: `Si el array estuviera vacío, ¿qué devolvería <code>${escapeHtml(corto)}</code>?`,
+    ...conOpciones(vacio, ['[]', 'undefined', 'null', '-1'], semillaDe(`${metodo.id}-extra-9`)),
+  };
+
+  const q10 = {
+    pregunta: 'Si quieres transformar cada elemento en otro valor, ¿qué método usarías?',
+    ...conOpciones('map()', ['filter()', 'find()', 'reduce()'], semillaDe(`${metodo.id}-extra-10`)),
+  };
+
+  const q11 = {
+    pregunta: `¿Cuántos elementos tiene el array del ejemplo?`,
+    ...conOpciones(
+      String(demo.original.length),
+      [String(demo.original.length + 1), String(Math.max(demo.original.length - 1, 0)), '0'],
+      semillaDe(`${metodo.id}-extra-11`)
+    ),
+  };
+
+  const q12 = {
+    pregunta: `¿Cuál es el resultado real de ejecutar el código del ejemplo?`,
+    ...conOpciones(resultado, ['undefined', 'null', '[]', 'false', '0'], semillaDe(`${metodo.id}-extra-12`)),
+  };
+
+  return [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12].map(
+    (plantilla, i) => ({
+      id: `extra-${metodo.id}-${i + 1}`,
+      codigo: demo.demo.code,
+      pista: PISTAS[familia] ?? PISTAS.utilidad,
+      explicacionOk: `<strong>¡Correcto!</strong> Aplicaste bien el comportamiento de <code>${escapeHtml(
+        corto
+      )}</code>.`,
+      explicacionFail: `<strong>Incorrecto.</strong> La respuesta correcta es <code>${escapeHtml(
+        plantilla.opciones[plantilla.correcta]
+      )}</code>. Repasa el diagrama y el entorno de prueba.`,
+      ...plantilla,
+    })
+  );
+};
 
 const PISTAS = {
   busqueda:
@@ -25,7 +263,7 @@ const construirPreguntas = (metodo) => {
   const demo = ejecutarDemo(metodo.id);
   const titulo = metodo.titulo ?? metodo.id;
 
-  return (metodo.quiz ?? []).map((pregunta) => {
+  const originales = (metodo.quiz ?? []).map((pregunta) => {
     const correcta = pregunta.opciones?.[pregunta.correcta] ?? '';
     return {
       ...pregunta,
@@ -44,6 +282,12 @@ const construirPreguntas = (metodo) => {
       codigo: pregunta.codigo ?? demo.demo.code,
     };
   });
+
+  if (originales.length >= MINIMO_PREGUNTAS) return originales;
+
+  const faltan = MINIMO_PREGUNTAS - originales.length;
+  const extras = preguntasExtra(metodo, familia, demo);
+  return [...originales, ...extras.slice(0, faltan)];
 };
 
 export default function QuizMetodo({ metodo }) {

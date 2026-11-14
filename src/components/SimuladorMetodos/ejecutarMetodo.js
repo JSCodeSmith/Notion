@@ -35,11 +35,14 @@ const textoResultado = (metodoId, valor) => {
   return formatValue(valor);
 };
 
-export function ejecutarDemo(metodoId) {
-  const demo = obtenerDemo(metodoId);
+export function ejecutarDemo(metodoId, opciones = {}) {
+  const demoBase = obtenerDemo(metodoId);
+  const demo = opciones.parametros
+    ? { ...demoBase, ...opciones.parametros }
+    : demoBase;
   const familia = obtenerFamilia(metodoId);
   const nombre = obtenerNombre(metodoId);
-  const original = copiar(demo.array ?? []);
+  const original = copiar(opciones.arreglo ?? demo.array ?? []);
   const pasos = [];
   const estados = {};
   let contador = 0;
@@ -69,12 +72,26 @@ export function ejecutarDemo(metodoId) {
     if (reversa) orden.reverse();
 
     let cerrado = false;
+    const limite = opciones.limite;
+    const comparar = (valor, idx) => {
+      if (limite === undefined || limite === null || limite === '') {
+        return Boolean(demo.fn?.(valor, idx, original));
+      }
+      const n = Number(valor);
+      const tope = Number(limite);
+      if (!Number.isFinite(n) || !Number.isFinite(tope)) return false;
+      if (demo.op === '>=') return n >= tope;
+      if (demo.op === '<=') return n <= tope;
+      if (demo.op === '<') return n < tope;
+      if (demo.op === '===') return n === tope;
+      return n > tope;
+    };
     for (const idx of orden) {
       estados[idx] = 'active';
       const ok =
         metodoId === 'indexof' || metodoId === 'lastindexof'
-          ? original[idx] === demo.buscar
-          : Boolean(demo.fn?.(original[idx], idx, original));
+          ? original[idx] === (opciones.valor ?? demo.buscar)
+          : comparar(original[idx], idx);
 
       paso(
         'evaluar',
