@@ -38,6 +38,14 @@ import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 
 import SimuladorFindDiagrama from '../SimuladorFind/SimuladorFindDiagrama' // <-- NUEVA IMPORTACIÓN
 
+import DiagramaMetodo from '../SimuladorMetodos/DiagramaMetodo'
+import EntornoPruebaMetodo from '../SimuladorMetodos/EntornoPruebaMetodo'
+import MisionMetodo from '../SimuladorMetodos/MisionMetodo'
+import DiagramaComparativo from '../SimuladorMetodos/DiagramaComparativo'
+import QuizMetodo from '../SimuladorMetodos/QuizMetodo'
+import { ARRAY_METHOD_IDS } from '../SimuladorMetodos/metodosMeta'
+import '../SimuladorMetodos/SimuladorMetodos.css'
+
 
 
 import { METODOS_ARRAYS } from '../../data/carreras'
@@ -209,6 +217,8 @@ export function Quiz({ preguntas }) {
 }
 
 export default function MetodoDoc({ metodo, onBack, simuladores }) {
+  const esMetodoArray = ARRAY_METHOD_IDS.has(metodo.id) && metodo.id !== 'find'
+
   return (
     <article className="notion-page detail-page">
       <button type="button" className="notion-back-btn" onClick={onBack}>
@@ -231,7 +241,14 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
         <div className="doc-card"><h3>🎯 ¿Para qué sirve?</h3><Contenido data={metodo.paraQueSirve} /></div>
 
        
-       {metodo.id === 'find' ? (
+       {esMetodoArray ? (
+         <div
+           className="doc-card doc-card--full"
+           style={{ padding: 0, background: 'transparent', border: 'none' }}
+         >
+           <DiagramaMetodo key={`diagrama-${metodo.id}`} metodo={metodo} />
+         </div>
+       ) : metodo.id === 'find' ? (
           <div
              className="doc-card doc-card--full" 
             style={{ padding: 0, background: 'transparent', border: 'none', gridColumn: '1 / -1', width: '100%' }}
@@ -263,17 +280,46 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         {metodo.simulador && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            {esMetodoArray && (
+              <div style={{ padding: '0 4px' }}>
+                <h3>🎮 Simulador Interactivo</h3>
+                <p style={{ margin: '0 0 12px', color: '#9b9b9b' }}>
+                  Mueve el array y los parámetros para ver el comportamiento real
+                  de <code>{metodo.titulo}</code>.
+                </p>
+              </div>
+            )}
             <Simulador metodo={metodo} simuladores={simuladores} />
           </div>
         )}
 
-        {ADVANCED_GAME_IDS.has(metodo.id) && (
+        {esMetodoArray && (
+          <>
+            <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+              <EntornoPruebaMetodo key={`entorno-${metodo.id}`} metodo={metodo} />
+            </div>
+            <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+              <MisionMetodo key={`mision-${metodo.id}`} metodo={metodo} />
+            </div>
+          </>
+        )}
+
+        {!esMetodoArray && ADVANCED_GAME_IDS.has(metodo.id) && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <AdvancedGame key={`game-${metodo.id}`} metodoId={metodo.id} />
           </div>
         )}
 
         <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+          {esMetodoArray && (
+            <div style={{ padding: '0 4px' }}>
+              <h3>🧪 Sandbox interactivo con depuración avanzada</h3>
+              <p style={{ margin: '0 0 12px', color: '#9b9b9b' }}>
+                Cambia datos, rompe el código a propósito y observa la traza real
+                de <code>{metodo.titulo}</code>.
+              </p>
+            </div>
+          )}
           <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
         </div>
 
@@ -294,10 +340,37 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         <div className="doc-card"><h3>⚠️ Errores comunes</h3><Lista items={metodo.errores} /></div>
         <div className="doc-card"><h3>💼 Casos de uso</h3><Lista items={metodo.casos} /></div>
-        <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
+
+        {esMetodoArray ? (
+          <div className="doc-card doc-card--full" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <h3>🧩 Relación con otros conceptos</h3>
+              <Lista items={metodo.relacion} />
+            </div>
+            <DiagramaComparativo
+              key={`comparativo-${metodo.id}`}
+              metodoId={metodo.id}
+            />
+          </div>
+        ) : (
+          <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
+        )}
+
+        {esMetodoArray && ADVANCED_GAME_IDS.has(metodo.id) && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <AdvancedGame key={`game-${metodo.id}`} metodoId={metodo.id} />
+          </div>
+        )}
+
         <div className="doc-card"><h3>🧠 Analogía</h3><p><Inline text={metodo.analogia} /></p></div>
 
-        <Quiz key={metodo.id} preguntas={metodo.quiz} />
+        {esMetodoArray ? (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <QuizMetodo key={`quiz-${metodo.id}`} metodo={metodo} />
+          </div>
+        ) : (
+          <Quiz key={metodo.id} preguntas={metodo.quiz} />
+        )}
 
         <div className="doc-card doc-card--full" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <h3 style={{ margin: 0 }}>📚 Fuente:</h3>

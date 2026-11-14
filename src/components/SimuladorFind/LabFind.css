@@ -219,23 +219,87 @@
 }
 
 .lab-code-block {
-  padding: 20px;
   background-color: var(--bg-editor);
+  font-family: var(--font-code);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 20px 12px;
+}
+.lab-code-editor {
+  display: block;
+  width: 100%;
+  min-height: 130px;
+  resize: vertical;
+  background: transparent;
+  color: var(--text-main);
+  border: none;
+  outline: none;
+  padding: 0;
   font-family: var(--font-code);
   font-size: 0.85rem;
   line-height: 1.8;
-  border-bottom: 1px solid var(--border-color);
-  min-height: 120px;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
 }
-.lab-code-line {
-  display: flex;
+.lab-code-editor:focus-visible {
+  outline: 1px solid var(--accent-blue);
+  outline-offset: 6px;
+  border-radius: 4px;
 }
-.lab-line-num {
-  width: 20px;
+.lab-code-editor:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.lab-code-block .CodeMirror {
+  height: 170px;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.lab-code-block .cm-s-dracula.CodeMirror {
+  background: transparent;
+}
+.lab-code-block .CodeMirror-gutters {
+  background: transparent;
+  border-right: 1px solid var(--border-color);
+}
+.lab-code-block .CodeMirror-linenumber {
   color: #484f58;
-  user-select: none;
-  margin-right: 12px;
-  text-align: right;
+}
+.lab-code-block .CodeMirror-cursor {
+  border-left-color: var(--text-main);
+}
+.lab-code-block .CodeMirror-selected {
+  background: rgba(88, 166, 255, 0.25) !important;
+}
+.lab-code-hint {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+}
+.lab-code-reset {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  transition: 0.2s;
+}
+.lab-code-reset:hover:not(:disabled) {
+  color: var(--text-main);
+  border-color: var(--text-muted);
+}
+.lab-code-reset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 .lab-action-bar {
   padding: 16px 20px;

@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { instrumentFindCall, formatValue } from './findTrace';
 import './LabFind.css';
 
 const PRESETS = {
   numbers: {
     data: [10, 20, 30, 40, 50],
-    condition: (item) => item > 25,
-    conditionStr: "n > 25",
     codeStr: `const resultado = array.find(n => n > 25);`,
     placeholder: "Añadir número..."
   },
@@ -13,25 +12,26 @@ const PRESETS = {
     data: [
       { id: 1, nombre: "Josue" }, { id: 2, nombre: "Ana" }, { id: 3, nombre: "Carlos" }, { id: 4, nombre: "María" }
     ],
-    condition: (item) => item.id === 3,
-    conditionStr: "u.id === 3",
     codeStr: `const resultado = array.find(u => u.id === 3);`,
     placeholder: "Nombre del usuario..."
   },
   strings: {
     data: ["manzana", "plátano", "cereza", "sandía"],
-    condition: (item) => item.length >= 7,
-    conditionStr: "str.length >= 7",
     codeStr: `const resultado = array.find(str => str.length >= 7);`,
     placeholder: "Añadir palabra..."
   }
 };
+
+const CODE_INICIAL = Object.fromEntries(
+  Object.entries(PRESETS).map(([key, preset]) => [key, preset.codeStr])
+);
 
 const LOG_INICIAL = [{ text: '> Esperando ejecución...', type: 'info' }];
 
 export default function LabFind() {
   const [preset, setPreset] = useState('numbers');
   const [arrayData, setArrayData] = useState(PRESETS.numbers.data);
+  const [codes, setCodes] = useState(CODE_INICIAL);
   const [isAnimating, setIsAnimating] = useState(false);
   const [logs, setLogs] = useState(LOG_INICIAL);
   const [newItem, setNewItem] = useState('');
@@ -39,10 +39,71 @@ export default function LabFind() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [foundIndex, setFoundIndex] = useState(-1);
   const [notFound, setNotFound] = useState(false);
+  const [resultText, setResultText] = useState(null);
 
   const consoleRef = useRef(null);
   const runIdRef = useRef(0);
   const isMountedRef = useRef(true);
+
+  const editorRef = useRef(null);
+  const cmInstance = useRef(null);
+  const isProgrammaticRef = useRef(false);
+  const presetRef = useRef(preset);
+  const runFindRef = useRef(null);
+
+  const code = codes[preset];
+
+  // Mantiene la referencia del preset actual para el listener de CodeMirror.
+  useEffect(() => {
+    presetRef.current = preset;
+  }, [preset]);
+
+  // Inicializa CodeMirror si está disponible; si no, queda el textarea normal.
+  useEffect(() => {
+    if (!window.CodeMirror || !editorRef.current || cmInstance.current) return;
+
+    const cm = window.CodeMirror.fromTextArea(editorRef.current, {
+      mode: 'javascript',
+      theme: 'dracula',
+      lineNumbers: true,
+      indentUnit: 2,
+      tabSize: 2,
+      lineWrapping: true
+    });
+
+    cmInstance.current = cm;
+    cm.setValue(PRESETS.numbers.codeStr);
+    cm.setOption('extraKeys', {
+      'Ctrl-Enter': () => runFindRef.current?.(),
+      'Cmd-Enter': () => runFindRef.current?.()
+    });
+    cm.on('change', () => {
+      if (isProgrammaticRef.current) return;
+      setCodes(prev => ({ ...prev, [presetRef.current]: cm.getValue() }));
+    });
+
+    return () => {
+      cm.toTextArea();
+      cmInstance.current = null;
+    };
+  }, []);
+
+  // Sincroniza el editor cuando cambias de preset o restauras el código.
+  useEffect(() => {
+    const cm = cmInstance.current;
+    if (!cm || cm.getValue() === code) return;
+
+    isProgrammaticRef.current = true;
+    cm.setValue(code);
+    isProgrammaticRef.current = false;
+  }, [code]);
+
+  // El textarea oculto no controla CodeMirror: hay que bloquearlo aparte.
+  useEffect(() => {
+    if (cmInstance.current) {
+      cmInstance.current.setOption('readOnly', isAnimating);
+    }
+  }, [isAnimating]);
 
   useEffect(() => {
     if (consoleRef.current) consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
@@ -50,6 +111,9 @@ export default function LabFind() {
 
   // Cancela cualquier animación pendiente si el componente se desmonta.
   useEffect(() => {
+    // StrictMode monta, desmonta y vuelve a montar: hay que restaurar el flag.
+    isMountedRef.current = true;
+
     return () => {
       isMountedRef.current = false;
       runIdRef.current += 1;
@@ -62,6 +126,18 @@ export default function LabFind() {
     setActiveIndex(-1);
     setFoundIndex(-1);
     setNotFound(false);
+    setResultText(null);
+  };
+
+  const updateCode = (value) => {
+    setCodes(prev => ({ ...prev, [preset]: value }));
+  };
+
+  const restoreCode = () => {
+    if (isAnimating) return;
+    updateCode(PRESETS[preset].codeStr);
+    resetVisualState();
+    setLogs(LOG_INICIAL);
   };
 
   const loadPreset = (name) => {
@@ -78,7 +154,8 @@ export default function LabFind() {
 
     if (preset === 'numbers') {
       const val = Number(newItem);
-      if (Number.isFinite(val)) setArrayData([...arrayData, val]);
+      if (!Number.isFinite(val)) return;
+      setArrayData([...arrayData, val]);
     } else if (preset === 'users') {
       const newId = arrayData.length > 0 ? Math.max(...arrayData.map(u => u.id)) + 1 : 1;
       setArrayData([...arrayData, { id: newId, nombre: newItem.trim() }]);
@@ -88,12 +165,14 @@ export default function LabFind() {
 
     setNewItem('');
     resetVisualState();
+    setLogs(LOG_INICIAL);
   };
 
   const deleteItem = (index) => {
     if (isAnimating) return;
     setArrayData(arrayData.filter((_, i) => i !== index));
     resetVisualState();
+    setLogs(LOG_INICIAL);
   };
 
   const runFind = async () => {
@@ -104,52 +183,108 @@ export default function LabFind() {
       return;
     }
 
+    const source = codes[preset];
+    const { code: instrumentedCode, instrumented } = instrumentFindCall(source, 'array');
+
+    if (!instrumented) {
+      setLogs([
+        { text: '> No encontré una llamada array.find(...) en el editor.', type: 'error' },
+        { text: '> Ejemplo: array.find(n => n > 25)', type: 'info' }
+      ]);
+      return;
+    }
+
     const runId = runIdRef.current + 1;
     runIdRef.current = runId;
     const isStale = () => runId !== runIdRef.current || !isMountedRef.current;
 
     setIsAnimating(true);
     resetVisualState();
-    setLogs([{ text: '> Compilando y ejecutando...', type: 'info' }]);
-    await sleep(600);
+    setLogs([{ text: '> Ejecutando tu código...', type: 'info' }]);
+
+    const traceSteps = [];
+    const output = [];
+
+    try {
+      const fakeConsole = {
+        log: (...args) => output.push(args.map(formatValue).join(' '))
+      };
+
+      // Ejecutamos el código real del editor. El callback se ejecuta de verdad
+      // y __findTrace recibe lo que devolvió en cada índice.
+      const runnable = new Function('array', 'console', '__findTrace', instrumentedCode);
+      runnable(arrayData, fakeConsole, (value, index, passed) => {
+        traceSteps.push({ value, index, passed: Boolean(passed) });
+      });
+    } catch (error) {
+      setLogs(prev => [...prev, { text: `❌ Error: ${error.message}`, type: 'error' }]);
+      setIsAnimating(false);
+      return;
+    }
+
+    if (output.length > 0) {
+      setLogs(prev => [...prev, ...output.map(text => ({ text: `> ${text}`, type: 'info' }))]);
+    }
+
+    await sleep(500);
     if (isStale()) return;
 
-    const { condition, conditionStr } = PRESETS[preset];
-    let found = false;
+    if (traceSteps.length === 0) {
+      setLogs(prev => [...prev, {
+        text: '> El callback no llegó a ejecutarse. Revisa que el array tenga elementos.',
+        type: 'error'
+      }]);
+    }
 
-    for (let i = 0; i < arrayData.length; i++) {
-      setActiveIndex(i);
-      setLogs(prev => [...prev, { text: `> Evaluando [${i}]: ${JSON.stringify(arrayData[i])}`, type: 'eval' }]);
-      await sleep(800);
+    let match = null;
+
+    for (const step of traceSteps) {
+      setActiveIndex(step.index);
+      setLogs(prev => [...prev, {
+        text: `> Evaluando [${step.index}]: ${formatValue(step.value)}`,
+        type: 'eval'
+      }]);
+      await sleep(750);
       if (isStale()) return;
 
-      if (condition(arrayData[i])) {
-        setFoundIndex(i);
-        setLogs(prev => [
-          ...prev,
-          { text: `✅ Condición cumplida (${conditionStr}). Cortocircuito.`, type: 'success' },
-          { text: `■ Retorna: ${JSON.stringify(arrayData[i])}`, type: 'return' }
-        ]);
-        found = true;
+      if (step.passed) {
+        match = step;
+        setFoundIndex(step.index);
+        setLogs(prev => [...prev, {
+          text: `✅ El callback devolvió true en [${step.index}]. Cortocircuito.`,
+          type: 'success'
+        }]);
         break;
       }
 
-      setLogs(prev => [...prev, { text: '❌ Condición fallida. Continuando...', type: 'error' }]);
-      await sleep(400);
+      setLogs(prev => [...prev, {
+        text: '❌ El callback devolvió false. Continuando...',
+        type: 'error'
+      }]);
+      await sleep(300);
       if (isStale()) return;
     }
 
-    if (isStale()) return;
-
-    if (!found) {
+    if (match) {
+      setResultText(`✅ Retorna: ${formatValue(match.value)}`);
+      setLogs(prev => [...prev, {
+        text: `■ Retorna: ${formatValue(match.value)}`,
+        type: 'return'
+      }]);
+    } else {
       setNotFound(true);
-      setLogs(prev => [...prev, { text: '❌ Fin del array. Retorna: undefined', type: 'error' }]);
+      setResultText('❌ Retorna: undefined');
+      setLogs(prev => [...prev, { text: '■ Retorna: undefined', type: 'return' }]);
     }
 
     setIsAnimating(false);
   };
 
   const currentPreset = PRESETS[preset];
+
+  useEffect(() => {
+    runFindRef.current = runFind;
+  });
 
   return (
     <div className="lab-find-container">
@@ -206,18 +341,40 @@ export default function LabFind() {
         <div className="lab-panel">
           <div className="lab-panel-header">
             <div className="lab-editor-header"><div className="lab-dot red"></div><div className="lab-dot yellow"></div><div className="lab-dot green"></div></div>
-            <span>live_find.js</span><span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Sandbox</span>
-          </div>
-          <div className="lab-code-block">
-            <div className="lab-code-line"><span className="lab-line-num">1</span><span style={{ color: '#8b949e' }}>// Buscando en el array...</span></div>
-            <div className="lab-code-line"><span className="lab-line-num">2</span><span dangerouslySetInnerHTML={{ __html: currentPreset.codeStr.replace('const', '<span style="color:#ff7b72">const</span>').replace('array', '<span style="color:#79c0ff">array</span>').replace('find', '<span style="color:#d2a8ff">find</span>') }} /></div>
+            <span>live_find.js</span>
+            <button
+              type="button"
+              className="lab-code-reset"
+              onClick={restoreCode}
+              disabled={isAnimating}
+              title="Restaurar el código de ejemplo"
+            >
+              ↺ Restaurar
+            </button>
           </div>
 
-          {(foundIndex !== -1 || notFound) && (
+          <div className="lab-code-block">
+            <textarea
+              ref={editorRef}
+              className="lab-code-editor"
+              value={code}
+              onChange={e => updateCode(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                  e.preventDefault();
+                  runFind();
+                }
+              }}
+              disabled={isAnimating}
+              spellCheck={false}
+              aria-label="Editor de código de find"
+            />
+            <div className="lab-code-hint">Puedes editar el código. Ctrl/Cmd + Enter para ejecutar.</div>
+          </div>
+
+          {resultText && (
             <div className={`lab-result ${foundIndex !== -1 ? 'success' : 'fail'}`} role="status">
-              {foundIndex !== -1
-                ? `✅ Retorna: ${JSON.stringify(arrayData[foundIndex])}`
-                : '❌ Retorna: undefined'}
+              {resultText}
             </div>
           )}
 
