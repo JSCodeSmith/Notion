@@ -1,6 +1,7 @@
 /* Biblioteca de Negocios.
-   Generado por scripts/generate-negocios-txt.mjs a partir de los TXT
-   de `Apuntes/`. No editar a mano: vuelve a ejecutar el script. */
+   Datos de la Biblioteca de Negocios: documentos, diagramas y quizzes.
+   Los diagramas se marcan con «diagrama:<id>» dentro de los textos.
+   Los quizzes incluyen explicación conceptual (sin código). */
 
 export const NEGOCIO_BIBLIOTECA = {
   "id": "biblioteca-negocios",
@@ -94,6 +95,13 @@ export const NEGOCIO_BIBLIOTECA = {
           "firma": "Punto de venta: cobro, inventario y datos",
           "icon": "🧾",
           "lab": 2
+        },
+        {
+          "id": "bpmn",
+          "nombre": "BPMN (Business Process Model and Notation)",
+          "firma": "Modela, simula y mejora procesos de negocio",
+          "icon": "◈",
+          "lab": 2
         }
       ]
     },
@@ -182,16 +190,38 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     ],
     "comoFunciona": [
       "La Agilidad Empresarial se construye sobre varios pilares interconectados:",
-      "```\nPilar                Descripción                                                               Acciones                                                                      \n1. Liderazgo Ágil    Líderes que modelan la agilidad, empoderan y eliminan barreras.           Liderazgo servicial, comunicación transparente, visión clara.                 \n2. Cultura Ágil      Mentalidad de crecimiento, experimentación, tolerancia al fracaso.        Fomentar la seguridad psicológica, celebrar el aprendizaje, feedback continuo.\n3. Estrategia Ágil   Estrategia flexible, basada en OKRs, con ciclos cortos de planificación.  OKRs, planificación trimestral, presupuestos ágiles.                          \n4. Estructura Ágil   Equipos autónomos, multidisciplinarios, organizados por valor.            Squads, tribus, equipos de producto, estructura horizontal.                   \n5. Procesos Ágiles   Metodologías ágiles (Scrum, Kanban, SAFe, LeSS) en toda la organización.  Sprints, Kanban, DevOps, CI/CD.                                               \n6. Personas Ágiles   Talento con habilidades técnicas y blandas, capacitación continua.        Formación en agilidad, coaching, mentoring.                                   \n7. Tecnología Ágil   Infraestructura moderna que habilita la agilidad.                         Cloud, microservicios, APIs, IA, automatización.                              \n8. Datos Ágiles      Toma de decisiones basada en datos en tiempo real.                        Dashboards, analítica, experimentación (A/B testing).                         \n9. Cliente Ágil      El cliente en el centro, feedback continuo, co-creación.                  Customer journey, Design Thinking, Lean Startup.                              \n10. Ecosistema Ágil  Colaboración con socios, proveedores y startups.                          Alianzas, plataformas, ecosistemas digitales.                                 \n```"
+      "«diagrama:agilidad-pilares»"
     ],
     "errores": [
-      "```\nDesafío                            Descripción                                           Mitigación                                                      \nResistencia al cambio              La cultura tradicional se resiste a la agilidad.      Liderazgo, comunicación, educación, casos de éxito.             \nFalta de compromiso del liderazgo  La alta dirección no apoya la transformación.         Involucrar a los líderes desde el inicio, mostrar ROI.          \nAgilidad \"de fachada\"              Se adoptan ceremonias ágiles sin cambiar la cultura.  Enfocarse en principios, no solo en prácticas.                  \nEscalado prematuro                 Escalar antes de que los equipos sean maduros.        Empezar con pilotos, aprender, luego escalar.                   \nSilos persistentes                 Los departamentos siguen trabajando aislados.         Equipos multidisciplinarios, objetivos compartidos.             \nFalta de talento                   No hay suficientes personas con habilidades ágiles.   Capacitación, contratación, coaching.                           \nMétricas equivocadas               Medir la agilidad por ceremonias, no por resultados.  Medir valor entregado, satisfacción del cliente, time to market.\nIgnorar la tecnología              La agilidad requiere tecnología habilitadora.         Invertir en cloud, DevOps, automatización.                      \nNo involucrar al cliente           La agilidad sin cliente es un ejercicio interno.      Customer journey, feedback continuo, co-creación.               \n```"
+      "**Resistencia al cambio**: La cultura tradicional se resiste a la agilidad. → Liderazgo, comunicación, educación, casos de éxito.",
+      "**Falta de compromiso del liderazgo**: La alta dirección no apoya la transformación. → Involucrar a los líderes desde el inicio, mostrar ROI.",
+      "**Agilidad \"de fachada\"**: Se adoptan ceremonias ágiles sin cambiar la cultura. → Enfocarse en principios, no solo en prácticas.",
+      "**Escalado prematuro**: Escalar antes de que los equipos sean maduros. → Empezar con pilotos, aprender, luego escalar.",
+      "**Silos persistentes**: Los departamentos siguen trabajando aislados. → Equipos multidisciplinarios, objetivos compartidos.",
+      "**Falta de talento**: No hay suficientes personas con habilidades ágiles. → Capacitación, contratación, coaching.",
+      "**Métricas equivocadas**: Medir la agilidad por ceremonias, no por resultados. → Medir valor entregado, satisfacción del cliente, time to market.",
+      "**Ignorar la tecnología**: La agilidad requiere tecnología habilitadora. → Invertir en cloud, DevOps, automatización.",
+      "**No involucrar al cliente**: La agilidad sin cliente es un ejercicio interno. → Customer journey, feedback continuo, co-creación."
     ],
     "casos": [
-      "```\nSituación                            Aplicación                                                       \nTransformación digital               La agilidad empresarial es el motor de la transformación digital.\nEmpresa tradicional en crisis        Adoptar agilidad para adaptarse rápidamente al mercado.          \nStartup en crecimiento               Mantener la agilidad mientras se escala.                         \nCorporación con múltiples productos  Escalar agilidad con SAFe, LeSS o Spotify Model.                 \nEmpresa en industria regulada        Adaptar la agilidad a las restricciones regulatorias.            \nOrganización de servicios            Aplicar agilidad a procesos administrativos y de soporte.        \n```"
+      "**Transformación digital**: La agilidad empresarial es el motor de la transformación digital.",
+      "**Empresa tradicional en crisis**: Adoptar agilidad para adaptarse rápidamente al mercado.",
+      "**Startup en crecimiento**: Mantener la agilidad mientras se escala.",
+      "**Corporación con múltiples productos**: Escalar agilidad con SAFe, LeSS o Spotify Model.",
+      "**Empresa en industria regulada**: Adaptar la agilidad a las restricciones regulatorias.",
+      "**Organización de servicios**: Aplicar agilidad a procesos administrativos y de soporte."
     ],
     "relacion": [
-      "```\nConcepto                             Relación                                                        \nMetodologías Ágiles (Scrum, Kanban)  Son las herramientas de la agilidad empresarial.                \nLean Startup                         La experimentación y el MVP son principios compartidos.         \nTransformación Digital               La agilidad es un habilitador clave.                            \nVUCA                                 La agilidad es la respuesta al entorno VUCA.                    \nCultura Organizacional               La agilidad requiere una cultura de confianza y experimentación.\nLiderazgo Servicial                  El liderazgo ágil se basa en el servicio y el empoderamiento.   \nOKR                                  Herramienta de planificación ágil.                              \nDevOps                               Prácticas que habilitan la agilidad técnica.                    \nEstructura Horizontal                La agilidad requiere estructuras planas y equipos autónomos.    \nData-Driven Organization             La agilidad se basa en datos para tomar decisiones.             \n```"
+      "**Metodologías Ágiles (Scrum, Kanban)**: Son las herramientas de la agilidad empresarial.",
+      "**Lean Startup**: La experimentación y el MVP son principios compartidos.",
+      "**Transformación Digital**: La agilidad es un habilitador clave.",
+      "**VUCA**: La agilidad es la respuesta al entorno VUCA.",
+      "**Cultura Organizacional**: La agilidad requiere una cultura de confianza y experimentación.",
+      "**Liderazgo Servicial**: El liderazgo ágil se basa en el servicio y el empoderamiento.",
+      "**OKR**: Herramienta de planificación ágil.",
+      "**DevOps**: Prácticas que habilitan la agilidad técnica.",
+      "**Estructura Horizontal**: La agilidad requiere estructuras planas y equipos autónomos.",
+      "**Data-Driven Organization**: La agilidad se basa en datos para tomar decisiones."
     ],
     "analogia": "La Agilidad Empresarial es como un barco veloz que puede cambiar de rumbo en cualquier momento. Un barco tradicional (organización no ágil) es grande, pesado y lento; necesita mucho tiempo y espacio para cambiar de dirección. Un barco ágil es más pequeño, con una tripulación empoderada, que puede ajustar las velas rápidamente para aprovechar el viento (oportunidades) o esquivar tormentas (amenazas). La clave no es el tamaño del barco, sino la capacidad de la tripulación para sentir el viento, decidir juntos y actuar rápido. Esa es la Agilidad Empresarial.",
     "notasPersonales": [
@@ -205,22 +235,37 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "fuente": "Denning, S. (2018). The Age of Agile. AMACOM. Rigby, D. K., Sutherland, J., & Takeuchi, H. (2016). Embracing Agile. Harvard Business Review. Kotter, J. P. (2012). Leading Change. Harvard Business Review Press. Sutherland, J. (2014). Scrum: The Art of Doing Twice the Work in Half the Time. Crown Business. Harvard Business Review, (2023). Business Agility. McKinsey & Company, (2024). The Agile Organization. SAFe (Scaled Agile Framework), (2024). SAFe Reference Guide.",
     "extras": [
       {
-        "seccion": "📊 Comparativa: Organización Tradicional vs. Organización Ágil",
+        "seccion": "📊 El ciclo de la organización ágil",
         "textos": [
-          "```\nCaracterística      Tradicional                       Ágil                                   \nEstructura          Jerárquica, funcional.            Horizontal, equipos autónomos.         \nToma de decisiones  Centralizada, lenta.              Descentralizada, rápida.               \nPlanificación       Anual, rígida.                    Trimestral, flexible (OKRs).           \nCiclos              Largos (meses/años).              Cortos (semanas).                      \nCultura             Aversión al riesgo, estabilidad.  Experimentación, tolerancia al fracaso.\nCliente             Al final del proceso.             En el centro, feedback continuo.       \nTecnología          Herramienta de soporte.           Motor del negocio.                     \nPersonas            Especialistas en silos.           Equipos multidisciplinarios.           \nLiderazgo           Directivo, controlador.           Servicial, empoderador.                \nCambio              Resistente, burocrático.          Ágil, adaptativo.                      \n```"
+          "«diagrama:agilidad-ciclo»"
         ]
       },
       {
         "seccion": "📝 Marcos de Escalado Ágil (Scaling Agile)",
         "textos": [
           "Para llevar la agilidad a toda la empresa, existen varios marcos:",
-          "```\nMarco                          Descripción                                                                  Ideal para                    \nSAFe (Scaled Agile Framework)  Marco más popular para escalar agilidad en grandes empresas.                 Grandes corporaciones.        \nLeSS (Large-Scale Scrum)       Scrum aplicado a múltiples equipos.                                          Empresas medianas/grandes.    \nDisciplined Agile (DA)         Enfoque flexible que combina varias metodologías.                            Empresas de todos los tamaños.\nSpotify Model                  Squads, tribus, chapters, guilds.                                            Empresas tecnológicas.        \nNexus                          Extensión de Scrum para múltiples equipos.                                   Empresas que ya usan Scrum.   \nScrum@Scale                    Escalado de Scrum con dos ciclos: Scrum Master Cycle y Product Owner Cycle.  Grandes empresas.             \nKanban a escala                Kanban aplicado a múltiples equipos y portafolios.                           Empresas con flujo continuo.  \n```"
+          "**SAFe (Scaled Agile Framework)**: Marco más popular para escalar agilidad en grandes empresas. Ideal para: Grandes corporaciones.",
+          "**LeSS (Large-Scale Scrum)**: Scrum aplicado a múltiples equipos. Ideal para: Empresas medianas/grandes.",
+          "**Disciplined Agile (DA)**: Enfoque flexible que combina varias metodologías. Ideal para: Empresas de todos los tamaños.",
+          "**Spotify Model**: Squads, tribus, chapters, guilds. Ideal para: Empresas tecnológicas.",
+          "**Nexus**: Extensión de Scrum para múltiples equipos. Ideal para: Empresas que ya usan Scrum.",
+          "**Scrum@Scale**: Escalado de Scrum con dos ciclos: Scrum Master Cycle y Product Owner Cycle. Ideal para: Grandes empresas.",
+          "**Kanban a escala**: Kanban aplicado a múltiples equipos y portafolios. Ideal para: Empresas con flujo continuo."
         ]
       },
       {
         "seccion": "💡 Ejemplos de Empresas Ágiles",
         "textos": [
-          "```\nEmpresa        Cómo aplican la Agilidad Empresarial                                                \nSpotify        Modelo de squads, tribus, chapters y guilds. Equipos autónomos alineados por misión.\nGoogle         OKRs, experimentación, cultura de datos, equipos pequeños y autónomos.              \nAmazon         Equipos de dos pizzas, experimentación, obsesión por el cliente, CI/CD.             \nNetflix        Cultura de libertad y responsabilidad, equipos autónomos, experimentación.          \nING Bank       Transformación ágil: de estructura funcional a equipos multidisciplinarios.         \nMicrosoft      Transformación cultural (growth mindset), DevOps, equipos autónomos.                \nZappos         Holocracia, autogestión, equipos autónomos.                                         \nValve          Estructura horizontal, sin jefes, proyectos autogestionados.                        \nMercado Libre  Equipos autónomos, DevOps, experimentación, data-driven.                            \nNubank         Equipos autónomos, cultura de experimentación, agilidad a escala.                   \n```"
+          "**Spotify**: Modelo de squads, tribus, chapters y guilds. Equipos autónomos alineados por misión.",
+          "**Google**: OKRs, experimentación, cultura de datos, equipos pequeños y autónomos.",
+          "**Amazon**: Equipos de dos pizzas, experimentación, obsesión por el cliente, CI/CD.",
+          "**Netflix**: Cultura de libertad y responsabilidad, equipos autónomos, experimentación.",
+          "**ING Bank**: Transformación ágil: de estructura funcional a equipos multidisciplinarios.",
+          "**Microsoft**: Transformación cultural (growth mindset), DevOps, equipos autónomos.",
+          "**Zappos**: Holocracia, autogestión, equipos autónomos.",
+          "**Valve**: Estructura horizontal, sin jefes, proyectos autogestionados.",
+          "**Mercado Libre**: Equipos autónomos, DevOps, experimentación, data-driven.",
+          "**Nubank**: Equipos autónomos, cultura de experimentación, agilidad a escala."
         ]
       }
     ],
@@ -233,37 +278,148 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "resumen": "La Agilidad Empresarial (Business Agility) es la capacidad de una organización para adaptarse rápida y eficazmente a los cambios del mercado, las tecnologías, las regulaciones y las…",
     "quiz": [
       {
-        "id": 1,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor Agilidad Empresarial (Business Agility)?",
+        "pregunta": "¿Qué define mejor la Agilidad Empresarial (Business Agility)?",
         "opciones": [
-          "El análisis SEPTE es un marco de escaneo ambiental (environmental scanning) que ayuda a las empresas a comprender el contexto amplio en el que…",
-          "La Agilidad Empresarial es la evolución de la agilidad más allá de los equipos de desarrollo. Mientras que la agilidad tradicional (Scrum, Kanban, XP)…",
-          "El Blitzscaling es una estrategia de crecimiento extremo que se utiliza en entornos de alta incertidumbre y mercados en rápida evolución. A diferencia…",
-          "El efecto de red es un círculo virtuoso: más usuarios → más valor → más usuarios → más valor. Es la base de la economía de plataformas y explica por…"
+          "Aplicar Scrum solo en los equipos de desarrollo de software.",
+          "La capacidad de toda la organización para adaptarse rápido al cambio sin perder eficiencia ni rumbo.",
+          "Automatizar todos los procesos con tecnología y reducir personal.",
+          "Tener reuniones diarias y tableros Kanban en cada área."
         ],
-        "correcta": 1
+        "correcta": 1,
+        "explicacion": "La Agilidad Empresarial va más allá de TI: es la capacidad de **sentir, responder y prosperar** ante cambios del mercado, la tecnología y la regulación, aplicando principios ágiles a estrategia, cultura, estructura, procesos, personas y tecnología.",
+        "pista": "Piensa si el concepto habla de equipos aislados o de la organización completa."
       },
       {
-        "id": 2,
-        "pregunta": "¿Para qué sirve Agilidad Empresarial (Business Agility)?",
+        "pregunta": "¿Cuál es la diferencia central entre «agilidad de equipos» y «Agilidad Empresarial»?",
         "opciones": [
-          "Sobrevivir en entornos VUCA: Adaptarse a cambios rápidos e impredecibles.",
-          "Identificar oportunidades y amenazas: Detectar tendencias externas que puedan beneficiar o perjudicar a la empresa.",
-          "Ganar la carrera por el mercado: Ser el primero en alcanzar la masa crítica.",
-          "Crear crecimiento exponencial: El valor de la red atrae a más usuarios sin necesidad de marketing masivo."
+          "La agilidad de equipos es más cara que la Agilidad Empresarial.",
+          "La Agilidad Empresarial solo aplica a empresas tecnológicas.",
+          "La Agilidad Empresarial escala los principios ágiles a toda la organización, no solo a los equipos.",
+          "No hay diferencia: son sinónimos exactos."
         ],
-        "correcta": 0
+        "correcta": 2,
+        "explicacion": "La agilidad de equipos vive en un squad o un área. La **Agilidad Empresarial** conecta equipos, liderazgo, estrategia, presupuestos y gobierno para que toda la organización responda como un sistema.",
+        "pista": "La palabra clave es «toda la organización»."
       },
       {
-        "id": 3,
-        "pregunta": "¿Cuál de estas afirmaciones corresponde a Agilidad Empresarial (Business Agility)?",
+        "pregunta": "En un entorno VUCA, ¿qué significan sus siglas?",
         "opciones": [
-          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
-          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
-          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
-          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial."
+          "Veloz, Único, Competitivo y Ambicioso.",
+          "Volátil, Incierto, Complejo y Ambiguo.",
+          "Variable, Útil, Consistente y Adaptable.",
+          "Visible, Urgente, Controlado y Ágil."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "VUCA describe entornos **Volátiles, Inciertos, Complejos y Ambiguos**. La agilidad empresarial es precisamente la capacidad de navegar ese tipo de contexto sin paralizarse.",
+        "pista": "La primera palabra es «volátil»."
+      },
+      {
+        "pregunta": "¿Cuál es el primer movimiento del ciclo ágil «sentir → decidir → responder → aprender»?",
+        "opciones": [
+          "Responder con equipos autónomos.",
+          "Aprender de los resultados.",
+          "Sentir las señales del mercado, los clientes y la tecnología.",
+          "Decidir con el comité directivo."
+        ],
+        "correcta": 2,
+        "explicacion": "Antes de decidir hay que **sentir**: detectar señales del mercado, clientes, competencia y tecnología. Sin esa lectura, la respuesta rápida puede ir en la dirección equivocada.",
+        "pista": "El ciclo empieza por percibir el entorno."
+      },
+      {
+        "pregunta": "¿Qué pilar de la agilidad se asocia a la seguridad psicológica y a la tolerancia al fracaso?",
+        "opciones": [
+          "Cultura ágil.",
+          "Tecnología ágil.",
+          "Estructura ágil.",
+          "Datos ágiles."
+        ],
+        "correcta": 0,
+        "explicacion": "La **cultura ágil** crea seguridad psicológica: las personas pueden experimentar, equivocarse y aprender sin castigo. Sin esa base, los demás pilares se quedan en ceremonias vacías.",
+        "pista": "Piensa en el pilar que habla de mentalidad y confianza."
+      },
+      {
+        "pregunta": "¿Qué herramienta de planificación usan habitualmente las organizaciones ágiles para alinear objetivos en ciclos cortos?",
+        "opciones": [
+          "Presupuestos anuales rígidos.",
+          "OKR (Objetivos y Resultados Clave).",
+          "Diagramas de Gantt de tres años.",
+          "Manuales de procedimientos cerrados."
+        ],
+        "correcta": 1,
+        "explicacion": "Los **OKR** permiten fijar objetivos ambiciosos y medir resultados clave en ciclos trimestrales, ajustando el rumbo con más frecuencia que un plan anual tradicional.",
+        "pista": "Son tres letras y miden resultados clave."
+      },
+      {
+        "pregunta": "Squads, tribus, chapters y guilds son un ejemplo de…",
+        "opciones": [
+          "Un modelo de estructura ágil (Spotify Model).",
+          "Una compuerta BPMN.",
+          "Un tipo de compuerta lógica.",
+          "Un marco de contabilidad de costos."
+        ],
+        "correcta": 0,
+        "explicacion": "Ese vocabulario viene del **Spotify Model**: equipos autónomos (squads) agrupados por misión (tribus), con comunidades de práctica (chapters y guilds). Es un ejemplo de estructura alineada al valor.",
+        "pista": "Piensa en la empresa de música que popularizó esos nombres."
+      },
+      {
+        "pregunta": "¿Cuál de estas situaciones describe una «agilidad de fachada»?",
+        "opciones": [
+          "Cambiar la cultura antes de adoptar ceremonias.",
+          "Hacer daily meetings y sprints sin cambiar la forma de decidir ni la cultura.",
+          "Medir el valor entregado al cliente.",
+          "Dar autonomía real a los equipos."
+        ],
+        "correcta": 1,
+        "explicacion": "La **agilidad de fachada** copia las ceremonias (daily, sprint, retro) pero mantiene decisiones centralizadas, miedo al error y silos. Se ve ágil por fuera, pero no responde más rápido.",
+        "pista": "Fachada = apariencia sin cambio real."
+      },
+      {
+        "pregunta": "¿Cuál es una forma más sana de medir la agilidad de una organización?",
+        "opciones": [
+          "Contar cuántas reuniones ágiles se hacen por semana.",
+          "Medir el valor entregado, la satisfacción del cliente y el time to market.",
+          "Revisar cuántos post-its se usan.",
+          "Contar cuántos cargos tienen la palabra «agile»."
+        ],
+        "correcta": 1,
+        "explicacion": "Las métricas de actividad (reuniones, post-its) no dicen nada. La agilidad se mide por **resultados**: valor entregado, satisfacción del cliente, tiempo de respuesta y capacidad de aprendizaje.",
+        "pista": "Busca la opción que habla de resultados para el cliente."
+      },
+      {
+        "pregunta": "¿Qué marco se usa típicamente para escalar la agilidad en grandes corporaciones?",
+        "opciones": [
+          "SAFe (Scaled Agile Framework).",
+          "ISO 9001.",
+          "BPMN 2.0.",
+          "Cuadro de mando integral."
+        ],
+        "correcta": 0,
+        "explicacion": "**SAFe** es uno de los marcos más difundidos para coordinar muchos equipos ágiles en una gran empresa. También existen LeSS, Nexus, Scrum@Scale y el Spotify Model.",
+        "pista": "Su nombre empieza por S y significa «Scaled Agile Framework»."
+      },
+      {
+        "pregunta": "¿Qué papel juega el liderazgo en una transformación ágil?",
+        "opciones": [
+          "Concentrar todas las decisiones para evitar errores.",
+          "Modelar la agilidad, empoderar equipos y eliminar barreras.",
+          "Supervisar que se cumplan las ceremonias al pie de la letra.",
+          "Delegar la transformación únicamente en recursos humanos."
+        ],
+        "correcta": 1,
+        "explicacion": "El **liderazgo servicial** modela los comportamientos, da autonomía y quita obstáculos. Si la alta dirección no cambia, la transformación se queda en la superficie.",
+        "pista": "Servir al equipo, no controlarlo."
+      },
+      {
+        "pregunta": "Una empresa tradicional entra en crisis porque su plan anual ya no responde al mercado. ¿Qué aplicación de agilidad empresarial tiene más sentido?",
+        "opciones": [
+          "Esperar a que termine el año para revisar el plan.",
+          "Añadir más niveles de aprobación a cada decisión.",
+          "Adoptar ciclos cortos de decisión y experimentación para adaptarse al mercado.",
+          "Eliminar todos los procesos existentes de inmediato."
+        ],
+        "correcta": 2,
+        "explicacion": "La agilidad propone **ciclos cortos** de planificación y experimentación, con autonomía para ajustar la estrategia. No se trata de eliminar todo, sino de aprender y corregir más rápido.",
+        "pista": "La respuesta correcta reduce el tiempo entre decisión y aprendizaje."
       }
     ],
     "lab": {
@@ -437,13 +593,30 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       "**Amenaza**: Escasez de agua o energía que afecta la producción."
     ],
     "errores": [
-      "```\nError                                  Descripción                                               Consecuencia                        \nAnálisis superficial                   Basarse en suposiciones en lugar de datos.                Decisiones estratégicas incorrectas.\nIgnorar la interacción entre factores  Analizar cada factor de forma aislada.                    No ver el panorama completo.        \nNo priorizar                           Identificar muchos factores sin distinguir los críticos.  Dilución de la estrategia.          \nAnálisis estático                      No actualizar el análisis regularmente.                   Estrategias obsoletas.              \nNo integrar con la estrategia          Hacer el análisis pero no usarlo.                         Pérdida de tiempo.                  \nSesgo de confirmación                  Buscar solo factores que confirman ideas preconcebidas.   Ceguera ante amenazas reales.       \nExtensión excesiva                     Tratar de cubrir demasiados factores o regiones.          Análisis poco profundo.             \n```"
+      "**Análisis superficial**: Basarse en suposiciones en lugar de datos. → Decisiones estratégicas incorrectas.",
+      "**Ignorar la interacción entre factores**: Analizar cada factor de forma aislada. → No ver el panorama completo.",
+      "**No priorizar**: Identificar muchos factores sin distinguir los críticos. → Dilución de la estrategia.",
+      "**Análisis estático**: No actualizar el análisis regularmente. → Estrategias obsoletas.",
+      "**No integrar con la estrategia**: Hacer el análisis pero no usarlo. → Pérdida de tiempo.",
+      "**Sesgo de confirmación**: Buscar solo factores que confirman ideas preconcebidas. → Ceguera ante amenazas reales.",
+      "**Extensión excesiva**: Tratar de cubrir demasiados factores o regiones. → Análisis poco profundo."
     ],
     "casos": [
-      "```\nSituación                         Aplicación                                                     \nExpansión internacional           Evaluar el entorno de un nuevo país antes de entrar.           \nPlanificación estratégica         Entender el contexto macro para la formulación de estrategias. \nLanzamiento de un nuevo producto  Evaluar la viabilidad de un producto en un mercado específico. \nGestión de riesgos                Identificar riesgos externos y preparar planes de contingencia.\nAnálisis de competencia           Comparar el entorno en el que operan competidores.             \nInnovación y desarrollo           Identificar tendencias tecnológicas o sociales para innovar.   \n```"
+      "**Expansión internacional**: Evaluar el entorno de un nuevo país antes de entrar.",
+      "**Planificación estratégica**: Entender el contexto macro para la formulación de estrategias.",
+      "**Lanzamiento de un nuevo producto**: Evaluar la viabilidad de un producto en un mercado específico.",
+      "**Gestión de riesgos**: Identificar riesgos externos y preparar planes de contingencia.",
+      "**Análisis de competencia**: Comparar el entorno en el que operan competidores.",
+      "**Innovación y desarrollo**: Identificar tendencias tecnológicas o sociales para innovar."
     ],
     "relacion": [
-      "```\nConcepto                   Relación                                                                                            \nPESTEL                     Variante que incluye el factor Legal. SEPTE omite el Legal (lo integra en Político).                \nFODA                       SEPTE analiza el entorno externo (Oportunidades y Amenazas); FODA integra lo externo con lo interno.\nLas 5 Fuerzas de Porter    SEPTE analiza el macroentorno; Porter analiza el microentorno (industria).                          \nAnálisis de Escenarios     SEPTE proporciona insumos para construir escenarios futuros.                                        \nVUCA                       SEPTE ayuda a navegar entornos VUCA.                                                                \nPlanificación Estratégica  SEPTE es una herramienta fundamental en este proceso.                                               \nInteligencia de Mercado    SEPTE es una forma de inteligencia competitiva.                                                     \n```"
+      "**PESTEL**: Variante que incluye el factor Legal. SEPTE omite el Legal (lo integra en Político).",
+      "**FODA**: SEPTE analiza el entorno externo (Oportunidades y Amenazas); FODA integra lo externo con lo interno.",
+      "**Las 5 Fuerzas de Porter**: SEPTE analiza el macroentorno; Porter analiza el microentorno (industria).",
+      "**Análisis de Escenarios**: SEPTE proporciona insumos para construir escenarios futuros.",
+      "**VUCA**: SEPTE ayuda a navegar entornos VUCA.",
+      "**Planificación Estratégica**: SEPTE es una herramienta fundamental en este proceso.",
+      "**Inteligencia de Mercado**: SEPTE es una forma de inteligencia competitiva."
     ],
     "analogia": "El análisis SEPTE es como el pronóstico del tiempo para una empresa. Así como un capitán de barco necesita conocer el clima, la temperatura, la presión atmosférica y la dirección del viento para navegar, un líder empresarial necesita conocer el entorno social, económico, político, tecnológico y ecológico para \"navegar\" su organización. Un buen capitán no solo mira el pronóstico, sino que también ajusta la ruta según las condiciones. Y, al igual que el clima, el entorno empresarial es dinámico; hay que revisar el pronóstico regularmente.",
     "notasPersonales": [
@@ -456,15 +629,16 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "fuente": "Aguilar, F. J. (1967). Scanning the Business Environment. Macmillan. Yüksel, I. (2012). Developing a Multi-Criteria Decision Making Model for PESTEL Analysis. International Journal of Business and Management. Harvard Business Review, (2022). PESTLE Analysis: A Framework for Understanding Macro-Environmental Forces. Johnson, G., Scholes, K., & Whittington, R. (2008). Exploring Corporate Strategy. FT Prentice Hall.",
     "extras": [
       {
-        "seccion": "📊 Estructura Visual del Análisis SEPTE",
+        "seccion": "📊 Estructura visual del análisis SEPTE",
         "textos": [
-          "```\n┌─────────────────────────────────────────────────────────────────────────────┐\n│                         ANÁLISIS SEPTE                                      │\n├─────────────────────────────────────────────────────────────────────────────┤\n│                                                                             │\n│   ┌─────────────┐    ┌─────────────┐    ┌─────────────┐                    │\n│   │   SOCIAL    │    │ ECONÓMICO   │    │  POLÍTICO   │                    │\n│   │             │    │             │    │             │                    │\n│   │ - Demografía│    │ - PIB       │    │ - Estabilidad│                   │\n│   │ - Cultura   │    │ - Inflación │    │ - Políticas │                    │\n│   │ - Valores   │    │ - Intereses │    │ - Regulaciones│                  │\n│   │ - Tendencias│    │ - Desempleo │    │ - Aranceles │                    │\n│   │ - Educación │    │ - Tipo de   │    │ - Corrupción│                    │\n│   │ - Salud     │    │   cambio    │    │ - Legislación│                   │\n│   └─────────────┘    └─────────────┘    └─────────────┘                    │\n│                                                                             │\n│   ┌─────────────┐    ┌─────────────┐                                       │\n│   │TECNOLÓGICO  │    │  ECOLÓGICO  │                                       │\n│   │             │    │             │                                       │\n│   │ - IA        │    │ - Cambio    │                                       │\n│   │ - Automatiz.│    │   climático │                                       │\n│   │ - I+D       │    │ - Recursos  │                                       │\n│   │ - 5G        │    │   naturales │                                       │\n│   │ - Blockchain│    │ - Residuos  │                                       │\n│   │ - IoT       │    │ - Energías  │                                       │\n│   │ - Ciberseg. │    │   renovables│                                       │\n│   └─────────────┘    └─────────────┘                                       │\n│                                                                             │\n│   ◄─────────────────────── ENTORNO EXTERNO ───────────────────────────►    │\n│                                                                             │\n└─────────────────────────────────────────────────────────────────────────────┘\n```"
+          "«diagrama:septe-estructura»",
+          "«diagrama:septe-flujo»"
         ]
       },
       {
-        "seccion": "💡 Ejemplo Práctico: Análisis SEPTE para una Fintech en Perú",
+        "seccion": "💡 Ejemplo práctico: SEPTE para una fintech en Perú",
         "textos": [
-          "```\nFactor                                                                                                                                                                                       Oportunidad                                                                 Amenaza                                            \nSocial                                                                                                                                                                                       Alta penetración de smartphones; población joven y digital.                 Baja educación financiera en algunos segmentos.    \nEconómico                                                                                                                                                                                    Crecimiento del PIB; aumento del acceso a crédito.                          Inflación; volatilidad del tipo de cambio.         \nPolítico                                                                                                                                                                                     Gobierno promueve la inclusión financiera; regulación favorable a fintech.  Cambios regulatorios; inestabilidad política.      \nTecnológico                                                                                                                                                                                  Avances en IA, cloud, blockchain; 5G en expansión.                          Ciberseguridad; dependencia de proveedores de nube.\nEcológico                                                                                                                                                                                    Demanda de servicios financieros sostenibles (banca verde).                 Regulaciones ambientales que aumentan costos.      \nEstrategia sugerida: Aprovechar la población joven y digital, invertir en educación financiera, cumplir con regulaciones, adoptar IA para personalización, y ofrecer productos sostenibles.\n```"
+          "«diagrama:septe-fintech»"
         ]
       }
     ],
@@ -477,37 +651,148 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "resumen": "El Análisis SEPTE es una herramienta de análisis estratégico que evalúa el entorno macroexterno en el que opera una organización. Es una variante del análisis PESTEL (o PEST) y examina cinco…",
     "quiz": [
       {
-        "id": 1,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor Análisis SEPTE (Social, Económico, Político, Tecnológico, Ecológico)?",
+        "pregunta": "¿Qué examina el Análisis SEPTE?",
         "opciones": [
-          "El análisis SEPTE es un marco de escaneo ambiental (environmental scanning) que ayuda a las empresas a comprender el contexto amplio en el que…",
-          "El efecto de red es un círculo virtuoso: más usuarios → más valor → más usuarios → más valor. Es la base de la economía de plataformas y explica por…",
-          "La Agilidad Empresarial es la evolución de la agilidad más allá de los equipos de desarrollo. Mientras que la agilidad tradicional (Scrum, Kanban, XP)…",
-          "El Blitzscaling es una estrategia de crecimiento extremo que se utiliza en entornos de alta incertidumbre y mercados en rápida evolución. A diferencia…"
+          "Los procesos internos y la cultura de la empresa.",
+          "El macroentorno: factores sociales, económicos, políticos, tecnológicos y ecológicos.",
+          "Únicamente a los competidores directos.",
+          "Las finanzas y los estados de resultados."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "SEPTE es un análisis del **macroentorno**. Mira hacia afuera de la empresa para identificar oportunidades y amenazas que no controla.",
+        "pista": "La primera letra es «Social» y la última «Ecológico»."
       },
       {
-        "id": 2,
-        "pregunta": "¿Para qué sirve Análisis SEPTE (Social, Económico, Político, Tecnológico, Ecológico)?",
+        "pregunta": "¿Cuál es la diferencia entre SEPTE y PESTEL?",
         "opciones": [
-          "Crear crecimiento exponencial: El valor de la red atrae a más usuarios sin necesidad de marketing masivo.",
-          "Identificar oportunidades y amenazas: Detectar tendencias externas que puedan beneficiar o perjudicar a la empresa.",
-          "Sobrevivir en entornos VUCA: Adaptarse a cambios rápidos e impredecibles.",
-          "Ganar la carrera por el mercado: Ser el primero en alcanzar la masa crítica."
+          "SEPTE añade el factor legal y PESTEL lo elimina.",
+          "SEPTE omite el factor legal, que PESTEL sí incluye.",
+          "SEPTE analiza el microentorno y PESTEL el macroentorno.",
+          "Son exactamente iguales."
         ],
-        "correcta": 1
+        "correcta": 1,
+        "explicacion": "PESTEL incluye **Legal**; SEPTE trabaja con cinco dimensiones y suele integrar lo legal dentro de lo político. Si la industria está muy regulada, PESTEL puede ser más explícito.",
+        "pista": "Cuenta las letras de cada acrónimo."
       },
       {
-        "id": 3,
-        "pregunta": "¿Cuál de estas afirmaciones corresponde a Análisis SEPTE (Social, Económico, Político, Tecnológico, Ecológico)?",
+        "pregunta": "La inflación y la tasa de interés pertenecen al factor…",
         "opciones": [
-          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
-          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial.",
-          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
-          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital."
+          "Social.",
+          "Económico.",
+          "Político.",
+          "Ecológico."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "Inflación, PIB, desempleo, tipo de cambio e intereses son factores **económicos**: afectan el poder adquisitivo y el acceso al crédito.",
+        "pista": "Tiene que ver con el dinero y los precios."
+      },
+      {
+        "pregunta": "La edad de la población y los hábitos de consumo pertenecen al factor…",
+        "opciones": [
+          "Social.",
+          "Tecnológico.",
+          "Político.",
+          "Económico."
+        ],
+        "correcta": 0,
+        "explicacion": "Demografía, cultura, valores, educación y estilos de vida son factores **sociales**. Explican quién es el cliente y cómo cambia.",
+        "pista": "Habla de personas y cultura."
+      },
+      {
+        "pregunta": "Los aranceles y las regulaciones de protección de datos pertenecen al factor…",
+        "opciones": [
+          "Ecológico.",
+          "Social.",
+          "Político.",
+          "Tecnológico."
+        ],
+        "correcta": 2,
+        "explicacion": "Aranceles, subsidios, estabilidad del gobierno y marco legal son factores **políticos**. SEPTE suele incluir aquí lo legal.",
+        "pista": "Son decisiones de gobierno."
+      },
+      {
+        "pregunta": "La inteligencia artificial, el 5G y la ciberseguridad pertenecen al factor…",
+        "opciones": [
+          "Tecnológico.",
+          "Económico.",
+          "Social.",
+          "Ecológico."
+        ],
+        "correcta": 0,
+        "explicacion": "La innovación, su adopción, la infraestructura digital y los riesgos asociados son factores **tecnológicos**.",
+        "pista": "Son herramientas y capacidades nuevas."
+      },
+      {
+        "pregunta": "El cambio climático y la escasez de recursos pertenecen al factor…",
+        "opciones": [
+          "Político.",
+          "Ecológico.",
+          "Social.",
+          "Económico."
+        ],
+        "correcta": 1,
+        "explicacion": "Clima, recursos naturales, residuos y sostenibilidad forman el factor **ecológico** (también llamado ambiental).",
+        "pista": "Se relaciona con el medio ambiente."
+      },
+      {
+        "pregunta": "¿Cómo se conecta el análisis SEPTE con el FODA?",
+        "opciones": [
+          "SEPTE reemplaza al FODA por completo.",
+          "Los hallazgos de SEPTE se convierten en oportunidades y amenazas del FODA.",
+          "El FODA analiza el entorno y SEPTE lo interno.",
+          "No tienen ninguna relación."
+        ],
+        "correcta": 1,
+        "explicacion": "SEPTE alimenta las **Oportunidades y Amenazas** del FODA. El FODA añade el análisis interno (fortalezas y debilidades) para cerrar el diagnóstico.",
+        "pista": "Uno mira afuera y el otro integra afuera con adentro."
+      },
+      {
+        "pregunta": "¿Cuál es un error frecuente al hacer un análisis SEPTE?",
+        "opciones": [
+          "Actualizarlo cada trimestre.",
+          "Usar datos y fuentes confiables.",
+          "Hacerlo una vez y nunca volver a revisarlo.",
+          "Involucrar a varias áreas de la empresa."
+        ],
+        "correcta": 2,
+        "explicacion": "Un análisis **estático** se vuelve obsoleto. El entorno cambia: el SEPTE debe ser un documento vivo que se revisa periódicamente.",
+        "pista": "Piensa en lo contrario de «documento vivo»."
+      },
+      {
+        "pregunta": "En el caso de una fintech en Perú, ¿cuál es la principal oportunidad social?",
+        "opciones": [
+          "La baja educación financiera.",
+          "La población joven y digital con alta penetración de smartphones.",
+          "La volatilidad del tipo de cambio.",
+          "La dependencia de proveedores de nube."
+        ],
+        "correcta": 1,
+        "explicacion": "La **población joven y digital** facilita la adopción de servicios financieros móviles. La baja educación financiera, en cambio, es una barrera que exige inversión en formación.",
+        "pista": "Busca la opción que habla de adopción digital."
+      },
+      {
+        "pregunta": "En la misma fintech, ¿cuál es una amenaza tecnológica típica?",
+        "opciones": [
+          "El crecimiento del PIB.",
+          "Los incentivos fiscales del gobierno.",
+          "La ciberseguridad y la dependencia de proveedores de nube.",
+          "La demanda de banca verde."
+        ],
+        "correcta": 2,
+        "explicacion": "Aprovechar la nube e IA trae **riesgo de ciberseguridad** y dependencia del proveedor. Son amenazas tecnológicas que deben gestionarse con arquitectura, cifrado y planes de continuidad.",
+        "pista": "Tiene que ver con proteger los datos y no depender de un solo proveedor."
+      },
+      {
+        "pregunta": "El análisis SEPTE cubre el macroentorno. ¿Qué herramienta complementa el microentorno (la industria)?",
+        "opciones": [
+          "Las 5 Fuerzas de Porter.",
+          "El flujo de caja.",
+          "La matriz RACI.",
+          "El diagrama de Gantt."
+        ],
+        "correcta": 0,
+        "explicacion": "SEPTE mira el **macroentorno**; las **5 Fuerzas de Porter** analizan la industria: rivalidad, nuevos entrantes, sustitutos, poder de proveedores y de clientes. Se complementan.",
+        "pista": "Su autor es Michael Porter."
       }
     ],
     "lab": {
@@ -594,16 +879,37 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     ],
     "comoFunciona": [
       "Reid Hoffman y Chris Yeh identifican 5 etapas de crecimiento, cada una con sus propios desafíos y estrategias:",
-      "```\nEtapa                                                                                                                                                                                                                       Nombre   Tamaño                 Desafío                                    Estrategia                                      \n1                                                                                                                                                                                                                           Familia  1-9 empleados          Crear un producto que el mercado quiera.   MVP, validación, Product-Market Fit.            \n2                                                                                                                                                                                                                           Tribu    10-99 empleados        Encontrar un modelo de negocio escalable.  Crecimiento inicial, contratación clave.        \n3                                                                                                                                                                                                                           Aldea    100-999 empleados      Escalar el modelo de negocio.              Procesos, estructura, liderazgo.                \n4                                                                                                                                                                                                                           Ciudad   1,000-9,999 empleados  Escalar la organización.                   Cultura, descentralización, eficiencia.         \n5                                                                                                                                                                                                                           Nación   10,000+ empleados      Escalar el impacto.                        Innovación continua, ecosistema, sostenibilidad.\nLa transición entre etapas: Cada transición requiere un cambio en la estrategia, la estructura y la cultura. El Blitzscaling implica saltar etapas y crecer a un ritmo que la organización no está preparada para manejar.\n```"
+      "«diagrama:blitzscaling-etapas»"
     ],
     "errores": [
-      "```\nRiesgo                             Descripción                                          Consecuencia                                  \nQuema de capital                   Gastar más de lo que se ingresa.                     Insolvencia si no se levanta más capital.     \nCultura tóxica                     El ritmo acelerado puede quemar a los empleados.     Alta rotación, baja moral.                    \nCalidad del producto               Crecer rápido puede sacrificar la calidad.           Mala experiencia del cliente, churn.          \nFalta de procesos                  El caos puede llevar a ineficiencias graves.         Desorganización, errores costosos.            \nRegulación                         Crecer rápido puede ignorar regulaciones.            Multas, demandas, bloqueos.                   \nSostenibilidad                     El crecimiento no es sostenible a largo plazo.       Colapso cuando el capital se agota.           \nNo todos los mercados lo permiten  Solo funciona en mercados \"winner-takes-most\".       Fracaso en mercados fragmentados.             \nPresión de los inversores          Los VCs presionan por crecimiento a toda costa.      Decisiones cortoplacistas, daño a largo plazo.\nÉtica                              Crecer rápido puede ignorar consideraciones éticas.  Daño reputacional, pérdida de confianza.      \n```"
+      "**Quema de capital**: Gastar más de lo que se ingresa. → Insolvencia si no se levanta más capital.",
+      "**Cultura tóxica**: El ritmo acelerado puede quemar a los empleados. → Alta rotación, baja moral.",
+      "**Calidad del producto**: Crecer rápido puede sacrificar la calidad. → Mala experiencia del cliente, churn.",
+      "**Falta de procesos**: El caos puede llevar a ineficiencias graves. → Desorganización, errores costosos.",
+      "**Regulación**: Crecer rápido puede ignorar regulaciones. → Multas, demandas, bloqueos.",
+      "**Sostenibilidad**: El crecimiento no es sostenible a largo plazo. → Colapso cuando el capital se agota.",
+      "**No todos los mercados lo permiten**: Solo funciona en mercados \"winner-takes-most\". → Fracaso en mercados fragmentados.",
+      "**Presión de los inversores**: Los VCs presionan por crecimiento a toda costa. → Decisiones cortoplacistas, daño a largo plazo.",
+      "**Ética**: Crecer rápido puede ignorar consideraciones éticas. → Daño reputacional, pérdida de confianza."
     ],
     "casos": [
-      "```\nSituación                               Aplicación                                                            \nStartup en mercado \"winner-takes-most\"  Usar Blitzscaling para capturar el mercado antes que los competidores.\nEmpresa con efectos de red              Crecer rápido para aumentar el valor de la red.                       \nMercado en rápida evolución             Ser el primero en moverse y definir el estándar.                      \nEmpresa con acceso a capital            Usar grandes rondas de VC para financiar el crecimiento.              \nCompetencia con gigantes                Crecer rápido para defenderse de competidores más grandes.            \nExpansión internacional                 Entrar a múltiples mercados simultáneamente.                          \n```"
+      "**Startup en mercado \"winner-takes-most\"**: Usar Blitzscaling para capturar el mercado antes que los competidores.",
+      "**Empresa con efectos de red**: Crecer rápido para aumentar el valor de la red.",
+      "**Mercado en rápida evolución**: Ser el primero en moverse y definir el estándar.",
+      "**Empresa con acceso a capital**: Usar grandes rondas de VC para financiar el crecimiento.",
+      "**Competencia con gigantes**: Crecer rápido para defenderse de competidores más grandes.",
+      "**Expansión internacional**: Entrar a múltiples mercados simultáneamente."
     ],
     "relacion": [
-      "```\nConcepto                    Relación                                                                   \nStartup                     El Blitzscaling es una estrategia para startups en etapas de crecimiento.  \nVenture Capital             El Blitzscaling requiere grandes rondas de VC.                             \nEfectos de Red              El Blitzscaling funciona mejor en mercados con efectos de red.             \nLean Startup                El Lean Startup se enfoca en validar; el Blitzscaling se enfoca en escalar.\nEscalabilidad               El Blitzscaling es una forma extrema de escalabilidad.                     \nUnicornio                   Muchas empresas que usan Blitzscaling se convierten en unicornios.         \nPlataformas Multilaterales  El Blitzscaling es común en plataformas.                                   \nEstrategia del Océano Azul  El Blitzscaling busca capturar un nuevo mercado rápidamente.               \nVUCA                        El Blitzscaling es una respuesta al entorno VUCA.                          \n```"
+      "**Startup**: El Blitzscaling es una estrategia para startups en etapas de crecimiento.",
+      "**Venture Capital**: El Blitzscaling requiere grandes rondas de VC.",
+      "**Efectos de Red**: El Blitzscaling funciona mejor en mercados con efectos de red.",
+      "**Lean Startup**: El Lean Startup se enfoca en validar; el Blitzscaling se enfoca en escalar.",
+      "**Escalabilidad**: El Blitzscaling es una forma extrema de escalabilidad.",
+      "**Unicornio**: Muchas empresas que usan Blitzscaling se convierten en unicornios.",
+      "**Plataformas Multilaterales**: El Blitzscaling es común en plataformas.",
+      "**Estrategia del Océano Azul**: El Blitzscaling busca capturar un nuevo mercado rápidamente.",
+      "**VUCA**: El Blitzscaling es una respuesta al entorno VUCA."
     ],
     "analogia": "El Blitzscaling es como una guerra relámpago empresarial. En lugar de avanzar lentamente, asegurando cada posición (crecimiento tradicional), la empresa lanza un ataque rápido y masivo para capturar la mayor cantidad de territorio (mercado) en el menor tiempo posible. La velocidad y la sorpresa son clave. Pero, como en una guerra, el Blitzscaling tiene riesgos: puedes quedarte sin suministros (capital), perder el control de tus tropas (cultura), o sufrir bajas (rotación de personal). Solo funciona si el territorio (mercado) es lo suficientemente valioso y si tienes los recursos (capital) para sostener el ataque.",
     "notasPersonales": [
@@ -619,19 +925,19 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       {
         "seccion": "📝 Los 9 Principios del Blitzscaling (Según Hoffman y Yeh)",
         "textos": [
-          "```\nPrincipio                                     Descripción                                                                         \n1. Prioriza la velocidad sobre la eficiencia  Crecer rápido es más importante que ser eficiente.                                  \n2. Acepta el caos                             El caos es inevitable cuando creces rápido.                                         \n3. Tolerancia al error                        Los errores son parte del aprendizaje.                                              \n4. Enfoque en el mercado                      El mercado lo es todo. Si el mercado no tiene efectos de red, no hagas Blitzscaling.\n5. Contratación agresiva                      Contrata a los mejores, incluso si no tienes un rol definido.                       \n6. Cultura de alto rendimiento                Fomenta una cultura de excelencia y velocidad.                                      \n7. Financiamiento masivo                      Levanta grandes rondas de inversión para financiar el crecimiento.                  \n8. Innovación continua                        No te duermas en los laureles; sigue innovando.                                     \n9. Liderazgo adaptativo                       Los líderes deben adaptarse a las diferentes etapas de crecimiento.                 \n```"
+          "«diagrama:blitzscaling-volante»"
         ]
       },
       {
         "seccion": "📊 Comparativa: Crecimiento Tradicional vs. Blitzscaling",
         "textos": [
-          "```\nCaracterística  Crecimiento Tradicional             Blitzscaling                        \nVelocidad       Moderada, sostenible.               Extrema, acelerada.                 \nEficiencia      Prioridad.                          Sacrificada por velocidad.          \nRentabilidad    Prioridad a corto plazo.            Sacrificada por crecimiento.        \nRiesgo          Bajo, controlado.                   Alto, calculado.                    \nFinanciamiento  Bootstrapping, deuda, VC moderado.  VC agresivo, grandes rondas.        \nContratación    Cuidadosa, escalonada.              Agresiva, masiva.                   \nCultura         Estabilidad, procesos.              Caos, velocidad, experimentación.   \nMercado         Cualquiera.                         \"Winner-takes-most\", efectos de red.\nEjemplo         Un restaurante local.               Uber, Airbnb, Facebook.             \n```"
+          "«diagrama:blitzscaling-comparativa»"
         ]
       },
       {
         "seccion": "💡 Ejemplos de Empresas que Usaron Blitzscaling",
         "textos": [
-          "```\nEmpresa        Cómo usaron Blitzscaling                                                                   Resultado                             \nUber           Expansión agresiva a ciudades, subsidios a conductores y pasajeros, grandes rondas de VC.  Líder global de movilidad.            \nAirbnb         Expansión global rápida, marketing agresivo, adquisiciones.                                Líder global de alojamiento.          \nFacebook       Crecimiento viral, adquisiciones (Instagram, WhatsApp), inversión en infraestructura.      Red social más grande del mundo.      \nAmazon         Inversión masiva en logística, AWS, expansión global, precios bajos.                       Gigante del e-commerce y cloud.       \nLinkedIn       Crecimiento de red, adquisiciones, expansión global.                                       Red profesional líder.                \nNetflix        Inversión masiva en contenido original, expansión global.                                  Líder del streaming.                  \nSpotify        Crecimiento de usuarios, acuerdos con discográficas, expansión global.                     Líder del streaming musical.          \nMercado Libre  Expansión regional, inversión en logística y fintech.                                      Líder del e-commerce en Latinoamérica.\nNubank         Crecimiento agresivo de usuarios, expansión regional, inversión en tecnología.             Neobanco más valioso de Latinoamérica.\nRappi          Expansión rápida a múltiples países, diversificación de servicios.                         SuperApp líder en Latinoamérica.      \n```"
+          "«diagrama:blitzscaling-empresas»"
         ]
       }
     ],
@@ -644,37 +950,148 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "resumen": "Blitzscaling es una estrategia de crecimiento acelerado diseñada para escalar una empresa a velocidad récord, priorizando la velocidad sobre la eficiencia y la captura de mercado sobre la…",
     "quiz": [
       {
-        "id": 1,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor Blitzscaling (Escalado Relámpago)?",
+        "pregunta": "¿Qué es el Blitzscaling?",
         "opciones": [
-          "El Blitzscaling es una estrategia de crecimiento extremo que se utiliza en entornos de alta incertidumbre y mercados en rápida evolución. A diferencia…",
-          "El efecto de red es un círculo virtuoso: más usuarios → más valor → más usuarios → más valor. Es la base de la economía de plataformas y explica por…",
-          "La Agilidad Empresarial es la evolución de la agilidad más allá de los equipos de desarrollo. Mientras que la agilidad tradicional (Scrum, Kanban, XP)…",
-          "El análisis SEPTE es un marco de escaneo ambiental (environmental scanning) que ayuda a las empresas a comprender el contexto amplio en el que…"
+          "Una estrategia de crecimiento moderado y sostenible.",
+          "Una estrategia de crecimiento extremo y acelerado en mercados de alta incertidumbre.",
+          "Un método para reducir costos operativos.",
+          "Un marco de contabilidad para startups."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "El **Blitzscaling** prioriza la velocidad de crecimiento sobre la eficiencia. Se usa cuando el mercado premia al primero que alcanza escala masiva.",
+        "pista": "«Blitz» significa relámpago: velocidad extrema."
       },
       {
-        "id": 2,
-        "pregunta": "¿Para qué sirve Blitzscaling (Escalado Relámpago)?",
+        "pregunta": "¿En qué tipo de mercado funciona mejor el Blitzscaling?",
         "opciones": [
-          "Ganar la carrera por el mercado: Ser el primero en alcanzar la masa crítica.",
-          "Crear crecimiento exponencial: El valor de la red atrae a más usuarios sin necesidad de marketing masivo.",
-          "Sobrevivir en entornos VUCA: Adaptarse a cambios rápidos e impredecibles.",
-          "Identificar oportunidades y amenazas: Detectar tendencias externas que puedan beneficiar o perjudicar a la empresa."
+          "Mercados fragmentados sin efectos de red.",
+          "Mercados «winner-takes-most» con efectos de red.",
+          "Mercados regulados con crecimiento lento.",
+          "Mercados locales de nicho."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "Si el mercado tiende a concentrarse en un ganador (**winner-takes-most**) y hay efectos de red, crecer rápido puede volverse una ventaja decisiva y difícil de revertir.",
+        "pista": "Piensa en el mercado donde «el ganador se lleva casi todo»."
       },
       {
-        "id": 3,
-        "pregunta": "¿Cuál de estas afirmaciones corresponde a Blitzscaling (Escalado Relámpago)?",
+        "pregunta": "¿Cuál es el principio central del Blitzscaling?",
         "opciones": [
-          "Problema del \"huevo y la gallina\": Necesitas usuarios para atraer usuarios. · Subsidiar un lado, empezar con un nicho, crear valor artificial.",
-          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
-          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito.",
-          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas."
+          "La eficiencia está por encima de la velocidad.",
+          "La velocidad importa más que la eficiencia.",
+          "La rentabilidad inmediata es obligatoria.",
+          "Hay que crecer solo con recursos propios."
         ],
-        "correcta": 1
+        "correcta": 1,
+        "explicacion": "La lógica es **velocidad > eficiencia**: se aceptan ineficiencias temporales para capturar el mercado antes que los competidores.",
+        "pista": "La palabra clave es «rápido», no «barato»."
+      },
+      {
+        "pregunta": "¿Cuál es la primera etapa del modelo de Hoffman y Yeh?",
+        "opciones": [
+          "Tribu.",
+          "Familia.",
+          "Aldea.",
+          "Nación."
+        ],
+        "correcta": 1,
+        "explicacion": "La etapa **Familia** (1–9 personas) busca crear un producto que el mercado quiera: MVP y Product-Market Fit.",
+        "pista": "Es el grupo humano más pequeño."
+      },
+      {
+        "pregunta": "¿Qué etapa abarca de 10 a 99 empleados?",
+        "opciones": [
+          "Familia.",
+          "Tribu.",
+          "Ciudad.",
+          "Nación."
+        ],
+        "correcta": 1,
+        "explicacion": "La **Tribu** (10–99) busca un modelo de negocio escalable y empieza a crecer con contrataciones clave.",
+        "pista": "Es un grupo mayor que la familia, pero aún cercano."
+      },
+      {
+        "pregunta": "¿Qué etapa abarca de 100 a 999 empleados?",
+        "opciones": [
+          "Aldea.",
+          "Tribu.",
+          "Ciudad.",
+          "Nación."
+        ],
+        "correcta": 0,
+        "explicacion": "La **Aldea** (100–999) escala el modelo: aparecen procesos, estructura y liderazgo formal.",
+        "pista": "Sigue siendo un asentamiento pequeño."
+      },
+      {
+        "pregunta": "¿Qué etapa abarca de 1,000 a 9,999 empleados?",
+        "opciones": [
+          "Familia.",
+          "Aldea.",
+          "Ciudad.",
+          "Nación."
+        ],
+        "correcta": 2,
+        "explicacion": "La **Ciudad** (1,000–9,999) escala la organización: cultura, descentralización y eficiencia se vuelven críticas.",
+        "pista": "Es más grande que una aldea."
+      },
+      {
+        "pregunta": "¿Qué etapa corresponde a 10,000 empleados o más?",
+        "opciones": [
+          "Nación.",
+          "Ciudad.",
+          "Aldea.",
+          "Tribu."
+        ],
+        "correcta": 0,
+        "explicacion": "La **Nación** (10,000+) escala el impacto y busca sostener el liderazgo global con innovación continua y ecosistema.",
+        "pista": "Es la etapa de mayor tamaño."
+      },
+      {
+        "pregunta": "¿Cuál es el riesgo financiero más característico del Blitzscaling?",
+        "opciones": [
+          "Tener demasiada caja sin invertirla.",
+          "La quema de capital: gastar más de lo que se ingresa.",
+          "Cobrar precios demasiado altos.",
+          "No necesitar inversores."
+        ],
+        "correcta": 1,
+        "explicacion": "El crecimiento acelerado suele quemar caja. Si no se levantan nuevas rondas, la empresa puede quedarse sin liquidez: es el riesgo de **insolvencia**.",
+        "pista": "Piensa en «quemar» dinero."
+      },
+      {
+        "pregunta": "¿Qué diferencia clave tiene el Blitzscaling frente al crecimiento tradicional?",
+        "opciones": [
+          "El tradicional prioriza eficiencia y rentabilidad; el Blitzscaling prioriza velocidad.",
+          "El tradicional busca efectos de red; el Blitzscaling los evita.",
+          "El Blitzscaling no necesita clientes.",
+          "El tradicional solo funciona en tecnología."
+        ],
+        "correcta": 0,
+        "explicacion": "El crecimiento tradicional optimiza eficiencia y rentabilidad. El Blitzscaling **sacrifica ambas temporalmente** para ganar escala y posición de mercado.",
+        "pista": "Uno es sostenible; el otro es una carrera."
+      },
+      {
+        "pregunta": "¿Cuál de estas empresas es un caso emblemático de Blitzscaling?",
+        "opciones": [
+          "Una panadería de barrio.",
+          "Uber, con expansión agresiva por ciudades y subsidios.",
+          "Un estudio contable familiar.",
+          "Una ferretería local."
+        ],
+        "correcta": 1,
+        "explicacion": "**Uber** expandió su operación ciudad por ciudad con subsidios y grandes rondas de capital. Es el patrón típico de Blitzscaling en plataformas.",
+        "pista": "Es una app de movilidad."
+      },
+      {
+        "pregunta": "¿Cuándo NO conviene aplicar Blitzscaling?",
+        "opciones": [
+          "Cuando el mercado es «winner-takes-most» y hay efectos de red.",
+          "Cuando se dispone de capital abundante.",
+          "Cuando el mercado está fragmentado y sin efectos de red.",
+          "Cuando hay competidores globales."
+        ],
+        "correcta": 2,
+        "explicacion": "Sin **efectos de red** ni dinámica de ganador único, crecer rápido solo quema capital. En mercados fragmentados conviene un crecimiento más eficiente.",
+        "pista": "Falta la condición que hace valiosa la escala."
       }
     ],
     "lab": {
@@ -930,16 +1347,38 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       "**Fomentar la agilidad**: Los equipos pueden experimentar y lanzar productos rápidamente."
     ],
     "comoFunciona": [
-      "```\nComponente                                   Descripción                                                   Ejemplo                                                     \nInfraestructura como Servicio (IaaS)         Alquiler de servidores, almacenamiento y redes.               AWS EC2, Azure Virtual Machines, Google Compute Engine.     \nPlataforma como Servicio (PaaS)              Entorno para desarrollar, ejecutar y gestionar aplicaciones.  AWS Elastic Beanstalk, Google App Engine, Azure App Service.\nSoftware como Servicio (SaaS)                Software listo para usar, accesible desde el navegador.       Salesforce, Slack, Zoom, Google Workspace.                  \nFunciones como Servicio (FaaS) / Serverless  Ejecutar código sin gestionar servidores.                     AWS Lambda, Azure Functions, Google Cloud Functions.        \nBases de Datos como Servicio (DBaaS)         Bases de datos gestionadas en la nube.                        Amazon RDS, MongoDB Atlas, Google Cloud SQL.                \nIA y Machine Learning como Servicio          Servicios de IA listos para integrar.                         AWS SageMaker, Google AI Platform, Azure ML.                \nAlmacenamiento como Servicio                 Almacenamiento escalable en la nube.                          Amazon S3, Google Cloud Storage, Azure Blob Storage.        \nRedes de Entrega de Contenido (CDN)          Distribución global de contenido con baja latencia.           CloudFront (AWS), Cloud CDN (Google), Azure CDN.            \n```"
+      "«diagrama:cloud-capas»",
+      "«diagrama:cloud-migracion»"
     ],
     "errores": [
-      "```\nDesafío                                     Descripción                                 Mitigación                                  \nDependencia del proveedor (Vendor Lock-in)  Difícil migrar de un proveedor a otro.      Usar estándares abiertos, multi-cloud.      \nCostos impredecibles                        El pago por uso puede dispararse.           Monitorear costos, usar reservas, optimizar.\nSeguridad y privacidad                      Los datos están en servidores de terceros.  Cifrado, cumplimiento, auditorías.          \nLatencia                                    La distancia física afecta la velocidad.    Usar CDN, regiones cercanas.                \nCumplimiento regulatorio                    Los datos pueden cruzar fronteras.          Elegir regiones con regulaciones adecuadas. \nFalta de control                            Menos control sobre la infraestructura.     Usar servicios gestionados con SLA.         \nComplejidad                                 La nube tiene miles de servicios.           Capacitación, arquitectura bien diseñada.   \nInterrupciones                              Los proveedores pueden fallar.              Redundancia, multi-cloud, backup.           \n```"
+      "**Dependencia del proveedor (Vendor Lock-in)**: Difícil migrar de un proveedor a otro. → Usar estándares abiertos, multi-cloud.",
+      "**Costos impredecibles**: El pago por uso puede dispararse. → Monitorear costos, usar reservas, optimizar.",
+      "**Seguridad y privacidad**: Los datos están en servidores de terceros. → Cifrado, cumplimiento, auditorías.",
+      "**Latencia**: La distancia física afecta la velocidad. → Usar CDN, regiones cercanas.",
+      "**Cumplimiento regulatorio**: Los datos pueden cruzar fronteras. → Elegir regiones con regulaciones adecuadas.",
+      "**Falta de control**: Menos control sobre la infraestructura. → Usar servicios gestionados con SLA.",
+      "**Complejidad**: La nube tiene miles de servicios. → Capacitación, arquitectura bien diseñada.",
+      "**Interrupciones**: Los proveedores pueden fallar. → Redundancia, multi-cloud, backup."
     ],
     "casos": [
-      "```\nSituación            Aplicación                                                     \nStartup tecnológica  Lanzar un SaaS sin invertir en servidores.                     \nEmpresa tradicional  Migrar a la nube para reducir costos y aumentar agilidad.      \nE-commerce           Escalar en picos de demanda (Black Friday).                    \nFintech              Procesar millones de transacciones con seguridad.              \nGaming               Ofrecer juegos en streaming sin hardware local.                \nIoT                  Gestionar millones de dispositivos conectados.                 \nIA y Big Data        Procesar grandes volúmenes de datos sin infraestructura propia.\n```"
+      "**Startup tecnológica**: Lanzar un SaaS sin invertir en servidores.",
+      "**Empresa tradicional**: Migrar a la nube para reducir costos y aumentar agilidad.",
+      "**E-commerce**: Escalar en picos de demanda (Black Friday).",
+      "**Fintech**: Procesar millones de transacciones con seguridad.",
+      "**Gaming**: Ofrecer juegos en streaming sin hardware local.",
+      "**IoT**: Gestionar millones de dispositivos conectados.",
+      "**IA y Big Data**: Procesar grandes volúmenes de datos sin infraestructura propia."
     ],
     "relacion": [
-      "```\nConcepto                         Relación                                           \nSaaS                             Modelo de negocio basado en la nube.               \nTransformación Digital           La nube es un habilitador clave.                   \nEscalabilidad Operativa Digital  La nube permite escalar sin inversión proporcional.\nPlataformas Multilaterales       Muchas operan 100% en la nube.                     \nFintech                          Las fintech modernas son cloud-first.              \nBusiness AI                      La IA en la nube (AIaaS) es un habilitador.        \nDevOps                           La nube facilita CI/CD y la entrega continua.      \nMicroservicios                   Arquitectura común en aplicaciones cloud.          \nServerless                       Evolución del cloud-first.                         \n```"
+      "**SaaS**: Modelo de negocio basado en la nube.",
+      "**Transformación Digital**: La nube es un habilitador clave.",
+      "**Escalabilidad Operativa Digital**: La nube permite escalar sin inversión proporcional.",
+      "**Plataformas Multilaterales**: Muchas operan 100% en la nube.",
+      "**Fintech**: Las fintech modernas son cloud-first.",
+      "**Business AI**: La IA en la nube (AIaaS) es un habilitador.",
+      "**DevOps**: La nube facilita CI/CD y la entrega continua.",
+      "**Microservicios**: Arquitectura común en aplicaciones cloud.",
+      "**Serverless**: Evolución del cloud-first."
     ],
     "analogia": "El modelo Cloud-First es como alquilar un apartamento amueblado en lugar de comprar una casa. En lugar de comprar la casa (servidores), amueblarla (software), mantenerla (electricidad, reparaciones) y pagar una hipoteca (CapEx), alquilas un apartamento (nube) que ya viene amueblado (servicios listos para usar). Pagas solo por el tiempo que lo usas (OpEx), puedes mudarte a otro más grande si creces (escalabilidad) o a otra ciudad si te expandes (global), y si algo se rompe, el casero (proveedor de nube) lo arregla. Eso sí, dependes del casero (vendor lock-in) y debes cumplir sus reglas (regulaciones).",
     "notasPersonales": [
@@ -954,19 +1393,26 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
       {
         "seccion": "📝 Tipos de Modelos de Negocio Cloud",
         "textos": [
-          "```\nModelo                              Descripción                                 Ejemplo                                                              \nSaaS (Software as a Service)        Software por suscripción en la nube.        Salesforce, HubSpot, Slack.                                          \nPaaS (Platform as a Service)        Plataforma para desarrolladores.            Heroku, Vercel, Netlify.                                             \nIaaS (Infrastructure as a Service)  Infraestructura en la nube.                 AWS, Azure, Google Cloud.                                            \nServerless                          Ejecutar código sin gestionar servidores.   AWS Lambda, Vercel Functions.                                        \nCloud-First Marketplace             Plataformas que operan 100% en la nube.     Airbnb, Uber, Mercado Libre.                                         \nFintech Cloud                       Servicios financieros en la nube.           Nubank, Stripe, Culqi.                                               \nCloud Gaming                        Juegos en streaming desde la nube.          Google Stadia (descontinuado), NVIDIA GeForce Now, Xbox Cloud Gaming.\nCloud Data & Analytics              Servicios de datos y analítica en la nube.  Snowflake, Databricks, Tableau Cloud.                                \n```"
+          "**SaaS (Software as a Service)**: Software por suscripción en la nube. Ejemplo: Salesforce, HubSpot, Slack.",
+          "**PaaS (Platform as a Service)**: Plataforma para desarrolladores. Ejemplo: Heroku, Vercel, Netlify.",
+          "**IaaS (Infrastructure as a Service)**: Infraestructura en la nube. Ejemplo: AWS, Azure, Google Cloud.",
+          "**Serverless**: Ejecutar código sin gestionar servidores. Ejemplo: AWS Lambda, Vercel Functions.",
+          "**Cloud-First Marketplace**: Plataformas que operan 100% en la nube. Ejemplo: Airbnb, Uber, Mercado Libre.",
+          "**Fintech Cloud**: Servicios financieros en la nube. Ejemplo: Nubank, Stripe, Culqi.",
+          "**Cloud Gaming**: Juegos en streaming desde la nube. Ejemplo: Google Stadia (descontinuado), NVIDIA GeForce Now, Xbox Cloud Gaming.",
+          "**Cloud Data & Analytics**: Servicios de datos y analítica en la nube. Ejemplo: Snowflake, Databricks, Tableau Cloud."
         ]
       },
       {
         "seccion": "💡 Ejemplos de Empresas con Modelo Cloud-First",
         "textos": [
-          "```\nEmpresa        Modelo                    Descripción                                  \nNetflix        Cloud-First (AWS)         Streaming global, sin servidores propios.    \nSpotify        Cloud-First (GCP)         Streaming de música, personalización con IA. \nAirbnb         Cloud-First (AWS)         Marketplace global, sin propiedades.         \nUber           Cloud-First (AWS/GCP)     Movilidad bajo demanda, datos en tiempo real.\nSalesforce     SaaS (Cloud)              CRM en la nube.                              \nZoom           Cloud-First (AWS/Oracle)  Videoconferencias globales.                  \nSlack          SaaS (Cloud)              Colaboración en equipo.                      \nShopify        SaaS (Cloud)              E-commerce en la nube.                       \nMercado Libre  Cloud-First (AWS)         E-commerce + fintech + logística.            \nNubank         Cloud-First (AWS)         Banca digital.                               \nGlobant        Cloud-First               Servicios de transformación digital.         \nGitLab         SaaS (Cloud)              DevSecOps en la nube.                        \n```"
+          "«diagrama:cloud-empresas»"
         ]
       },
       {
         "seccion": "📊 Comparativa: Modelo Tradicional (On-Premise) vs. Cloud-First",
         "textos": [
-          "```\nCaracterística         On-Premise (Tradicional)                         Cloud-First                         \nInfraestructura        Propia (centros de datos).                       Alquilada (AWS, Azure, GCP).        \nInversión inicial      Alta (CapEx).                                    Baja (OpEx).                        \nEscalabilidad          Limitada, lenta.                                 Elástica, rápida.                   \nCostos                 Fijos, altos.                                    Variables, por uso.                 \nMantenimiento          Propio (personal, electricidad, refrigeración).  Del proveedor de nube.              \nInnovación             Lenta (comprar e instalar).                      Rápida (servicios listos para usar).\nDisponibilidad global  Limitada a la ubicación física.                  Global (múltiples regiones).        \nSeguridad              Responsabilidad propia.                          Compartida (proveedor + empresa).   \nTime to Market         Lento (meses).                                   Rápido (días).                      \n```"
+          "«diagrama:cloud-comparativa»"
         ]
       }
     ],
@@ -979,37 +1425,148 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
     "resumen": "Un Modelo de Negocio Basado en la Nube es aquel en el que la infraestructura tecnológica, los productos y los servicios de una empresa se construyen, despliegan y operan principalmente en la…",
     "quiz": [
       {
-        "id": 1,
-        "pregunta": "Según tus apuntes, ¿qué describe mejor Modelo de Negocio Basado en la Nube (Cloud-Enabled / Cloud-First Business Model)?",
+        "pregunta": "¿Qué caracteriza a un modelo de negocio Cloud-First?",
         "opciones": [
-          "El modelo Cloud-First (o Cloud-Enabled) implica que la nube no es un complemento, sino el núcleo del negocio. La empresa no compra servidores ni…",
-          "El Blitzscaling es una estrategia de crecimiento extremo que se utiliza en entornos de alta incertidumbre y mercados en rápida evolución. A diferencia…",
-          "El análisis SEPTE es un marco de escaneo ambiental (environmental scanning) que ayuda a las empresas a comprender el contexto amplio en el que…",
-          "La Agilidad Empresarial es la evolución de la agilidad más allá de los equipos de desarrollo. Mientras que la agilidad tradicional (Scrum, Kanban, XP)…"
+          "Usar la nube solo para respaldos de seguridad.",
+          "Construir y operar el núcleo del negocio en la nube, no en servidores propios.",
+          "Tener un centro de datos propio y uno externo.",
+          "Vender únicamente software instalado en computadoras."
         ],
-        "correcta": 0
+        "correcta": 1,
+        "explicacion": "**Cloud-First** significa que la nube es el núcleo: productos, datos y servicios se construyen y operan allí. No es un complemento, es la base del modelo.",
+        "pista": "«First» indica prioridad, no accesorio."
       },
       {
-        "id": 2,
-        "pregunta": "¿Para qué sirve Modelo de Negocio Basado en la Nube (Cloud-Enabled / Cloud-First Business Model)?",
+        "pregunta": "¿Qué cambio financiero implica migrar a la nube?",
         "opciones": [
-          "Ganar la carrera por el mercado: Ser el primero en alcanzar la masa crítica.",
-          "Reducir costos de infraestructura: No hay inversión en servidores, centros de datos, electricidad, refrigeración, mantenimiento.",
-          "Identificar oportunidades y amenazas: Detectar tendencias externas que puedan beneficiar o perjudicar a la empresa.",
-          "Sobrevivir en entornos VUCA: Adaptarse a cambios rápidos e impredecibles."
+          "Pasar de CapEx (inversión inicial) a OpEx (pago por uso).",
+          "Pasar de OpEx a CapEx.",
+          "Eliminar todos los costos de tecnología.",
+          "Duplicar la inversión inicial en servidores."
         ],
-        "correcta": 1
+        "correcta": 0,
+        "explicacion": "La nube convierte grandes inversiones iniciales en **gastos variables por uso**. Eso reduce la barrera de entrada, pero exige control de costos (FinOps).",
+        "pista": "Piensa en alquilar en lugar de comprar."
       },
       {
-        "id": 3,
-        "pregunta": "¿Cuál de estas afirmaciones corresponde a Modelo de Negocio Basado en la Nube (Cloud-Enabled / Cloud-First Business Model)?",
+        "pregunta": "AWS EC2, Azure Virtual Machines y Google Compute Engine son ejemplos de…",
         "opciones": [
-          "Dependencia del proveedor (Vendor Lock-in): Difícil migrar de un proveedor a otro. · Usar estándares abiertos, multi-cloud.",
-          "Quema de capital: Gastar más de lo que se ingresa. · Insolvencia si no se levanta más capital.",
-          "Análisis superficial: Basarse en suposiciones en lugar de datos. · Decisiones estratégicas incorrectas.",
-          "Resistencia al cambio: La cultura tradicional se resiste a la agilidad. · Liderazgo, comunicación, educación, casos de éxito."
+          "SaaS.",
+          "PaaS.",
+          "IaaS.",
+          "FaaS."
         ],
-        "correcta": 0
+        "correcta": 2,
+        "explicacion": "**IaaS** (Infrastructure as a Service) alquila servidores, redes y almacenamiento. Tú gestionas el sistema operativo y lo que corre encima.",
+        "pista": "Es la capa más básica: infraestructura."
+      },
+      {
+        "pregunta": "Un entorno gestionado para desarrollar y desplegar aplicaciones sin administrar servidores se llama…",
+        "opciones": [
+          "IaaS.",
+          "PaaS.",
+          "SaaS.",
+          "CDN."
+        ],
+        "correcta": 1,
+        "explicacion": "**PaaS** ofrece la plataforma: sistema operativo, runtime y servicios gestionados. El equipo se concentra en el código y no en la infraestructura.",
+        "pista": "La «P» es de plataforma."
+      },
+      {
+        "pregunta": "Salesforce, Slack y Google Workspace son ejemplos de…",
+        "opciones": [
+          "SaaS.",
+          "IaaS.",
+          "PaaS.",
+          "DBaaS."
+        ],
+        "correcta": 0,
+        "explicacion": "**SaaS** entrega software completo por suscripción, accesible desde el navegador. El usuario no gestiona infraestructura ni plataforma.",
+        "pista": "Software listo para usar."
+      },
+      {
+        "pregunta": "Ejecutar código sin administrar servidores se conoce como…",
+        "opciones": [
+          "Serverless o FaaS.",
+          "On-premise.",
+          "Hosting compartido.",
+          "Mainframe."
+        ],
+        "correcta": 0,
+        "explicacion": "**FaaS / Serverless** ejecuta funciones bajo demanda. El proveedor escala y administra la infraestructura; tú pagas por ejecución.",
+        "pista": "El nombre sugiere «sin servidor»."
+      },
+      {
+        "pregunta": "SageMaker, Vertex AI y Azure ML son ejemplos de…",
+        "opciones": [
+          "IA como Servicio (AIaaS).",
+          "SaaS de contabilidad.",
+          "Redes CDN.",
+          "Bases de datos relacionales."
+        ],
+        "correcta": 0,
+        "explicacion": "**AIaaS** ofrece modelos y herramientas de inteligencia artificial listos para integrar, sin construir toda la infraestructura de machine learning.",
+        "pista": "Son servicios de inteligencia artificial."
+      },
+      {
+        "pregunta": "¿Qué es el «vendor lock-in»?",
+        "opciones": [
+          "La facilidad para cambiar de proveedor de nube.",
+          "La dependencia que dificulta migrar de un proveedor a otro.",
+          "Un descuento por volumen.",
+          "Un tipo de cifrado en la nube."
+        ],
+        "correcta": 1,
+        "explicacion": "El **vendor lock-in** ocurre cuando los servicios propietarios hacen costosa la migración. Se mitiga con estándares abiertos, contenedores y estrategia multi-cloud.",
+        "pista": "«Lock» significa quedarse atrapado."
+      },
+      {
+        "pregunta": "¿Cómo se controlan los costos impredecibles de la nube?",
+        "opciones": [
+          "Ignorarlos porque la nube siempre es más barata.",
+          "Monitorear el consumo, usar reservas y optimizar recursos (FinOps).",
+          "Contratar todos los servicios disponibles.",
+          "Apagar la facturación."
+        ],
+        "correcta": 1,
+        "explicacion": "El pago por uso puede dispararse sin control. **FinOps** combina monitoreo, reservas, apagado de recursos ociosos y diseño eficiente.",
+        "pista": "Necesitas disciplina de costos."
+      },
+      {
+        "pregunta": "Una app global tiene usuarios en varios continentes y notas latencia alta. ¿Qué solución es la más adecuada?",
+        "opciones": [
+          "Mover todo a un único servidor central.",
+          "Usar CDN y desplegar en regiones cercanas a los usuarios.",
+          "Aumentar el tamaño de la base de datos local.",
+          "Eliminar el cifrado para acelerar."
+        ],
+        "correcta": 1,
+        "explicacion": "La latencia se reduce acercando el contenido y el cómputo al usuario: **CDN** para contenido estático y **regiones** para servicios. Un solo servidor central empeora el problema.",
+        "pista": "Piensa en «más cerca del usuario»."
+      },
+      {
+        "pregunta": "Netflix es un ejemplo de modelo Cloud-First porque…",
+        "opciones": [
+          "Vende servidores a otras empresas.",
+          "Opera su streaming global sobre AWS, sin centros de datos propios para la plataforma.",
+          "Solo funciona en un país.",
+          "Usa únicamente software instalado en televisores."
+        ],
+        "correcta": 1,
+        "explicacion": "**Netflix** corre su plataforma sobre AWS y escala a millones de usuarios sin operar su propio datacenter para el streaming. Es el ejemplo clásico de cloud-first.",
+        "pista": "Es una plataforma de streaming."
+      },
+      {
+        "pregunta": "Un e-commerce espera un pico enorme de demanda en Black Friday. ¿Qué ventaja cloud resulta clave?",
+        "opciones": [
+          "La escalabilidad elástica para crecer y decrecer según la demanda.",
+          "Tener servidores fijos sobredimensionados todo el año.",
+          "Eliminar la seguridad durante el pico.",
+          "Cobrar más a los clientes ese día."
+        ],
+        "correcta": 0,
+        "explicacion": "La **elasticidad** permite escalar automáticamente durante el pico y reducir capacidad después. Con infraestructura propia habría que sobredimensionar todo el año.",
+        "pista": "Piensa en crecer justo cuando hace falta."
       }
     ],
     "lab": {
@@ -3005,6 +3562,297 @@ export const NEGOCIO_BIBLIOTECA_DOCS = {
             {
               "concepto": "Mejorar la reputación",
               "descripcion": "Ser percibido como un líder responsable."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "bpmn": {
+    "definicion": [
+      "BPMN (Business Process Model and Notation, o Modelo y Notación de Procesos de Negocio) es un estándar gráfico para representar procesos de negocio de forma clara, comprensible y compartida entre las áreas de negocio y los equipos técnicos. Define un conjunto de símbolos —eventos, actividades, compuertas y flujos— con reglas precisas para que cualquier persona capacitada pueda leer un diagrama y entender qué ocurre, quién lo hace, cuándo y bajo qué condiciones."
+    ],
+    "queEs": [
+      "BPMN es una **notación**, no un software ni un lenguaje de programación. Se usa para dibujar el proceso tal como es (AS-IS) o como debería ser (TO-BE), y sirve de puente entre la operación y la tecnología.",
+      "Su versión actual, **BPMN 2.0**, es mantenida por el Object Management Group (OMG) y se convirtió en el estándar de facto para modelar procesos. Muchas herramientas pueden ejecutar o simular directamente los diagramas.",
+      "Un diagrama BPMN responde cinco preguntas: **¿qué** actividades se realizan, **quién** las hace, **cuándo** ocurren, **con qué decisiones** y **cómo** termina el proceso.",
+      "No es lo mismo que un diagrama de flujo informal: BPMN distingue tipos de eventos, compuertas y flujos, y exige reglas de conexión que evitan ambigüedades."
+    ],
+    "paraQueSirve": [
+      "**Documentar procesos**: tener una versión única y comprensible de cómo funciona la operación.",
+      "**Detectar mejoras**: visualizar pasos redundantes, esperas, reprocesos y cuellos de botella.",
+      "**Alinear áreas**: hacer visibles los handoffs entre ventas, compras, finanzas y atención al cliente.",
+      "**Automatizar**: servir de base para implementar un BPMS o un flujo de trabajo digital.",
+      "**Capacitar**: explicar un proceso nuevo con un lenguaje común y verificable.",
+      "**Cumplir y auditar**: demostrar que un proceso crítico sigue las reglas y controles definidos."
+    ],
+    "comoFunciona": [
+      "**Eventos**: sucesos que inician, pausan o terminan el proceso (inicio, intermedio con temporizador o mensaje, fin).",
+      "**Actividades (tareas)**: trabajo atómico que realiza una persona o un sistema (recibir, validar, aprobar).",
+      "**Compuertas**: decisiones que dividen o unen el flujo (exclusiva XOR, paralela AND, inclusiva OR).",
+      "**Flujos de secuencia**: conectan elementos en orden y muestran el camino que sigue el token.",
+      "**Carriles y pools**: organizan las actividades por rol, área o participante.",
+      "**Artefactos**: anotaciones, grupos y objetos de datos que añaden información sin alterar el flujo.",
+      "**Subprocesos**: agrupan actividades dentro de otra actividad para reducir la complejidad visual.",
+      "**Reglas básicas**: todo proceso tiene un inicio y al menos un fin; las compuertas deben etiquetarse; los flujos no se cruzan sin necesidad."
+    ],
+    "errores": [
+      "**Diagrama sin inicio o sin fin**: el lector no sabe dónde empieza ni cuándo termina el proceso.",
+      "**Compuertas sin etiquetas**: no se entiende qué condición toma cada camino.",
+      "**Mezclar niveles de detalle**: un diagrama con tareas muy generales y otras demasiado específicas.",
+      "**Usar BPMN como organigrama**: los carriles ordenan responsabilidades, pero el foco es el flujo de trabajo.",
+      "**No validar con quien opera el proceso**: el diagrama queda bonito, pero no refleja la realidad."
+    ],
+    "casos": [
+      "**Compras**: modelar solicitud, validación, aprobación y emisión de orden.",
+      "**Onboarding**: documentar bienvenida, recepción de documentos, accesos y cierre.",
+      "**Soporte**: clasificar tickets, escalar casos urgentes y resolver en primer nivel.",
+      "**Ventas**: modelar cotización, aprobación de descuentos y cierre del pedido.",
+      "**Operaciones**: estandarizar procesos repetibles y detectar cuellos de botella antes de automatizar."
+    ],
+    "relacion": [
+      "**Value Stream Mapping (VSM)**: VSM mide el flujo de valor y sus desperdicios; BPMN describe la lógica del proceso.",
+      "**Kanban**: Kanban visualiza el trabajo en curso; BPMN modela el proceso completo y sus decisiones.",
+      "**Teoría de Restricciones (TOC)**: BPMN ayuda a ubicar la restricción dentro del flujo.",
+      "**BPMS**: los motores de procesos ejecutan diagramas BPMN 2.0.",
+      "**Agilidad Empresarial**: los equipos ágiles usan BPMN para entender el proceso que van a mejorar.",
+      "**Transformación digital**: BPMN es el mapa que guía la automatización de procesos."
+    ],
+    "analogia": "Un diagrama BPMN es como el plano de una ciudad: no es la ciudad, pero permite ver las calles, los cruces y los semáforos antes de circular. Sin plano, cada conductor improvisa; con plano, todos entienden por dónde ir, dónde hay una decisión y qué camino lleva al destino.",
+    "notasPersonales": [
+      "**Empieza simple**: dibuja el flujo principal (camino feliz) y luego añade excepciones y reprocesos.",
+      "**Nombra con verbos**: «Validar datos», «Aprobar compra», «Notificar al cliente». Evita sustantivos vagos.",
+      "**Una compuerta, una pregunta**: si una compuerta necesita explicar tres condiciones, probablemente son varias compuertas.",
+      "**Valida en taller**: el diagrama se corrige con quienes hacen el trabajo, no solo en el escritorio."
+    ],
+    "fuente": "Object Management Group (OMG). BPMN 2.0 Specification. Silver, B. (2011). BPMN Method and Style. Cody-Cassidy. Freund, J., & Rücker, B. (2014). Real-Life BPMN. Camunda. White, S. A. (2004). Introduction to BPMN. IBM Corporation.",
+    "extras": [
+      {
+        "seccion": "🧭 Elementos esenciales de BPMN",
+        "textos": [
+          "**Evento de inicio**: dispara el proceso (solicitud, pedido, horario, mensaje).",
+          "**Tarea**: actividad concreta realizada por una persona o sistema.",
+          "**Compuerta exclusiva (XOR)**: elige un solo camino según una condición.",
+          "**Compuerta paralela (AND)**: activa varios caminos a la vez y los sincroniza.",
+          "**Compuerta inclusiva (OR)**: activa una o varias rutas según las condiciones.",
+          "**Evento intermedio**: espera un tiempo o un mensaje antes de continuar.",
+          "**Carril / pool**: agrupa actividades por rol o participante.",
+          "**Subproceso**: proceso encapsulado dentro de otro para reducir complejidad."
+        ]
+      },
+      {
+        "seccion": "💡 Ejemplo: proceso de compra",
+        "textos": [
+          "1. **Inicio**: llega una solicitud de compra.",
+          "2. **Recibir solicitud**: el área usuaria registra el pedido.",
+          "3. **Validar datos**: compras revisa presupuesto y documentación.",
+          "4. **Compuerta «¿Datos completos?»**: si no, se solicita corrección y se vuelve a validar; si sí, se aprueba la compra.",
+          "5. **Aprobar compra**: se emite la orden de compra.",
+          "6. **Fin**: el proceso termina y se notifica al solicitante.",
+          "Practícalo en el laboratorio interactivo: edita el lienzo, simula el token y resuelve el sandbox de decisiones."
+        ]
+      }
+    ],
+    "titulo": "BPMN (Business Process Model and Notation)",
+    "id": "bpmn",
+    "icon": "◈",
+    "curso": "biblioteca-negocios",
+    "cursoLabel": "Biblioteca de Negocios",
+    "categoria": "Administración y Negocios",
+    "resumen": "BPMN es la notación estándar para modelar procesos de negocio: eventos, tareas, compuertas y flujos que permiten documentar, simular y mejorar la operación.",
+    "quiz": [
+      {
+        "pregunta": "¿Qué es BPMN?",
+        "opciones": [
+          "Un lenguaje de programación para automatizar procesos.",
+          "Una notación gráfica estándar para modelar procesos de negocio.",
+          "Un software de contabilidad.",
+          "Un marco de gestión de proyectos ágiles."
+        ],
+        "correcta": 1,
+        "explicacion": "**BPMN** (Business Process Model and Notation) es un estándar de notación gráfica. Permite que áreas de negocio y equipos técnicos lean el mismo proceso con símbolos comunes.",
+        "pista": "La «N» final significa «Notation»."
+      },
+      {
+        "pregunta": "¿Qué representa un evento de inicio en BPMN?",
+        "opciones": [
+          "El punto donde comienza el proceso.",
+          "Una tarea que realiza un empleado.",
+          "Una decisión del proceso.",
+          "El final obligatorio del proceso."
+        ],
+        "correcta": 0,
+        "explicacion": "El **evento de inicio** marca el disparador del proceso: una solicitud, un pedido, un horario o un mensaje. Todo proceso debe tener un inicio claro.",
+        "pista": "Su nombre lo dice: inicio."
+      },
+      {
+        "pregunta": "¿Qué es una tarea en un diagrama BPMN?",
+        "opciones": [
+          "Una decisión que divide el flujo.",
+          "Trabajo atómico realizado por una persona o un sistema.",
+          "Un conector entre dos procesos.",
+          "Una regla de negocio escrita."
+        ],
+        "correcta": 1,
+        "explicacion": "La **tarea** es la unidad de trabajo: recibir una solicitud, validar datos, aprobar una compra. Se dibuja como rectángulo redondeado.",
+        "pista": "Es la actividad concreta que se ejecuta."
+      },
+      {
+        "pregunta": "Una compuerta exclusiva (XOR) sirve para…",
+        "opciones": [
+          "Activar todos los caminos al mismo tiempo.",
+          "Elegir un solo camino según una condición.",
+          "Unir caminos sin condición.",
+          "Terminar el proceso."
+        ],
+        "correcta": 1,
+        "explicacion": "La **compuerta exclusiva (XOR)** elige una sola salida: por ejemplo, «Sí» o «No». Las rutas son mutuamente excluyentes.",
+        "pista": "Solo uno de los caminos puede seguir."
+      },
+      {
+        "pregunta": "Una compuerta paralela (AND) sirve para…",
+        "opciones": [
+          "Elegir un camino entre varios.",
+          "Activar todos los caminos a la vez y luego sincronizarlos.",
+          "Esperar una señal externa.",
+          "Enviar un mensaje a otro proceso."
+        ],
+        "correcta": 1,
+        "explicacion": "La **compuerta paralela (AND)** divide el flujo en ramas simultáneas. Al final, otra compuerta AND espera a que todas terminen antes de continuar.",
+        "pista": "Todo ocurre al mismo tiempo."
+      },
+      {
+        "pregunta": "¿Qué diferencia a una compuerta inclusiva (OR) de una exclusiva (XOR)?",
+        "opciones": [
+          "La OR puede activar una o varias salidas según las condiciones.",
+          "La OR solo permite una salida.",
+          "La OR no tiene condiciones.",
+          "No hay diferencia práctica."
+        ],
+        "correcta": 0,
+        "explicacion": "La **compuerta inclusiva (OR)** deja activas todas las rutas cuya condición se cumpla: puede ser una o varias. La XOR siempre elige exactamente una.",
+        "pista": "«Inclusiva» incluye varias posibilidades."
+      },
+      {
+        "pregunta": "¿Para qué sirven los carriles (lanes) y pools?",
+        "opciones": [
+          "Para decorar el diagrama con colores.",
+          "Para organizar las tareas por rol, área o participante.",
+          "Para medir el tiempo de cada tarea.",
+          "Para reemplazar las compuertas."
+        ],
+        "correcta": 1,
+        "explicacion": "Los **carriles** y **pools** agrupan actividades por responsable. Hacen visible quién hace qué y dónde ocurren los handoffs entre áreas.",
+        "pista": "Separan responsabilidades."
+      },
+      {
+        "pregunta": "El proceso debe esperar 48 horas una respuesta y, si no llega, continuar. ¿Qué elemento BPMN lo modela?",
+        "opciones": [
+          "Un evento intermedio con temporizador (timer).",
+          "Una tarea manual.",
+          "Un evento de fin.",
+          "Una anotación de texto."
+        ],
+        "correcta": 0,
+        "explicacion": "El **evento intermedio de temporizador** espera un tiempo definido y dispara una ruta alternativa si se cumple. Evita que el proceso quede bloqueado para siempre.",
+        "pista": "Habla de tiempo y espera."
+      },
+      {
+        "pregunta": "Si una validación falla y la solicitud debe volver a la tarea anterior, ¿cómo se modela?",
+        "opciones": [
+          "Con un nuevo evento de inicio.",
+          "Con un flujo de secuencia de retorno que crea un ciclo de reproceso.",
+          "Eliminando la validación.",
+          "Con un evento de fin."
+        ],
+        "correcta": 1,
+        "explicacion": "Un **flujo de retorno** conecta la compuerta de validación con la tarea anterior. El proceso corrige y vuelve a validar sin reiniciarse por completo.",
+        "pista": "El token vuelve atrás."
+      },
+      {
+        "pregunta": "¿Qué aporta la simulación de tokens (Token Simulation)?",
+        "opciones": [
+          "Genera automáticamente el código del proceso.",
+          "Muestra paso a paso cómo el trabajo recorre el proceso y dónde se decide.",
+          "Reemplaza al diagrama BPMN.",
+          "Mide el sueldo de los empleados."
+        ],
+        "correcta": 1,
+        "explicacion": "La **simulación de tokens** coloca un token en el inicio y lo mueve por las actividades y compuertas. Ayuda a detectar cuellos de botella, ciclos y caminos sin salida.",
+        "pista": "Un token es como una ficha que avanza."
+      },
+      {
+        "pregunta": "¿Cuál es una buena práctica al dibujar compuertas y flujos?",
+        "opciones": [
+          "Etiquetar cada salida con su condición (Sí/No, monto, estado).",
+          "Usar muchos colores para distinguir tareas.",
+          "Ocultar el evento de inicio.",
+          "Conectar todas las tareas entre sí."
+        ],
+        "correcta": 0,
+        "explicacion": "Las **etiquetas** explican la lógica: «Sí», «No», «monto > 1000». Un diagrama se entiende por su semántica, no por su decoración.",
+        "pista": "La claridad está en el texto de la condición."
+      },
+      {
+        "pregunta": "¿Para qué se usa un subproceso en BPMN?",
+        "opciones": [
+          "Para ocultar errores del diagrama.",
+          "Para agrupar un conjunto de actividades y reducir la complejidad visual.",
+          "Para reemplazar los eventos de inicio.",
+          "Para eliminar los carriles."
+        ],
+        "correcta": 1,
+        "explicacion": "El **subproceso** encapsula un proceso dentro de otro. Permite ver el flujo principal sin perder detalle, que se expande cuando hace falta.",
+        "pista": "Es un proceso dentro del proceso."
+      }
+    ],
+    "lab": {
+      "misiones": [
+        {
+          "id": "bpmn-completar",
+          "tipo": "completar",
+          "titulo": "Completa la definición",
+          "dificultad": "Fácil",
+          "xp": 60,
+          "pista": "Es una notación gráfica, no un lenguaje de programación.",
+          "solucion": "BPMN",
+          "frase": "El estándar gráfico para modelar procesos de negocio con eventos, tareas, compuertas y flujos se llama __________.",
+          "opciones": [
+            "BPMN",
+            "Kanban",
+            "VSM",
+            "OKR"
+          ],
+          "correcto": "BPMN"
+        },
+        {
+          "id": "bpmn-emparejar",
+          "tipo": "emparejar",
+          "titulo": "Une cada elemento con su función",
+          "dificultad": "Medio",
+          "xp": 90,
+          "pista": "Relaciona cada símbolo con la pregunta que responde.",
+          "solucion": "Evento de inicio · Tarea · Compuerta · Carril · Flujo de secuencia",
+          "pares": [
+            {
+              "concepto": "Evento de inicio",
+              "descripcion": "Dispara el proceso."
+            },
+            {
+              "concepto": "Tarea",
+              "descripcion": "Trabajo atómico de una persona o sistema."
+            },
+            {
+              "concepto": "Compuerta",
+              "descripcion": "Decide o divide el camino del flujo."
+            },
+            {
+              "concepto": "Carril",
+              "descripcion": "Agrupa actividades por rol o área."
+            },
+            {
+              "concepto": "Flujo de secuencia",
+              "descripcion": "Conecta los elementos en orden."
             }
           ]
         }

@@ -1,0 +1,177 @@
+/* Juegos embebidos de push() y reverse() */
+.jem {
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #2a3550;
+  background:
+    radial-gradient(900px 280px at 0% 0%, rgba(110, 168, 254, 0.12), transparent 58%),
+    radial-gradient(700px 260px at 100% 100%, rgba(79, 209, 155, 0.08), transparent 58%),
+    #151d2e;
+  color: #dbe4f6;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.jem--reverse {
+  background:
+    radial-gradient(900px 280px at 0% 0%, rgba(240, 197, 106, 0.12), transparent 58%),
+    radial-gradient(700px 260px at 100% 100%, rgba(155, 140, 255, 0.12), transparent 58%),
+    #151d2e;
+}
+
+.jem * { box-sizing: border-box; }
+
+.jem__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #2a3550;
+}
+
+.jem__brand { display: flex; align-items: flex-start; gap: 13px; }
+
+.jem__icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #4f8cff, #7c6cff);
+  box-shadow: 0 10px 24px rgba(79, 140, 255, 0.3);
+}
+
+.jem--reverse .jem__icon {
+  background: linear-gradient(135deg, #f0c56a, #e08a4f);
+  box-shadow: 0 10px 24px rgba(240, 197, 106, 0.24);
+}
+
+.jem__kicker {
+  display: block;
+  color: #6ea8fe;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.jem--reverse .jem__kicker { color: #f0c56a; }
+
+.jem__brand h3 { margin: 0 0 3px; color: #fff; font-size: 1.12rem; }
+.jem__brand p { margin: 0; max-width: 600px; color: #93a1bd; font-size: 0.81rem; line-height: 1.5; }
+
+.jem__open {
+  flex-shrink: 0;
+  padding: 8px 13px;
+  border-radius: 9px;
+  border: 1px solid #2a3550;
+  background: #0d1420;
+  color: #b9c6de;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.jem__open:hover { border-color: #6ea8fe; color: #fff; }
+
+.jem__tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 7px;
+  margin: 14px 0;
+}
+
+.jem__tab {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 10px 13px;
+  border-radius: 11px;
+  border: 1px solid #2a3550;
+  background: #121a29;
+  color: #dbe4f6;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.jem__tab:hover { transform: translateY(-1px); border-color: #3d4f74; }
+.jem__tab strong { font-size: 0.84rem; color: #eaf1ff; }
+.jem__tab small { color: #93a1bd; font-family: 'Fira Code', monospace; font-size: 0.7rem; }
+
+.jem__tab.is-active {
+  border-color: #6ea8fe;
+  background: linear-gradient(160deg, rgba(110, 168, 254, 0.18), #121a29 70%);
+}
+
+.jem--reverse .jem__tab.is-active {
+  border-color: #f0c56a;
+  background: linear-gradient(160deg, rgba(240, 197, 106, 0.16), #121a29 70%);
+}
+
+.jem__game {
+  border-radius: 14px;
+  border: 1px solid #2a3550;
+  background: #0b0f18;
+  overflow: hidden;
+}
+
+.jem__frame-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 13px;
+  background: #0f1625;
+  border-bottom: 1px solid #2a3550;
+}
+
+.jem__frame-head strong { display: block; color: #fff; font-size: 0.84rem; }
+.jem__frame-head span { color: #93a1bd; font-size: 0.71rem; }
+
+.jem__reload {
+  flex-shrink: 0;
+  border: 1px solid #2a3550;
+  background: #141d2e;
+  color: #dbe4f6;
+  border-radius: 8px;
+  padding: 6px 11px;
+  font: inherit;
+  font-size: 0.73rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.jem__reload:hover { border-color: #6ea8fe; }
+
+.jem__iframe {
+  display: block;
+  width: 100%;
+  height: 620px;
+  border: 0;
+  background: #050a05;
+}
+
+.jem__foot {
+  display: grid;
+  gap: 5px;
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid #2a3550;
+}
+
+.jem__foot p { margin: 0; color: #93a1bd; font-size: 0.75rem; line-height: 1.5; }
+.jem__foot strong { color: #cfd9ec; }
+
+@media (max-width: 640px) {
+  .jem { padding: 15px; }
+  .jem__head { flex-direction: column; }
+  .jem__iframe { height: 520px; }
+}

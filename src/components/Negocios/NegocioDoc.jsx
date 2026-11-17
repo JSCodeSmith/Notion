@@ -1,9 +1,12 @@
 import { useState } from 'react'
-import { Lista, Quiz, Inline } from '../CareerDetail/MetodoDoc'
+import { Lista, Inline } from '../CareerDetail/MetodoDoc'
 import CodeBlock from '../CodeBlock/CodeBlock'
 import NegociosLab from './NegociosLab'
 import SimuladorAritmetica from './SimuladorAritmetica'
 import LaboratorioAritmetica from './LaboratorioAritmetica'
+import QuizNegocio from './QuizNegocio'
+import NegocioDiagrama from './NegocioDiagrama'
+import BpmnLab from './bpmn/BpmnLab'
 import { SIMULADORES_INNOVACION } from './simuladoresInnovacion'
 import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
@@ -26,7 +29,11 @@ function Elementos({ items }) {
   }
 
   for (const item of items ?? []) {
-    if (typeof item === 'string' && item.startsWith('```')) {
+    if (typeof item === 'string' && item.startsWith('«diagrama:')) {
+      cerrar()
+      const tipo = item.replace(/^«diagrama:/, '').replace(/»\s*$/, '').trim()
+      trozos.push({ tipo: 'diagrama', tipoDiagrama: tipo })
+    } else if (typeof item === 'string' && item.startsWith('```')) {
       cerrar()
       const code = item
         .replace(/^```[a-zA-Z]*\n?/, '')
@@ -39,15 +46,19 @@ function Elementos({ items }) {
   }
   cerrar()
 
-  return trozos.map((trozo, i) =>
-    trozo.tipo === 'codigo' ? (
-      <div key={i} className="negocio-codigo">
-        <CodeBlock code={trozo.code} />
-      </div>
-    ) : (
-      <Lista key={i} items={trozo.items} />
-    )
-  )
+  return trozos.map((trozo, i) => {
+    if (trozo.tipo === 'diagrama') {
+      return <NegocioDiagrama key={i} tipo={trozo.tipoDiagrama} />
+    }
+    if (trozo.tipo === 'codigo') {
+      return (
+        <div key={i} className="negocio-codigo">
+          <CodeBlock code={trozo.code} />
+        </div>
+      )
+    }
+    return <Lista key={i} items={trozo.items} />
+  })
 }
 
 /* Lista que agrupa los puntos numerados (1️⃣, 2️⃣…) en sub-bloques con
@@ -190,6 +201,8 @@ export default function NegocioDoc({ nota, onBack }) {
         <LaboratorioAritmetica key={`lab-${nota.id}`} nota={nota} />
       )}
 
+      {nota.id === 'bpmn' && <BpmnLab key="bpmn-lab" />}
+
       <div className="doc-grid">
         <Seccion titulo="📝 Definición" items={nota.definicion} full />
         <Seccion titulo="🧠 ¿Qué es?" items={nota.queEs} />
@@ -244,7 +257,18 @@ export default function NegocioDoc({ nota, onBack }) {
           full
         />
 
-        {nota.quiz?.length > 0 && <Quiz preguntas={nota.quiz} />}
+        {nota.quiz?.length > 0 && (
+          <QuizNegocio
+            preguntas={nota.quiz.map((q) => ({
+              ...q,
+              explicacion:
+                q.explicacion ??
+                `La respuesta correcta es «${q.opciones?.[q.correcta] ?? ''}». Vuelve a la sección correspondiente del apunte para reforzar esta idea y contrástala con los demás conceptos.`,
+            }))}
+            titulo={`🧠 Quiz · ${nota.titulo}`}
+            subtitulo={`${nota.quiz.length} preguntas con explicación`}
+          />
+        )}
 
         <div className="doc-card doc-card--full negocio-fuente">
           <h3>📚 Fuente:</h3>
