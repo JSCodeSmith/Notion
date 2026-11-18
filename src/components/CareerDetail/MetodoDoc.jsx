@@ -45,20 +45,10 @@ import MisionMetodo from '../SimuladorMetodos/MisionMetodo'
 import SandboxMetodo from '../SimuladorMetodos/SandboxMetodo'
 import DiagramaComparativo from '../SimuladorMetodos/DiagramaComparativo'
 import QuizMetodo from '../SimuladorMetodos/QuizMetodo'
-import LaboratorioFrutas from '../SimuladorMetodos/juegos/LaboratorioFrutas'
-import JuegosSome from '../SimuladorMetodos/juegos/JuegosSome'
 import JuegosEmbebidos from '../SimuladorMetodos/juegos/JuegosEmbebidos'
+import { JUEGOS_APUNTES } from '../SimuladorMetodos/juegosApuntes'
 import { ARRAY_METHOD_IDS } from '../SimuladorMetodos/metodosMeta'
 import { METODOS_ARRAYS } from '../../data/carreras'
-
-/* Métodos de búsqueda que tienen laboratorio de frutas. */
-const JUEGOS_FRUTAS = new Set([
-  'findindex',
-  'findlast',
-  'findlastindex',
-  'indexof',
-  'lastindexof',
-])
 
 
 /* Elige el simulador según el campo `simulador` del método.
@@ -372,23 +362,20 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
         )}
 
-        {JUEGOS_FRUTAS.has(metodo.id) && (
+        {JUEGOS_APUNTES[metodo.id]?.map((Juego, i) => (
           <div
+            key={`${metodo.id}-juego-${i}`}
             className="doc-card doc-card--full"
-            style={{ padding: 0, background: 'transparent', border: 'none' }}
+            style={{
+              padding: 0,
+              background: 'transparent',
+              border: 'none',
+              marginTop: i === 0 ? 0 : '24px',
+            }}
           >
-            <LaboratorioFrutas key={`frutas-${metodo.id}`} metodoId={metodo.id} />
+            <Juego />
           </div>
-        )}
-
-        {metodo.id === 'some' && (
-          <div
-            className="doc-card doc-card--full"
-            style={{ padding: 0, background: 'transparent', border: 'none' }}
-          >
-            <JuegosSome key="juegos-some" />
-          </div>
-        )}
+        ))}
 
         {(metodo.id === 'push' || metodo.id === 'reverse') && (
           <div

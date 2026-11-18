@@ -1,0 +1,52 @@
+.apx-some-1{
+  --bg-dark:#030508;
+  --panel-bg:rgba(8,12,20,.85);
+  --neon-cyan:#00f3ff;
+  --neon-red:#ff003c;
+  --neon-green:#00ff66;
+  --neon-yellow:#ffcc00;
+  --text-main:#c9d1d9;
+  --border-glass:rgba(0,243,255,.2);
+  --code-bg:#0d1117;
+  --surface:#030508;
+  --surface-2:rgba(8,12,20,.85);
+  --muted:#8b949e;
+}
+@media (prefers-color-scheme: dark){
+  .apx-some-1{ --surface:#030508; --surface-2:rgba(8,12,20,.9); }
+}
+.apx-some-1 *{box-sizing:border-box}
+.apx-some-1,.apx-some-1{margin:0;padding:0;background:var(--bg-dark)}
+.apx-some-1{
+  color:var(--text-main);
+  font-family:"Rajdhani",system-ui,sans-serif;
+  background-image:radial-gradient(circle at 10% 20%, rgba(0,243,255,.05), transparent 30%), radial-gradient(circle at 90% 80%, rgba(255,0,60,.05), transparent 30%);
+}
+.apx-some-1 .font-code{font-family:"Fira Code",ui-monospace,monospace}
+.apx-some-1 .panel{
+  background:var(--panel-bg);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--border-glass);
+  border-radius:10px;
+  padding:15px;
+  display:flex;flex-direction:column;
+  box-shadow:inset 0 0 20px rgba(0,243,255,.03);
+}
+.apx-some-1 .msg{padding:8px 12px;border-radius:6px;max-width:88%;font-size:.98rem;line-height:1.4;animation:fadeIn .3s ease;overflow-wrap:anywhere}
+.apx-some-1 .msg.doctor{background:rgba(0,243,255,.1);border-left:3px solid var(--neon-cyan);align-self:flex-end}
+.apx-some-1 .msg.patient{background:rgba(255,255,255,.05);border-left:3px solid #555;align-self:flex-start}
+.apx-some-1 .msg.system{align-self:center;color:var(--neon-yellow);font-size:.82rem;text-align:center;font-family:"Fira Code",monospace;max-width:100%}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-5px)}}
+.apx-some-1 .shake{animation:shake .4s ease-in-out}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 10px rgba(0,255,102,.2)}50%{box-shadow:0 0 22px rgba(0,255,102,.45)}}
+.apx-some-1 .pulse-green{animation:pulseGlow 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.apx-some-1 .blink{animation:blink 1s infinite}
+.apx-some-1 ::-webkit-scrollbar{width:5px;height:5px}
+.apx-some-1 ::-webkit-scrollbar-track{background:transparent}
+.apx-some-1 ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+.apx-some-1 ::-webkit-scrollbar-thumb:hover{background:var(--neon-cyan)}
+.apx-some-1 .alert-mode{border-color:var(--neon-red)!important;box-shadow:inset 0 0 50px rgba(255,0,60,.18)!important}
+.apx-some-1 input,.apx-some-1 button{font-family:inherit}
+.apx-some-1 button:disabled{cursor:not-allowed}

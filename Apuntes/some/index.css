@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#030508;
+  --surface:#070d1a;
+  --surface-2:#0a1428;
+  --line:#1c2f52;
+  --cyan:#22d3ee;
+  --green:#22c55e;
+  --red:#ef4444;
+  --yellow:#facc15;
+  --text:#e8f6ff;
+  --muted:#8fa8c8;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#030508; --surface:#070d1a; --surface-2:#0a1428; --line:#1c2f52; --text:#e8f6ff; --muted:#8fa8c8; }
+}
+*{ box-sizing:border-box; }
+html,body{ background:var(--bg); color:var(--text); }
+body{ font-family:'Rajdhani',system-ui,sans-serif; margin:0; }
+.font-code{ font-family:'Fira Code',ui-monospace,monospace; }
+.neon{ text-shadow:0 0 12px rgba(34,211,238,.75), 0 0 30px rgba(34,211,238,.28); }
+.panel{ background:linear-gradient(180deg, rgba(10,20,40,.96), rgba(4,8,18,.96)); border:1px solid var(--line); box-shadow:0 0 0 1px rgba(34,211,238,.06), 0 18px 50px rgba(0,0,0,.45); }
+.glow-green{ box-shadow:0 0 24px rgba(34,197,94,.35); }
+.glow-red{ box-shadow:0 0 18px rgba(239,68,68,.22); }
+.scroll-thin::-webkit-scrollbar{ width:7px; height:7px; }
+.scroll-thin::-webkit-scrollbar-thumb{ background:#1c2f52; border-radius:99px; }
+.scroll-thin::-webkit-scrollbar-track{ background:transparent; }
+button{ font-family:inherit; }
+button:focus-visible, input:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+input::placeholder{ color:#5f7a9e; }
+@keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
+.blink{ animation:blink 1s infinite; }
+@keyframes floaty{ 0%,100%{ transform:translateY(0)} 50%{ transform:translateY(-4px)} }
+.floaty{ animation:floaty 3s ease-in-out infinite; }

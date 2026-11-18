@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#030508;
+  --surface:#070b16;
+  --surface-2:#0b1224;
+  --line:#1c2b4d;
+  --neon:#38f8ff;
+  --green:#2eff8a;
+  --amber:#ffc83d;
+  --red:#ff3d5e;
+  --text:#eaf6ff;
+  --muted:#9fb0c8;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#030508; --surface:#070b16; --surface-2:#0b1224; --text:#eaf6ff; --muted:#9fb0c8; }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif}
+button,input{font-family:inherit}
+.font-code{font-family:'Fira Code',monospace}
+.panel{background:rgba(10,16,34,.82);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06)}
+.neon{color:var(--neon);text-shadow:0 0 18px rgba(56,248,255,.65)}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:13px;color:var(--muted);background:#0a1122}
+.btn{border-radius:12px;padding:11px 14px;font-weight:700;letter-spacing:.02em;transition:.15s;cursor:pointer;border:1px solid transparent}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:linear-gradient(180deg,#2eff8a,#0bc66a);color:#02150a;box-shadow:0 0 24px rgba(46,255,138,.35)}
+.btn-neon{background:linear-gradient(180deg,#38f8ff,#157ee8);color:#021018;box-shadow:0 0 24px rgba(56,248,255,.3)}
+.btn-dark{background:#101a32;color:#eaf6ff;border-color:#263a66}
+.btn-danger{background:linear-gradient(180deg,#ff5a76,#d61a3f);color:white}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.sys-card{border:1px solid var(--line);border-radius:14px;background:#080f20;padding:12px;cursor:pointer;transition:.15s}
+.sys-card:hover{border-color:#38f8ff}
+.sys-card.selected{border-color:#38f8ff;background:#0a1a2e;box-shadow:0 0 0 2px rgba(56,248,255,.25), 0 0 22px rgba(56,248,255,.18)}
+.susp{height:8px;background:#14203a;border-radius:999px;overflow:hidden}
+.susp>div{height:100%;border-radius:999px;transition:width .4s}
+.msg{max-width:88%;padding:10px 12px;border-radius:14px;line-height:1.35;white-space:pre-wrap;word-break:break-word}
+.msg-cap{background:#122a3f;border:1px solid #1e4a6b;border-bottom-right-radius:4px}
+.msg-eng{background:#15271d;border:1px solid #234a33;border-bottom-left-radius:4px}
+.msg-sys{background:#2a140f;border:1px solid #6b2a1e}
+@keyframes flicker{0%,100%{transform:scaleY(1) scaleX(1);opacity:1}25%{transform:scaleY(1.35) scaleX(.82);opacity:.9}50%{transform:scaleY(.78) scaleX(1.18);opacity:1}75%{transform:scaleY(1.18) scaleX(.9);opacity:.85}}
+@keyframes flame2{0%,100%{transform:translateY(0) scale(1);opacity:.95}50%{transform:translateY(8px) scale(.82);opacity:.6}}
+@keyframes launch{0%{transform:translateY(0) rotate(0deg)}12%{transform:translateY(6px) rotate(-1deg)}25%{transform:translateY(-18px) rotate(1deg)}100%{transform:translateY(-115vh) rotate(0deg)}}
+@keyframes shakeX{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-7px)}80%{transform:translateX(5px)}}
+@keyframes smokeUp{0%{transform:translateY(0) scale(.7);opacity:.85}100%{transform:translateY(120px) scale(2.2);opacity:0}}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes popIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.pop{animation:popIn .3s ease both}
+.shake{animation:shakeX .5s ease}
+.launching{animation:shakeX .18s infinite}
+.rocket-move{animation:launch 3.5s cubic-bezier(.2,.7,.3,1) .35s forwards}
+.flame{animation:flicker .18s infinite;transform-origin:top center}
+.flame2{animation:flame2 .24s infinite;transform-origin:top center}
+.smoke{animation:smokeUp 1.1s ease-out infinite}
+.star{position:absolute;border-radius:999px;background:white;animation:twinkle 2.2s infinite}
+.scrollbox::-webkit-scrollbar{width:8px}
+.scrollbox::-webkit-scrollbar-thumb{background:#1d2f55;border-radius:999px}
+input:focus{outline:2px solid #38f8ff;outline-offset:1px}

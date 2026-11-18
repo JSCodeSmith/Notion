@@ -65,55 +65,10 @@
 .jem__brand h3 { margin: 0 0 3px; color: #fff; font-size: 1.12rem; }
 .jem__brand p { margin: 0; max-width: 600px; color: #93a1bd; font-size: 0.81rem; line-height: 1.5; }
 
-.jem__open {
-  flex-shrink: 0;
-  padding: 8px 13px;
-  border-radius: 9px;
-  border: 1px solid #2a3550;
-  background: #0d1420;
-  color: #b9c6de;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: border-color 0.16s ease, color 0.16s ease;
-}
-
-.jem__open:hover { border-color: #6ea8fe; color: #fff; }
-
-.jem__tabs {
+.jem__lista {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 7px;
+  gap: 18px;
   margin: 14px 0;
-}
-
-.jem__tab {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  text-align: left;
-  padding: 10px 13px;
-  border-radius: 11px;
-  border: 1px solid #2a3550;
-  background: #121a29;
-  color: #dbe4f6;
-  font: inherit;
-  cursor: pointer;
-  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
-}
-
-.jem__tab:hover { transform: translateY(-1px); border-color: #3d4f74; }
-.jem__tab strong { font-size: 0.84rem; color: #eaf1ff; }
-.jem__tab small { color: #93a1bd; font-family: 'Fira Code', monospace; font-size: 0.7rem; }
-
-.jem__tab.is-active {
-  border-color: #6ea8fe;
-  background: linear-gradient(160deg, rgba(110, 168, 254, 0.18), #121a29 70%);
-}
-
-.jem--reverse .jem__tab.is-active {
-  border-color: #f0c56a;
-  background: linear-gradient(160deg, rgba(240, 197, 106, 0.16), #121a29 70%);
 }
 
 .jem__game {
@@ -154,7 +109,7 @@
 .jem__iframe {
   display: block;
   width: 100%;
-  height: 620px;
+  height: 880px;
   border: 0;
   background: #050a05;
 }
@@ -173,5 +128,5 @@
 @media (max-width: 640px) {
   .jem { padding: 15px; }
   .jem__head { flex-direction: column; }
-  .jem__iframe { height: 520px; }
+  .jem__iframe { height: 720px; }
 }

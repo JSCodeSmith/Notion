@@ -1,0 +1,192 @@
+BPMN (Business Process Model and Notation)
+Definición
+BPMN (Business Process Model and Notation, o Notación de Modelado de Procesos de Negocio) es un estándar gráfico para representar visualmente procesos de negocio de principio a fin. Fue desarrollado originalmente por la Business Process Management Initiative (BPMI) y actualmente es mantenido por el Object Management Group (OMG). Su versión más difundida es BPMN 2.0 (publicada en 2011), que además de la notación gráfica define un formato de intercambio XML (BPMN DI) para que los modelos puedan ser interpretados por herramientas de software.
+
+🧠 ¿Qué es?
+Es un lenguaje visual común —una especie de "plano" o diagrama— que permite describir quién hace qué, cuándo, cómo y con qué dentro de un proceso. Antes de BPMN, cada organización (y cada consultor) dibujaba procesos con símbolos propios, lo que generaba ambigüedad. BPMN unifica ese vocabulario para que:
+
+Un analista de negocio pueda expresar la lógica del proceso.
+
+Un desarrollador pueda traducirlo a implementación técnica (motores de workflow, BPMS).
+
+Un directivo pueda entenderlo sin ser técnico.
+
+Es, en esencia, un puente entre el negocio y la tecnología.
+
+🎯 ¿Para qué sirve?
+Documentar procesos actuales (AS-IS) y diseñar procesos futuros (TO-BE).
+
+Comunicar de forma estandarizada entre áreas y organizaciones.
+
+Automatizar: los modelos BPMN 2.0 pueden ejecutarse en motores de procesos (Camunda, Activiti, Flowable, jBPM, etc.).
+
+Analizar y mejorar: detectar cuellos de botella, redundancias, roles mal definidos.
+
+Cumplir normativas y servir de base para auditorías.
+
+Simular procesos antes de implementarlos.
+
+⚙️ ¿Cómo funciona?
+BPMN organiza los elementos en cuatro categorías principales:
+
+Objetos de flujo (lo que ocurre):
+
+Eventos (círculos): inicio, intermedio, fin.
+
+Actividades (rectángulos redondeados): tareas y subprocesos.
+
+Compuertas/Gateways (rombos): decisiones, paralelismos, convergencias.
+
+Objetos de conexión (cómo se conecta):
+
+Flujo de secuencia (flecha continua): orden de ejecución.
+
+Flujo de mensaje (línea punteada): comunicación entre participantes.
+
+Asociación (línea punteada sin flecha): vincula artefactos a elementos.
+
+Swimlanes (quién lo hace):
+
+Pools (piscinas): organizaciones o participantes.
+
+Lanes (carriles): roles o departamentos dentro de un pool.
+
+Artefactos (información adicional):
+
+Objetos de datos, grupos, anotaciones de texto.
+
+El modelado sigue una lógica: se define el evento de inicio, se encadenan actividades mediante flujos, se abren bifurcaciones con gateways, y se cierra con uno o varios eventos de fin. Los swimlanes asignan responsabilidad a cada tarea.
+
+⚠️ Errores comunes
+Confundir gateway exclusivo (X) con inclusivo (O) o paralelo (+): cambia radicalmente la semántica de ejecución.
+
+Usar BPMN como organigrama o flowchart simple: BPMN no es un diagrama de flujo genérico; tiene semántica precisa.
+
+Mezclar flujo de secuencia y flujo de mensaje entre pools (el flujo de secuencia NO puede cruzar pools; debe usarse flujo de mensaje).
+
+Sobre-modelar: llenar el diagrama de detalles técnicos que deberían ir en documentación aparte.
+
+No definir el alcance: procesos gigantes sin subprocesos ni niveles de abstracción.
+
+Omitir eventos de inicio/fin o usar múltiples inicios sin justificación.
+
+Usar compuertas para todo, incluso donde no hay decisión real.
+
+No alinear el modelo con la realidad operativa (modelos "de escritorio" que nadie usa).
+
+💼 Casos de uso
+Onboarding de empleados: flujo desde la solicitud de contratación hasta la incorporación.
+
+Atención al cliente: gestión de tickets, reclamos, devoluciones.
+
+Procesos financieros: aprobación de créditos, cuentas por pagar, conciliaciones.
+
+Logística: gestión de pedidos, inventario, envíos.
+
+Salud: admisión de pacientes, autorizaciones médicas.
+
+Automatización con BPMS: implementación ejecutable en Camunda, Activiti, etc.
+
+Certificaciones ISO: documentación de procesos para auditorías.
+
+Transformación digital: mapeo AS-IS → TO-BE.
+
+🧩 Relación con otros conceptos
+BPM (Business Process Management): disciplina global; BPMN es su lenguaje de modelado.
+
+BPMS (Business Process Management Suite): software que ejecuta modelos BPMN.
+
+DMN (Decision Model and Notation): estándar hermano para modelar decisiones (se complementa con BPMN).
+
+CMMN (Case Management Model and Notation): para procesos no estructurados o basados en casos.
+
+UML: BPMN toma prestado de UML, pero está orientado a negocio, no a software.
+
+Diagramas de flujo tradicionales: BPMN es más rico y estandarizado.
+
+Workflow / Motores de workflow: consumen BPMN 2.0 para ejecutar procesos.
+
+Arquitectura de procesos / BPMN + BMM + DMN: ecosistema de modelado empresarial del OMG.
+
+🧠 Analogía
+Imagina que BPMN es como el plano de una receta de cocina para un restaurante:
+
+Los eventos son "cuando llega el pedido" y "cuando se sirve el plato".
+
+Las actividades son "picar ingredientes", "cocinar", "emplatar".
+
+Las compuertas son decisiones: "¿el cliente pidió sin cebolla? Sí → ruta A; No → ruta B".
+
+Los swimlanes son las estaciones de la cocina: cocinero, ayudante, mesero (cada uno sabe qué le toca).
+
+Los flujos de mensaje son los avisos entre estaciones: "¡pedido listo!".
+
+Así como un plano permite que electricista, plomero y arquitecto trabajen coordinados, BPMN permite que negocio y TI "hablen el mismo idioma".
+
+🧭 Elementos esenciales de BPMN
+Categoría	Elemento	Símbolo	Función
+Evento	Inicio	Círculo simple	Dispara el proceso
+Evento	Intermedio	Círculo doble	Ocurre durante el proceso (temporizador, mensaje, error)
+Evento	Fin	Círculo grueso	Termina el proceso o una rama
+Actividad	Tarea	Rectángulo redondeado	Trabajo atómico
+Actividad	Subproceso	Rectángulo con "+"	Proceso anidado
+Gateway	Exclusivo (XOR)	Rombo con "X"	Una sola ruta posible
+Gateway	Paralelo (AND)	Rombo con "+"	Todas las rutas en paralelo
+Gateway	Inclusivo (OR)	Rombo con "O"	Una o varias rutas
+Gateway	Basado en eventos	Rombo con pentágono	Ruta según evento ocurrido
+Conexión	Flujo de secuencia	Flecha sólida	Orden de ejecución
+Conexión	Flujo de mensaje	Línea punteada con flecha	Comunicación entre pools
+Swimlane	Pool	Rectángulo grande	Participante/organización
+Swimlane	Lane	Subdivisión del pool	Rol/departamento
+Artefacto	Objeto de datos	Rectángulo con esquina doblada	Información usada
+Artefacto	Anotación	Corchete con texto	Comentario
+
+Ejemplos de Prcoeso Empresariales:
+Proceso: Solicitud de vacaciones de un empleado
+Proceso de Atención y Preparación de Platos en un
+Restaurante
+Proceso de Negocio de Control y Mantenimiento de
+Autos
+Proceso de Envío y Entrega de Encomiendas
+Proceso de Gestión de Pedidos B2B (Mayorista)
+Proceso de Atención de Tickets de Soporte
+
+Con solo estos 6 elementos ya se modela un proceso completo, comprensible y ejecutable.
+
+📝 Notas personales
+BPMN no es un diagrama de flujo cualquiera: su valor está en la semántica precisa de cada símbolo.
+
+La versión 2.0 es la clave para automatización (XML ejecutable).
+
+Recomiendo dominar primero eventos, tareas y gateways; el resto se aprende después.
+
+Menos es más: un modelo claro con 10 elementos comunica mejor que uno con 50.
+
+Siempre definir alcance y nivel de detalle antes de dibujar.
+
+Complementar BPMN con DMN para decisiones complejas.
+
+Herramientas recomendadas: Camunda Modeler, bpmn.io, Bizagi, Draw.io, Signavio.
+
+La certificación OCEB (OMG Certified Expert in BPM) valida el conocimiento.
+
+📚 Fuente
+OMG (Object Management Group) — Business Process Model and Notation (BPMN) Specification, Version 2.0 (2011). Documento oficial: https://www.omg.org/spec/BPMN/
+
+OMG BPMN 2.0 Quick Guide y materiales oficiales de la OMG.
+
+Camunda — BPMN 2.0 Tutorial y documentación oficial (camunda.com).
+
+bpmn.io — Referencia visual de símbolos BPMN.
+
+Bizagi — Guía de modelado BPMN.
+
+Bruce Silver — BPMN Method and Style (libro de referencia).
+
+Stephen A. White — BPMN Modeling and Reference Guide.
+
+Object Management Group — Especificaciones complementarias: DMN, CMMN.
+
+
+
+

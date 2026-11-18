@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import './JuegosEmbebidos.css'
 
-/* Envuelve los juegos HTML de push() y reverse() guardados en /public/apuntes. */
+/* Juegos HTML reales de push() y reverse() guardados en /public/apuntes.
+   Se muestran apilados, uno debajo del otro, sin pestañas ni enlaces externos. */
 
 const JUEGOS = {
   push: {
-    titulo: 'Push · juegos embebidos',
+    titulo: 'Push · tus juegos',
     kicker: 'Array.prototype.push()',
     icon: '📥',
     descripcion:
@@ -32,7 +33,7 @@ const JUEGOS = {
     ],
   },
   reverse: {
-    titulo: 'Reverse · juegos embebidos',
+    titulo: 'Reverse · tus juegos',
     kicker: 'Array.prototype.reverse()',
     icon: '🔄',
     descripcion:
@@ -49,8 +50,8 @@ const JUEGOS = {
         controles: 'Usa los botones del juego. Pulsa dentro del marco para activar el teclado.',
       },
       {
-        id: 'lego-lab',
-        nombre: '🧱 LEGO Cyber Lab',
+        id: 'torre-reverse',
+        nombre: '🧱 Torre Reverse',
         metodo: 'reverse()',
         descripcion: 'Laboratorio con piezas que se invierten paso a paso.',
         src: '/apuntes/reverse/torreReverse.html',
@@ -60,13 +61,48 @@ const JUEGOS = {
   },
 }
 
-const rutaSegura = (src) => src.replace(/ /g, '%20').replace(/\(/g, '%28').replace(/\)/g, '%29')
+const rutaSegura = (src) =>
+  src.replace(/ /g, '%20').replace(/\(/g, '%28').replace(/\)/g, '%29')
+
+function JuegoFrame({ juego }) {
+  const [recarga, setRecarga] = useState(0)
+
+  return (
+    <article className="jem__game">
+      <div className="jem__frame-head">
+        <div>
+          <strong>{juego.nombre}</strong>
+          <span>{juego.descripcion}</span>
+        </div>
+        <button
+          type="button"
+          className="jem__reload"
+          onClick={() => setRecarga((n) => n + 1)}
+          title="Reiniciar el juego"
+        >
+          ↺ Reiniciar
+        </button>
+      </div>
+      <iframe
+        key={`${juego.id}-${recarga}`}
+        className="jem__iframe"
+        src={rutaSegura(juego.src)}
+        title={juego.nombre}
+        loading="lazy"
+        allow="fullscreen; autoplay; gamepad"
+        sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups"
+      />
+      <div className="jem__foot">
+        <p>
+          <strong>🎮 Controles:</strong> {juego.controles}
+        </p>
+      </div>
+    </article>
+  )
+}
 
 export default function JuegosEmbebidos({ tipo = 'push' }) {
   const data = JUEGOS[tipo] ?? JUEGOS.push
-  const [activo, setActivo] = useState(data.juegos[0].id)
-  const [recarga, setRecarga] = useState(0)
-  const juego = data.juegos.find((j) => j.id === activo) ?? data.juegos[0]
 
   return (
     <section className={`jem jem--${tipo}`}>
@@ -79,64 +115,18 @@ export default function JuegosEmbebidos({ tipo = 'push' }) {
             <p>{data.descripcion}</p>
           </div>
         </div>
-        <a
-          className="jem__open"
-          href={rutaSegura(juego.src)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          ↗ Abrir en pestaña nueva
-        </a>
       </header>
 
-      <div className="jem__tabs" role="tablist" aria-label={`Juegos de ${tipo}`}>
-        {data.juegos.map((j) => (
-          <button
-            key={j.id}
-            type="button"
-            role="tab"
-            aria-selected={activo === j.id}
-            className={`jem__tab ${activo === j.id ? 'is-active' : ''}`}
-            onClick={() => {
-              setActivo(j.id)
-              setRecarga(0)
-            }}
-          >
-            <strong>{j.nombre}</strong>
-            <small>{j.metodo}</small>
-          </button>
+      <div className="jem__lista">
+        {data.juegos.map((juego) => (
+          <JuegoFrame key={juego.id} juego={juego} />
         ))}
       </div>
 
-      <div className="jem__game">
-        <div className="jem__frame-head">
-          <div>
-            <strong>{juego.nombre}</strong>
-            <span>{juego.descripcion}</span>
-          </div>
-          <button
-            type="button"
-            className="jem__reload"
-            onClick={() => setRecarga((n) => n + 1)}
-            title="Reiniciar el juego"
-          >
-            ↺ Reiniciar
-          </button>
-        </div>
-        <iframe
-          key={`${juego.id}-${recarga}`}
-          className="jem__iframe"
-          src={rutaSegura(juego.src)}
-          title={juego.nombre}
-          loading="lazy"
-          allow="fullscreen; autoplay; gamepad"
-          sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-popups"
-        />
-      </div>
-
-      <div className="jem__foot">
-        <p><strong>🎮 Controles:</strong> {juego.controles}</p>
-        <p><strong>💡 Idea clave:</strong> {data.consejo}</p>
+      <div className="jem__foot jem__foot--idea">
+        <p>
+          <strong>💡 Idea clave:</strong> {data.consejo}
+        </p>
       </div>
     </section>
   )

@@ -1,0 +1,90 @@
+/* Base aislada de los juegos de Apuntes. Solo afecta a .apx-game. */
+.apx-game {
+  color-scheme: dark;
+  font-family: 'Rajdhani', system-ui, sans-serif;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.apx-game *,
+.apx-game *::before,
+.apx-game *::after {
+  box-sizing: border-box;
+}
+
+/* Reset acotado: replica lo mínimo del preflight de Tailwind sin tocar la app. */
+.apx-game :where(h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+  margin: 0;
+}
+
+.apx-game :where(ul, ol) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.apx-game :where(h1, h2, h3, h4, h5, h6) {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.apx-game :where(a) {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.apx-game :where(button, input, optgroup, select, textarea) {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.apx-game :where(button, [type='button'], [type='reset'], [type='submit']) {
+  background-color: transparent;
+  background-image: none;
+  cursor: pointer;
+  text-transform: none;
+}
+
+.apx-game :where(img, svg, video, canvas, audio, iframe, embed, object) {
+  display: block;
+  vertical-align: middle;
+}
+
+.apx-game :where(img, video) {
+  max-width: 100%;
+  height: auto;
+}
+
+.apx-game :where(table) {
+  border-collapse: collapse;
+  border-color: inherit;
+  text-indent: 0;
+}
+
+/* Los juegos son apps de pantalla completa: acotamos su altura para que no
+   aplasten el apunte. Se pueden seguir recorriendo con normalidad. */
+.apx-game .min-h-screen {
+  min-height: 100%;
+}
+
+.apx-game {
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* Scrollbars finas y coherentes dentro de cada juego. */
+.apx-game ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.apx-game ::-webkit-scrollbar-thumb {
+  background: rgba(120, 140, 170, 0.35);
+  border-radius: 999px;
+}
+.apx-game ::-webkit-scrollbar-track {
+  background: transparent;
+}

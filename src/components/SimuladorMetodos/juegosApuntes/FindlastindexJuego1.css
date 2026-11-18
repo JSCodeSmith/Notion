@@ -1,0 +1,35 @@
+.apx-findlastindex-1{
+  --bg:#030508;
+  --surface:#0a101d;
+  --surface-2:#0d1729;
+  --line:#1e2e4d;
+  --line-bright:#38e8ff;
+  --text:#eef6ff;
+  --muted:#9cb1cf;
+  --neon:#38e8ff;
+  --pink:#ff2e88;
+  --green:#2eff8a;
+  --yellow:#ffd52e;
+  --red:#ff4757;
+}
+.apx-findlastindex-1 *{box-sizing:border-box}
+.apx-findlastindex-1,.apx-findlastindex-1,.apx-findlastindex-1{margin:0;min-height:100%;background:var(--bg);color:var(--text)}
+.apx-findlastindex-1{font-family:'Rajdhani',system-ui,sans-serif;overflow-x:clip}
+.apx-findlastindex-1 button,.apx-findlastindex-1 input{font:inherit}
+.apx-findlastindex-1 button{cursor:pointer}
+.apx-findlastindex-1 button:disabled{cursor:not-allowed;opacity:.55}
+.apx-findlastindex-1 .mono{font-family:'Fira Code',monospace}
+.apx-findlastindex-1 .panel{background:linear-gradient(160deg,rgba(13,23,41,.94),rgba(5,9,20,.96));border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.04);backdrop-filter:blur(10px)}
+.apx-findlastindex-1 .neon{color:var(--neon);text-shadow:0 0 16px rgba(56,232,255,.65)}
+.apx-findlastindex-1 .pink{color:var(--pink);text-shadow:0 0 14px rgba(255,46,136,.55)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.apx-findlastindex-1 .shake{animation:shake .42s ease}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 rgba(46,255,138,.15)}50%{box-shadow:0 0 28px rgba(46,255,138,.55)}}
+.apx-findlastindex-1 .correct-card{border-color:var(--green)!important;background:linear-gradient(180deg,rgba(14,65,35,.72),rgba(5,18,28,.96))!important;animation:pulseGlow 1s ease 2}
+@keyframes scan{0%,100%{opacity:.55}50%{opacity:1}}
+.apx-findlastindex-1 .scanning{animation:scan .6s ease infinite}
+@keyframes flicker{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.55}94%{opacity:1}97%{opacity:.7}}
+.apx-findlastindex-1 .flicker{animation:flicker 5s infinite}
+.apx-findlastindex-1 .debug-scroll::-webkit-scrollbar{width:8px}
+.apx-findlastindex-1 .debug-scroll::-webkit-scrollbar-thumb{background:#24385f;border-radius:99px}
+.apx-findlastindex-1 .no-select{user-select:none;-webkit-user-select:none;touch-action:none}

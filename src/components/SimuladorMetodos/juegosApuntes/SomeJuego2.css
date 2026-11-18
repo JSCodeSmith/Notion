@@ -1,0 +1,33 @@
+.apx-some-2{
+  --bg:#030508;
+  --surface:#070d1a;
+  --surface-2:#0a1428;
+  --line:#1c2f52;
+  --cyan:#22d3ee;
+  --green:#22c55e;
+  --red:#ef4444;
+  --yellow:#facc15;
+  --text:#e8f6ff;
+  --muted:#8fa8c8;
+}
+@media (prefers-color-scheme: dark){
+  .apx-some-2{ --bg:#030508; --surface:#070d1a; --surface-2:#0a1428; --line:#1c2f52; --text:#e8f6ff; --muted:#8fa8c8; }
+}
+.apx-some-2 *{ box-sizing:border-box; }
+.apx-some-2,.apx-some-2{ background:var(--bg); color:var(--text); }
+.apx-some-2{ font-family:'Rajdhani',system-ui,sans-serif; margin:0; }
+.apx-some-2 .font-code{ font-family:'Fira Code',ui-monospace,monospace; }
+.apx-some-2 .neon{ text-shadow:0 0 12px rgba(34,211,238,.75), 0 0 30px rgba(34,211,238,.28); }
+.apx-some-2 .panel{ background:linear-gradient(180deg, rgba(10,20,40,.96), rgba(4,8,18,.96)); border:1px solid var(--line); box-shadow:0 0 0 1px rgba(34,211,238,.06), 0 18px 50px rgba(0,0,0,.45); }
+.apx-some-2 .glow-green{ box-shadow:0 0 24px rgba(34,197,94,.35); }
+.apx-some-2 .glow-red{ box-shadow:0 0 18px rgba(239,68,68,.22); }
+.apx-some-2 .scroll-thin::-webkit-scrollbar{ width:7px; height:7px; }
+.apx-some-2 .scroll-thin::-webkit-scrollbar-thumb{ background:#1c2f52; border-radius:99px; }
+.apx-some-2 .scroll-thin::-webkit-scrollbar-track{ background:transparent; }
+.apx-some-2 button{ font-family:inherit; }
+.apx-some-2 button:focus-visible, .apx-some-2 input:focus-visible{ outline:2px solid var(--cyan); outline-offset:2px; }
+.apx-some-2 input::placeholder{ color:#5f7a9e; }
+@keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
+.apx-some-2 .blink{ animation:blink 1s infinite; }
+@keyframes floaty{ 0%,100%{ transform:translateY(0)} 50%{ transform:translateY(-4px)} }
+.apx-some-2 .floaty{ animation:floaty 3s ease-in-out infinite; }

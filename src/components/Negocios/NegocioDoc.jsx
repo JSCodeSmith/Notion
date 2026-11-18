@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { Lista, Inline } from '../CareerDetail/MetodoDoc'
 import CodeBlock from '../CodeBlock/CodeBlock'
 import NegociosLab from './NegociosLab'
 import SimuladorAritmetica from './SimuladorAritmetica'
 import LaboratorioAritmetica from './LaboratorioAritmetica'
 import QuizNegocio from './QuizNegocio'
+import QuizApunte from '../SimuladorFind/QuizApunte'
 import NegocioDiagrama from './NegocioDiagrama'
 import BpmnLab from './bpmn/BpmnLab'
+import BpmnComoFunciona from './bpmn/BpmnComoFunciona'
+import BpmnProcesos from './bpmn/BpmnProcesos'
+import BpmnSimbolos from './bpmn/BpmnSimbolos'
+import BpmnRelacion from './bpmn/BpmnRelacion'
+import BpmnCasosUso from './bpmn/BpmnCasosUso'
+import { BPMN_QUIZ } from '../../data/bpmnQuiz'
 import { SIMULADORES_INNOVACION } from './simuladoresInnovacion'
 import { misionesDeNota } from './labMisiones'
 import './Negocios.css'
@@ -209,6 +216,8 @@ export default function NegocioDoc({ nota, onBack }) {
         <Seccion titulo="🎯 ¿Para qué sirve?" items={nota.paraQueSirve} />
         <Seccion titulo="⚙️ ¿Cómo funciona?" items={nota.comoFunciona} full />
 
+        {nota.id === 'bpmn' && <BpmnComoFunciona key="bpmn-como" />}
+
         {partes.map((parte, i) => (
           <div key={i} className="doc-card doc-card--full negocio-parte">
             <h3>🧩 {parte.titulo.replace(/^\**\s*\d\uFE0F?\u20E3\s*/, '').replace(/\*\*/g, '')}</h3>
@@ -228,10 +237,15 @@ export default function NegocioDoc({ nota, onBack }) {
 
         <Seccion titulo="⚠️ Errores comunes" items={nota.errores} />
         <Seccion titulo="💼 Casos de uso" items={nota.casos} />
+
+        {nota.id === 'bpmn' && <BpmnCasosUso key="bpmn-casos" />}
+
         <Seccion
           titulo="🧩 Relación con otros conceptos"
           items={nota.relacion}
         />
+
+        {nota.id === 'bpmn' && <BpmnRelacion key="bpmn-relacion" />}
 
         {nota.analogia && (
           <div className="doc-card">
@@ -243,13 +257,20 @@ export default function NegocioDoc({ nota, onBack }) {
         )}
 
         {extrasVisibles.map((extra, i) => (
-          <Seccion
-            key={i}
-            titulo={extra.seccion.replace(/\*\*/g, '')}
-            items={extra.textos}
-            full
-          />
+          <Fragment key={i}>
+            <Seccion
+              titulo={extra.seccion.replace(/\*\*/g, '')}
+              items={extra.textos}
+              full
+            />
+            {nota.id === 'bpmn' &&
+              /Elementos esenciales/i.test(extra.seccion) && (
+                <BpmnSimbolos key={`bpmn-simbolos-${i}`} />
+              )}
+          </Fragment>
         ))}
+
+        {nota.id === 'bpmn' && <BpmnProcesos key="bpmn-procesos" />}
 
         <Seccion
           titulo="📝 Notas personales"
@@ -257,18 +278,27 @@ export default function NegocioDoc({ nota, onBack }) {
           full
         />
 
-        {nota.quiz?.length > 0 && (
-          <QuizNegocio
-            preguntas={nota.quiz.map((q) => ({
-              ...q,
-              explicacion:
-                q.explicacion ??
-                `La respuesta correcta es «${q.opciones?.[q.correcta] ?? ''}». Vuelve a la sección correspondiente del apunte para reforzar esta idea y contrástala con los demás conceptos.`,
-            }))}
-            titulo={`🧠 Quiz · ${nota.titulo}`}
-            subtitulo={`${nota.quiz.length} preguntas con explicación`}
-          />
-        )}
+        {nota.quiz?.length > 0 &&
+          (nota.id === 'bpmn' ? (
+            <QuizApunte
+              preguntas={BPMN_QUIZ}
+              titulo="🧠 Quiz · BPMN"
+              subtitulo="14 preguntas con pistas ampliadas y explicación de cada respuesta."
+              mensajePerfecto="¡Perfecto! Dominas los símbolos, las compuertas y las reglas de BPMN."
+              mensajeBueno="Buen intento. Repasa los eventos, las compuertas y la diferencia entre flujo de secuencia y de mensaje; luego vuelve a probar."
+            />
+          ) : (
+            <QuizNegocio
+              preguntas={nota.quiz.map((q) => ({
+                ...q,
+                explicacion:
+                  q.explicacion ??
+                  `La respuesta correcta es «${q.opciones?.[q.correcta] ?? ''}». Vuelve a la sección correspondiente del apunte para reforzar esta idea y contrástala con los demás conceptos.`,
+              }))}
+              titulo={`🧠 Quiz · ${nota.titulo}`}
+              subtitulo={`${nota.quiz.length} preguntas con explicación`}
+            />
+          ))}
 
         <div className="doc-card doc-card--full negocio-fuente">
           <h3>📚 Fuente:</h3>

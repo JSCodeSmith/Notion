@@ -1,0 +1,50 @@
+.apx-findindex-1{
+  --bg:#030508;
+  --panel:#070d1a;
+  --panel2:#0a1428;
+  --line:#1b2f4d;
+  --cyan:#22d3ee;
+  --green:#22ff88;
+  --pink:#ff2e88;
+  --yellow:#ffe600;
+  --text:#e8f6ff;
+  --muted:#8fb3d1;
+  --safe-area-inset-top:0px;
+}
+.apx-findindex-1 *{box-sizing:border-box}
+.apx-findindex-1,.apx-findindex-1{margin:0;background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif}
+.apx-findindex-1 button,.apx-findindex-1 input{font-family:inherit}
+.apx-findindex-1 .mono{font-family:'Fira Code',monospace}
+.apx-findindex-1 .layout{display:grid;grid-template-columns:300px minmax(0,1fr) 420px;gap:14px;align-items:start}
+.apx-findindex-1 .panel{background:linear-gradient(180deg,rgba(10,20,40,.92),rgba(4,8,18,.96));border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(10px);box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.apx-findindex-1 .panel-title{font-weight:700;letter-spacing:.12em;font-size:13px;color:var(--cyan)}
+.apx-findindex-1 .suspect-row{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 12px;scrollbar-color:#22d3ee #071122}
+.apx-findindex-1 .suspect-row::-webkit-scrollbar{height:8px}
+.apx-findindex-1 .suspect-row::-webkit-scrollbar-thumb{background:#164e63;border-radius:99px}
+.apx-findindex-1 .s-card{min-width:118px;flex:0 0 118px;background:#0a1224;border:1px solid #1e3a5f;border-radius:14px;padding:10px 8px;text-align:center;cursor:pointer;transition:.15s;color:var(--text)}
+.apx-findindex-1 .s-card:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.apx-findindex-1 .s-card.selected{border:2px solid var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.25),0 0 22px rgba(34,211,238,.35);background:#08202e}
+.apx-findindex-1 .s-card.correct{border-color:var(--green)!important;box-shadow:0 0 26px rgba(34,255,136,.65);background:#052e1a}
+.apx-findindex-1 .s-card.wrong{border-color:#ff3b5c!important;animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 18px rgba(34,255,136,.35)}50%{box-shadow:0 0 38px rgba(34,255,136,.85)}}
+.apx-findindex-1 .glow-green{animation:glowPulse 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.apx-findindex-1 .blink{animation:blink 1s infinite}
+.apx-findindex-1 .idx-btn{min-width:42px;height:42px;border-radius:10px;border:1px solid #1e3a5f;background:#0a1224;color:white;font-weight:700;cursor:pointer;font-family:'Fira Code',monospace}
+.apx-findindex-1 .idx-btn:hover{border-color:var(--cyan)}
+.apx-findindex-1 .idx-btn.sel{background:var(--cyan);color:#02141a;box-shadow:0 0 16px rgba(34,211,238,.6)}
+.apx-findindex-1 .idx-btn.correct{background:var(--green);color:#02150a}
+.apx-findindex-1 .idx-btn.wrong{background:#ff3b5c;color:white}
+.apx-findindex-1 .case-btn{width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 11px;border-radius:12px;border:1px solid #1e3a5f;background:#081226;color:white;cursor:pointer}
+.apx-findindex-1 .case-btn:hover{border-color:var(--cyan)}
+.apx-findindex-1 .case-btn.active{border-color:var(--cyan);background:#072233;box-shadow:0 0 18px rgba(34,211,238,.25)}
+.apx-findindex-1 .btn-primary{background:var(--cyan);color:#02141a;font-weight:800;border:none;border-radius:12px;padding:12px 14px;cursor:pointer;letter-spacing:.04em}
+.apx-findindex-1 .btn-primary:disabled{opacity:.55;cursor:not-allowed}
+.apx-findindex-1 .btn-ghost{background:#0a1224;border:1px solid #2a4a6a;color:white;border-radius:12px;padding:10px 12px;cursor:pointer}
+.apx-findindex-1 .btn-ghost:disabled{opacity:.5}
+.apx-findindex-1 .debug-line{white-space:pre-wrap;word-break:break-word;line-height:1.55}
+.apx-findindex-1 input[type=text]{width:100%;background:#050b18;border:1px solid #1e3a5f;border-radius:10px;color:white;padding:11px 12px;outline:none;font-family:'Fira Code',monospace}
+.apx-findindex-1 input[type=text]:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.2)}
+@media(max-width:1120px){.apx-findindex-1 .layout{grid-template-columns:1fr}}
+@media(max-width:640px){.apx-findindex-1 .s-card{min-width:106px;flex-basis:106px}.apx-findindex-1 .layout{gap:12px}}
