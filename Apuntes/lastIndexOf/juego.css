@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#030508;
+  --surface:#0a0f1e;
+  --surface-2:#10182c;
+  --gold:#f2c94c;
+  --gold-soft:#ffe9a3;
+  --ink:#e8e2d2;
+  --muted:#9aa7bd;
+  --moon:#b8d7ff;
+  --green:#45e6a3;
+  --red:#ff5470;
+  --line:rgba(242,201,76,.24);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#030508; --surface:#0a0f1e; }
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; background:var(--bg); color:var(--ink); }
+body{ font-family:'Rajdhani',system-ui,sans-serif; }
+.mono{ font-family:'Fira Code',ui-monospace,monospace; }
+.panel{
+  background:linear-gradient(160deg, rgba(16,24,44,.92), rgba(5,8,17,.96));
+  border:1px solid var(--line);
+  box-shadow:0 20px 55px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter:blur(14px);
+  border-radius:18px;
+}
+.paper{
+  background:
+    radial-gradient(circle at 88% 8%, rgba(242,201,76,.13), transparent 28%),
+    linear-gradient(180deg, rgba(232,226,210,.055), rgba(232,226,210,.015));
+  border:1px solid rgba(232,226,210,.18);
+}
+.gold-text{ color:var(--gold); }
+.gold-glow{ box-shadow:0 0 0 2px var(--gold), 0 0 34px rgba(242,201,76,.55); background:rgba(242,201,76,.18)!important; }
+.traverse{ box-shadow:0 0 0 2px var(--moon), 0 0 26px rgba(184,215,255,.5); background:rgba(184,215,255,.14)!important; }
+@keyframes shake{ 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(4px)} }
+.shake{ animation:shake .42s ease; }
+@keyframes pulseGold{ 0%,100%{opacity:.55} 50%{opacity:1} }
+.echo{ animation:pulseGold 1.1s ease infinite; }
+@keyframes fadeUp{ from{opacity:0; transform:translateY(7px)} to{opacity:1; transform:translateY(0)} }
+.fade-up{ animation:fadeUp .35s ease both; }
+input[type=number]::-webkit-inner-spin-button{ opacity:1; }
+button{ transition:transform .12s ease, filter .12s ease, background .15s ease; }
+button:active{ transform:translateY(1px) scale(.99); }
+button:disabled{ opacity:.52; cursor:not-allowed; }
+.scroll-thin::-webkit-scrollbar{ width:6px; height:6px; }
+.scroll-thin::-webkit-scrollbar-thumb{ background:#2b3a58; border-radius:99px; }

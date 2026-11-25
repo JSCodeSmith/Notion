@@ -2,48 +2,59 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../SimuladorFind/SimuladorFindDiagrama.css';
 import { formatValue } from '../SimuladorFind/findTrace';
 import { ejecutarDemo, formatearResultado } from './ejecutarMetodo';
-import { obtenerDemo, obtenerFamilia, obtenerNombre } from './metodosMeta';
+import { obtenerDemo, obtenerFamilia, obtenerNombre, uiMetodo } from './metodosMeta';
 
 /* ------------------------------------------------------------------
    Etiquetas que cambian según el método
    ------------------------------------------------------------------ */
 
-const FALLO = {
-  find: 'undefined',
-  findlast: 'undefined',
-  findindex: '-1',
-  findlastindex: '-1',
-  indexof: '-1',
-  lastindexof: '-1',
-  some: 'false',
-  every: 'true',
-};
+const ES_INDICE = new Set(['findindex', 'findlastindex', 'indexof', 'lastindexof']);
+const ES_REVERSA = new Set(['findlast', 'findlastindex', 'lastindexof']);
 
-const EXITO = {
-  find: 'elemento',
-  findlast: 'elemento',
-  findindex: 'índice',
-  findlastindex: 'índice',
-  indexof: 'índice',
-  lastindexof: 'índice',
-  some: 'true',
-  every: 'false',
+/* Texto del nodo de retorno: cada método dice qué devuelve de verdad. */
+const retornoTexto = (metodoId, ui, tipo) => {
+  if (tipo === 'success') {
+    if (metodoId === 'some' || metodoId === 'every') return 'Return true ✅';
+    return `Return ${ui.retorno}`;
+  }
+  if (metodoId === 'some' || metodoId === 'every') return 'Return false ❌';
+  return `Return ${ui.fallo}`;
 };
 
 /* ------------------------------------------------------------------
-   Flujos por familia: mismos nodos y estética que find()
+   Flujos: cada método dibuja SU recorrido, no el de la familia.
    ------------------------------------------------------------------ */
 
-const FLUJOS = {
-  busqueda: {
+const flujoBusqueda = (metodoId, ui, reversa, esEvery) => {
+  const successPos = esEvery ? { x: 110, y: 250 } : { x: 480, y: 445 };
+  const failPos = esEvery ? { x: 480, y: 445 } : { x: 110, y: 250 };
+  const decision = esEvery ? '¿Cumple?' : ui.decision;
+  const check = reversa ? '¿idx ≥ 0?' : '¿idx < length?';
+  return {
     nodos: [
-      { id: 'start', x: 300, y: 45, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'iter', x: 300, y: 135, label: 'Iterar', sub: 'idx = {idx}' },
-      { id: 'check', x: 300, y: 250, tipo: 'decision', label: '¿idx < length?' },
-      { id: 'eval', x: 300, y: 345, label: 'Evaluar condición', sub: '{cond}' },
-      { id: 'dec', x: 300, y: 445, tipo: 'decision', label: '¿Es true?' },
-      { id: 'fail', x: 110, y: 250, tipo: 'pill ret-fail', label: 'Return {fallo}' },
-      { id: 'success', x: 480, y: 445, tipo: 'pill ret-success', label: 'Return {exito}' },
+      { id: 'start', x: 300, y: 45, tipo: 'pill', label: `Inicio: array.${ui.corto}()` },
+      {
+        id: 'iter',
+        x: 300,
+        y: 135,
+        label: reversa ? 'Retroceder' : 'Iterar',
+        sub: reversa ? 'idx = idx − 1' : 'idx = {idx}',
+      },
+      { id: 'check', x: 300, y: 250, tipo: 'decision', label: check },
+      { id: 'eval', x: 300, y: 345, label: ui.accion, sub: '{cond}' },
+      { id: 'dec', x: 300, y: 445, tipo: 'decision', label: decision },
+      {
+        id: 'fail',
+        ...failPos,
+        tipo: 'pill ret-fail',
+        label: retornoTexto(metodoId, ui, 'fail'),
+      },
+      {
+        id: 'success',
+        ...successPos,
+        tipo: 'pill ret-success',
+        label: retornoTexto(metodoId, ui, 'success'),
+      },
     ],
     paths: [
       { id: 'p1', d: 'M 300 80 L 300 105' },
@@ -54,93 +65,235 @@ const FLUJOS = {
       { id: 'p6', d: 'M 350 445 L 410 445' },
       { id: 'p7', d: 'M 250 445 L 55 445 L 55 135 L 245 135' },
     ],
-  },
+  };
+};
 
-  transformacion: {
+const flujoLineal = (nodos) => {
+  const n = nodos.pasos.length;
+  return {
     nodos: [
-      { id: 'start', x: 300, y: 45, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'iter', x: 300, y: 135, label: 'Iterar', sub: 'idx = {idx}' },
-      { id: 'check', x: 300, y: 250, tipo: 'decision', label: '¿idx < length?' },
-      { id: 'eval', x: 300, y: 345, label: 'Aplicar callback / copiar', sub: '{cond}' },
-      { id: 'dec', x: 300, y: 445, tipo: 'decision', label: '¿Es el último?' },
-      { id: 'success', x: 480, y: 445, tipo: 'pill ret-success', label: 'Return salida' },
+      { id: 'start', x: 300, y: 55, tipo: 'pill', label: nodos.inicio },
+      ...nodos.pasos.map((paso, i) => ({
+        id: paso.id,
+        x: 300,
+        y: 160 + i * 105,
+        label: paso.label,
+        sub: paso.sub,
+      })),
+      {
+        id: 'success',
+        x: 300,
+        y: 160 + n * 105,
+        tipo: 'pill ret-success',
+        label: nodos.retorno,
+      },
     ],
     paths: [
-      { id: 'p1', d: 'M 300 80 L 300 105' },
-      { id: 'p2', d: 'M 300 170 L 300 215' },
-      { id: 'p4', d: 'M 300 292 L 300 318' },
-      { id: 'p5', d: 'M 300 380 L 300 412' },
-      { id: 'p6', d: 'M 350 445 L 410 445' },
-      { id: 'p7', d: 'M 250 445 L 55 445 L 55 135 L 245 135' },
-      { id: 'p3', d: 'M 250 250 L 55 250 L 55 135 L 245 135' },
+      { id: 'p1', d: 'M 300 90 L 300 122' },
+      ...nodos.pasos.map((_, i) => ({
+        id: `p${i + 2}`,
+        d: `M 300 ${198 + i * 105} L 300 ${227 + i * 105}`,
+      })),
     ],
-  },
+  };
+};
 
-  mutador: {
-    nodos: [
-      { id: 'start', x: 300, y: 70, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'op', x: 300, y: 200, label: 'Operar en el sitio', sub: '{cond}' },
-      { id: 'upd', x: 300, y: 320, label: 'Actualizar el array', sub: 'length' },
-      { id: 'success', x: 300, y: 440, tipo: 'pill ret-success', label: 'Return {exito}' },
+const flujoMutador = (ui, extras = {}) =>
+  flujoLineal({
+    inicio: `Inicio: array.${ui.corto}()`,
+    pasos: [
+      {
+        id: 'op',
+        label: extras.op ?? ui.accion,
+        sub: extras.opSub ?? '{cond}',
+      },
+      {
+        id: 'upd',
+        label: extras.upd ?? 'Actualizar el array',
+        sub: extras.updSub ?? 'mismo array, nueva longitud',
+      },
     ],
-    paths: [
-      { id: 'p1', d: 'M 300 105 L 300 165' },
-      { id: 'p4', d: 'M 300 235 L 300 285' },
-      { id: 'p5', d: 'M 300 355 L 300 405' },
-    ],
-  },
+    retorno: extras.retorno ?? `Return ${ui.retorno}`,
+  });
 
-  reduccion: {
-    nodos: [
-      { id: 'start', x: 300, y: 45, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'init', x: 300, y: 130, label: 'Acumulador inicial', sub: '{valorInicial}' },
-      { id: 'iter', x: 300, y: 220, label: 'Iterar', sub: 'idx = {idx}' },
-      { id: 'eval', x: 300, y: 320, label: 'acumulador = callback', sub: '{cond}' },
-      { id: 'dec', x: 300, y: 425, tipo: 'decision', label: '¿Es el último?' },
-      { id: 'success', x: 480, y: 425, tipo: 'pill ret-success', label: 'Return acumulador' },
-    ],
-    paths: [
-      { id: 'p1', d: 'M 300 80 L 300 100' },
-      { id: 'p2', d: 'M 300 160 L 300 190' },
-      { id: 'p4', d: 'M 300 255 L 300 288' },
-      { id: 'p5', d: 'M 300 355 L 300 392' },
-      { id: 'p6', d: 'M 350 425 L 410 425' },
-      { id: 'p7', d: 'M 250 425 L 55 425 L 55 220 L 245 220' },
-    ],
-  },
+const FLUJOS_METODO = {
+  push: (ui, demo) =>
+    flujoMutador(ui, {
+      op: 'Añadir al final',
+      opSub: `push(${(demo.items ?? []).map(String).join(', ')})`,
+      upd: 'Actualizar length',
+      updSub: 'length = length + 1',
+      retorno: 'Return nueva longitud 🔢',
+    }),
+  unshift: (ui, demo) =>
+    flujoMutador(ui, {
+      op: 'Insertar al inicio',
+      opSub: `unshift(${(demo.items ?? []).map(String).join(', ')})`,
+      upd: 'Desplazar los índices',
+      updSub: 'length = length + n',
+      retorno: 'Return nueva longitud 🔢',
+    }),
+  pop: (ui) =>
+    flujoMutador(ui, {
+      op: 'Extraer el último',
+      opSub: 'array[length − 1]',
+      upd: 'Acortar el array',
+      updSub: 'length = length − 1',
+      retorno: 'Return elemento extraído ✅',
+    }),
+  shift: (ui) =>
+    flujoMutador(ui, {
+      op: 'Extraer el primero',
+      opSub: 'array[0]',
+      upd: 'Reindexar el resto',
+      updSub: 'cada elemento baja 1',
+      retorno: 'Return elemento extraído ✅',
+    }),
+  reverse: (ui) =>
+    flujoMutador(ui, {
+      op: 'Intercambiar extremos',
+      opSub: '[i] ↔ [length − 1 − i]',
+      upd: 'Array invertido en el sitio',
+      updSub: 'avanza hacia el centro',
+      retorno: 'Return el MISMO array 🔄',
+    }),
+  sort: (ui) =>
+    flujoMutador(ui, {
+      op: 'Comparar pareja',
+      opSub: '(a, b) => Number(a) − Number(b)',
+      upd: 'Intercambiar si hace falta',
+      updSub: '[j−1] ↔ [j]',
+      retorno: 'Return array ordenado 🔀',
+    }),
+  tosorted: (ui) =>
+    flujoLineal({
+      inicio: 'Inicio: array.toSorted()',
+      pasos: [
+        { id: 'copy', label: 'Copiar el array', sub: 'el original NO se toca' },
+        { id: 'op', label: 'Comparar pareja', sub: '(a, b) => a − b' },
+        { id: 'upd', label: 'Ordenar la copia', sub: 'intercambia en la copia' },
+      ],
+      retorno: 'Return copia ordenada 🧬',
+    }),
+  at: (ui, demo) =>
+    flujoLineal({
+      inicio: `Inicio: array.at(${demo.index ?? 0})`,
+      pasos: [
+        {
+          id: 'calc',
+          label: 'Resolver el índice',
+          sub:
+            Number(demo.index ?? 0) < 0
+              ? `${demo.array?.length ?? 0} + (${demo.index}) = ${
+                  (demo.array?.length ?? 0) + Number(demo.index ?? 0)
+                }`
+              : `índice directo: ${demo.index ?? 0}`,
+        },
+        { id: 'read', label: 'Leer esa posición', sub: 'array[indice]' },
+      ],
+      retorno: 'Return el elemento 🎯',
+    }),
+  some: (ui) => flujoBusqueda('some', ui, false, false),
+  every: (ui) => flujoBusqueda('every', ui, false, true),
+  findindex: (ui) => flujoBusqueda('findindex', ui, false, false),
+  findlast: (ui) => flujoBusqueda('findlast', ui, true, false),
+  findlastindex: (ui) => flujoBusqueda('findlastindex', ui, true, false),
+  indexof: (ui) => flujoBusqueda('indexof', ui, false, false),
+  lastindexof: (ui) => flujoBusqueda('lastindexof', ui, true, false),
+};
 
-  iterador: {
+const flujoDe = (metodoId, familia, ui, demo) => {
+  if (FLUJOS_METODO[metodoId]) return FLUJOS_METODO[metodoId](ui, demo);
+  if (familia === 'busqueda') {
+    return flujoBusqueda(metodoId, ui, ES_REVERSA.has(metodoId), false);
+  }
+  if (familia === 'mutador') return flujoMutador(ui);
+  if (familia === 'reduccion') {
+    return {
+      nodos: [
+        { id: 'start', x: 300, y: 45, tipo: 'pill', label: `Inicio: array.${ui.corto}()` },
+        { id: 'init', x: 300, y: 130, label: 'Acumulador inicial', sub: '{valorInicial}' },
+        { id: 'iter', x: 300, y: 220, label: 'Iterar', sub: 'idx = {idx}' },
+        { id: 'eval', x: 300, y: 320, label: ui.accion, sub: '{cond}' },
+        { id: 'dec', x: 300, y: 425, tipo: 'decision', label: '¿Es el último?' },
+        {
+          id: 'success',
+          x: 480,
+          y: 425,
+          tipo: 'pill ret-success',
+          label: `Return ${ui.retorno}`,
+        },
+      ],
+      paths: [
+        { id: 'p1', d: 'M 300 80 L 300 100' },
+        { id: 'p2', d: 'M 300 160 L 300 190' },
+        { id: 'p4', d: 'M 300 255 L 300 288' },
+        { id: 'p5', d: 'M 300 355 L 300 392' },
+        { id: 'p6', d: 'M 350 425 L 410 425' },
+        { id: 'p7', d: 'M 250 425 L 55 425 L 55 220 L 245 220' },
+      ],
+    };
+  }
+  if (familia === 'iterador') {
+    return {
+      nodos: [
+        { id: 'start', x: 300, y: 45, tipo: 'pill', label: `Inicio: array.${ui.corto}()` },
+        { id: 'init', x: 300, y: 140, label: 'Crear iterador' },
+        { id: 'check', x: 300, y: 250, tipo: 'decision', label: '¿done?' },
+        { id: 'eval', x: 300, y: 350, label: ui.accion, sub: '{cond}' },
+        { id: 'success', x: 480, y: 250, tipo: 'pill ret-success', label: 'Fin del iterador' },
+      ],
+      paths: [
+        { id: 'p1', d: 'M 300 80 L 300 110' },
+        { id: 'p2', d: 'M 300 165 L 300 215' },
+        { id: 'p4', d: 'M 300 292 L 300 320' },
+        { id: 'p3', d: 'M 350 250 L 415 250' },
+        { id: 'p5', d: 'M 300 380 L 300 405 L 55 405 L 55 250 L 245 250' },
+      ],
+    };
+  }
+  if (familia === 'transformacion') {
+    return {
+      nodos: [
+        { id: 'start', x: 300, y: 45, tipo: 'pill', label: `Inicio: array.${ui.corto}()` },
+        { id: 'iter', x: 300, y: 135, label: 'Iterar', sub: 'idx = {idx}' },
+        { id: 'check', x: 300, y: 250, tipo: 'decision', label: '¿idx < length?' },
+        { id: 'eval', x: 300, y: 345, label: ui.accion, sub: '{cond}' },
+        { id: 'dec', x: 300, y: 445, tipo: 'decision', label: '¿Es el último?' },
+        {
+          id: 'success',
+          x: 480,
+          y: 445,
+          tipo: 'pill ret-success',
+          label: `Return ${ui.retorno}`,
+        },
+      ],
+      paths: [
+        { id: 'p1', d: 'M 300 80 L 300 105' },
+        { id: 'p2', d: 'M 300 170 L 300 215' },
+        { id: 'p4', d: 'M 300 292 L 300 318' },
+        { id: 'p5', d: 'M 300 380 L 300 412' },
+        { id: 'p6', d: 'M 350 445 L 410 445' },
+        { id: 'p7', d: 'M 250 445 L 55 445 L 55 135 L 245 135' },
+        { id: 'p3', d: 'M 250 250 L 55 250 L 55 135 L 245 135' },
+      ],
+    };
+  }
+  return {
     nodos: [
-      { id: 'start', x: 300, y: 45, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'init', x: 300, y: 140, label: 'Crear iterador' },
-      { id: 'check', x: 300, y: 250, tipo: 'decision', label: '¿done?' },
-      { id: 'eval', x: 300, y: 350, label: 'Entregar value', sub: '{cond}' },
-      { id: 'success', x: 480, y: 250, tipo: 'pill ret-success', label: 'Fin del iterador' },
-    ],
-    paths: [
-      { id: 'p1', d: 'M 300 80 L 300 110' },
-      { id: 'p2', d: 'M 300 165 L 300 215' },
-      { id: 'p4', d: 'M 300 292 L 300 320' },
-      { id: 'p3', d: 'M 350 250 L 415 250' },
-      { id: 'p5', d: 'M 300 380 L 300 405 L 55 405 L 55 250 L 245 250' },
-    ],
-  },
-
-  utilidad: {
-    nodos: [
-      { id: 'start', x: 300, y: 70, tipo: 'pill', label: 'Inicio: array.{metodo}()' },
-      { id: 'op', x: 300, y: 210, label: 'Calcular', sub: '{cond}' },
-      { id: 'success', x: 300, y: 340, tipo: 'pill ret-success', label: 'Return {exito}' },
+      { id: 'start', x: 300, y: 70, tipo: 'pill', label: `Inicio: array.${ui.corto}()` },
+      { id: 'op', x: 300, y: 210, label: ui.accion, sub: '{cond}' },
+      { id: 'success', x: 300, y: 340, tipo: 'pill ret-success', label: `Return ${ui.retorno}` },
     ],
     paths: [
       { id: 'p1', d: 'M 300 105 L 300 175' },
       { id: 'p4', d: 'M 300 245 L 300 305' },
     ],
-  },
+  };
 };
 
 const PARAMETRO = {
-  busqueda: { etiqueta: (demo) => `Condición (n ${demo.op ?? '>'} ?)`, tipo: 'number' },
+  busqueda: { etiqueta: (demo) => `Condición (n ${demo.op ?? '>' } ?)`, tipo: 'number' },
   transformacion: null,
   mutador: null,
   reduccion: null,
@@ -157,96 +310,165 @@ const parsearArray = (texto) => {
   }
 };
 
+const leerValor = (texto) => {
+  try {
+    return new Function(`return (${texto});`)();
+  } catch {
+    return texto;
+  }
+};
+
+/* Negritas y código inline dentro de las explicaciones. */
+const conFormato = (texto) =>
+  String(texto)
+    .split(/(\*\*.+?\*\*|`[^`]+`)/g)
+    .map((parte, i) => {
+      if (parte.startsWith('**') && parte.endsWith('**')) {
+        return <strong key={i}>{parte.slice(2, -2)}</strong>;
+      }
+      if (parte.startsWith('`') && parte.endsWith('`')) {
+        return <code key={i}>{parte.slice(1, -1)}</code>;
+      }
+      return parte;
+    });
+
 /* ------------------------------------------------------------------
    Guion de la animación a partir de la traza real
    ------------------------------------------------------------------ */
 
 const construirGuion = (metodoId, demo, familia, resultado) => {
   const guion = [];
-
-  for (const paso of demo.pasos) {
-    const base = {
+  const add = (paso, nodo, path, extra = {}) => {
+    guion.push({
       log: paso.msg,
       fase: paso.fase,
       tipo: paso.tipo,
       index: paso.index,
       salida: paso.salida,
-    };
+      nodo,
+      path,
+      ...extra,
+    });
+  };
 
+  const esEvery = metodoId === 'every';
+
+  const nodoFinal = () => {
+    if (familia !== 'busqueda') return { nodo: 'success', path: 'p5' };
+    let ok;
+    if (metodoId === 'some' || metodoId === 'every') ok = resultado === true;
+    else if (ES_INDICE.has(metodoId)) ok = resultado !== -1;
+    else ok = resultado !== undefined;
+    if (esEvery) return ok ? { nodo: 'success', path: 'p3' } : { nodo: 'fail', path: 'p6' };
+    return ok ? { nodo: 'success', path: 'p6' } : { nodo: 'fail', path: 'p3' };
+  };
+
+  for (const paso of demo.pasos) {
     if (paso.fase === 'inicio') {
-      guion.push({ ...base, nodo: 'start', path: 'p1' });
+      add(paso, 'start', 'p1');
       continue;
     }
 
     if (familia === 'busqueda') {
       if (paso.fase === 'evaluar') {
-        guion.push({ ...base, nodo: 'iter', path: 'p2', log: '' });
-        guion.push({ ...base, nodo: 'check', path: paso.tipo === 'success' ? 'p4' : 'p3', log: '' });
-        guion.push({ ...base, nodo: 'eval', path: 'p5' });
-        guion.push({ ...base, nodo: 'dec', path: paso.tipo === 'success' ? 'p6' : 'p7', log: '' });
+        const encontrado = paso.tipo === 'success';
+        add(paso, 'iter', 'p2', { log: '' });
+        add(paso, 'check', 'p4', { log: '' });
+        add(paso, 'eval', 'p5');
+        if (esEvery) {
+          add(paso, 'dec', encontrado ? 'p7' : 'p6', { log: '' });
+        } else {
+          add(paso, 'dec', encontrado ? 'p6' : 'p7', { log: '' });
+        }
+      } else if (paso.fase === 'resumen') {
+        if (esEvery) add(paso, 'success', 'p3');
+        else add(paso, 'fail', 'p3');
       } else if (paso.fase === 'retorno') {
-        guion.push({
-          ...base,
-          nodo: paso.tipo === 'return' && resultado !== undefined ? 'success' : 'success',
-          path: 'p6',
-        });
+        const fin = nodoFinal();
+        const ultimo = guion[guion.length - 1];
+        if (ultimo?.nodo === fin.nodo) ultimo.log = paso.msg;
+        else add(paso, fin.nodo, fin.path);
+      }
+      continue;
+    }
+
+    if (metodoId === 'tosorted') {
+      if (paso.fase === 'accion') add(paso, 'copy', 'p1');
+      else if (paso.fase === 'comparar') add(paso, 'op', 'p2');
+      else if (paso.fase === 'mutar') add(paso, 'upd', 'p3');
+      else if (paso.fase === 'retorno') add(paso, 'success', 'p4');
+      continue;
+    }
+
+    if (metodoId === 'at') {
+      if (paso.fase === 'accion') {
+        add(paso, 'calc', 'p1');
+        add(paso, 'read', 'p2', { log: '' });
+      } else if (paso.fase === 'retorno') {
+        add(paso, 'success', 'p3');
+      }
+      continue;
+    }
+
+    if (
+      familia === 'mutador' ||
+      metodoId === 'reverse' ||
+      metodoId === 'sort'
+    ) {
+      if (paso.fase === 'comparar') {
+        add(paso, 'op', 'p1');
+      } else if (paso.fase === 'mutar') {
+        add(paso, 'op', 'p1', metodoId === 'sort' ? { log: '' } : {});
+        add(paso, 'upd', 'p2', { log: '' });
+      } else if (paso.fase === 'iterar' || paso.fase === 'accion') {
+        add(paso, 'op', 'p1');
+      } else if (paso.fase === 'retorno') {
+        add(paso, 'success', 'p3');
       }
       continue;
     }
 
     if (familia === 'transformacion') {
       if (paso.fase === 'iterar' || paso.fase === 'accion' || paso.fase === 'mutar') {
-        guion.push({ ...base, nodo: 'iter', path: 'p2', log: '' });
-        guion.push({ ...base, nodo: 'eval', path: 'p4' });
-        guion.push({ ...base, nodo: 'dec', path: 'p7', log: '' });
+        add(paso, 'iter', 'p2', { log: '' });
+        add(paso, 'eval', 'p4');
+        add(paso, 'dec', 'p7', { log: '' });
       } else if (paso.fase === 'retorno') {
-        guion.push({ ...base, nodo: 'success', path: 'p6' });
-      }
-      continue;
-    }
-
-    if (familia === 'mutador') {
-      if (paso.fase === 'mutar') {
-        guion.push({ ...base, nodo: 'op', path: 'p1' });
-        guion.push({ ...base, nodo: 'upd', path: 'p4', log: '' });
-      } else if (paso.fase === 'retorno') {
-        guion.push({ ...base, nodo: 'success', path: 'p5' });
-      } else if (paso.fase === 'iterar' || paso.fase === 'accion') {
-        guion.push({ ...base, nodo: 'op', path: 'p1' });
+        add(paso, 'success', 'p6');
       }
       continue;
     }
 
     if (familia === 'reduccion') {
       if (paso.fase === 'iterar' && paso.index === -1) {
-        guion.push({ ...base, nodo: 'init', path: 'p1' });
+        add(paso, 'init', 'p1');
       } else if (paso.fase === 'iterar' || paso.fase === 'accion') {
-        guion.push({ ...base, nodo: 'iter', path: 'p2', log: '' });
-        guion.push({ ...base, nodo: 'eval', path: 'p4' });
-        guion.push({ ...base, nodo: 'dec', path: 'p7', log: '' });
+        add(paso, 'iter', 'p2', { log: '' });
+        add(paso, 'eval', 'p4');
+        add(paso, 'dec', 'p7', { log: '' });
       } else if (paso.fase === 'retorno') {
-        guion.push({ ...base, nodo: 'success', path: 'p6' });
+        add(paso, 'success', 'p6');
       }
       continue;
     }
 
     if (familia === 'iterador') {
       if (paso.fase === 'iterar') {
-        guion.push({ ...base, nodo: 'init', path: 'p1' });
+        add(paso, 'init', 'p1');
       } else if (paso.fase === 'accion') {
-        guion.push({ ...base, nodo: 'check', path: 'p4', log: '' });
-        guion.push({ ...base, nodo: 'eval', path: 'p5' });
+        add(paso, 'check', 'p4', { log: '' });
+        add(paso, 'eval', 'p5');
       } else if (paso.fase === 'retorno') {
-        guion.push({ ...base, nodo: 'success', path: 'p3' });
+        add(paso, 'success', 'p3');
       }
       continue;
     }
 
-    // utilidad
+    // utilidad genérica
     if (paso.fase === 'accion') {
-      guion.push({ ...base, nodo: 'op', path: 'p1' });
+      add(paso, 'op', 'p1');
     } else if (paso.fase === 'retorno') {
-      guion.push({ ...base, nodo: 'success', path: 'p4' });
+      add(paso, 'success', 'p4');
     }
   }
 
@@ -265,22 +487,31 @@ export default function DiagramaMetodo({ metodo }) {
   const familia = obtenerFamilia(metodo.id);
   const nombre = obtenerNombre(metodo.id);
   const demoBase = obtenerDemo(metodo.id);
-  const flujo = FLUJOS[familia] ?? FLUJOS.utilidad;
-  const paramConfig = PARAMETRO[familia];
-  const fallo = FALLO[metodo.id] ?? 'undefined';
-  const exito = EXITO[metodo.id] ?? 'valor';
+  const ui = uiMetodo(metodo.id);
+  const esPorValor = metodo.id === 'indexof' || metodo.id === 'lastindexof';
+  const paramConfig = esPorValor ? null : PARAMETRO[familia];
 
   const [arrayTexto, setArrayTexto] = useState(() => JSON.stringify(demoBase.array ?? []));
   const [limite, setLimite] = useState(() => String(demoBase.limite ?? ''));
   const [config, setConfig] = useState(() => ({
     arreglo: demoBase.array ?? [],
     limite: demoBase.limite,
+    valor: demoBase.buscar,
+    indiceAt: demoBase.index,
   }));
+  const [valorTexto, setValorTexto] = useState(() =>
+    demoBase.buscar !== undefined ? String(demoBase.buscar) : ''
+  );
+  const [indiceTexto, setIndiceTexto] = useState(() => String(demoBase.index ?? 0));
 
   const plan = useMemo(() => {
     const opciones = { arreglo: config.arreglo };
     if (config.limite !== undefined && config.limite !== null && config.limite !== '') {
       opciones.limite = config.limite;
+    }
+    if (config.valor !== undefined) opciones.valor = config.valor;
+    if (metodo.id === 'at') {
+      opciones.parametros = { index: Number(config.indiceAt ?? 0) };
     }
     let ejecucion;
     try {
@@ -293,6 +524,8 @@ export default function DiagramaMetodo({ metodo }) {
       guion: construirGuion(metodo.id, ejecucion, familia, ejecucion.result),
     };
   }, [config, familia, metodo.id]);
+
+  const flujo = flujoDe(metodo.id, familia, ui, plan.demo);
 
   const total = plan.guion.length;
   const [indice, setIndice] = useState(0);
@@ -323,9 +556,11 @@ export default function DiagramaMetodo({ metodo }) {
     setConfig({
       arreglo,
       limite: paramConfig && limite !== '' ? limite : undefined,
+      valor: esPorValor && valorTexto !== '' ? leerValor(valorTexto) : undefined,
+      indiceAt: metodo.id === 'at' ? Number(indiceTexto) : undefined,
     });
     setLogs([{ texto: '> Flujo reiniciado. Listo para ejecutar.', clase: 'log-info' }]);
-  }, [arrayTexto, limite, paramConfig]);
+  }, [arrayTexto, limite, paramConfig, esPorValor, valorTexto, metodo.id, indiceTexto]);
 
   const avanzar = useCallback(() => {
     setIndice((prev) => {
@@ -388,8 +623,8 @@ export default function DiagramaMetodo({ metodo }) {
     texto
       .replace('{metodo}', nombre.replace('Array.prototype.', '').replace('()', ''))
       .replace('{cond}', demoBase.cond ?? '—')
-      .replace('{fallo}', fallo)
-      .replace('{exito}', exito)
+      .replace('{fallo}', ui.fallo)
+      .replace('{exito}', ui.retorno)
       .replace('{valorInicial}', formatValue(demoBase.initial ?? 0));
 
   const subTexto = (nodo) => {
@@ -411,7 +646,7 @@ export default function DiagramaMetodo({ metodo }) {
               className={`theory-step ${i === pasoTeoria ? 'active' : ''}`}
             >
               <div className="num">{i + 1}</div>
-              <p>{texto}</p>
+              <p>{conFormato(texto)}</p>
             </div>
           ))}
         </div>
@@ -435,6 +670,32 @@ export default function DiagramaMetodo({ metodo }) {
               className="input-field"
               value={limite}
               onChange={(e) => setLimite(e.target.value)}
+              disabled={enMarcha || (indice > 0 && !terminado)}
+            />
+          </div>
+        )}
+
+        {esPorValor && (
+          <div className="input-group">
+            <label>Valor buscado (igualdad estricta)</label>
+            <input
+              type="text"
+              className="input-field"
+              value={valorTexto}
+              onChange={(e) => setValorTexto(e.target.value)}
+              disabled={enMarcha || (indice > 0 && !terminado)}
+            />
+          </div>
+        )}
+
+        {metodo.id === 'at' && (
+          <div className="input-group">
+            <label>Índice (negativo = desde el final)</label>
+            <input
+              type="number"
+              className="input-field"
+              value={indiceTexto}
+              onChange={(e) => setIndiceTexto(e.target.value)}
               disabled={enMarcha || (indice > 0 && !terminado)}
             />
           </div>

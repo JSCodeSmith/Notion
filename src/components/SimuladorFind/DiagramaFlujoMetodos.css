@@ -129,7 +129,7 @@
 /* WORKSPACE (DIAGRAMA + CÓDIGO) */
 .df-workspace {
   display: grid;
-  grid-template-columns: 1fr 340px; /* Columna de código más ancha */
+  grid-template-columns: minmax(0, 1fr) 360px; /* Columna de código más ancha */
   gap: 20px;
 }
 
@@ -377,6 +377,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -407,6 +408,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .df-code-content .code-block {
@@ -414,4 +417,13 @@
   border: none;
   background: transparent;
   padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-size: 12px;
+}
+
+.df-code-content .code-line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }

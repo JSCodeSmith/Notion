@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../SimuladorFind/LabFind.css';
 import { formatValue } from '../SimuladorFind/findTrace';
 import { ejecutarDemo, formatearResultado } from './ejecutarMetodo';
-import { obtenerDemo, obtenerFamilia, obtenerNombre } from './metodosMeta';
+import { obtenerDemo, obtenerFamilia, obtenerNombre, uiMetodo } from './metodosMeta';
 import { instrumentarMetodo, describirTraza } from './traceMetodo';
 
 const NOMBRE_JS = {
@@ -48,6 +48,7 @@ const TEXTO = {
 export default function EntornoPruebaMetodo({ metodo }) {
   const familia = obtenerFamilia(metodo.id);
   const nombre = obtenerNombre(metodo.id);
+  const ui = uiMetodo(metodo.id);
   const demo = useMemo(() => ejecutarDemo(metodo.id), [metodo.id]);
   const demoBase = obtenerDemo(metodo.id);
 
@@ -55,7 +56,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
   const [items, setItems] = useState(() => clonar(demoBase.array ?? []));
   const [codigo, setCodigo] = useState(demoBase.code ?? '');
   const [entrada, setEntrada] = useState('');
-  const [logs, setLogs] = useState([{ texto: '> Esperando ejecución...', tipo: 'info' }]);
+  const [logs, setLogs] = useState([{ texto: `> ${ui.emoji} ${ui.intro}`, tipo: 'info' }]);
   const [resultado, setResultado] = useState(null);
   const [ejecutado, setEjecutado] = useState(false);
   const [corriendo, setCorriendo] = useState(false);
@@ -87,7 +88,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
   const reiniciar = (nuevoArray) => {
     if (corriendo) return;
     setItems(clonar(nuevoArray ?? demoBase.array ?? []));
-    setLogs([{ texto: '> Esperando ejecución...', tipo: 'info' }]);
+    setLogs([{ texto: `> ${ui.emoji} ${ui.intro}`, tipo: 'info' }]);
     setResultado(null);
     setEjecutado(false);
     setActivo(-1);
@@ -168,7 +169,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
 
     if (!fuente.instrumented) {
       agregarLog(
-        '> Este método se ejecuta directamente: no necesita un callback sobre `array`.',
+        `> ${ui.emoji} ${ui.corto}() no usa callback: ${ui.descripcion}`,
         'info'
       );
     }
@@ -196,7 +197,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
     setItems(clonar(arreglo));
     setResultado(retorno);
     setEjecutado(true);
-    agregarLog(`■ Retorna: ${formatearResultado(metodo.id, retorno)}`, 'return');
+    agregarLog(`✅ ${ui.emoji} Retorna: ${formatearResultado(metodo.id, retorno)}`, 'return');
     if (demo.muta) {
       agregarLog(
         `> Array después: [${arreglo.map(formatValue).join(', ')}]`,
@@ -295,7 +296,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
                 setCodigo(demoBase.code ?? '');
                 setResultado(null);
                 setEjecutado(false);
-                setLogs([{ texto: '> Esperando ejecución...', tipo: 'info' }]);
+                setLogs([{ texto: `> ${ui.emoji} ${ui.intro}`, tipo: 'info' }]);
               }}
               disabled={corriendo}
               title="Restaurar el código de ejemplo"
@@ -339,7 +340,7 @@ export default function EntornoPruebaMetodo({ metodo }) {
 
           <div className="lab-console" ref={consolaRef} aria-live="polite">
             {logs.length === 0 && (
-              <div className="lab-log-line lab-log-info">{TEXTO[familia]}</div>
+              <div className="lab-log-line lab-log-info">{`${ui.emoji} ${ui.intro}`}</div>
             )}
             {logs.map((linea, i) => (
               <div key={`${metodo.id}-lab-log-${i}`} className={`lab-log-line lab-log-${linea.tipo}`}>

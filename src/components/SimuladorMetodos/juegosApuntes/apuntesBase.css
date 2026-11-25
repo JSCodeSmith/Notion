@@ -72,8 +72,15 @@
 }
 
 .apx-game {
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   border-radius: 16px;
+}
+
+.apx-game > * {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Scrollbars finas y coherentes dentro de cada juego. */

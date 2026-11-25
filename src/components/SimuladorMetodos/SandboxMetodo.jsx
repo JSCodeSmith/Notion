@@ -12,6 +12,7 @@ import {
   obtenerDemo,
   obtenerFamilia,
   obtenerNombre,
+  uiMetodo,
 } from './metodosMeta';
 
 const clonar = (valor) => {
@@ -36,6 +37,7 @@ const TEXTO_PASO = {
 export default function SandboxMetodo({ metodo }) {
   const nombre = obtenerNombre(metodo.id);
   const familia = obtenerFamilia(metodo.id);
+  const ui = uiMetodo(metodo.id);
   const demo = obtenerDemo(metodo.id);
   const codigoInicial = demo.code ?? 'const resultado = array;';
   const inicial = clonar(demo.array ?? []);
@@ -43,7 +45,7 @@ export default function SandboxMetodo({ metodo }) {
   const [array, setArray] = useState(inicial);
   const [code, setCode] = useState(codigoInicial);
   const [logs, setLogs] = useState([
-    { type: 'system', html: 'Sandbox listo. El array ya tiene elementos.' },
+    { type: 'system', html: `${ui.emoji} ${ui.intro}` },
   ]);
 
   const [isJsonOpen, setIsJsonOpen] = useState(false);
@@ -255,9 +257,12 @@ export default function SandboxMetodo({ metodo }) {
     };
 
     const declaraArray = /\b(?:const|let|var)\s+array\s*=/.test(source);
-    const ejecutableBase = declaraArray
-      ? source
-      : `const array = __sandboxArray;\n${source}`;
+    const declaraResultado = /\b(?:const|let|var)\s+resultado\s*=/.test(source);
+    const yaRetorna = /\breturn\b/.test(source);
+    const devolverResultado = declaraResultado && !yaRetorna ? '\nreturn resultado;' : '';
+    const ejecutableBase = `${
+      declaraArray ? source : `const array = __sandboxArray;\n${source}`
+    }${devolverResultado}`;
 
     const metodoJs = NOMBRE_JS[metodo.id] ?? metodo.id;
     const { code: instrumentedCode, instrumented } = instrumentarMetodo(
@@ -356,7 +361,7 @@ export default function SandboxMetodo({ metodo }) {
     setStepModalOpen(false);
     clearConsole();
     addLog(
-      `<span class="sp-code-comment">// 👣 ${TEXTO_PASO[familia] ?? TEXTO_PASO.utilidad}</span>`,
+      `<span class="sp-code-comment">// 👣 ${ui.emoji} ${ui.intro}</span>`,
       'system'
     );
 

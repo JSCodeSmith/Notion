@@ -9,6 +9,7 @@ import {
   obtenerDemo,
   obtenerFamilia,
   obtenerNombre,
+  uiMetodo,
 } from './metodosMeta';
 
 const clonar = (valor) => {
@@ -47,6 +48,7 @@ const leerValor = (texto) => {
 export default function MisionMetodo({ metodo }) {
   const familia = obtenerFamilia(metodo.id);
   const nombre = obtenerNombre(metodo.id);
+  const ui = uiMetodo(metodo.id);
   const corto = sinPrefijo(nombre);
   const demo = obtenerDemo(metodo.id);
   const inicial = clonar(demo.array ?? []);
@@ -55,7 +57,7 @@ export default function MisionMetodo({ metodo }) {
   const [objetivo, setObjetivo] = useState(formatValue(inicial[0]));
   const [isExecuting, setIsExecuting] = useState(false);
   const [logs, setLogs] = useState([
-    { text: '⚙️ Misión inicializada.', type: 'system' },
+    { text: `${ui.emoji} ${ui.intro}`, type: 'system' },
   ]);
   const [activeTab, setActiveTab] = useState('logs');
   const [speed, setSpeed] = useState(500);
@@ -295,7 +297,7 @@ export default function MisionMetodo({ metodo }) {
 
       if (!instrumented) {
         logSystem(
-          `Este método no expone un callback instrumentable; ejecuto su código real y muestro el resultado.`
+          `${ui.emoji} ${ui.corto}() no usa callback: ${ui.descripcion}`
         );
       }
     } catch (error) {
@@ -304,7 +306,7 @@ export default function MisionMetodo({ metodo }) {
       return;
     }
 
-    logSystem(`Iniciando ejecución real de ${corto}...`);
+    logSystem(`${ui.emoji} Iniciando ejecución real de ${corto}()...`);
 
     if (traceSteps.length > 0) {
       for (const paso of traceSteps) {
@@ -375,6 +377,40 @@ export default function MisionMetodo({ metodo }) {
     (item) => formatValue(item) === objetivo
   );
 
+  const objetivoMision = (() => {
+    const cond = demo.cond ?? 'la condición';
+    switch (metodo.id) {
+      case 'some':
+        return `demostrar que AL MENOS UNO cumple ${cond}`;
+      case 'every':
+        return `demostrar que TODOS cumplen ${cond}`;
+      case 'findindex':
+        return `encontrar el ÍNDICE del primero que cumple ${cond}`;
+      case 'findlast':
+        return `encontrar el ÚLTIMO ELEMENTO que cumple ${cond}`;
+      case 'findlastindex':
+        return `encontrar el ÚLTIMO ÍNDICE que cumple ${cond}`;
+      case 'indexof':
+        return `localizar la PRIMERA aparición de ${formatValue(demo.buscar)}`;
+      case 'lastindexof':
+        return `localizar la ÚLTIMA aparición de ${formatValue(demo.buscar)}`;
+      case 'push':
+        return 'añadir elementos al FINAL y leer la nueva longitud';
+      case 'reverse':
+        return 'invertir el orden del tablero en el sitio';
+      case 'sort':
+        return 'ordenar el tablero en el sitio con (a, b) => a - b';
+      case 'tosorted':
+        return 'ordenar una copia sin tocar el original';
+      case 'at':
+        return `leer la posición ${demo.index} (los negativos cuentan desde el final)`;
+      default:
+        return familia === 'busqueda'
+          ? `encontrar ${objetivo} con ${corto}`
+          : `completar el recorrido de ${corto}`;
+    }
+  })();
+
   return (
     <div className="game-container" onDragOver={(e) => e.preventDefault()}>
       {alertMsg && <div className="game-alert">{alertMsg}</div>}
@@ -401,16 +437,14 @@ export default function MisionMetodo({ metodo }) {
         <div className="objective-text">
           🎯 Objetivo:{' '}
           <span style={{ color: 'var(--purple-main)' }}>
-            {familia === 'busqueda'
-              ? `encontrar ${objetivo} con ${corto}`
-              : `completar el recorrido de ${corto}`}
+            {objetivoMision}
           </span>
         </div>
         <button
           className="btn-hint"
           onClick={() =>
             logSystem(
-              `Pista: ${PISTA[familia] ?? PISTA.utilidad} Usa ${corto} sobre el array actual.`
+              `Pista: ${ui.pista} Usa ${corto} sobre el array actual.`
             )
           }
         >

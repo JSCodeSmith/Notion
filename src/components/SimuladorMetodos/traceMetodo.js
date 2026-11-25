@@ -71,12 +71,38 @@ export const instrumentarMetodo = (source, arrayName, methodName) => {
 export const describirTraza = (metodoId, args, resultado) => {
   if (metodoId === 'reduce' || metodoId === 'reduceright') {
     const [acumulador, valor] = args;
-    return `acc ${formatValue(acumulador)} + ${formatValue(valor)} → ${formatValue(resultado)}`;
+    return `🧮 acc ${formatValue(acumulador)} + ${formatValue(valor)} → ${formatValue(resultado)}`;
   }
   if (metodoId === 'sort' || metodoId === 'tosorted') {
     const [a, b] = args;
-    return `comparar(${formatValue(a)}, ${formatValue(b)}) → ${formatValue(resultado)}`;
+    return `🔀 comparar(${formatValue(a)}, ${formatValue(b)}) → ${formatValue(resultado)}`;
   }
   const [valor, indice] = args;
-  return `[${indice ?? 0}] ${formatValue(valor)} → ${formatValue(resultado)}`;
+  const posicion = indice ?? 0;
+  if (metodoId === 'some') {
+    return `🔎 [${posicion}] ${formatValue(valor)} → ¿algún testigo? = ${
+      resultado ? 'TRUE ✅' : 'FALSE ❌'
+    }`;
+  }
+  if (metodoId === 'every') {
+    return `🛡️ [${posicion}] ${formatValue(valor)} → ¿todos cumplen? = ${
+      resultado ? 'TRUE ✅' : 'FALSE ❌'
+    }`;
+  }
+  if (metodoId === 'findindex') {
+    return `🔢 [${posicion}] ${formatValue(valor)} → posición candidata = ${
+      resultado ? 'TRUE ✅' : 'FALSE ❌'
+    }`;
+  }
+  if (metodoId === 'findlast') {
+    return `🔚 [${posicion}] ${formatValue(valor)} → elemento candidato = ${
+      resultado ? 'TRUE ✅' : 'FALSE ❌'
+    }`;
+  }
+  if (metodoId === 'findlastindex') {
+    return `🧭 [${posicion}] ${formatValue(valor)} → último índice = ${
+      resultado ? 'TRUE ✅' : 'FALSE ❌'
+    }`;
+  }
+  return `🎯 [${posicion}] ${formatValue(valor)} → ${formatValue(resultado)}`;
 };

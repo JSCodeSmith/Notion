@@ -37,6 +37,15 @@
   line-height: 1.5;
 }
 
+/* El bloque de código compartido conserva su paleta, pero sin doble marco. */
+.sfi-code-panel .code-block {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+}
+
 .sfi-code-line {
   display: flex;
   gap: 10px;
@@ -302,15 +311,42 @@
 .sfi-log-line {
   margin-bottom: 6px;
   line-height: 1.4;
+  padding-left: 8px;
+  border-left: 2px solid transparent;
+  animation: sfiLogIn 0.32s ease-out both;
+}
+@keyframes sfiLogIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
 }
 .sfi-log-info {
   color: #9cdcfe;
+  border-left-color: rgba(156, 220, 254, 0.45);
 }
 .sfi-log-error {
   color: #f48771;
+  border-left-color: rgba(244, 135, 113, 0.55);
 }
 .sfi-log-success {
   color: #89d185;
+  border-left-color: rgba(137, 209, 133, 0.55);
+}
+.sfi-log-return {
+  color: #f0c56a;
+  font-weight: 700;
+  border-left-color: rgba(240, 197, 106, 0.65);
+}
+.sfi-log-eval {
+  color: #dcdcaa;
+  border-left-color: rgba(220, 220, 170, 0.5);
 }
 .sfi-log-highlight {
   color: #dcdcaa;

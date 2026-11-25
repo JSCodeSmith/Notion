@@ -388,6 +388,19 @@
   display: flex;
   gap: 8px;
   margin-bottom: 6px;
+  padding-left: 8px;
+  border-left: 2px solid transparent;
+  animation: spLogIn 0.32s ease-out both;
+}
+@keyframes spLogIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .sp-log-text {
   word-break: break-word;
@@ -395,15 +408,27 @@
 .sp-log-system .sp-log-text {
   color: var(--text-muted);
 }
+.sp-log-system {
+  border-left-color: rgba(139, 146, 165, 0.45);
+}
 .sp-log-info .sp-log-text {
   color: var(--text-main);
+}
+.sp-log-info {
+  border-left-color: rgba(88, 166, 255, 0.5);
 }
 .sp-log-error .sp-log-text {
   color: var(--red-accent);
 }
+.sp-log-error {
+  border-left-color: var(--red-accent);
+}
 .sp-log-success .sp-log-text {
   color: var(--green-accent);
   font-weight: bold;
+}
+.sp-log-success {
+  border-left-color: var(--green-accent);
 }
 
 .sp-console-repl {

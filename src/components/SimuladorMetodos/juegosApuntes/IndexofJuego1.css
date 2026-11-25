@@ -1,0 +1,36 @@
+.apx-indexof-1{
+  --bg:#030508;
+  --surface:#071018;
+  --surface-2:#0b1b14;
+  --line:#1c3a2a;
+  --neon:#2dff8a;
+  --neon-2:#a7ffcb;
+  --yellow:#ffd84d;
+  --red:#ff4d6d;
+  --text:#eafff3;
+  --muted:#9db8a8;
+  --safe-area-inset-top:0px;
+}
+@media (prefers-color-scheme: dark){
+  .apx-indexof-1{ --bg:#030508; --surface:#071018; --text:#eafff3; }
+}
+.apx-indexof-1 *{ box-sizing:border-box; }
+.apx-indexof-1,.apx-indexof-1{ background:var(--bg); color:var(--text); }
+.apx-indexof-1{ font-family:'Rajdhani',system-ui,sans-serif; margin:0; }
+.apx-indexof-1 .mono{ font-family:'Fira Code',monospace; }
+.apx-indexof-1 .panel{ background:linear-gradient(180deg, rgba(9,28,19,.92), rgba(4,10,8,.96)); border:1px solid var(--line); border-radius:18px; backdrop-filter:blur(10px); box-shadow:0 18px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(167,255,203,.08); }
+.apx-indexof-1 .neon{ color:var(--neon); text-shadow:0 0 18px rgba(45,255,138,.55); }
+.apx-indexof-1 .btn{ border-radius:12px; font-weight:700; letter-spacing:.02em; transition:.15s; cursor:pointer; }
+.apx-indexof-1 .btn:active{ transform:translateY(1px) scale(.99); }
+.apx-indexof-1 .btn:disabled{ opacity:.45; cursor:not-allowed; }
+@keyframes shake{ 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(5px)} }
+.apx-indexof-1 .shake{ animation:shake .45s ease; }
+@keyframes glowPulse{ 0%,100%{ box-shadow:0 0 0 rgba(45,255,138,0)} 50%{ box-shadow:0 0 26px rgba(45,255,138,.75)} }
+.apx-indexof-1 .glow{ animation:glowPulse 1s ease 2; border-color:#2dff8a !important; background:rgba(45,255,138,.16) !important; }
+@keyframes slideCursor{ 0%{opacity:.3} 100%{opacity:1} }
+.apx-indexof-1 .cursor{ animation:slideCursor .2s ease; }
+@keyframes floaty{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+.apx-indexof-1 .floaty{ animation:floaty 2.4s ease-in-out infinite; }
+.apx-indexof-1 input[type=number]::-webkit-inner-spin-button{ opacity:1; }
+.apx-indexof-1 .scroll-thin::-webkit-scrollbar{ width:6px; height:6px; }
+.apx-indexof-1 .scroll-thin::-webkit-scrollbar-thumb{ background:#1e4a32; border-radius:99px; }

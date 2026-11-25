@@ -7,6 +7,7 @@ import {
   obtenerFamilia,
   obtenerNombre,
   obtenerRelacionados,
+  uiMetodo,
 } from './metodosMeta';
 
 const STEPS = [
@@ -24,17 +25,6 @@ const STEP_COUNT = STEPS.length;
 
 const PALETA = ['#58a6ff', '#3fb950', '#d2a8ff'];
 const SLOTS = ['find', 'filter', 'findindex'];
-
-const FALLO = {
-  find: 'undefined',
-  findlast: 'undefined',
-  findindex: '-1',
-  findlastindex: '-1',
-  indexof: '-1',
-  lastindexof: '-1',
-  some: 'false',
-  every: 'true',
-};
 
 const nombreVisible = (id) => {
   const nombre = obtenerNombre(id);
@@ -91,66 +81,116 @@ const RETORNO = {
   from: '📦 Array nuevo',
 };
 
-const retornoDe = (metodoId, familia) => {
-  if (RETORNO[metodoId]) return RETORNO[metodoId];
-  if (familia === 'transformacion') return '📦 Nuevo Array';
-  if (familia === 'reduccion') return '🧮 Acumulado';
-  if (familia === 'mutador') return '📦 Array mutado';
-  return '🔙 Return';
-};
-
-const DESCRIPCION = {
-  busqueda: 'Recorre hasta la primera coincidencia.',
-  transformacion: 'Recorre todo y construye una salida nueva.',
-  mutador: 'Trabaja sobre el mismo array y lo modifica.',
-  reduccion: 'Recorre todo acumulando un único valor.',
-  iterador: 'Produce una secuencia o efecto por elemento.',
-  utilidad: 'Calcula el resultado directamente.',
-  generico: 'Selecciona un método para ver su código.',
+const detalleLineal = (metodoId, ui, demo) => {
+  switch (metodoId) {
+    case 'push':
+      return `📥 push(${(demo.items ?? []).map((v) => String(v)).join(', ')})`;
+    case 'unshift':
+      return `⏫ unshift(${(demo.items ?? []).map((v) => String(v)).join(', ')})`;
+    case 'pop':
+      return '📤 Extrae el último';
+    case 'shift':
+      return '⏬ Extrae el primero';
+    case 'reverse':
+      return '🔄 Intercambia los extremos';
+    case 'sort':
+      return '🔀 Compara y recoloca en el sitio';
+    case 'tosorted':
+      return '🧬 Copia y ordena la copia';
+    case 'toreversed':
+      return '🪞 Copia en orden inverso';
+    case 'at': {
+      const indice = Number(demo.index ?? 0);
+      const real = indice < 0 ? (demo.array?.length ?? 0) + indice : indice;
+      return `🎯 at(${indice}) → índice ${real}`;
+    }
+    case 'slice':
+      return `✂️ slice(${demo.start}, ${demo.end})`;
+    case 'splice':
+      return `✂️ splice(${demo.start}, ${demo.deleteCount})`;
+    case 'join':
+      return `🔗 join("${demo.sep}")`;
+    case 'length':
+      return '📏 length = número de elementos';
+    default:
+      return `${ui.emoji} ${ui.accion}`;
+  }
 };
 
 const construirFlujo = (familia, activoId) => {
-  const nombre = activoId ? sinPrefijo(obtenerNombre(activoId)) : 'método';
-  const fallo = activoId ? FALLO[activoId] ?? 'undefined' : 'valor de fallo';
-  const familiaFlujo = familia === 'utilidad' ? 'utilidad' : familia;
+  const ui = uiMetodo(activoId ?? 'find');
+  const retorno = activoId ? ui.retorno : '🔙 Resultado';
+  const fallo = activoId ? ui.fallo : 'valor de fallo';
+  const esBusqueda = familia === 'busqueda' || familia === 'generico';
+  const esLineal =
+    !activoId ||
+    familia === 'utilidad' ||
+    [
+      'push', 'unshift', 'pop', 'shift', 'reverse', 'sort', 'tosorted',
+      'toreversed', 'at', 'length', 'slice', 'splice', 'join', 'of',
+      'isarray', 'concat', 'with', 'fill', 'from', 'flat', 'copywithin',
+    ].includes(activoId);
 
-  if (familiaFlujo === 'utilidad') {
+  if (esLineal && !esBusqueda) {
+    const demo = activoId ? obtenerDemo(activoId) : {};
+    const accion = detalleLineal(activoId, ui, demo);
+    const nodos = [
+      { id: 'node-start', x: 400, y: 70, text: '🏁 Inicio', step: 'node-start' },
+      {
+        id: 'node-action',
+        x: 400,
+        y: 220,
+        text: `${ui.emoji} ${ui.accion}`,
+        step: 'node-action',
+      },
+      {
+        id: 'node-detalle',
+        x: 400,
+        y: 360,
+        text: accion,
+        step: 'node-action',
+      },
+      {
+        id: 'node-return',
+        x: 400,
+        y: 480,
+        text: retorno,
+        step: 'node-action node-return',
+      },
+    ];
+    const paths = [
+      { id: 'p1', cls: 'common', step: 'node-start path-to-iter', d: 'M 400 105 L 400 175' },
+      { id: 'p2', cls: 'slot', step: 'node-action path-to-return', d: 'M 400 255 L 400 315' },
+      { id: 'p3', cls: 'slot', step: 'node-action path-to-return', d: 'M 400 395 L 400 435' },
+    ];
+    return { nodos, paths };
+  }
+
+  if (!activoId) {
     return {
       nodos: [
-        { id: 'node-start', x: 280, y: 60, text: '🏁 Inicio', step: 'node-start' },
+        { id: 'node-start', x: 280, y: 160, text: '🏁 Inicio', step: 'node-start' },
         {
           id: 'node-action',
           x: 280,
-          y: 220,
-          text: `⚡ ${nombre}: ${ACCION[familia]}`,
+          y: 300,
+          text: '🧩 Selecciona un método',
           step: 'node-action',
         },
         {
           id: 'node-return',
           x: 280,
-          y: 380,
-          text: retornoDe(activoId, familia),
+          y: 430,
+          text: '🔙 Resultado',
           step: 'node-action node-return',
         },
       ],
       paths: [
-        {
-          id: 'p1',
-          cls: 'common',
-          step: 'node-start path-to-iter',
-          d: 'M 280 95 L 280 175',
-        },
-        {
-          id: 'p2',
-          cls: 'slot',
-          step: 'node-action path-to-return',
-          d: 'M 280 255 L 280 345',
-        },
+        { id: 'p1', cls: 'common', step: 'node-start path-to-iter', d: 'M 280 195 L 280 265' },
+        { id: 'p2', cls: 'slot', step: 'node-action path-to-return', d: 'M 280 335 L 280 395' },
       ],
     };
   }
-
-  const esBusqueda = familiaFlujo === 'busqueda' || familiaFlujo === 'generico';
 
   const nodos = [
     { id: 'node-start', x: 280, y: 45, text: '🏁 Inicio', step: 'node-start' },
@@ -158,14 +198,14 @@ const construirFlujo = (familia, activoId) => {
       id: 'node-iter',
       x: 280,
       y: 135,
-      text: familiaFlujo === 'iterador' ? '🔄 Recorrer' : '🔄 Iterar',
+      text: familia === 'iterador' ? '🔄 Recorrer' : '🔄 Iterar',
       step: 'node-iter',
     },
     {
       id: 'node-cond',
       x: 280,
       y: 260,
-      text: DECISION[familiaFlujo] ?? DECISION.generico,
+      text: ui.decision,
       decision: true,
       step: 'node-cond',
     },
@@ -173,29 +213,29 @@ const construirFlujo = (familia, activoId) => {
       id: 'node-fin',
       x: 110,
       y: 350,
-      text: esBusqueda ? '¿Fin?' : '🔄 Siguiente',
+      text: activoId === 'every' ? '✅ true (todos cumplen)' : '🔄 Siguiente',
       step: 'node-cond',
     },
     {
       id: 'node-fallo',
       x: 110,
       y: 440,
-      text: esBusqueda ? `🚦 ${fallo}` : '🔄 Vuelve a iterar',
-      red: esBusqueda,
+      text: activoId === 'every' ? '❌ false (uno falla)' : `❌ ${fallo}`,
+      red: true,
       step: 'node-cond',
     },
     {
       id: 'node-action',
       x: 450,
       y: 340,
-      text: `⚡ ${ACCION[familiaFlujo] ?? ACCION.generico}`,
+      text: `${ui.emoji} ${ui.accion}`,
       step: 'node-action',
     },
     {
       id: 'node-return',
       x: 680,
       y: 340,
-      text: retornoDe(activoId, familia),
+      text: retorno,
       step: 'node-action node-return',
     },
   ];
@@ -209,7 +249,7 @@ const construirFlujo = (familia, activoId) => {
     { id: 'p6', cls: 'slot', step: 'node-action path-to-return', d: 'M 530 340 L 610 340' },
   ];
 
-  if (!esBusqueda) {
+  if (activoId !== 'every') {
     paths.push({
       id: 'p7',
       cls: 'slot',
@@ -267,12 +307,13 @@ export default function DiagramaComparativo({ metodoId }) {
   const activoId = activeTab === 'all' ? null : activeTab;
   const familia = activoId ? obtenerFamilia(activoId) : 'generico';
   const flujo = construirFlujo(familia, activoId);
+  const uiActivo = activoId ? uiMetodo(activoId) : null;
   const slotActivo = activeTab === 'all' ? '' : SLOTS[relacionados.indexOf(activeTab)];
 
   const demo = activoId ? ejecutarDemo(activoId) : null;
   const codigo =
     activoId && demo
-      ? `// ${DESCRIPCION[familia]}\n${obtenerDemo(activoId).code}\n// Retorna: ${formatearResultado(
+      ? `// ${uiActivo.descripcion}\n${obtenerDemo(activoId).code}\n// Retorna: ${formatearResultado(
           activoId,
           demo.result
         )}`
@@ -292,8 +333,11 @@ export default function DiagramaComparativo({ metodoId }) {
       <div className="df-header">
         <h2>Diagrama de Flujo Comparativo</h2>
         <p>
-          Observa cómo {relacionados.map(nombreVisible).join(', ')} recorren el
-          array y cuándo se detienen.
+          {uiActivo
+            ? `${uiActivo.emoji} ${uiActivo.descripcion}`
+            : `Compara ${relacionados
+                .map(nombreVisible)
+                .join(', ')} y descubre qué decisión toma cada método.`}
         </p>
       </div>
 
@@ -400,7 +444,7 @@ export default function DiagramaComparativo({ metodoId }) {
                     className={`df-label no ${isActive('node-cond') ? 'active' : ''}`}
                     style={{ left: '150px', top: '245px' }}
                   >
-                    No
+                    {uiActivo ? uiActivo.no.split(':')[0] : 'No'}
                   </div>
                   <div
                     className={`df-label yes ${
@@ -408,7 +452,7 @@ export default function DiagramaComparativo({ metodoId }) {
                     }`}
                     style={{ left: '410px', top: '245px' }}
                   >
-                    Sí
+                    {uiActivo ? uiActivo.yes.split(':')[0] : 'Sí'}
                   </div>
                 </>
               )}

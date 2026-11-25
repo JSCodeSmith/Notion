@@ -243,12 +243,13 @@ export default function NegocioDoc({ nota, onBack }) {
         <Seccion
           titulo="🧩 Relación con otros conceptos"
           items={nota.relacion}
+          full
         />
 
         {nota.id === 'bpmn' && <BpmnRelacion key="bpmn-relacion" />}
 
         {nota.analogia && (
-          <div className="doc-card">
+          <div className="doc-card doc-card--full">
             <h3>🧠 Analogía</h3>
             <p>
               <Inline text={nota.analogia} />
@@ -278,27 +279,33 @@ export default function NegocioDoc({ nota, onBack }) {
           full
         />
 
-        {nota.quiz?.length > 0 &&
-          (nota.id === 'bpmn' ? (
-            <QuizApunte
-              preguntas={BPMN_QUIZ}
-              titulo="🧠 Quiz · BPMN"
-              subtitulo="14 preguntas con pistas ampliadas y explicación de cada respuesta."
-              mensajePerfecto="¡Perfecto! Dominas los símbolos, las compuertas y las reglas de BPMN."
-              mensajeBueno="Buen intento. Repasa los eventos, las compuertas y la diferencia entre flujo de secuencia y de mensaje; luego vuelve a probar."
-            />
-          ) : (
-            <QuizNegocio
-              preguntas={nota.quiz.map((q) => ({
-                ...q,
-                explicacion:
-                  q.explicacion ??
-                  `La respuesta correcta es «${q.opciones?.[q.correcta] ?? ''}». Vuelve a la sección correspondiente del apunte para reforzar esta idea y contrástala con los demás conceptos.`,
-              }))}
-              titulo={`🧠 Quiz · ${nota.titulo}`}
-              subtitulo={`${nota.quiz.length} preguntas con explicación`}
-            />
-          ))}
+        {nota.quiz?.length > 0 && (
+          <div
+            className="doc-card doc-card--full"
+            style={{ padding: 0, background: 'transparent', border: 'none' }}
+          >
+            {nota.id === 'bpmn' ? (
+              <QuizApunte
+                preguntas={BPMN_QUIZ}
+                titulo="🧠 Quiz · BPMN"
+                subtitulo="14 preguntas con pistas ampliadas y explicación de cada respuesta."
+                mensajePerfecto="¡Perfecto! Dominas los símbolos, las compuertas y las reglas de BPMN."
+                mensajeBueno="Buen intento. Repasa los eventos, las compuertas y la diferencia entre flujo de secuencia y de mensaje; luego vuelve a probar."
+              />
+            ) : (
+              <QuizNegocio
+                preguntas={nota.quiz.map((q) => ({
+                  ...q,
+                  explicacion:
+                    q.explicacion ??
+                    `La respuesta correcta es «${q.opciones?.[q.correcta] ?? ''}». Vuelve a la sección correspondiente del apunte para reforzar esta idea y contrástala con los demás conceptos.`,
+                }))}
+                titulo={`🧠 Quiz · ${nota.titulo}`}
+                subtitulo={`${nota.quiz.length} preguntas con explicación`}
+              />
+            )}
+          </div>
+        )}
 
         <div className="doc-card doc-card--full negocio-fuente">
           <h3>📚 Fuente:</h3>

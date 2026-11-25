@@ -108,6 +108,86 @@ const JUEGOS = [
     tsx: 'every/jeugo.tsx',
     css: 'every/juego.css',
   },
+  {
+    metodo: 'indexof',
+    orden: 1,
+    nombre: 'IndexofJuego1',
+    scope: 'apx-indexof-1',
+    tsx: 'indexOf/App.tsx',
+    css: 'indexOf/index.css',
+  },
+  {
+    metodo: 'indexof',
+    orden: 2,
+    nombre: 'IndexofJuego2',
+    scope: 'apx-indexof-2',
+    tsx: 'indexOf/juego1.tsx',
+    css: 'indexOf/jugo2.css',
+  },
+  {
+    metodo: 'lastindexof',
+    orden: 1,
+    nombre: 'LastindexofJuego1',
+    scope: 'apx-lastindexof-1',
+    tsx: 'lastIndexOf/App.tsx',
+    css: 'lastIndexOf/index.css',
+  },
+  {
+    metodo: 'lastindexof',
+    orden: 2,
+    nombre: 'LastindexofJuego2',
+    scope: 'apx-lastindexof-2',
+    tsx: 'lastIndexOf/juego.tsx',
+    css: 'lastIndexOf/juego.css',
+  },
+  {
+    metodo: 'sort',
+    orden: 1,
+    nombre: 'SortJuego1',
+    scope: 'apx-sort-1',
+    tsx: 'sort/App.tsx',
+    css: 'sort/index.css',
+  },
+  {
+    metodo: 'sort',
+    orden: 2,
+    nombre: 'SortJuego2',
+    scope: 'apx-sort-2',
+    tsx: 'sort/juegos.tsx',
+    css: 'sort/juegos.css',
+  },
+  {
+    metodo: 'tosorted',
+    orden: 1,
+    nombre: 'TosortedJuego1',
+    scope: 'apx-tosorted-1',
+    tsx: 'toSorted/App.tsx',
+    css: 'toSorted/index.css',
+  },
+  {
+    metodo: 'tosorted',
+    orden: 2,
+    nombre: 'TosortedJuego2',
+    scope: 'apx-tosorted-2',
+    tsx: 'toSorted/juego.tsx',
+    css: 'toSorted/juego.css',
+  },
+  {
+    metodo: 'at',
+    orden: 1,
+    nombre: 'AtJuego1',
+    scope: 'apx-at-1',
+    tsx: 'at/App.tsx',
+    css: 'at/index.css',
+  },
+  {
+    metodo: 'at',
+    orden: 2,
+    nombre: 'AtJuego2',
+    scope: 'apx-at-2',
+    tsx: 'at/juegos.tsx',
+    css: 'at/juegos.css',
+  },
 ]
 
 const escaparScope = (scope) => (scope.startsWith('.') ? scope : '.' + scope)
@@ -306,8 +386,15 @@ function escribirBase() {
 }
 
 .apx-game {
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   border-radius: 16px;
+}
+
+.apx-game > * {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Scrollbars finas y coherentes dentro de cada juego. */

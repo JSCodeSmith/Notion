@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Fira+Code:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg:#030508;
+  --surface:rgba(10,14,28,.78);
+  --surface-2:rgba(16,22,44,.72);
+  --line:rgba(245,196,81,.28);
+  --line-cyan:rgba(34,211,238,.28);
+  --gold:#f5c451;
+  --gold-2:#ffe9a8;
+  --cyan:#22d3ee;
+  --purple:#a855f7;
+  --text:#f4f1e8;
+  --muted:#a9b2c8;
+  --danger:#ff5470;
+  --ok:#3ddc97;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif}
+button{font-family:inherit}
+.mono{font-family:'Fira Code',ui-monospace,monospace}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(14px);box-shadow:0 18px 50px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06)}
+.panel-cyan{border-color:var(--line-cyan)}
+.eyebrow{letter-spacing:.22em;font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase}
+.gold-text{color:var(--gold)}
+.gear-btn{transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+.gear-btn:hover{transform:translateY(-3px)}
+.gear-btn.active{border-color:var(--gold)!important;box-shadow:0 0 0 2px rgba(245,196,81,.35), 0 0 28px rgba(245,196,81,.35);background:rgba(245,196,81,.14)!important}
+.gear-btn.target{border-color:var(--cyan)!important;box-shadow:0 0 0 2px rgba(34,211,238,.28), 0 0 24px rgba(34,211,238,.22)}
+@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 24px rgba(245,196,81,.35)}50%{box-shadow:0 0 52px rgba(245,196,81,.75)}}
+.spinning{animation:spinSlow 1.1s ease}
+.shaking{animation:shake .45s ease}
+.golden{animation:glowPulse 1.4s ease infinite;border-color:var(--gold)!important}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.floaty{animation:floaty 3.2s ease-in-out infinite}
+.scroll-thin::-webkit-scrollbar{width:6px}
+.scroll-thin::-webkit-scrollbar-thumb{background:rgba(245,196,81,.35);border-radius:99px}

@@ -5,6 +5,7 @@ import {
   obtenerDemo,
   obtenerFamilia,
   obtenerNombre,
+  uiMetodo,
 } from './metodosMeta';
 
 const copiar = (valor) => {
@@ -42,6 +43,7 @@ export function ejecutarDemo(metodoId, opciones = {}) {
     : demoBase;
   const familia = obtenerFamilia(metodoId);
   const nombre = obtenerNombre(metodoId);
+  const ui = uiMetodo(metodoId);
   const original = copiar(opciones.arreglo ?? demo.array ?? []);
   const pasos = [];
   const estados = {};
@@ -61,7 +63,66 @@ export function ejecutarDemo(metodoId, opciones = {}) {
     });
   };
 
-  paso('inicio', 'system', `▶ Ejecutando ${nombre} sobre [${original.map(formatValue).join(', ')}]`);
+  /* Traza real de una ordenación por inserción: compara parejas y muestra
+     cada intercambio, igual que hace sort()/toSorted() con (a, b) => a - b. */
+  const trazarOrden = (trabajo, mutar) => {
+    if (trabajo.length < 2) {
+      paso(
+        mutar ? 'mutar' : 'accion',
+        'info',
+        '📦 El array tiene menos de dos elementos: ya está ordenado.',
+        mutar ? { array: trabajo } : { salida: trabajo }
+      );
+      return;
+    }
+    let comparaciones = 0;
+    for (let i = 1; i < trabajo.length; i += 1) {
+      let j = i;
+      while (j > 0) {
+        const anterior = trabajo[j - 1];
+        const actual = trabajo[j];
+        const desordenado = Number(anterior) > Number(actual);
+        comparaciones += 1;
+        paso(
+          'comparar',
+          'info',
+          `🔍 Compara ${formatValue(anterior)} y ${formatValue(actual)} → ${
+            desordenado ? 'hay que intercambiar' : 'ya están en orden'
+          }`,
+          {
+            index: j,
+            ...(mutar ? { array: trabajo } : { salida: trabajo }),
+            explicacion: `Comparación #${comparaciones} con el comparador (a, b) => a - b.`,
+          }
+        );
+        if (!desordenado) break;
+        trabajo[j - 1] = actual;
+        trabajo[j] = anterior;
+        estados[j - 1] = 'moved';
+        estados[j] = 'moved';
+        paso(
+          'mutar',
+          'eval',
+          `🔀 Intercambia [${j - 1}] ↔ [${j}] · [${
+            trabajo.map(formatValue).join(', ')
+          }]`,
+          {
+            index: j,
+            ...(mutar ? { array: trabajo } : { salida: trabajo }),
+            explicacion: 'Los dos elementos cambian de posición para quedar en orden.',
+          }
+        );
+        j -= 1;
+      }
+    }
+  };
+
+  paso(
+    'inicio',
+    'system',
+    `${ui.emoji} ${nombre}: ${ui.intro} Array: [${original.map(formatValue).join(', ')}]`,
+    { explicacion: ui.descripcion }
+  );
 
   let result;
   let finalArray = original;
@@ -86,19 +147,30 @@ export function ejecutarDemo(metodoId, opciones = {}) {
       if (demo.op === '===') return n === tope;
       return n > tope;
     };
+    const esIgualdad = metodoId === 'indexof' || metodoId === 'lastindexof';
+    const valorBuscado = opciones.valor ?? demo.buscar;
     for (const idx of orden) {
       estados[idx] = 'active';
-      const ok =
-        metodoId === 'indexof' || metodoId === 'lastindexof'
-          ? original[idx] === (opciones.valor ?? demo.buscar)
-          : comparar(original[idx], idx);
+      const ok = esIgualdad
+        ? original[idx] === valorBuscado
+        : comparar(original[idx], idx);
+      const etiqueta = esIgualdad
+        ? `${formatValue(original[idx])} === ${formatValue(valorBuscado)}`
+        : `${formatValue(original[idx])} → ${demo.cond ?? 'condición'}`;
+      const lectura = metodoId === 'some'
+        ? `🔎 [${idx}] ${etiqueta} = ${ok ? 'TRUE' : 'FALSE'} · ¿algún testigo?`
+        : metodoId === 'every'
+          ? `🛡️ [${idx}] ${etiqueta} = ${ok ? 'TRUE' : 'FALSE'} · ¿todos cumplen?`
+          : esIndice(metodoId)
+            ? `🔢 [${idx}] ${etiqueta} = ${ok ? 'TRUE' : 'FALSE'} · posición candidata`
+            : `🎯 [${idx}] ${etiqueta} = ${ok ? 'TRUE' : 'FALSE'}`;
 
-      paso(
-        'evaluar',
-        ok ? 'success' : 'error',
-        `[${idx}] ${formatValue(original[idx])} → ${demo.cond ?? 'condición'} = ${ok ? 'TRUE' : 'FALSE'}`,
-        { index: idx }
-      );
+      paso('evaluar', ok ? 'success' : 'error', lectura, {
+        index: idx,
+        explicacion: ok
+          ? `${ui.emoji} ${nombre} encontró lo que buscaba en [${idx}].`
+          : 'La condición no se cumple en esta posición; se continúa con la siguiente.',
+      });
 
       if (ok) {
         if (metodoId === 'some') {
@@ -127,10 +199,27 @@ export function ejecutarDemo(metodoId, opciones = {}) {
     }
 
     if (!cerrado) {
-      if (metodoId === 'some') result = false;
-      else if (metodoId === 'every') result = true;
-      else if (metodoId === 'find' || metodoId === 'findlast') result = undefined;
-      else result = -1;
+      if (metodoId === 'some') {
+        result = false;
+        paso('resumen', 'info', '🔎 Ningún elemento cumplió: some() devuelve false.', {
+          explicacion: 'some() solo devuelve true si encuentra al menos un testigo.',
+        });
+      } else if (metodoId === 'every') {
+        result = true;
+        paso('resumen', 'success', '🛡️ Todos cumplieron: every() devuelve true.', {
+          explicacion: 'every() devuelve true solo cuando ningún elemento falla.',
+        });
+      } else if (metodoId === 'find' || metodoId === 'findlast') {
+        result = undefined;
+        paso('resumen', 'error', `🚦 Sin coincidencias: ${ui.corto} devuelve undefined.`, {
+          explicacion: 'No había ningún elemento que cumpliera la condición.',
+        });
+      } else {
+        result = -1;
+        paso('resumen', 'error', `🚦 Sin coincidencias: ${ui.corto} devuelve -1.`, {
+          explicacion: 'El valor -1 significa «no encontrado».',
+        });
+      }
     }
   } else if (familia === 'transformacion') {
     switch (metodoId) {
@@ -245,13 +334,39 @@ export function ejecutarDemo(metodoId, opciones = {}) {
         break;
       }
       case 'reverse': {
-        finalArray = copiar(original).reverse();
-        finalArray.forEach((_, idx) => {
-          estados[idx] = 'moved';
-        });
-        paso('mutar', 'eval', 'Invierte el array original en el sitio.', {
-          array: finalArray,
-        });
+        finalArray = copiar(original);
+        let izq = 0;
+        let der = finalArray.length - 1;
+        if (finalArray.length < 2) {
+          paso(
+            'mutar',
+            'info',
+            '🔄 El array tiene menos de dos elementos: no hay nada que invertir.',
+            { array: finalArray }
+          );
+        }
+        while (izq < der) {
+          const a = finalArray[izq];
+          const b = finalArray[der];
+          finalArray[izq] = b;
+          finalArray[der] = a;
+          estados[izq] = 'moved';
+          estados[der] = 'moved';
+          paso(
+            'mutar',
+            'eval',
+            `🔄 Intercambia [${izq}] ↔ [${der}] · [${finalArray
+              .map(formatValue)
+              .join(', ')}]`,
+            {
+              index: izq,
+              array: finalArray,
+              explicacion: `${formatValue(a)} y ${formatValue(b)} cambian de extremo.`,
+            }
+          );
+          izq += 1;
+          der -= 1;
+        }
         result = finalArray;
         break;
       }
@@ -281,10 +396,15 @@ export function ejecutarDemo(metodoId, opciones = {}) {
         break;
       }
       case 'tosorted': {
-        result = copiar(original).sort((a, b) => a - b);
-        paso('accion', 'eval', 'Copia el array y lo ordena sin mutar el original.', {
-          salida: result,
-        });
+        const copia = copiar(original);
+        paso(
+          'accion',
+          'info',
+          '🧬 toSorted() crea una copia y ordena SOLO la copia; el original queda intacto.',
+          { salida: copia }
+        );
+        trazarOrden(copia, false);
+        result = copia;
         break;
       }
       case 'tospliced': {
@@ -310,14 +430,33 @@ export function ejecutarDemo(metodoId, opciones = {}) {
     switch (metodoId) {
       case 'push': {
         finalArray = copiar(original);
-        const largo = finalArray.push(...(demo.items ?? []));
-        finalArray.forEach((_, idx) => {
-          estados[idx] = idx >= original.length ? 'new' : 'normal';
+        const nuevos = demo.items ?? [];
+        if (nuevos.length === 0) {
+          paso(
+            'mutar',
+            'info',
+            '📥 push() sin argumentos: el array no cambia y devuelve la longitud actual.',
+            { array: finalArray, explicacion: 'Sin argumentos no hay nada que añadir.' }
+          );
+        }
+        nuevos.forEach((item, k) => {
+          finalArray.push(item);
+          const idx = finalArray.length - 1;
+          estados[idx] = 'new';
+          paso(
+            'mutar',
+            'eval',
+            `📥 push(${formatValue(item)}) → ocupa [${idx}] · [${finalArray
+              .map(formatValue)
+              .join(', ')}]`,
+            {
+              index: idx,
+              array: finalArray,
+              explicacion: `Elemento ${k + 1} de ${nuevos.length} añadido al final.`,
+            }
+          );
         });
-        paso('mutar', 'eval', `Añade ${formatValue(demo.items)} al final.`, {
-          array: finalArray,
-        });
-        result = largo;
+        result = finalArray.length;
         break;
       }
       case 'pop': {
@@ -375,13 +514,8 @@ export function ejecutarDemo(metodoId, opciones = {}) {
         break;
       }
       case 'sort': {
-        finalArray = copiar(original).sort((a, b) => a - b);
-        finalArray.forEach((_, idx) => {
-          estados[idx] = 'moved';
-        });
-        paso('mutar', 'eval', 'Ordena el array original comparando con (a, b) => a - b.', {
-          array: finalArray,
-        });
+        finalArray = copiar(original);
+        trazarOrden(finalArray, true);
         result = finalArray;
         break;
       }
@@ -496,8 +630,16 @@ export function ejecutarDemo(metodoId, opciones = {}) {
         paso(
           'accion',
           'eval',
-          `at(${idx}) apunta al índice real ${real} → ${formatValue(result)}`,
-          { index: real }
+          `🎯 at(${idx}) → ${
+            idx < 0 ? `${original.length} + (${idx}) = ${real}` : `índice directo ${real}`
+          } → ${formatValue(result)}`,
+          {
+            index: real,
+            explicacion:
+              idx < 0
+                ? 'Un índice negativo cuenta desde el final: -1 es el último.'
+                : 'Un índice positivo se usa tal cual; 0 es el primero.',
+          }
         );
         break;
       }

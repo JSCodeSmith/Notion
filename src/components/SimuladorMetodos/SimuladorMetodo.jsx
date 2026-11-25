@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import '../SimuladorFind/SimuladorFindInteractivo.css';
+import CodeBlock from '../CodeBlock/CodeBlock';
 import { formatValue } from '../SimuladorFind/findTrace';
 import { ejecutarDemo, formatearResultado } from './ejecutarMetodo';
-import { obtenerDemo, obtenerFamilia, obtenerNombre } from './metodosMeta';
+import { obtenerDemo, obtenerFamilia, obtenerNombre, uiMetodo } from './metodosMeta';
 
 const claseLog = (tipo) => {
   if (tipo === 'success') return 'log-success';
@@ -40,6 +41,7 @@ const TEXTO = {
 export default function SimuladorMetodo({ metodo }) {
   const familia = obtenerFamilia(metodo.id);
   const nombre = obtenerNombre(metodo.id);
+  const ui = uiMetodo(metodo.id);
   const demoBase = obtenerDemo(metodo.id);
   const tieneCallback = Boolean(demoBase.fn);
   const tieneLimite = demoBase.limite !== undefined;
@@ -49,6 +51,10 @@ export default function SimuladorMetodo({ metodo }) {
   const [buscar, setBuscar] = useState(
     demoBase.buscar !== undefined ? String(demoBase.buscar) : ''
   );
+  const [nuevos, setNuevos] = useState(
+    (demoBase.items ?? []).map(formatValue).join(', ')
+  );
+  const [indiceAt, setIndiceAt] = useState(String(demoBase.index ?? 0));
   const [velocidad, setVelocidad] = useState(1000);
 
   const [plan, setPlan] = useState(null);
@@ -61,7 +67,7 @@ export default function SimuladorMetodo({ metodo }) {
   const [entrada, setEntrada] = useState('');
 
   const [logs, setLogs] = useState([
-    { texto: '> Esperando ejecución...', tipo: 'info' },
+    { texto: `> ${ui.emoji} ${ui.intro}`, tipo: 'info' },
   ]);
 
   const historial = useRef([]);
@@ -84,15 +90,25 @@ export default function SimuladorMetodo({ metodo }) {
     setTerminado(false);
     setCorriendo(false);
     historial.current = [];
-    setLogs([{ texto: '> Esperando ejecución...', tipo: 'info' }]);
+    setLogs([{ texto: `> ${ui.emoji} ${ui.intro}`, tipo: 'info' }]);
   };
 
   const opciones = useMemo(() => {
     const base = { arreglo: items };
     if (tieneLimite && limite !== '') base.limite = limite;
     if (demoBase.buscar !== undefined && buscar !== '') base.valor = leerValor(buscar);
+    if (demoBase.items !== undefined) {
+      base.parametros = {
+        items: nuevos
+          .split(',')
+          .map((texto) => texto.trim())
+          .filter(Boolean)
+          .map(leerValor),
+      };
+    }
+    if (metodo.id === 'at') base.parametros = { index: Number(indiceAt) };
     return base;
-  }, [items, limite, buscar, tieneLimite, demoBase.buscar]);
+  }, [items, limite, buscar, tieneLimite, demoBase.buscar, demoBase.items, metodo.id, nuevos, indiceAt]);
 
   const calcular = useCallback(() => {
     try {
@@ -131,7 +147,7 @@ export default function SimuladorMetodo({ metodo }) {
       setCorriendo(false);
       setResultado(plan.result);
       const final = formatearResultado(metodo.id, plan.result);
-      agregarLog(`■ Retorna: ${final}`, 'return');
+      agregarLog(`✅ ${ui.emoji} Retorna: ${final}`, 'return');
       if (plan.muta) {
         agregarLog(
           `> El array queda como [${(plan.finalArray ?? []).map(formatValue).join(', ')}]`,
@@ -239,12 +255,7 @@ export default function SimuladorMetodo({ metodo }) {
   return (
     <div className="sfi-container">
       <div className="sfi-code-panel">
-        {lineas.map((linea, i) => (
-          <div className="sfi-code-line" key={`${metodo.id}-code-${i}`}>
-            <span className="sfi-line-number">{i + 1}</span>
-            <span>{linea}</span>
-          </div>
-        ))}
+        <CodeBlock code={demoBase.code ?? ''} />
       </div>
 
       <div className="sfi-controls-bar">
@@ -270,6 +281,35 @@ export default function SimuladorMetodo({ metodo }) {
               value={buscar}
               onChange={(e) => {
                 setBuscar(e.target.value);
+                limpiar();
+              }}
+            />
+          </div>
+        )}
+
+        {demoBase.items !== undefined && (
+          <div className="sfi-input-group">
+            <label>{ui.accion}:</label>
+            <input
+              type="text"
+              value={nuevos}
+              placeholder="4, 5"
+              onChange={(e) => {
+                setNuevos(e.target.value);
+                limpiar();
+              }}
+            />
+          </div>
+        )}
+
+        {metodo.id === 'at' && (
+          <div className="sfi-input-group">
+            <label>Índice:</label>
+            <input
+              type="number"
+              value={indiceAt}
+              onChange={(e) => {
+                setIndiceAt(e.target.value);
                 limpiar();
               }}
             />
@@ -390,7 +430,7 @@ export default function SimuladorMetodo({ metodo }) {
 
       <div className="sfi-terminal-panel">
         <div className="sfi-terminal-header">
-          TERMINAL DE SALIDA &amp; DEPURACIÓN · {TEXTO[familia]}
+          TERMINAL DE SALIDA &amp; DEPURACIÓN · {ui.emoji} {ui.corto}
         </div>
         <div className="sfi-terminal-body" ref={terminalRef}>
           {logs.map((log, i) => (
