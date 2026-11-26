@@ -38,6 +38,16 @@ import { ADVANCED_GAME_IDS } from '../AdvancedGame/gameConfigs'
 
 import SimuladorFindDiagrama from '../SimuladorFind/SimuladorFindDiagrama' // <-- NUEVA IMPORTACIÓN
 
+/* Herramientas interactivas de Palabras reservadas, Estructuras y Eventos. */
+import TrazaEstructura from '../Estructuras/TrazaEstructura'
+import ScopeHoisting from '../Estructuras/ScopeHoisting'
+import EditorEstructura from '../Estructuras/EditorEstructura'
+import BugsEstructura from '../Estructuras/BugsEstructura'
+import ArbolRelacion from '../Estructuras/ArbolRelacion'
+import DiagramaAnalogia from '../Estructuras/DiagramaAnalogia'
+import QuizReto from '../Estructuras/QuizReto'
+import SimuladorEvento from '../Estructuras/SimuladorEvento'
+
 import DiagramaMetodo from '../SimuladorMetodos/DiagramaMetodo'
 import SimuladorMetodo from '../SimuladorMetodos/SimuladorMetodo'
 import EntornoPruebaMetodo from '../SimuladorMetodos/EntornoPruebaMetodo'
@@ -218,6 +228,9 @@ export function Quiz({ preguntas }) {
 
 export default function MetodoDoc({ metodo, onBack, simuladores }) {
   const esMetodoArray = ARRAY_METHOD_IDS.has(metodo.id) && metodo.id !== 'find'
+  const esEstructura = Boolean(metodo.demo || metodo.editor || metodo.bugs)
+  const esEvento = Boolean(metodo.laboratorio)
+  const conLaboratorio = esEstructura || esEvento
 
   return (
     <article className="notion-page detail-page">
@@ -266,10 +279,22 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
             <SimuladorFindDiagrama />
           </div>
         ) : (
-          <div className="doc-card">
-            <h3>⚙️ ¿Cómo funciona?</h3>
-            <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
-          </div>
+          <>
+            <div className="doc-card">
+              <h3>⚙️ ¿Cómo funciona?</h3>
+              <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
+            </div>
+            {metodo.demo && (
+              <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+                <TrazaEstructura key={`traza-${metodo.id}`} metodo={metodo} />
+              </div>
+            )}
+            {esEvento && (
+              <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+                <SimuladorEvento key={`evento-${metodo.id}`} metodo={metodo} />
+              </div>
+            )}
+          </>
         )}
 
         <div className="doc-card doc-card--full">
@@ -286,6 +311,12 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
             </div>
           )}
         </div>
+
+        {metodo.scope && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <ScopeHoisting key={`scope-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
 
         {esMetodoArray ? (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
@@ -323,7 +354,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           </div>
         )}
 
-        {!esMetodoArray && (
+        {!esMetodoArray && !conLaboratorio && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
           </div>
@@ -342,9 +373,22 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           ))}
         </div>
 
+        {metodo.editor && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <EditorEstructura key={`editor-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
+
         {metodo.id === 'reduce' && <ReduceExtras />}
 
         <div className="doc-card"><h3>⚠️ Errores comunes</h3><Lista items={metodo.errores} /></div>
+
+        {metodo.bugs && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <BugsEstructura key={`bugs-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
+
         <div className="doc-card"><h3>💼 Casos de uso</h3><Lista items={metodo.casos} /></div>
 
         {esMetodoArray ? (
@@ -359,7 +403,14 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
             />
           </div>
         ) : (
-          <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
+          <>
+            <div className="doc-card"><h3>🧩 Relación con otros conceptos</h3><Lista items={metodo.relacion} /></div>
+            {metodo.relacionArbol && (
+              <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+                <ArbolRelacion key={`arbol-${metodo.id}`} metodo={metodo} />
+              </div>
+            )}
+          </>
         )}
 
         {JUEGOS_APUNTES[metodo.id]?.map((Juego, i) => (
@@ -388,9 +439,19 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         <div className="doc-card doc-card--full"><h3>🧠 Analogía</h3><p><Inline text={metodo.analogia} /></p></div>
 
+        {metodo.analogiaDiagrama && (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <DiagramaAnalogia key={`analogia-${metodo.id}`} metodo={metodo} />
+          </div>
+        )}
+
         {esMetodoArray ? (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <QuizMetodo key={`quiz-${metodo.id}`} metodo={metodo} />
+          </div>
+        ) : conLaboratorio ? (
+          <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
+            <QuizReto key={`quiz-reto-${metodo.id}`} metodo={metodo} />
           </div>
         ) : (
           <Quiz key={metodo.id} preguntas={metodo.quiz} />

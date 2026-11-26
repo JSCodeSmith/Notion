@@ -77,6 +77,12 @@ export const JS_DOM_NODOS = {
           "firma": "nodo.contains(otroNodo)",
           "icon": "🧭",
         },
+        {
+          "id": "dom-haschildnodes",
+          "nombre": "hasChildNodes()",
+          "firma": "nodo.hasChildNodes()",
+          "icon": "👨‍👩‍👧",
+        },
       ],
     },
   ],
@@ -1484,5 +1490,220 @@ export const JS_DOM_NODOS_DOCS = {
         "correcta": 1,
       },
     ],
+  },
+  "dom-haschildnodes": {
+    "id": "dom-haschildnodes",
+    "titulo": "hasChildNodes()",
+    "icon": "👨‍👩‍👧",
+    "categoria": "DOM · Navegación",
+    "firma": "nodo.hasChildNodes()",
+    "simulador": "dom",
+    "laboratorio": "dom",
+    "definicion": [
+      "`hasChildNodes()` es un método de la interfaz **Node** del DOM que devuelve `true` si el nodo tiene **al menos un nodo hijo** y `false` si no tiene ninguno.",
+      "Cuenta **cualquier tipo de nodo hijo**: elementos HTML, nodos de texto, comentarios o fragmentos. No modifica el documento."
+    ],
+    "queEs": [
+      "Es un **método del DOM API**, no una propiedad: se invoca con paréntesis: `nodo.hasChildNodes()`.",
+      "Vive en `Node.prototype`, por lo que está disponible en elementos, texto, comentarios y `document`.",
+      "Devuelve un **booleano** (`true` o `false`); nunca devuelve la lista de hijos.",
+      "A diferencia de `children`, **sí toma en cuenta los nodos de texto y los comentarios**."
+    ],
+    "paraQueSirve": [
+      "Comprobar si un contenedor tiene contenido **antes de recorrerlo** o acceder a `firstChild`.",
+      "Evitar errores al llamar métodos o propiedades sobre un nodo vacío.",
+      "Decidir si mostrar un mensaje de “lista vacía” en una interfaz.",
+      "Implementar recorridos recursivos por el árbol DOM con una condición de parada clara."
+    ],
+    "comoFunciona": [
+      "Se invoca sobre un nodo ya obtenido del DOM.",
+      "El navegador revisa la colección interna `childNodes` de ese nodo.",
+      "Si `childNodes.length > 0`, devuelve `true`; si está vacía, devuelve `false`.",
+      "Los espacios, saltos de línea y comentarios también cuentan como nodos hijos.",
+      "No lanza una excepción cuando el nodo está vacío: simplemente devuelve `false`."
+    ],
+    "sintaxis": [
+      {
+        "caption": "Forma básica",
+        "code": "nodo.hasChildNodes();"
+      },
+      {
+        "caption": "Uso habitual como guarda",
+        "code": "if (contenedor.hasChildNodes()) {\n  recorrer(contenedor);\n} else {\n  console.log(\"El contenedor está vacío\");\n}"
+      }
+    ],
+    "ejemplos": [
+      {
+        "titulo": "Ejemplo 1 · Comprobar una lista",
+        "descripcion": "La lista tiene tres `<li>`, así que el método devuelve `true`.",
+        "code": "const lista = document.querySelector(\"#demo-lista\");\nconsole.log(lista.hasChildNodes()); // true"
+      },
+      {
+        "titulo": "Ejemplo 2 · Nodo recién creado",
+        "descripcion": "Un elemento creado con `createElement` todavía no tiene hijos.",
+        "code": "const caja = document.createElement(\"div\");\nconsole.log(caja.hasChildNodes()); // false\n\ncaja.append(\"Hola\");\nconsole.log(caja.hasChildNodes()); // true"
+      },
+      {
+        "titulo": "Ejemplo 3 · Diferencia con children",
+        "descripcion": "`children` solo cuenta elementos; `hasChildNodes()` cuenta también texto y comentarios.",
+        "code": "const parrafo = document.querySelector(\"#demo-texto\");\nconsole.log(parrafo.children.length);      // 0\nconsole.log(parrafo.hasChildNodes());      // true (el texto es un nodo hijo)"
+      }
+    ],
+    "errores": [
+      {
+        "texto": "**Confundir `hasChildNodes()` con `children.length`**: `children` ignora los nodos de texto; `hasChildNodes()` no.",
+        "code": "// ❌ Supone que un párrafo con texto no tiene hijos\nif (p.children.length === 0) {\n  console.log(\"vacío\"); // no entra: children.length es 0, pero SÍ hay texto\n}\n\n// ✅ Comprueba cualquier nodo hijo\nif (!p.hasChildNodes()) {\n  console.log(\"vacío de verdad\");\n}"
+      },
+      {
+        "texto": "**Llamarlo sobre `null`**: si el selector no encuentra el elemento, `hasChildNodes()` lanza un `TypeError`.",
+        "code": "// ❌ Puede fallar si no existe\nconst nodo = document.querySelector(\"#no-existe\");\nnodo.hasChildNodes();\n\n// ✅ Comprueba primero\nif (nodo && nodo.hasChildNodes()) { /* ... */ }"
+      },
+      {
+        "texto": "**Olvidar los nodos de texto**: un salto de línea o un espacio dentro del HTML ya crea un nodo hijo.",
+        "code": "// El HTML con saltos de línea produce nodos de texto\nconst lista = document.querySelector(\"#demo-lista\");\nlista.hasChildNodes(); // true"
+      }
+    ],
+    "casos": [
+      "Mostrar un estado vacío solo cuando el contenedor no tiene ningún nodo hijo.",
+      "Recorrer un árbol DOM de forma recursiva y detenerse en las hojas.",
+      "Validar que un formulario o una tarjeta tiene contenido antes de manipularlo.",
+      "Comprobar si un nodo de texto o un comentario tiene hijos (normalmente `false`)."
+    ],
+    "relacion": [
+      "`childNodes`: devuelve la lista completa de nodos hijos (elementos, texto y comentarios).",
+      "`children`: devuelve solo los hijos que son elementos HTML.",
+      "`firstChild` / `lastChild`: acceden al primer o último nodo hijo, sea del tipo que sea.",
+      "`firstElementChild` / `lastElementChild`: acceden al primer o último **elemento** hijo.",
+      "`Node.contains()`: comprueba si un nodo está dentro de otro; `hasChildNodes()` solo mira los hijos directos."
+    ],
+    "analogia": "Imagina una caja de almacenamiento. `hasChildNodes()` responde a la pregunta “¿la caja tiene algo dentro?”. No importa si dentro hay juguetes, una nota escrita o hasta un comentario: si hay algo, la respuesta es `true`. En cambio, `children` sería “¿cuántos juguetes hay?”, porque ignora las notas y los papeles.",
+    "analogiaDiagrama": {
+      "centro": "hasChildNodes()",
+      "nodos": [
+        {
+          "emoji": "📦",
+          "label": "Nodo",
+          "detalle": "La caja que se inspecciona."
+        },
+        {
+          "emoji": "📄",
+          "label": "Cualquier hijo",
+          "detalle": "Elemento, texto o comentario."
+        },
+        {
+          "emoji": "✅",
+          "label": "true / false",
+          "detalle": "Solo responde si hay al menos uno."
+        },
+        {
+          "emoji": "🧸",
+          "label": "children",
+          "detalle": "Solo cuenta elementos, no texto."
+        }
+      ]
+    },
+    "demo": {
+      "codigo": "const lista = document.querySelector(\"#demo-lista\");\nconst vacio = document.createElement(\"div\");\n\nlista.hasChildNodes(); // true\nvacio.hasChildNodes(); // false",
+      "pasos": [
+        {
+          "linea": 1,
+          "pila": [
+            "global"
+          ],
+          "vars": {
+            "lista": "ul#demo-lista (3 hijos)"
+          },
+          "salida": "",
+          "nota": "Se selecciona la lista del laboratorio."
+        },
+        {
+          "linea": 2,
+          "pila": [
+            "global"
+          ],
+          "vars": {
+            "lista": "ul#demo-lista (3 hijos)",
+            "vacio": "div (sin hijos)"
+          },
+          "salida": "",
+          "nota": "Se crea un elemento nuevo, todavía vacío."
+        },
+        {
+          "linea": 4,
+          "pila": [
+            "global"
+          ],
+          "vars": {
+            "lista": "ul#demo-lista (3 hijos)",
+            "vacio": "div (sin hijos)"
+          },
+          "salida": "true",
+          "nota": "La lista tiene tres <li>: hay al menos un nodo hijo."
+        },
+        {
+          "linea": 5,
+          "pila": [
+            "global"
+          ],
+          "vars": {
+            "lista": "ul#demo-lista (3 hijos)",
+            "vacio": "div (sin hijos)"
+          },
+          "salida": "false",
+          "nota": "El div recién creado no tiene ningún nodo dentro."
+        }
+      ]
+    },
+    "quiz": [
+      {
+        "id": 1,
+        "pregunta": "¿Qué devuelve `hasChildNodes()`?",
+        "opciones": [
+          "Un booleano: `true` si hay al menos un nodo hijo.",
+          "La lista de nodos hijos.",
+          "El número de elementos hijos.",
+          "El primer nodo hijo."
+        ],
+        "correcta": 0,
+        "explicacion": "Devuelve exactamente `true` o `false`; no devuelve la colección ni la cuenta."
+      },
+      {
+        "id": 2,
+        "pregunta": "¿Qué tipos de nodos cuenta `hasChildNodes()`?",
+        "opciones": [
+          "Solo elementos HTML.",
+          "Elementos, texto y comentarios: cualquier nodo hijo.",
+          "Solo nodos de texto.",
+          "Solo nodos con id."
+        ],
+        "correcta": 1,
+        "explicacion": "Se basa en `childNodes`, que incluye elementos, texto y comentarios."
+      },
+      {
+        "id": 3,
+        "pregunta": "Un `<p>` contiene solo texto. ¿Qué devuelve `p.children.length` y `p.hasChildNodes()`?",
+        "opciones": [
+          "`1` y `true`.",
+          "`0` y `false`.",
+          "`0` y `true`.",
+          "`1` y `false`."
+        ],
+        "correcta": 2,
+        "explicacion": "`children` ignora el nodo de texto, pero `hasChildNodes()` sí lo cuenta."
+      },
+      {
+        "id": 4,
+        "pregunta": "¿Cuál es la forma segura de usarlo si el selector puede no encontrar el nodo?",
+        "opciones": [
+          "`nodo.hasChildNodes()` directamente.",
+          "`if (nodo && nodo.hasChildNodes()) { ... }`.",
+          "`nodo.childNodes.hasChildNodes()`.",
+          "`hasChildNodes(nodo)` como función global."
+        ],
+        "correcta": 1,
+        "explicacion": "Primero hay que comprobar que el nodo existe para evitar un `TypeError`."
+      }
+    ],
+    "fuente": "MDN Web Docs – Node.hasChildNodes() · WHATWG DOM Standard – Node interface · JavaScript.info – DOM tree"
   },
 };

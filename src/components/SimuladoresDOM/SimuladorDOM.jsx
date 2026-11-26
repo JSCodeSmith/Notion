@@ -63,6 +63,7 @@ const NODOS = new Set([
   "dom-nodename",
   "dom-nodetype",
   "dom-nodecontains",
+  "dom-haschildnodes",
 ]);
 
 const CREACION = new Set([
@@ -416,6 +417,7 @@ export default function SimuladorDOM({ metodoId }) {
     ["dom-previouselementsibling", "previousElementSibling", (n) => n.previousElementSibling],
     ["dom-nodename", "nodeName", (n) => n.nodeName],
     ["dom-nodetype", "nodeType", (n) => n.nodeType],
+    ["dom-haschildnodes", "hasChildNodes()", (n) => n.hasChildNodes()],
   ];
 
   const ejecutarNodo = (propiedad, lector) => {
@@ -437,6 +439,10 @@ export default function SimuladorDOM({ metodoId }) {
             .map((n, i) => `[${i}] ${describir(n)} · nodeType ${n.nodeType} (${NODE_TYPES[n.nodeType] ?? "?"})`)
             .join("\n")
         : "(sin nodos hijos)";
+    } else if (propiedad === "hasChildNodes()") {
+      detalle = valor
+        ? `true · tiene ${actual.childNodes.length} nodo(s) hijo(s)`
+        : "false · no tiene ningún nodo hijo";
     } else if (propiedad === "nodeType") {
       detalle = `${valor} (${NODE_TYPES[valor] ?? "desconocido"})`;
     } else {

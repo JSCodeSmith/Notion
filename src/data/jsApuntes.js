@@ -6,8 +6,9 @@ import {
 } from "./jsCoreTypedArray";
 import { JS_CORE_BROWSER, JS_CORE_BROWSER_DOCS } from "./jsCoreBrowser";
 
-import { JS_JSON, JS_JSON_DOCS } from "./jsJson";
-import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
+import { JS_ESTRUCTURAS, JS_ESTRUCTURAS_DOCS } from "./jsEstructuras";
+import { JS_EVENTOS_NATIVOS, JS_EVENTOS_NATIVOS_DOCS } from "./jsEventos";
+import { JS_JSON, JS_JSON_DOCS } from "./jsJson";import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
 import { JS_REGEXP, JS_REGEXP_DOCS } from "./jsRegexp";
 import { JS_INTL, JS_INTL_DOCS } from "./jsIntl";
 /* Las categorías antiguas Object / Object avanzado / Funciones / TypedArrays
@@ -40,6 +41,7 @@ import { JS_RED, JS_RED_DOCS } from "./js-red";
 
 /* Categorías que aparecen como subpestañas dentro de JavaScript. */
 export const JS_CATEGORIAS = [
+  JS_ESTRUCTURAS,
   JS_JSON,
   JS_MAP_SET,
   JS_REGEXP,
@@ -58,6 +60,7 @@ export const JS_CATEGORIAS = [
   JS_DOM_ATRIBUTOS,
   JS_DOM_NODOS,
   JS_EVENTOS_DIALOGOS,
+  JS_EVENTOS_NATIVOS,
   JS_MEDIA_GEO,
   JS_MATH,
   JS_STORAGE,
