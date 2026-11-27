@@ -66,7 +66,12 @@ export default function ScopeHoisting({ metodo }) {
 
   const ambitos = useMemo(() => {
     const mapa = new Map();
+    const declaraciones = lineas.filter((linea) =>
+      TIPOS.some((t) => t.tipo === linea.tipo),
+    );
+    const visibles = declaraciones.length ? declaraciones : lineas;
     lineas.forEach((linea, i) => {
+      if (!visibles.includes(linea)) return;
       const clave = linea.ambito ?? "global";
       if (!mapa.has(clave)) mapa.set(clave, []);
       mapa.get(clave).push({ ...linea, indice: i });

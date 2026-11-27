@@ -76,6 +76,7 @@ export const JS_CATEGORIAS = [
 
 /* Todos los apuntes, indexados por id. */
 export const JS_APUNTES = {
+  ...JS_ESTRUCTURAS_DOCS,
   ...JS_JSON_DOCS,
   ...JS_MAP_SET_DOCS,
   ...JS_REGEXP_DOCS,
@@ -94,6 +95,7 @@ export const JS_APUNTES = {
   ...JS_DOM_ATRIBUTOS_DOCS,
   ...JS_DOM_NODOS_DOCS,
   ...JS_EVENTOS_DIALOGOS_DOCS,
+  ...JS_EVENTOS_NATIVOS_DOCS,
   ...JS_MEDIA_GEO_DOCS,
   ...JS_MATH_DOCS,
   ...JS_STORAGE_DOCS,

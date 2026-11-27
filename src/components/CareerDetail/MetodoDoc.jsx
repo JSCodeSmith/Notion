@@ -228,8 +228,8 @@ export function Quiz({ preguntas }) {
 
 export default function MetodoDoc({ metodo, onBack, simuladores }) {
   const esMetodoArray = ARRAY_METHOD_IDS.has(metodo.id) && metodo.id !== 'find'
-  const esEstructura = Boolean(metodo.demo || metodo.editor || metodo.bugs)
-  const esEvento = Boolean(metodo.laboratorio)
+  const esEstructura = metodo.categoria === 'Palabras Reservadas y Estructuras'
+  const esEvento = Boolean(metodo.evento)
   const conLaboratorio = esEstructura || esEvento
 
   return (
@@ -240,7 +240,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
       {metodo.obsoleto && (
         <div className="doc-warning">
-          ⚠️ Este método está <strong>obsoleto (deprecated)</strong> y no forma parte del estándar ECMAScript actual. Evita usarlo en código nuevo: usa <code>slice()</code> o <code>substring()</code> en su lugar.
+          ⚠️ {metodo.evento ? 'Este evento está' : 'Este método está'} <strong>obsoleto (deprecated)</strong> y no forma parte del estándar actual. Evita usarlo en código nuevo y revisa las alternativas indicadas en «Relación con otros conceptos».
         </div>
       )}
 
@@ -284,7 +284,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
               <h3>⚙️ ¿Cómo funciona?</h3>
               <Lista items={metodo.comoFunciona} ordenada={!metodo.comoFuncionaSinNumerar} />
             </div>
-            {metodo.demo && (
+            {esEstructura && metodo.demo && (
               <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
                 <TrazaEstructura key={`traza-${metodo.id}`} metodo={metodo} />
               </div>
@@ -312,7 +312,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           )}
         </div>
 
-        {metodo.scope && (
+        {esEstructura && metodo.scope && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <ScopeHoisting key={`scope-${metodo.id}`} metodo={metodo} />
           </div>
@@ -373,7 +373,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           ))}
         </div>
 
-        {metodo.editor && (
+        {esEstructura && metodo.editor && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <EditorEstructura key={`editor-${metodo.id}`} metodo={metodo} />
           </div>
@@ -383,7 +383,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         <div className="doc-card"><h3>⚠️ Errores comunes</h3><Lista items={metodo.errores} /></div>
 
-        {metodo.bugs && (
+        {esEstructura && metodo.bugs && (
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <BugsEstructura key={`bugs-${metodo.id}`} metodo={metodo} />
           </div>

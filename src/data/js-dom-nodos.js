@@ -1576,6 +1576,39 @@ export const JS_DOM_NODOS_DOCS = {
       "`firstElementChild` / `lastElementChild`: acceden al primer o último **elemento** hijo.",
       "`Node.contains()`: comprueba si un nodo está dentro de otro; `hasChildNodes()` solo mira los hijos directos."
     ],
+    "relacionArbol": {
+      "raiz": {
+        "label": "hasChildNodes()",
+        "detalle": "¿Tiene al menos un nodo hijo?",
+        "hijos": [
+          {
+            "emoji": "👨‍👩‍👧",
+            "label": "childNodes",
+            "detalle": "Lista completa de hijos"
+          },
+          {
+            "emoji": "🧸",
+            "label": "children",
+            "detalle": "Solo hijos que son elementos"
+          },
+          {
+            "emoji": "⬅️",
+            "label": "firstChild / lastChild",
+            "detalle": "Primer y último nodo hijo"
+          },
+          {
+            "emoji": "🧭",
+            "label": "contains()",
+            "detalle": "Ancestro, no solo hijos directos"
+          },
+          {
+            "emoji": "🌳",
+            "label": "Recorrido recursivo",
+            "detalle": "Parada en las hojas"
+          }
+        ]
+      }
+    },
     "analogia": "Imagina una caja de almacenamiento. `hasChildNodes()` responde a la pregunta “¿la caja tiene algo dentro?”. No importa si dentro hay juguetes, una nota escrita o hasta un comentario: si hay algo, la respuesta es `true`. En cambio, `children` sería “¿cuántos juguetes hay?”, porque ignora las notas y los papeles.",
     "analogiaDiagrama": {
       "centro": "hasChildNodes()",

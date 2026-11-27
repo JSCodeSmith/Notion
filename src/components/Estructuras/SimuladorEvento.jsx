@@ -81,6 +81,7 @@ export default function SimuladorEvento({ metodo }) {
     setEstadoCarga("cargando");
     const t = setTimeout(() => {
       setEstadoCarga("listo");
+      setContador((c) => c + 1);
       push("ok", `🚀 load · la página y sus recursos están listos (recarga #${recarga + 1})`);
     }, 750);
     return () => clearTimeout(t);
@@ -90,6 +91,7 @@ export default function SimuladorEvento({ metodo }) {
   useEffect(() => {
     if (evento !== "resize") return;
     const alRedimensionar = () => {
+      setContador((c) => c + 1);
       push("info", `🪟 window resize → ${window.innerWidth} × ${window.innerHeight} px`);
     };
     window.addEventListener("resize", alRedimensionar);
@@ -99,14 +101,21 @@ export default function SimuladorEvento({ metodo }) {
   /* onresize de la caja (debounce para no inundar la consola) */
   useEffect(() => {
     if (evento !== "resize" || !cajaRef.current) return;
+    let primera = true;
     const observador = new ResizeObserver((entradas) => {
       const caja = entradas[0]?.contentRect;
       if (!caja) return;
       const tamano = `${Math.round(caja.width)} × ${Math.round(caja.height)}`;
+      if (primera) {
+        primera = false;
+        ultimoTamano.current = tamano;
+        return;
+      }
       if (tamano === ultimoTamano.current) return;
       ultimoTamano.current = tamano;
       clearTimeout(resizeTimer.current);
       resizeTimer.current = setTimeout(() => {
+        setContador((c) => c + 1);
         push("info", `📐 caja resize → ${tamano} px`);
       }, 180);
     });
@@ -442,6 +451,7 @@ export default function SimuladorEvento({ metodo }) {
                   className="evn-boton"
                   onClick={() => {
                     setSalida(true);
+                    setContador((c) => c + 1);
                     push("warn", "🚪 beforeunload · el navegador pide confirmación");
                     setTimeout(() => push("warn", "📦 pagehide · la página pasa a segundo plano"), 450);
                     setTimeout(() => push("error", "💤 unload · la página se descarga (simulado)"), 900);
@@ -458,6 +468,7 @@ export default function SimuladorEvento({ metodo }) {
                   className="evn-boton"
                   onClick={() => {
                     setSalida(false);
+                    setContador(0);
                     push("ok", "↩️ Has vuelto a la página. Los listeners se vuelven a registrar.");
                   }}
                 >
