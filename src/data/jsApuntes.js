@@ -8,7 +8,8 @@ import { JS_CORE_BROWSER, JS_CORE_BROWSER_DOCS } from "./jsCoreBrowser";
 
 import { JS_ESTRUCTURAS, JS_ESTRUCTURAS_DOCS } from "./jsEstructuras";
 import { JS_EVENTOS_NATIVOS, JS_EVENTOS_NATIVOS_DOCS } from "./jsEventos";
-import { JS_JSON, JS_JSON_DOCS } from "./jsJson";import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
+import { JS_JSON, JS_JSON_DOCS } from "./jsJson";
+import { JS_MAP_SET, JS_MAP_SET_DOCS } from "./jsMapSet";
 import { JS_REGEXP, JS_REGEXP_DOCS } from "./jsRegexp";
 import { JS_INTL, JS_INTL_DOCS } from "./jsIntl";
 /* Las categorías antiguas Object / Object avanzado / Funciones / TypedArrays
@@ -38,6 +39,9 @@ import { JS_ESTILOS, JS_ESTILOS_DOCS } from "./js-estilos";
 import { JS_VOZ, JS_VOZ_DOCS } from "./js-voz";
 import { JS_MEDIOS, JS_MEDIOS_DOCS } from "./js-medios";
 import { JS_RED, JS_RED_DOCS } from "./js-red";
+
+import { JS_DOM_METODOS, JS_DOM_METODOS_DOCS } from "./jsDomMetodos";
+import { FISICA_CINEMATICA, FISICA_CINEMATICA_DOCS } from "./fisicaCinematica";
 
 /* Categorías que aparecen como subpestañas dentro de JavaScript. */
 export const JS_CATEGORIAS = [
@@ -72,6 +76,7 @@ export const JS_CATEGORIAS = [
   JS_CORE_FUNCTION,
   JS_CORE_TYPEDARRAY,
   JS_CORE_BROWSER,
+  JS_DOM_METODOS,
 ];
 
 /* Todos los apuntes, indexados por id. */
@@ -107,6 +112,8 @@ export const JS_APUNTES = {
   ...JS_CORE_FUNCTION_DOCS,
   ...JS_CORE_TYPEDARRAY_DOCS,
   ...JS_CORE_BROWSER_DOCS,
+  ...JS_DOM_METODOS_DOCS,
+  ...FISICA_CINEMATICA_DOCS, // <--- AGREGA ESTO
 };
 
 /* id del apunte → id de su categoría (para abrir la subpestaña correcta). */

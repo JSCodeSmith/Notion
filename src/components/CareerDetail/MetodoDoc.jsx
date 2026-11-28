@@ -132,6 +132,9 @@ function Simulador({ metodo, simuladores = {} }) {
       return <SimuladorRed key={metodo.id} metodoId={metodo.id} />
    case 'reduce-lab':
       return <ReduceLab key={metodo.id} />
+
+    case "fisica" :
+        return null
     default:
       return IDS_BUSQUEDA.has(metodo.id)
         ? <SimuladorBusqueda key={metodo.id} metodoId={metodo.id} />
@@ -227,9 +230,11 @@ export function Quiz({ preguntas }) {
 }
 
 export default function MetodoDoc({ metodo, onBack, simuladores }) {
+  const esFisica = metodo.curso === 'cinematica'
   const esMetodoArray = ARRAY_METHOD_IDS.has(metodo.id) && metodo.id !== 'find'
   const esEstructura = metodo.categoria === 'Palabras Reservadas y Estructuras'
   const esEvento = Boolean(metodo.evento)
+
   const conLaboratorio = esEstructura || esEvento
 
   return (
@@ -299,7 +304,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         <div className="doc-card doc-card--full">
           <h3>📝 Sintaxis / Estructura</h3>
-          {metodo.sintaxis.map((s, i) => (
+          {metodo.sintaxis?.map((s, i) => (
             <div key={i}>
               {s.caption && <p className="code-caption">{s.caption}</p>}
               <CodeBlock code={s.code} />
@@ -354,7 +359,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
           </div>
         )}
 
-        {!esMetodoArray && !conLaboratorio && (
+      {!esMetodoArray && !conLaboratorio && !esFisica && (  
           <div className="doc-card doc-card--full" style={{ padding: 0, background: 'transparent', border: 'none' }}>
             <LiveExamples key={`live-${metodo.id}`} metodo={metodo} />
           </div>
@@ -362,7 +367,7 @@ export default function MetodoDoc({ metodo, onBack, simuladores }) {
 
         <div className="doc-card doc-card--full">
           <h3>💡 Ejemplos</h3>
-          {metodo.ejemplos.map((ej, i) => (
+          {metodo.ejemplos?.map((ej, i) => (
             <div key={i}>
               <p className="example-title" style={{ marginTop: i > 0 ? '16px' : 0 }}>
                 <strong>{ej.titulo}</strong>

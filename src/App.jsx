@@ -133,7 +133,10 @@ export default function App() {
             ) : (
               <CareerDetail
                 key={activeCourse.id}
-                carrera={{ ...activeCourse, emoji: activeCourse.icon }}
+                  carrera={{ ...activeCourse, emoji: activeCourse.icon }}
+
+
+
                 onBack={() => {
                   setActiveCourseId(null)
                   setActiveMethodId(null)

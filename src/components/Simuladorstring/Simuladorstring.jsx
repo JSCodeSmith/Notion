@@ -3560,13 +3560,20 @@ normalize: {
 };
 
 export default function SimuladorString({ metodoId }) {
+  
   const config = CONFIGS[metodoId];
 
-  const [vals, setVals] = useState(() =>
-    Object.fromEntries(config.campos.map((c) => [c.k, c.def])),
-  );
+  const [vals, setVals] = useState(() => {
+    if (!config || !config.campos) return {};
+    return Object.fromEntries(config.campos.map(c => [c.k, c.def]));
+  });
+
+
   const [paso, setPaso] = useState(0);
   const [playing, setPlaying] = useState(false);
+
+
+
 
   const traza = useMemo(() => {
     try {
@@ -3582,6 +3589,15 @@ export default function SimuladorString({ metodoId }) {
   }, [config, vals]);
 
   const celdas = useMemo(() => normalizarCeldas(celdasRaw), [celdasRaw]);
+
+   if (!config || !config.campos) {
+    return (
+      <div className="doc-card" style={{ padding: 24, textAlign: 'center', color: '#bbb' }}>
+        ⚠️ Este método no tiene simulador interactivo configurado.
+      </div>
+    );
+  }
+
 
   const resultadoFinal = useMemo(() => {
     if (!config.resultadoFinal) return null;

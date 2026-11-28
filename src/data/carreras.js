@@ -118,6 +118,23 @@ export const CARRERAS = [
       },
     ],
   },
+
+  {
+    id: "fisica",
+    nombre: "Física",
+    emoji: "🚀",
+    categoria: "Ciencias",
+    resumen: "Cinemática, dinámica y otras ramas de la física clásica.",
+    tags: ["Ciencias", "Movimiento"],
+    cursos: [
+      {
+        id: "cinematica",
+        nombre: "Cinemática",
+        icon: "🚀",
+        nivel: "Intermedio",
+      },
+    ],
+  },
 ];
 
 export const METODOS_ARRAYS = [

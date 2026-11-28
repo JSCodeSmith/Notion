@@ -7,11 +7,14 @@ import * as HTML from "./htmlApuntes";
 import * as STR from "./metodosStrings";
 import * as NUM from "./metodosNumeros";
 import * as FEC from "./metodosFechas";
+import * as FIS from "./fisicaCinematica"; // <--- NUEVO
+
 import { buildHtmlSearchGroups } from "./htmlApuntes";
 import { METODOS_STRINGS } from "./metodosStrings";
 import { METODOS_NUMEROS } from "./metodosNumeros";
 import { METODOS_FECHAS } from "./metodosFechas";
 import { CONSOLE_API_CONCEPTOS } from "../APIs/ConsoleAPI/data";
+const FISICA_CATEGORIAS = FIS.FISICA_CINEMATICA ? [FIS.FISICA_CINEMATICA] : [];
 
 const JS_CATEGORIAS = JS.JS_CATEGORIAS ?? [];
 const CSS_CATEGORIAS = CSS.CSS_CATEGORIAS ?? [];
@@ -89,6 +92,17 @@ const METODOS_NEGOCIOS = NEGOCIOS_CURSOS.flatMap((curso) =>
   })),
 );
 
+const METODOS_FISICA = FISICA_CATEGORIAS.flatMap((cat) =>
+  cat.grupos.map((g) => ({
+    ...g,
+    seccion: `${cat.label} · ${g.seccion}`,
+    subtitulo: "Ciencias · Física",
+    careerId: "fisica", // <-- El ID de la nueva carrera
+    courseId: "cinematica",
+    keywords: `fisica cinematica movimiento ${g.seccion}`,
+  })),
+);
+
 const METODOS_HTML = buildHtmlSearchGroups("programacion", "web");
 
 const TODOS_LOS_METODOS = [
@@ -101,6 +115,7 @@ const TODOS_LOS_METODOS = [
   ...METODOS_CSS,
   ...METODOS_NEGOCIOS,
   ...METODOS_HTML,
+  ...METODOS_FISICA,
 ];
 
 const DOC_IDS = new Set([

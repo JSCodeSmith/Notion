@@ -28,6 +28,11 @@ import CssCurso from '../CSS/CssCurso'
 import { CSS_SIMULADORES } from '../SimuladoresCSS/registro'
 import './CareerDetail.css'
 import './LenguajeTabs.css'
+import { FISICA_CINEMATICA, FISICA_CINEMATICA_DOCS } from '../../data/fisicaCinematica';
+
+
+const FISICA_CATEGORIAS = [FISICA_CINEMATICA];
+const FISICA_APUNTES = FISICA_CINEMATICA_DOCS;
 
 const STRING_IDS = new Set(METODOS_STRINGS.flatMap((g) => g.metodos.map((m) => m.id)))
 const NUMERO_IDS = new Set(METODOS_NUMEROS.flatMap((g) => g.metodos.map((m) => m.id)))
@@ -50,7 +55,10 @@ const SUBTABS = [
     grupos: categoria.grupos,
   })),
   { id: 'apis', label: 'APIs', icon: '🔌', grupos: [] },
+
 ]
+
+
 
 function Breadcrumb({ items }) {
   return (
@@ -83,6 +91,8 @@ export default function CareerDetail({
 }) {
   const isLenguajes = carrera.id === 'lenguajes'
   const isWeb = carrera.id === 'web'
+  const isFisica = carrera.id === 'cinematica'
+
   const negocioCurso =
     NEGOCIOS_CURSOS.find((curso) => curso.id === carrera.id) ?? null
   const [subtab, setSubtab] = useState(() => {
@@ -130,13 +140,13 @@ export default function CareerDetail({
     setSubtab(STRING_IDS.has(metodoActivo) ? 'strings' : 'arrays')
   }, [metodoActivo])
   const tieneDoc = (id) =>
-    id === 'find' ||
-    Boolean(METODOS_DOCS[id]) ||
-    Boolean(METODOS_FECHAS_DOCS[id]) ||
-    Boolean(JS_APUNTES[id]) ||
-    Boolean(NEGOCIOS_APUNTES[id]) ||
-    Boolean(CSS_APUNTES[id])
-
+  id === 'find' ||
+  Boolean(METODOS_DOCS[id]) ||
+  Boolean(METODOS_FECHAS_DOCS[id]) ||
+  Boolean(JS_APUNTES[id]) ||
+  Boolean(NEGOCIOS_APUNTES[id]) ||
+  Boolean(CSS_APUNTES[id]) ||
+  Boolean(FISICA_CINEMATICA_DOCS[id]);
   const volverALista = () => onMetodoChange(null)
 
   if (metodoActivo === 'find') {
@@ -151,12 +161,14 @@ export default function CareerDetail({
     return <NegocioDoc nota={negocioActivo} onBack={volverALista} />
   }
 
-  const docActivo = metodoActivo
-    ? METODOS_DOCS[metodoActivo] ??
-      METODOS_FECHAS_DOCS[metodoActivo] ??
-      JS_APUNTES[metodoActivo] ??
-      CSS_APUNTES[metodoActivo]
-    : null
+const docActivo = metodoActivo
+  ? (METODOS_DOCS[metodoActivo] ??
+     METODOS_FECHAS_DOCS[metodoActivo] ??
+     JS_APUNTES[metodoActivo] ??
+     CSS_APUNTES[metodoActivo] ??
+     FISICA_CINEMATICA_DOCS[metodoActivo])
+  : null
+
 
   if (docActivo) {
     return (
@@ -295,7 +307,52 @@ export default function CareerDetail({
           ))
           )}
         </div>
-      ) : isWeb ? (
+
+
+      ) 
+      : isFisica ? (
+  <div className="notion-database">
+    <div className="notion-viewbar">
+      <span className="notion-viewtab is-active">🚀 Cinemática</span>
+    </div>
+    {FISICA_CATEGORIAS.map((categoria) =>
+      categoria.grupos.map((grupo) => (
+        <section key={grupo.seccion} className="notion-section">
+          <h2 className="notion-section-title">{grupo.seccion}</h2>
+          <div className="notion-table-container">
+            <table className="notion-table">
+              <thead>
+                <tr>
+                  <th className="notion-col-title">Aa Nombre</th>
+                  <th>Firma</th>
+                </tr>
+              </thead>
+              <tbody>
+                {grupo.metodos.map((metodo) => (
+                  <tr
+                    key={metodo.id}
+                    className="is-clickable"
+                    onClick={() => onMetodoChange(metodo.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <td className="notion-cell-title">
+                      <span className="notion-cell-icon">{metodo.icon}</span>
+                      <span className="notion-cell-name">{metodo.nombre}</span>
+                      <button type="button" className="notion-open-btn">ABRIR</button>
+                    </td>
+                    <td className="notion-cell-sig">{metodo.firma}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))
+    )}
+  </div>
+)
+      
+      : isWeb ? (
         <CssCurso
           categorias={CSS_CATEGORIAS}
           categoriaActiva={cssTab}
@@ -347,6 +404,8 @@ export default function CareerDetail({
           </div>
         </div>
       )}
+
+      
     </article>
   )
 }
